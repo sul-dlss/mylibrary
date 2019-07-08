@@ -12,7 +12,16 @@ rescue LoadError
   puts 'Unable to load RuboCop.'
 end
 
+begin
+  require 'scss_lint/rake_task'
+  SCSSLint::RakeTask.new do |t|
+    t.config = '.scss-lint.yml'
+  end
+rescue LoadError
+  puts 'Unable to load scss-lint'
+end
+
 Rails.application.load_tasks
 
 task(:default).clear
-task default: %i[rubocop spec]
+task default: %i[rubocop scss_lint spec]
