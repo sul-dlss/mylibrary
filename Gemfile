@@ -39,6 +39,8 @@ gem 'honeybadger'
 
 gem 'config'
 
+gem 'okcomputer'
+
 group :production do
   gem 'mysql2', '~> 0.5'
   gem 'newrelic_rpm'
