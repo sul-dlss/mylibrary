@@ -1,7 +1,6 @@
 # MyLibrary
 [![Build Status](https://travis-ci.org/sul-dlss/mylibrary.svg?branch=master)](https://travis-ci.org/sul-dlss/mylibrary)
 [![Code Climate](https://codeclimate.com/github/sul-dlss/mylibrary/badges/gpa.svg)](https://codeclimate.com/github/sul-dlss/mylibrary)
-[![Code Climate Test Coverage](https://codeclimate.com/github/sul-dlss/mylibrary/badges/coverage.svg)](https://codeclimate.com/github/sul-dlss/mylibrary/coverage)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/a8f1c5dab3a53ffba586/test_coverage)](https://codeclimate.com/github/sul-dlss/mylibrary/test_coverage)
 
 MyLibrary rails front-end application that uses Symphony Web Services to display library patron account information, 
