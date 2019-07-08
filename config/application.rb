@@ -31,5 +31,35 @@ module Mylibrary
 
     # Don't generate system test files.
     config.generators.system_tests = nil
+
+    config.library_map = {
+      'ARS' => 'Archive of Recorded Sound',
+      'ART' => 'Art & Architecture Library (Bowes)',
+      'BIOLOGY' => 'Biology Library (Falconer)',
+      'BUSINESS' => 'Business Library',
+      'CHEMCHMENG' => 'Chemistry & ChemEng Library (Swain)',
+      'CLASSICS' => 'Classics Library',
+      'EARTH-SCI' => 'Earth Sciences Library (Branner)',
+      'EAST-ASIA' => 'East Asia Library',
+      'EDUCATION' => 'Education Library (Cubberley)',
+      'ENG' => 'Engineering Library (Terman)',
+      'GREEN' => 'Green Library',
+      'HOOVER' => 'Hoover Library',
+      'HOPKINS' => 'Marine Biology Library (Miller)',
+      'HV-ARCHIVE' => 'Hoover Archives',
+      'LANE-MED' => 'Medical Library (Lane)',
+      'LATHROP' => 'Lathrop Library',
+      'LAW' => 'Law Library (Crown)',
+      'MATH-CS' => 'Math & Statistics Library',
+      'MEDIA-MTXT' => 'Media & Microtext Center',
+      'MUSIC' => 'Music Library',
+      'RUMSEYMAP' => 'David Rumsey Map Center',
+      'SAL' => 'SAL1&2 (on-campus shelving)',
+      'SAL3' => 'SAL3 (off-campus storage)',
+      'SAL-NEWARK' => 'SAL Newark (off-campus storage)',
+      'SCIENCE' => 'Science Library (Li and Ma)',
+      'SPEC-COLL' => 'Special Collections',
+      'TANNER' => 'Philosophy Library (Tanner)'
+    }
   end
 end
