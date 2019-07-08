@@ -37,6 +37,8 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 gem 'honeybadger'
 
+gem 'config'
+
 group :production do
   gem 'mysql2', '~> 0.5'
   gem 'newrelic_rpm'
