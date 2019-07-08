@@ -39,6 +39,8 @@ gem 'config'
 
 gem 'okcomputer'
 
+gem 'jquery-rails'
+
 group :production do
   gem 'mysql2', '~> 0.5'
   gem 'newrelic_rpm'
