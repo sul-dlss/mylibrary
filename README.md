@@ -1,6 +1,8 @@
 # MyLibrary
-
+[![Build Status](https://travis-ci.org/sul-dlss/mylibrary.svg?branch=master)](https://travis-ci.org/sul-dlss/mylibrary)
+[![Code Climate](https://codeclimate.com/github/sul-dlss/mylibrary/badges/gpa.svg)](https://codeclimate.com/github/sul-dlss/mylibrary)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/a8f1c5dab3a53ffba586/test_coverage)](https://codeclimate.com/github/sul-dlss/mylibrary/test_coverage)
+
 MyLibrary rails front-end application that uses Symphony Web Services to display library patron account information, 
 allow renewal of materials, cancel hold requests, make payments of library fees and fines (via a hosted payment gateway),
 and other features supported by Symphony Web Services API and other supported APIs to enhance library user experience and 
