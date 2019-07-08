@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 set :application, 'mylibrary'
 set :repo_url, 'git@github.com:sul-dlss/mylibrary.git'
 
