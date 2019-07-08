@@ -57,4 +57,3 @@ server run:
     
     $ cap dev deploy
 
-Deployment of the production application will be handled via TravisCI 
