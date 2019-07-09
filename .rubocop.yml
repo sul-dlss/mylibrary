@@ -14,10 +14,14 @@ Metrics/BlockLength:
 
 Metrics/LineLength:
   Max: 120
+  Exclude:
+    - 'spec/controllers/feedback_forms_controller_spec.rb'
+    - 'app/controllers/feedback_forms_controller.rb'
 
 RSpec/ExampleLength:
   Exclude:
     - 'spec/features/**/*'
+    - 'spec/controllers/**/*'
 
 RSpec/MultipleExpectations:
   Exclude:
