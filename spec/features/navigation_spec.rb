@@ -3,6 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe 'Navigation', type: :feature do
+  before do
+    login_as 'stub_user'
+  end
+
   it 'the root path navigates to the Summary page' do
     visit root_path
 
