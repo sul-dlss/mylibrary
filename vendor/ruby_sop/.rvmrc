@@ -1,0 +1,70 @@
+#!/usr/bin/env bash
+
+environment_id="jruby-1.6.5@hpastorefront"
+export JRUBY_OPTS="--1.9"
+ 
+# Loads the RVM environemnt
+function loadRVMEnvironment() {
+
+  if [[ -d "${rvm_path:-$HOME/.rvm}/environments" \
+    && -s "${rvm_path:-$HOME/.rvm}/environments/$environment_id" ]]
+  then
+    \. "${rvm_path:-$HOME/.rvm}/environments/$environment_id"
+
+    if [[ -s "${rvm_path:-$HOME/.rvm}/hooks/after_use" ]]
+    then
+      . "${rvm_path:-$HOME/.rvm}/hooks/after_use"
+    fi
+  else
+    # If the environment file has not yet been created, use the RVM CLI to select.
+    if ! rvm --create  "$environment_id"
+    then
+      echo "Failed to create RVM environment '${environment_id}'."
+      return 1
+    fi
+  fi
+  return 0
+}
+
+function updateRubyGems() {
+  gem update --system
+  gem --version
+}
+
+# Installs bundle gem if required and then runs a bundle install
+function bundleInstall() {
+  if ! command -v bundle ; then
+    echo "Installing bundler"
+    gem install bundler --no-ri --no-rdoc
+  fi
+
+  if command -v bundle && [[ -s Gemfile ]]
+  then
+     echo "Running bundle. This may take a while"
+     bundle install
+  fi
+}
+
+# Checks that there is a correct java version available
+function checkJavaVersion() {
+  if [ -z "$JAVA_HOME" ]; then
+     echo "Please set your JAVA_HOME to a version equal to/above 1.6"
+     return 1
+  fi
+  java_version=`$JAVA_HOME/bin/java -version 2>&1 | grep "java version" | awk '{print $3}' | tr -d \" | awk '{split($0, array, ".")} END{print array[2]}'`
+  if [[ $java_version -lt 6 ]]; then
+    echo "JAVA_HOME is set to $JAVA_HOME"
+    echo "A java version of 1.6 or above is required. Please set JAVA_HOME to a 1.6 runtime"
+    return 1
+  fi
+  return 0
+}
+
+if checkJavaVersion ; then
+  if loadRVMEnvironment ; then
+    bundleInstall
+    rvm current
+  else
+    echo "Failed to load the rvm environment"
+  fi
+fi

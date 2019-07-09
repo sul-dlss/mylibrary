@@ -1,0 +1,19 @@
+<html>
+<head>
+    <title>Secure Acceptance - Payment Form Example</title>
+    <link rel="stylesheet" type="text/css" href="../payment.css"/>
+</head>
+
+<body>
+
+<form id="receipt">
+    <% params.each do |k, v|
+      next if k == 'merchant_id'
+    %>
+        <span><%= k %>:</span><input type="text" name="<%= k %>" size="50" value="<%= v %>" readonly="true"/><br/>
+    <% end %>
+    <span><%= "signature_valid" %>:</span><input type="text" name="<%= 'signature_valid' %>" size="50" value="<%= @signature_valid %>" readonly="true"/><br/>
+</form>
+
+</body>
+</html>
