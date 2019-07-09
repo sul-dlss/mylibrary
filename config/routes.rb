@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   root to: 'summaries#index'
   resources :checkouts
   resources :requests
+  resources :fines
 
   mount OkComputer::Engine, at: '/status'
 end
