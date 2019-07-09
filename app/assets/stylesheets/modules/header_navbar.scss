@@ -4,6 +4,10 @@
   background-color: $cardinal-red;
 }
 
+.contact-header {
+  margin-left: 0;
+}
+
 #header-navbar {
   @include box-shadow(0, 4px, 8px, -2px, $sul-shadow-color);
 
@@ -12,5 +16,9 @@
     background-size: contain;
     flex: 0 0 175px;
     height: auto;
+  }
+
+  .navbar-link {
+    font-size: small;
   }
 }

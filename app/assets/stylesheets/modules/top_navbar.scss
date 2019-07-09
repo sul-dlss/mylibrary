@@ -1,49 +1,77 @@
 // scss-lint:disable IdSelector, ImportantRule, Indentation, PropertySortOrder
 
-#topnav {
-  padding: 2px 0;
-  height: 29px;
+.modal {
+  position: relative;
 }
 
-// these rules are pulled from https://github.com/twbs/bootstrap/blob/master/scss/_navbar.scss
-// but adapted to always show the uncollapsed version, regardless of breakpoints.
-.navbar-expand-always {
-  flex-flow: row nowrap;
-  justify-content: flex-start;
+.navbar {
+  max-height: 120px;
 
- .navbar-nav {
-   flex-direction: row;
-
-   .dropdown-menu {
-     position: absolute;
-   }
-
-   .nav-link {
-     padding-right: $navbar-nav-link-padding-x;
-     padding-left: $navbar-nav-link-padding-x;
-   }
- }
-
- // For nesting containers, have to redeclare for alignment purposes
- > .container,
- > .container-fluid {
-   flex-wrap: nowrap;
- }
-
- .navbar-collapse {
-   display: flex !important; // stylelint-disable-line declaration-no-important
-
-   // Changes flex-bases to auto because of an IE10 bug
-   flex-basis: auto;
- }
-
- .navbar-toggler {
-   display: none;
- }
-}
-
-@include media-breakpoint-up(xs) {
-  #topnav {
-    width: 100%;
+  @include media-breakpoint-up(xs) {
+    #topnav {
+      width: 100%;
+    }
   }
+
+  .header-bar {
+    flex-wrap: wrap !important;
+  }
+
+  #topnav-container {
+    padding: 2px 0;
+    height: 29px;
+  }
+
+  // these rules are pulled from https://github.com/twbs/bootstrap/blob/master/scss/_navbar.scss
+  // but adapted to always show the uncollapsed version, regardless of breakpoints.
+  .navbar-expand-always {
+    flex-flow: row nowrap;
+    justify-content: flex-start;
+
+    .navbar-nav {
+      flex-direction: row;
+    }
+
+    // For nesting containers, have to redeclare for alignment purposes
+    > .container,
+    > .container-fluid {
+      flex-wrap: nowrap;
+    }
+
+    .navbar-collapse {
+      display: flex !important; // stylelint-disable-line declaration-no-important
+
+      // Changes flex-bases to auto because of an IE10 bug
+      flex-basis: auto;
+    }
+
+    .nav-link {
+      padding-right: $navbar-nav-link-padding-x;
+      padding-left: $navbar-nav-link-padding-x;
+    }
+
+    .navbar-toggler {
+      display: none;
+    }
+  }
+
+  @media (min-width: 768px) {
+    .modal {
+      top: 270px;
+      left: 10px;
+    }
+
+    .navbar {
+      max-height: 70px;
+    }
+
+    .navbar-nav {
+      flex-direction: row;
+
+      li {
+        padding-right: 20px;
+      }
+    }
+  }
+
 }

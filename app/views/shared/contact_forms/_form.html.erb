@@ -1,0 +1,33 @@
+<div class="modal-header offset-sm-1">
+  <h3 id="contactForm">Contact Access Services</h3>
+</div>
+<div class="modal-body offset-sm-1">
+  <%= form_tag contact_path, method: :post, class: 'contact-form', role: 'form' do %>
+    <div class="row ">
+      <span style="display:none;visibility:hidden;">
+        <%= hidden_field_tag :user_agent %>
+        <%= hidden_field_tag :viewport %>
+      </span>
+      <div class="col-sm-12">
+        <div class="contact-header form-group row offset-sm-0">
+          From: <%= current_user_name %>
+        </div>
+        <div class="contact-header form-group row offset-sm-0">
+          <!--TODO: Get Access Services info from configuration? -->
+          To: Access Services (<%= link_to 'greencirc@stanford.edu', 'mailto: greencirc@stanford.edu' %>)
+        </div>
+        <div class="form-group row">
+          <div class="col-sm-9">
+            <%= text_area_tag :message, nil, rows: '15', class: 'form-control' %>
+          </div>
+        </div>
+        <div class="form-group row">
+          <div class="col-sm--3 col-sm-9">
+            <button type="submit" class="btn btn-primary">Send</button>
+            <%= link_to 'Cancel', :back, data: { toggle: 'aria-hidden', target: '#contact-modal-window' } %>
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>

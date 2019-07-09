@@ -8,6 +8,9 @@ Rails.application.routes.draw do
   resources :requests
   resources :fines
 
+  resource :contact_forms, path: 'contact', only: %I[new create]
+  get 'contact' => 'contact_forms#new'
+
   resource :feedback_form, path: 'feedback', only: %I[new create]
   get 'feedback' => 'feedback_forms#new'
 
