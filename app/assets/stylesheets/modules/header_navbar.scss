@@ -1,0 +1,16 @@
+// scss-lint:disable IdSelector
+
+.bg-cardinal-red {
+  background-color: $cardinal-red;
+}
+
+#header-navbar {
+  @include box-shadow(0, 4px, 8px, -2px, $sul-shadow-color);
+
+  .navbar-brand {
+    background-position: center;
+    background-size: contain;
+    flex: 0 0 175px;
+    height: auto;
+  }
+}

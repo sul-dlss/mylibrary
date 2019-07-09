@@ -6,11 +6,25 @@
     <%= csp_meta_tag %>
 
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <!-- Stanford identity -->
+    <link href="https://www.stanford.edu/su-identity/css/su-identity.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,700' rel='stylesheet' type='text/css'>
+
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
     <div data-analytics-id="<%= Settings.GOOGLE_ANALYTICS_ID %>"></div>
-    <%= yield %>
+    <div id="su-wrap"> <!-- #su-wrap start -->
+      <div id="su-content"> <!-- #su-content start -->
+        <%= render '/shared/header' %>
+        <main role="main" class="container">
+          <%= yield %>
+        </main>
+      </div> <!-- #su-content end -->
+    </div> <!-- #su-wrap end -->
+    <%= render '/shared/sul_footer' %>
+    <%= render '/shared/global_footer' %>
+
   </body>
 </html>
