@@ -11,5 +11,10 @@ Rails.application.routes.draw do
   resource :feedback_form, path: 'feedback', only: %I[new create]
   get 'feedback' => 'feedback_forms#new'
 
+  get '/sessions/login_by_sunetid', to: 'sessions#login_by_sunetid', as: :login_by_sunetid
+  post '/sessions/login_by_library_id', to: 'sessions#login_by_library_id', as: :login_by_library_id
+  get '/login', to: 'sessions#form', as: :login
+  get '/logout', to: 'sessions#destroy', as: :logout
+
   mount OkComputer::Engine, at: '/status'
 end

@@ -53,15 +53,15 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'capybara'
-  gem 'rspec-rails'
   gem 'rails-controller-testing'
-  gem 'warden-rspec-rails'
+  gem 'rspec-rails'
   gem 'rubocop'
   gem 'rubocop-performance'
   gem 'rubocop-rails'
   gem 'rubocop-rspec'
   gem 'scss_lint', require: false
   gem 'simplecov', require: false
+  gem 'warden-rspec-rails'
   gem 'webdrivers'
   gem 'webmock'
 end

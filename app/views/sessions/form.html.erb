@@ -1,0 +1,17 @@
+<h1>Proxy and visitor account login</h1>
+<%= form_tag login_by_library_id_url, method: :post do %>
+
+  <div class="form-group">
+    <%= label_tag :library_id, 'Library ID' %>
+    <%= text_field_tag :library_id, nil, class: 'form-control', 'aria-describedby': 'libraryIdHelp' %>
+    <small id="libraryIdHelp" class="form-text text-muted">Last 10 digits above the barcode on your library card</small>
+  </div>
+
+  <div class="form-group">
+    <%= label_tag :pin, 'PIN' %>
+    <%= password_field_tag :pin, nil, class: 'form-control' %>
+  </div>
+
+  <%= submit_tag 'Log in', class: 'btn btn-primary' %>
+  <%= link_to 'Cancel', root_url, class: 'btn btn-text' %>
+<% end %>
