@@ -26,7 +26,7 @@ class SymphonyClient
   private
 
   def authenticated_request(path, headers: {}, **other)
-    request(path, headers.merge('x-sirs-sessionToken': session_token), **other)
+    request(path, headers: headers.merge('x-sirs-sessionToken': session_token), **other)
   end
 
   def request(path, headers: {}, method: :get, **other)
