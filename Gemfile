@@ -42,6 +42,8 @@ gem 'jquery-rails'
 
 gem 'bootstrap', '~> 4.3'
 
+gem 'warden'
+
 group :production do
   gem 'mysql2', '~> 0.5'
   gem 'newrelic_rpm'

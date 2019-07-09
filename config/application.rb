@@ -32,6 +32,10 @@ module Mylibrary
     # Don't generate system test files.
     config.generators.system_tests = nil
 
+    config.middleware.use Warden::Manager do |manager|
+      manager.default_strategies :shibboleth
+    end
+
     config.library_map = {
       'ARS' => 'Archive of Recorded Sound',
       'ART' => 'Art & Architecture Library (Bowes)',
