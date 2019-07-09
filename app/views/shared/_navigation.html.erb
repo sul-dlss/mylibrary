@@ -1,6 +1,16 @@
 <nav>
-  <%= link_to 'Summary', root_path %> |
-  <%= link_to 'Checkouts', checkouts_path %> |
-  <%= link_to 'Requests', requests_path %> |
-  <%= link_to 'Fines', fines_path %>
+  <ul class="nav nav-pills nav-justified">
+    <li class="nav-item">
+      <%= link_to 'Summary', root_path, class: "nav-link #{active_page_class('summaries')}" %>
+    </li>
+    <li class="nav-item">
+      <%= link_to 'Checkouts', checkouts_path, class: "nav-link #{active_page_class('checkouts')}" %>
+    </li>
+    <li class="nav-item">
+      <%= link_to 'Requests', requests_path, class: "nav-link #{active_page_class('requests')}" %>
+    </li>
+    <li class="nav-item">
+      <%= link_to 'Fines', fines_path, class: "nav-link #{active_page_class('fines')}" %>
+    </li>
+  </ul>
 </nav>
