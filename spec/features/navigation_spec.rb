@@ -15,6 +15,7 @@ RSpec.describe 'Navigation', type: :feature do
     within('nav') do
       expect(page).to have_link('Summary')
       expect(page).to have_link('Checkouts')
+      expect(page).to have_link('Requests')
     end
   end
 
@@ -24,5 +25,13 @@ RSpec.describe 'Navigation', type: :feature do
     click_link 'Checkouts'
 
     expect(page).to have_css('h1', text: 'Checkouts')
+  end
+
+  it 'allows the user to navigate to the requests page' do
+    visit root_path
+
+    click_link 'Requests'
+
+    expect(page).to have_css('h1', text: 'Requests')
   end
 end

@@ -11,6 +11,10 @@ AllCops:
 Metrics/LineLength:
   Max: 120
 
+RSpec/ExampleLength:
+  Exclude:
+    - 'spec/features/**/*'
+
 RSpec/MultipleExpectations:
   Exclude:
     - 'spec/features/**/*'
