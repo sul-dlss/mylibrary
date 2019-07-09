@@ -1,0 +1,26 @@
+// scss-lint:disable IdSelector
+
+#topnav-container {
+  padding: 2px 0;
+  position: relative;
+}
+
+#topnav {
+  background: none;
+  border: 0;
+  height: 29px;
+  margin-bottom: 0;
+  padding: 2px 0;
+
+  a {
+    img {
+      float: left;
+    }
+  }
+}
+
+@include media-breakpoint-up(xs) {
+  #topnav {
+    width: 100%;
+  }
+}

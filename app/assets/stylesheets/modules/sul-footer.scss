@@ -5,7 +5,7 @@
 }
 
 #sul-footer-container {
-  @include box-shadow(0, 4px, 8px, -8px, $sul-footer-shadow-color, true);
+  @include box-shadow(0, 4px, 8px, -8px, $sul-shadow-color, true);
   background-color: $sul-footer-bg-color;
   clear: both;
   margin-top: -200px;
