@@ -34,6 +34,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 gem 'honeybadger'
 
 gem 'config'
+gem 'http'
 
 gem 'okcomputer'
 
