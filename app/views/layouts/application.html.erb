@@ -19,6 +19,7 @@
       <div id="su-content"> <!-- #su-content start -->
         <%= render '/shared/header' %>
         <main role="main" class="container">
+          <%= render partial: '/shared/flash_msg', layout: nil %>
           <%= yield %>
         </main>
       </div> <!-- #su-content end -->
