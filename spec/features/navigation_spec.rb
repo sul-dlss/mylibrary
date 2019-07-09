@@ -51,4 +51,10 @@ RSpec.describe 'Navigation', type: :feature do
 
     expect(page).to have_css('h1', text: 'Summary')
   end
+
+  it 'has an active class for the active page' do
+    visit fines_path
+
+    expect(page).to have_css('.nav-link.active', text: 'Fines')
+  end
 end
