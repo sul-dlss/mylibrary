@@ -1,6 +1,7 @@
 $(document).on('turbolinks:load', function(){
   //Instantiates plugin for feedback form
-  $("#feedback-form").feedbackForm();
+  $("#feedback-form").contactForm();
+  $("#contact-modal-window").contactForm();
 });
 
 
@@ -8,7 +9,7 @@ $(document).on('turbolinks:load', function(){
   /*
     jQuery plugin that handles some of the feedback form functionality
 
-      Usage: $(selector).feedbackForm();
+      Usage: $(selector).contactForm();
 
     No available options
 
@@ -18,7 +19,7 @@ $(document).on('turbolinks:load', function(){
       - displays alert on response from feedback form
   */
 
-    var pluginName = "feedbackForm";
+    var pluginName = "contactForm";
 
     function Plugin( element, options ) {
         this.element = element;
@@ -45,7 +46,11 @@ $(document).on('turbolinks:load', function(){
               type: 'post',
               success: function(response){
                 if (isSuccess(response)){
-                  $($el).collapse('hide');
+                  if ($($el).hasClass('collapse')) {
+                    $($el).collapse('hide');
+                  } else if ($($el).hasClass('modal')) {
+                    $($el).modal('hide');
+                  }
                   $($form)[0].reset();
                 }
                 renderFlashMessages(response);

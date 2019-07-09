@@ -1,5 +1,4 @@
 // scss-lint:disable IdSelector, ImportantRule, Indentation, PropertySortOrder
-
 #topnav {
   padding: 2px 0;
   height: 35px;
@@ -40,6 +39,10 @@
    // Changes flex-bases to auto because of an IE10 bug
    flex-basis: auto;
  }
+}
+
+.navbar {
+  max-height: 120px;
 }
 
 @include media-breakpoint-up(xs) {

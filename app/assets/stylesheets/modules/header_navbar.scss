@@ -21,4 +21,11 @@
       border-bottom: 1px solid transparent;
     }
   }
+
+  .navbar-link {
+    svg {
+      fill: $white;
+      stroke: $white;
+    }
+  }
 }
