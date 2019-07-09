@@ -7,5 +7,8 @@ Rails.application.routes.draw do
   resources :requests
   resources :fines
 
+  resource :feedback_form, path: 'feedback', only: %I[new create]
+  get 'feedback' => 'feedback_forms#new'
+
   mount OkComputer::Engine, at: '/status'
 end

@@ -3,3 +3,5 @@ symws:
   url:
   headers: {}
   login_params: {}
+EMAIL_TO: yolo@example.com
+HOSTNAME: foo.example.com
