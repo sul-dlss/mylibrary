@@ -31,3 +31,6 @@
 
 en:
   hello: "Hello world"
+  mylibrary:
+    feedback_form:
+      success: Thank you! Your feedback has been sent.

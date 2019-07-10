@@ -19,6 +19,11 @@
   }
 }
 
+.topnav-links {
+  float: right;
+  margin-top: 2px;
+}
+
 @include media-breakpoint-up(xs) {
   #topnav {
     width: 100%;
