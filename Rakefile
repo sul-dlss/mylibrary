@@ -24,4 +24,4 @@ end
 Rails.application.load_tasks
 
 task(:default).clear
-task default: %i[rubocop scss_lint spec]
+task default: %i[rubocop scss_lint spec yarn_test]

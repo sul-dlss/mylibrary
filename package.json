@@ -11,6 +11,29 @@
     "react_ujs": "^2.5.0"
   },
   "devDependencies": {
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "^1.14.0",
+    "jest": "^24.8.0",
+    "jest-enzyme": "^7.0.2",
+    "jest-fetch-mock": "^2.1.2",
     "webpack-dev-server": "^3.7.2"
+  },
+  "scripts": {
+    "test": "jest",
+    "test:watch": "jest --watch"
+  },
+  "jest": {
+    "moduleDirectories": [
+      "node_modules",
+      "app/javascript/packs",
+      "app/javascript/components"
+    ],
+    "roots": [
+      "spec/javascript"
+    ],
+    "setupFilesAfterEnv": [
+      "./node_modules/jest-enzyme/lib/index.js",
+      "./spec/setupJest.js"
+    ]
   }
 }
