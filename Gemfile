@@ -41,6 +41,8 @@ gem 'okcomputer'
 gem 'jquery-rails'
 
 gem 'bootstrap', '~> 4.3'
+gem 'react-rails'
+gem 'webpacker'
 
 group :production do
   gem 'mysql2', '~> 0.5'
