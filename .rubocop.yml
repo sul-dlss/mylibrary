@@ -26,3 +26,6 @@ RSpec/ExampleLength:
 RSpec/MultipleExpectations:
   Exclude:
     - 'spec/features/**/*'
+
+Layout/IndentFirstHashElement:
+  EnforcedStyle: consistent

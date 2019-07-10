@@ -42,6 +42,8 @@ gem 'jquery-rails'
 
 gem 'bootstrap', '~> 4.3'
 
+gem 'warden'
+
 group :production do
   gem 'mysql2', '~> 0.5'
   gem 'newrelic_rpm'
@@ -51,6 +53,7 @@ group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
   gem 'byebug', platforms: %i[mri mingw x64_mingw]
   gem 'capybara'
+  gem 'rails-controller-testing'
   gem 'rspec-rails'
   gem 'rubocop'
   gem 'rubocop-performance'
@@ -58,6 +61,7 @@ group :development, :test do
   gem 'rubocop-rspec'
   gem 'scss_lint', require: false
   gem 'simplecov', require: false
+  gem 'warden-rspec-rails'
   gem 'webdrivers'
   gem 'webmock'
 end
