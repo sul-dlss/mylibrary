@@ -12,5 +12,11 @@
     background-size: contain;
     flex: 0 0 175px;
     height: auto;
+
+    &:hover,
+    &:focus,
+    &:active {
+      border-bottom: 1px solid transparent;
+    }
   }
 }
