@@ -2,14 +2,14 @@
 
 Warden::Strategies.add(:shibboleth) do
   def valid?
-    remote_user.present?
+    uid.present?
   end
 
   def authenticate!
-    response = SymphonyClient.new.login_by_sunetid(remote_user)
+    response = SymphonyClient.new.login_by_sunetid(uid)
 
     if response && response['key']
-      u = { username: remote_user, patronKey: response['key'] }
+      u = { username: uid, patronKey: response['key'] }
       success!(u)
     else
       fail!('Could not log in')
@@ -18,21 +18,21 @@ Warden::Strategies.add(:shibboleth) do
 
   private
 
-  def remote_user
-    env['REMOTE_USER']
+  def uid
+    env['uid']
   end
 end
 
 Warden::Strategies.add(:development_shibboleth_stub) do
   def valid?
-    Rails.env.development? && remote_user.present?
+    Rails.env.development? && uid.present?
   end
 
   def authenticate!
-    response = SymphonyClient.new.login_by_sunetid(remote_user)
+    response = SymphonyClient.new.login_by_sunetid(uid)
 
     if response && response['key']
-      u = { username: remote_user, patronKey: response['key'] }
+      u = { username: uid, patronKey: response['key'] }
       success!(u)
     else
       fail!('Could not log in')
@@ -41,8 +41,8 @@ Warden::Strategies.add(:development_shibboleth_stub) do
 
   private
 
-  def remote_user
-    ENV['REMOTE_USER']
+  def uid
+    ENV['uid']
   end
 end
 
