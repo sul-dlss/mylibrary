@@ -1,0 +1,50 @@
+// Override base HTML here
+
+a {
+  border-bottom: 1px solid transparent;
+  color: $sul-link-color;
+  text-decoration: none;
+
+  &.disabled {
+    color: $sul-btn-disabled-color;
+    cursor: not-allowed;
+    text-decoration: none;
+  }
+}
+
+a:hover,
+a:focus,
+a:active {
+  @include link-styling;
+}
+
+
+body {
+  font-family: 'Source Sans Pro', 'Arial Unicode MS', Helvetica, sans-serif;
+}
+
+h1 {
+  color: $sul-h1-font-color;
+  font-weight: 300;
+  line-height: 1.2em;
+}
+
+h2 {
+  color: $sul-h2-font-color;
+  line-height: 1.2em;
+}
+
+h3 {
+  color: $sul-h3-font-color;
+  line-height: 1.2em;
+}
+
+h4 {
+  color: $sul-h4-font-color;
+  line-height: 1.2em;
+}
+
+thead {
+  color: $sul-h2-font-color;
+  font-weight: 700;
+}
