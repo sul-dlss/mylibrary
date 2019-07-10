@@ -1,27 +1,45 @@
-// scss-lint:disable IdSelector
-
-#topnav-container {
-  padding: 2px 0;
-  position: relative;
-}
+// scss-lint:disable IdSelector, ImportantRule, Indentation, PropertySortOrder
 
 #topnav {
-  background: none;
-  border: 0;
-  height: 29px;
-  margin-bottom: 0;
   padding: 2px 0;
-
-  a {
-    img {
-      float: left;
-    }
-  }
+  height: 29px;
 }
 
-.topnav-links {
-  float: right;
-  margin-top: 2px;
+// these rules are pulled from https://github.com/twbs/bootstrap/blob/master/scss/_navbar.scss
+// but adapted to always show the uncollapsed version, regardless of breakpoints.
+.navbar-expand-always {
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+
+ .navbar-nav {
+   flex-direction: row;
+
+   .dropdown-menu {
+     position: absolute;
+   }
+
+   .nav-link {
+     padding-right: $navbar-nav-link-padding-x;
+     padding-left: $navbar-nav-link-padding-x;
+   }
+ }
+
+ // For nesting containers, have to redeclare for alignment purposes
+ > .container,
+ > .container-fluid {
+   flex-wrap: nowrap;
+ }
+
+ .navbar-collapse {
+   display: flex !important; // stylelint-disable-line declaration-no-important
+
+   // Changes flex-bases to auto because of an IE10 bug
+   flex-basis: auto;
+ }
+
+ .navbar-toggler {
+   display: none;
+ }
 }
 
 @include media-breakpoint-up(xs) {
