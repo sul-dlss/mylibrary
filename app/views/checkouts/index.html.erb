@@ -3,3 +3,5 @@
 <h1>Checkouts</h1>
 
 <%= render 'shared/navigation' %>
+
+<%= react_component("Checkouts", { apiUrl: checkout_path(id: 'username', format: :json) }) %>
