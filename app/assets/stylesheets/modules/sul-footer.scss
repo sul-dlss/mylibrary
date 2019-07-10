@@ -1,7 +1,8 @@
-// scss-lint:disable IdSelector, SelectorDepth, NestingDepth
+// scss-lint:disable IdSelector, ImportantRule, SelectorDepth, NestingDepth
 
 #su-content {
-  padding-bottom: 200px;
+  height: 100%;
+  padding-bottom: 200px !important;
 }
 
 #sul-footer-container {
