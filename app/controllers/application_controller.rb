@@ -12,6 +12,10 @@ class ApplicationController < ActionController::Base
     current_user.present?
   end
 
+  def symphony_client
+    @symphony_client ||= SymphonyClient.new
+  end
+
   private
 
   def authenticate_user!

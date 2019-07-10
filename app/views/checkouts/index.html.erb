@@ -3,3 +3,18 @@
 <h1>Checkouts</h1>
 
 <%= render 'shared/navigation' %>
+
+<% @checkouts.each do |checkout| %>
+  <div class="row">
+    <%= checkout.status %>
+    <%= checkout.overdue? %>
+    <%= checkout.due_date %>
+    <%= checkout.title %>
+    <%= checkout.author %>
+    <%= checkout.call_number %>
+    <%= checkout.checkout_date %>
+    <%= checkout.library %>
+    <%= checkout.recalled_date %>
+    <%= checkout.renewal_date %>
+  </div>
+<% end %>

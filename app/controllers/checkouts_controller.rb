@@ -4,5 +4,8 @@
 class CheckoutsController < ApplicationController
   before_action :authenticate_user!
 
-  def index; end
+  def index
+    @response = symphony_client.checkouts(current_user['patronKey'])
+    @checkouts = @response['fields']['circRecordList'].map { |checkout| Checkout.new(checkout) }
+  end
 end

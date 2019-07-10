@@ -3,7 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe 'Navigation', type: :feature do
+  let(:mock_client) { instance_double(SymphonyClient, checkouts: { 'fields' => { 'circRecordList' => [] } }) }
+
   before do
+    allow(SymphonyClient).to receive(:new).and_return(mock_client)
     login_as 'stub_user'
   end
 
