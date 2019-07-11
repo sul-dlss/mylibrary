@@ -4,6 +4,9 @@
 
 <%= render 'shared/navigation' %>
 
+<% recalled, other_checkouts = @checkouts.partition(&:recalled?) %>
+<% if recalled.any? %>
+<h2>Recalled: <%= recalled.length %></h2>
 <ul>
   <li class="d-none d-md-inline font-weight-bold">Status</li>
   <li class="d-none d-md-inline font-weight-bold">Date</li>
@@ -11,7 +14,21 @@
   <li class="d-none d-md-inline font-weight-bold">Author name</li>
   <li class="d-none d-md-inline font-weight-bold">Call number</li>
 </ul>
+<ul class="recalled-checkouts list-group">
+  <%= render recalled %>
+</ul>
 
+
+<% end %>
+
+<h2>Checked out: <%= other_checkouts.length %></h2>
+<ul>
+  <li class="d-none d-md-inline font-weight-bold">Status</li>
+  <li class="d-none d-md-inline font-weight-bold">Date</li>
+  <li class="d-none d-md-inline font-weight-bold">Title</li>
+  <li class="d-none d-md-inline font-weight-bold">Author name</li>
+  <li class="d-none d-md-inline font-weight-bold">Call number</li>
+</ul>
 <ul class="checkouts list-group">
-  <%= render @checkouts %>
+  <%= render other_checkouts %>
 </ul>
