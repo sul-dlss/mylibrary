@@ -60,6 +60,10 @@ class Checkout
     call['sortCallNumber']
   end
 
+  def to_partial_path
+    'checkouts/checkout'
+  end
+
   private
 
   def fields
