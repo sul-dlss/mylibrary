@@ -28,6 +28,10 @@ class Checkout
     Time.zone.parse(fields['recalledDate']) if fields['recalledDate']
   end
 
+  def recalled?
+    recalled_date.present?
+  end
+
   def renewal_date
     Time.zone.parse(fields['renewalDate']) if fields['renewalDate']
   end

@@ -78,6 +78,10 @@ RSpec.describe Checkout do
     expect(checkout.recalled_date).to be_nil
   end
 
+  it 'is not recalled' do
+    expect(checkout).not_to be_recalled
+  end
+
   context 'with a record that has been recalled' do
     before do
       fields[:recalledDate] = '2019-07-11T13:59:00-07:00'
@@ -85,6 +89,10 @@ RSpec.describe Checkout do
 
     it 'has a recalled date' do
       expect(checkout.recalled_date.strftime('%m/%d/%Y')).to eq '07/11/2019'
+    end
+
+    it 'is recalled' do
+      expect(checkout).to be_recalled
     end
   end
 

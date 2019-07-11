@@ -12,4 +12,22 @@ RSpec.describe ApplicationHelper do
       expect(helper.active_page_class('summaries')).to be_nil
     end
   end
+
+  describe '#list_group_item_status_for_checkout' do
+    context 'with a recalled item' do
+      let(:checkout) { instance_double(Checkout, recalled?: true) }
+
+      it 'is *-danger' do
+        expect(helper.list_group_item_status_for_checkout(checkout)).to eq 'list-group-item-danger'
+      end
+    end
+
+    context 'with an overdue item' do
+      let(:checkout) { instance_double(Checkout, recalled?: false, overdue?: true) }
+
+      it 'is *-warning' do
+        expect(helper.list_group_item_status_for_checkout(checkout)).to eq 'list-group-item-warning'
+      end
+    end
+  end
 end

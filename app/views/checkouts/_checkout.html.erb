@@ -1,4 +1,4 @@
-<li class="d-flex flex-wrap d-md-block list-group-item">
+<li class="d-flex flex-wrap d-md-block list-group-item <%= list_group_item_status_for_checkout(checkout)%>">
   <div class="d-flex flex-row flex-grow-1 justify-content-between w-100 d-md-inline">
     <div class="d-md-inline"><%= checkout.status %></div>
     <div class="d-md-inline"><%= l(checkout.due_date, format: :short) %></div>
