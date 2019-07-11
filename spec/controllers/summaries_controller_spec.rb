@@ -11,7 +11,7 @@ RSpec.describe SummariesController do
 
   context 'with an authenticated request' do
     let(:user) do
-      { username: 'somesunetid', patronKey: 123 }
+      { username: 'somesunetid', patron_key: 123 }
     end
 
     before do

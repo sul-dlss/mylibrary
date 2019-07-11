@@ -25,7 +25,7 @@ class SessionsController < ApplicationController
   end
 
   def destroy
-    needs_shibboleth_logout = current_user? && current_user['shibboleth']
+    needs_shibboleth_logout = current_user&.shibboleth?
     request.env['warden'].logout
 
     if needs_shibboleth_logout

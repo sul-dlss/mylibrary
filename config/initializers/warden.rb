@@ -9,7 +9,7 @@ Warden::Strategies.add(:shibboleth) do
     response = SymphonyClient.new.login_by_sunetid(uid)
 
     if response && response['key']
-      u = { username: uid, patronKey: response['key'], shibboleth: true }
+      u = { username: uid, patron_key: response['key'], shibboleth: true }
       success!(u)
     else
       fail!('Could not log in')
@@ -32,7 +32,7 @@ Warden::Strategies.add(:development_shibboleth_stub) do
     response = SymphonyClient.new.login_by_sunetid(uid)
 
     if response && response['key']
-      u = { username: uid, patronKey: response['key'] }
+      u = { username: uid, patron_key: response['key'] }
       success!(u)
     else
       fail!('Could not log in')
@@ -55,7 +55,7 @@ Warden::Strategies.add(:library_id) do
     response = SymphonyClient.new.login(params['library_id'], params['pin'])
 
     if response['patronKey']
-      u = { username: params['library_id'], name: response['name'], patronKey: response['patronKey'] }
+      u = { username: params['library_id'], patron_key: response['patronKey'] }
       success!(u)
     else
       fail!('Could not log in')

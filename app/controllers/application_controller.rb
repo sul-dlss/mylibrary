@@ -2,10 +2,11 @@
 
 # :nodoc:
 class ApplicationController < ActionController::Base
-  helper_method :current_user
+  helper_method :current_user, :current_user?
 
   def current_user
-    request.env['warden'].user
+    session_data = request.env['warden'].user
+    session_data && User.new(session_data)
   end
 
   def current_user?
