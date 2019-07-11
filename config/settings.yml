@@ -3,5 +3,7 @@ symws:
   url:
   headers: {}
   login_params: {}
+sw:
+  url: https://searchworks.stanford.edu/view/
 EMAIL_TO: yolo@example.com
 HOSTNAME: foo.example.com

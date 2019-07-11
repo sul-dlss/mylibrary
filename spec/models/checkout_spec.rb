@@ -23,6 +23,7 @@ RSpec.describe Checkout do
       item: {
         fields: {
           bib: {
+            key: '1184859',
             fields: {
               title: 'The Lego movie videogame [electronic resource]',
               author: 'Cool people made this'
@@ -105,5 +106,9 @@ RSpec.describe Checkout do
 
   it 'has a shelf key' do
     expect(checkout.shelf_key).to eq 'ZMS 004033'
+  end
+
+  it 'has a catkey' do
+    expect(checkout.catkey).to eq '1184859'
   end
 end

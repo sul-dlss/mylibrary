@@ -47,6 +47,7 @@
           <dt class="col-5">Source:</dt>
           <dd class="col-5"><%= Mylibrary::Application.config.library_map[checkout.library] || checkout.library %></dd>
         </dl>
+        <%= link_to 'View in SearchWorks', Settings.sw.url + checkout.catkey %>
       </div>
     </li>
   <% end %>

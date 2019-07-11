@@ -40,6 +40,10 @@ class Checkout
     fields['library']['key']
   end
 
+  def catkey
+    fields['item']['fields']['bib']['key']
+  end
+
   def title
     bib['title']
   end
