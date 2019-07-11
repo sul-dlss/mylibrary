@@ -49,6 +49,14 @@ class SymphonyClient
     JSON.parse(response.body)
   end
 
+  def patron_info(patron_key)
+    response = authenticated_request("/user/patron/key/#{patron_key}", params: {
+      includeFields: '*,address1'
+    })
+
+    Patron.new(JSON.parse(response.body))
+  end
+
   private
 
   def authenticated_request(path, headers: {}, **other)
