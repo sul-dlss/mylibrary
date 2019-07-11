@@ -61,6 +61,7 @@ group :development, :test do
   gem 'rubocop-rspec'
   gem 'scss_lint', require: false
   gem 'simplecov', require: false
+  gem 'sinatra', require: false # used for faking the symphony api for integration tests
   gem 'warden-rspec-rails'
   gem 'webdrivers'
   gem 'webmock'
