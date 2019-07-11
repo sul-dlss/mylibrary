@@ -3,7 +3,7 @@
 
   <div class="form-group">
     <%= label_tag :library_id, 'Library ID' %>
-    <%= text_field_tag :library_id, nil, class: 'form-control', 'aria-describedby': 'libraryIdHelp' %>
+    <%= text_field_tag :library_id, nil, class: 'form-control', 'aria-describedby': 'libraryIdHelp', autofocus: true %>
     <small id="libraryIdHelp" class="form-text text-muted">Last 10 digits above the barcode on your library card</small>
   </div>
 
