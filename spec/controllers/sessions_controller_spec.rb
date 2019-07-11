@@ -76,7 +76,7 @@ RSpec.describe SessionsController do
   describe 'GET login_by_sunetid' do
     context 'with a valid login' do
       before do
-        request.env['REMOTE_USER'] = 'test123'
+        request.env['uid'] = 'test123'
         allow(mock_client).to receive(:login_by_sunetid).with('test123').and_return('key' => 1)
       end
 
