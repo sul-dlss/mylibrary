@@ -9,7 +9,7 @@ Warden::Strategies.add(:shibboleth) do
     response = SymphonyClient.new.login_by_sunetid(uid)
 
     if response && response['key']
-      u = { username: uid, patronKey: response['key'] }
+      u = { username: uid, patronKey: response['key'], shibboleth: true }
       success!(u)
     else
       fail!('Could not log in')
