@@ -99,4 +99,9 @@ RSpec.configure do |config|
   # test failures related to randomization by passing the same `--seed` value
   # as the one that triggered the failure.
   Kernel.srand config.seed
+
+  # Mock all requests to symphony
+  config.before do
+    stub_request(:any, %r{example.com/symws}).to_rack(FakeSymphony)
+  end
 end
