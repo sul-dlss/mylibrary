@@ -41,6 +41,14 @@ class SymphonyClient
     end
   end
 
+  def checkouts(patron_key)
+    response = authenticated_request("/user/patron/key/#{patron_key}", params: {
+      includeFields: '*,circRecordList{*,item{*,bib{title,author},call{sortCallNumber,dispCallNumber}}}'
+    })
+
+    JSON.parse(response.body)
+  end
+
   private
 
   def authenticated_request(path, headers: {}, **other)
