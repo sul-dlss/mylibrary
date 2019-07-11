@@ -7,7 +7,7 @@ RSpec.describe 'Navigation', type: :feature do
 
   before do
     allow(SymphonyClient).to receive(:new).and_return(mock_client)
-    login_as 'stub_user'
+    login_as(username: 'stub_user')
   end
 
   it 'the root path navigates to the Summary page' do

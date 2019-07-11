@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe ApplicationController do
   let(:user) do
-    { username: 'somesunetid', patronKey: 123 }
+    { username: 'somesunetid', patron_key: 123 }
   end
 
   describe '#current_user' do
@@ -13,7 +13,7 @@ RSpec.describe ApplicationController do
     end
 
     it 'returns the warden user' do
-      expect(controller.current_user).to eq user
+      expect(controller.current_user).to have_attributes username: 'somesunetid', patron_key: 123
     end
   end
 

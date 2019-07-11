@@ -17,7 +17,7 @@ RSpec.describe CheckoutsController do
 
   context 'with an authenticated request' do
     let(:user) do
-      { username: 'somesunetid', 'patronKey' => '123' }
+      { username: 'somesunetid', patron_key: '123' }
     end
 
     let(:mock_response) do

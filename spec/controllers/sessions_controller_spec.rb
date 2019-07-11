@@ -11,7 +11,7 @@ RSpec.describe SessionsController do
 
   context 'with an authenticated request' do
     let(:user) do
-      { username: 'somesunetid', patronKey: 123 }
+      { username: 'somesunetid', patron_key: 123 }
     end
 
     before do
@@ -74,7 +74,7 @@ RSpec.describe SessionsController do
       it 'logs in the user' do
         post(:login_by_library_id, params: { library_id: 'abc', pin: '123' })
 
-        expect(warden.user).to include username: 'abc', patronKey: 1
+        expect(warden.user).to include username: 'abc', patron_key: 1
       end
 
       it 'redirects the user to the summary page' do
@@ -99,7 +99,7 @@ RSpec.describe SessionsController do
       it 'logs in the user' do
         get(:login_by_sunetid)
 
-        expect(warden.user).to include username: 'test123', patronKey: 1
+        expect(warden.user).to include username: 'test123', patron_key: 1
       end
 
       it 'redirects the user to the summary page' do
