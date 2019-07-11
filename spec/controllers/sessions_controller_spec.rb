@@ -37,6 +37,22 @@ RSpec.describe SessionsController do
     end
   end
 
+  context 'with a shibboleth authenticated request' do
+    let(:user) do
+      { 'shibboleth' => true }
+    end
+
+    before do
+      warden.set_user(user)
+    end
+
+    describe 'GET destroy' do
+      it 'redirects to the SSO logout path' do
+        expect(get(:destroy)).to redirect_to '/Shibboleth.sso/Logout'
+      end
+    end
+  end
+
   describe 'GET index' do
     it 'renders the index template' do
       expect(get(:index)).to render_template 'index'

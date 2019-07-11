@@ -25,7 +25,13 @@ class SessionsController < ApplicationController
   end
 
   def destroy
+    needs_shibboleth_logout = current_user? && current_user['shibboleth']
     request.env['warden'].logout
-    redirect_to root_url
+
+    if needs_shibboleth_logout
+      redirect_to '/Shibboleth.sso/Logout'
+    else
+      redirect_to root_url
+    end
   end
 end
