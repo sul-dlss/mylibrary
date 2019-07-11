@@ -40,6 +40,23 @@ For running the application in development mode you will need to connecting from
 in order to sucessfully make web services requests. Furthermore, ILLiad Web services requires an API key which will be 
 made available via a `shared_configs` file.
 
+## Development
+
+### Authentication
+
+The application has two main modes of authentication:
+
+- login by library id + pin
+- login via shibboleth
+
+Both logins require access to the symphony web services (see above) to retrieve a patron key. Logging in via shibboleth requires a properly configured Shibboleth environment with access to Stanford's LDAP attributes. In development, the shibboleth login can be faked by setting the `uid` environment variable when starting the rails server, e.g.:
+
+```
+$ uid=someuser rails s
+```
+
+Note, again, that the user must exist in symphony web services as well; this is only a bypass for the shibboleth authentication.
+
 ## Testing
 
 The test suite (with RuboCop style enforcement) will be run with the default rake task (also run on travis)
