@@ -19,18 +19,34 @@
 <ul class="recalled-checkouts list-group">
   <%= render recalled %>
 </ul>
-
-
 <% end %>
 
-<h2>Checked out: <%= other_checkouts.length %></h2>
-<ul>
-  <li class="d-none d-md-inline font-weight-bold">Status</li>
-  <li class="d-none d-md-inline font-weight-bold">Date</li>
-  <li class="d-none d-md-inline font-weight-bold">Title</li>
-  <li class="d-none d-md-inline font-weight-bold">Author name</li>
-  <li class="d-none d-md-inline font-weight-bold">Call number</li>
-</ul>
-<ul class="checkouts list-group">
-  <%= render other_checkouts %>
-</ul>
+<div id="checkouts">
+  <div class="d-flex justify-content-between">
+    <h2>Checked out: <%= other_checkouts.length %></h2>
+    <div class="dropdown">
+      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Sort (<span data-sort-label>Due date</span>)
+      </a>
+
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+        <li class="dropdown-item" data-sort="status">Status</li>
+        <li class="dropdown-item active" data-sort="due_date">Due date</li>
+        <li class="dropdown-item" data-sort="title">Title</li>
+        <li class="dropdown-item" data-sort="author">Author name</li>
+        <li class="dropdown-item" data-sort="call_number">Call number</li>
+      </ul>
+    </div>
+  </div>
+
+  <ul>
+    <li class="d-none d-md-inline font-weight-bold" data-sort="status">Status</li>
+    <li class="d-none d-md-inline font-weight-bold active" data-sort="due_date">Due date</li>
+    <li class="d-none d-md-inline font-weight-bold" data-sort="title">Title</li>
+    <li class="d-none d-md-inline font-weight-bold" data-sort="author">Author name</li>
+    <li class="d-none d-md-inline font-weight-bold" data-sort="call_number">Call number</li>
+  </ul>
+  <ul class="list checkouts list-group">
+    <%= render other_checkouts %>
+  </ul>
+</div>

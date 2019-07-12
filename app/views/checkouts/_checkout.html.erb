@@ -1,13 +1,13 @@
 <li class="d-flex flex-wrap d-md-block list-group-item <%= list_group_item_status_for_checkout(checkout)%>">
   <div class="d-flex flex-row flex-grow-1 justify-content-between w-100 d-md-inline">
-    <div class="d-md-inline"><%= checkout.status %></div>
-    <div class="d-md-inline"><%= l(checkout.due_date, format: :short) %></div>
+    <div class="d-md-inline status"><%= checkout.status %></div>
+    <div class="d-md-inline due_date" data-date="<%= checkout.due_date.strftime('%FT%T') %>"><%= l(checkout.due_date, format: :short) %></div>
   </div>
   <div class="d-flex flex-grow-1 flex-column d-md-inline w-75">
     <div class="d-md-inline title"><%= checkout.title %></div>
     <div class="d-flex flex-row d-md-inline">
-      <div class="w-50 d-md-inline"><%= checkout.author %></div>
-      <div class="w-50 d-md-inline call_number"><%= checkout.call_number %></div>
+      <div class="w-50 d-md-inline author"><%= checkout.author %></div>
+      <div class="w-50 d-md-inline call_number" data-shelfkey="<%= checkout.shelf_key %>"><%= checkout.call_number %></div>
     </div>
   </div>
   <div class="d-md-inline">
