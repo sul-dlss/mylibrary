@@ -36,10 +36,6 @@
    // Changes flex-bases to auto because of an IE10 bug
    flex-basis: auto;
  }
-
- .navbar-toggler {
-   display: none;
- }
 }
 
 @include media-breakpoint-up(xs) {
