@@ -4,6 +4,9 @@
 
 <%= render 'shared/navigation' %>
 
+<% recalled, other_checkouts = @checkouts.partition(&:recalled?) %>
+<% if recalled.any? %>
+<h2>Recalled: <%= recalled.length %></h2>
 <ul>
   <li class="d-none d-md-inline font-weight-bold">Status</li>
   <li class="d-none d-md-inline font-weight-bold">Date</li>
@@ -11,44 +14,21 @@
   <li class="d-none d-md-inline font-weight-bold">Author name</li>
   <li class="d-none d-md-inline font-weight-bold">Call number</li>
 </ul>
+<ul class="recalled-checkouts list-group">
+  <%= render recalled %>
+</ul>
 
+
+<% end %>
+
+<h2>Checked out: <%= other_checkouts.length %></h2>
+<ul>
+  <li class="d-none d-md-inline font-weight-bold">Status</li>
+  <li class="d-none d-md-inline font-weight-bold">Date</li>
+  <li class="d-none d-md-inline font-weight-bold">Title</li>
+  <li class="d-none d-md-inline font-weight-bold">Author name</li>
+  <li class="d-none d-md-inline font-weight-bold">Call number</li>
+</ul>
 <ul class="checkouts list-group">
-  <% @checkouts.each_with_index do |checkout, index| %>
-    <li class="d-flex flex-wrap d-md-block list-group-item">
-      <div class="d-flex flex-row flex-grow-1 justify-content-between w-100 d-md-inline">
-        <div class="d-md-inline"><%= checkout.status %></div>
-        <div class="d-md-inline"><%= l(checkout.due_date, format: :short) %></div>
-      </div>
-      <div class="d-flex flex-grow-1 flex-column d-md-inline w-75">
-        <div class="d-md-inline title"><%= checkout.title %></div>
-        <div class="d-flex flex-row d-md-inline">
-          <div class="w-50 d-md-inline"><%= checkout.author %></div>
-          <div class="w-50 d-md-inline call_number"><%= checkout.call_number %></div>
-        </div>
-      </div>
-      <div class="d-md-inline">
-        <button class="d-md-inline btn collapsed" type="button" data-toggle="collapse" data-target="#collapseExample-<%= index %>" aria-expanded="false" aria-controls="collapseExample-<%= index %>">
-          <span class="expand-icon">➕</span>
-          <span class="collapse-icon">➖</span>
-        </button>
-      </div>
-      <div class="collapse w-100" id="collapseExample-<%= index %>">
-        <dl class="row justify-content-center">
-          <dt class="col-5">Borrowed on:</dt>
-          <dd class="col-5"><%= l(checkout.checkout_date, format: :short) %></dd>
-          <% if checkout.renewal_date  %>
-            <dt class="col-5">Renewed on:</dt>
-            <dd class="col-5"><%= l(checkout.renewal_date, format: :short) %></dd>
-          <% end %>
-          <% if checkout.recalled_date  %>
-            <dt class="col-5">Recalled on:</dt>
-            <dd class="col-5"><%= l(checkout.recalled_date, format: :short) %></dd>
-          <% end %>
-          <dt class="col-5">Source:</dt>
-          <dd class="col-5"><%= Mylibrary::Application.config.library_map[checkout.library] || checkout.library %></dd>
-        </dl>
-        <%= link_to 'View in SearchWorks', Settings.sw.url + checkout.catkey %>
-      </div>
-    </li>
-  <% end %>
+  <%= render other_checkouts %>
 </ul>
