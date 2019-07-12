@@ -55,4 +55,28 @@ RSpec.describe SymphonyClient do
       expect(client.login_by_sunetid('sunetid')).to include 'key' => 'key'
     end
   end
+
+  describe '#checkouts' do
+    before do
+      stub_request(:get, 'https://example.com/symws/user/patron/key/somepatronkey')
+        .with(query: hash_including(includeFields: match(/\*/)))
+        .to_return(body: { key: 'somepatronkey' }.to_json)
+    end
+
+    it 'authenticates the user against symphony' do
+      expect(client.checkouts('somepatronkey')).to include 'key' => 'somepatronkey'
+    end
+  end
+
+  describe '#patron_info' do
+    before do
+      stub_request(:get, 'https://example.com/symws/user/patron/key/somepatronkey')
+        .with(query: hash_including(includeFields: match(/\*/)))
+        .to_return(body: { key: 'somepatronkey' }.to_json)
+    end
+
+    it 'authenticates the user against symphony' do
+      expect(client.patron_info('somepatronkey').key).to eq 'somepatronkey'
+    end
+  end
 end
