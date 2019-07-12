@@ -37,8 +37,13 @@ class Patron
   end
 
   def expired?
-    expired_date = fields['privilegeExpiresDate']
-    expired_date.present? ? Time.zone.now.strftime('%Y-%m-%d') >= expired_date : false
+    return false unless expired_date
+
+    expired_date.past?
+  end
+
+  def expired_date
+    Time.zone.parse(fields['privilegeExpiresDate']) if fields['privilegeExpiresDate']
   end
 
   def email

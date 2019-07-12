@@ -70,6 +70,18 @@ RSpec.describe Patron do
     end
   end
 
+  describe 'expired_date' do
+    it 'returns a date' do
+      fields[:privilegeExpiresDate] = '1990-01-01'
+      expect(patron.expired_date.strftime('%m/%d/%Y')).to eq '01/01/1990'
+    end
+
+    it 'is nil when there is no privilegeExpiresDate' do
+      fields[:privilegeExpiresDate] = nil
+      expect(patron.expired_date).to be_nil
+    end
+  end
+
   describe '#expired?' do
     before do
       fields[:privilegeExpiresDate] = '1990-01-01'
