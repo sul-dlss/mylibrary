@@ -68,6 +68,18 @@ RSpec.describe SymphonyClient do
     end
   end
 
+  describe '#requests' do
+    before do
+      stub_request(:get, 'https://example.com/symws/user/patron/key/somepatronkey')
+        .with(query: hash_including(includeFields: match(/\*/)))
+        .to_return(body: { key: 'somepatronkey' }.to_json)
+    end
+
+    it 'authenticates the user against symphony' do
+      expect(client.requests('somepatronkey')).to include 'key' => 'somepatronkey'
+    end
+  end
+
   describe '#patron_info' do
     before do
       stub_request(:get, 'https://example.com/symws/user/patron/key/somepatronkey')

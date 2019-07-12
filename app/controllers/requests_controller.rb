@@ -4,5 +4,8 @@
 class RequestsController < ApplicationController
   before_action :authenticate_user!
 
-  def index; end
+  def index
+    @response = symphony_client.requests(current_user.patron_key)
+    @requests = @response['fields']['holdRecordList'].map { |request| Request.new(request) }
+  end
 end

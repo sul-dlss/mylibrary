@@ -7,6 +7,19 @@
 <% end %>
 
 
+<% @requests.each do |request| %>
+  <div>
+    <%= request.key %>
+    <%= request.status %>
+    <%= request.catkey %>
+    <%= request.title %>
+    <%= request.author %>
+    <%= request.call_number %>
+    <%= request.shelf_key %>
+    <%= request.queue_position %> of <%= request.queue_length %>
+  </div>
+<% end %>
+
 <h2>If your request isn't listed</h2>
 <p>Mediated requests are not listed until they have been approved, which is typically a day or two before they are transferred to campus.</p>
 <p><%= link_to 'Check interlibrary Borrowing', 'https://library.stanford.edu/using/interlibrary-borrowing' %> for requests made through interlibrary services.</p>
