@@ -30,6 +30,10 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  time:
+    formats:
+      short: '%B %e, %Y'
+      long: '%B %e, %Y %l:%M%P'
   hello: "Hello world"
   mylibrary:
     feedback_form:
