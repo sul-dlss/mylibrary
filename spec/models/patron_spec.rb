@@ -83,15 +83,37 @@ RSpec.describe Patron do
   end
 
   describe '#expired?' do
-    before do
-      fields[:privilegeExpiresDate] = '1990-01-01'
+    context 'when expiry date is past' do
+      before do
+        fields[:privilegeExpiresDate] = '1990-01-01'
+      end
+
+      it 'a patron has expired privileges' do
+        expect(patron.expired?).to be true
+      end
+      it 'a patron has an OK standing but expired status' do
+        expect(patron.status).to eq 'Expired'
+      end
     end
 
-    it 'a patron has expired privileges' do
-      expect(patron.expired?).to be true
+    context 'when expiry date is in the future' do
+      before do
+        fields[:privilegeExpiresDate] = '2099-01-01'
+      end
+
+      it 'is not expired' do
+        expect(patron.expired?).to be false
+      end
     end
-    it 'a patron has an OK standing but expired status' do
-      expect(patron.status).to eq 'Expired'
+
+    context 'when expiry date is nil' do
+      before do
+        fields[:privilegeExpiresDate] = nil
+      end
+
+      it 'is nil' do
+        expect(patron.expired?).to be false
+      end
     end
   end
 
