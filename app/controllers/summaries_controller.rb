@@ -7,7 +7,7 @@ class SummariesController < ApplicationController
   # GET /summaries
   # GET /summaries.json
   def index
-    @response = symphony_client.patron_info(current_user.patron_key)
+    @patron = symphony_client.patron_info(current_user.patron_key)
   end
 
   private
