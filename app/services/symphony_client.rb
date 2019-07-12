@@ -82,6 +82,15 @@ class SymphonyClient
     JSON.parse(response.body)
   end
 
+  def policies(policy_key)
+    response = authenticated_request("/policy/#{policy_key}/simpleQuery", params: {
+      key: '*',
+      includeFields: '*'
+    })
+
+    JSON.parse(response.body).map { |x| Policy.new(x) }.map { |policy| [policy.key, policy] }.to_h
+  end
+
   private
 
   def authenticated_request(path, headers: {}, **other)

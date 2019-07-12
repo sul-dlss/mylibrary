@@ -103,4 +103,19 @@ RSpec.describe SymphonyClient do
       expect(client.patron_info('somepatronkey').key).to eq 'somepatronkey'
     end
   end
+
+  describe '#policies' do
+    before do
+      stub_request(:get, 'https://example.com/symws/policy/loanPeriod/simpleQuery')
+        .with(query: hash_including(key: '*', includeFields: '*'))
+        .to_return(body: [{ key: 'somekey' }, { key: 'anotherkey' }].to_json)
+    end
+
+    it 'returns a hash of policy data' do
+      expect(client.policies('loanPeriod')).to match(
+        'somekey' => an_instance_of(Policy).and(have_attributes(key: 'somekey')),
+        'anotherkey' => an_instance_of(Policy).and(have_attributes(key: 'anotherkey'))
+      )
+    end
+  end
 end
