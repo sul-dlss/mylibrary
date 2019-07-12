@@ -1,4 +1,4 @@
-<header id="topnav" class="navbar navbar-expand-always container" role="banner">
+<nav id="topnav" class="navbar navbar-expand-always container" role="banner">
   <%= link_to 'https://library.stanford.edu' do %>
     <%= image_tag "sul-logo.svg", class: "su-logo d-none d-sm-block", alt: "Stanford Libraries", height: 25 %>
     <%= image_tag "sul-logo-stacked.svg", class: "su-logo d-sm-none d-md-none d-lg-none d-xl-none", alt: "Stanford Libraries", height: 25 %>
@@ -14,7 +14,7 @@
       <% end %>
     </li>
   </ul>
-</header>
+</nav>
 <div id='feedback-form' class='feedback-form-container collapse'>
   <%= render 'shared/feedback_forms/form' if show_feedback_form? %>
 </div>

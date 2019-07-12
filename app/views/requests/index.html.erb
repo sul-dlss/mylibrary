@@ -2,7 +2,10 @@
 
 <h1>Requests</h1>
 
-<%= render 'shared/navigation' %>
+<% content_for(:navigation) do %>
+  <%= render 'shared/navigation' %>
+<% end %>
+
 
 <h2>If your request isn't listed</h2>
 <p>Mediated requests are not listed until they have been approved, which is typically a day or two before they are transferred to campus.</p>

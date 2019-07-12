@@ -2,7 +2,9 @@
 
 <h1>Checkouts</h1>
 
-<%= render 'shared/navigation' %>
+<% content_for(:navigation) do %>
+  <%= render 'shared/navigation' %>
+<% end %>
 
 <% recalled, other_checkouts = @checkouts.partition(&:recalled?) %>
 <% if recalled.any? %>
