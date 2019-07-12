@@ -2,7 +2,11 @@
 
 #topnav {
   padding: 2px 0;
-  height: 29px;
+  height: 35px;
+
+  a {
+    color: $cardinal-red;
+  }
 }
 
 // these rules are pulled from https://github.com/twbs/bootstrap/blob/master/scss/_navbar.scss
