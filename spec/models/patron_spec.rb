@@ -14,6 +14,12 @@ RSpec.describe Patron do
 
   let(:fields) do
     {
+      firstName: 'Student',
+      lastName: 'Borrower',
+      standing: {
+        key: 'DELINQUENT'
+      },
+      privilegeExpiresDate: nil,
       address1: [
         { 'resource' => '/user/patron/address1',
           'key' => '3',
@@ -38,8 +44,20 @@ RSpec.describe Patron do
     expect(patron.key).to eq '1'
   end
 
+  it 'has a first name' do
+    expect(patron.first_name).to eq 'Student'
+  end
+
+  it 'has a last name' do
+    expect(patron.last_name).to eq 'Borrower'
+  end
+
   it 'has an email' do
     expect(patron.email).to eq 'superuser1@stanford.edu'
+  end
+
+  it 'has a status' do
+    expect(patron.status).to eq 'OK'
   end
 
   context 'when there is not an email resource in the patron record' do
@@ -49,6 +67,35 @@ RSpec.describe Patron do
 
     it 'does not have an email' do
       expect(patron.email).to be_nil
+    end
+  end
+
+  describe '#expired?' do
+    before do
+      fields[:privilegeExpiresDate] = '1990-01-01'
+    end
+
+    it 'a patron has expired privileges' do
+      expect(patron.expired?).to be true
+    end
+    it 'a patron has an OK standing but expired status' do
+      expect(patron.status).to eq 'Expired'
+    end
+  end
+
+  describe 'a blocked patron' do
+    before do
+      fields[:standing]['key'] = 'BARRED'
+    end
+
+    it 'shows a blocked status' do
+      expect(patron.status).to eq 'Blocked'
+    end
+    it 'shows more status information if Symphony standing is BARRED' do
+      # some wording about needing to contact access services staff
+    end
+    it 'can have unexpired borrowing privileges' do
+      expect(patron.expired?).to be false
     end
   end
 end
