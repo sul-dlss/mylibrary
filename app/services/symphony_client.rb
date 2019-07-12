@@ -57,6 +57,7 @@ class SymphonyClient
 
   def request(path, headers: {}, method: :get, **other)
     HTTP
+      .use(instrumentation: { instrumenter: ActiveSupport::Notifications.instrumenter, namespace: 'symphony' })
       .headers(default_headers.merge(headers))
       .request(method, base_url + path, **other)
   end
