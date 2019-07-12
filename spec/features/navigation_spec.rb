@@ -7,7 +7,8 @@ RSpec.describe 'Navigation', type: :feature do
     instance_double(
       SymphonyClient,
       checkouts: { 'fields' => { 'circRecordList' => [] } },
-      requests: { 'fields' => { 'holdRecordList' => [] } }
+      requests: { 'fields' => { 'holdRecordList' => [] } },
+      fines: { 'fields' => { 'blockList' => [] } }
     )
   end
 

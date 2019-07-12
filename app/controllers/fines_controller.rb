@@ -4,5 +4,8 @@
 class FinesController < ApplicationController
   before_action :authenticate_user!
 
-  def index; end
+  def index
+    @response = symphony_client.fines(current_user.patron_key)
+    @fines = @response['fields']['blockList'].map { |fine| Fine.new(fine) }
+  end
 end
