@@ -6,6 +6,6 @@ class CheckoutsController < ApplicationController
 
   def index
     @response = symphony_client.checkouts(current_user.patron_key)
-    @checkouts = @response['fields']['circRecordList'].map { |checkout| Checkout.new(checkout) }
+    @checkouts = @response['fields']['circRecordList'].map { |checkout| Checkout.new(checkout) }.sort_by(&:due_date)
   end
 end

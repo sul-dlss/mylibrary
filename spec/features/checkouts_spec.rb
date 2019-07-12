@@ -14,8 +14,8 @@ RSpec.describe 'Checkout Page', type: :feature do
     expect(page).to have_css('ul.checkouts li', count: 12)
 
     within(first('ul.checkouts li')) do
-      expect(page).to have_css('.title', text: /Law and justice in Japanese popular culture/)
-      expect(page).to have_css('.call_number', text: 'P96 .J852 J353 2018')
+      expect(page).to have_css('.title', text: /On video games/)
+      expect(page).to have_css('.call_number', text: 'GV1469.34 .S52 M874 2018')
     end
   end
 
@@ -47,7 +47,23 @@ RSpec.describe 'Checkout Page', type: :feature do
     visit checkouts_path
 
     within(first('ul.checkouts li')) do
-      expect(page).to have_css('dl dd', text: 'Law Library (Crown)', visible: false)
+      expect(page).to have_css('dl dd', text: 'Green Library', visible: false)
+    end
+  end
+
+  it 'is sortable', js: true do
+    visit checkouts_path
+
+    within '#checkouts' do
+      expect(page).to have_css('.dropdown-toggle', text: 'Sort (Due date)')
+      find('[data-sort="title"]').click
+
+      expect(page).to have_css('.dropdown-toggle', text: 'Sort (Title)')
+      expect(page).to have_css('.active[data-sort="title"]', count: 2, visible: false)
+
+      within(first('ul.checkouts li')) do
+        expect(page).to have_css('.title', text: /Japanese animation/)
+      end
     end
   end
 end

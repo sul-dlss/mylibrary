@@ -23,7 +23,7 @@ RSpec.describe CheckoutsController do
     let(:mock_response) do
       {
         fields: {
-          circRecordList: [{ key: 1 }]
+          circRecordList: [{ key: 1, fields: { dueDate: '2019-05-03' } }]
         }
       }.with_indifferent_access
     end
