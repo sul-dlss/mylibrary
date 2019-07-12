@@ -3,12 +3,15 @@
 require 'rails_helper'
 
 RSpec.describe 'Navigation', type: :feature do
+  let(:patron) { Patron.new('fields' => { 'address1' => [], 'standing' => { 'key' => '' } }) }
+
   let(:mock_client) do
     instance_double(
       SymphonyClient,
       checkouts: { 'fields' => { 'circRecordList' => [] } },
       requests: { 'fields' => { 'holdRecordList' => [] } },
-      fines: { 'fields' => { 'blockList' => [] } }
+      fines: { 'fields' => { 'blockList' => [] } },
+      patron_info: patron
     )
   end
 

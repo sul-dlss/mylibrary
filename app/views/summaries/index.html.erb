@@ -6,8 +6,17 @@
   <%= render 'shared/navigation' %>
 <% end %>
 
+<h2><%= "#{@patron.first_name} #{@patron.last_name}" %></h2>
+<dl class='row'>
+  <dt class='col-1'>Status</dt>
+  <dd><%= @patron.status %></dd>
+</dl>
+<dl class='row'>
+  <dt class='col-1'>Email</dt>
+  <dd><%= @patron.email %></dd>
+</dl>
 
-<h2>Policies &amp; information</h2>
+<h3>Policies &amp; information</h3>
 <ul>
   <li><%= link_to 'Borrower responsibilities', 'https://library.stanford.edu/using/borrow-renew-return/borrower-responsibilities' %></li>
   <li><%= link_to 'Circulation policy and instructions', 'https://library.stanford.edu/using/borrow-renew-return' %></li>
