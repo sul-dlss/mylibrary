@@ -1,9 +1,11 @@
-main {
-  nav {
-    a:hover,
-    a:focus,
-    a:active {
-      border-bottom: 1px solid transparent;
-    }
+// scss-lint:disable IdSelector
+
+#mainnav {
+  background-color: $main-nav-bg-color;
+
+  a:hover,
+  a:focus,
+  a:active {
+    border-bottom: 1px solid transparent;
   }
 }
