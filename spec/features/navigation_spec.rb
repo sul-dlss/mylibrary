@@ -19,7 +19,7 @@ RSpec.describe 'Navigation', type: :feature do
   it 'has navigation with links to the main pages' do
     visit root_path
 
-    within('main nav') do
+    within('#mainnav') do
       expect(page).to have_link('Summary')
       expect(page).to have_link('Checkouts')
       expect(page).to have_link('Requests')

@@ -20,7 +20,8 @@
     <div id="su-wrap"> <!-- #su-wrap start -->
       <div id="su-content"> <!-- #su-content start -->
         <%= render '/shared/header' %>
-        <main role="main" class="container mt-3 mb-3">
+        <%= content_for(:navigation) %>
+        <main id="main" role="main" class="container mt-3 mb-3">
           <%= render partial: '/shared/flash_msg', layout: nil %>
           <%= yield %>
         </main>

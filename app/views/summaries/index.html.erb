@@ -2,7 +2,10 @@
 
 <h1>Summary</h1>
 
-<%= render 'shared/navigation' %>
+<% content_for(:navigation) do %>
+  <%= render 'shared/navigation' %>
+<% end %>
+
 
 <h2>Policies &amp; information</h2>
 <ul>
