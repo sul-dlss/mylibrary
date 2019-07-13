@@ -5,6 +5,11 @@ a {
   color: $sul-link-color;
   text-decoration: none;
 
+  svg {
+    fill: $sul-link-color;
+    stroke: $sul-link-color;
+  }
+
   &.disabled {
     color: $sul-btn-disabled-color;
     cursor: not-allowed;

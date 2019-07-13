@@ -1,0 +1,54 @@
+.sul-icons {
+  display: inline-flex;
+  height: $font-size-base;
+  width: $font-size-base;
+
+  svg {
+    height: 1rem;
+    position: relative;
+    top: .125rem;
+    width: 1rem;
+  }
+}
+
+// Stroke contrast
+// Derived from https://github.com/twbs/bootstrap/commit/c31d52499811d5c68d122db806ce27a112b489bd
+@mixin stroke-yiq($color) {
+  $r: red($color);
+  $g: green($color);
+  $b: blue($color);
+
+  $yiq: (($r * 299) + ($g * 587) + ($b * 114)) / 1000;
+
+  @if ($yiq >= 150) {
+    fill: $blackish;
+    stroke: $blackish;
+  } @else {
+    fill: $white;
+    stroke: $white;
+  }
+}
+
+@each $color, $value in $theme-colors {
+  .btn-#{$color} {
+    .sul-icons g {
+      @include stroke-yiq(theme-color($color));
+    }
+  }
+
+  .btn-outline-#{$color} {
+    .blacklight-icons g {
+      fill: $value;
+      stroke: $value;
+    }
+
+    &.hover,
+    &:hover,
+    &:active,
+    &.active {
+      .sul-icons g {
+        @include stroke-yiq(theme-color($color));
+      }
+    }
+  }
+}

@@ -30,4 +30,11 @@ RSpec.describe ApplicationHelper do
       end
     end
   end
+
+  describe '#sul_icon' do
+    it 'wraps the svg in a span with classes' do
+      expect(helper.sul_icon(:renew))
+        .to have_css 'span.sul-icons svg'
+    end
+  end
 end
