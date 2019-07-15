@@ -1,11 +1,39 @@
-<li>
-  <%= fine.key %>
-  <%= fine.status %>
-  <%= fine.catkey %>
-  <%= fine.title %>
-  <%= fine.author %>
-  <%= fine.call_number %>
-  <%= fine.shelf_key %>
-  <%= fine.bill_date %>
-  <%= fine.owed %>
+<li class="row d-flex flex-wrap list-group-item">
+  <div class="d-flex flex-row flex-grow-1 justify-content-between w-100 row col-md-4">
+    <div class="w-50 col-md-6 status">
+      <%= fine.status %>
+    </div>
+    <div class="w-50 col-md-6 text-right text-md-left owed">
+      <%= number_to_currency(fine.owed) %>
+    </div>
+  </div>
+  <div class="d-flex flex-grow-1 flex-column flex-md-row w-75 row col-md-8">
+    <h3 class="col-md-7 record-title title"><%= fine.title %></h3>
+    <div class="d-flex flex-row row col-md-5">
+      <div class="w-50 col-md-6 author"><%= fine.author %></div>
+      <div class="w-50 col-md-6 call_number" data-shelfkey="<%= fine.shelf_key %>"><%= fine.call_number %></div>
+    </div>
+  </div>
+  <div>
+    <button class="btn collapsed" type="button" data-toggle="collapse" data-target="#collapseExample-<%= fine.key.parameterize %>" aria-expanded="false" aria-controls="collapseExample-<%= fine.key.parameterize %>">
+      <span class="expand-icon"><%= sul_icon :'sharp-add-24px' %><span class="sr-only">Expand</span></span>
+      <span class="collapse-icon"><%= sul_icon :'sharp-remove-24px' %><span class="sr-only">Collapse</span></span>
+    </button>
+  </div>
+  <div class="collapse w-100" id="collapseExample-<%= fine.key.parameterize %>">
+    <dl class="row justify-content-center">
+      <dt class="col-5">Billed on:</dt>
+      <dd class="col-5"><%= l(fine.bill_date, format: :short) %></dd>
+      <dt class="col-5">Source:</dt>
+      <dd class="col-5"><%= Mylibrary::Application.config.library_map[fine.library] || fine.library %></dd>
+    </dl>
+    <div class="row justify-content-center">
+      <div class="col-5">
+        <%= link_to Settings.sw.url + fine.catkey, target: '_blank' do %>
+          <%= sul_icon :'sharp-open_in_new-24px' %> View in SearchWorks
+        <% end %>
+      </div>
+      <div class="col-5"></div>
+    </div>
+  </div>
 </li>

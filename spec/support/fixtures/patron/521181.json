@@ -41,6 +41,101 @@
         "data": "somebody@stanford.edu"
       }
     }],
+    "blockList": [{
+      "resource": "/circulation/block",
+      "key": "521181:1",
+      "fields": {
+        "patron": {
+          "resource": "/user/patron",
+          "key": "521181"
+        },
+        "createDate": "2019-07-08",
+        "amount": {
+          "currencyCode": "USD",
+          "amount": "7.00"
+        },
+        "owed": {
+          "currencyCode": "USD",
+          "amount": "7.00"
+        },
+        "tax": {
+          "currencyCode": "USD",
+          "amount": "0.00"
+        },
+        "block": {
+          "resource": "/policy/block",
+          "key": "DAMAGED"
+        },
+        "item": {
+          "resource": "/catalog/item",
+          "key": "12871638:1:1",
+          "fields": {
+            "bib": {
+              "resource": "/catalog/bib",
+              "key": "12871638",
+              "fields": {
+                "author": "",
+                "title": "Research handbook on the law of virtual and augmented reality"
+              }
+            },
+            "call": {
+              "resource": "/catalog/call",
+              "key": "12871638:1",
+              "fields": {
+                "dispCallNumber": "K564 .C6 R47 2018",
+                "sortCallNumber": "K  000564 .C6  R47  2018"
+              }
+            },
+            "barcode": "36105228879115",
+            "circulate": false,
+            "copyNumber": 1,
+            "createdDate": "2019-01-25",
+            "currentLocation": {
+              "resource": "/policy/location",
+              "key": "CHECKEDOUT"
+            },
+            "homeLocation": {
+              "resource": "/policy/location",
+              "key": "BASEMENT"
+            },
+            "itemCategory1": null,
+            "itemCategory2": null,
+            "itemCategory3": null,
+            "itemCategory4": null,
+            "itemCategory5": null,
+            "itemType": {
+              "resource": "/policy/itemType",
+              "key": "LAW-STKS"
+            },
+            "lastInvDate": null,
+            "library": {
+              "resource": "/policy/library",
+              "key": "LAW"
+            },
+            "mediaDesk": null,
+            "permanent": true,
+            "pieces": 1,
+            "price": {
+              "currencyCode": "USD",
+              "amount": "0.00"
+            },
+            "shadowed": false,
+            "systemModifiedDate": "2019-07-08T21:53:00-07:00",
+            "timesInventoried": 0
+          }
+        },
+        "comment": null,
+        "library": {
+          "resource": "/policy/library",
+          "key": "GREEN"
+        },
+        "billDate": "2019-07-08",
+        "estimatedOverdueAmount": {
+          "currencyCode": "USD",
+          "amount": "0.00"
+        }
+      }
+    }],
     "circRecordList": [{
         "key": "12735651:1:1:1",
         "fields": {
