@@ -23,7 +23,7 @@ RSpec.describe RequestsController do
     let(:mock_response) do
       {
         fields: {
-          holdRecordList: [{ key: 1 }]
+          holdRecordList: [{ key: 1, fields: { beingHeldDate: '1999-01-01' } }]
         }
       }.with_indifferent_access
     end

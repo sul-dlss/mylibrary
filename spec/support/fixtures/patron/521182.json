@@ -1,0 +1,578 @@
+{
+  "resource": "/user/patron",
+  "key": "521182",
+  "fields": {
+    "displayName": "Superuser, Doc",
+    "access": {
+      "resource": "/policy/userAccess",
+      "key": "PUBLIC"
+    },
+    "alternateID": "",
+    "barcode": "SUPER2",
+    "birthDate": null,
+    "checkoutLocation": {
+      "resource": "/policy/location",
+      "key": "CHECKEDOUT"
+    },
+    "createdDate": "2019-07-08",
+    "department": "",
+    "environment": {
+      "resource": "/policy/environment",
+      "key": "PUBLIC"
+    },
+    "firstName": "Doc",
+    "language": {
+      "resource": "/policy/language",
+      "key": "ENGLISH"
+    },
+    "lastName": "Superuser",
+    "library": {
+      "resource": "/policy/library",
+      "key": "SUL"
+    },
+    "middleName": "",
+    "preferredName": "",
+    "privilegeExpiresDate": "2019-09-23",
+    "profile": {
+      "resource": "/policy/userProfile",
+      "key": "RED"
+    },
+    "suffix": "",
+    "title": "",
+    "usePreferredName": false,
+    "webAuthID": "",
+    "category01": null,
+    "category02": null,
+    "category03": null,
+    "category04": null,
+    "category05": null,
+    "category06": null,
+    "category07": null,
+    "category08": null,
+    "category09": null,
+    "category10": null,
+    "category11": null,
+    "category12": null,
+    "claimsReturnedCount": 0,
+    "standing": {
+      "resource": "/policy/patronStanding",
+      "key": "DELINQUENT"
+    },
+    "groupId": "",
+    "holdRecordList": [
+      {
+        "resource": "/circulation/holdRecord",
+        "key": "1675116",
+        "fields": {
+          "bib": {
+            "resource": "/catalog/bib",
+            "key": "12730702"
+          },
+          "item": {
+            "resource": "/catalog/item",
+            "key": "12730702:2:1",
+            "fields": {
+              "bib": {
+                "resource": "/catalog/bib",
+                "key": "12730702",
+                "fields": {
+                  "author": "",
+                  "title": "A history of video games in 64 objects"
+                }
+              },
+              "call": {
+                "resource": "/catalog/call",
+                "key": "12730702:2",
+                "fields": {
+                  "dispCallNumber": "GV1469.3 .H57 2018",
+                  "sortCallNumber": "GV 001469.3 .H57  2018"
+                }
+              },
+              "barcode": "36105229929240",
+              "circulate": true,
+              "copyNumber": 1,
+              "createdDate": "2018-08-09",
+              "currentLocation": {
+                "resource": "/policy/location",
+                "key": "GRE-LOAN"
+              },
+              "homeLocation": {
+                "resource": "/policy/location",
+                "key": "STACKS"
+              },
+              "itemCategory1": null,
+              "itemCategory2": null,
+              "itemCategory3": null,
+              "itemCategory4": null,
+              "itemCategory5": null,
+              "itemType": {
+                "resource": "/policy/itemType",
+                "key": "STKS-MONO"
+              },
+              "lastInvDate": null,
+              "library": {
+                "resource": "/policy/library",
+                "key": "GREEN"
+              },
+              "mediaDesk": null,
+              "permanent": true,
+              "pieces": 1,
+              "price": {
+                "currencyCode": "USD",
+                "amount": "0.00"
+              },
+              "shadowed": false,
+              "systemModifiedDate": "2019-07-08T21:53:00-07:00",
+              "timesInventoried": 0
+            }
+          },
+          "patron": {
+            "resource": "/user/patron",
+            "key": "521182"
+          },
+          "beingHeldDate": "2019-07-11",
+          "comment": "",
+          "expirationDate": "2019-07-18",
+          "fillByDate": "2020-07-07",
+          "holdPriority": null,
+          "holdRange": {
+            "resource": "/policy/holdRange",
+            "key": "SYSTEM"
+          },
+          "holdType": "COPY",
+          "inactiveReason": null,
+          "pickupLibrary": {
+            "resource": "/policy/library",
+            "key": "GREEN"
+          },
+          "placedDate": "2019-07-08",
+          "placedLibrary": {
+            "resource": "/policy/library",
+            "key": "GREEN"
+          },
+          "queueLength": 1,
+          "queuePosition": 1,
+          "recallStatus": "RUSH",
+          "selectedItem": {
+            "resource": "/catalog/item",
+            "key": "12730702:2:1"
+          },
+          "status": "BEING_HELD",
+          "suspendBeginDate": null,
+          "suspendEndDate": null
+        }
+      },
+      {
+        "resource": "/circulation/holdRecord",
+        "key": "1675117",
+        "fields": {
+          "bib": {
+            "resource": "/catalog/bib",
+            "key": "5574416"
+          },
+          "item": {
+            "resource": "/catalog/item",
+            "key": "5574416:2:1",
+            "fields": {
+              "bib": {
+                "resource": "/catalog/bib",
+                "key": "5574416",
+                "fields": {
+                  "author": "",
+                  "title": "Pikachu's global adventure : the rise and fall of Pokémon"
+                }
+              },
+              "call": {
+                "resource": "/catalog/call",
+                "key": "5574416:2",
+                "fields": {
+                  "dispCallNumber": "GV1469.35 .P63 P54 2004",
+                  "sortCallNumber": "GV 001469.35 .P63  P54  2004"
+                }
+              },
+              "barcode": "36105111937236",
+              "circulate": false,
+              "copyNumber": 1,
+              "createdDate": "2004-02-26",
+              "currentLocation": {
+                "resource": "/policy/location",
+                "key": "CHECKEDOUT"
+              },
+              "homeLocation": {
+                "resource": "/policy/location",
+                "key": "STACKS"
+              },
+              "itemCategory1": null,
+              "itemCategory2": {
+                "resource": "/policy/itemCategory2",
+                "key": "TAX=8.25"
+              },
+              "itemCategory3": null,
+              "itemCategory4": null,
+              "itemCategory5": null,
+              "itemType": {
+                "resource": "/policy/itemType",
+                "key": "STKS-MONO"
+              },
+              "lastInvDate": null,
+              "library": {
+                "resource": "/policy/library",
+                "key": "GREEN"
+              },
+              "mediaDesk": null,
+              "permanent": true,
+              "pieces": 1,
+              "price": {
+                "currencyCode": "USD",
+                "amount": "0.00"
+              },
+              "shadowed": false,
+              "systemModifiedDate": "2019-07-08T21:53:00-07:00",
+              "timesInventoried": 0
+            }
+          },
+          "patron": {
+            "resource": "/user/patron",
+            "key": "521182"
+          },
+          "beingHeldDate": null,
+          "comment": "",
+          "expirationDate": null,
+          "fillByDate": "2020-07-07",
+          "holdPriority": null,
+          "holdRange": {
+            "resource": "/policy/holdRange",
+            "key": "SYSTEM"
+          },
+          "holdType": "COPY",
+          "inactiveReason": null,
+          "pickupLibrary": {
+            "resource": "/policy/library",
+            "key": "GREEN"
+          },
+          "placedDate": "2019-07-08",
+          "placedLibrary": {
+            "resource": "/policy/library",
+            "key": "GREEN"
+          },
+          "queueLength": 1,
+          "queuePosition": 1,
+          "recallStatus": "RUSH",
+          "selectedItem": {
+            "resource": "/catalog/item",
+            "key": "5574416:2:1"
+          },
+          "status": "PLACED",
+          "suspendBeginDate": null,
+          "suspendEndDate": null
+        }
+      },
+      {
+        "resource": "/circulation/holdRecord",
+        "key": "1675119",
+        "fields": {
+          "bib": {
+            "resource": "/catalog/bib",
+            "key": "12869113"
+          },
+          "item": {
+            "resource": "/catalog/item",
+            "key": "12869113:2:1",
+            "fields": {
+              "bib": {
+                "resource": "/catalog/bib",
+                "key": "12869113",
+                "fields": {
+                  "author": "Gilliam, Sam, 1933- artist.",
+                  "title": "The music of color : Sam Gilliam 1967-1973 : Kunstmuseum Basel, June 9-September 30, 2018"
+                }
+              },
+              "call": {
+                "resource": "/catalog/call",
+                "key": "12869113:2",
+                "fields": {
+                  "dispCallNumber": "ND237 .G45 A4 2018 F",
+                  "sortCallNumber": "ND 000237 .G45  A4  2018  F"
+                }
+              },
+              "barcode": "36105229976266",
+              "circulate": false,
+              "copyNumber": 1,
+              "createdDate": "2019-01-09",
+              "currentLocation": {
+                "resource": "/policy/location",
+                "key": "CHECKEDOUT"
+              },
+              "homeLocation": {
+                "resource": "/policy/location",
+                "key": "STACKS"
+              },
+              "itemCategory1": null,
+              "itemCategory2": null,
+              "itemCategory3": null,
+              "itemCategory4": null,
+              "itemCategory5": null,
+              "itemType": {
+                "resource": "/policy/itemType",
+                "key": "STKS-MONO"
+              },
+              "lastInvDate": null,
+              "library": {
+                "resource": "/policy/library",
+                "key": "ART"
+              },
+              "mediaDesk": null,
+              "permanent": true,
+              "pieces": 1,
+              "price": {
+                "currencyCode": "USD",
+                "amount": "0.00"
+              },
+              "shadowed": false,
+              "systemModifiedDate": "2019-07-08T21:53:00-07:00",
+              "timesInventoried": 0
+            }
+          },
+          "patron": {
+            "resource": "/user/patron",
+            "key": "521182"
+          },
+          "beingHeldDate": null,
+          "comment": "",
+          "expirationDate": null,
+          "fillByDate": "2020-07-07",
+          "holdPriority": null,
+          "holdRange": {
+            "resource": "/policy/holdRange",
+            "key": "SYSTEM"
+          },
+          "holdType": "COPY",
+          "inactiveReason": null,
+          "pickupLibrary": {
+            "resource": "/policy/library",
+            "key": "ART"
+          },
+          "placedDate": "2019-07-08",
+          "placedLibrary": {
+            "resource": "/policy/library",
+            "key": "GREEN"
+          },
+          "queueLength": 1,
+          "queuePosition": 1,
+          "recallStatus": "RUSH",
+          "selectedItem": {
+            "resource": "/catalog/item",
+            "key": "12869113:2:1"
+          },
+          "status": "PLACED",
+          "suspendBeginDate": null,
+          "suspendEndDate": null
+        }
+      },
+      {
+        "resource": "/circulation/holdRecord",
+        "key": "1675120",
+        "fields": {
+          "bib": {
+            "resource": "/catalog/bib",
+            "key": "12754346"
+          },
+          "item": {
+            "resource": "/catalog/item",
+            "key": "12754346:2:1",
+            "fields": {
+              "bib": {
+                "resource": "/catalog/bib",
+                "key": "12754346",
+                "fields": {
+                  "author": "",
+                  "title": "Colour and light in ancient and medieval art"
+                }
+              },
+              "call": {
+                "resource": "/catalog/call",
+                "key": "12754346:2",
+                "fields": {
+                  "dispCallNumber": "N5315 .C65 2018",
+                  "sortCallNumber": "N  005315 .C65  2018"
+                }
+              },
+              "barcode": "36105229951863",
+              "circulate": false,
+              "copyNumber": 1,
+              "createdDate": "2018-09-12",
+              "currentLocation": {
+                "resource": "/policy/location",
+                "key": "CHECKEDOUT"
+              },
+              "homeLocation": {
+                "resource": "/policy/location",
+                "key": "STACKS"
+              },
+              "itemCategory1": null,
+              "itemCategory2": null,
+              "itemCategory3": null,
+              "itemCategory4": null,
+              "itemCategory5": null,
+              "itemType": {
+                "resource": "/policy/itemType",
+                "key": "STKS-MONO"
+              },
+              "lastInvDate": null,
+              "library": {
+                "resource": "/policy/library",
+                "key": "ART"
+              },
+              "mediaDesk": null,
+              "permanent": true,
+              "pieces": 1,
+              "price": {
+                "currencyCode": "USD",
+                "amount": "0.00"
+              },
+              "shadowed": false,
+              "systemModifiedDate": "2019-07-08T21:53:00-07:00",
+              "timesInventoried": 0
+            }
+          },
+          "patron": {
+            "resource": "/user/patron",
+            "key": "521182"
+          },
+          "beingHeldDate": null,
+          "comment": "",
+          "expirationDate": null,
+          "fillByDate": "2020-07-07",
+          "holdPriority": null,
+          "holdRange": {
+            "resource": "/policy/holdRange",
+            "key": "SYSTEM"
+          },
+          "holdType": "COPY",
+          "inactiveReason": null,
+          "pickupLibrary": {
+            "resource": "/policy/library",
+            "key": "ART"
+          },
+          "placedDate": "2019-07-08",
+          "placedLibrary": {
+            "resource": "/policy/library",
+            "key": "GREEN"
+          },
+          "queueLength": 1,
+          "queuePosition": 1,
+          "recallStatus": "RUSH",
+          "selectedItem": {
+            "resource": "/catalog/item",
+            "key": "12754346:2:1"
+          },
+          "status": "PLACED",
+          "suspendBeginDate": null,
+          "suspendEndDate": null
+        }
+      },
+      {
+        "resource": "/circulation/holdRecord",
+        "key": "1675121",
+        "fields": {
+          "bib": {
+            "resource": "/catalog/bib",
+            "key": "12258217"
+          },
+          "item": {
+            "resource": "/catalog/item",
+            "key": "12258217:2:1",
+            "fields": {
+              "bib": {
+                "resource": "/catalog/bib",
+                "key": "12258217",
+                "fields": {
+                  "author": "Rothko, Mark, 1903-1970, artist.",
+                  "title": "Rothko : the color field paintings"
+                }
+              },
+              "call": {
+                "resource": "/catalog/call",
+                "key": "12258217:2",
+                "fields": {
+                  "dispCallNumber": "ND237 .R725 A4 2017 F",
+                  "sortCallNumber": "ND 000237 .R725  A4  2017  F"
+                }
+              },
+              "barcode": "36105229342808",
+              "circulate": true,
+              "copyNumber": 1,
+              "createdDate": "2017-11-30",
+              "currentLocation": {
+                "resource": "/policy/location",
+                "key": "GRE-LOAN"
+              },
+              "homeLocation": {
+                "resource": "/policy/location",
+                "key": "STACKS"
+              },
+              "itemCategory1": null,
+              "itemCategory2": null,
+              "itemCategory3": null,
+              "itemCategory4": null,
+              "itemCategory5": null,
+              "itemType": {
+                "resource": "/policy/itemType",
+                "key": "STKS-MONO"
+              },
+              "lastInvDate": null,
+              "library": {
+                "resource": "/policy/library",
+                "key": "ART"
+              },
+              "mediaDesk": null,
+              "permanent": true,
+              "pieces": 1,
+              "price": {
+                "currencyCode": "USD",
+                "amount": "0.00"
+              },
+              "shadowed": false,
+              "systemModifiedDate": "2017-12-13T15:36:00-08:00",
+              "timesInventoried": 0
+            }
+          },
+          "patron": {
+            "resource": "/user/patron",
+            "key": "521182"
+          },
+          "beingHeldDate": "2019-07-08",
+          "comment": "",
+          "expirationDate": "2019-07-15",
+          "fillByDate": "2020-07-07",
+          "holdPriority": null,
+          "holdRange": {
+            "resource": "/policy/holdRange",
+            "key": "SYSTEM"
+          },
+          "holdType": "TITLE",
+          "inactiveReason": null,
+          "pickupLibrary": {
+            "resource": "/policy/library",
+            "key": "GREEN"
+          },
+          "placedDate": "2019-07-08",
+          "placedLibrary": {
+            "resource": "/policy/library",
+            "key": "GREEN"
+          },
+          "queueLength": 1,
+          "queuePosition": 1,
+          "recallStatus": "STANDARD",
+          "selectedItem": {
+            "resource": "/catalog/item",
+            "key": "12258217:2:1"
+          },
+          "status": "BEING_HELD",
+          "suspendBeginDate": null,
+          "suspendEndDate": null
+        }
+      }
+    ]
+  }
+}

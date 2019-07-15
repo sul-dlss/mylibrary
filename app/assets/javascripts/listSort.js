@@ -1,16 +1,26 @@
-var options = {
-    valueNames: [
-      'status',
-      'title',
-      'author',
-      { name: 'call_number', attr: 'data-shelfkey' },
-      { name: 'due_date', attr: 'data-date' },
-    ],
-};
-
 $(document).on('turbolinks:load', function(){
-  // var checkouts = new List('checkouts', options);
-  $('#checkouts').listSort(options);
+  // var listSort = new List('listSort', options);
+  var checkoutOptions = {
+      valueNames: [
+        'status',
+        'title',
+        'author',
+        { name: 'call_number', attr: 'data-shelfkey' },
+        { name: 'due_date', attr: 'data-date' },
+      ],
+  };
+  var requestOptions = {
+      valueNames: [
+        'library',
+        'title',
+        'author',
+        { name: 'call_number', attr: 'data-shelfkey' },
+        { name: 'date', attr: 'data-date' },
+      ],
+  };
+
+  $('#checkouts').listSort(checkoutOptions);
+  $('#requests').listSort(requestOptions);
 });
 
 
@@ -33,7 +43,7 @@ $(document).on('turbolinks:load', function(){
         this.options = $.extend( {}, options) ;
 
         this._name = pluginName;
-        this.checkouts = new List(element, options);
+        this.listSort = new List(element, options);
         this.state = { sort: $(element).data('sort') };
 
         this.init();
@@ -64,7 +74,7 @@ $(document).on('turbolinks:load', function(){
         var sort = this.state.sort;
 
         // a) trigger list sort function
-        this.checkouts.sort(sort);
+        this.listSort.sort(sort);
 
         // b) rerender the dropdown label
         var filteredSortTriggers = this._sortTriggers().filter('[data-sort="' + sort + '"]');
