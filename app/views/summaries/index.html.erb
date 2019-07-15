@@ -16,6 +16,14 @@
 
 <h3>Policies &amp; information</h3>
 <ul>
-  <li><%= link_to 'Borrower responsibilities', 'https://library.stanford.edu/using/borrow-renew-return/borrower-responsibilities' %></li>
-  <li><%= link_to 'Circulation policy and instructions', 'https://library.stanford.edu/using/borrow-renew-return' %></li>
+  <li>
+    <%= link_to 'https://library.stanford.edu/using/borrow-renew-return/borrower-responsibilities', target: '_blank' do %>
+      <%= sul_icon :'sharp-open_in_new-24px' %> Borrower responsibilities
+    <% end %>
+  </li>
+  <li>
+    <%= link_to 'https://library.stanford.edu/using/borrow-renew-return', target: '_blank' do %>
+      <%= sul_icon :'sharp-open_in_new-24px' %> Circulation policy and instructions
+    <% end %>
+  </li>
 </ul>
