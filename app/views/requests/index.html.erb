@@ -22,4 +22,9 @@
 
 <h2>If your request isn't listed</h2>
 <p>Mediated requests are not listed until they have been approved, which is typically a day or two before they are transferred to campus.</p>
-<p><%= link_to 'Check interlibrary Borrowing', 'https://library.stanford.edu/using/interlibrary-borrowing' %> for requests made through interlibrary services.</p>
+<p>
+  <%= link_to 'https://library.stanford.edu/using/interlibrary-borrowing', target: '_blank' do %>
+    <%= sul_icon :'sharp-open_in_new-24px' %> Check interlibrary Borrowing
+  <% end %>
+  for requests made through interlibrary services.
+</p>
