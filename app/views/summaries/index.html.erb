@@ -4,32 +4,32 @@
   <%= render 'shared/navigation' %>
 <% end %>
 
-<h2><%= "#{@patron.first_name} #{@patron.last_name}" %></h2>
-<% if @patron.patron_type == 'Fee borrower' %>
-<dl class='row'>
-  <dt class='col-1'>Type</dt>
-  <dd class='patron-type'><%= @patron.patron_type %></dd>
-</dl>
-<% end %>
-<dl class='row'>
-  <dt class='col-1'>Status</dt>
-  <dd class='patron-status'><%= @patron.status %></dd>
-</dl>
-<dl class='row'>
-  <dt class='col-1'>Email</dt>
-  <dd class='email'><%= @patron.email %></dd>
-</dl>
+<div class="page-section">
+  <h2><%= "#{@patron.first_name} #{@patron.last_name}" %></h2>
+  <dl class="row">
+    <% if @patron.patron_type == 'Fee borrower' %>
+      <dt class='col-2 col-sm-1 font-weight-normal'>Type</dt>
+      <dd class='col-10 col-sm-11 patron-type'><%= @patron.patron_type %></dd>
+    <% end %>
+    <dt class="col-2 col-sm-1 font-weight-normal">Status</dt>
+    <dd class="col-10 col-sm-11 patron-status"><%= @patron.status %></dd>
+    <dt class="col-2 col-sm-1 font-weight-normal">Email</dt>
+    <dd class="col-10 col-sm-11 email"><%= @patron.email %></dd>
+  </dl>
+</div>
 
-<h3>Policies &amp; information</h3>
-<ul>
-  <li>
-    <%= link_to 'https://library.stanford.edu/using/borrow-renew-return/borrower-responsibilities', target: '_blank' do %>
-      <%= sul_icon :'sharp-open_in_new-24px' %> Borrower responsibilities
-    <% end %>
-  </li>
-  <li>
-    <%= link_to 'https://library.stanford.edu/using/borrow-renew-return', target: '_blank' do %>
-      <%= sul_icon :'sharp-open_in_new-24px' %> Circulation policy and instructions
-    <% end %>
-  </li>
-</ul>
+<div class="page-section">
+  <h2>Policies &amp; information</h2>
+  <ul class="list-unstyled">
+    <li>
+      <%= link_to 'https://library.stanford.edu/using/borrow-renew-return/borrower-responsibilities', target: '_blank' do %>
+        <%= sul_icon :'sharp-open_in_new-24px' %> Borrower responsibilities
+      <% end %>
+    </li>
+    <li>
+      <%= link_to 'https://library.stanford.edu/using/borrow-renew-return', target: '_blank' do %>
+        <%= sul_icon :'sharp-open_in_new-24px' %> Circulation policy and instructions
+      <% end %>
+    </li>
+  </ul>
+</div>
