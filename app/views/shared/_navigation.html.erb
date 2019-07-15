@@ -1,16 +1,28 @@
 <nav role="navigation" aria-label="Main navigation" id="mainnav" class="pt-3 pb-3">
   <ul class="nav nav-pills nav-justified container">
     <li class="nav-item">
-      <%= link_to 'Summary', root_path, class: "nav-link #{active_page_class('summaries')}" %>
+      <%= link_to root_path, class: "nav-link #{active_page_class('summaries')}" do %>
+        <%= sul_icon :'sharp-person-24px' %>
+        <span class="label">Summary</span>
+      <% end %>
     </li>
     <li class="nav-item">
-      <%= link_to 'Checkouts', checkouts_path, class: "nav-link #{active_page_class('checkouts')}" %>
+      <%= link_to checkouts_path, class: "nav-link #{active_page_class('checkouts')}" do %>
+        <%= sul_icon :'sharp-playlist_add_check-24px' %>
+        <span class="label">Checkouts</span>
+      <% end %>
     </li>
     <li class="nav-item">
-      <%= link_to 'Requests', requests_path, class: "nav-link #{active_page_class('requests')}" %>
+      <%= link_to requests_path, class: "nav-link #{active_page_class('requests')}" do %>
+        <%= sul_icon :'sharp-access_time-24px' %>
+        <span class="label">Requests</span>
+      <% end %>
     </li>
     <li class="nav-item">
-      <%= link_to 'Fines', fines_path, class: "nav-link #{active_page_class('fines')}" %>
+      <%= link_to fines_path, class: "nav-link #{active_page_class('fines')}" do %>
+        <%= sul_icon :'sharp-attach_money-24px' %>
+        <span class="label">Fines</span>
+      <% end %>
     </li>
   </ul>
 </nav>
