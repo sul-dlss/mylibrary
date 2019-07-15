@@ -19,6 +19,9 @@ RSpec.describe Patron do
       standing: {
         key: 'DELINQUENT'
       },
+      profile: {
+        key: ''
+      },
       privilegeExpiresDate: nil,
       address1: [
         { 'resource' => '/user/patron/address1',
@@ -130,6 +133,19 @@ RSpec.describe Patron do
     end
     it 'can have unexpired borrowing privileges' do
       expect(patron.expired?).to be false
+    end
+  end
+
+  describe 'a fee borrower' do
+    before do
+      fields[:profile]['key'] = 'MXFEE'
+    end
+
+    it 'has a patron type' do
+      expect(patron.patron_type).to eq 'Fee borrower'
+    end
+    xit 'has a borrowing limit' do
+      expect(patron.borrow_limit).to eq '25'
     end
   end
 end

@@ -12,6 +12,13 @@ class Patron
     'DELINQUENT' => 'OK'
   }.freeze
 
+  USER_PROFILE = {
+    'MXFEE' => 'Fee borrower',
+    'MXFEE-BUS' => 'Fee borrower',
+    'MXFEE-LAW' => 'Fee borrower',
+    'MXFEE-NO25' => 'Fee borrower'
+  }.freeze
+
   def initialize(record)
     @record = record
   end
@@ -53,9 +60,17 @@ class Patron
     email_resource && email_resource['fields']['data']
   end
 
+  def patron_type
+    user_profile
+  end
+
   private
 
   def fields
     record['fields']
+  end
+
+  def user_profile
+    USER_PROFILE.fetch(fields['profile']['key'], '')
   end
 end

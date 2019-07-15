@@ -7,10 +7,14 @@
 <div class="page-section">
   <h2><%= "#{@patron.first_name} #{@patron.last_name}" %></h2>
   <dl class="row">
+    <% if @patron.patron_type == 'Fee borrower' %>
+      <dt class='col-2 col-sm-1 font-weight-normal'>Type</dt>
+      <dd class='col-10 col-sm-11 patron-type'><%= @patron.patron_type %></dd>
+    <% end %>
     <dt class="col-2 col-sm-1 font-weight-normal">Status</dt>
-    <dd class="col-10 col-sm-11"><%= @patron.status %></dd>
+    <dd class="col-10 col-sm-11 patron-status"><%= @patron.status %></dd>
     <dt class="col-2 col-sm-1 font-weight-normal">Email</dt>
-    <dd class="col-10 col-sm-11"><%= @patron.email %></dd>
+    <dd class="col-10 col-sm-11 email"><%= @patron.email %></dd>
   </dl>
 </div>
 
