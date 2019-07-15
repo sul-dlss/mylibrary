@@ -8,12 +8,20 @@ class Request
     @record = record
   end
 
+  def to_partial_path
+    'requests/request'
+  end
+
   def key
     record['key']
   end
 
   def status
     fields['status']
+  end
+
+  def ready_for_pickup?
+    status == 'BEING_HELD'
   end
 
   def catkey
@@ -42,6 +50,34 @@ class Request
 
   def queue_length
     fields['queueLength']
+  end
+
+  def expiration_date
+    Time.zone.parse(fields['expirationDate']) if fields['expirationDate']
+  end
+
+  def pickup_date
+    Time.zone.parse(fields['beingHeldDate']) if fields['beingHeldDate']
+  end
+
+  def placed_date
+    Time.zone.parse(fields['placedDate']) if fields['placedDate']
+  end
+
+  def fill_by_date
+    Time.zone.parse(fields['fillByDate']) if fields['fillByDate']
+  end
+
+  def waitlist_position
+    "#{queue_position} of #{queue_length}"
+  end
+
+  def pickup_library
+    fields['pickupLibrary']['key']
+  end
+
+  def placed_library
+    fields['placedLibrary']['key']
   end
 
   private

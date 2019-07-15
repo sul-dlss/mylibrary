@@ -90,3 +90,12 @@ thead {
     stroke: $white;
   }
 }
+
+.text-ready {
+  color: $color-ready;
+
+  svg {
+    fill: $color-ready;
+    stroke: $white;
+  }
+}

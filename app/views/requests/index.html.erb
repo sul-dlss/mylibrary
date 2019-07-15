@@ -4,19 +4,66 @@
   <%= render 'shared/navigation' %>
 <% end %>
 
-<div class="page-section">
-  <% @requests.each do |request| %>
-    <div>
-      <%= request.key %>
-      <%= request.status %>
-      <%= request.catkey %>
-      <%= request.title %>
-      <%= request.author %>
-      <%= request.call_number %>
-      <%= request.shelf_key %>
-      <%= request.queue_position %> of <%= request.queue_length %>
+<% ready, requested = @requests.partition(&:ready_for_pickup?) %>
+<% if ready.any? %>
+  <div class="page-section">
+    <div class="d-flex justify-content-between">
+      <h2>Ready for pickup: <%= ready.length %></h2>
     </div>
-  <% end %>
+
+    <div class="d-none d-md-flex row font-weight-bold list-header">
+      <div class="row col-md-4">
+        <div class="col-md-6">Pickup library</div>
+        <div class="col-md-6 active">Pickup by</div>
+      </div>
+      <div class="row col-md-8">
+        <div class="col-md-7">Title</div>
+        <div class="row col-md-5">
+          <div class="col-md-6">Author</div>
+          <div class="col-md-6 call_number">Call number</div>
+        </div>
+      </div>
+    </div>
+    <ul class="list ready-requests list-group">
+      <%= render ready %>
+    </ul>
+  </div>
+<% end %>
+
+<div  id="requests" class="page-section">
+  <div class="d-flex justify-content-between">
+    <h2>Requested: <%= requested.length %></h2>
+    <div class="dropdown">
+      <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Sort (<span data-sort-label>Not needed after</span>)
+      </a>
+
+      <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+        <li class="dropdown-item" data-sort="library">Deliver to</li>
+        <li class="dropdown-item active" data-sort="date">Not needed after</li>
+        <li class="dropdown-item" data-sort="title">Title</li>
+        <li class="dropdown-item" data-sort="author">Author name</li>
+        <li class="dropdown-item" data-sort="call_number">Call number</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="d-none d-md-flex row font-weight-bold list-header">
+    <div class="row col-md-4">
+      <div class="col-md-6" data-sort="library">Deliver to</div>
+      <div class="col-md-6 active" data-sort="date">Not needed after</div>
+    </div>
+    <div class="row col-md-8">
+      <div class="col-md-7" data-sort="title">Title</div>
+      <div class="row col-md-5">
+        <div class="col-md-6" data-sort="author">Author</div>
+        <div class="col-md-6 call_number" data-sort="call_number">Call number</div>
+      </div>
+    </div>
+  </div>
+  <ul class="list requested-requests list-group">
+    <%= render requested %>
+  </ul>
 </div>
 
 <div class="page-section">
