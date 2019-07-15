@@ -5,13 +5,19 @@
 <% end %>
 
 <h2><%= "#{@patron.first_name} #{@patron.last_name}" %></h2>
+<% if @patron.patron_type == 'Fee borrower' %>
+<dl class='row'>
+  <dt class='col-1'>Type</dt>
+  <dd class='patron-type'><%= @patron.patron_type %></dd>
+</dl>
+<% end %>
 <dl class='row'>
   <dt class='col-1'>Status</dt>
-  <dd><%= @patron.status %></dd>
+  <dd class='patron-status'><%= @patron.status %></dd>
 </dl>
 <dl class='row'>
   <dt class='col-1'>Email</dt>
-  <dd><%= @patron.email %></dd>
+  <dd class='email'><%= @patron.email %></dd>
 </dl>
 
 <h3>Policies &amp; information</h3>

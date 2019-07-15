@@ -3,7 +3,11 @@
 require 'rails_helper'
 
 RSpec.describe 'Navigation', type: :feature do
-  let(:patron) { Patron.new('fields' => { 'address1' => [], 'standing' => { 'key' => '' } }) }
+  let(:patron) do
+    Patron.new('fields' => { 'address1' => [],
+                             'standing' => { 'key' => '' },
+                             'profile' => { 'key' => '' } })
+  end
 
   let(:mock_client) do
     instance_double(
