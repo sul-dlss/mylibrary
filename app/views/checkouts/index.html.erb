@@ -6,26 +6,28 @@
 
 <% recalled, other_checkouts = @checkouts.partition(&:recalled?) %>
 <% if recalled.any? %>
-<h2>Recalled: <%= recalled.length %></h2>
-<div class="d-none d-md-flex row font-weight-bold list-header">
-  <div class="row col-md-4">
-    <div class="col-md-6">Status</div>
-    <div class="col-md-6">Date</div>
-  </div>
-  <div class="row col-md-8">
-    <div class="col-md-7">Title</div>
-    <div class="row col-md-5">
-      <div class="col-md-6">Author</div>
-      <div class="col-md-6 call_number">Call number</div>
+  <div class="page-section">
+    <h2>Recalled: <%= recalled.length %></h2>
+    <div class="d-none d-md-flex row font-weight-bold list-header">
+      <div class="row col-md-4">
+        <div class="col-md-6">Status</div>
+        <div class="col-md-6">Date</div>
+      </div>
+      <div class="row col-md-8">
+        <div class="col-md-7">Title</div>
+        <div class="row col-md-5">
+          <div class="col-md-6">Author</div>
+          <div class="col-md-6 call_number">Call number</div>
+        </div>
+      </div>
     </div>
+    <ul class="recalled-checkouts list-group">
+      <%= render recalled %>
+    </ul>
   </div>
-</div>
-<ul class="recalled-checkouts list-group">
-  <%= render recalled %>
-</ul>
 <% end %>
 
-<div id="checkouts">
+<div id="checkouts" class="page-section">
   <div class="d-flex justify-content-between">
     <h2>Checked out: <%= other_checkouts.length %></h2>
     <div class="dropdown">
