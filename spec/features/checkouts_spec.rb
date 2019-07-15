@@ -14,6 +14,7 @@ RSpec.describe 'Checkout Page', type: :feature do
     expect(page).to have_css('ul.checkouts li', count: 12)
 
     within(first('ul.checkouts li')) do
+      expect(page).to have_css('.status', text: 'Overdue')
       expect(page).to have_css('.title', text: /On video games/)
       expect(page).to have_css('.call_number', text: 'GV1469.34 .S52 M874 2018')
     end
@@ -26,6 +27,7 @@ RSpec.describe 'Checkout Page', type: :feature do
     expect(page).to have_css('ul.recalled-checkouts li', count: 1)
 
     within(first('ul.recalled-checkouts li')) do
+      expect(page).to have_css('.status', text: 'Recalled')
       expect(page).to have_css('.title', text: /Pikachu's global adventure/)
       expect(page).to have_css('.call_number', text: 'GV1469.35 .P63 P54 2004')
     end

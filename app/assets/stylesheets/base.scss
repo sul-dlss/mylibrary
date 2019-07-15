@@ -70,3 +70,21 @@ thead {
   transition: width 300ms ease-out, opacity 150ms 150ms ease-in;
   z-index: 9999;
 }
+
+.text-recalled {
+  color: $color-recalled;
+
+  svg {
+    fill: $color-recalled;
+    stroke: $color-recalled;
+  }
+}
+
+.text-overdue {
+  color: $color-overdue;
+
+  svg {
+    fill: $color-overdue;
+    stroke: $color-overdue;
+  }
+}
