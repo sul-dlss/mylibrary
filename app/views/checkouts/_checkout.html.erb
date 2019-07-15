@@ -39,8 +39,13 @@
       <dt class="col-5">Source:</dt>
       <dd class="col-5"><%= Mylibrary::Application.config.library_map[checkout.library] || checkout.library %></dd>
     </dl>
-    <%= link_to Settings.sw.url + checkout.catkey, target: '_blank' do %>
-      <%= sul_icon :'sharp-open_in_new-24px' %> View in SearchWorks
-    <% end %>
+    <div class="row justify-content-center">
+      <div class="col-5">
+        <%= link_to Settings.sw.url + checkout.catkey, target: '_blank' do %>
+          <%= sul_icon :'sharp-open_in_new-24px' %> View in SearchWorks
+        <% end %>
+      </div>
+      <div class="col-5"></div>
+    </div>
   </div>
 </li>
