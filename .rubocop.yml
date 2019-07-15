@@ -18,6 +18,10 @@ Metrics/LineLength:
     - 'spec/controllers/feedback_forms_controller_spec.rb'
     - 'app/controllers/feedback_forms_controller.rb'
 
+Metrics/MethodLength:
+  Exclude:
+    - 'app/controllers/feedback_forms_controller.rb'
+
 RSpec/ExampleLength:
   Exclude:
     - 'spec/features/**/*'

@@ -27,14 +27,6 @@ class Patron
     record['key']
   end
 
-  def first_name
-    fields['firstName']
-  end
-
-  def last_name
-    fields['lastName']
-  end
-
   def status
     if expired?
       'Expired'
@@ -62,6 +54,18 @@ class Patron
 
   def patron_type
     user_profile
+  end
+
+  def first_name
+    fields['firstName']
+  end
+
+  def last_name
+    fields['lastName']
+  end
+
+  def display_name
+    "#{first_name} #{last_name}"
   end
 
   private

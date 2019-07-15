@@ -1,0 +1,23 @@
+<div class="modal-header offset-sm-1">
+  <h3 id="contactForm">Contact Access Services</h3>
+</div>
+<div class="modal-body offset-sm-1">
+  <%= form_tag contact_path, method: :post, class: 'contact-form', role: 'form' do %>
+    <div class="row">
+      <%= render "shared/feedback_forms/reporting_from" %>
+      <div class="col-sm-12">
+        From: <%= patron.display_name %>
+      </div>
+      <div class="col-sm-12">
+        To: Access Services (<%= link_to Settings.ACCESS_SERVICES_EMAIL, "mailto:#{Settings.ACCESS_SERVICES_EMAIL}" %>)
+      </div>
+      <div class="col-sm-9 mt-3 mb-3">
+        <%= text_area_tag :message, nil, rows: '15', cols: '62', class: 'form-control' %>
+      </div>
+      <div class="col-sm-9">
+        <button type="submit" class="btn btn-primary">Send</button>
+        <%= link_to 'Cancel', :back, class: 'cancel-link', data: { dismiss: 'modal' } %>
+      </div>
+    </div>
+  <% end %>
+</div>

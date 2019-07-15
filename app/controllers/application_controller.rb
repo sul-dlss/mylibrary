@@ -2,7 +2,7 @@
 
 # :nodoc:
 class ApplicationController < ActionController::Base
-  helper_method :current_user, :current_user?
+  helper_method :current_user, :current_user?, :patron
 
   def current_user
     session_data = request.env['warden'].user
@@ -13,11 +13,15 @@ class ApplicationController < ActionController::Base
     current_user.present?
   end
 
-  def symphony_client
-    @symphony_client ||= SymphonyClient.new
+  def patron
+    current_user? ? symphony_client.patron_info(current_user.patron_key) : nil
   end
 
   private
+
+  def symphony_client
+    @symphony_client ||= SymphonyClient.new
+  end
 
   def authenticate_user!
     redirect_to root_url unless current_user?

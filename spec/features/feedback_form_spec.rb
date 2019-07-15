@@ -3,8 +3,24 @@
 require 'rails_helper'
 
 RSpec.describe 'Feedback form', type: :feature do
+  let(:patron) do
+    Patron.new('fields' => { 'address1' => [], 'standing' => { 'key' => '' }, 'profile' => { 'key' => '' } })
+  end
+
+  let(:mock_client) do
+    instance_double(
+      SymphonyClient,
+      checkouts: { 'fields' => { 'circRecordList' => [] } },
+      requests: { 'fields' => { 'holdRecordList' => [] } },
+      fines: { 'fields' => { 'blockList' => [] } },
+      patron_info: patron
+    )
+  end
+
   context 'with js', js: true do
     before do
+      allow(SymphonyClient).to receive(:new).and_return(mock_client)
+      login_as(username: 'stub_user')
       visit root_path
     end
 
@@ -28,6 +44,8 @@ RSpec.describe 'Feedback form', type: :feature do
 
   context 'without js' do
     before do
+      allow(SymphonyClient).to receive(:new).and_return(mock_client)
+      login_as(username: 'stub_user')
       visit root_path
     end
 

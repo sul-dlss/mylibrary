@@ -100,8 +100,8 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 
-  # Mock all requests to symphony
-  config.before do
+  # Mock all requests to symphony for feature tests
+  config.before type: :feature do
     stub_request(:any, %r{example.com/symws}).to_rack(FakeSymphony)
   end
 end
