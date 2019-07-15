@@ -14,8 +14,8 @@
   </div>
   <div>
     <button class="btn collapsed" type="button" data-toggle="collapse" data-target="#collapseExample-<%= checkout.key.parameterize %>" aria-expanded="false" aria-controls="collapseExample-<%= checkout.key.parameterize %>">
-      <span class="expand-icon">➕</span>
-      <span class="collapse-icon">➖</span>
+      <span class="expand-icon"><%= sul_icon :'sharp-add-24px' %><span class="sr-only">Expand</span></span>
+      <span class="collapse-icon"><%= sul_icon :'sharp-remove-24px' %><span class="sr-only">Collapse</span></span>
     </button>
   </div>
   <div class="collapse w-100" id="collapseExample-<%= checkout.key.parameterize %>">

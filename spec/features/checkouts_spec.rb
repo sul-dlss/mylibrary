@@ -37,7 +37,7 @@ RSpec.describe 'Checkout Page', type: :feature do
     within(first('ul.checkouts li')) do
       expect(page).not_to have_css('dl', visible: true)
       expect(page).not_to have_css('dt', text: 'Borrowed on:', visible: true)
-      click_button '➕'
+      click_button 'Expand'
       expect(page).to have_css('dl', visible: true)
       expect(page).to have_css('dt', text: 'Borrowed on:', visible: true)
     end
