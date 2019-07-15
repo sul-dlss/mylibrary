@@ -36,6 +36,10 @@
         <dt class="col-5">Recalled on:</dt>
         <dd class="col-5"><%= l(checkout.recalled_date, format: :short) %></dd>
       <% end %>
+      <% unless checkout.overdue? %>
+        <dt class="col-5">Remaining:</dt>
+        <dd class="col-5"><%= pluralize(checkout.days_remaining, 'day') %> </dd>
+      <% end %>
       <dt class="col-5">Source:</dt>
       <dd class="col-5"><%= Mylibrary::Application.config.library_map[checkout.library] || checkout.library %></dd>
     </dl>

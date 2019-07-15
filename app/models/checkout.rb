@@ -40,6 +40,12 @@ class Checkout
     fields['overdue']
   end
 
+  def days_remaining
+    return 0 if overdue?
+
+    (due_date.to_date - Time.zone.now.to_date).to_i
+  end
+
   def library
     fields['library']['key']
   end
