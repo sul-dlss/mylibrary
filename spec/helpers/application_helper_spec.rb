@@ -31,6 +31,18 @@ RSpec.describe ApplicationHelper do
     end
   end
 
+  describe '#detail_link_to_searchworks' do
+    let(:content) { Capybara.string(helper.detail_link_to_searchworks('12345')) }
+
+    it 'has two columns' do
+      expect(content).to have_css('.row .col-5', count: 2)
+    end
+
+    it 'has a link to SerachWorks' do
+      expect(content).to have_link(text: /View in SearchWorks/, href: %r{/view/12345$})
+    end
+  end
+
   describe '#sul_icon' do
     it 'wraps the svg in a span with classes' do
       expect(helper.sul_icon(:renew))

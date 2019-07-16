@@ -13,6 +13,18 @@ module ApplicationHelper
     end
   end
 
+  # Wrap a link to the SearchWorks record for the given Catkey wrapped in the markup
+  # necessary to be aligned with the content in the collapsible list sections
+  def detail_link_to_searchworks(catkey)
+    content_tag(:div, class: 'row justify-content-center') do
+      content_tag(:div, class: 'col-5') do
+        link_to Settings.sw.url + catkey, rel: 'noopener', target: '_blank' do
+          sul_icon(:'sharp-open_in_new-24px') + 'View in SearchWorks'
+        end
+      end + content_tag(:div, class: 'col-5') {}
+    end
+  end
+
   ##
   # Returns the raw SVG (String) for a SUL Icon located in
   # app/assets/images/icons/*.svg. Caches them so we don't have to look up
