@@ -49,4 +49,14 @@ RSpec.describe ApplicationHelper do
         .to have_css 'span.sul-icons svg'
     end
   end
+
+  describe '#library_name' do
+    it 'translates the code to a human-readable name' do
+      expect(helper.library_name('GREEN')).to eq 'Green Library'
+    end
+
+    it 'falls back on the code' do
+      expect(helper.library_name('NOSUCHLIBRARY')).to eq 'NOSUCHLIBRARY'
+    end
+  end
 end

@@ -37,7 +37,7 @@
         <dd class="col-5"><%= l(checkout.recalled_date, format: :short) %></dd>
       <% end %>
       <dt class="col-5">Source:</dt>
-      <dd class="col-5"><%= Mylibrary::Application.config.library_map[checkout.library] || checkout.library %></dd>
+      <dd class="col-5"><%= library_name checkout.library %></dd>
     </dl>
 
     <%= detail_link_to_searchworks(checkout.catkey) %>

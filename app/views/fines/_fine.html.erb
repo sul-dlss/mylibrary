@@ -25,7 +25,7 @@
       <dt class="col-5">Billed on:</dt>
       <dd class="col-5"><%= l(fine.bill_date, format: :short) %></dd>
       <dt class="col-5">Source:</dt>
-      <dd class="col-5"><%= Mylibrary::Application.config.library_map[fine.library] || fine.library %></dd>
+      <dd class="col-5"><%= library_name fine.library %></dd>
     </dl>
 
     <%= detail_link_to_searchworks(fine.catkey) %>

@@ -37,4 +37,8 @@ module ApplicationHelper
       content_tag(:span, icon.svg.html_safe, icon.options) # rubocop:disable Rails/OutputSafety
     end
   end
+
+  def library_name(code)
+    Mylibrary::Application.config.library_map[code] || code
+  end
 end
