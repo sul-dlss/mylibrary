@@ -52,6 +52,30 @@ RSpec.describe Checkout do
     expect(checkout.overdue?).to be true
   end
 
+  describe '#days_remaining' do
+    context 'when overdue' do
+      before do
+        fields['dueDate'] = '2019-07-10T13:59:00-07:00'
+        fields['overdue'] = true
+      end
+
+      it 'has negative days remaining' do
+        expect(checkout.days_remaining).to eq 0
+      end
+    end
+
+    context 'when overdue' do
+      before do
+        fields['dueDate'] = (Time.zone.now + 5.days).to_s
+        fields['overdue'] = false
+      end
+
+      it 'has a positive number of days remaining' do
+        expect(checkout.days_remaining).to eq 5
+      end
+    end
+  end
+
   it 'has a due date' do
     expect(checkout.due_date.strftime('%m/%d/%Y')).to eq '07/09/2019'
   end
