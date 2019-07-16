@@ -22,6 +22,17 @@
     }
   }
 
+  .topnav-links {
+    a {
+      color: $white;
+      margin-left: $spacer;
+    }
+
+    a:hover {
+      border-bottom: 1px solid transparent;
+    }
+  }
+
   .navbar-link {
     svg {
       fill: $white;
