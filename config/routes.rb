@@ -19,5 +19,8 @@ Rails.application.routes.draw do
   get '/login', to: 'sessions#form', as: :login
   get '/logout', to: 'sessions#destroy', as: :logout
 
+  get '/reset_pin', to: 'reset_pins#index'
+  post '/reset_pin', to: 'reset_pins#reset'
+
   mount OkComputer::Engine, at: '/status'
 end

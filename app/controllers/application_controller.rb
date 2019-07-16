@@ -26,4 +26,8 @@ class ApplicationController < ActionController::Base
   def authenticate_user!
     redirect_to root_url unless current_user?
   end
+
+  def logout_user!
+    redirect_to logout_path if current_user?
+  end
 end
