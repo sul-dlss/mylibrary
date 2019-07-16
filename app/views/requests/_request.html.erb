@@ -9,7 +9,7 @@
       <% else %>
         <span class="d-md-none">Deliver to </span><%= Mylibrary::Application.config.library_map[request.pickup_library] || request.pickup_library %>
       <% end %>
-      
+
     </div>
     <% if request.pickup_date %>
       <div class="w-50 col-md-6 text-right text-md-left date" data-date="<%= request.pickup_date.strftime('%FT%T') %>">
@@ -49,8 +49,7 @@
       <dt class="col-5">Source:</dt>
       <dd class="col-5"><%= Mylibrary::Application.config.library_map[request.placed_library] || request.placed_library %></dd>
     </dl>
-    <%= link_to Settings.sw.url + request.catkey, target: '_blank' do %>
-      <%= sul_icon :'sharp-open_in_new-24px' %> View in SearchWorks
-    <% end %>
+
+    <%= detail_link_to_searchworks(request.catkey) %>
   </div>
 </li>
