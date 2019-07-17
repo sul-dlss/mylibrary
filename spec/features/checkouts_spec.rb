@@ -14,7 +14,7 @@ RSpec.describe 'Checkout Page', type: :feature do
     expect(page).to have_css('ul.checkouts li', count: 12)
 
     within(first('ul.checkouts li')) do
-      expect(page).to have_css('.status', text: 'Overdue')
+      expect(page).to have_css('.status', text: 'Overdue $0.00')
       expect(page).to have_css('.title', text: /On video games/)
       expect(page).to have_css('.call_number', text: 'GV1469.34 .S52 M874 2018')
     end
@@ -42,6 +42,8 @@ RSpec.describe 'Checkout Page', type: :feature do
       click_button 'Expand'
       expect(page).to have_css('dl', visible: true)
       expect(page).to have_css('dt', text: 'Borrowed on:', visible: true)
+      expect(page).to have_css('dt', text: 'Fines accrued:', visible: true)
+      expect(page).to have_css('dd', text: '$0.00', visible: true)
     end
   end
 
