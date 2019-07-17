@@ -56,10 +56,6 @@ class Request
     Time.zone.parse(fields['expirationDate']) if fields['expirationDate']
   end
 
-  def pickup_date
-    Time.zone.parse(fields['beingHeldDate']) if fields['beingHeldDate']
-  end
-
   def placed_date
     Time.zone.parse(fields['placedDate']) if fields['placedDate']
   end

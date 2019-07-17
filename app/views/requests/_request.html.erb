@@ -11,17 +11,13 @@
       <% end %>
 
     </div>
-    <% if request.pickup_date %>
-      <div class="w-50 col-md-6 text-right text-md-left date" data-date="<%= request.pickup_date.strftime('%FT%T') %>">
-        <%= l(request.pickup_date, format: :short) %>
+    <% if request.expiration_date %>
+      <div class="w-50 col-md-6 text-right text-md-left date" data-date="<%= request.expiration_date.strftime('%FT%T') %>">
+        <%= l(request.expiration_date, format: :short) %>
       </div>
     <% elsif request.fill_by_date %>
       <div class="w-50 col-md-6 text-right text-md-left date" data-date="<%= request.fill_by_date.strftime('%FT%T') %>">
         <%= l(request.fill_by_date, format: :short) %>
-      </div>
-    <% elsif request.expiration_date %>
-      <div class="w-50 col-md-6 text-right text-md-left date" data-date="<%= request.expiration_date.strftime('%FT%T') %>">
-        <%= l(request.expiration_date, format: :short) %>
       </div>
     <% end %>
   </div>
