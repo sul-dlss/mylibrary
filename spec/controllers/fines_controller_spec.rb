@@ -20,7 +20,7 @@ RSpec.describe FinesController do
       { username: 'somesunetid', patron_key: '123' }
     end
 
-    let(:mock_response) do
+    let(:mock_response_fines) do
       {
         fields: {
           blockList: [{ key: 1 }]
@@ -28,8 +28,17 @@ RSpec.describe FinesController do
       }.with_indifferent_access
     end
 
+    let(:mock_response_checkouts) do
+      {
+        fields: {
+          circRecordList: [{ key: 1, fields: { dueDate: '2019-05-03' } }]
+        }
+      }.with_indifferent_access
+    end
+
     before do
-      allow(mock_client).to receive(:fines).with('123').and_return(mock_response)
+      allow(mock_client).to receive(:fines).with('123').and_return(mock_response_fines)
+      allow(mock_client).to receive(:checkouts).with('123').and_return(mock_response_checkouts)
       warden.set_user(user)
     end
 

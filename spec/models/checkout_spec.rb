@@ -13,6 +13,10 @@ RSpec.describe Checkout do
   let(:checkout) { subject }
   let(:fields) do
     {
+      estimatedOverdueAmount: {
+        amount: '10.00',
+        currencyCode: 'USD'
+      },
       status: 'ACTIVE',
       overdue: true,
       checkOutDate: '2019-07-08T21:28:00-07:00',
@@ -50,6 +54,10 @@ RSpec.describe Checkout do
 
   it 'has an overdue state' do
     expect(checkout.overdue?).to be true
+  end
+
+  it 'has an accrued' do
+    expect(checkout.accrued).to eq 10.00
   end
 
   describe '#days_remaining' do

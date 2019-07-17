@@ -40,6 +40,10 @@ class Checkout
     fields['overdue']
   end
 
+  def accrued
+    fields['estimatedOverdueAmount']['amount'].to_d
+  end
+
   def days_remaining
     return 0 if overdue?
 
