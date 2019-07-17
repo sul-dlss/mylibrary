@@ -4,7 +4,7 @@
       <% if checkout.recalled? %>
         <span class="text-recalled"><%= sul_icon :'sharp-error-24px' %> Recalled</span>
       <% elsif checkout.overdue? %>
-        <span class="text-overdue"><%= sul_icon :'sharp-warning-24px' %> Overdue</span>
+        <span class="text-overdue"><%= sul_icon :'sharp-warning-24px' %> Overdue <%= number_to_currency(checkout.accrued) %></span>
       <% end %>
     </div>
     <div class="w-50 col-md-6 text-right text-md-left due_date" data-date="<%= checkout.due_date.strftime('%FT%T') %>">
@@ -39,6 +39,9 @@
       <% unless checkout.overdue? %>
         <dt class="col-5">Remaining:</dt>
         <dd class="col-5"><%= pluralize(checkout.days_remaining, 'day') %> </dd>
+      <% else %>
+        <dt class="col-5">Fines accrued:</dt>
+        <dd class="col-5"><%= number_to_currency(checkout.accrued) %> </dd>
       <% end %>
       <dt class="col-5">Source:</dt>
       <dd class="col-5"><%= library_name checkout.library %></dd>
