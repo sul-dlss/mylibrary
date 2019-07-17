@@ -11,7 +11,7 @@ class RequestsController < ApplicationController
   def index
     @response = symphony_client.requests(current_user.patron_key)
     @requests = @response['fields']['holdRecordList'].map { |request| Request.new(request) }.sort_by do |request|
-      [request.pickup_date || END_OF_DAYS, request.fill_by_date || END_OF_DAYS, request.expiration_date || END_OF_DAYS]
+      [request.expiration_date || END_OF_DAYS, request.fill_by_date || END_OF_DAYS]
     end
   end
 end
