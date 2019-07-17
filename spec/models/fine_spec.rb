@@ -47,6 +47,10 @@ RSpec.describe Fine do
     expect(fine.status).to eq 'DAMAGED'
   end
 
+  it 'has a nice_status' do
+    expect(fine.nice_status).to eq 'Damaged item'
+  end
+
   it 'has a title' do
     expect(fine.title).to eq 'The Lego movie videogame [electronic resource]'
   end
