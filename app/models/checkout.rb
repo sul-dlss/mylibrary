@@ -4,6 +4,8 @@
 class Checkout
   attr_reader :record
 
+  SHORT_TERM_LOAN_PERIODS = %w[HOURLY].freeze
+
   def initialize(record)
     @record = record
   end
@@ -74,6 +76,10 @@ class Checkout
     call['sortCallNumber']
   end
 
+  def short_term_loan?
+    SHORT_TERM_LOAN_PERIODS.include?(loan_period_type)
+  end
+
   def to_partial_path
     'checkouts/checkout'
   end
@@ -82,6 +88,10 @@ class Checkout
 
   def fields
     record['fields']
+  end
+
+  def loan_period_type
+    fields.dig('circulationRule', 'fields', 'loanPeriod', 'fields', 'periodType', 'key')
   end
 
   def bib
