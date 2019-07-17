@@ -4,6 +4,8 @@
 class Patron
   attr_reader :record
 
+  CHARGE_LIMIT_THRESHOLD = 25_000
+
   PATRON_STANDING = {
     'COLLECTION' => 'Blocked',
     'BARRED' => 'Blocked',
@@ -68,10 +70,21 @@ class Patron
     "#{first_name} #{last_name}"
   end
 
+  def borrow_limit
+    return unless profile['chargeLimit']
+    return if profile['chargeLimit'].to_i >= CHARGE_LIMIT_THRESHOLD
+
+    profile['chargeLimit'].to_i
+  end
+
   private
 
   def fields
     record['fields']
+  end
+
+  def profile
+    fields['profile']['fields'] || {}
   end
 
   def user_profile

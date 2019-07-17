@@ -20,7 +20,10 @@ RSpec.describe Patron do
         key: 'DELINQUENT'
       },
       profile: {
-        key: ''
+        key: '',
+        fields: {
+          chargeLimit: '25'
+        }
       },
       privilegeExpiresDate: nil,
       address1: [
@@ -144,8 +147,15 @@ RSpec.describe Patron do
     it 'has a patron type' do
       expect(patron.patron_type).to eq 'Fee borrower'
     end
-    xit 'has a borrowing limit' do
-      expect(patron.borrow_limit).to eq '25'
+
+    it 'has a borrowing limit' do
+      expect(patron.borrow_limit).to eq 25
+    end
+
+    it 'does not have a borrow limit if the number returned in the response exceeds the threshold' do
+      fields[:profile][:fields][:chargeLimit] = described_class::CHARGE_LIMIT_THRESHOLD
+
+      expect(patron.borrow_limit).to be_nil
     end
   end
 end
