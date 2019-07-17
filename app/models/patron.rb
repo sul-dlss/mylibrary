@@ -77,6 +77,14 @@ class Patron
     profile['chargeLimit'].to_i
   end
 
+  def proxy_borrower?
+    fields.dig('groupSettings', 'fields', 'responsibility', 'key') == 'PROXY'
+  end
+
+  def sponsor?
+    fields.dig('groupSettings', 'fields', 'responsibility', 'key') == 'SPONSOR'
+  end
+
   private
 
   def fields
