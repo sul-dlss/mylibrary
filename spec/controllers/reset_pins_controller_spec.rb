@@ -35,4 +35,37 @@ RSpec.describe ResetPinsController, type: :controller do
       end
     end
   end
+
+  describe '#change' do
+    it 'requires token and pin params' do
+      expect { post :change, params: {} }.to raise_error(ActionController::ParameterMissing)
+    end
+    context 'when everything is good' do
+      let(:response) { instance_double('Response', status: 200, content_type: :json) }
+      let(:mock_client) { instance_double(SymphonyClient, change_pin: response) }
+
+      it 'changes the pin and sets flash messages' do
+        post :change, params: { token: 'abc', pin: '123' }
+        expect(flash[:success]).to match(/Success!/)
+      end
+      it 'changes the pin and redirects to login' do
+        post :change, params: { token: 'abc', pin: '123' }
+        expect(response).to redirect_to login_path
+      end
+    end
+
+    context 'when the response is not 200' do
+      let(:response) { instance_double('Response', status: 401, content_type: :json) }
+      let(:mock_client) { instance_double(SymphonyClient, change_pin: response) }
+
+      it 'does not change the pin and sets flash messages' do
+        post :change, params: { token: 'abc', pin: '123' }
+        expect(flash[:error]).to match(/Sorry!/)
+      end
+      it 'does not change the pin and redirects to reset_pin' do
+        post :change, params: { token: 'abc', pin: '123' }
+        expect(response).to redirect_to reset_pin_path
+      end
+    end
+  end
 end
