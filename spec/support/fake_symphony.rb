@@ -16,6 +16,12 @@ class FakeSymphony < Sinatra::Base
     {}.to_json
   end
 
+  post '/symws/user/patron/changeMyPin' do
+    content_type :json
+    status 200
+    {}.to_json
+  end
+
   get '/symws/user/patron/key/:key' do
     json_response 200, "patron/#{params[:key]}.json"
   end
