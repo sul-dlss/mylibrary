@@ -10,6 +10,9 @@
   <div class="form-group">
     <%= label_tag :pin, 'PIN' %>
     <%= password_field_tag :pin, nil, class: 'form-control' %>
+    <div class="form-text">
+      <%= link_to "Forgot your PIN? Don't have one yet?", reset_pin_path %>
+    </div>
   </div>
 
   <%= submit_tag 'Log in', class: 'btn btn-primary' %>

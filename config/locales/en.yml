@@ -36,5 +36,7 @@ en:
       long: '%B %e, %Y %l:%M%P'
   hello: "Hello world"
   mylibrary:
+    reset_pin:
+      success_html: <span class="font-weight-bold">Check your email!</span> A PIN reset link has been sent to the address associated with library ID %{library_id}
     feedback_form:
       success: Thank you! Your feedback has been sent.

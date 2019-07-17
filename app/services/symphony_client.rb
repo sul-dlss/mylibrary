@@ -73,6 +73,15 @@ class SymphonyClient
     JSON.parse(response.body)
   end
 
+  def reset_pin(library_id)
+    response = request('/user/patron/resetMyPin', method: :post, json: {
+      login: library_id,
+      resetPinUrl: 'future_change_my_pin_path/<RESET_PIN_TOKEN>' # TODO: Based off of #149
+    })
+
+    JSON.parse(response.body)
+  end
+
   private
 
   def authenticated_request(path, headers: {}, **other)
