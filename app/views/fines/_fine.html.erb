@@ -8,11 +8,13 @@
     </div>
   </div>
   <div class="d-flex flex-grow-1 flex-column flex-md-row w-75 row col-md-8">
-    <h3 class="col-md-7 record-title title"><%= fine.title %></h3>
-    <div class="d-flex flex-row row col-md-5">
-      <div class="w-50 col-md-6 author"><%= fine.author %></div>
-      <div class="w-50 col-md-6 call_number" data-shelfkey="<%= fine.shelf_key %>"><%= fine.call_number %></div>
-    </div>
+    <% if fine.bib? %>
+      <h3 class="col-md-7 record-title title"><%= fine.title %></h3>
+      <div class="d-flex flex-row row col-md-5">
+        <div class="w-50 col-md-6 author"><%= fine.author %></div>
+        <div class="w-50 col-md-6 call_number" data-shelfkey="<%= fine.shelf_key %>"><%= fine.call_number %></div>
+      </div>
+    <% end %>
   </div>
   <div>
     <button class="btn collapsed" type="button" data-toggle="collapse" data-target="#collapseExample-<%= fine.key.parameterize %>" aria-expanded="false" aria-controls="collapseExample-<%= fine.key.parameterize %>">
@@ -28,6 +30,6 @@
       <dd class="col-5"><%= library_name fine.library %></dd>
     </dl>
 
-    <%= detail_link_to_searchworks(fine.catkey) %>
+    <%= detail_link_to_searchworks(fine.catkey) if fine.bib? %>
   </div>
 </li>

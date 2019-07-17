@@ -74,4 +74,53 @@ RSpec.describe Fine do
   it 'has an amount owed' do
     expect(fine.owed).to eq 5000.00
   end
+
+  context 'without a related item' do
+    let(:fields) do
+      {
+        block: { key: 'DAMAGED' },
+        billDate: '2019-07-11',
+        owed: {
+          amount: '5000.00',
+          currencyCode: 'USD'
+        }
+      }
+    end
+
+    describe '#bib?' do
+      it 'is false' do
+        expect(fine.bib?).to eq false
+      end
+    end
+
+    describe '#title' do
+      it 'is nil' do
+        expect(fine.title).to eq nil
+      end
+    end
+
+    describe '#author' do
+      it 'is nil' do
+        expect(fine.author).to eq nil
+      end
+    end
+
+    describe '#catkey' do
+      it 'is nil' do
+        expect(fine.catkey).to eq nil
+      end
+    end
+
+    describe '#call_number' do
+      it 'is nil' do
+        expect(fine.call_number).to eq nil
+      end
+    end
+
+    describe '#shelf_key' do
+      it 'is nil' do
+        expect(fine.shelf_key).to eq nil
+      end
+    end
+  end
 end
