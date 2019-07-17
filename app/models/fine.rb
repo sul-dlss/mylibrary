@@ -17,23 +17,23 @@ class Fine
   end
 
   def catkey
-    fields['item']['fields']['bib']['key']
+    bib && fields['item']['fields']['bib']['key']
   end
 
   def title
-    bib['title']
+    bib && bib['title']
   end
 
   def author
-    bib['author']
+    bib && bib['author']
   end
 
   def call_number
-    call['dispCallNumber']
+    call && call['dispCallNumber']
   end
 
   def shelf_key
-    call['sortCallNumber']
+    call && call['sortCallNumber']
   end
 
   def library
@@ -48,6 +48,10 @@ class Fine
     fields['owed']['amount'].to_d
   end
 
+  def bib?
+    bib.present?
+  end
+
   def to_partial_path
     'fines/fine'
   end
@@ -59,10 +63,10 @@ class Fine
   end
 
   def bib
-    fields['item']['fields']['bib']['fields']
+    fields['item'] && fields['item']['fields']['bib'] && fields['item']['fields']['bib']['fields']
   end
 
   def call
-    fields['item']['fields']['call']['fields']
+    fields['item'] && fields['item']['fields']['call'] && fields['item']['fields']['call']['fields']
   end
 end
