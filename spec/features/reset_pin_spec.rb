@@ -21,5 +21,25 @@ RSpec.describe 'Reset Pin', type: :feature do
       click_button 'Reset/Request PIN'
       expect(page).to have_css '.flash_messages', text: 'Check your email!'
     end
+    it 'a user can change their pin' do
+      visit change_pin_with_token_path('foo')
+      fill_in('pin', with: '123456')
+      click_button 'Change PIN'
+      expect(page).to have_css '.flash_messages', text: 'Success!'
+    end
+  end
+
+  describe 'show/hide password', js: true do
+    it 'by default the field is a password type' do
+      visit change_pin_with_token_path('foo')
+      expect(page).to have_css '[type="password"]'
+    end
+    it 'can be shown by clicking show/hide button' do
+      visit change_pin_with_token_path('foo')
+      within '#main form' do
+        first('[data-visibility]').click
+        expect(page).to have_css '[type="text"]'
+      end
+    end
   end
 end

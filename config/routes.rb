@@ -21,6 +21,8 @@ Rails.application.routes.draw do
 
   get '/reset_pin', to: 'reset_pins#index'
   post '/reset_pin', to: 'reset_pins#reset'
+  get '/change_pin/:token', to: 'reset_pins#change_form', as: :change_pin_with_token
+  post '/change_pin', to: 'reset_pins#change'
 
   mount OkComputer::Engine, at: '/status'
 end

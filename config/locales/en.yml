@@ -36,6 +36,9 @@ en:
       long: '%B %e, %Y %l:%M%P'
   hello: "Hello world"
   mylibrary:
+    change_pin:
+      success_html: <span class="font-weight-bold">Success!</span> Your new PIN is ready to use.
+      error_html: <span class="font-weight-bold">Sorry!</span> That reset PIN link has expired or has already been used. Enter your library ID to request a new link.
     reset_pin:
       success_html: <span class="font-weight-bold">Check your email!</span> A PIN reset link has been sent to the address associated with library ID %{library_id}
     feedback_form:
