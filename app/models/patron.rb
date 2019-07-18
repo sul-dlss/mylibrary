@@ -77,6 +77,17 @@ class Patron
     profile['chargeLimit'].to_i
   end
 
+  def group?
+    member_list.length > 1
+  end
+
+  def member_list
+    @member_list ||= begin
+      members = fields.dig('groupSettings', 'fields', 'group', 'fields', 'memberList') || []
+      members.map { |member| Patron.new(member) }
+    end
+  end
+
   def proxy_borrower?
     fields.dig('groupSettings', 'fields', 'responsibility', 'key') == 'PROXY'
   end
@@ -95,6 +106,18 @@ class Patron
 
   def requests
     @requests ||= fields['holdRecordList'].map { |request| Request.new(request) }
+  end
+
+  def group_checkouts
+    @group_checkouts ||= member_list.flat_map(&:checkouts)
+  end
+
+  def group_fines
+    @group_fines ||= member_list.flat_map(&:fines)
+  end
+
+  def group_requests
+    @group_requests ||= member_list.flat_map(&:requests)
   end
 
   private
