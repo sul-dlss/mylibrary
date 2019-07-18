@@ -51,7 +51,7 @@ class SymphonyClient
         'profile{chargeLimit}',
         'groupSettings{responsibility}',
         'holdRecordList{*,item{*,bib{title,author},call{sortCallNumber,dispCallNumber}}}',
-        'circRecordList{*,circulationRule{loanPeriod{periodType{key}}},item{*,bib{title,author},call{sortCallNumber,dispCallNumber}}}',
+        'circRecordList{*,circulationRule{loanPeriod{periodType{key}},renewFromPeriod},item{*,bib{title,author},call{sortCallNumber,dispCallNumber}}}',
         'blockList{*,item{*,bib{title,author},call{sortCallNumber,dispCallNumber}}}'
       ].join(',')
     })

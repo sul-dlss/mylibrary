@@ -142,6 +142,20 @@ RSpec.describe Checkout do
     end
   end
 
+  context 'with a record that is renewable' do
+    before do
+      fields['circulationRule'] = {
+        'fields': {
+          'renewFromPeriod': 999_999
+        }
+      }
+    end
+
+    it 'has a renewable? status' do
+      expect(checkout).to be_renewable
+    end
+  end
+
   it 'has a library' do
     expect(checkout.library).to eq 'LAW'
   end

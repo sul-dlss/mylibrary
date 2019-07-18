@@ -8,6 +8,11 @@
       <% end %>
     </div>
     <div class="w-50 col-md-6 text-right text-md-left due_date" data-date="<%= checkout.due_date.strftime('%FT%T') %>">
+      <% if checkout.renewable? %>
+        <span class="renewable-indicator">
+          <%= sul_icon 'renew' %>
+        </span>
+      <% end %>
       <%= today_with_time_or_date(checkout.due_date, short_term: checkout.short_term_loan?) %>
     </div>
   </div>
