@@ -3,10 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe CheckoutsController do
-  let(:mock_client) { instance_double(SymphonyClient) }
+  let(:mock_patron) { instance_double(Patron) }
 
   before do
-    allow(SymphonyClient).to receive(:new).and_return(mock_client)
+    allow(controller).to receive(:patron).and_return(mock_patron)
   end
 
   context 'with an unauthenticated request' do
@@ -20,16 +20,14 @@ RSpec.describe CheckoutsController do
       { username: 'somesunetid', patron_key: '123' }
     end
 
-    let(:mock_response) do
-      {
-        fields: {
-          circRecordList: [{ key: 1, fields: { dueDate: '2019-05-03' } }]
-        }
-      }.with_indifferent_access
+    let(:checkouts) do
+      [
+        instance_double(Checkout, key: '1', due_date: Time.zone.now)
+      ]
     end
 
     before do
-      allow(mock_client).to receive(:checkouts).with('123').and_return(mock_response)
+      allow(mock_patron).to receive(:checkouts).and_return(checkouts)
       warden.set_user(user)
     end
 
@@ -40,7 +38,7 @@ RSpec.describe CheckoutsController do
     it 'assigns a list of checkouts' do
       get(:index)
 
-      expect(assigns(:checkouts)).to include a_kind_of(Checkout).and(have_attributes(key: 1))
+      expect(assigns(:checkouts)).to eq checkouts
     end
   end
 end

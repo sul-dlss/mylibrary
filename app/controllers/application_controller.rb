@@ -14,7 +14,9 @@ class ApplicationController < ActionController::Base
   end
 
   def patron
-    current_user? ? symphony_client.patron_info(current_user.patron_key) : nil
+    return unless current_user?
+
+    @patron ||= Patron.new(symphony_client.patron_info(current_user.patron_key))
   end
 
   private

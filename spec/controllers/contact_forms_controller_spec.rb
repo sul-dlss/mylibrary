@@ -3,15 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe ContactFormsController, type: :controller do
-  let(:patron) { Patron.new('fields' => { 'address1' => [], 'standing' => { 'key' => '' } }) }
-
   let(:mock_client) do
     instance_double(
       SymphonyClient,
-      checkouts: { 'fields' => { 'circRecordList' => [] } },
-      requests: { 'fields' => { 'holdRecordList' => [] } },
-      fines: { 'fields' => { 'blockList' => [] } },
-      patron_info: patron
+      patron_info: { 'fields' => { 'address1' => [], 'standing' => { 'key' => '' } } }
     )
   end
 
