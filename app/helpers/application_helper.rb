@@ -33,40 +33,4 @@ module ApplicationHelper
   def library_name(code)
     Mylibrary::Application.config.library_map[code] || code
   end
-
-  # rubocop:disable Metrics/MethodLength
-  def render_checkout_status(checkout)
-    if checkout.recalled?
-      checkout_status_html(css_class: 'text-recalled',
-                           icon: 'sharp-error-24px',
-                           text: 'Recalled',
-                           accrued: checkout.accrued)
-    elsif checkout.claimed_returned?
-      checkout_status_html(text: 'Processing claim')
-    elsif checkout.lost?
-      checkout_status_html(css_class: 'text-lost',
-                           icon: 'sharp-warning-24px',
-                           text: 'Assumed lost',
-                           accrued: checkout.accrued)
-    elsif checkout.overdue?
-      checkout_status_html(css_class: 'text-overdue',
-                           icon: 'sharp-warning-24px',
-                           text: 'Overdue',
-                           accrued: checkout.accrued)
-    end
-  end
-  # rubocop:enable Metrics/MethodLength
-
-  private
-
-  def checkout_status_html(css_class: nil, icon: nil, text:, accrued: 0)
-    content_tag(:span, class: css_class) do
-      safe_join([
-                  (sul_icon(icon) if icon),
-                  text,
-                  (number_to_currency(accrued) if accrued.positive?)
-
-                ], ' ')
-    end
-  end
 end
