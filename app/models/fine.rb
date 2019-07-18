@@ -88,6 +88,10 @@ class Fine
     fields['owed']['amount'].to_d
   end
 
+  def fee
+    fields.dig('amount', 'amount')&.to_d
+  end
+
   def bib?
     bib.present?
   end
