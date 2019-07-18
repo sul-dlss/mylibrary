@@ -84,6 +84,20 @@ RSpec.describe Checkout do
     end
   end
 
+  describe '#short_term_loan?' do
+    it 'is true when the loan period type is HOURLY' do
+      fields['circulationRule'] = { 'fields' => { 'loanPeriod' => { 'fields' => {
+        'periodType' => { 'key' => 'HOURLY' }
+      } } } }
+
+      expect(checkout).to be_short_term_loan
+    end
+
+    it 'is false when the loan period is any other type (or not defined)' do
+      expect(checkout).not_to be_short_term_loan
+    end
+  end
+
   it 'has a due date' do
     expect(checkout.due_date.strftime('%m/%d/%Y')).to eq '07/09/2019'
   end

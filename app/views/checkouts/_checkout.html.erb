@@ -8,7 +8,7 @@
       <% end %>
     </div>
     <div class="w-50 col-md-6 text-right text-md-left due_date" data-date="<%= checkout.due_date.strftime('%FT%T') %>">
-      <%= l(checkout.due_date, format: :short) %>
+      <%= today_with_time_or_date(checkout.due_date, short_term: checkout.short_term_loan?) %>
     </div>
   </div>
   <div class="d-flex flex-grow-1 flex-column flex-md-row w-75 row col-md-8">
@@ -26,8 +26,10 @@
   </div>
   <div class="collapse w-100" id="collapseExample-<%= checkout.key.parameterize %>">
     <dl class="row justify-content-center">
-      <dt class="col-5">Borrowed on:</dt>
-      <dd class="col-5"><%= l(checkout.checkout_date, format: :short) %></dd>
+      <dt class="col-5">Borrowed:</dt>
+      <dd class="col-5">
+        <%= today_with_time_or_date(checkout.checkout_date, short_term: checkout.short_term_loan?) %>
+      </dd>
       <% if checkout.renewal_date  %>
         <dt class="col-5">Renewed on:</dt>
         <dd class="col-5"><%= l(checkout.renewal_date, format: :short) %></dd>
@@ -38,7 +40,7 @@
       <% end %>
       <% unless checkout.overdue? %>
         <dt class="col-5">Remaining:</dt>
-        <dd class="col-5"><%= pluralize(checkout.days_remaining, 'day') %> </dd>
+        <dd class="col-5"><%= time_remaining_for_checkout(checkout) %></dd>
       <% else %>
         <dt class="col-5">Fines accrued:</dt>
         <dd class="col-5"><%= number_to_currency(checkout.accrued) %> </dd>
