@@ -190,4 +190,40 @@ RSpec.describe Patron do
       end
     end
   end
+
+  context 'with checkouts' do
+    before do
+      fields[:circRecordList] = [{ key: 1, fields: {} }]
+    end
+
+    describe '#checkouts' do
+      it 'returns a list of checkouts for the patron' do
+        expect(patron.checkouts).to include a_kind_of(Checkout).and(have_attributes(key: 1))
+      end
+    end
+  end
+
+  context 'with fines' do
+    before do
+      fields[:blockList] = [{ key: 1, fields: {} }]
+    end
+
+    describe '#fines' do
+      it 'returns a list of fines for the patron' do
+        expect(patron.fines).to include a_kind_of(Fine).and(have_attributes(key: 1))
+      end
+    end
+  end
+
+  context 'with requests' do
+    before do
+      fields[:holdRecordList] = [{ key: 1, fields: {} }]
+    end
+
+    describe '#requests' do
+      it 'returns a list of requests for the patron' do
+        expect(patron.requests).to include a_kind_of(Request).and(have_attributes(key: 1))
+      end
+    end
+  end
 end

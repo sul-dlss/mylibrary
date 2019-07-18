@@ -85,6 +85,18 @@ class Patron
     fields.dig('groupSettings', 'fields', 'responsibility', 'key') == 'SPONSOR'
   end
 
+  def checkouts
+    @checkouts ||= fields['circRecordList'].map { |checkout| Checkout.new(checkout) }
+  end
+
+  def fines
+    @fines ||= fields['blockList'].map { |fine| Fine.new(fine) }
+  end
+
+  def requests
+    @requests ||= fields['holdRecordList'].map { |request| Request.new(request) }
+  end
+
   private
 
   def fields

@@ -3,10 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe RequestsController do
-  let(:mock_client) { instance_double(SymphonyClient) }
+  let(:mock_patron) { instance_double(Patron) }
 
   before do
-    allow(SymphonyClient).to receive(:new).and_return(mock_client)
+    allow(controller).to receive(:patron).and_return(mock_patron)
   end
 
   context 'with an unauthenticated request' do
@@ -20,16 +20,14 @@ RSpec.describe RequestsController do
       { username: 'somesunetid', patron_key: '123' }
     end
 
-    let(:mock_response) do
-      {
-        fields: {
-          holdRecordList: [{ key: 1, fields: { beingHeldDate: '1999-01-01' } }]
-        }
-      }.with_indifferent_access
+    let(:requests) do
+      [
+        instance_double(Request, key: '1', expiration_date: Time.zone.now, fill_by_date: nil)
+      ]
     end
 
     before do
-      allow(mock_client).to receive(:requests).with('123').and_return(mock_response)
+      allow(mock_patron).to receive(:requests).and_return(requests)
       warden.set_user(user)
     end
 
@@ -40,7 +38,7 @@ RSpec.describe RequestsController do
     it 'assigns a list of requests' do
       get(:index)
 
-      expect(assigns(:requests)).to include a_kind_of(Request).and(have_attributes(key: 1))
+      expect(assigns(:requests)).to eq requests
     end
   end
 end

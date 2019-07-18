@@ -9,8 +9,7 @@ class RequestsController < ApplicationController
   END_OF_DAYS = Time.zone.parse('2099-01-01')
 
   def index
-    @response = symphony_client.requests(current_user.patron_key)
-    @requests = @response['fields']['holdRecordList'].map { |request| Request.new(request) }.sort_by do |request|
+    @requests = patron.requests.sort_by do |request|
       [request.expiration_date || END_OF_DAYS, request.fill_by_date || END_OF_DAYS]
     end
   end

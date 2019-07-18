@@ -3,10 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe FinesController do
-  let(:mock_client) { instance_double(SymphonyClient) }
+  let(:mock_patron) { instance_double(Patron) }
 
   before do
-    allow(SymphonyClient).to receive(:new).and_return(mock_client)
+    allow(controller).to receive(:patron).and_return(mock_patron)
   end
 
   context 'with an unauthenticated request' do
@@ -20,25 +20,21 @@ RSpec.describe FinesController do
       { username: 'somesunetid', patron_key: '123' }
     end
 
-    let(:mock_response_fines) do
-      {
-        fields: {
-          blockList: [{ key: 1 }]
-        }
-      }.with_indifferent_access
+    let(:fines) do
+      [
+        instance_double(Fine, key: '1')
+      ]
     end
 
-    let(:mock_response_checkouts) do
-      {
-        fields: {
-          circRecordList: [{ key: 1, fields: { dueDate: '2019-05-03' } }]
-        }
-      }.with_indifferent_access
+    let(:checkouts) do
+      [
+        instance_double(Checkout, key: '2', due_date: Time.zone.now)
+      ]
     end
 
     before do
-      allow(mock_client).to receive(:fines).with('123').and_return(mock_response_fines)
-      allow(mock_client).to receive(:checkouts).with('123').and_return(mock_response_checkouts)
+      allow(mock_patron).to receive(:fines).and_return(fines)
+      allow(mock_patron).to receive(:checkouts).and_return(checkouts)
       warden.set_user(user)
     end
 
@@ -49,7 +45,13 @@ RSpec.describe FinesController do
     it 'assigns a list of requests' do
       get(:index)
 
-      expect(assigns(:fines)).to include a_kind_of(Fine).and(have_attributes(key: 1))
+      expect(assigns(:fines)).to eq fines
+    end
+
+    it 'assigns a list of checkouts' do
+      get(:index)
+
+      expect(assigns(:checkouts)).to eq checkouts
     end
   end
 end
