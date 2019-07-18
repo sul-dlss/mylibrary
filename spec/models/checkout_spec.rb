@@ -26,6 +26,7 @@ RSpec.describe Checkout do
       },
       item: {
         fields: {
+          currentLocation: { key: 'CHECKEDOUT' },
           bib: {
             key: '1184859',
             fields: {
@@ -202,5 +203,23 @@ RSpec.describe Checkout do
 
   it 'has a catkey' do
     expect(checkout.catkey).to eq '1184859'
+  end
+
+  it 'has a current location' do
+    expect(checkout.current_location).to eq 'CHECKEDOUT'
+  end
+
+  it 'is not lost' do
+    expect(checkout).not_to be_lost
+  end
+
+  context 'with a lost item' do
+    before do
+      fields[:item][:fields][:currentLocation][:key] = 'LOST-ASSUM'
+    end
+
+    it 'is lost' do
+      expect(checkout).to be_lost
+    end
   end
 end

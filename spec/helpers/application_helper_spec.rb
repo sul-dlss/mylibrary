@@ -61,8 +61,16 @@ RSpec.describe ApplicationHelper do
       end
     end
 
+    context 'when an item is lost' do
+      let(:checkout) { instance_double(Checkout, recalled?: false, overdue?: true, lost?: true, accrued: 666) }
+
+      it 'renders the right html' do
+        expect(content).to have_css('.text-lost', text: 'Assumed lost $666').and(have_css('.sul-icons'))
+      end
+    end
+
     context 'when an overdue item has accrued fines' do
-      let(:checkout) { instance_double(Checkout, recalled?: false, overdue?: true, accrued: 666) }
+      let(:checkout) { instance_double(Checkout, recalled?: false, overdue?: true, lost?: false, accrued: 666) }
 
       it 'renders the right html' do
         expect(content).to have_css('.text-overdue', text: 'Overdue $666').and(have_css('.sul-icons'))
@@ -70,7 +78,7 @@ RSpec.describe ApplicationHelper do
     end
 
     context 'when an overdue item has no accrued fines' do
-      let(:checkout) { instance_double(Checkout, recalled?: false, overdue?: true, accrued: 0) }
+      let(:checkout) { instance_double(Checkout, recalled?: false, overdue?: true, lost?: false, accrued: 0) }
 
       it 'renders the right html' do
         expect(content).to have_css('.text-overdue', text: 'Overdue').and(have_css('.sul-icons'))

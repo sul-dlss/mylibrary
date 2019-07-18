@@ -116,6 +116,14 @@ class Checkout
     'checkouts/checkout'
   end
 
+  def current_location
+    fields.dig('item', 'fields', 'currentLocation', 'key')
+  end
+
+  def lost?
+    current_location == 'LOST-ASSUM'
+  end
+
   private
 
   def fields

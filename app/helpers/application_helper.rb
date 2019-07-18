@@ -34,11 +34,17 @@ module ApplicationHelper
     Mylibrary::Application.config.library_map[code] || code
   end
 
+  # rubocop:disable Metrics/MethodLength
   def render_checkout_status(checkout)
     if checkout.recalled?
       checkout_status_html(css_class: 'text-recalled',
                            icon: 'sharp-error-24px',
                            text: 'Recalled',
+                           accrued: checkout.accrued)
+    elsif checkout.lost?
+      checkout_status_html(css_class: 'text-lost',
+                           icon: 'sharp-warning-24px',
+                           text: 'Assumed lost',
                            accrued: checkout.accrued)
     elsif checkout.overdue?
       checkout_status_html(css_class: 'text-overdue',
@@ -47,6 +53,7 @@ module ApplicationHelper
                            accrued: checkout.accrued)
     end
   end
+  # rubocop:enable Metrics/MethodLength
 
   private
 
