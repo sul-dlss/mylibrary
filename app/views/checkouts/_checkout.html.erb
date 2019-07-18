@@ -26,7 +26,7 @@
   </div>
   <div class="collapse w-100" id="collapseExample-<%= checkout.key.parameterize %>">
     <dl class="row justify-content-center">
-      <dt class="col-5">Borrowed on:</dt>
+      <dt class="col-5">Borrowed:</dt>
       <dd class="col-5">
         <%= today_with_time_or_date(checkout.checkout_date, short_term: checkout.short_term_loan?) %>
       </dd>
