@@ -41,6 +41,8 @@ module ApplicationHelper
                            icon: 'sharp-error-24px',
                            text: 'Recalled',
                            accrued: checkout.accrued)
+    elsif checkout.claimed_returned?
+      checkout_status_html(text: 'Processing claim')
     elsif checkout.lost?
       checkout_status_html(css_class: 'text-lost',
                            icon: 'sharp-warning-24px',
@@ -57,7 +59,7 @@ module ApplicationHelper
 
   private
 
-  def checkout_status_html(css_class:, icon:, text:, accrued: 0)
+  def checkout_status_html(css_class: nil, icon: nil, text:, accrued: 0)
     content_tag(:span, class: css_class) do
       safe_join([
                   (sul_icon(icon) if icon),

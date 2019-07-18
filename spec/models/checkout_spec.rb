@@ -222,4 +222,26 @@ RSpec.describe Checkout do
       expect(checkout).to be_lost
     end
   end
+
+  it 'is not claimed returned' do
+    expect(checkout).not_to be_claimed_returned
+  end
+
+  context 'with an item claimed returned' do
+    before do
+      fields[:claimsReturnedDate] = '2019-07-10T13:59:00-07:00'
+    end
+
+    it 'is claimed returned' do
+      expect(checkout).to be_claimed_returned
+    end
+
+    it 'has a claimed returned date' do
+      expect(checkout.claims_returned_date.strftime('%m/%d/%Y')).to eq '07/10/2019'
+    end
+  end
+
+  it 'does not have a claimed returned date' do
+    expect(checkout.claims_returned_date).to be_nil
+  end
 end

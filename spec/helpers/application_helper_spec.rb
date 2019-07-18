@@ -43,10 +43,22 @@ RSpec.describe ApplicationHelper do
   end
 
   describe '#render_checkout_status' do
+    let(:checkout) do
+      instance_double(
+        Checkout,
+        recalled?: false,
+        overdue?: false,
+        lost?: false,
+        claimed_returned?: false,
+        accrued: 0
+      )
+    end
     let(:content) { Capybara.string(helper.render_checkout_status(checkout)) }
 
     context 'when a recalled item has accrued fines' do
-      let(:checkout) { instance_double(Checkout, recalled?: true, accrued: 15) }
+      before do
+        allow(checkout).to receive_messages(recalled?: true, accrued: 15)
+      end
 
       it 'renders the right html' do
         expect(content).to have_css('.text-recalled', text: 'Recalled $15').and(have_css('.sul-icons'))
@@ -54,15 +66,29 @@ RSpec.describe ApplicationHelper do
     end
 
     context 'when a recalled item has no accrued fines' do
-      let(:checkout) { instance_double(Checkout, recalled?: true, accrued: 0) }
+      before do
+        allow(checkout).to receive_messages(recalled?: true)
+      end
 
       it 'renders the right html' do
         expect(content).to have_css('.text-recalled', text: 'Recalled').and(have_css('.sul-icons'))
       end
     end
 
+    context 'when an item is claimed returned' do
+      before do
+        allow(checkout).to receive_messages(overdue?: true, lost?: true, claimed_returned?: true, accrued: 666)
+      end
+
+      it 'renders the right html' do
+        expect(content).to have_text('Processing claim')
+      end
+    end
+
     context 'when an item is lost' do
-      let(:checkout) { instance_double(Checkout, recalled?: false, overdue?: true, lost?: true, accrued: 666) }
+      before do
+        allow(checkout).to receive_messages(overdue?: true, lost?: true, accrued: 666)
+      end
 
       it 'renders the right html' do
         expect(content).to have_css('.text-lost', text: 'Assumed lost $666').and(have_css('.sul-icons'))
@@ -70,7 +96,9 @@ RSpec.describe ApplicationHelper do
     end
 
     context 'when an overdue item has accrued fines' do
-      let(:checkout) { instance_double(Checkout, recalled?: false, overdue?: true, lost?: false, accrued: 666) }
+      before do
+        allow(checkout).to receive_messages(overdue?: true, accrued: 666)
+      end
 
       it 'renders the right html' do
         expect(content).to have_css('.text-overdue', text: 'Overdue $666').and(have_css('.sul-icons'))
@@ -78,7 +106,9 @@ RSpec.describe ApplicationHelper do
     end
 
     context 'when an overdue item has no accrued fines' do
-      let(:checkout) { instance_double(Checkout, recalled?: false, overdue?: true, lost?: false, accrued: 0) }
+      before do
+        allow(checkout).to receive_messages(overdue?: true)
+      end
 
       it 'renders the right html' do
         expect(content).to have_css('.text-overdue', text: 'Overdue').and(have_css('.sul-icons'))
