@@ -26,6 +26,10 @@
     <dl class="row justify-content-center">
       <dt class="col-5">Billed on:</dt>
       <dd class="col-5"><%= l(fine.bill_date, format: :short) %></dd>
+      <% if fine.days_overdue %>
+        <dt class="col-5">Days overdue:</dt>
+        <dd class="col-5"><%= fine.days_overdue %></dd>
+      <% end %>
       <dt class="col-5">Source:</dt>
       <dd class="col-5"><%= library_name fine.library %></dd>
     </dl>
