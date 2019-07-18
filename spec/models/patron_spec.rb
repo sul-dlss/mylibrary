@@ -158,4 +158,36 @@ RSpec.describe Patron do
       expect(patron.borrow_limit).to be_nil
     end
   end
+
+  it 'is not a proxy borrower' do
+    expect(patron.proxy_borrower?).to be false
+  end
+
+  context 'with a proxy borrower' do
+    before do
+      fields[:groupSettings] = { fields: { responsibility: { key: 'PROXY' } } }
+    end
+
+    describe '#proxy_borrower?' do
+      it 'is true' do
+        expect(patron.proxy_borrower?).to be true
+      end
+    end
+  end
+
+  it 'is not a sponsor' do
+    expect(patron.sponsor?).to be false
+  end
+
+  context 'with a sponsor' do
+    before do
+      fields[:groupSettings] = { fields: { responsibility: { key: 'SPONSOR' } } }
+    end
+
+    describe '#sponsor?' do
+      it 'is true' do
+        expect(patron.sponsor?).to be true
+      end
+    end
+  end
 end

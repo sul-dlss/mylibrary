@@ -51,7 +51,7 @@ class SymphonyClient
 
   def patron_info(patron_key)
     response = authenticated_request("/user/patron/key/#{patron_key}", params: {
-      includeFields: '*,address1,profile{chargeLimit}'
+      includeFields: '*,address1,profile{chargeLimit},groupSettings{responsibility}'
     })
 
     Patron.new(JSON.parse(response.body))
