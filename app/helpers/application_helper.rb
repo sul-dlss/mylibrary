@@ -33,4 +33,31 @@ module ApplicationHelper
   def library_name(code)
     Mylibrary::Application.config.library_map[code] || code
   end
+
+  def render_checkout_status(checkout)
+    if checkout.recalled?
+      checkout_status_html(css_class: 'text-recalled',
+                           icon: 'sharp-error-24px',
+                           text: 'Recalled',
+                           accrued: checkout.accrued)
+    elsif checkout.overdue?
+      checkout_status_html(css_class: 'text-overdue',
+                           icon: 'sharp-warning-24px',
+                           text: 'Overdue',
+                           accrued: checkout.accrued)
+    end
+  end
+
+  private
+
+  def checkout_status_html(css_class:, icon:, text:, accrued: 0)
+    content_tag(:span, class: css_class) do
+      safe_join([
+                  (sul_icon(icon) if icon),
+                  text,
+                  (number_to_currency(accrued) if accrued.positive?)
+
+                ], ' ')
+    end
+  end
 end

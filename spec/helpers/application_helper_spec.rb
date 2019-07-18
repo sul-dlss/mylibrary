@@ -41,4 +41,40 @@ RSpec.describe ApplicationHelper do
       expect(helper.library_name('NOSUCHLIBRARY')).to eq 'NOSUCHLIBRARY'
     end
   end
+
+  describe '#render_checkout_status' do
+    let(:content) { Capybara.string(helper.render_checkout_status(checkout)) }
+
+    context 'when a recalled item has accrued fines' do
+      let(:checkout) { instance_double(Checkout, recalled?: true, accrued: 15) }
+
+      it 'renders the right html' do
+        expect(content).to have_css('.text-recalled', text: 'Recalled $15').and(have_css('.sul-icons'))
+      end
+    end
+
+    context 'when a recalled item has no accrued fines' do
+      let(:checkout) { instance_double(Checkout, recalled?: true, accrued: 0) }
+
+      it 'renders the right html' do
+        expect(content).to have_css('.text-recalled', text: 'Recalled').and(have_css('.sul-icons'))
+      end
+    end
+
+    context 'when an overdue item has accrued fines' do
+      let(:checkout) { instance_double(Checkout, recalled?: false, overdue?: true, accrued: 666) }
+
+      it 'renders the right html' do
+        expect(content).to have_css('.text-overdue', text: 'Overdue $666').and(have_css('.sul-icons'))
+      end
+    end
+
+    context 'when an overdue item has no accrued fines' do
+      let(:checkout) { instance_double(Checkout, recalled?: false, overdue?: true, accrued: 0) }
+
+      it 'renders the right html' do
+        expect(content).to have_css('.text-overdue', text: 'Overdue').and(have_css('.sul-icons'))
+      end
+    end
+  end
 end
