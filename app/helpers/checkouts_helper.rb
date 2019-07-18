@@ -2,6 +2,14 @@
 
 # Helper for checkouts views
 module CheckoutsHelper
+  def list_group_item_status_for_checkout(checkout)
+    if checkout.recalled?
+      'list-group-item-danger'
+    elsif checkout.overdue?
+      'list-group-item-warning'
+    end
+  end
+
   def today_with_time_or_date(date, short_term: false)
     return l(date, format: :short) unless short_term
     return l(date, format: :short) unless date.today?

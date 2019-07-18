@@ -3,6 +3,24 @@
 require 'rails_helper'
 
 RSpec.describe CheckoutsHelper do
+  describe '#list_group_item_status_for_checkout' do
+    context 'with a recalled item' do
+      let(:checkout) { instance_double(Checkout, recalled?: true) }
+
+      it 'is *-danger' do
+        expect(helper.list_group_item_status_for_checkout(checkout)).to eq 'list-group-item-danger'
+      end
+    end
+
+    context 'with an overdue item' do
+      let(:checkout) { instance_double(Checkout, recalled?: false, overdue?: true) }
+
+      it 'is *-warning' do
+        expect(helper.list_group_item_status_for_checkout(checkout)).to eq 'list-group-item-warning'
+      end
+    end
+  end
+
   describe '#time_remaining_for_checkout' do
     context 'when the checkout is a short term loan' do
       let(:checkout) { instance_double(Checkout, short_term_loan?: true, due_date: Time.zone.now + 42.minutes) }
