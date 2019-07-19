@@ -42,7 +42,8 @@ RSpec.describe CheckoutsHelper do
   describe '#today_with_time_or_date' do
     context 'when the checkout is a short term loan' do
       it 'returns a string that says Today and the time' do
-        expect(helper.today_with_time_or_date(Time.zone.now + 42.minutes, short_term: true)).to match(/^Today at \d/)
+        expect(helper.today_with_time_or_date(Time.zone.now + 42.minutes, short_term: true))
+          .to match(/^Today at\s{1,2}\d/)
       end
 
       context 'when the due date is on a past date' do
