@@ -40,6 +40,14 @@ class Checkout
     recalled_date.present?
   end
 
+  def claims_returned_date
+    Time.zone.parse(fields['claimsReturnedDate']) if fields['claimsReturnedDate']
+  end
+
+  def claimed_returned?
+    claims_returned_date.present?
+  end
+
   def renewal_date
     Time.zone.parse(fields['renewalDate']) if fields['renewalDate']
   end
@@ -114,6 +122,14 @@ class Checkout
 
   def to_partial_path
     'checkouts/checkout'
+  end
+
+  def current_location
+    fields.dig('item', 'fields', 'currentLocation', 'key')
+  end
+
+  def lost?
+    current_location == 'LOST-ASSUM'
   end
 
   private

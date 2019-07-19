@@ -82,7 +82,8 @@ thead {
   }
 }
 
-.text-overdue {
+.text-overdue,
+.text-lost {
   color: $color-overdue;
 
   svg {

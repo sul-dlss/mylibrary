@@ -1,11 +1,7 @@
 <li class="row d-flex flex-wrap list-group-item <%= list_group_item_status_for_checkout(checkout)%>">
   <div class="d-flex flex-row flex-grow-1 justify-content-between w-100 row col-md-4">
     <div class="w-50 col-md-6 status">
-      <% if checkout.recalled? %>
-        <span class="text-recalled"><%= sul_icon :'sharp-error-24px' %> Recalled</span>
-      <% elsif checkout.overdue? %>
-        <span class="text-overdue"><%= sul_icon :'sharp-warning-24px' %> Overdue <%= number_to_currency(checkout.accrued) %></span>
-      <% end %>
+      <%= render_checkout_status(checkout) %>
     </div>
     <div class="w-50 col-md-6 text-right text-md-left due_date" data-date="<%= checkout.due_date.strftime('%FT%T') %>">
       <% if checkout.renewable? %>
