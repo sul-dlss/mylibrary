@@ -117,6 +117,7 @@ $(document).on('turbolinks:load', function(){
 
           //Updates reporting from fields for current location
           $('span.reporting-from-field').html(location.href);
+          $('dd.reporting-from-field').html(location.href);
           $('input.reporting-from-field').val(location.href);
 
           // Listen for form open and then add focus to message
