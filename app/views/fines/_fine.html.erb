@@ -24,7 +24,7 @@
   </div>
   <div class="collapse w-100" id="collapseExample-<%= fine.key.parameterize %>">
     <dl class="row justify-content-center">
-      <dt class="col-5">Billed on:</dt>
+      <dt class="col-5">Billed:</dt>
       <dd class="col-5"><%= l(fine.bill_date, format: :short) %></dd>
       <dt class="col-5"><%= nice_status_fee_label(fine.nice_status) %>:</dt>
       <dd class="col-5"><%= number_to_currency(fine.fee) %></dd>
