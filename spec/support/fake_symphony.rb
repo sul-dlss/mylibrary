@@ -32,6 +32,16 @@ class FakeSymphony < Sinatra::Base
     json_response 200, "patron/#{params[:key]}.json"
   end
 
+  get '/symws/rest/patron/lookupPatronInfo' do
+    content_type :'text/html'
+    status 200
+    begin
+      File.open(File.dirname(__FILE__) + '/fixtures/patron/payment_history/' + "#{params['userID']}.xml").read
+    rescue Errno::ENOENT
+      '<xml />'
+    end
+  end
+
   private
 
   def json_response(response_code, file_name)

@@ -29,6 +29,10 @@ class Patron
     record['key']
   end
 
+  def barcode
+    record['fields']['barcode']
+  end
+
   def status
     if expired?
       'Expired'
