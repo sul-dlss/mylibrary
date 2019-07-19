@@ -224,6 +224,11 @@ RSpec.describe Patron do
       it 'returns a list of requests for the patron' do
         expect(patron.requests).to include a_kind_of(Request).and(have_attributes(key: 1))
       end
+
+      it 'returns an empty array if holdRecordList does not exist' do
+        fields[:holdRecordList] = nil
+        expect(patron.requests).to eq []
+      end
     end
   end
 end

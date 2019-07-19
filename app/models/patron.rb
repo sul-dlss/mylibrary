@@ -94,7 +94,11 @@ class Patron
   end
 
   def requests
-    @requests ||= fields['holdRecordList'].map { |request| Request.new(request) }
+    @requests ||= if fields['holdRecordList'].nil?
+                    []
+                  else
+                    fields['holdRecordList'].map { |request| Request.new(request) }
+                  end
   end
 
   private
