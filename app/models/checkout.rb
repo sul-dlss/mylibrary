@@ -22,6 +22,12 @@ class Checkout
     Time.zone.parse(fields['dueDate'])
   end
 
+  def days_overdue
+    return 0 unless overdue?
+
+    ((Time.zone.now - due_date).to_i / 60 / 60 / 24) + 1
+  end
+
   def checkout_date
     Time.zone.parse(fields['checkOutDate'])
   end
