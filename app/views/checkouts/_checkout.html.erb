@@ -58,14 +58,14 @@
         <dt class="col-5">Recalled on:</dt>
         <dd class="col-5"><%= l(checkout.recalled_date, format: :short) %></dd>
       <% end %>
-      <% unless checkout.overdue? %>
-        <dt class="col-5">Remaining:</dt>
-        <dd class="col-5"><%= time_remaining_for_checkout(checkout) %></dd>
-      <% else %>
+      <% if checkout.overdue? %>
         <dt class="col-5">Days overdue:</dt>
         <dd class="col-5"><%= checkout.days_overdue %></dd>
         <dt class="col-5">Fines accrued:</dt>
         <dd class="col-5"><%= number_to_currency(checkout.accrued) %> </dd>
+      <% else %>
+        <dt class="col-5">Remaining:</dt>
+        <dd class="col-5"><%= time_remaining_for_checkout(checkout) %></dd>
       <% end %>
       <dt class="col-5">Source:</dt>
       <dd class="col-5"><%= library_name checkout.library %></dd>
