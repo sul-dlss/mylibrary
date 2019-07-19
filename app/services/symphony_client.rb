@@ -46,7 +46,8 @@ class SymphonyClient
   PATRON_LINKED_RESOURCES = [
     "holdRecordList{*,#{ITEM_RESOURCES}}",
     "circRecordList{*,circulationRule{loanPeriod{periodType{key}},renewFromPeriod},#{ITEM_RESOURCES}}",
-    "blockList{*,#{ITEM_RESOURCES}}"
+    "blockList{*,#{ITEM_RESOURCES}}",
+    'groupSettings{*,responsibility}'
   ].freeze
 
   def patron_info(patron_key)
