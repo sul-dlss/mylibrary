@@ -12,6 +12,10 @@ Metrics/BlockLength:
   Exclude:
     - 'spec/**/*'
 
+Metrics/ClassLength:
+  Exclude:
+    - 'app/models/checkout.rb'
+
 Metrics/LineLength:
   Max: 120
   Exclude:
