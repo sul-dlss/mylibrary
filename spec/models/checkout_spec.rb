@@ -60,6 +60,30 @@ RSpec.describe Checkout do
     expect(checkout.accrued).to eq 10.00
   end
 
+  describe '#days_overdue' do
+    context 'when not overdue' do
+      before do
+        fields['overdue'] = false
+      end
+
+      it { expect(checkout.days_overdue).to be 0 }
+    end
+
+    context 'when overdue' do
+      it 'returns 1 when today is the due date' do
+        fields['dueDate'] = Time.zone.now.to_s
+
+        expect(checkout.days_overdue).to be 1
+      end
+
+      it 'returns the number of days the item is overdue' do
+        fields['dueDate'] = (Time.zone.now - 5.days).to_s
+
+        expect(checkout.days_overdue).to be 6
+      end
+    end
+  end
+
   describe '#days_remaining' do
     context 'when overdue' do
       before do
