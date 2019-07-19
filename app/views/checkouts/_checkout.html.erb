@@ -30,6 +30,21 @@
     </button>
   </div>
   <div class="collapse w-100" id="collapseExample-<%= checkout.key.parameterize %>">
+    <% if checkout.renewable? %>
+      <div class="row justify-content-center">
+        <div class="col-5">
+          <%= form_tag renewals_path, method: :post do %>
+            <%= hidden_field_tag :resource, checkout.resource %>
+            <%= hidden_field_tag :item_key, checkout.item_key %>
+            <%= hidden_field_tag :title, checkout.title %>
+            <%= button_tag class: 'btn btn-link btn-renewable-submit', type: 'submit' do %>
+              <%= sul_icon 'renew' %> Renew this item
+            <% end %>
+          <% end %>
+        </div>
+        <div class="col-5"></div>
+      </div>
+    <% end %>
     <dl class="row justify-content-center">
       <dt class="col-5">Borrowed:</dt>
       <dd class="col-5">

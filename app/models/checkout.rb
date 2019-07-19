@@ -56,6 +56,14 @@ class Checkout
     fields.dig('circulationRule', 'fields', 'renewFromPeriod').to_i
   end
 
+  def resource
+    fields['item']['resource']
+  end
+
+  def item_key
+    fields['item']['key']
+  end
+
   def overdue?
     fields['overdue']
   end

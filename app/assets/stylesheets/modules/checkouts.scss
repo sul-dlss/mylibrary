@@ -1,3 +1,11 @@
 .renewable-indicator {
   margin-left: -20px;
 }
+
+.btn-renewable-submit {
+  padding-left: 0;
+
+  svg {
+    fill: $link-color;
+  }
+}

@@ -78,6 +78,17 @@ class SymphonyClient
     response
   end
 
+  def renew_item(resource, item_key)
+    response = authenticated_request('/circulation/circRecord/renew', method: :post, json: {
+      item: {
+        resource: resource,
+        key: item_key
+      }
+    })
+
+    response
+  end
+
   private
 
   def authenticated_request(path, headers: {}, **other)

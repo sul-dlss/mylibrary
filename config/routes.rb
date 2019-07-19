@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :checkouts
   resources :requests
   resources :fines
+  resources :renewals, only: %I[create]
 
   resource :contact_forms, path: 'contact', only: %I[new create]
   get 'contact' => 'contact_forms#new'
