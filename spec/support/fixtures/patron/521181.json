@@ -1006,7 +1006,10 @@
           "recalledDate": null,
           "circulationRule": {
             "resource": "/policy/circulationRule",
-            "key": "28DNF2"
+            "key": "28DNF2",
+            "fields": {
+              "renewFromPeriod": 999999
+            }
           },
           "item": {
             "key": "12663643:1:1",

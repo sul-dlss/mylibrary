@@ -51,7 +51,7 @@ class SymphonyClient
         'profile{chargeLimit}',
         'groupSettings{responsibility}',
         'holdRecordList{*,item{*,bib{title,author},call{sortCallNumber,dispCallNumber}}}',
-        'circRecordList{*,circulationRule{loanPeriod{periodType{key}}},item{*,bib{title,author},call{sortCallNumber,dispCallNumber}}}',
+        'circRecordList{*,circulationRule{loanPeriod{periodType{key}},renewFromPeriod},item{*,bib{title,author},call{sortCallNumber,dispCallNumber}}}',
         'blockList{*,item{*,bib{title,author},call{sortCallNumber,dispCallNumber}}}'
       ].join(',')
     })
@@ -73,6 +73,17 @@ class SymphonyClient
     response = request('/user/patron/changeMyPin', method: :post, json: {
       resetPinToken: token,
       newPin: pin
+    })
+
+    response
+  end
+
+  def renew_item(resource, item_key)
+    response = authenticated_request('/circulation/circRecord/renew', method: :post, json: {
+      item: {
+        resource: resource,
+        key: item_key
+      }
     })
 
     response

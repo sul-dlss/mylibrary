@@ -38,6 +38,32 @@ class Checkout
     Time.zone.parse(fields['renewalDate']) if fields['renewalDate']
   end
 
+  ##
+  # Is this item renewable
+  def renewable?
+    Time.zone.now > renewable_at if renewable_at
+  end
+
+  ##
+  # The date in which the item can be renewed
+  def renewable_at
+    due_date.to_date - renew_from_period.days if due_date && renew_from_period.positive?
+  end
+
+  ##
+  # The period before the due date in which the item can be renewed
+  def renew_from_period
+    fields.dig('circulationRule', 'fields', 'renewFromPeriod').to_i
+  end
+
+  def resource
+    fields['item']['resource']
+  end
+
+  def item_key
+    fields['item']['key']
+  end
+
   def overdue?
     fields['overdue']
   end

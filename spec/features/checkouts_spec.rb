@@ -33,6 +33,12 @@ RSpec.describe 'Checkout Page', type: :feature do
     end
   end
 
+  it 'has renewable status indicator' do
+    visit checkouts_path
+
+    expect(page).to have_css '.renewable-indicator .sul-icons'
+  end
+
   it 'hides some data behind a toggle', js: true do
     visit checkouts_path
 
