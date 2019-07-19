@@ -62,6 +62,8 @@
         <dt class="col-5">Remaining:</dt>
         <dd class="col-5"><%= time_remaining_for_checkout(checkout) %></dd>
       <% else %>
+        <dt class="col-5">Days overdue:</dt>
+        <dd class="col-5"><%= checkout.days_overdue %></dd>
         <dt class="col-5">Fines accrued:</dt>
         <dd class="col-5"><%= number_to_currency(checkout.accrued) %> </dd>
       <% end %>
