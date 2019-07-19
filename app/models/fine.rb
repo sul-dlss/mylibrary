@@ -77,8 +77,19 @@ class Fine
     Time.zone.parse(fields['billDate']) if fields['billDate']
   end
 
+  def days_overdue
+    return unless bill_date
+    return unless bill_date.past?
+
+    ((Time.zone.now - bill_date).to_i / 60 / 60 / 24).round + 1
+  end
+
   def owed
     fields['owed']['amount'].to_d
+  end
+
+  def fee
+    fields.dig('amount', 'amount')&.to_d
   end
 
   def bib?
