@@ -3,12 +3,14 @@ $beige-5-percent: #fbfbf9;
 $blackish: #2e2d29;
 $blue: #00548f;
 $bright-blue: #006cb8;
+$bright-red: #b1040e;
 $cardinal-red: #8c1515;
 $cloud: #dad7cb;
 $cool-grey: #4d4f53;
 $gray: #3f3c30;
 $light-sandstone: #f9f6ef;
 $mint: #009b76;
+$poppy: #e98300;
 $stone: #544948;
 $white: #fff;
 
@@ -34,8 +36,8 @@ $nav-pills-link-active-color: $blackish;
 $nav-pills-link-active-bg: #d7d3c9;
 
 $color-ready: $mint;
-$color-recalled: #a2000e;
-$color-overdue: #e66c1a;
+$color-recalled: $bright-red;
+$color-overdue: $poppy;
 
 // Spacing
 $page-section-margin-bottom: 45px;
