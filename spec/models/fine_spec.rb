@@ -79,32 +79,6 @@ RSpec.describe Fine do
     expect(fine.owed).to eq 5000.00
   end
 
-  describe '#days_overdue' do
-    it 'returns nil if there is no date' do
-      fields['billDate'] = nil
-
-      expect(fine.days_overdue).to be_nil
-    end
-
-    it 'returns nil if the bill date has not passed' do
-      fields['billDate'] = (Time.zone.today + 4.days).to_s
-
-      expect(fine.days_overdue).to be_nil
-    end
-
-    it 'returns 1 when the the bill date is today' do
-      fields['billDate'] = Time.zone.today.to_s
-
-      expect(fine.days_overdue).to be 1
-    end
-
-    it 'returns the number of days the item is past due ' do
-      fields['billDate'] = (Time.zone.today - 4.days).to_s
-
-      expect(fine.days_overdue).to be 5
-    end
-  end
-
   context 'without a related item' do
     let(:fields) do
       {

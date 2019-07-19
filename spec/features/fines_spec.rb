@@ -35,10 +35,10 @@ RSpec.describe 'Fines Page', type: :feature do
 
     within('ul.fines') do
       expect(page).not_to have_css('dl', visible: true)
-      expect(page).not_to have_css('dt', text: 'Billed on', visible: true)
+      expect(page).not_to have_css('dt', text: 'Billed', visible: true)
       click_button 'Expand'
       expect(page).to have_css('dl', visible: true)
-      expect(page).to have_css('dt', text: 'Billed on', visible: true)
+      expect(page).to have_css('dt', text: 'Billed', visible: true)
     end
   end
 end
