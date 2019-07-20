@@ -31,10 +31,15 @@
 <nav class="container">
   <ul class="nav nav-tabs nav-justified col-12 pt-3">
     <li class="nav-item">
-      <%= link_to 'me', url_for(group: nil), class: "nav-link #{params[:group].nil? && 'active'}" %>
+      <% if patron.proxy_borrower? %>
+      <%# we want to parse out (P=LASTNAME) to "Proxy LASTNAME" %>
+        <%= link_to patron.first_name, url_for(group: nil), class: "nav-link #{params[:group].nil? && 'active'}" %>
+      <% else %>
+        <%= link_to 'Self', url_for(group: nil), class: "nav-link #{params[:group].nil? && 'active'}" %>
+      <% end %>
     </li>
     <li class="nav-item">
-      <%= link_to 'group', url_for(group: true), class: "nav-link #{params[:group] && 'active'}" %>
+      <%= link_to 'Group', url_for(group: true), class: "nav-link #{params[:group] && 'active'}" %>
     </li>
   </ul>
 </nav>

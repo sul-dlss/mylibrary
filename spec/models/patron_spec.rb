@@ -191,7 +191,7 @@ RSpec.describe Patron do
   end
 
   context 'with a sponsor' do
-    let(:member_list) { [key: '521187'] }
+    let(:member_list) { [{ key: '521187', fields: {} }] }
 
     before do
       fields[:groupSettings] = { fields: { responsibility: { key: 'SPONSOR' },
@@ -213,11 +213,54 @@ RSpec.describe Patron do
       it 'has a patron with a key' do
         expect(patron.member_list.first.key).to eq '521187'
       end
+      describe 'filtering' do
+        let(:member_list) do
+          [
+            { key: '1', fields: {} },
+            { key: '2', fields: { groupSettings: {
+              fields: {
+                responsibility: {
+                  key: 'SPONSOR'
+                }
+              }
+            } } },
+            { key: '3', fields: {} }
+          ]
+        end
+
+        it 'doesn\'t include the sponsor' do
+          expect(patron.member_list.select(&:sponsor?)).to eq []
+        end
+        it 'doesn\'t include the currently logged in user' do
+          expect(patron.member_list.map(&:key)).not_to include patron.key
+        end
+        it 'only has member with key 3' do
+          expect(patron.member_list.map(&:key)).to eq ['3']
+        end
+      end
     end
 
     describe '#group?' do
-      it 'is not a group when only one member' do
-        expect(patron).not_to be_group
+      context 'when there are group members' do
+        let(:member_list) do
+          [
+            { key: '1', fields: {} },
+            { key: '2', fields: {} },
+            { key: '3', fields: {} }
+          ]
+        end
+
+        it 'is true' do
+          expect(patron).to be_group
+        end
+      end
+
+      context 'when the sponsor is the only member of the group' do
+        let(:member_list) { [{ key: '1' }] }
+
+        it 'is not a group when only one member' do
+          expect(patron).not_to be_group
+        end
       end
     end
 

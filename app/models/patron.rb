@@ -78,13 +78,13 @@ class Patron
   end
 
   def group?
-    member_list.length > 1
+    member_list.any?
   end
 
   def member_list
     @member_list ||= begin
       members = fields.dig('groupSettings', 'fields', 'group', 'fields', 'memberList') || []
-      members.map { |member| Patron.new(member) }
+      members.map { |member| Patron.new(member) }.reject { |patron| patron.key == key || patron.sponsor? }
     end
   end
 
