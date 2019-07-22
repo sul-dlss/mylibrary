@@ -62,3 +62,24 @@
     <%= render other_checkouts %>
   </ul>
 </div>
+
+<div class="page-section">
+  <h2>Policies &amp; information</h2>
+  <ul class="list-unstyled">
+    <li>
+      <%= link_to 'https://library.stanford.edu/using/borrow-renew-return/renew', target: '_blank' do %>
+        <%= sul_icon :'sharp-open_in_new-24px' %> Renewal policies
+      <% end %>
+    </li>
+    <li>
+      <%= link_to 'https://library.stanford.edu/using/borrow-renew-return/did-you-lose-item', target: '_blank' do %>
+        <%= sul_icon :'sharp-open_in_new-24px' %> Did you lose an item?
+      <% end %>
+    </li>
+    <li>
+      <%= link_to 'https://library.stanford.edu/using/borrow-renew-return/return', target: '_blank' do %>
+        <%= sul_icon :'sharp-open_in_new-24px' %> Returning items by mail
+      <% end %>
+    </li>
+  </ul>
+</div>

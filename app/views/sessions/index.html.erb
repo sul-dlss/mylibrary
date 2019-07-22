@@ -11,3 +11,20 @@
   <%= link_to 'Log in with PIN', login_url, class: 'btn btn-secondary' %>
   <%= link_to 'Request a PIN', reset_pin_path, class: 'btn btn-link' %>
 </div>
+
+<div class="page-section">
+  <h2>Policies &amp; information</h2>
+
+  <ul class="list-unstyled">
+    <li>
+      <%= link_to 'https://library.stanford.edu/using/access-and-privileges', target: '_blank' do %>
+        <%= sul_icon :'sharp-open_in_new-24px' %> Access &amp; privileges
+      <% end %>
+    </li>
+    <li>
+      <%= link_to 'https://library.stanford.edu/using/access-and-privileges/privileges-university-library-affiliates/fee-based-library-memberships', target: '_blank' do %>
+        <%= sul_icon :'sharp-open_in_new-24px' %> Fee-based library memberships
+      <% end %>
+    </li>
+  </ul>
+</div>
