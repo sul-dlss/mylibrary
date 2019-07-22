@@ -6,7 +6,7 @@
     <dl class="row">
       <dt class="col-2">Source:<dt>
       <dd class="col-10 reporting-from-field"><%= request.referer %></dd>
-      <%= hidden_field_tag :url, request.referer, class:"reporting-from-field" %>
+      <%= hidden_field_tag :url, request.referer, id: 'contact_url', class:"reporting-from-field" %>
       <dt class="col-2">From:<dt>
       <dd class="col-10"><%= patron.display_name %></dd>
       <dt class="col-2">To:<dt>
@@ -14,8 +14,8 @@
     </dl>
     <div class="row">
       <div class="col-12 mt-3 mb-3">
-        <%= label_tag :message, 'Your message:', class: 'sr-only' %>
-        <%= text_area_tag :message, nil, rows: '10', class: 'form-control' %>
+        <%= label_tag :contact_message, 'Your message:', class: 'sr-only' %>
+        <%= text_area_tag :message, nil, rows: '10', class: 'form-control', id: :contact_message %>
       </div>
       <div class="col-12">
         <button type="submit" class="btn btn-primary">Send</button>
