@@ -21,7 +21,6 @@ RSpec.describe RenewalsController, type: :controller do
     context 'when everything is good' do
       it 'renews the item and sets flash messages' do
         post :create, params: { resource: 'abc', item_key: '123' }
-        puts 'yolo', response.status, response
         expect(flash[:success]).to match(/Success!/)
       end
       it 'renews the item and redirects to checkouts_path' do
