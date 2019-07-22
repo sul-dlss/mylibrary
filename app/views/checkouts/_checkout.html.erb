@@ -27,8 +27,8 @@
   </div>
   <div class="collapse w-100" id="collapseExample-<%= checkout.key.parameterize %>">
     <% if checkout.renewable? %>
-      <div class="row justify-content-center">
-        <div class="col-5">
+      <div class="row">
+        <div class="col-11 offset-1 col-md-10 offset-md-2">
           <%= form_tag renewals_path, method: :post do %>
             <%= hidden_field_tag :resource, checkout.resource %>
             <%= hidden_field_tag :item_key, checkout.item_key %>
@@ -38,33 +38,32 @@
             <% end %>
           <% end %>
         </div>
-        <div class="col-5"></div>
       </div>
     <% end %>
-    <dl class="row justify-content-center">
-      <dt class="col-5">Borrowed:</dt>
-      <dd class="col-5">
+    <dl class="row">
+      <dt class="col-3 offset-1 col-md-2 offset-md-2">Borrowed:</dt>
+      <dd class="col-8">
         <%= today_with_time_or_date(checkout.checkout_date, short_term: checkout.short_term_loan?) %>
       </dd>
       <% if checkout.renewal_date  %>
-        <dt class="col-5">Renewed on:</dt>
-        <dd class="col-5"><%= l(checkout.renewal_date, format: :short) %></dd>
+        <dt class="col-3 offset-1 col-md-2 offset-md-2">Renewed on:</dt>
+        <dd class="col-8"><%= l(checkout.renewal_date, format: :short) %></dd>
       <% end %>
       <% if checkout.recalled_date  %>
-        <dt class="col-5">Recalled on:</dt>
-        <dd class="col-5"><%= l(checkout.recalled_date, format: :short) %></dd>
+        <dt class="col-3 offset-1 col-md-2 offset-md-2">Recalled on:</dt>
+        <dd class="col-8"><%= l(checkout.recalled_date, format: :short) %></dd>
       <% end %>
       <% if checkout.overdue? %>
-        <dt class="col-5">Days overdue:</dt>
-        <dd class="col-5"><%= checkout.days_overdue %></dd>
-        <dt class="col-5">Fines accrued:</dt>
-        <dd class="col-5"><%= number_to_currency(checkout.accrued) %> </dd>
+        <dt class="col-3 offset-1 col-md-2 offset-md-2">Days overdue:</dt>
+        <dd class="col-8"><%= checkout.days_overdue %></dd>
+        <dt class="col-3 offset-1 col-md-2 offset-md-2">Fines accrued:</dt>
+        <dd class="col-8"><%= number_to_currency(checkout.accrued) %> </dd>
       <% else %>
-        <dt class="col-5">Remaining:</dt>
-        <dd class="col-5"><%= time_remaining_for_checkout(checkout) %></dd>
+        <dt class="col-3 offset-1 col-md-2 offset-md-2">Remaining:</dt>
+        <dd class="col-8"><%= time_remaining_for_checkout(checkout) %></dd>
       <% end %>
-      <dt class="col-5">Source:</dt>
-      <dd class="col-5"><%= library_name checkout.library %></dd>
+      <dt class="col-3 offset-1 col-md-2 offset-md-2">Source:</dt>
+      <dd class="col-8"><%= library_name checkout.library %></dd>
     </dl>
 
     <%= detail_link_to_searchworks(checkout.catkey) %>
