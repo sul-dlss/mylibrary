@@ -3,9 +3,22 @@
   padding: 2px 0;
   height: 35px;
 
+  // move the link padding from the `a` to the `li`
+  // so we can show our custom bottom border on hover
+  .nav-item {
+    padding-bottom: $nav-link-padding-y;
+  }
+
   a {
     color: $cardinal-red;
-    border-bottom: 1px solid transparent;
+    border-bottom: 3px solid transparent;
+    padding-bottom: 0;
+
+    &:hover,
+    &:focus,
+    &:active {
+      border-bottom: 3px solid $cardinal-red;
+    }
   }
 }
 
