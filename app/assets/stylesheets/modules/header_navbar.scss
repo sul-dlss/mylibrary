@@ -21,15 +21,18 @@
       border-bottom: 1px solid transparent;
     }
   }
+}
 
-  .topnav-links {
-    a {
-      color: $white;
-      margin-left: $spacer;
-    }
+.topnav-links {
+  a {
+    border-bottom: 3px solid transparent;
+    color: $white;
+    margin-left: $spacer;
 
-    a:hover {
-      border-bottom: 1px solid transparent;
+    &:hover,
+    &:focus,
+    &:active {
+      border-bottom: 3px solid $white;
     }
   }
 
