@@ -4,10 +4,10 @@
     <div class="topnav-links">
       <% if current_user? %>
         <%= link_to contact_path, class: 'navbar-link', 'data-toggle' =>  'modal', 'data-target' => '#contact-modal-window' do %>
-          <%= sul_icon :'sharp-email-24px', classes: 'mr-1' %> Contact Access Services
+          <%= sul_icon :'sharp-email-24px' %> Contact Access Services
         <% end %>
         <%= link_to 'tel:+16507231493', class: 'navbar-link' do %>
-          <%= sul_icon :'sharp-phone-24px', classes: 'mr-1' %> (650) 723-1493
+          <%= sul_icon :'sharp-phone-24px' %> (650) 723-1493
         <% end %>
       <% end %>
     </div>
