@@ -41,14 +41,18 @@
 <% end %>
 
 <div class="page-section">
-  <h2>Refund policy</h2>
-  <p>
-    These fines &amp; fees are <b>non refundable</b>:
-    <ul>
-      <li>Overdue and billing fines,</li>
-      <li>Any fines for Law library materials.</li>
-    </ul>
-  </p>
-  <p>Replacement fines for lost items <b>may be eligible for refund</b>, if you find and return the item to the library. The item must be in good condition, and returned within a year of the original payment.</p>
-  <p>Refunds are issued by check and may take two to four weeks to process. Contact library staff at the source library to discuss a refund.</p>
+  <h2>Policies &amp; information</h2>
+
+  <ul class="list-unstyled">
+    <li>
+      <%= link_to 'https://library.stanford.edu/using/borrow-renew-return/fines-and-fees', target: '_blank' do %>
+        <%= sul_icon :'sharp-open_in_new-24px' %> Fines and fees
+      <% end %>
+    </li>
+    <li>
+      <%= link_to 'https://library.stanford.edu/using/borrow-renew-return/pay-or-contest-fine', target: '_blank' do %>
+        <%= sul_icon :'sharp-open_in_new-24px' %> Pay or contest a fine
+      <% end %>
+    </li>
+  </ul>
 </div>
