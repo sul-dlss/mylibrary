@@ -17,7 +17,7 @@ RSpec.describe ApplicationHelper do
     let(:content) { Capybara.string(helper.detail_link_to_searchworks('12345')) }
 
     it 'has two columns' do
-      expect(content).to have_css('.row .col-5', count: 2)
+      expect(content).to have_css('.row .col-11')
     end
 
     it 'has a link to SerachWorks' do

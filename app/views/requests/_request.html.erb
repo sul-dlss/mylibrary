@@ -35,15 +35,15 @@
     </button>
   </div>
   <div class="collapse w-100" id="collapseExample-<%= request.key.parameterize %>">
-    <dl class="row justify-content-center">
+    <dl class="row">
       <% if request.placed_date %>
-        <dt class="col-5">Requested on:</dt>
-        <dd class="col-5"><%= l(request.placed_date, format: :short) %></dd>
+        <dt class="col-3 offset-1 col-md-2 offset-md-2">Requested on:</dt>
+        <dd class="col-8"><%= l(request.placed_date, format: :short) %></dd>
       <% end %>
-      <dt class="col-5">Waitlist position:</dt>
-      <dd class="col-5"><%= request.waitlist_position %></dd>
-      <dt class="col-5">Source:</dt>
-      <dd class="col-5"><%= library_name request.placed_library %></dd>
+      <dt class="col-3 offset-1 col-md-2 offset-md-2">Waitlist position:</dt>
+      <dd class="col-8"><%= request.waitlist_position %></dd>
+      <dt class="col-3 offset-1 col-md-2 offset-md-2">Source:</dt>
+      <dd class="col-8"><%= library_name request.placed_library %></dd>
     </dl>
 
     <%= detail_link_to_searchworks(request.catkey) %>
