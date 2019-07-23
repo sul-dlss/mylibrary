@@ -31,12 +31,7 @@
 <nav class="container">
   <ul class="nav nav-tabs nav-justified col-12 pt-3">
     <li class="nav-item">
-      <% if patron.proxy_borrower? %>
-        <% proxy_borrower_name = "Proxy #{patron.first_name.gsub(/(\A\w+\s)\(P=([a-zA-Z]+)\)\z/, '\2')}" %>
-        <%= link_to proxy_borrower_name, url_for(group: nil), class: "nav-link #{params[:group].nil? && 'active'}" %>
-      <% else %>
-        <%= link_to 'Self', url_for(group: nil), class: "nav-link #{params[:group].nil? && 'active'}" %>
-      <% end %>
+      <%= link_to patron.proxy_borrower_name || 'Self', url_for(group: nil), class: "nav-link #{params[:group].nil? && 'active'}" %>
     </li>
     <li class="nav-item">
       <%= link_to 'Group', url_for(group: true), class: "nav-link #{params[:group] && 'active'}" %>

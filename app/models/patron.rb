@@ -92,6 +92,10 @@ class Patron
     fields.dig('groupSettings', 'fields', 'responsibility', 'key') == 'PROXY'
   end
 
+  def proxy_borrower_name
+    "Proxy #{first_name.gsub(/(\A\w+\s)\(P=([a-zA-Z]+)\)\z/, '\2')}" if proxy_borrower?
+  end
+
   def sponsor?
     fields.dig('groupSettings', 'fields', 'responsibility', 'key') == 'SPONSOR'
   end

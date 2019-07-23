@@ -174,14 +174,25 @@ RSpec.describe Patron do
     expect(patron.proxy_borrower?).to be false
   end
 
+  it 'has no #proxy_borrower_name' do
+    expect(patron.proxy_borrower_name).to be_nil
+  end
+
   context 'with a proxy borrower' do
     before do
       fields[:groupSettings] = { fields: { responsibility: { key: 'PROXY' } } }
+      fields[:firstName] = 'Second (P=FirstProxyLN)'
     end
 
     describe '#proxy_borrower?' do
       it 'is true' do
         expect(patron.proxy_borrower?).to be true
+      end
+    end
+
+    describe '#proxy_borrower_name' do
+      it 'is derived from the first name' do
+        expect(patron.proxy_borrower_name).to eq 'Proxy FirstProxyLN'
       end
     end
   end
