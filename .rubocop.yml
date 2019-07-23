@@ -37,5 +37,9 @@ RSpec/MultipleExpectations:
   Exclude:
     - 'spec/features/**/*'
 
+RSpec/DescribeClass:
+  Exclude:
+    - 'spec/views/**/*'
+
 Layout/IndentFirstHashElement:
   EnforcedStyle: consistent
