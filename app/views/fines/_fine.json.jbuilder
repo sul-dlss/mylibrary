@@ -12,6 +12,7 @@ json.attributes do
   json.shelf_key fine.shelf_key
   json.bill_date fine.bill_date
   json.owed fine.owed
+  json.fee fine.fee
 
   json.symphony_api_response fine.record if Rails.env.development?
 end
