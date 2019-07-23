@@ -10,6 +10,7 @@ AllCops:
 
 Metrics/BlockLength:
   Exclude:
+    - 'app/views/**/*.json.jbuilder'
     - 'spec/**/*'
 
 Metrics/ClassLength:
