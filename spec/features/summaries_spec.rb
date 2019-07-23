@@ -16,6 +16,7 @@ RSpec.describe 'Summaries Page', type: :feature do
     expect(page).to have_css('h2', text: 'Undergrad Superuser')
     expect(page).to have_css('dd.patron-status', text: 'Blocked')
     expect(page).to have_css('dd.email', text: 'superuser1@stanford.edu')
+    expect(page).not_to have_css('dd.expired-date')
     expect(page).not_to have_css('dd.patron-type')
   end
 
@@ -27,6 +28,20 @@ RSpec.describe 'Summaries Page', type: :feature do
     expect(page).to have_css('div', text: '2 ready for pickup')
     expect(page).to have_css('h3', text: 'Fines & fees payable: $7.00')
     expect(page).to have_css('div', text: '$72.00 accruing on overdue items')
+  end
+
+  context 'with a proxy borrower' do
+    before do
+      login_as(username: 'PROXY21', patron_key: '521197')
+      visit summaries_url
+    end
+
+    it 'has patron data' do
+      expect(page).to have_css('h2', text: 'Second (P=FirstProxyLN) Faculty Group')
+      expect(page).to have_css('dd.patron-status', text: 'Blocked')
+      expect(page).to have_css('dd.email', text: 'faculty2@stanford.edu')
+      expect(page).to have_css('dd.expired-date', text: 'February 1, 2020')
+    end
   end
 
   context 'with mock data' do
