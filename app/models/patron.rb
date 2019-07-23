@@ -77,6 +77,12 @@ class Patron
     profile['chargeLimit'].to_i
   end
 
+  def remaining_checkouts
+    return unless  borrow_limit
+
+    borrow_limit - checkouts.length
+  end
+
   def group?
     member_list.any?
   end

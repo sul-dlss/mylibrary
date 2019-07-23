@@ -23,7 +23,7 @@
 </div>
 
 <div class="page-section">
-  <h3><%= sul_icon :'sharp-playlist_add_check-24px', classes: 'lg' %> Checkouts: <%= @patron.checkouts.length %></h3>
+  <h3><%= sul_icon :'sharp-playlist_add_check-24px', classes: 'lg' %> Checkouts: <%= @patron.checkouts.length %><%= " (#{@patron.remaining_checkouts} remaining)" if @patron.remaining_checkouts %></h3>
   <% count = @patron.checkouts.select(&:recalled?).length %>
   <% if count.positive? %>
     <div><%= sul_icon :'sharp-error-24px', classes: 'text-recalled' %> <%= count %> recalled</div>
