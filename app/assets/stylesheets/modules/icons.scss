@@ -3,13 +3,24 @@
   height: $font-size-base;
   width: $font-size-base;
 
+  &.lg {
+    height: 1.5rem;
+    width: 1.5rem;
+
+    svg {
+      height: 1.5rem;
+      width: 1.5rem;
+    }
+  }
+
   svg {
-    height: 1rem;
+    height: 1em;
     position: relative;
     top: .125rem;
-    width: 1rem;
+    width: 1em;
   }
 }
+
 
 // Stroke contrast
 // Derived from https://github.com/twbs/bootstrap/commit/c31d52499811d5c68d122db806ce27a112b489bd

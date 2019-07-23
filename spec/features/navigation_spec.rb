@@ -7,20 +7,24 @@ RSpec.describe 'Navigation', type: :feature do
     instance_double(
       SymphonyClient,
       patron_info: {
-        'fields' => {
-          'address1' => [],
-          'standing' => { 'key' => '' },
-          'profile' => { 'key' => '' },
-          'circRecordList' => [],
-          'blockList' => [],
-          'holdRecordList' => []
-        }
-      }
+        'fields' => fields
+      }.with_indifferent_access
     )
   end
 
+  let(:fields) do
+    {
+      address1: [],
+      standing: { key: '' },
+      profile: { key: '' },
+      circRecordList: [],
+      blockList: [],
+      holdRecordList: []
+    }
+  end
+
   before do
-    allow(SymphonyClient).to receive(:new).and_return(mock_client)
+    allow(SymphonyClient).to receive(:new) { mock_client }
     login_as(username: 'stub_user')
   end
 
@@ -77,5 +81,114 @@ RSpec.describe 'Navigation', type: :feature do
     visit fines_path
 
     expect(page).to have_css('.nav-link.active', text: 'Fines')
+  end
+
+  context 'with a patron in good standing' do
+    before do
+      fields[:standing] = { key: 'OK' }
+      fields[:circRecordList] = [{ fields: {} }, { fields: {} }]
+      fields[:holdRecordList] = [{ fields: {} }]
+    end
+
+    it 'shows the patron status and various counts' do
+      visit summaries_path
+
+      expect(page).to have_css('.nav-link.active', text: 'Summary OK')
+      expect(page).to have_css('.nav-link', text: 'Checkouts 2')
+      expect(page).to have_css('.nav-link', text: 'Requests 1')
+      expect(page).to have_css('.nav-link', text: 'Fines $0.00')
+    end
+  end
+
+  context 'with a blocked patron' do
+    before do
+      fields[:standing] = { key: 'BARRED' }
+    end
+
+    it 'shows the patron status and various counts' do
+      visit summaries_path
+
+      expect(page).to have_css('.nav-link.active', text: 'Summary Blocked')
+    end
+  end
+
+  context 'with a recall' do
+    before do
+      fields[:circRecordList] = [
+        { fields: { recalledDate: '2019-01-01' } },
+        { fields: { recalledDate: '2018-02-02' } },
+        { fields: { overdue: true } }
+      ]
+    end
+
+    it 'shows number of recalled items' do
+      visit summaries_path
+
+      expect(page).to have_css('.nav-link', text: 'Checkouts 2 recalls')
+    end
+  end
+
+  context 'with overdue books' do
+    before do
+      fields[:circRecordList] = [
+        { fields: { overdue: true } },
+        { fields: { overdue: true } },
+        { fields: { overdue: true } }
+      ]
+    end
+
+    it 'shows number of overdue items' do
+      visit summaries_path
+
+      expect(page).to have_css('.nav-link', text: 'Checkouts 3 overdue')
+    end
+  end
+
+  context 'with requests that are ready for pickup' do
+    before do
+      fields[:holdRecordList] = [
+        { fields: { status: 'BEING_HELD' } },
+        { fields: { status: 'BEING_HELD' } },
+        { fields: { status: 'BEING_HELD' } }
+      ]
+    end
+
+    it 'shows number of overdue items' do
+      visit summaries_path
+
+      expect(page).to have_css('.nav-link', text: 'Requests 3 ready')
+    end
+  end
+
+  context 'with fines' do
+    before do
+      fields[:blockList] = [
+        { fields: { owed: { amount: 50 } } },
+        { fields: { owed: { amount: 30 } } },
+        { fields: { owed: { amount: 20 } } }
+      ]
+    end
+
+    it 'shows the total fines' do
+      visit summaries_path
+
+      expect(page).to have_css('.nav-link', text: 'Fines $100.00')
+    end
+  end
+
+  context 'with accruing overdue fines' do
+    before do
+      fields[:circRecordList] = [
+        { fields: { estimatedOverdueAmount: { amount: 50 } } },
+        { fields: { estimatedOverdueAmount: { amount: 30 } } },
+        { fields: { estimatedOverdueAmount: { amount: 20 } } }
+      ]
+    end
+
+    it 'shows number of overdue items' do
+      visit summaries_path
+
+      expect(page).to have_css('.nav-link', text: 'Fines $100.00')
+    end
   end
 end
