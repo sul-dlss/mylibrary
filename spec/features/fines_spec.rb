@@ -16,8 +16,8 @@ RSpec.describe 'Fines Page', type: :feature do
   it 'totals all the accruing fines' do
     visit fines_path
 
-    expect(page).to have_css('h2', text: 'Accruing: $33.00')
-    expect(page).to have_content 'Fines are accruing on 2 overdue items'
+    expect(page).to have_css('h2', text: 'Accruing: $72.00')
+    expect(page).to have_content 'Fines are accruing on 4 overdue items'
   end
 
   it 'renders a list item for every fine' do

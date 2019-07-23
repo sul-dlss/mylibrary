@@ -83,7 +83,7 @@ class Checkout
   end
 
   def accrued
-    fields['estimatedOverdueAmount']['amount'].to_d
+    fields.dig('estimatedOverdueAmount', 'amount').to_d
   end
 
   def days_remaining

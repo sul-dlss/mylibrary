@@ -10,23 +10,24 @@
     border-bottom: 1px solid transparent;
   }
 
-  .sul-icons {
+  .lg {
     display: block;
-    height: 1.5rem;
     margin-left: auto;
     margin-right: auto;
-    width: 1.5rem;
+  }
 
-    svg {
-      height: 1.5rem;
-      width: 1.5rem;
-    }
+  .info {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
   }
 }
 
 .nav-link.active {
-  svg {
-    fill: $blackish;
-    stroke: $blackish;
+  .lg {
+    svg {
+      fill: $blackish;
+      stroke: $blackish;
+    }
   }
 }
