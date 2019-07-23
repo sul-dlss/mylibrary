@@ -13,4 +13,21 @@ class RequestsController < ApplicationController
       [request.expiration_date || END_OF_DAYS, request.fill_by_date || END_OF_DAYS]
     end
   end
+
+  def destroy
+    @response = symphony_client.cancel_hold(*cancel_hold_params)
+    case @response.status
+    when 200
+      flash[:success] = t 'mylibrary.request.cancel.success_html', title: params['title']
+    else
+      flash[:error] = t 'mylibrary.request.cancel.error_html', title: params['title']
+    end
+    redirect_to requests_path
+  end
+
+  private
+
+  def cancel_hold_params
+    params.require(%I[resource id])
+  end
 end

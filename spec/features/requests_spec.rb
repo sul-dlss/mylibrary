@@ -20,6 +20,15 @@ RSpec.describe 'Request Page', type: :feature do
     end
   end
 
+  it 'ready for pickup can be cancelled' do
+    visit requests_path
+
+    within(first('ul.ready-requests li')) do
+      first('.btn-request-cancel').click
+    end
+    expect(page).to have_css '.flash_messages', text: 'Success!'
+  end
+
   it 'has requested data' do
     visit requests_path
 

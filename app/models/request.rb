@@ -20,6 +20,10 @@ class Request
     fields['patron']['key']
   end
 
+  def resource
+    record['resource']
+  end
+
   def status
     fields['status']
   end
