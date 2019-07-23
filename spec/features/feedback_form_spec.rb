@@ -3,17 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe 'Feedback form', type: :feature do
-  let(:mock_client) do
-    instance_double(
-      SymphonyClient,
-      patron_info: { 'fields' => { 'address1' => [], 'standing' => { 'key' => '' }, 'profile' => { 'key' => '' } } }
-    )
-  end
-
   context 'with js', js: true do
     before do
-      allow(SymphonyClient).to receive(:new).and_return(mock_client)
-      login_as(username: 'stub_user')
+      login_as(username: 'SUPER1', patron_key: '521181')
       visit root_path
     end
 
@@ -37,8 +29,7 @@ RSpec.describe 'Feedback form', type: :feature do
 
   context 'without js' do
     before do
-      allow(SymphonyClient).to receive(:new).and_return(mock_client)
-      login_as(username: 'stub_user')
+      login_as(username: 'SUPER1', patron_key: '521181')
       visit root_path
     end
 

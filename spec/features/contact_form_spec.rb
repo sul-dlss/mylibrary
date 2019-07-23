@@ -4,16 +4,8 @@ require 'rails_helper'
 
 RSpec.describe 'Contact form', type: :feature do
   context 'with user logged in' do
-    let(:mock_client) do
-      instance_double(
-        SymphonyClient,
-        patron_info: { 'fields' => { 'address1' => [], 'standing' => { 'key' => '' }, 'profile' => { 'key' => '' } } }
-      )
-    end
-
     before do
-      allow(SymphonyClient).to receive(:new).and_return(mock_client)
-      login_as(username: 'stub_user')
+      login_as(username: 'SUPER1', patron_key: '521181')
       visit root_path
     end
 
