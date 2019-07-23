@@ -41,24 +41,28 @@ class SymphonyClient
     end
   end
 
-  # Symphony API requires some loooong strings, disabling LineLength for this method
-  # rubocop:disable Metrics/LineLength
+  ITEM_RESOURCES = 'item{*,bib{title,author},call{sortCallNumber,dispCallNumber}}'
+
+  PATRON_LINKED_RESOURCES = [
+    "holdRecordList{*,#{ITEM_RESOURCES}}",
+    "circRecordList{*,circulationRule{loanPeriod{periodType{key}},renewFromPeriod},#{ITEM_RESOURCES}}",
+    "blockList{*,#{ITEM_RESOURCES}}",
+    'groupSettings{*,responsibility}'
+  ].freeze
+
   def patron_info(patron_key)
     response = authenticated_request("/user/patron/key/#{patron_key}", params: {
       includeFields: [
         '*',
         'address1',
         'profile{chargeLimit}',
-        'groupSettings{responsibility}',
-        'holdRecordList{*,item{*,bib{title,author},call{sortCallNumber,dispCallNumber}}}',
-        'circRecordList{*,circulationRule{loanPeriod{periodType{key}},renewFromPeriod},item{*,bib{title,author},call{sortCallNumber,dispCallNumber}}}',
-        'blockList{*,item{*,bib{title,author},call{sortCallNumber,dispCallNumber}}}'
+        "groupSettings{*,group{memberList{*,#{PATRON_LINKED_RESOURCES.join(',')}}}}",
+        *PATRON_LINKED_RESOURCES
       ].join(',')
     })
 
     JSON.parse(response.body)
   end
-  # rubocop:enable Metrics/LineLength
 
   def reset_pin(library_id, reset_path)
     response = request('/user/patron/resetMyPin', method: :post, json: {

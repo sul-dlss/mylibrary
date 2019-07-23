@@ -16,6 +16,7 @@ Metrics/BlockLength:
 Metrics/ClassLength:
   Exclude:
     - 'app/models/checkout.rb'
+    - 'app/models/patron.rb'
 
 Metrics/LineLength:
   Max: 120

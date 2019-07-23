@@ -9,8 +9,14 @@ class RequestsController < ApplicationController
   END_OF_DAYS = Time.zone.parse('2099-01-01')
 
   def index
-    @requests = patron.requests.sort_by do |request|
-      [request.expiration_date || END_OF_DAYS, request.fill_by_date || END_OF_DAYS]
-    end
+    @requests = if params[:group]
+                  patron.group_requests.sort_by do |request|
+                    [request.expiration_date || END_OF_DAYS, request.fill_by_date || END_OF_DAYS]
+                  end
+                else
+                  patron.requests.sort_by do |request|
+                    [request.expiration_date || END_OF_DAYS, request.fill_by_date || END_OF_DAYS]
+                  end
+                end
   end
 end

@@ -9,7 +9,7 @@ json.data do
   json.id patron.key
   json.attributes do
     json.status patron.status
-    json.expired patron.expired
+    json.expired patron.expired?
     json.email patron.email
     json.patron_type patron.patron_type
     json.first_name patron.first_name

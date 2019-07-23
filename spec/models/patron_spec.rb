@@ -42,7 +42,18 @@ RSpec.describe Patron do
           'fields' =>
            { 'code' => { 'resource' => '/policy/patronAddress1', 'key' => 'EMAIL' },
              'data' => 'superuser1@stanford.edu' } }
-      ]
+      ],
+      groupSettings: {
+        fields: {
+          group: {
+            fields: {
+              memberList: [
+                key: '521187'
+              ]
+            }
+          }
+        }
+      }
     }
   end
 
@@ -163,14 +174,25 @@ RSpec.describe Patron do
     expect(patron.proxy_borrower?).to be false
   end
 
+  it 'has no #proxy_borrower_name' do
+    expect(patron.proxy_borrower_name).to be_nil
+  end
+
   context 'with a proxy borrower' do
     before do
       fields[:groupSettings] = { fields: { responsibility: { key: 'PROXY' } } }
+      fields[:firstName] = 'Second (P=FirstProxyLN)'
     end
 
     describe '#proxy_borrower?' do
       it 'is true' do
         expect(patron.proxy_borrower?).to be true
+      end
+    end
+
+    describe '#proxy_borrower_name' do
+      it 'is derived from the first name' do
+        expect(patron.proxy_borrower_name).to eq 'Proxy FirstProxyLN'
       end
     end
   end
@@ -180,13 +202,121 @@ RSpec.describe Patron do
   end
 
   context 'with a sponsor' do
+    let(:member_list) { [{ key: '521187', fields: {} }] }
+
     before do
-      fields[:groupSettings] = { fields: { responsibility: { key: 'SPONSOR' } } }
+      fields[:groupSettings] = { fields: { responsibility: { key: 'SPONSOR' },
+                                           group: { fields: {
+                                             memberList: member_list
+                                           } } } }
     end
 
     describe '#sponsor?' do
       it 'is true' do
         expect(patron.sponsor?).to be true
+      end
+    end
+
+    describe 'member_list' do
+      it 'is an array of patrons' do
+        expect(patron.member_list).to all(be_a(described_class))
+      end
+      it 'has a patron with a key' do
+        expect(patron.member_list.first.key).to eq '521187'
+      end
+      describe 'filtering' do
+        let(:member_list) do
+          [
+            { key: '1', fields: {} },
+            { key: '2', fields: { groupSettings: {
+              fields: {
+                responsibility: {
+                  key: 'SPONSOR'
+                }
+              }
+            } } },
+            { key: '3', fields: {} }
+          ]
+        end
+
+        it 'doesn\'t include the sponsor' do
+          expect(patron.member_list.select(&:sponsor?)).to eq []
+        end
+        it 'doesn\'t include the currently logged in user' do
+          expect(patron.member_list.map(&:key)).not_to include patron.key
+        end
+        it 'only has member with key 3' do
+          expect(patron.member_list.map(&:key)).to eq ['3']
+        end
+      end
+    end
+
+    describe '#group?' do
+      context 'when there are group members' do
+        let(:member_list) do
+          [
+            { key: '1', fields: {} },
+            { key: '2', fields: {} },
+            { key: '3', fields: {} }
+          ]
+        end
+
+        it 'is true' do
+          expect(patron).to be_group
+        end
+      end
+
+      context 'when the sponsor is the only member of the group' do
+        let(:member_list) { [{ key: '1' }] }
+
+        it 'is not a group when only one member' do
+          expect(patron).not_to be_group
+        end
+      end
+    end
+
+    describe '#group_checkouts' do
+      let(:member_list) do
+        [fields: {
+          circRecordList: [
+            key: 1,
+            fields: {}
+          ]
+        }]
+      end
+
+      it 'has checkouts' do
+        expect(patron.group_checkouts).to all(be_a(Checkout))
+      end
+    end
+
+    describe '#group_fines' do
+      let(:member_list) do
+        [fields: {
+          blockList: [
+            key: 1,
+            fields: {}
+          ]
+        }]
+      end
+
+      it 'has fines' do
+        expect(patron.group_fines).to all(be_a(Fine))
+      end
+    end
+
+    describe '#group_requests' do
+      let(:member_list) do
+        [fields: {
+          holdRecordList: [
+            key: 1,
+            fields: {}
+          ]
+        }]
+      end
+
+      it 'has fines' do
+        expect(patron.group_requests).to all(be_a(Request))
       end
     end
   end

@@ -26,3 +26,16 @@
     </li>
   </ul>
 </nav>
+
+<% if patron.group? %>
+  <nav class="container">
+    <ul class="nav nav-tabs nav-justified col-12 pt-3">
+      <li class="nav-item">
+        <%= link_to patron.proxy_borrower_name || 'Self', url_for(group: nil), class: "nav-link #{params[:group].nil? && 'active'}" %>
+      </li>
+      <li class="nav-item">
+        <%= link_to 'Group', url_for(group: true), class: "nav-link #{params[:group] && 'active'}" %>
+      </li>
+    </ul>
+  </nav>
+<% end %>
