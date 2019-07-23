@@ -9,11 +9,4 @@ class SummariesController < ApplicationController
   def index
     @patron = patron
   end
-
-  private
-
-  # Never trust parameters from the scary internet, only allow the white list through.
-  def summary_params
-    params.fetch(:summary, {})
-  end
 end
