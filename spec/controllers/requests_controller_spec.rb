@@ -41,4 +41,27 @@ RSpec.describe RequestsController do
       expect(assigns(:requests)).to eq requests
     end
   end
+
+  context 'with an authenticated request for group requests' do
+    let(:user) do
+      { username: 'somesunetid', patron_key: '123' }
+    end
+
+    let(:requests) do
+      [
+        instance_double(Request, key: '1', expiration_date: Time.zone.now, fill_by_date: nil)
+      ]
+    end
+
+    before do
+      allow(mock_patron).to receive(:group_requests).and_return(requests)
+      warden.set_user(user)
+    end
+
+    it 'assigns a list of checkouts' do
+      get(:index, params: { group: true })
+
+      expect(assigns(:requests)).to eq requests
+    end
+  end
 end
