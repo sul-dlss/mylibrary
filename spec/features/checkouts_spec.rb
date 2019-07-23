@@ -19,7 +19,7 @@ RSpec.describe 'Checkout Page', type: :feature do
       expect(page).to have_css('.call_number', text: 'GV1469.34 .S52 M874 2018')
     end
 
-    within('ul.checkouts li:nth-child(2)') do
+    within('ul.checkouts li:nth-child(5)') do
       expect(page).to have_css('.status', text: 'Overdue $30.00')
     end
   end
@@ -56,7 +56,7 @@ RSpec.describe 'Checkout Page', type: :feature do
       expect(page).to have_css('dd', text: /^\d+$/, visible: true)
     end
 
-    within('ul.checkouts li:nth-child(2)') do
+    within('ul.checkouts li:nth-child(5)') do
       click_button 'Expand'
       expect(page).to have_css('dt', text: 'Fines accrued:', visible: true)
       expect(page).to have_css('dd', text: '$30.00', visible: true)

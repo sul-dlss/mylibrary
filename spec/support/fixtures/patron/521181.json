@@ -1,1387 +1,1969 @@
 {
-  "key": "521181",
-  "fields": {
-    "department": "",
-    "category02": null,
-    "birthDate": null,
-    "suffix": "",
-    "createdDate": "2019-07-08",
-    "standing": {
-      "resource": "/policy/patronStanding",
-      "key": "DELINQUENT"
-    },
-    "lastName": "Superuser",
-    "category10": null,
-    "middleName": "",
-    "category12": null,
-    "usePreferredName": false,
-    "category09": null,
-    "category08": null,
-    "category07": null,
-    "category01": null,
-    "environment": {
-      "key": "PUBLIC",
-      "resource": "/policy/environment"
-    },
-    "claimsReturnedCount": 0,
-    "library": {
-      "key": "SUL",
-      "resource": "/policy/library"
-    },
-    "firstName": "Undergrad",
-    "category06": null,
-    "address1": [{
-      "resource": "/user/patron/address1",
-      "key": "509",
-      "fields": {
-        "code": {
-          "resource": "/policy/patronAddress1",
-          "key": "EMAIL"
-        },
-        "data": "somebody@stanford.edu"
-      }
-    }],
-    "blockList": [{
-      "resource": "/circulation/block",
-      "key": "521181:1",
-      "fields": {
-        "patron": {
-          "resource": "/user/patron",
-          "key": "521181"
-        },
-        "createDate": "2019-07-08",
-        "amount": {
-          "currencyCode": "USD",
-          "amount": "7.00"
-        },
-        "owed": {
-          "currencyCode": "USD",
-          "amount": "7.00"
-        },
-        "tax": {
-          "currencyCode": "USD",
-          "amount": "0.00"
-        },
-        "block": {
-          "resource": "/policy/block",
-          "key": "DAMAGED"
-        },
-        "item": {
-          "resource": "/catalog/item",
-          "key": "12871638:1:1",
-          "fields": {
-            "bib": {
-              "resource": "/catalog/bib",
-              "key": "12871638",
-              "fields": {
-                "author": "",
-                "title": "Research handbook on the law of virtual and augmented reality"
-              }
-            },
-            "call": {
-              "resource": "/catalog/call",
-              "key": "12871638:1",
-              "fields": {
-                "dispCallNumber": "K564 .C6 R47 2018",
-                "sortCallNumber": "K  000564 .C6  R47  2018"
-              }
-            },
-            "barcode": "36105228879115",
-            "circulate": false,
-            "copyNumber": 1,
-            "createdDate": "2019-01-25",
-            "currentLocation": {
-              "resource": "/policy/location",
-              "key": "CHECKEDOUT"
-            },
-            "homeLocation": {
-              "resource": "/policy/location",
-              "key": "BASEMENT"
-            },
-            "itemCategory1": null,
-            "itemCategory2": null,
-            "itemCategory3": null,
-            "itemCategory4": null,
-            "itemCategory5": null,
-            "itemType": {
-              "resource": "/policy/itemType",
-              "key": "LAW-STKS"
-            },
-            "lastInvDate": null,
-            "library": {
-              "resource": "/policy/library",
-              "key": "LAW"
-            },
-            "mediaDesk": null,
-            "permanent": true,
-            "pieces": 1,
-            "price": {
-              "currencyCode": "USD",
-              "amount": "0.00"
-            },
-            "shadowed": false,
-            "systemModifiedDate": "2019-07-08T21:53:00-07:00",
-            "timesInventoried": 0
-          }
-        },
-        "comment": null,
-        "library": {
-          "resource": "/policy/library",
-          "key": "GREEN"
-        },
-        "billDate": "2019-07-08",
-        "estimatedOverdueAmount": {
-          "currencyCode": "USD",
-          "amount": "0.00"
-        }
-      }
-    }],
-    "circRecordList": [{
-        "key": "12735651:1:1:1",
-        "fields": {
-          "status": "ACTIVE",
-          "recallDueDate": null,
-          "dueDate": "2019-08-05T23:59:00-07:00",
-          "claimsReturnedDate": null,
-          "seenRenewalsRemaining": null,
-          "overdue": false,
-          "recalledDate": null,
-          "circulationRule": {
-            "resource": "/policy/circulationRule",
-            "key": "28DNF"
-          },
-          "item": {
-            "resource": "/catalog/item",
-            "fields": {
-              "circulate": false,
-              "createdDate": "2018-10-23",
-              "permanent": true,
-              "pieces": 1,
-              "library": {
-                "key": "LAW",
-                "resource": "/policy/library"
-              },
-              "itemCategory5": null,
-              "itemCategory4": null,
-              "barcode": "36105228833088",
-              "mediaDesk": null,
-              "itemCategory2": null,
-              "systemModifiedDate": "2018-11-20T08:46:00-08:00",
-              "itemCategory1": null,
-              "timesInventoried": 0,
-              "itemType": {
-                "resource": "/policy/itemType",
-                "key": "LAW-STKS"
-              },
-              "price": {
-                "currencyCode": "USD",
-                "amount": "0.00"
-              },
-              "itemCategory3": null,
-              "lastInvDate": null,
-              "call": {
-                "key": "12735651:1",
-                "resource": "/catalog/call",
-                "fields": {
-                  "dispCallNumber": "P96 .J852 J353 2018",
-                  "sortCallNumber": "P  000096 .J852  J353  2018"
-                }
-              },
-              "homeLocation": {
-                "key": "BASEMENT",
-                "resource": "/policy/location"
-              },
-              "currentLocation": {
-                "key": "CHECKEDOUT",
-                "resource": "/policy/location"
-              },
-              "shadowed": false,
-              "copyNumber": 1,
-              "bib": {
-                "fields": {
-                  "title": "Law and justice in Japanese popular culture : from crime fighting robots to duelling pocket monsters",
-                  "author": ""
-                },
-                "resource": "/catalog/bib",
-                "key": "12735651"
-              }
-            },
-            "key": "12735651:1:1"
-          },
-          "unseenRenewalsRemaining": 2,
-          "renewalDate": null,
-          "checkOutDate": "2019-07-08T20:40:00-07:00",
-          "renewalCount": null,
-          "piecesReturned": 0,
-          "patron": {
-            "resource": "/user/patron",
-            "key": "521181"
-          },
-          "estimatedOverdueAmount": {
-            "amount": "0.00",
-            "currencyCode": "USD"
-          },
-          "library": {
-            "resource": "/policy/library",
-            "key": "LAW"
-          }
-        },
-        "resource": "/circulation/circRecord"
+   "key" : "521181",
+   "fields" : {
+      "checkoutLocation" : {
+         "key" : "CHECKEDOUT",
+         "resource" : "/policy/location"
       },
-      {
-        "resource": "/circulation/circRecord",
-        "fields": {
-          "renewalDate": null,
-          "checkOutDate": "2019-07-08T20:41:00-07:00",
-          "renewalCount": null,
-          "piecesReturned": 0,
-          "patron": {
-            "key": "521181",
-            "resource": "/user/patron"
-          },
-          "library": {
-            "key": "SAL3",
-            "resource": "/policy/library"
-          },
-          "estimatedOverdueAmount": {
-            "currencyCode": "USD",
-            "amount": "0.00"
-          },
-          "dueDate": "2019-08-05T23:59:00-07:00",
-          "status": "ACTIVE",
-          "recallDueDate": null,
-          "claimsReturnedDate": null,
-          "seenRenewalsRemaining": null,
-          "overdue": false,
-          "circulationRule": {
-            "resource": "/policy/circulationRule",
-            "key": "28DNF2"
-          },
-          "item": {
-            "resource": "/catalog/item",
-            "fields": {
-              "mediaDesk": null,
-              "itemCategory2": null,
-              "systemModifiedDate": "2017-01-19T19:03:00-08:00",
-              "itemCategory4": null,
-              "itemCategory5": null,
-              "library": {
-                "key": "SAL3",
-                "resource": "/policy/library"
-              },
-              "barcode": "36105225031298",
-              "createdDate": "2016-11-07",
-              "permanent": true,
-              "pieces": 1,
-              "circulate": false,
-              "copyNumber": 1,
-              "bib": {
-                "key": "11861046",
-                "resource": "/catalog/bib",
-                "fields": {
-                  "author": "",
-                  "title": "Phänomen Let's Play-Video : Entstehung, Ästhetik, Aneignung und Faszination aufgezeichneten Computerspielhandelns"
-                }
-              },
-              "shadowed": false,
-              "currentLocation": {
-                "key": "CHECKEDOUT",
-                "resource": "/policy/location"
-              },
-              "lastInvDate": null,
-              "call": {
-                "key": "11861046:3",
-                "fields": {
-                  "sortCallNumber": "GV 001469.35 .M535  P43  2017",
-                  "dispCallNumber": "GV1469.35 .M535 P43 2017"
-                },
-                "resource": "/catalog/call"
-              },
-              "price": {
-                "amount": "0.00",
-                "currencyCode": "USD"
-              },
-              "itemCategory3": null,
-              "homeLocation": {
-                "key": "STACKS",
-                "resource": "/policy/location"
-              },
-              "timesInventoried": 0,
-              "itemCategory1": null,
-              "itemType": {
-                "key": "STKS-MONO",
-                "resource": "/policy/itemType"
-              }
-            },
-            "key": "11861046:3:1"
-          },
-          "recalledDate": null,
-          "unseenRenewalsRemaining": 2
-        },
-        "key": "11861046:3:1:1"
+      "claimsReturnedCount" : 0,
+      "access" : {
+         "resource" : "/policy/userAccess",
+         "key" : "PUBLIC"
       },
-      {
-        "key": "9853129:2:1:1",
-        "resource": "/circulation/circRecord",
-        "fields": {
-          "recalledDate": null,
-          "circulationRule": {
-            "key": "7DWF-0R",
-            "resource": "/policy/circulationRule"
-          },
-          "item": {
-            "key": "9853129:2:1",
-            "fields": {
-              "homeLocation": {
-                "resource": "/policy/location",
-                "key": "MM-STACKS"
-              },
-              "lastInvDate": null,
-              "call": {
-                "key": "9853129:2",
-                "resource": "/catalog/call",
-                "fields": {
-                  "sortCallNumber": "ZDVD 029268",
-                  "dispCallNumber": "ZDVD 29268"
-                }
-              },
-              "itemCategory3": null,
-              "price": {
-                "currencyCode": "USD",
-                "amount": "19.99"
-              },
-              "itemType": {
-                "key": "DVDCD",
-                "resource": "/policy/itemType"
-              },
-              "timesInventoried": 0,
-              "itemCategory1": null,
-              "bib": {
-                "resource": "/catalog/bib",
-                "fields": {
-                  "author": "",
-                  "title": "Mad. Season one, part two [videorecording]"
-                },
-                "key": "9853129"
-              },
-              "copyNumber": 1,
-              "shadowed": false,
-              "currentLocation": {
-                "resource": "/policy/location",
-                "key": "CHECKEDOUT"
-              },
-              "pieces": 1,
-              "createdDate": "2013-01-08",
-              "permanent": true,
-              "circulate": false,
-              "itemCategory2": {
-                "key": "TAX=8.25",
-                "resource": "/policy/itemCategory2"
-              },
-              "systemModifiedDate": "2016-03-19T22:52:00-07:00",
-              "mediaDesk": null,
-              "barcode": "36105218586050",
-              "itemCategory4": null,
-              "itemCategory5": null,
-              "library": {
-                "resource": "/policy/library",
-                "key": "MEDIA-MTXT"
-              }
+      "alternateID" : "",
+      "usePreferredName" : false,
+      "firstName" : "Undergrad",
+      "groupId" : "",
+      "circRecordList" : [
+         {
+            "key" : "12735651:1:1:1",
+            "fields" : {
+               "recalledDate" : null,
+               "piecesReturned" : 0,
+               "patron" : {
+                  "resource" : "/user/patron",
+                  "key" : "521181"
+               },
+               "item" : {
+                  "fields" : {
+                     "systemModifiedDate" : "2018-11-20T08:46:00-08:00",
+                     "itemCategory3" : null,
+                     "bib" : {
+                        "fields" : {
+                           "author" : "",
+                           "title" : "Law and justice in Japanese popular culture : from crime fighting robots to duelling pocket monsters"
+                        },
+                        "key" : "12735651",
+                        "resource" : "/catalog/bib"
+                     },
+                     "mediaDesk" : null,
+                     "copyNumber" : 1,
+                     "call" : {
+                        "key" : "12735651:1",
+                        "fields" : {
+                           "sortCallNumber" : "P  000096 .J852  J353  2018",
+                           "dispCallNumber" : "P96 .J852 J353 2018"
+                        },
+                        "resource" : "/catalog/call"
+                     },
+                     "currentLocation" : {
+                        "resource" : "/policy/location",
+                        "key" : "CHECKEDOUT"
+                     },
+                     "itemCategory5" : null,
+                     "createdDate" : "2018-10-23",
+                     "itemCategory2" : null,
+                     "price" : {
+                        "currencyCode" : "USD",
+                        "amount" : "0.00"
+                     },
+                     "itemCategory4" : null,
+                     "homeLocation" : {
+                        "resource" : "/policy/location",
+                        "key" : "BASEMENT"
+                     },
+                     "permanent" : true,
+                     "lastInvDate" : null,
+                     "pieces" : 1,
+                     "itemCategory1" : null,
+                     "barcode" : "36105228833088",
+                     "circulate" : false,
+                     "library" : {
+                        "resource" : "/policy/library",
+                        "key" : "LAW"
+                     },
+                     "timesInventoried" : 0,
+                     "itemType" : {
+                        "resource" : "/policy/itemType",
+                        "key" : "LAW-STKS"
+                     },
+                     "shadowed" : false
+                  },
+                  "key" : "12735651:1:1",
+                  "resource" : "/catalog/item"
+               },
+               "circulationRule" : {
+                  "key" : "28DNF",
+                  "fields" : {
+                     "loanPeriod" : {
+                        "key" : "28D",
+                        "fields" : {
+                           "periodType" : {
+                              "resource" : "/policy/periodType",
+                              "key" : "DAILY"
+                           }
+                        },
+                        "resource" : "/policy/loanPeriod"
+                     },
+                     "renewFromPeriod" : 14
+                  },
+                  "resource" : "/policy/circulationRule"
+               },
+               "recallDueDate" : null,
+               "seenRenewalsRemaining" : null,
+               "estimatedOverdueAmount" : {
+                  "currencyCode" : "USD",
+                  "amount" : "0.00"
+               },
+               "checkOutDate" : "2019-07-08T20:40:00-07:00",
+               "renewalDate" : null,
+               "status" : "ACTIVE",
+               "claimsReturnedDate" : null,
+               "overdue" : false,
+               "unseenRenewalsRemaining" : 2,
+               "library" : {
+                  "key" : "LAW",
+                  "resource" : "/policy/library"
+               },
+               "renewalCount" : null,
+               "dueDate" : "2019-08-05T23:59:00-07:00"
             },
-            "resource": "/catalog/item"
-          },
-          "unseenRenewalsRemaining": 0,
-          "claimsReturnedDate": null,
-          "status": "ACTIVE",
-          "recallDueDate": null,
-          "dueDate": "2019-07-15T23:59:00-07:00",
-          "seenRenewalsRemaining": null,
-          "overdue": false,
-          "patron": {
-            "key": "521181",
-            "resource": "/user/patron"
-          },
-          "library": {
-            "key": "MEDIA-MTXT",
-            "resource": "/policy/library"
-          },
-          "estimatedOverdueAmount": {
-            "currencyCode": "USD",
-            "amount": "0.00"
-          },
-          "renewalCount": null,
-          "checkOutDate": "2019-07-08T20:41:00-07:00",
-          "renewalDate": null,
-          "piecesReturned": 0
-        }
-      },
-      {
-        "resource": "/circulation/circRecord",
-        "fields": {
-          "piecesReturned": 0,
-          "renewalCount": 1,
-          "checkOutDate": "2019-07-08T20:42:00-07:00",
-          "renewalDate": "2019-07-11T09:25:00-07:00",
-          "estimatedOverdueAmount": {
-            "currencyCode": "USD",
-            "amount": "0.00"
-          },
-          "library": {
-            "key": "GREEN",
-            "resource": "/policy/library"
-          },
-          "patron": {
-            "resource": "/user/patron",
-            "key": "521181"
-          },
-          "seenRenewalsRemaining": null,
-          "overdue": false,
-          "claimsReturnedDate": null,
-          "status": "ACTIVE",
-          "recallDueDate": null,
-          "dueDate": "2019-09-03T23:59:00-07:00",
-          "unseenRenewalsRemaining": 2,
-          "recalledDate": null,
-          "circulationRule": {
-            "resource": "/policy/circulationRule",
-            "key": "28DNF2"
-          },
-          "item": {
-            "key": "8838710:2:1",
-            "fields": {
-              "homeLocation": {
-                "resource": "/policy/location",
-                "key": "STACKS"
-              },
-              "call": {
-                "resource": "/catalog/call",
-                "fields": {
-                  "dispCallNumber": "NC1766 .J3 K6913 2010",
-                  "sortCallNumber": "NC 001766 .J3  K6913  2010"
-                },
-                "key": "8838710:2"
-              },
-              "lastInvDate": null,
-              "itemCategory3": null,
-              "price": {
-                "currencyCode": "USD",
-                "amount": "0.00"
-              },
-              "itemType": {
-                "resource": "/policy/itemType",
-                "key": "STKS-MONO"
-              },
-              "timesInventoried": 0,
-              "itemCategory1": null,
-              "bib": {
-                "key": "8838710",
-                "fields": {
-                  "author": "Koyama-Richard, Brigitte.",
-                  "title": "Japanese animation : from painted scrolls to Pokémon"
-                },
-                "resource": "/catalog/bib"
-              },
-              "copyNumber": 1,
-              "shadowed": false,
-              "currentLocation": {
-                "resource": "/policy/location",
-                "key": "CHECKEDOUT"
-              },
-              "pieces": 1,
-              "permanent": true,
-              "createdDate": "2011-01-19",
-              "circulate": false,
-              "itemCategory2": {
-                "key": "TAX=8.25",
-                "resource": "/policy/itemCategory2"
-              },
-              "systemModifiedDate": "2016-03-19T22:52:00-07:00",
-              "mediaDesk": null,
-              "barcode": "36105215436861",
-              "itemCategory4": null,
-              "itemCategory5": null,
-              "library": {
-                "resource": "/policy/library",
-                "key": "GREEN"
-              }
-            },
-            "resource": "/catalog/item"
-          }
-        },
-        "key": "8838710:2:1:1"
-      },
-      {
-        "resource": "/circulation/circRecord",
-        "fields": {
-          "seenRenewalsRemaining": null,
-          "overdue": false,
-          "claimsReturnedDate": null,
-          "recallDueDate": null,
-          "status": "ACTIVE",
-          "dueDate": "2019-08-05T23:59:00-07:00",
-          "unseenRenewalsRemaining": 2,
-          "recalledDate": null,
-          "circulationRule": {
-            "resource": "/policy/circulationRule",
-            "key": "28DNF2"
-          },
-          "item": {
-            "resource": "/catalog/item",
-            "fields": {
-              "circulate": false,
-              "pieces": 1,
-              "createdDate": "2006-05-03",
-              "permanent": true,
-              "barcode": "36105122531143",
-              "library": {
-                "key": "GREEN",
-                "resource": "/policy/library"
-              },
-              "itemCategory4": null,
-              "itemCategory5": null,
-              "itemCategory2": {
-                "resource": "/policy/itemCategory2",
-                "key": "DIGI-SENT"
-              },
-              "systemModifiedDate": "2016-03-19T22:52:00-07:00",
-              "mediaDesk": null,
-              "itemType": {
-                "resource": "/policy/itemType",
-                "key": "STKS-MONO"
-              },
-              "itemCategory1": {
-                "key": "RECYCLE",
-                "resource": "/policy/itemCategory1"
-              },
-              "timesInventoried": 0,
-              "homeLocation": {
-                "key": "STACKS",
-                "resource": "/policy/location"
-              },
-              "itemCategory3": null,
-              "price": {
-                "currencyCode": "USD",
-                "amount": "0.00"
-              },
-              "lastInvDate": null,
-              "call": {
-                "resource": "/catalog/call",
-                "fields": {
-                  "sortCallNumber": "HQ 000784 .T4  M586  2006",
-                  "dispCallNumber": "HQ784 .T4 M586 2006"
-                },
-                "key": "6365766:2"
-              },
-              "currentLocation": {
-                "resource": "/policy/location",
-                "key": "CHECKEDOUT"
-              },
-              "shadowed": false,
-              "bib": {
-                "fields": {
-                  "author": "",
-                  "title": "Mit Pokémon in Harry Potters Welt : Medien in den Fantasien von Kindern"
-                },
-                "resource": "/catalog/bib",
-                "key": "6365766"
-              },
-              "copyNumber": 1
-            },
-            "key": "6365766:2:1"
-          },
-          "piecesReturned": 0,
-          "renewalCount": null,
-          "checkOutDate": "2019-07-08T20:42:00-07:00",
-          "renewalDate": null,
-          "estimatedOverdueAmount": {
-            "amount": "0.00",
-            "currencyCode": "USD"
-          },
-          "library": {
-            "resource": "/policy/library",
-            "key": "GREEN"
-          },
-          "patron": {
-            "resource": "/user/patron",
-            "key": "521181"
-          }
-        },
-        "key": "6365766:2:1:1"
-      },
-      {
-        "key": "5574416:2:1:1",
-        "resource": "/circulation/circRecord",
-        "fields": {
-          "piecesReturned": 0,
-          "renewalCount": null,
-          "renewalDate": null,
-          "checkOutDate": "2019-07-08T20:44:00-07:00",
-          "estimatedOverdueAmount": {
-            "amount": "0.00",
-            "currencyCode": "USD"
-          },
-          "library": {
-            "key": "GREEN",
-            "resource": "/policy/library"
-          },
-          "patron": {
-            "key": "521181",
-            "resource": "/user/patron"
-          },
-          "seenRenewalsRemaining": null,
-          "overdue": false,
-          "claimsReturnedDate": null,
-          "status": "ACTIVE",
-          "dueDate": "2019-08-05T23:59:00-07:00",
-          "recallDueDate": "2019-07-15T23:59:00-07:00",
-          "unseenRenewalsRemaining": 2,
-          "recalledDate": "2019-07-08",
-          "circulationRule": {
-            "resource": "/policy/circulationRule",
-            "key": "28DNF2"
-          },
-          "item": {
-            "key": "5574416:2:1",
-            "resource": "/catalog/item",
-            "fields": {
-              "shadowed": false,
-              "currentLocation": {
-                "resource": "/policy/location",
-                "key": "CHECKEDOUT"
-              },
-              "bib": {
-                "resource": "/catalog/bib",
-                "fields": {
-                  "author": "",
-                  "title": "Pikachu's global adventure : the rise and fall of Pokémon"
-                },
-                "key": "5574416"
-              },
-              "copyNumber": 1,
-              "itemType": {
-                "key": "STKS-MONO",
-                "resource": "/policy/itemType"
-              },
-              "timesInventoried": 0,
-              "itemCategory1": null,
-              "homeLocation": {
-                "key": "STACKS",
-                "resource": "/policy/location"
-              },
-              "call": {
-                "resource": "/catalog/call",
-                "fields": {
-                  "sortCallNumber": "GV 001469.35 .P63  P54  2004",
-                  "dispCallNumber": "GV1469.35 .P63 P54 2004"
-                },
-                "key": "5574416:2"
-              },
-              "lastInvDate": null,
-              "price": {
-                "amount": "0.00",
-                "currencyCode": "USD"
-              },
-              "itemCategory3": null,
-              "barcode": "36105111937236",
-              "itemCategory5": null,
-              "itemCategory4": null,
-              "library": {
-                "key": "GREEN",
-                "resource": "/policy/library"
-              },
-              "systemModifiedDate": "2019-07-08T21:53:00-07:00",
-              "itemCategory2": {
-                "resource": "/policy/itemCategory2",
-                "key": "TAX=8.25"
-              },
-              "mediaDesk": null,
-              "circulate": false,
-              "pieces": 1,
-              "createdDate": "2004-02-26",
-              "permanent": true
+            "resource" : "/circulation/circRecord"
+         },
+         {
+            "resource" : "/circulation/circRecord",
+            "key" : "11861046:3:1:1",
+            "fields" : {
+               "item" : {
+                  "resource" : "/catalog/item",
+                  "fields" : {
+                     "itemCategory4" : null,
+                     "homeLocation" : {
+                        "resource" : "/policy/location",
+                        "key" : "STACKS"
+                     },
+                     "itemCategory2" : null,
+                     "price" : {
+                        "amount" : "0.00",
+                        "currencyCode" : "USD"
+                     },
+                     "createdDate" : "2016-11-07",
+                     "itemCategory5" : null,
+                     "currentLocation" : {
+                        "key" : "CHECKEDOUT",
+                        "resource" : "/policy/location"
+                     },
+                     "call" : {
+                        "resource" : "/catalog/call",
+                        "fields" : {
+                           "sortCallNumber" : "GV 001469.35 .M535  P43  2017",
+                           "dispCallNumber" : "GV1469.35 .M535 P43 2017"
+                        },
+                        "key" : "11861046:3"
+                     },
+                     "mediaDesk" : null,
+                     "bib" : {
+                        "resource" : "/catalog/bib",
+                        "key" : "11861046",
+                        "fields" : {
+                           "author" : "",
+                           "title" : "Phänomen Let's Play-Video : Entstehung, Ästhetik, Aneignung und Faszination aufgezeichneten Computerspielhandelns"
+                        }
+                     },
+                     "copyNumber" : 1,
+                     "systemModifiedDate" : "2017-01-19T19:03:00-08:00",
+                     "itemCategory3" : null,
+                     "shadowed" : false,
+                     "itemType" : {
+                        "resource" : "/policy/itemType",
+                        "key" : "STKS-MONO"
+                     },
+                     "timesInventoried" : 0,
+                     "library" : {
+                        "key" : "SAL3",
+                        "resource" : "/policy/library"
+                     },
+                     "circulate" : false,
+                     "barcode" : "36105225031298",
+                     "itemCategory1" : null,
+                     "pieces" : 1,
+                     "lastInvDate" : null,
+                     "permanent" : true
+                  },
+                  "key" : "11861046:3:1"
+               },
+               "circulationRule" : {
+                  "resource" : "/policy/circulationRule",
+                  "key" : "28DNF2",
+                  "fields" : {
+                     "renewFromPeriod" : 14,
+                     "loanPeriod" : {
+                        "resource" : "/policy/loanPeriod",
+                        "fields" : {
+                           "periodType" : {
+                              "resource" : "/policy/periodType",
+                              "key" : "DAILY"
+                           }
+                        },
+                        "key" : "28D"
+                     }
+                  }
+               },
+               "recallDueDate" : null,
+               "seenRenewalsRemaining" : null,
+               "piecesReturned" : 0,
+               "recalledDate" : null,
+               "patron" : {
+                  "key" : "521181",
+                  "resource" : "/user/patron"
+               },
+               "status" : "ACTIVE",
+               "claimsReturnedDate" : null,
+               "unseenRenewalsRemaining" : 2,
+               "library" : {
+                  "resource" : "/policy/library",
+                  "key" : "SAL3"
+               },
+               "overdue" : false,
+               "renewalCount" : null,
+               "dueDate" : "2019-08-05T23:59:00-07:00",
+               "estimatedOverdueAmount" : {
+                  "currencyCode" : "USD",
+                  "amount" : "0.00"
+               },
+               "checkOutDate" : "2019-07-08T20:41:00-07:00",
+               "renewalDate" : null
             }
-          }
-        }
-      },
-      {
-        "fields": {
-          "unseenRenewalsRemaining": 2,
-          "recalledDate": null,
-          "item": {
-            "fields": {
-              "circulate": false,
-              "pieces": 1,
-              "createdDate": "2001-11-27",
-              "permanent": true,
-              "barcode": "36105110354128",
-              "library": {
-                "key": "GREEN",
-                "resource": "/policy/library"
-              },
-              "itemCategory4": null,
-              "itemCategory5": null,
-              "itemCategory2": {
-                "key": "TAX=8.25",
-                "resource": "/policy/itemCategory2"
-              },
-              "systemModifiedDate": "2016-03-19T22:52:00-07:00",
-              "mediaDesk": null,
-              "itemType": {
-                "key": "STKS-MONO",
-                "resource": "/policy/itemType"
-              },
-              "itemCategory1": null,
-              "timesInventoried": 0,
-              "homeLocation": {
-                "key": "STACKS",
-                "resource": "/policy/location"
-              },
-              "price": {
-                "amount": "18.95",
-                "currencyCode": "USD"
-              },
-              "itemCategory3": null,
-              "lastInvDate": null,
-              "call": {
-                "fields": {
-                  "dispCallNumber": "GV1469.3 .K45 2001",
-                  "sortCallNumber": "GV 001469.3 .K45  2001"
-                },
-                "resource": "/catalog/call",
-                "key": "4684734:1"
-              },
-              "shadowed": false,
-              "currentLocation": {
-                "resource": "/policy/location",
-                "key": "CHECKEDOUT"
-              },
-              "bib": {
-                "resource": "/catalog/bib",
-                "fields": {
-                  "title": "The ultimate history of video games : from Pong to Pokémon and beyond--the story behind the craze that touched our lives and changed the world",
-                  "author": "Kent, Steve L."
-                },
-                "key": "4684734"
-              },
-              "copyNumber": 1
-            },
-            "resource": "/catalog/item",
-            "key": "4684734:1:1"
-          },
-          "circulationRule": {
-            "resource": "/policy/circulationRule",
-            "key": "28DNF2"
-          },
-          "overdue": false,
-          "seenRenewalsRemaining": null,
-          "dueDate": "2019-08-05T23:59:00-07:00",
-          "status": "ACTIVE",
-          "recallDueDate": null,
-          "claimsReturnedDate": null,
-          "library": {
-            "key": "GREEN",
-            "resource": "/policy/library"
-          },
-          "estimatedOverdueAmount": {
-            "currencyCode": "USD",
-            "amount": "0.00"
-          },
-          "patron": {
-            "key": "521181",
-            "resource": "/user/patron"
-          },
-          "piecesReturned": 0,
-          "checkOutDate": "2019-07-08T20:44:00-07:00",
-          "renewalDate": null,
-          "renewalCount": null
-        },
-        "resource": "/circulation/circRecord",
-        "key": "4684734:1:1:1"
-      },
-      {
-        "key": "10618472:2:1:1",
-        "fields": {
-          "claimsReturnedDate": null,
-          "recallDueDate": null,
-          "status": "ACTIVE",
-          "dueDate": "2019-07-09T14:00:00-07:00",
-          "overdue": true,
-          "seenRenewalsRemaining": null,
-          "item": {
-            "key": "10618472:2:1",
-            "fields": {
-              "createdDate": "2014-12-05",
-              "permanent": true,
-              "pieces": 1,
-              "circulate": false,
-              "mediaDesk": null,
-              "systemModifiedDate": "2019-07-08T20:46:00-07:00",
-              "itemCategory2": null,
-              "itemCategory4": null,
-              "itemCategory5": null,
-              "library": {
-                "resource": "/policy/library",
-                "key": "GREEN"
-              },
-              "barcode": "36105222112216",
-              "lastInvDate": null,
-              "call": {
-                "key": "10618472:2",
-                "fields": {
-                  "dispCallNumber": "PN6790 .J3 H376 2000",
-                  "sortCallNumber": "PN 006790 .J3  H376  2000"
-                },
-                "resource": "/catalog/call"
-              },
-              "price": {
-                "amount": "0.00",
-                "currencyCode": "USD"
-              },
-              "itemCategory3": null,
-              "homeLocation": {
-                "resource": "/policy/location",
-                "key": "STACKS"
-              },
-              "timesInventoried": 0,
-              "itemCategory1": null,
-              "itemType": {
-                "key": "STKS-MONO",
-                "resource": "/policy/itemType"
-              },
-              "copyNumber": 1,
-              "bib": {
-                "resource": "/catalog/bib",
-                "fields": {
-                  "title": "Pokemon sutōrī",
-                  "author": "Hatakeyama, Kenji, 1954-"
-                },
-                "key": "10618472"
-              },
-              "shadowed": false,
-              "currentLocation": {
-                "key": "CHECKEDOUT",
-                "resource": "/policy/location"
-              }
-            },
-            "resource": "/catalog/item"
-          },
-          "circulationRule": {
-            "key": "1DNDNF-RES",
-            "resource": "/policy/circulationRule"
-          },
-          "recalledDate": null,
-          "unseenRenewalsRemaining": 0,
-          "renewalCount": null,
-          "checkOutDate": "2019-07-08T20:46:00-07:00",
-          "renewalDate": null,
-          "piecesReturned": 0,
-          "patron": {
-            "key": "521181",
-            "resource": "/user/patron"
-          },
-          "library": {
-            "resource": "/policy/library",
-            "key": "GREEN"
-          },
-          "estimatedOverdueAmount": {
-            "currencyCode": "USD",
-            "amount": "0.00"
-          }
-        },
-        "resource": "/circulation/circRecord"
-      },
-      {
-        "resource": "/circulation/circRecord",
-        "fields": {
-          "renewalCount": null,
-          "checkOutDate": "2019-07-08T20:57:00-07:00",
-          "renewalDate": null,
-          "piecesReturned": 0,
-          "patron": {
-            "resource": "/user/patron",
-            "key": "521181"
-          },
-          "library": {
-            "resource": "/policy/library",
-            "key": "GREEN"
-          },
-          "estimatedOverdueAmount": {
-            "amount": "0.00",
-            "currencyCode": "USD"
-          },
-          "claimsReturnedDate": null,
-          "dueDate": "2019-08-05T23:59:00-07:00",
-          "status": "ACTIVE",
-          "recallDueDate": null,
-          "seenRenewalsRemaining": null,
-          "overdue": false,
-          "item": {
-            "fields": {
-              "bib": {
-                "key": "12756380",
-                "fields": {
-                  "author": "",
-                  "title": "Video games : a medium that demands our attention"
-                },
-                "resource": "/catalog/bib"
-              },
-              "copyNumber": 1,
-              "shadowed": false,
-              "currentLocation": {
-                "resource": "/policy/location",
-                "key": "CHECKEDOUT"
-              },
-              "homeLocation": {
-                "key": "STACKS",
-                "resource": "/policy/location"
-              },
-              "call": {
-                "fields": {
-                  "dispCallNumber": "GV1469.3 .V5266 2018",
-                  "sortCallNumber": "GV 001469.3 .V5266  2018"
-                },
-                "resource": "/catalog/call",
-                "key": "12756380:1"
-              },
-              "lastInvDate": null,
-              "price": {
-                "currencyCode": "USD",
-                "amount": "160.00"
-              },
-              "itemCategory3": null,
-              "itemType": {
-                "key": "STKS-MONO",
-                "resource": "/policy/itemType"
-              },
-              "timesInventoried": 0,
-              "itemCategory1": null,
-              "systemModifiedDate": "2018-10-24T09:27:00-07:00",
-              "itemCategory2": null,
-              "mediaDesk": null,
-              "barcode": "36105229893701",
-              "itemCategory5": null,
-              "itemCategory4": null,
-              "library": {
-                "resource": "/policy/library",
-                "key": "GREEN"
-              },
-              "pieces": 1,
-              "permanent": true,
-              "createdDate": "2018-10-24",
-              "circulate": false
-            },
-            "resource": "/catalog/item",
-            "key": "12756380:1:1"
-          },
-          "circulationRule": {
-            "resource": "/policy/circulationRule",
-            "key": "28DNF2"
-          },
-          "recalledDate": null,
-          "unseenRenewalsRemaining": 2
-        },
-        "key": "12756380:1:1:1"
-      },
-      {
-        "key": "12663643:1:1:1",
-        "resource": "/circulation/circRecord",
-        "fields": {
-          "library": {
-            "key": "GREEN",
-            "resource": "/policy/library"
-          },
-          "estimatedOverdueAmount": {
-            "amount": "0.00",
-            "currencyCode": "USD"
-          },
-          "patron": {
-            "key": "521181",
-            "resource": "/user/patron"
-          },
-          "piecesReturned": 0,
-          "renewalDate": null,
-          "checkOutDate": "2019-07-08T21:02:00-07:00",
-          "renewalCount": null,
-          "unseenRenewalsRemaining": 2,
-          "recalledDate": null,
-          "circulationRule": {
-            "resource": "/policy/circulationRule",
-            "key": "28DNF2",
-            "fields": {
-              "renewFromPeriod": 999999
+         },
+         {
+            "resource" : "/circulation/circRecord",
+            "key" : "9853129:2:1:1",
+            "fields" : {
+               "recalledDate" : null,
+               "piecesReturned" : 0,
+               "patron" : {
+                  "resource" : "/user/patron",
+                  "key" : "521181"
+               },
+               "item" : {
+                  "resource" : "/catalog/item",
+                  "key" : "9853129:2:1",
+                  "fields" : {
+                     "systemModifiedDate" : "2016-03-19T22:52:00-07:00",
+                     "itemCategory3" : null,
+                     "copyNumber" : 1,
+                     "mediaDesk" : null,
+                     "bib" : {
+                        "fields" : {
+                           "author" : "",
+                           "title" : "Mad. Season one, part two [videorecording]"
+                        },
+                        "key" : "9853129",
+                        "resource" : "/catalog/bib"
+                     },
+                     "currentLocation" : {
+                        "key" : "CHECKEDOUT",
+                        "resource" : "/policy/location"
+                     },
+                     "call" : {
+                        "resource" : "/catalog/call",
+                        "fields" : {
+                           "dispCallNumber" : "ZDVD 29268",
+                           "sortCallNumber" : "ZDVD 029268"
+                        },
+                        "key" : "9853129:2"
+                     },
+                     "itemCategory5" : null,
+                     "createdDate" : "2013-01-08",
+                     "itemCategory4" : null,
+                     "homeLocation" : {
+                        "key" : "MM-STACKS",
+                        "resource" : "/policy/location"
+                     },
+                     "price" : {
+                        "currencyCode" : "USD",
+                        "amount" : "19.99"
+                     },
+                     "itemCategory2" : {
+                        "key" : "TAX=8.25",
+                        "resource" : "/policy/itemCategory2"
+                     },
+                     "permanent" : true,
+                     "lastInvDate" : null,
+                     "pieces" : 1,
+                     "barcode" : "36105218586050",
+                     "itemCategory1" : null,
+                     "circulate" : false,
+                     "library" : {
+                        "resource" : "/policy/library",
+                        "key" : "MEDIA-MTXT"
+                     },
+                     "shadowed" : false,
+                     "itemType" : {
+                        "key" : "DVDCD",
+                        "resource" : "/policy/itemType"
+                     },
+                     "timesInventoried" : 0
+                  }
+               },
+               "circulationRule" : {
+                  "resource" : "/policy/circulationRule",
+                  "fields" : {
+                     "renewFromPeriod" : 7,
+                     "loanPeriod" : {
+                        "resource" : "/policy/loanPeriod",
+                        "fields" : {
+                           "periodType" : {
+                              "key" : "DAILY",
+                              "resource" : "/policy/periodType"
+                           }
+                        },
+                        "key" : "7D"
+                     }
+                  },
+                  "key" : "7DWF-0R"
+               },
+               "recallDueDate" : null,
+               "seenRenewalsRemaining" : null,
+               "estimatedOverdueAmount" : {
+                  "currencyCode" : "USD",
+                  "amount" : "10.50"
+               },
+               "checkOutDate" : "2019-07-08T20:41:00-07:00",
+               "renewalDate" : null,
+               "status" : "ACTIVE",
+               "claimsReturnedDate" : null,
+               "overdue" : true,
+               "unseenRenewalsRemaining" : 0,
+               "library" : {
+                  "resource" : "/policy/library",
+                  "key" : "MEDIA-MTXT"
+               },
+               "renewalCount" : null,
+               "dueDate" : "2019-07-15T23:59:00-07:00"
             }
-          },
-          "item": {
-            "key": "12663643:1:1",
-            "fields": {
-              "circulate": false,
-              "createdDate": "2018-06-28",
-              "permanent": true,
-              "pieces": 1,
-              "library": {
-                "resource": "/policy/library",
-                "key": "GREEN"
-              },
-              "itemCategory5": null,
-              "itemCategory4": null,
-              "barcode": "36105229207159",
-              "mediaDesk": null,
-              "itemCategory2": null,
-              "systemModifiedDate": "2019-01-11T09:23:00-08:00",
-              "itemCategory1": null,
-              "timesInventoried": 0,
-              "itemType": {
-                "key": "STKS-MONO",
-                "resource": "/policy/itemType"
-              },
-              "itemCategory3": null,
-              "price": {
-                "amount": "99.00",
-                "currencyCode": "USD"
-              },
-              "lastInvDate": null,
-              "call": {
-                "key": "12663643:1",
-                "resource": "/catalog/call",
-                "fields": {
-                  "sortCallNumber": "GV 001469.34 .S52  M874  2018",
-                  "dispCallNumber": "GV1469.34 .S52 M874 2018"
-                }
-              },
-              "homeLocation": {
-                "key": "STACKS",
-                "resource": "/policy/location"
-              },
-              "currentLocation": {
-                "key": "CHECKEDOUT",
-                "resource": "/policy/location"
-              },
-              "shadowed": false,
-              "copyNumber": 1,
-              "bib": {
-                "key": "12663643",
-                "fields": {
-                  "title": "On video games : the visual politics of race, gender and space",
-                  "author": "Murray, Soraya, author."
-                },
-                "resource": "/catalog/bib"
-              }
+         },
+         {
+            "key" : "8838710:2:1:1",
+            "fields" : {
+               "patron" : {
+                  "key" : "521181",
+                  "resource" : "/user/patron"
+               },
+               "piecesReturned" : 0,
+               "recalledDate" : null,
+               "seenRenewalsRemaining" : null,
+               "recallDueDate" : null,
+               "circulationRule" : {
+                  "resource" : "/policy/circulationRule",
+                  "fields" : {
+                     "loanPeriod" : {
+                        "fields" : {
+                           "periodType" : {
+                              "key" : "DAILY",
+                              "resource" : "/policy/periodType"
+                           }
+                        },
+                        "key" : "28D",
+                        "resource" : "/policy/loanPeriod"
+                     },
+                     "renewFromPeriod" : 14
+                  },
+                  "key" : "28DNF2"
+               },
+               "item" : {
+                  "resource" : "/catalog/item",
+                  "fields" : {
+                     "itemType" : {
+                        "resource" : "/policy/itemType",
+                        "key" : "STKS-MONO"
+                     },
+                     "shadowed" : false,
+                     "timesInventoried" : 0,
+                     "library" : {
+                        "resource" : "/policy/library",
+                        "key" : "GREEN"
+                     },
+                     "circulate" : false,
+                     "barcode" : "36105215436861",
+                     "itemCategory1" : null,
+                     "pieces" : 1,
+                     "lastInvDate" : null,
+                     "permanent" : true,
+                     "homeLocation" : {
+                        "resource" : "/policy/location",
+                        "key" : "STACKS"
+                     },
+                     "itemCategory4" : null,
+                     "price" : {
+                        "currencyCode" : "USD",
+                        "amount" : "0.00"
+                     },
+                     "itemCategory2" : {
+                        "key" : "TAX=8.25",
+                        "resource" : "/policy/itemCategory2"
+                     },
+                     "createdDate" : "2011-01-19",
+                     "itemCategory5" : null,
+                     "call" : {
+                        "key" : "8838710:2",
+                        "fields" : {
+                           "dispCallNumber" : "NC1766 .J3 K6913 2010",
+                           "sortCallNumber" : "NC 001766 .J3  K6913  2010"
+                        },
+                        "resource" : "/catalog/call"
+                     },
+                     "currentLocation" : {
+                        "key" : "CHECKEDOUT",
+                        "resource" : "/policy/location"
+                     },
+                     "mediaDesk" : null,
+                     "bib" : {
+                        "resource" : "/catalog/bib",
+                        "key" : "8838710",
+                        "fields" : {
+                           "title" : "Japanese animation : from painted scrolls to Pokémon",
+                           "author" : "Koyama-Richard, Brigitte."
+                        }
+                     },
+                     "copyNumber" : 1,
+                     "systemModifiedDate" : "2016-03-19T22:52:00-07:00",
+                     "itemCategory3" : null
+                  },
+                  "key" : "8838710:2:1"
+               },
+               "renewalDate" : "2019-07-11T09:25:00-07:00",
+               "checkOutDate" : "2019-07-08T20:42:00-07:00",
+               "estimatedOverdueAmount" : {
+                  "currencyCode" : "USD",
+                  "amount" : "0.00"
+               },
+               "renewalCount" : 1,
+               "dueDate" : "2019-09-03T23:59:00-07:00",
+               "unseenRenewalsRemaining" : 2,
+               "library" : {
+                  "resource" : "/policy/library",
+                  "key" : "GREEN"
+               },
+               "overdue" : false,
+               "claimsReturnedDate" : null,
+               "status" : "ACTIVE"
             },
-            "resource": "/catalog/item"
-          },
-          "overdue": true,
-          "seenRenewalsRemaining": null,
-          "status": "ACTIVE",
-          "dueDate": "2019-07-01T23:59:00-07:00",
-          "recallDueDate": null,
-          "claimsReturnedDate": null
-        }
-      },
-      {
-        "key": "12698156:2:1:1",
-        "fields": {
-          "library": {
-            "resource": "/policy/library",
-            "key": "GREEN"
-          },
-          "estimatedOverdueAmount": {
-            "currencyCode": "USD",
-            "amount": "30.00"
-          },
-          "patron": {
-            "key": "521181",
-            "resource": "/user/patron"
-          },
-          "piecesReturned": 0,
-          "renewalCount": null,
-          "checkOutDate": "2019-07-08T21:04:00-07:00",
-          "renewalDate": null,
-          "unseenRenewalsRemaining": 0,
-          "circulationRule": {
-            "key": "2HWF-RES",
-            "resource": "/policy/circulationRule"
-          },
-          "item": {
-            "key": "12698156:2:1",
-            "fields": {
-              "mediaDesk": null,
-              "systemModifiedDate": "2019-07-08T21:04:00-07:00",
-              "itemCategory2": null,
-              "library": {
-                "resource": "/policy/library",
-                "key": "GREEN"
-              },
-              "itemCategory4": null,
-              "itemCategory5": null,
-              "barcode": "36105229211896",
-              "createdDate": "2018-07-04",
-              "permanent": true,
-              "pieces": 1,
-              "circulate": false,
-              "copyNumber": 1,
-              "bib": {
-                "fields": {
-                  "title": "Playing with feelings : video games and affect",
-                  "author": "Anable, Aubrey, author."
-                },
-                "resource": "/catalog/bib",
-                "key": "12698156"
-              },
-              "currentLocation": {
-                "resource": "/policy/location",
-                "key": "CHECKEDOUT"
-              },
-              "shadowed": false,
-              "price": {
-                "currencyCode": "USD",
-                "amount": "0.00"
-              },
-              "itemCategory3": null,
-              "lastInvDate": null,
-              "call": {
-                "resource": "/catalog/call",
-                "fields": {
-                  "dispCallNumber": "GV1469.34 .P79 A53 2018",
-                  "sortCallNumber": "GV 001469.34 .P79  A53  2018"
-                },
-                "key": "12698156:2"
-              },
-              "homeLocation": {
-                "resource": "/policy/location",
-                "key": "STACKS"
-              },
-              "itemCategory1": null,
-              "timesInventoried": 0,
-              "itemType": {
-                "key": "STKS-MONO",
-                "resource": "/policy/itemType"
-              }
+            "resource" : "/circulation/circRecord"
+         },
+         {
+            "key" : "6365766:2:1:1",
+            "fields" : {
+               "status" : "ACTIVE",
+               "claimsReturnedDate" : null,
+               "overdue" : false,
+               "library" : {
+                  "key" : "GREEN",
+                  "resource" : "/policy/library"
+               },
+               "unseenRenewalsRemaining" : 2,
+               "dueDate" : "2019-08-05T23:59:00-07:00",
+               "renewalCount" : null,
+               "estimatedOverdueAmount" : {
+                  "amount" : "0.00",
+                  "currencyCode" : "USD"
+               },
+               "checkOutDate" : "2019-07-08T20:42:00-07:00",
+               "renewalDate" : null,
+               "item" : {
+                  "resource" : "/catalog/item",
+                  "fields" : {
+                     "shadowed" : false,
+                     "itemType" : {
+                        "key" : "STKS-MONO",
+                        "resource" : "/policy/itemType"
+                     },
+                     "timesInventoried" : 0,
+                     "library" : {
+                        "resource" : "/policy/library",
+                        "key" : "GREEN"
+                     },
+                     "circulate" : false,
+                     "barcode" : "36105122531143",
+                     "itemCategory1" : {
+                        "key" : "RECYCLE",
+                        "resource" : "/policy/itemCategory1"
+                     },
+                     "pieces" : 1,
+                     "lastInvDate" : null,
+                     "permanent" : true,
+                     "homeLocation" : {
+                        "key" : "STACKS",
+                        "resource" : "/policy/location"
+                     },
+                     "itemCategory4" : null,
+                     "itemCategory2" : {
+                        "resource" : "/policy/itemCategory2",
+                        "key" : "DIGI-SENT"
+                     },
+                     "price" : {
+                        "amount" : "0.00",
+                        "currencyCode" : "USD"
+                     },
+                     "createdDate" : "2006-05-03",
+                     "itemCategory5" : null,
+                     "currentLocation" : {
+                        "resource" : "/policy/location",
+                        "key" : "CHECKEDOUT"
+                     },
+                     "call" : {
+                        "resource" : "/catalog/call",
+                        "key" : "6365766:2",
+                        "fields" : {
+                           "dispCallNumber" : "HQ784 .T4 M586 2006",
+                           "sortCallNumber" : "HQ 000784 .T4  M586  2006"
+                        }
+                     },
+                     "bib" : {
+                        "key" : "6365766",
+                        "fields" : {
+                           "author" : "",
+                           "title" : "Mit Pokémon in Harry Potters Welt : Medien in den Fantasien von Kindern"
+                        },
+                        "resource" : "/catalog/bib"
+                     },
+                     "mediaDesk" : null,
+                     "copyNumber" : 1,
+                     "systemModifiedDate" : "2016-03-19T22:52:00-07:00",
+                     "itemCategory3" : null
+                  },
+                  "key" : "6365766:2:1"
+               },
+               "circulationRule" : {
+                  "fields" : {
+                     "loanPeriod" : {
+                        "fields" : {
+                           "periodType" : {
+                              "resource" : "/policy/periodType",
+                              "key" : "DAILY"
+                           }
+                        },
+                        "key" : "28D",
+                        "resource" : "/policy/loanPeriod"
+                     },
+                     "renewFromPeriod" : 14
+                  },
+                  "key" : "28DNF2",
+                  "resource" : "/policy/circulationRule"
+               },
+               "recallDueDate" : null,
+               "seenRenewalsRemaining" : null,
+               "recalledDate" : null,
+               "piecesReturned" : 0,
+               "patron" : {
+                  "resource" : "/user/patron",
+                  "key" : "521181"
+               }
             },
-            "resource": "/catalog/item"
-          },
-          "recalledDate": null,
-          "overdue": true,
-          "seenRenewalsRemaining": null,
-          "claimsReturnedDate": null,
-          "recallDueDate": null,
-          "status": "ACTIVE",
-          "dueDate": "2019-07-08T23:04:00-07:00"
-        },
-        "resource": "/circulation/circRecord"
-      },
-      {
-        "resource": "/circulation/circRecord",
-        "fields": {
-          "claimsReturnedDate": null,
-          "dueDate": "2019-07-09T23:59:00-07:00",
-          "status": "ACTIVE",
-          "recallDueDate": null,
-          "seenRenewalsRemaining": null,
-          "overdue": true,
-          "circulationRule": {
-            "resource": "/policy/circulationRule",
-            "key": "7DWF-0R"
-          },
-          "item": {
-            "key": "10569694:2:1",
-            "resource": "/catalog/item",
-            "fields": {
-              "shadowed": false,
-              "currentLocation": {
-                "key": "CHECKEDOUT",
-                "resource": "/policy/location"
-              },
-              "copyNumber": 1,
-              "bib": {
-                "resource": "/catalog/bib",
-                "fields": {
-                  "title": "The Lego movie videogame [electronic resource]",
-                  "author": ""
-                },
-                "key": "10569694"
-              },
-              "timesInventoried": 0,
-              "itemCategory1": null,
-              "itemType": {
-                "resource": "/policy/itemType",
-                "key": "VIDEOGAME"
-              },
-              "lastInvDate": null,
-              "call": {
-                "resource": "/catalog/call",
-                "fields": {
-                  "sortCallNumber": "ZMS 004033",
-                  "dispCallNumber": "ZMS 4033"
-                },
-                "key": "10569694:2"
-              },
-              "itemCategory3": null,
-              "price": {
-                "currencyCode": "USD",
-                "amount": "39.79"
-              },
-              "homeLocation": {
-                "resource": "/policy/location",
-                "key": "MM-STACKS"
-              },
-              "itemCategory5": null,
-              "itemCategory4": null,
-              "library": {
-                "key": "MEDIA-MTXT",
-                "resource": "/policy/library"
-              },
-              "barcode": "36105222442209",
-              "mediaDesk": null,
-              "itemCategory2": null,
-              "systemModifiedDate": "2016-03-19T22:52:00-07:00",
-              "circulate": false,
-              "createdDate": "2014-07-11",
-              "permanent": true,
-              "pieces": 2
+            "resource" : "/circulation/circRecord"
+         },
+         {
+            "fields" : {
+               "item" : {
+                  "resource" : "/catalog/item",
+                  "fields" : {
+                     "bib" : {
+                        "fields" : {
+                           "title" : "Pikachu's global adventure : the rise and fall of Pokémon",
+                           "author" : ""
+                        },
+                        "key" : "5574416",
+                        "resource" : "/catalog/bib"
+                     },
+                     "mediaDesk" : null,
+                     "copyNumber" : 1,
+                     "systemModifiedDate" : "2019-07-08T21:53:00-07:00",
+                     "itemCategory3" : null,
+                     "itemCategory4" : null,
+                     "homeLocation" : {
+                        "resource" : "/policy/location",
+                        "key" : "STACKS"
+                     },
+                     "price" : {
+                        "amount" : "0.00",
+                        "currencyCode" : "USD"
+                     },
+                     "itemCategory2" : {
+                        "resource" : "/policy/itemCategory2",
+                        "key" : "TAX=8.25"
+                     },
+                     "createdDate" : "2004-02-26",
+                     "itemCategory5" : null,
+                     "call" : {
+                        "resource" : "/catalog/call",
+                        "key" : "5574416:2",
+                        "fields" : {
+                           "sortCallNumber" : "GV 001469.35 .P63  P54  2004",
+                           "dispCallNumber" : "GV1469.35 .P63 P54 2004"
+                        }
+                     },
+                     "currentLocation" : {
+                        "resource" : "/policy/location",
+                        "key" : "CHECKEDOUT"
+                     },
+                     "pieces" : 1,
+                     "lastInvDate" : null,
+                     "permanent" : true,
+                     "shadowed" : false,
+                     "itemType" : {
+                        "resource" : "/policy/itemType",
+                        "key" : "STKS-MONO"
+                     },
+                     "timesInventoried" : 0,
+                     "library" : {
+                        "resource" : "/policy/library",
+                        "key" : "GREEN"
+                     },
+                     "circulate" : false,
+                     "barcode" : "36105111937236",
+                     "itemCategory1" : null
+                  },
+                  "key" : "5574416:2:1"
+               },
+               "circulationRule" : {
+                  "resource" : "/policy/circulationRule",
+                  "fields" : {
+                     "loanPeriod" : {
+                        "resource" : "/policy/loanPeriod",
+                        "fields" : {
+                           "periodType" : {
+                              "key" : "DAILY",
+                              "resource" : "/policy/periodType"
+                           }
+                        },
+                        "key" : "28D"
+                     },
+                     "renewFromPeriod" : 14
+                  },
+                  "key" : "28DNF2"
+               },
+               "recallDueDate" : "2019-07-15T23:59:00-07:00",
+               "seenRenewalsRemaining" : null,
+               "recalledDate" : "2019-07-08",
+               "piecesReturned" : 0,
+               "patron" : {
+                  "key" : "521181",
+                  "resource" : "/user/patron"
+               },
+               "status" : "ACTIVE",
+               "claimsReturnedDate" : null,
+               "overdue" : false,
+               "library" : {
+                  "key" : "GREEN",
+                  "resource" : "/policy/library"
+               },
+               "unseenRenewalsRemaining" : 2,
+               "dueDate" : "2019-08-05T23:59:00-07:00",
+               "renewalCount" : null,
+               "estimatedOverdueAmount" : {
+                  "amount" : "21.00",
+                  "currencyCode" : "USD"
+               },
+               "checkOutDate" : "2019-07-08T20:44:00-07:00",
+               "renewalDate" : null
+            },
+            "key" : "5574416:2:1:1",
+            "resource" : "/circulation/circRecord"
+         },
+         {
+            "fields" : {
+               "renewalDate" : null,
+               "checkOutDate" : "2019-07-08T20:44:00-07:00",
+               "estimatedOverdueAmount" : {
+                  "amount" : "0.00",
+                  "currencyCode" : "USD"
+               },
+               "dueDate" : "2019-08-05T23:59:00-07:00",
+               "renewalCount" : null,
+               "unseenRenewalsRemaining" : 2,
+               "library" : {
+                  "key" : "GREEN",
+                  "resource" : "/policy/library"
+               },
+               "overdue" : false,
+               "claimsReturnedDate" : null,
+               "status" : "ACTIVE",
+               "patron" : {
+                  "key" : "521181",
+                  "resource" : "/user/patron"
+               },
+               "piecesReturned" : 0,
+               "recalledDate" : null,
+               "seenRenewalsRemaining" : null,
+               "recallDueDate" : null,
+               "circulationRule" : {
+                  "fields" : {
+                     "renewFromPeriod" : 14,
+                     "loanPeriod" : {
+                        "resource" : "/policy/loanPeriod",
+                        "fields" : {
+                           "periodType" : {
+                              "resource" : "/policy/periodType",
+                              "key" : "DAILY"
+                           }
+                        },
+                        "key" : "28D"
+                     }
+                  },
+                  "key" : "28DNF2",
+                  "resource" : "/policy/circulationRule"
+               },
+               "item" : {
+                  "resource" : "/catalog/item",
+                  "fields" : {
+                     "call" : {
+                        "resource" : "/catalog/call",
+                        "key" : "4684734:1",
+                        "fields" : {
+                           "dispCallNumber" : "GV1469.3 .K45 2001",
+                           "sortCallNumber" : "GV 001469.3 .K45  2001"
+                        }
+                     },
+                     "currentLocation" : {
+                        "resource" : "/policy/location",
+                        "key" : "CHECKEDOUT"
+                     },
+                     "itemCategory5" : null,
+                     "createdDate" : "2001-11-27",
+                     "price" : {
+                        "currencyCode" : "USD",
+                        "amount" : "18.95"
+                     },
+                     "itemCategory2" : {
+                        "key" : "TAX=8.25",
+                        "resource" : "/policy/itemCategory2"
+                     },
+                     "homeLocation" : {
+                        "resource" : "/policy/location",
+                        "key" : "STACKS"
+                     },
+                     "itemCategory4" : null,
+                     "systemModifiedDate" : "2016-03-19T22:52:00-07:00",
+                     "itemCategory3" : null,
+                     "bib" : {
+                        "key" : "4684734",
+                        "fields" : {
+                           "title" : "The ultimate history of video games : from Pong to Pokémon and beyond--the story behind the craze that touched our lives and changed the world",
+                           "author" : "Kent, Steve L."
+                        },
+                        "resource" : "/catalog/bib"
+                     },
+                     "mediaDesk" : null,
+                     "copyNumber" : 1,
+                     "itemCategory1" : null,
+                     "barcode" : "36105110354128",
+                     "circulate" : false,
+                     "library" : {
+                        "key" : "GREEN",
+                        "resource" : "/policy/library"
+                     },
+                     "timesInventoried" : 0,
+                     "itemType" : {
+                        "key" : "STKS-MONO",
+                        "resource" : "/policy/itemType"
+                     },
+                     "shadowed" : false,
+                     "permanent" : true,
+                     "lastInvDate" : null,
+                     "pieces" : 1
+                  },
+                  "key" : "4684734:1:1"
+               }
+            },
+            "key" : "4684734:1:1:1",
+            "resource" : "/circulation/circRecord"
+         },
+         {
+            "fields" : {
+               "renewalDate" : null,
+               "estimatedOverdueAmount" : {
+                  "currencyCode" : "USD",
+                  "amount" : "0.00"
+               },
+               "checkOutDate" : "2019-07-08T20:46:00-07:00",
+               "overdue" : true,
+               "unseenRenewalsRemaining" : 0,
+               "library" : {
+                  "key" : "GREEN",
+                  "resource" : "/policy/library"
+               },
+               "dueDate" : "2019-07-09T14:00:00-07:00",
+               "renewalCount" : null,
+               "status" : "ACTIVE",
+               "claimsReturnedDate" : null,
+               "patron" : {
+                  "resource" : "/user/patron",
+                  "key" : "521181"
+               },
+               "recalledDate" : null,
+               "piecesReturned" : 0,
+               "recallDueDate" : null,
+               "seenRenewalsRemaining" : null,
+               "item" : {
+                  "resource" : "/catalog/item",
+                  "fields" : {
+                     "itemCategory2" : null,
+                     "price" : {
+                        "currencyCode" : "USD",
+                        "amount" : "0.00"
+                     },
+                     "homeLocation" : {
+                        "key" : "STACKS",
+                        "resource" : "/policy/location"
+                     },
+                     "itemCategory4" : null,
+                     "createdDate" : "2014-12-05",
+                     "itemCategory5" : null,
+                     "call" : {
+                        "resource" : "/catalog/call",
+                        "key" : "10618472:2",
+                        "fields" : {
+                           "sortCallNumber" : "PN 006790 .J3  H376  2000",
+                           "dispCallNumber" : "PN6790 .J3 H376 2000"
+                        }
+                     },
+                     "currentLocation" : {
+                        "key" : "CHECKEDOUT",
+                        "resource" : "/policy/location"
+                     },
+                     "copyNumber" : 1,
+                     "mediaDesk" : null,
+                     "bib" : {
+                        "resource" : "/catalog/bib",
+                        "fields" : {
+                           "title" : "Pokemon sutōrī",
+                           "author" : "Hatakeyama, Kenji, 1954-"
+                        },
+                        "key" : "10618472"
+                     },
+                     "systemModifiedDate" : "2019-07-08T20:46:00-07:00",
+                     "itemCategory3" : null,
+                     "timesInventoried" : 0,
+                     "shadowed" : false,
+                     "itemType" : {
+                        "key" : "STKS-MONO",
+                        "resource" : "/policy/itemType"
+                     },
+                     "library" : {
+                        "resource" : "/policy/library",
+                        "key" : "GREEN"
+                     },
+                     "circulate" : false,
+                     "itemCategory1" : null,
+                     "barcode" : "36105222112216",
+                     "pieces" : 1,
+                     "lastInvDate" : null,
+                     "permanent" : true
+                  },
+                  "key" : "10618472:2:1"
+               },
+               "circulationRule" : {
+                  "key" : "1DNDNF-RES",
+                  "fields" : {
+                     "renewFromPeriod" : 1,
+                     "loanPeriod" : {
+                        "fields" : {
+                           "periodType" : {
+                              "resource" : "/policy/periodType",
+                              "key" : "DAILY"
+                           }
+                        },
+                        "key" : "1DND-RES",
+                        "resource" : "/policy/loanPeriod"
+                     }
+                  },
+                  "resource" : "/policy/circulationRule"
+               }
+            },
+            "key" : "10618472:2:1:1",
+            "resource" : "/circulation/circRecord"
+         },
+         {
+            "fields" : {
+               "estimatedOverdueAmount" : {
+                  "amount" : "0.00",
+                  "currencyCode" : "USD"
+               },
+               "checkOutDate" : "2019-07-08T20:57:00-07:00",
+               "renewalDate" : null,
+               "status" : "ACTIVE",
+               "claimsReturnedDate" : null,
+               "unseenRenewalsRemaining" : 2,
+               "library" : {
+                  "resource" : "/policy/library",
+                  "key" : "GREEN"
+               },
+               "overdue" : false,
+               "dueDate" : "2019-08-05T23:59:00-07:00",
+               "renewalCount" : null,
+               "piecesReturned" : 0,
+               "recalledDate" : null,
+               "patron" : {
+                  "resource" : "/user/patron",
+                  "key" : "521181"
+               },
+               "item" : {
+                  "resource" : "/catalog/item",
+                  "key" : "12756380:1:1",
+                  "fields" : {
+                     "library" : {
+                        "resource" : "/policy/library",
+                        "key" : "GREEN"
+                     },
+                     "itemType" : {
+                        "resource" : "/policy/itemType",
+                        "key" : "STKS-MONO"
+                     },
+                     "shadowed" : false,
+                     "timesInventoried" : 0,
+                     "barcode" : "36105229893701",
+                     "itemCategory1" : null,
+                     "circulate" : false,
+                     "pieces" : 1,
+                     "permanent" : true,
+                     "lastInvDate" : null,
+                     "createdDate" : "2018-10-24",
+                     "homeLocation" : {
+                        "key" : "STACKS",
+                        "resource" : "/policy/location"
+                     },
+                     "itemCategory4" : null,
+                     "itemCategory2" : null,
+                     "price" : {
+                        "currencyCode" : "USD",
+                        "amount" : "160.00"
+                     },
+                     "call" : {
+                        "resource" : "/catalog/call",
+                        "key" : "12756380:1",
+                        "fields" : {
+                           "sortCallNumber" : "GV 001469.3 .V5266  2018",
+                           "dispCallNumber" : "GV1469.3 .V5266 2018"
+                        }
+                     },
+                     "currentLocation" : {
+                        "resource" : "/policy/location",
+                        "key" : "CHECKEDOUT"
+                     },
+                     "itemCategory5" : null,
+                     "mediaDesk" : null,
+                     "bib" : {
+                        "fields" : {
+                           "author" : "",
+                           "title" : "Video games : a medium that demands our attention"
+                        },
+                        "key" : "12756380",
+                        "resource" : "/catalog/bib"
+                     },
+                     "copyNumber" : 1,
+                     "systemModifiedDate" : "2018-10-24T09:27:00-07:00",
+                     "itemCategory3" : null
+                  }
+               },
+               "circulationRule" : {
+                  "resource" : "/policy/circulationRule",
+                  "key" : "28DNF2",
+                  "fields" : {
+                     "loanPeriod" : {
+                        "fields" : {
+                           "periodType" : {
+                              "resource" : "/policy/periodType",
+                              "key" : "DAILY"
+                           }
+                        },
+                        "key" : "28D",
+                        "resource" : "/policy/loanPeriod"
+                     },
+                     "renewFromPeriod" : 14
+                  }
+               },
+               "recallDueDate" : null,
+               "seenRenewalsRemaining" : null
+            },
+            "key" : "12756380:1:1:1",
+            "resource" : "/circulation/circRecord"
+         },
+         {
+            "resource" : "/circulation/circRecord",
+            "fields" : {
+               "renewalDate" : null,
+               "checkOutDate" : "2019-07-08T21:02:00-07:00",
+               "estimatedOverdueAmount" : {
+                  "amount" : "0.00",
+                  "currencyCode" : "USD"
+               },
+               "renewalCount" : null,
+               "dueDate" : "2019-07-01T23:59:00-07:00",
+               "overdue" : true,
+               "unseenRenewalsRemaining" : 2,
+               "library" : {
+                  "resource" : "/policy/library",
+                  "key" : "GREEN"
+               },
+               "claimsReturnedDate" : null,
+               "status" : "ACTIVE",
+               "patron" : {
+                  "key" : "521181",
+                  "resource" : "/user/patron"
+               },
+               "recalledDate" : null,
+               "piecesReturned" : 0,
+               "seenRenewalsRemaining" : null,
+               "recallDueDate" : null,
+               "circulationRule" : {
+                  "resource" : "/policy/circulationRule",
+                  "fields" : {
+                     "loanPeriod" : {
+                        "resource" : "/policy/loanPeriod",
+                        "fields" : {
+                           "periodType" : {
+                              "resource" : "/policy/periodType",
+                              "key" : "DAILY"
+                           }
+                        },
+                        "key" : "28D"
+                     },
+                     "renewFromPeriod" : 14
+                  },
+                  "key" : "28DNF2"
+               },
+               "item" : {
+                  "resource" : "/catalog/item",
+                  "fields" : {
+                     "mediaDesk" : null,
+                     "bib" : {
+                        "resource" : "/catalog/bib",
+                        "fields" : {
+                           "author" : "Murray, Soraya, author.",
+                           "title" : "On video games : the visual politics of race, gender and space"
+                        },
+                        "key" : "12663643"
+                     },
+                     "copyNumber" : 1,
+                     "systemModifiedDate" : "2019-01-11T09:23:00-08:00",
+                     "itemCategory3" : null,
+                     "itemCategory2" : null,
+                     "price" : {
+                        "currencyCode" : "USD",
+                        "amount" : "99.00"
+                     },
+                     "homeLocation" : {
+                        "key" : "STACKS",
+                        "resource" : "/policy/location"
+                     },
+                     "itemCategory4" : null,
+                     "createdDate" : "2018-06-28",
+                     "itemCategory5" : null,
+                     "currentLocation" : {
+                        "key" : "CHECKEDOUT",
+                        "resource" : "/policy/location"
+                     },
+                     "call" : {
+                        "key" : "12663643:1",
+                        "fields" : {
+                           "sortCallNumber" : "GV 001469.34 .S52  M874  2018",
+                           "dispCallNumber" : "GV1469.34 .S52 M874 2018"
+                        },
+                        "resource" : "/catalog/call"
+                     },
+                     "pieces" : 1,
+                     "lastInvDate" : null,
+                     "permanent" : true,
+                     "timesInventoried" : 0,
+                     "itemType" : {
+                        "key" : "STKS-MONO",
+                        "resource" : "/policy/itemType"
+                     },
+                     "shadowed" : false,
+                     "library" : {
+                        "key" : "GREEN",
+                        "resource" : "/policy/library"
+                     },
+                     "circulate" : false,
+                     "itemCategory1" : null,
+                     "barcode" : "36105229207159"
+                  },
+                  "key" : "12663643:1:1"
+               }
+            },
+            "key" : "12663643:1:1:1"
+         },
+         {
+            "resource" : "/circulation/circRecord",
+            "key" : "10569694:2:1:1",
+            "fields" : {
+               "claimsReturnedDate" : null,
+               "status" : "ACTIVE",
+               "renewalCount" : null,
+               "dueDate" : "2019-07-09T23:59:00-07:00",
+               "library" : {
+                  "key" : "MEDIA-MTXT",
+                  "resource" : "/policy/library"
+               },
+               "unseenRenewalsRemaining" : 0,
+               "overdue" : true,
+               "checkOutDate" : "2019-07-08T21:28:00-07:00",
+               "estimatedOverdueAmount" : {
+                  "amount" : "10.50",
+                  "currencyCode" : "USD"
+               },
+               "renewalDate" : null,
+               "circulationRule" : {
+                  "key" : "7DWF-0R",
+                  "fields" : {
+                     "loanPeriod" : {
+                        "fields" : {
+                           "periodType" : {
+                              "key" : "DAILY",
+                              "resource" : "/policy/periodType"
+                           }
+                        },
+                        "key" : "7D",
+                        "resource" : "/policy/loanPeriod"
+                     },
+                     "renewFromPeriod" : 7
+                  },
+                  "resource" : "/policy/circulationRule"
+               },
+               "item" : {
+                  "fields" : {
+                     "itemCategory4" : null,
+                     "homeLocation" : {
+                        "resource" : "/policy/location",
+                        "key" : "MM-STACKS"
+                     },
+                     "itemCategory2" : null,
+                     "price" : {
+                        "currencyCode" : "USD",
+                        "amount" : "39.79"
+                     },
+                     "createdDate" : "2014-07-11",
+                     "itemCategory5" : null,
+                     "call" : {
+                        "resource" : "/catalog/call",
+                        "key" : "10569694:2",
+                        "fields" : {
+                           "sortCallNumber" : "ZMS 004033",
+                           "dispCallNumber" : "ZMS 4033"
+                        }
+                     },
+                     "currentLocation" : {
+                        "resource" : "/policy/location",
+                        "key" : "CHECKEDOUT"
+                     },
+                     "bib" : {
+                        "resource" : "/catalog/bib",
+                        "fields" : {
+                           "author" : "",
+                           "title" : "The Lego movie videogame [electronic resource]"
+                        },
+                        "key" : "10569694"
+                     },
+                     "mediaDesk" : null,
+                     "copyNumber" : 1,
+                     "itemCategory3" : null,
+                     "systemModifiedDate" : "2016-03-19T22:52:00-07:00",
+                     "itemType" : {
+                        "resource" : "/policy/itemType",
+                        "key" : "VIDEOGAME"
+                     },
+                     "shadowed" : false,
+                     "timesInventoried" : 0,
+                     "library" : {
+                        "resource" : "/policy/library",
+                        "key" : "MEDIA-MTXT"
+                     },
+                     "circulate" : false,
+                     "barcode" : "36105222442209",
+                     "itemCategory1" : null,
+                     "pieces" : 2,
+                     "lastInvDate" : null,
+                     "permanent" : true
+                  },
+                  "key" : "10569694:2:1",
+                  "resource" : "/catalog/item"
+               },
+               "seenRenewalsRemaining" : null,
+               "recallDueDate" : null,
+               "piecesReturned" : 0,
+               "recalledDate" : null,
+               "patron" : {
+                  "resource" : "/user/patron",
+                  "key" : "521181"
+               }
             }
-          },
-          "recalledDate": null,
-          "unseenRenewalsRemaining": 0,
-          "renewalCount": null,
-          "renewalDate": null,
-          "checkOutDate": "2019-07-08T21:28:00-07:00",
-          "piecesReturned": 0,
-          "patron": {
-            "resource": "/user/patron",
-            "key": "521181"
-          },
-          "estimatedOverdueAmount": {
-            "currencyCode": "USD",
-            "amount": "3.00"
-          },
-          "library": {
-            "key": "MEDIA-MTXT",
-            "resource": "/policy/library"
-          }
-        },
-        "key": "10569694:2:1:1"
+         },
+         {
+            "key" : "12443068:1:1:1",
+            "fields" : {
+               "item" : {
+                  "resource" : "/catalog/item",
+                  "key" : "12443068:1:1",
+                  "fields" : {
+                     "createdDate" : "2018-05-24",
+                     "itemCategory2" : null,
+                     "price" : {
+                        "currencyCode" : "USD",
+                        "amount" : "140.00"
+                     },
+                     "itemCategory4" : null,
+                     "homeLocation" : {
+                        "key" : "STACKS",
+                        "resource" : "/policy/location"
+                     },
+                     "currentLocation" : {
+                        "key" : "CHECKEDOUT",
+                        "resource" : "/policy/location"
+                     },
+                     "call" : {
+                        "resource" : "/catalog/call",
+                        "fields" : {
+                           "dispCallNumber" : "GV1469.3 .A29 2018",
+                           "sortCallNumber" : "GV 001469.3 .A29  2018"
+                        },
+                        "key" : "12443068:1"
+                     },
+                     "itemCategory5" : null,
+                     "mediaDesk" : null,
+                     "bib" : {
+                        "resource" : "/catalog/bib",
+                        "key" : "12443068",
+                        "fields" : {
+                           "author" : "",
+                           "title" : "The aesthetics of videogames"
+                        }
+                     },
+                     "copyNumber" : 1,
+                     "systemModifiedDate" : "2018-05-24T09:28:00-07:00",
+                     "itemCategory3" : null,
+                     "library" : {
+                        "key" : "GREEN",
+                        "resource" : "/policy/library"
+                     },
+                     "timesInventoried" : 0,
+                     "shadowed" : false,
+                     "itemType" : {
+                        "resource" : "/policy/itemType",
+                        "key" : "STKS-MONO"
+                     },
+                     "itemCategory1" : null,
+                     "barcode" : "36105229364489",
+                     "circulate" : false,
+                     "pieces" : 1,
+                     "permanent" : true,
+                     "lastInvDate" : null
+                  }
+               },
+               "circulationRule" : {
+                  "key" : "28DNF2",
+                  "fields" : {
+                     "loanPeriod" : {
+                        "resource" : "/policy/loanPeriod",
+                        "key" : "28D",
+                        "fields" : {
+                           "periodType" : {
+                              "key" : "DAILY",
+                              "resource" : "/policy/periodType"
+                           }
+                        }
+                     },
+                     "renewFromPeriod" : 14
+                  },
+                  "resource" : "/policy/circulationRule"
+               },
+               "recallDueDate" : null,
+               "seenRenewalsRemaining" : null,
+               "recalledDate" : null,
+               "piecesReturned" : 0,
+               "patron" : {
+                  "key" : "521181",
+                  "resource" : "/user/patron"
+               },
+               "status" : "ACTIVE",
+               "claimsReturnedDate" : null,
+               "overdue" : false,
+               "unseenRenewalsRemaining" : 2,
+               "library" : {
+                  "resource" : "/policy/library",
+                  "key" : "GREEN"
+               },
+               "dueDate" : "2019-09-04T23:59:00-07:00",
+               "renewalCount" : 1,
+               "estimatedOverdueAmount" : {
+                  "amount" : "0.00",
+                  "currencyCode" : "USD"
+               },
+               "checkOutDate" : "2019-07-10T12:42:00-07:00",
+               "renewalDate" : "2019-07-10T13:00:00-07:00"
+            },
+            "resource" : "/circulation/circRecord"
+         },
+         {
+            "fields" : {
+               "patron" : {
+                  "key" : "521181",
+                  "resource" : "/user/patron"
+               },
+               "piecesReturned" : 0,
+               "recalledDate" : null,
+               "seenRenewalsRemaining" : null,
+               "recallDueDate" : null,
+               "circulationRule" : {
+                  "fields" : {
+                     "loanPeriod" : {
+                        "fields" : {
+                           "periodType" : {
+                              "key" : "HOURLY",
+                              "resource" : "/policy/periodType"
+                           }
+                        },
+                        "key" : "2H",
+                        "resource" : "/policy/loanPeriod"
+                     },
+                     "renewFromPeriod" : 0
+                  },
+                  "key" : "2HWF-RES",
+                  "resource" : "/policy/circulationRule"
+               },
+               "item" : {
+                  "fields" : {
+                     "pieces" : 1,
+                     "permanent" : true,
+                     "lastInvDate" : null,
+                     "library" : {
+                        "resource" : "/policy/library",
+                        "key" : "GREEN"
+                     },
+                     "timesInventoried" : 0,
+                     "itemType" : {
+                        "resource" : "/policy/itemType",
+                        "key" : "STKS-MONO"
+                     },
+                     "shadowed" : false,
+                     "itemCategory1" : null,
+                     "barcode" : "36105229211896",
+                     "circulate" : false,
+                     "copyNumber" : 1,
+                     "mediaDesk" : null,
+                     "bib" : {
+                        "key" : "12698156",
+                        "fields" : {
+                           "author" : "Anable, Aubrey, author.",
+                           "title" : "Playing with feelings : video games and affect"
+                        },
+                        "resource" : "/catalog/bib"
+                     },
+                     "itemCategory3" : null,
+                     "systemModifiedDate" : "2019-07-08T21:04:00-07:00",
+                     "createdDate" : "2018-07-04",
+                     "price" : {
+                        "amount" : "0.00",
+                        "currencyCode" : "USD"
+                     },
+                     "itemCategory2" : null,
+                     "homeLocation" : {
+                        "key" : "STACKS",
+                        "resource" : "/policy/location"
+                     },
+                     "itemCategory4" : null,
+                     "call" : {
+                        "fields" : {
+                           "sortCallNumber" : "GV 001469.34 .P79  A53  2018",
+                           "dispCallNumber" : "GV1469.34 .P79 A53 2018"
+                        },
+                        "key" : "12698156:2",
+                        "resource" : "/catalog/call"
+                     },
+                     "currentLocation" : {
+                        "key" : "CHECKEDOUT",
+                        "resource" : "/policy/location"
+                     },
+                     "itemCategory5" : null
+                  },
+                  "key" : "12698156:2:1",
+                  "resource" : "/catalog/item"
+               },
+               "renewalDate" : null,
+               "checkOutDate" : "2019-07-17T16:49:00-07:00",
+               "estimatedOverdueAmount" : {
+                  "amount" : "30.00",
+                  "currencyCode" : "USD"
+               },
+               "renewalCount" : null,
+               "dueDate" : "2019-07-17T18:49:00-07:00",
+               "library" : {
+                  "resource" : "/policy/library",
+                  "key" : "GREEN"
+               },
+               "unseenRenewalsRemaining" : 0,
+               "overdue" : true,
+               "claimsReturnedDate" : null,
+               "status" : "ACTIVE"
+            },
+            "key" : "12698156:2:1:1",
+            "resource" : "/circulation/circRecord"
+         }
+      ],
+      "blockList" : [
+         {
+            "resource" : "/circulation/block",
+            "fields" : {
+               "block" : {
+                  "key" : "DAMAGED",
+                  "resource" : "/policy/block"
+               },
+               "estimatedOverdueAmount" : {
+                  "amount" : "0.00",
+                  "currencyCode" : "USD"
+               },
+               "billDate" : "2019-07-08",
+               "amount" : {
+                  "currencyCode" : "USD",
+                  "amount" : "7.00"
+               },
+               "patron" : {
+                  "key" : "521181",
+                  "resource" : "/user/patron"
+               },
+               "comment" : null,
+               "item" : {
+                  "resource" : "/catalog/item",
+                  "key" : "12871638:1:1",
+                  "fields" : {
+                     "pieces" : 1,
+                     "lastInvDate" : null,
+                     "permanent" : true,
+                     "shadowed" : false,
+                     "itemType" : {
+                        "key" : "LAW-STKS",
+                        "resource" : "/policy/itemType"
+                     },
+                     "timesInventoried" : 0,
+                     "library" : {
+                        "key" : "LAW",
+                        "resource" : "/policy/library"
+                     },
+                     "circulate" : false,
+                     "barcode" : "36105228879115",
+                     "itemCategory1" : null,
+                     "bib" : {
+                        "resource" : "/catalog/bib",
+                        "fields" : {
+                           "author" : "",
+                           "title" : "Research handbook on the law of virtual and augmented reality"
+                        },
+                        "key" : "12871638"
+                     },
+                     "mediaDesk" : null,
+                     "copyNumber" : 1,
+                     "itemCategory3" : null,
+                     "systemModifiedDate" : "2019-07-08T21:53:00-07:00",
+                     "itemCategory4" : null,
+                     "homeLocation" : {
+                        "key" : "BASEMENT",
+                        "resource" : "/policy/location"
+                     },
+                     "price" : {
+                        "amount" : "0.00",
+                        "currencyCode" : "USD"
+                     },
+                     "itemCategory2" : null,
+                     "createdDate" : "2019-01-25",
+                     "itemCategory5" : null,
+                     "currentLocation" : {
+                        "key" : "CHECKEDOUT",
+                        "resource" : "/policy/location"
+                     },
+                     "call" : {
+                        "key" : "12871638:1",
+                        "fields" : {
+                           "dispCallNumber" : "K564 .C6 R47 2018",
+                           "sortCallNumber" : "K  000564 .C6  R47  2018"
+                        },
+                        "resource" : "/catalog/call"
+                     }
+                  }
+               },
+               "tax" : {
+                  "currencyCode" : "USD",
+                  "amount" : "0.00"
+               },
+               "createDate" : "2019-07-08",
+               "library" : {
+                  "resource" : "/policy/library",
+                  "key" : "GREEN"
+               },
+               "owed" : {
+                  "amount" : "7.00",
+                  "currencyCode" : "USD"
+               }
+            },
+            "key" : "521181:1"
+         }
+      ],
+      "suffix" : "",
+      "privilegeExpiresDate" : "2019-09-23",
+      "category01" : null,
+      "category06" : null,
+      "category08" : null,
+      "profile" : {
+         "fields" : {
+            "chargeLimit" : 25000
+         },
+         "key" : "REU",
+         "resource" : "/policy/userProfile"
       },
-      {
-        "fields": {
-          "seenRenewalsRemaining": null,
-          "overdue": false,
-          "claimsReturnedDate": null,
-          "status": "ACTIVE",
-          "recallDueDate": null,
-          "dueDate": "2019-09-04T23:59:00-07:00",
-          "unseenRenewalsRemaining": 2,
-          "circulationRule": {
-            "key": "28DNF2",
-            "resource": "/policy/circulationRule"
-          },
-          "item": {
-            "key": "12443068:1:1",
-            "resource": "/catalog/item",
-            "fields": {
-              "itemCategory1": null,
-              "timesInventoried": 0,
-              "itemType": {
-                "resource": "/policy/itemType",
-                "key": "STKS-MONO"
-              },
-              "price": {
-                "amount": "140.00",
-                "currencyCode": "USD"
-              },
-              "itemCategory3": null,
-              "lastInvDate": null,
-              "call": {
-                "fields": {
-                  "sortCallNumber": "GV 001469.3 .A29  2018",
-                  "dispCallNumber": "GV1469.3 .A29 2018"
-                },
-                "resource": "/catalog/call",
-                "key": "12443068:1"
-              },
-              "homeLocation": {
-                "resource": "/policy/location",
-                "key": "STACKS"
-              },
-              "currentLocation": {
-                "resource": "/policy/location",
-                "key": "CHECKEDOUT"
-              },
-              "shadowed": false,
-              "copyNumber": 1,
-              "bib": {
-                "resource": "/catalog/bib",
-                "fields": {
-                  "title": "The aesthetics of videogames",
-                  "author": ""
-                },
-                "key": "12443068"
-              },
-              "circulate": false,
-              "permanent": true,
-              "createdDate": "2018-05-24",
-              "pieces": 1,
-              "library": {
-                "resource": "/policy/library",
-                "key": "GREEN"
-              },
-              "itemCategory5": null,
-              "itemCategory4": null,
-              "barcode": "36105229364489",
-              "mediaDesk": null,
-              "systemModifiedDate": "2018-05-24T09:28:00-07:00",
-              "itemCategory2": null
+      "holdRecordList" : [
+         {
+            "resource" : "/circulation/holdRecord",
+            "key" : "1675114",
+            "fields" : {
+               "selectedItem" : {
+                  "resource" : "/catalog/item",
+                  "key" : "12871638:1:1"
+               },
+               "item" : {
+                  "key" : "12871638:1:1",
+                  "fields" : {
+                     "pieces" : 1,
+                     "permanent" : true,
+                     "lastInvDate" : null,
+                     "library" : {
+                        "resource" : "/policy/library",
+                        "key" : "LAW"
+                     },
+                     "timesInventoried" : 0,
+                     "shadowed" : false,
+                     "itemType" : {
+                        "key" : "LAW-STKS",
+                        "resource" : "/policy/itemType"
+                     },
+                     "itemCategory1" : null,
+                     "barcode" : "36105228879115",
+                     "circulate" : false,
+                     "copyNumber" : 1,
+                     "mediaDesk" : null,
+                     "bib" : {
+                        "resource" : "/catalog/bib",
+                        "key" : "12871638",
+                        "fields" : {
+                           "author" : "",
+                           "title" : "Research handbook on the law of virtual and augmented reality"
+                        }
+                     },
+                     "itemCategory3" : null,
+                     "systemModifiedDate" : "2019-07-08T21:53:00-07:00",
+                     "createdDate" : "2019-01-25",
+                     "price" : {
+                        "amount" : "0.00",
+                        "currencyCode" : "USD"
+                     },
+                     "itemCategory2" : null,
+                     "itemCategory4" : null,
+                     "homeLocation" : {
+                        "key" : "BASEMENT",
+                        "resource" : "/policy/location"
+                     },
+                     "call" : {
+                        "resource" : "/catalog/call",
+                        "fields" : {
+                           "dispCallNumber" : "K564 .C6 R47 2018",
+                           "sortCallNumber" : "K  000564 .C6  R47  2018"
+                        },
+                        "key" : "12871638:1"
+                     },
+                     "currentLocation" : {
+                        "resource" : "/policy/location",
+                        "key" : "CHECKEDOUT"
+                     },
+                     "itemCategory5" : null
+                  },
+                  "resource" : "/catalog/item"
+               },
+               "suspendEndDate" : null,
+               "holdType" : "COPY",
+               "holdRange" : {
+                  "key" : "SYSTEM",
+                  "resource" : "/policy/holdRange"
+               },
+               "holdPriority" : null,
+               "beingHeldDate" : null,
+               "suspendBeginDate" : null,
+               "recallStatus" : "RUSH",
+               "bib" : {
+                  "resource" : "/catalog/bib",
+                  "key" : "12871638"
+               },
+               "queueLength" : 1,
+               "patron" : {
+                  "resource" : "/user/patron",
+                  "key" : "521181"
+               },
+               "queuePosition" : 1,
+               "inactiveReason" : null,
+               "comment" : "",
+               "expirationDate" : null,
+               "status" : "PLACED",
+               "fillByDate" : "2020-07-07",
+               "placedLibrary" : {
+                  "key" : "GREEN",
+                  "resource" : "/policy/library"
+               },
+               "placedDate" : "2019-07-08",
+               "pickupLibrary" : {
+                  "resource" : "/policy/library",
+                  "key" : "GREEN"
+               }
             }
-          },
-          "recalledDate": null,
-          "piecesReturned": 0,
-          "renewalCount": 1,
-          "renewalDate": "2019-07-10T13:00:00-07:00",
-          "checkOutDate": "2019-07-10T12:42:00-07:00",
-          "library": {
-            "key": "GREEN",
-            "resource": "/policy/library"
-          },
-          "estimatedOverdueAmount": {
-            "amount": "0.00",
-            "currencyCode": "USD"
-          },
-          "patron": {
-            "resource": "/user/patron",
-            "key": "521181"
-          }
-        },
-        "resource": "/circulation/circRecord",
-        "key": "12443068:1:1:1"
-      }
-    ],
-    "barcode": "SUPER1",
-    "language": {
-      "key": "ENGLISH",
-      "resource": "/policy/language"
-    },
-    "title": "",
-    "checkoutLocation": {
-      "key": "CHECKEDOUT",
-      "resource": "/policy/location"
-    },
-    "category03": null,
-    "category04": null,
-    "category05": null,
-    "privilegeExpiresDate": "2019-09-23",
-    "access": {
-      "key": "PUBLIC",
-      "resource": "/policy/userAccess"
-    },
-    "profile": {
-      "resource": "/policy/userProfile",
-      "key": "REU"
-    },
-    "category11": null,
-    "alternateID": "",
-    "displayName": "Superuser, Undergrad",
-    "groupId": "",
-    "webAuthID": "",
-    "preferredName": ""
-  },
-  "resource": "/user/patron"
+         },
+         {
+            "resource" : "/circulation/holdRecord",
+            "key" : "1675115",
+            "fields" : {
+               "item" : {
+                  "resource" : "/catalog/item",
+                  "key" : "11964081:1:1",
+                  "fields" : {
+                     "mediaDesk" : null,
+                     "copyNumber" : 1,
+                     "bib" : {
+                        "fields" : {
+                           "title" : "Hit makers : the science of popularity in an age of distraction",
+                           "author" : "Thompson, Derek, 1986- author."
+                        },
+                        "key" : "11964081",
+                        "resource" : "/catalog/bib"
+                     },
+                     "itemCategory3" : null,
+                     "systemModifiedDate" : "2017-04-11T11:12:00-07:00",
+                     "createdDate" : "2017-04-03",
+                     "homeLocation" : {
+                        "resource" : "/policy/location",
+                        "key" : "BASEMENT"
+                     },
+                     "itemCategory4" : null,
+                     "price" : {
+                        "currencyCode" : "USD",
+                        "amount" : "0.00"
+                     },
+                     "itemCategory2" : null,
+                     "currentLocation" : {
+                        "resource" : "/policy/location",
+                        "key" : "GRE-LOAN"
+                     },
+                     "call" : {
+                        "resource" : "/catalog/call",
+                        "key" : "11964081:1",
+                        "fields" : {
+                           "sortCallNumber" : "HC 000079 .C6  T49  2017",
+                           "dispCallNumber" : "HC79 .C6 T49 2017"
+                        }
+                     },
+                     "itemCategory5" : null,
+                     "pieces" : 1,
+                     "permanent" : true,
+                     "lastInvDate" : null,
+                     "library" : {
+                        "key" : "LAW",
+                        "resource" : "/policy/library"
+                     },
+                     "itemType" : {
+                        "resource" : "/policy/itemType",
+                        "key" : "LAW-STKS"
+                     },
+                     "shadowed" : false,
+                     "timesInventoried" : 0,
+                     "barcode" : "36105228763442",
+                     "itemCategory1" : null,
+                     "circulate" : true
+                  }
+               },
+               "selectedItem" : {
+                  "resource" : "/catalog/item",
+                  "key" : "11964081:1:1"
+               },
+               "holdType" : "TITLE",
+               "suspendEndDate" : null,
+               "holdPriority" : null,
+               "beingHeldDate" : "2019-07-08",
+               "holdRange" : {
+                  "key" : "SYSTEM",
+                  "resource" : "/policy/holdRange"
+               },
+               "patron" : {
+                  "key" : "521181",
+                  "resource" : "/user/patron"
+               },
+               "recallStatus" : "STANDARD",
+               "queueLength" : 1,
+               "bib" : {
+                  "resource" : "/catalog/bib",
+                  "key" : "11964081"
+               },
+               "suspendBeginDate" : null,
+               "status" : "BEING_HELD",
+               "expirationDate" : "2019-07-15",
+               "inactiveReason" : null,
+               "comment" : "",
+               "queuePosition" : 1,
+               "placedDate" : "2019-07-08",
+               "placedLibrary" : {
+                  "key" : "GREEN",
+                  "resource" : "/policy/library"
+               },
+               "pickupLibrary" : {
+                  "resource" : "/policy/library",
+                  "key" : "GREEN"
+               },
+               "fillByDate" : "2020-07-07"
+            }
+         },
+         {
+            "key" : "1675118",
+            "fields" : {
+               "fillByDate" : "2020-07-07",
+               "placedLibrary" : {
+                  "resource" : "/policy/library",
+                  "key" : "GREEN"
+               },
+               "pickupLibrary" : {
+                  "key" : "GREEN",
+                  "resource" : "/policy/library"
+               },
+               "placedDate" : "2019-07-08",
+               "queuePosition" : 1,
+               "comment" : "",
+               "inactiveReason" : null,
+               "expirationDate" : "2019-07-15",
+               "status" : "BEING_HELD",
+               "suspendEndDate" : null,
+               "holdType" : "TITLE",
+               "selectedItem" : {
+                  "key" : "12717271:1:1",
+                  "resource" : "/catalog/item"
+               },
+               "item" : {
+                  "fields" : {
+                     "timesInventoried" : 0,
+                     "shadowed" : false,
+                     "itemType" : {
+                        "key" : "STKS-MONO",
+                        "resource" : "/policy/itemType"
+                     },
+                     "library" : {
+                        "key" : "GREEN",
+                        "resource" : "/policy/library"
+                     },
+                     "circulate" : true,
+                     "itemCategory1" : null,
+                     "barcode" : "36105229935502",
+                     "pieces" : 1,
+                     "lastInvDate" : null,
+                     "permanent" : true,
+                     "itemCategory2" : null,
+                     "price" : {
+                        "amount" : "20.00",
+                        "currencyCode" : "USD"
+                     },
+                     "homeLocation" : {
+                        "resource" : "/policy/location",
+                        "key" : "STACKS"
+                     },
+                     "itemCategory4" : null,
+                     "createdDate" : "2018-08-27",
+                     "itemCategory5" : null,
+                     "call" : {
+                        "resource" : "/catalog/call",
+                        "key" : "12717271:1",
+                        "fields" : {
+                           "sortCallNumber" : "GV 001469.3 .S56  2018",
+                           "dispCallNumber" : "GV1469.3 .S56 2018"
+                        }
+                     },
+                     "currentLocation" : {
+                        "key" : "GRE-LOAN",
+                        "resource" : "/policy/location"
+                     },
+                     "mediaDesk" : null,
+                     "copyNumber" : 1,
+                     "bib" : {
+                        "resource" : "/catalog/bib",
+                        "key" : "12717271",
+                        "fields" : {
+                           "title" : "A history of videogames : in 14 consoles, 5 computers, 2 arcade cabinets ... and an Ocarina of time",
+                           "author" : "Simons, Iain, author."
+                        }
+                     },
+                     "systemModifiedDate" : "2018-08-27T11:20:00-07:00",
+                     "itemCategory3" : null
+                  },
+                  "key" : "12717271:1:1",
+                  "resource" : "/catalog/item"
+               },
+               "suspendBeginDate" : null,
+               "recallStatus" : "STANDARD",
+               "queueLength" : 1,
+               "bib" : {
+                  "key" : "12717271",
+                  "resource" : "/catalog/bib"
+               },
+               "patron" : {
+                  "resource" : "/user/patron",
+                  "key" : "521181"
+               },
+               "holdRange" : {
+                  "resource" : "/policy/holdRange",
+                  "key" : "SYSTEM"
+               },
+               "beingHeldDate" : "2019-07-08",
+               "holdPriority" : null
+            },
+            "resource" : "/circulation/holdRecord"
+         }
+      ],
+      "category11" : null,
+      "environment" : {
+         "key" : "PUBLIC",
+         "resource" : "/policy/environment"
+      },
+      "department" : "",
+      "groupSettings" : null,
+      "createdDate" : "2019-07-08",
+      "preferredName" : "",
+      "category09" : null,
+      "category04" : null,
+      "category02" : null,
+      "birthDate" : null,
+      "middleName" : "",
+      "webAuthID" : "",
+      "category03" : null,
+      "barcode" : "SUPER1",
+      "category12" : null,
+      "category07" : null,
+      "language" : {
+         "key" : "ENGLISH",
+         "resource" : "/policy/language"
+      },
+      "displayName" : "Superuser, Undergrad",
+      "library" : {
+         "resource" : "/policy/library",
+         "key" : "SUL"
+      },
+      "lastName" : "Superuser",
+      "category10" : null,
+      "category05" : null,
+      "standing" : {
+         "key" : "BLOCKED",
+         "resource" : "/policy/patronStanding"
+      },
+      "title" : "",
+      "address1" : [
+         {
+            "fields" : {
+               "code" : {
+                  "resource" : "/policy/patronAddress1",
+                  "key" : "LINE"
+               },
+               "data" : null
+            },
+            "key" : "9",
+            "resource" : "/user/patron/address1"
+         },
+         {
+            "fields" : {
+               "code" : {
+                  "key" : "LINE1",
+                  "resource" : "/policy/patronAddress1"
+               },
+               "data" : "152B Green Library, 557 Escondido Mall"
+            },
+            "key" : "3",
+            "resource" : "/user/patron/address1"
+         },
+         {
+            "resource" : "/user/patron/address1",
+            "fields" : {
+               "data" : "Stanford, CA 94305-6063",
+               "code" : {
+                  "key" : "LINE2",
+                  "resource" : "/policy/patronAddress1"
+               }
+            },
+            "key" : "4"
+         },
+         {
+            "resource" : "/user/patron/address1",
+            "key" : "10",
+            "fields" : {
+               "data" : null,
+               "code" : {
+                  "resource" : "/policy/patronAddress1",
+                  "key" : "LINE3"
+               }
+            }
+         },
+         {
+            "fields" : {
+               "data" : null,
+               "code" : {
+                  "key" : "LIB-EMAIL",
+                  "resource" : "/policy/patronAddress1"
+               }
+            },
+            "key" : "11",
+            "resource" : "/user/patron/address1"
+         },
+         {
+            "fields" : {
+               "data" : null,
+               "code" : {
+                  "key" : "LIB-PHONE",
+                  "resource" : "/policy/patronAddress1"
+               }
+            },
+            "key" : "12",
+            "resource" : "/user/patron/address1"
+         },
+         {
+            "fields" : {
+               "data" : "superuser1@stanford.edu",
+               "code" : {
+                  "resource" : "/policy/patronAddress1",
+                  "key" : "EMAIL"
+               }
+            },
+            "key" : "8",
+            "resource" : "/user/patron/address1"
+         },
+         {
+            "key" : "13",
+            "fields" : {
+               "data" : null,
+               "code" : {
+                  "key" : "PHONE",
+                  "resource" : "/policy/patronAddress1"
+               }
+            },
+            "resource" : "/user/patron/address1"
+         },
+         {
+            "fields" : {
+               "code" : {
+                  "key" : "DISCLOSE?",
+                  "resource" : "/policy/patronAddress1"
+               },
+               "data" : "YES"
+            },
+            "key" : "1",
+            "resource" : "/user/patron/address1"
+         },
+         {
+            "key" : "14",
+            "fields" : {
+               "data" : null,
+               "code" : {
+                  "key" : "DEPT",
+                  "resource" : "/policy/patronAddress1"
+               }
+            },
+            "resource" : "/user/patron/address1"
+         }
+      ]
+   },
+   "resource" : "/user/patron"
 }
