@@ -8,16 +8,16 @@
   <h2><%= "#{@patron.first_name} #{@patron.last_name}" %></h2>
   <dl class="row">
     <% if @patron.patron_type == 'Fee borrower' %>
-      <dt class='col-2 col-sm-1 font-weight-normal'>Type</dt>
+      <dt class='col-2 col-sm-1 font-weight-normal'>Type:</dt>
       <dd class='col-10 col-sm-11 patron-type'><%= @patron.patron_type %></dd>
     <% end %>
-    <dt class="col-2 col-sm-1 font-weight-normal">Status</dt>
+    <dt class="col-2 col-sm-1 font-weight-normal">Status:</dt>
     <dd class="col-10 col-sm-11 patron-status"><%= @patron.status %></dd>
     <% if @patron.borrow_limit %>
-      <dt class="col-2 col-sm-1 font-weight-normal">Borrower limit</dt>
+      <dt class="col-2 col-sm-1 font-weight-normal">Borrower limit:</dt>
       <dd class="col-10 col-sm-11 patron-status"><%= pluralize(@patron.borrow_limit, 'checkout') %></dd>
     <% end %>
-    <dt class="col-2 col-sm-1 font-weight-normal">Email</dt>
+    <dt class="col-2 col-sm-1 font-weight-normal">Email:</dt>
     <dd class="col-10 col-sm-11 email"><%= @patron.email %></dd>
   </dl>
 </div>
