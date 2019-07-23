@@ -16,6 +16,10 @@ class Request
     record['key']
   end
 
+  def patron_key
+    fields['patron']['key']
+  end
+
   def status
     fields['status']
   end

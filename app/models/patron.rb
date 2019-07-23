@@ -94,6 +94,16 @@ class Patron
     end
   end
 
+  def member_list_names
+    @member_list_names ||= begin
+      member_list.each_with_object({}) { |member, hash| hash[member.key] = member.first_name }
+    end
+  end
+
+  def member_name(key)
+    member_list_names.fetch(key, '').gsub(/(\A\w+\s)\(P=([a-zA-Z]+)\)\z/, '\2')
+  end
+
   def proxy_borrower?
     fields.dig('groupSettings', 'fields', 'responsibility', 'key') == 'PROXY'
   end
