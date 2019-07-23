@@ -34,6 +34,18 @@ class FakeSymphony < Sinatra::Base
     {}.to_json
   end
 
+  post '/symws/circulation/holdRecord/changePickupLibrary' do
+    content_type :json
+    status 200
+    {}.to_json
+  end
+
+  put '/symws/circulation/holdRecord/key/:key' do
+    content_type :json
+    status 200
+    {}.to_json
+  end
+
   get '/symws/user/patron/key/:key' do
     json_response 200, "patron/#{params[:key]}.json"
   end

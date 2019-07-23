@@ -12,6 +12,7 @@ Metrics/AbcSize:
   Exclude:
     - 'app/controllers/contact_forms_controller.rb'
     - 'app/controllers/feedback_forms_controller.rb'
+    - 'app/controllers/requests_controller.rb'
 
 Metrics/CyclomaticComplexity:
   Exclude:
@@ -26,6 +27,7 @@ Metrics/ClassLength:
   Exclude:
     - 'app/models/checkout.rb'
     - 'app/models/patron.rb'
+    - 'app/services/symphony_client.rb'
 
 Metrics/LineLength:
   Max: 120

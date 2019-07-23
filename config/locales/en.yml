@@ -44,6 +44,12 @@ en:
       cancel:
         success_html: <span class="font-weight-bold">Success!</span> "%{title}" was canceled.
         error_html: <span class="font-weight-bold">Sorry!</span> Something went wrong and "%{title}" was not canceled.
+      update_not_needed_after:
+        success_html: <span class="font-weight-bold">Success!</span> "%{title}" not needed after date was updated.
+        error_html: <span class="font-weight-bold">Sorry!</span> Something went wrong and "%{title}" not needed after date was not updated.
+      update_pickup:
+        success_html: <span class="font-weight-bold">Success!</span> "%{title}" pickup location was updated.
+        error_html: <span class="font-weight-bold">Sorry!</span> Something went wrong and "%{title}" pickup location was not updated.
     change_pin:
       success_html: <span class="font-weight-bold">Success!</span> Your new PIN is ready to use.
       error_html: <span class="font-weight-bold">Sorry!</span> That reset PIN link has expired or has already been used. Enter your library ID to request a new link.

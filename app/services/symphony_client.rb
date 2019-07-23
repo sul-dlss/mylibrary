@@ -119,6 +119,32 @@ class SymphonyClient
     response
   end
 
+  def change_pickup_library(resource, item_key, pickup_library)
+    Rails.logger.info "#{[resource, item_key, pickup_library]} is not yet being updated, waiting for user setup"
+    response = authenticated_request('/circulation/holdRecord/changePickupLibrary', method: :post, json: {
+      # TODO: Uncomment this when we can get a user to update libraries
+      # holdRecord: {
+      #   resource: resource,
+      #   key: item_key
+      # },
+      # pickupLibrary: pickup_library
+    })
+
+    response
+  end
+
+  def not_needed_after(resource, item_key, not_needed_after)
+    response = authenticated_request("/circulation/holdRecord/key/#{item_key}", method: :put, json: {
+      resource: resource,
+      key: item_key,
+      fields: {
+        fillByDate: not_needed_after
+      }
+    })
+
+    response
+  end
+
   private
 
   def authenticated_request(path, headers: {}, **other)

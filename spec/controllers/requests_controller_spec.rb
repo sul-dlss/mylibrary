@@ -40,6 +40,46 @@ RSpec.describe RequestsController do
 
       expect(assigns(:requests)).to eq requests
     end
+    describe '#update' do
+      let(:api_response) { instance_double('Response', status: 200, content_type: :json) }
+
+      before do
+        allow(SymphonyClient).to receive(:new).and_return(mock_client)
+      end
+
+      context 'when cancel param is sent' do
+        let(:mock_client) { instance_double(SymphonyClient, cancel_hold: api_response) }
+
+        it 'cancels the hold and sets the flash message' do
+          patch :update, params: { resource: 'abc', id: '123', cancel: true }
+          expect(flash[:success]).to match(/Success!.*was canceled/)
+        end
+      end
+
+      context 'when pickup_library param is sent' do
+        let(:mock_client) { instance_double(SymphonyClient, change_pickup_library: api_response) }
+
+        it 'updates the pickup library and sets the flash message' do
+          patch :update, params: { resource: 'abc', id: '123', pickup_library: 'Other library' }
+          expect(flash[:success].first).to match(/Success!.*pickup location was updated/)
+        end
+      end
+
+      context 'when not_needed_after param is sent' do
+        let(:mock_client) { instance_double(SymphonyClient, not_needed_after: api_response) }
+
+        it 'updates the not needed after and sets the flash message' do
+          patch :update, params: { resource: 'abc', id: '123', not_needed_after: '1999/01/01' }
+          expect(flash[:success].first).to match(/Success!.*not needed after date was updated/)
+        end
+        it 'does not update the not needed after if dates are not changed' do
+          patch :update, params: {
+            resource: 'abc', id: '123', not_needed_after: '1999/01/01', current_fill_by_date: '1999/01/01'
+          }
+          expect(flash[:success]).to eq []
+        end
+      end
+    end
 
     describe '#destroy' do
       let(:api_response) { instance_double('Response', status: 200, content_type: :json) }
