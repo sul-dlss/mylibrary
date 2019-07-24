@@ -33,4 +33,13 @@ module ApplicationHelper
   def library_name(code)
     Mylibrary::Application.config.library_map[code] || code
   end
+
+  def render_resource_icon(values)
+    values = Array(values).flatten.compact
+    values.delete('Database') if values.length > 1
+    values.delete('Book') if values.length > 1
+    value = values.first
+
+    sul_icon(Settings.resource_icons[value]) if Settings.resource_icons[value]
+  end
 end

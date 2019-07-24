@@ -41,4 +41,34 @@ RSpec.describe ApplicationHelper do
       expect(helper.library_name('NOSUCHLIBRARY')).to eq 'NOSUCHLIBRARY'
     end
   end
+
+  describe '#render_resource_icon' do
+    it 'does not render anything if format data is not present' do
+      expect(helper.render_resource_icon(nil)).to be_nil
+    end
+
+    it 'renders a book before a database' do
+      actual = Capybara.string(helper.render_resource_icon(%w['Database Book']))
+      expect(actual).to have_css('.sul-icons.sul-icon-book-open-4')
+    end
+
+    it 'renders an image before a book' do
+      actual = Capybara.string(helper.render_resource_icon(%w['Book Image']))
+      expect(actual).to have_css('.sul-icons.sul-icon-picture-2')
+    end
+
+    it 'renders the first resource type icon' do
+      actual = Capybara.string(helper.render_resource_icon(%w['Video Image']))
+      expect(actual).to have_css('.sul-icons.sul-icon-camera-film-1')
+    end
+
+    it 'renders an icon that is in the icon mapping' do
+      actual = Capybara.string(helper.render_resource_icon(['Book']))
+      expect(actual).to have_css('.sul-icons.sul-icon-book-open-4')
+    end
+
+    it 'does not render anything for something not in our icon mapping' do
+      expect(helper.render_resource_icon(['iPad'])).to be_nil
+    end
+  end
 end

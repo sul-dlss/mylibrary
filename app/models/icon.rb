@@ -23,7 +23,7 @@ class Icon
   # @return [Hash]
   def options
     {
-      class: classes
+      class: [classes, "sul-icon-#{icon_name}"].join(' ')
     }
   end
 

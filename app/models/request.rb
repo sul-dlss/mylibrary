@@ -76,6 +76,10 @@ class Request
     fields['placedLibrary']['key']
   end
 
+  def marc_record
+    @marc_record ||= bib && MarcRecord.new(bib['bib'])
+  end
+
   private
 
   def fields

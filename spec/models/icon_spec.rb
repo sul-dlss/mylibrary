@@ -17,7 +17,7 @@ RSpec.describe Icon do
 
   describe '#options' do
     it 'applies options classes and default class' do
-      expect(icon.options[:class]).to eq 'sul-icons awesome'
+      expect(icon.options[:class]).to eq 'sul-icons awesome sul-icon-renew'
     end
   end
 

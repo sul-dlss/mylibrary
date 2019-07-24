@@ -41,7 +41,7 @@ class SymphonyClient
     end
   end
 
-  ITEM_RESOURCES = 'item{*,bib{title,author},call{sortCallNumber,dispCallNumber}}'
+  ITEM_RESOURCES = 'item{*,bib{title,author,bib},call{sortCallNumber,dispCallNumber}}'
 
   PATRON_LINKED_RESOURCES = [
     "holdRecordList{*,#{ITEM_RESOURCES}}",
