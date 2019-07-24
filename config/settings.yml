@@ -11,20 +11,20 @@ ACCESS_SERVICES_EMAIL: greencirc@stanford.edu
 
 resource_icons:
   Object: cube
-  Academic Journal: book-2
-  Archive/Manuscript: document-box-1
+  Academic Journal: book-open-4
+  Archive/Manuscript: box-1
   Archived website: network-web
-  Article: text-wrapping-1
-  Book: book-1
-  Dataset: business-chart-1
+  # Article: text-wrapping-1
+  Book: book-open-4
+  Dataset: graph-bar-2
   Database: window-search
-  Equipment: plug-2
-  Image: photos-1
-  Journal/Periodical: book-2
-  Map: map-location
-  Music recording: gramophone
-  Music score: file-music
-  Newspaper: newspaper-2
-  Software/Multimedia: mouse-2
-  Sound recording: microphone-2
-  Video: film-2
+  Equipment: plug-1
+  Image: picture-2
+  Journal/Periodical: book-open-4
+  Map: map-pin-1
+  Music recording: turntable
+  Music score: file-music-1
+  Newspaper: newspaper
+  Software/Multimedia: mouse
+  Sound recording: microphone-3
+  Video: camera-film-1
