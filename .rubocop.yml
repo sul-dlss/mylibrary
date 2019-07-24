@@ -54,5 +54,13 @@ RSpec/DescribeClass:
   Exclude:
     - 'spec/views/**/*'
 
+Layout/AlignHash:
+  Exclude:
+    - 'config/application.rb'
+
 Layout/IndentFirstHashElement:
   EnforcedStyle: consistent
+
+Style/WordArray:
+  Exclude:
+    - 'config/application.rb'

@@ -54,6 +54,14 @@ RSpec.describe 'Request Page', type: :feature do
     end
   end
 
+  it 'is editable' do
+    visit edit_request_path('1675117')
+    select('East Asia Library', from: 'pickup_library')
+    fill_in('not_needed_after', with: '1999/01/01')
+    click_button 'Change'
+    expect(page).to have_css 'div.alert-success', text: 'Success!', count: 2
+  end
+
   it 'is sortable', js: true do
     visit requests_path
 

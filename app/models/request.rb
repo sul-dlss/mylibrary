@@ -84,6 +84,10 @@ class Request
     fields['placedLibrary']['key']
   end
 
+  def home_location
+    fields['item']['fields']['homeLocation']['key']
+  end
+
   private
 
   def fields
