@@ -15,7 +15,7 @@ class RequestsController < ApplicationController
   end
 
   def edit
-    @request = patron.requests.select { |r| r.key == params['id'] }.first
+    @request = patron.requests.find { |r| r.key == params['id'] }
   end
 
   def update
