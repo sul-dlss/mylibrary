@@ -2,7 +2,7 @@
 
 # :nodoc:
 class ApplicationController < ActionController::Base
-  helper_method :current_user, :current_user?, :patron
+  helper_method :current_user, :current_user?, :patron, :symphony_client
 
   def current_user
     session_data = request.env['warden'].user
@@ -23,6 +23,10 @@ class ApplicationController < ActionController::Base
 
   def symphony_client
     @symphony_client ||= SymphonyClient.new
+  end
+
+  def symphony_legacy_client
+    @symphony_legacy_client ||= SymphonyLegacyClient.new
   end
 
   def authenticate_user!

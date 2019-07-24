@@ -40,6 +40,41 @@
   </div>
 <% end %>
 
+<% if @payments.any? %>
+  <div id="payments" class="page-section">
+    <div class="d-flex justify-content-between">
+      <h2>Payment History</h2>
+
+      <div class="dropdown">
+        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Sort (<span data-sort-label>Date paid</span>)
+        </a>
+
+        <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+          <li class="dropdown-item active" data-sort="due_date">Reason</li>
+          <li class="dropdown-item" data-sort="status">Date paid</li>
+          <li class="dropdown-item" data-sort="title">Title</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="d-none d-md-flex row font-weight-bold list-header">
+      <div class="row col-md-6">
+        <div class="col-md-4" data-sort="reason">Reason</div>
+        <div class="col-md-4" data-sort="amount">Amount</div>
+        <div class="col-md-4 active" data-sort="due_date">Paid on</div>
+      </div>
+      <div class="row col-md-6">
+        <div class="col-md-7" data-sort="title">Title</div>
+      </div>
+    </div>
+
+    <ul class="payments list-group">
+      <%= render @payments %>
+    </ul>
+  </div>
+<% end %>
+
 <div class="page-section">
   <h2>Policies &amp; information</h2>
 

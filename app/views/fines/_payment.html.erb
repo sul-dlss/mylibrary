@@ -1,0 +1,52 @@
+<li class="row d-flex flex-wrap list-group-item">
+  <div class="d-flex flex-row flex-grow-1 justify-content-start w-100 row col-md-6">
+    <div class="col-4 col-md-4 order-md-first description">
+      <%= payment.bill_description %>
+    </div>
+
+    <div class="col-3 col-md-4 order-first order-sm-first">
+      <%= number_to_currency(payment.bill_amount) %>
+    </div>
+
+    <div class="col-5 col-md-4 text-right text-md-left due_date" data-date="<%= payment.payment_date.strftime('%FT%T') %>">
+      <%= l(payment.payment_date, format: :short) %>
+    </div>
+  </div>
+  <div class="d-flex flex-grow-1 flex-column flex-md-row w-75 row col-md-6">
+    <h3 class="col-md-10 record-title list-item-title"><%= payment.item_title %></h3>
+  </div>
+  <div>
+    <button class="btn collapsed" type="button" data-toggle="collapse" data-target="#collapseExample-<%= payment.key.parameterize %>" aria-expanded="false" aria-controls="collapseExample-<%= payment.key.parameterize %>">
+      <span class="expand-icon"><%= sul_icon :'sharp-add-24px' %><span class="sr-only">Expand</span></span>
+      <span class="collapse-icon"><%= sul_icon :'sharp-remove-24px' %><span class="sr-only">Collapse</span></span>
+    </button>
+  </div>
+  <div class="collapse" id="collapseExample-<%= payment.key.parameterize %>">
+    <dl class="row justify-content-center">
+      <dt class="col-5">Resolution:</dt>
+      <dd class="col-5"><%= payment.resolution %></dd>
+      <dt class="col-5">Billed:</dt>
+      <dd class="col-5"><%= l(payment.bill_date, format: :short) %></dd>
+      <dt class="col-5">Resolved:</dt>
+      <dd class="col-5"><%= l(payment.payment_date, format: :short) %></dd>
+      <dt class="col-5">Amount billed:</dt>
+      <% if payment.paid_fee? %>
+          <dd class="col-5"><%= number_to_currency(payment.bill_amount) %></dd>
+      <% else %>
+          <dd class="col-5">$0.00</dd>
+      <% end %>
+      <dt class="col-5">Amount paid:</dt>
+      <% if payment.paid_fee? %>
+          <dd class="col-5"><%= number_to_currency(payment.payment_amount) %></dd>
+      <% else %>
+          <dd class="col-5">$0.00</dd>
+      <% end %>
+      <dt class="col-5">Source:</dt>
+      <% if payment.item_library %>
+          <dd class="col-5"><%= library_name(payment.item_library) %></dd>
+      <% else %>
+          <dd class="col-5">Access Services</dd>
+      <% end %>
+    </dl>
+  </div>
+</li>

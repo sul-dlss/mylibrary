@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<LookupPatronInfoResponse
+        xmlns="http://schemas.sirsidynix.com/symws/patron"
+        xmlns:ns2="http://schemas.sirsidynix.com/symws/common" xmlns:ns3="http://schemas.sirsidynix.com/symws/security">
+  <feeInfo>
+    <billNumber>6</billNumber>
+    <billReasonDescription>Privileges fee</billReasonDescription>
+    <amount ns2:currency="USD">10.01</amount>
+    <dateBilled>2013-12-23</dateBilled>
+    <feePaymentInfo>
+      <paymentDate>2013-12-23</paymentDate>
+      <paymentAmount ns2:currency="USD">10.01</paymentAmount>
+      <paymentTypeDescription>Paid by credit or debit card</paymentTypeDescription>
+    </feePaymentInfo>
+  </feeInfo>
+</LookupPatronInfoResponse>
