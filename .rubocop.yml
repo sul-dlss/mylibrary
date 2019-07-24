@@ -8,6 +8,15 @@ inherit_from: .rubocop_todo.yml
 AllCops:
   TargetRubyVersion: 2.6
 
+Metrics/AbcSize:
+  Exclude:
+    - 'app/controllers/contact_forms_controller.rb'
+    - 'app/controllers/feedback_forms_controller.rb'
+
+Metrics/CyclomaticComplexity:
+  Exclude:
+    - 'app/controllers/feedback_forms_controller.rb'
+
 Metrics/BlockLength:
   Exclude:
     - 'app/views/**/*.json.jbuilder'
@@ -26,7 +35,9 @@ Metrics/LineLength:
 
 Metrics/MethodLength:
   Exclude:
+    - 'app/controllers/contact_forms_controller.rb'
     - 'app/controllers/feedback_forms_controller.rb'
+    - 'app/mailers/feedback_mailer.rb'
 
 RSpec/ExampleLength:
   Exclude:
