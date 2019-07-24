@@ -18,3 +18,13 @@
   letter-spacing: -.03em;
   line-height: 1.5em;
 }
+
+@mixin truncate-by-lines($lines) {
+  -webkit-box-orient: vertical;
+  box-orient: vertical;
+  display: -webkit-box;
+  -webkit-line-clamp: $lines;
+  line-clamp: $lines;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
