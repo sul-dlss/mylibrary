@@ -17,7 +17,7 @@
       <dt class="col-2 col-sm-1 font-weight-normal">Borrower limit:</dt>
       <dd class="col-10 col-sm-11 patron-status"><%= pluralize(@patron.borrow_limit, 'checkout') %></dd>
     <% end %>
-    <% if @patron.fee_borrower? || @patron.proxy_borrower? %>
+    <% if @patron.expired_date && (@patron.fee_borrower? || @patron.proxy_borrower?) %>
       <dt class="col-2 col-sm-1 font-weight-normal">Privileges expire:</dt>
       <dd class="col-10 col-sm-11 expired-date"><%= l(@patron.expired_date, format: :short) %></dd>
     <% end %>
