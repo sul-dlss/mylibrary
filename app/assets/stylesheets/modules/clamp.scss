@@ -1,0 +1,7 @@
+.clamp-1 {
+  @include truncate-by-lines(1);
+}
+
+.clamp-2 {
+  @include truncate-by-lines(2);
+}

@@ -2,11 +2,6 @@
 .record-title {
   @include h3-index-title-font;
   @include h3-index-title-small-font;
-  @include truncate-by-lines(2);
-}
-
-.record-author {
-  @include truncate-by-lines(1);
 }
 
 .list-header {
