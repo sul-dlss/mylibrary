@@ -170,6 +170,10 @@ RSpec.describe Patron do
       expect(patron.patron_type).to eq 'Fee borrower'
     end
 
+    it 'is a fee borrower' do
+      expect(patron).to be_fee_borrower
+    end
+
     it 'has a borrowing limit' do
       expect(patron.borrow_limit).to eq 25
     end
