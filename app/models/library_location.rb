@@ -10,7 +10,7 @@ class LibraryLocation
   end
 
   def additional_pickup_libraries(current_pickup_library)
-    pickup_libraries.reject { |l| l == current_pickup_library }
+    pickup_libraries.except(current_pickup_library)
   end
 
   # rubocop:disable Style/EmptyCaseCondition
