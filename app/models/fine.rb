@@ -41,6 +41,10 @@ class Fine
     record['key']
   end
 
+  def patron_key
+    fields['patron']['key']
+  end
+
   def status
     fields['block']['key']
   end

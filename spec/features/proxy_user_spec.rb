@@ -28,24 +28,29 @@ RSpec.describe 'Proxy User', type: :feature do
     click_link 'Group'
     expect(page).to have_text('Making plans : how to engage with landscape, design, and the urban environment')
     expect(page).not_to have_text('Programming cultures : art and architecture in the age of software')
+    expect(page).to have_text('SecondproxyLN')
   end
 
   it 'toggles between proxy user and group requests' do
     visit requests_path
 
     expect(page).to have_text('The blockchain and the new architecture of trust')
+    expect(page).not_to have_text('Borrower:')
 
     click_link 'Group'
     expect(page).to have_text('San Filippo di Fragalà')
     expect(page).not_to have_text('The blockchain and the new architecture of trust')
+    expect(page).to have_text('SecondproxyLN')
   end
 
   it 'toggles between proxy user and group fines' do
     visit fines_path
 
     expect(page).to have_text('Aspects of grammatical architecture')
+    expect(page).not_to have_text('Borrower:')
 
     click_link 'Group'
     expect(page).not_to have_text('Aspects of grammatical architecture')
+    expect(page).not_to have_text('SecondproxyLN')
   end
 end

@@ -270,6 +270,23 @@ RSpec.describe Patron do
       end
     end
 
+    describe '#member_names' do
+      let(:member_list) do
+        [
+          { key: '1', fields: {} },
+          { key: '2', fields: { groupSettings: {
+            fields: { responsibility: { key: 'SPONSOR' } }
+          } } },
+          { key: '3', fields: {} },
+          { key: '411612', fields: { firstName: 'Mark (P=Wangchuk)' } }
+        ]
+      end
+
+      it 'returns a name give a patron key' do
+        expect(patron.member_name('411612')).to eq 'Wangchuk'
+      end
+    end
+
     describe '#group?' do
       context 'when there are group members' do
         let(:member_list) do

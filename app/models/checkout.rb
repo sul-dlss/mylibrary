@@ -70,6 +70,10 @@ class Checkout
     fields.dig('circulationRule', 'fields', 'renewFromPeriod').to_i
   end
 
+  def patron_key
+    fields['patron']['key']
+  end
+
   def resource
     fields['item']['resource']
   end

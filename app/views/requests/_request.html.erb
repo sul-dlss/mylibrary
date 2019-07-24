@@ -36,6 +36,10 @@
   </div>
   <div class="collapse w-100" id="collapseExample-<%= request.key.parameterize %>">
     <dl class="row">
+      <% if params[:group] %>
+        <dt class="col-3 offset-1 col-md-2 offset-md-2">Borrower:</dt>
+        <dd class="col-8"><%= patron.member_name(request.patron_key) %></dd>
+      <% end %>
       <% if request.placed_date %>
         <dt class="col-3 offset-1 col-md-2 offset-md-2">Requested on:</dt>
         <dd class="col-8"><%= l(request.placed_date, format: :short) %></dd>
