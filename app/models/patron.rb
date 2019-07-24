@@ -62,6 +62,10 @@ class Patron
     user_profile
   end
 
+  def fee_borrower?
+    patron_type == 'Fee borrower'
+  end
+
   def first_name
     fields['firstName']
   end
