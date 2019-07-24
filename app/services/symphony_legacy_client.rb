@@ -4,7 +4,7 @@
 class SymphonyLegacyClient
   def payments(session_token, patron)
     response = request('/rest/patron/lookupPatronInfo', params: {
-      clientID: 'SymWSTestClient',
+      clientID: Settings.symws.headers['x-sirs-clientID'],
       sessionToken: session_token,
       userID: patron.barcode,
       includeFeeInfo: 'PAID_FEES_AND_PAYMENTS',
