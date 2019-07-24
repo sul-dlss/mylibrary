@@ -2,13 +2,6 @@
 .record-title {
   @include h3-index-title-font;
   @include h3-index-title-small-font;
-  -webkit-box-orient: vertical;
-  box-orient: vertical;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
-  overflow: hidden;
-  text-overflow: ellipsis;
 }
 
 .list-header {
