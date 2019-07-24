@@ -44,6 +44,7 @@
       <% if checkout.claimed_returned? %>
         <dt class="col-11 offset-1 col-md-10 offset-md-2">Claim review is in process</dt>
         <dd></dd>
+      <% end %>
       <% if params[:group] %>
         <dt class="col-3 offset-1 col-md-2 offset-md-2">Borrower:</dt>
         <dd class="col-8"><%= patron.member_name(checkout.patron_key) %></dd>
