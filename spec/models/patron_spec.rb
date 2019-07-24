@@ -22,7 +22,7 @@ RSpec.describe Patron do
       profile: {
         key: '',
         fields: {
-          chargeLimit: '25'
+          chargeLimit: described_class::CHARGE_LIMIT_THRESHOLD
         }
       },
       privilegeExpiresDate: nil,
@@ -75,6 +75,16 @@ RSpec.describe Patron do
 
   it 'has a status' do
     expect(patron.status).to eq 'OK'
+  end
+
+  it 'does not have a borrow limit if the number returned in the response exceeds the threshold' do
+    fields[:profile][:fields][:chargeLimit] = described_class::CHARGE_LIMIT_THRESHOLD
+
+    expect(patron.borrow_limit).to be_nil
+  end
+
+  it 'has no remaining checkouts limit' do
+    expect(patron.remaining_checkouts).to be_nil
   end
 
   context 'when there is not an email resource in the patron record' do
@@ -153,6 +163,7 @@ RSpec.describe Patron do
   describe 'a fee borrower' do
     before do
       fields[:profile]['key'] = 'MXFEE'
+      fields[:profile][:fields][:chargeLimit] = 25
     end
 
     it 'has a patron type' do
@@ -163,10 +174,14 @@ RSpec.describe Patron do
       expect(patron.borrow_limit).to eq 25
     end
 
-    it 'does not have a borrow limit if the number returned in the response exceeds the threshold' do
-      fields[:profile][:fields][:chargeLimit] = described_class::CHARGE_LIMIT_THRESHOLD
+    context 'with checked out items' do
+      before do
+        fields[:circRecordList] = [{ fields: {} }]
+      end
 
-      expect(patron.borrow_limit).to be_nil
+      it 'has a remaining checkouts' do
+        expect(patron.remaining_checkouts).to eq 24
+      end
     end
   end
 
