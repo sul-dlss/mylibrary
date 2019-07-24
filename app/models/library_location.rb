@@ -17,9 +17,9 @@ class LibraryLocation
   def pickup_libraries
     case
     when location_specific_pickup_libraries?
-      config.location_specific_pickup_libraries[@home_location]
+      location_specific_pickup_libraries[@home_location]
     when library_specific_pickup_libraries?
-      config.library_specific_pickup_libraries[@home_location]
+      library_specific_pickup_libraries[@home_location]
     else
       config.pickup_libraries
     end
@@ -27,6 +27,14 @@ class LibraryLocation
   # rubocop:enable Style/EmptyCaseCondition
 
   private
+
+  def library_specific_pickup_libraries
+    config.library_specific_pickup_libraries
+  end
+
+  def location_specific_pickup_libraries
+    config.location_specific_pickup_libraries
+  end
 
   def library_specific_pickup_libraries?
     config.library_specific_pickup_libraries.key?(@home_location)
