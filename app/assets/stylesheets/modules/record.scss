@@ -5,6 +5,10 @@
   @include truncate-by-lines(2);
 }
 
+.record-author {
+  @include truncate-by-lines(1);
+}
+
 .list-header {
   margin-left: 0;
   margin-right: 0;

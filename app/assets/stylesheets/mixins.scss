@@ -20,11 +20,17 @@
 }
 
 @mixin truncate-by-lines($lines) {
-  -webkit-box-orient: vertical;
-  box-orient: vertical;
-  display: -webkit-box;
-  -webkit-line-clamp: $lines;
-  line-clamp: $lines;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  @if $lines == 1 {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  } @else {
+    -webkit-box-orient: vertical;
+    box-orient: vertical;
+    display: -webkit-box;
+    -webkit-line-clamp: $lines;
+    line-clamp: $lines;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
 }
