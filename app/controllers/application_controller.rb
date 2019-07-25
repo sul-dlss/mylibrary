@@ -2,7 +2,7 @@
 
 # :nodoc:
 class ApplicationController < ActionController::Base
-  helper_method :current_user, :current_user?, :patron, :symphony_client
+  helper_method :current_user, :current_user?, :patron, :patron_or_group, :symphony_client
 
   def current_user
     session_data = request.env['warden'].user
@@ -17,6 +17,16 @@ class ApplicationController < ActionController::Base
     return unless current_user?
 
     @patron ||= Patron.new(symphony_client.patron_info(current_user.patron_key))
+  end
+
+  def patron_or_group
+    return unless patron
+
+    if params[:group]
+      patron.group
+    else
+      patron
+    end
   end
 
   private

@@ -17,19 +17,11 @@ class FinesController < ApplicationController
   private
 
   def fines
-    if params[:group]
-      patron.group.fines
-    else
-      patron.fines
-    end
+    patron_or_group.fines
   end
 
   def checkouts
-    if params[:group]
-      patron.group.checkouts.sort_by(&:due_date)
-    else
-      patron.checkouts.sort_by(&:due_date)
-    end
+    patron_or_group.checkouts.sort_by(&:due_date)
   end
 
   def payments_response
