@@ -8,7 +8,7 @@ class Patron
 
   PATRON_STANDING = {
     'COLLECTION' => 'Blocked',
-    'BARRED' => 'Blocked',
+    'BARRED' => 'Contact us',
     'BLOCKED' => 'Blocked',
     'OK' => 'OK',
     'DELINQUENT' => 'OK'
@@ -127,6 +127,10 @@ class Patron
 
   def group?
     group.member_list.any?
+  end
+
+  def barred?
+    fields.dig('standing', 'key') == 'BARRED'
   end
 
   def to_partial_path
