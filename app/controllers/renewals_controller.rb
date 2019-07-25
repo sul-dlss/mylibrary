@@ -15,6 +15,16 @@ class RenewalsController < ApplicationController
     redirect_to checkouts_path
   end
 
+  def all_eligible
+    eligible_renewals = patron_or_group.checkouts.select(&:renewable?)
+    response = symphony_client.renew_items(eligible_renewals)
+
+    flash[:success] = response[:success]
+    flash[:error] = response[:error]
+
+    redirect_to checkouts_path
+  end
+
   private
 
   def renew_item_params

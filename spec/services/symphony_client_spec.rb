@@ -67,4 +67,41 @@ RSpec.describe SymphonyClient do
       expect(client.patron_info('somepatronkey')).to include 'key' => 'somepatronkey'
     end
   end
+
+  describe '#renew_item' do
+    before do
+      stub_request(:post, 'https://example.com/symws/circulation/circRecord/renew')
+        .with(body: { item: { resource: 'item', key: '123' } })
+        .to_return(status: 200)
+    end
+
+    it 'renews an item in symphony' do
+      expect(client.renew_item('item', '123')).to have_attributes status: 200
+    end
+  end
+
+  describe '#renew_items' do
+    before do
+      stub_request(:post, 'https://example.com/symws/circulation/circRecord/renew')
+        .with(body: { item: { resource: 'item', key: '123' } })
+        .to_return(status: 200)
+      stub_request(:post, 'https://example.com/symws/circulation/circRecord/renew')
+        .with(body: { item: { resource: 'item', key: 'invalid' } })
+        .to_return(status: 400)
+    end
+
+    let(:checkouts) do
+      [
+        instance_double(Checkout, resource: 'item', item_key: '123', title: 'A'),
+        instance_double(Checkout, resource: 'item', item_key: 'invalid', title: 'B')
+      ]
+    end
+
+    it 'returns success + error values for individual renewal requests in symphony' do
+      actual = client.renew_items(checkouts)
+
+      expect(actual).to include success: [/"A" was renewed/],
+                                error: [/"B" was not renewed/]
+    end
+  end
 end
