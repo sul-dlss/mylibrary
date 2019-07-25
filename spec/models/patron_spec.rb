@@ -236,57 +236,6 @@ RSpec.describe Patron do
       end
     end
 
-    describe 'member_list' do
-      it 'is an array of patrons' do
-        expect(patron.member_list).to all(be_a(described_class))
-      end
-      it 'has a patron with a key' do
-        expect(patron.member_list.first.key).to eq '521187'
-      end
-      describe 'filtering' do
-        let(:member_list) do
-          [
-            { key: '1', fields: {} },
-            { key: '2', fields: { groupSettings: {
-              fields: {
-                responsibility: {
-                  key: 'SPONSOR'
-                }
-              }
-            } } },
-            { key: '3', fields: {} }
-          ]
-        end
-
-        it 'doesn\'t include the sponsor' do
-          expect(patron.member_list.select(&:sponsor?)).to eq []
-        end
-        it 'doesn\'t include the currently logged in user' do
-          expect(patron.member_list.map(&:key)).not_to include patron.key
-        end
-        it 'only has member with key 3' do
-          expect(patron.member_list.map(&:key)).to eq ['3']
-        end
-      end
-    end
-
-    describe '#member_names' do
-      let(:member_list) do
-        [
-          { key: '1', fields: {} },
-          { key: '2', fields: { groupSettings: {
-            fields: { responsibility: { key: 'SPONSOR' } }
-          } } },
-          { key: '3', fields: {} },
-          { key: '411612', fields: { firstName: 'Mark (P=Wangchuk)' } }
-        ]
-      end
-
-      it 'returns a name give a patron key' do
-        expect(patron.member_name('411612')).to eq 'Wangchuk'
-      end
-    end
-
     describe '#group?' do
       context 'when there are group members' do
         let(:member_list) do
@@ -308,51 +257,6 @@ RSpec.describe Patron do
         it 'is not a group when only one member' do
           expect(patron).not_to be_group
         end
-      end
-    end
-
-    describe '#group_checkouts' do
-      let(:member_list) do
-        [fields: {
-          circRecordList: [
-            key: 1,
-            fields: {}
-          ]
-        }]
-      end
-
-      it 'has checkouts' do
-        expect(patron.group_checkouts).to all(be_a(Checkout))
-      end
-    end
-
-    describe '#group_fines' do
-      let(:member_list) do
-        [fields: {
-          blockList: [
-            key: 1,
-            fields: {}
-          ]
-        }]
-      end
-
-      it 'has fines' do
-        expect(patron.group_fines).to all(be_a(Fine))
-      end
-    end
-
-    describe '#group_requests' do
-      let(:member_list) do
-        [fields: {
-          holdRecordList: [
-            key: 1,
-            fields: {}
-          ]
-        }]
-      end
-
-      it 'has fines' do
-        expect(patron.group_requests).to all(be_a(Request))
       end
     end
   end

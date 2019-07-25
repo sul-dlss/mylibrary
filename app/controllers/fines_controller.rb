@@ -18,7 +18,7 @@ class FinesController < ApplicationController
 
   def fines
     if params[:group]
-      patron.group_fines
+      patron.group.fines
     else
       patron.fines
     end
@@ -26,7 +26,7 @@ class FinesController < ApplicationController
 
   def checkouts
     if params[:group]
-      patron.group_checkouts.sort_by(&:due_date)
+      patron.group.checkouts.sort_by(&:due_date)
     else
       patron.checkouts.sort_by(&:due_date)
     end

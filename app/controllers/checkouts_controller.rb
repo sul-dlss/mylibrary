@@ -6,7 +6,7 @@ class CheckoutsController < ApplicationController
 
   def index
     @checkouts = if params[:group]
-                   patron.group_checkouts.sort_by(&:due_date)
+                   patron.group.checkouts.sort_by(&:due_date)
                  else
                    patron.checkouts.sort_by(&:due_date)
                  end

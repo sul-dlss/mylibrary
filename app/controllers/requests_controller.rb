@@ -10,7 +10,7 @@ class RequestsController < ApplicationController
 
   def index
     @requests = if params[:group]
-                  patron.group_requests.sort_by do |request|
+                  patron.group.requests.sort_by do |request|
                     [request.expiration_date || END_OF_DAYS, request.fill_by_date || END_OF_DAYS]
                   end
                 else

@@ -26,7 +26,7 @@
     <dl class="row">
       <% if params[:group] %>
         <dt class="col-3 offset-1 col-md-2 offset-md-2">Borrower:</dt>
-        <dd class="col-8"><%= patron.member_name(fine.patron_key) %></dd>
+        <dd class="col-8"><%= patron.group.member_name(fine.patron_key) %></dd>
       <% end %>
       <dt class="col-3 offset-1 col-md-2 offset-md-2">Billed:</dt>
       <dd class="col-8"><%= l(fine.bill_date, format: :short) %></dd>

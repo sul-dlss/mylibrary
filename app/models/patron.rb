@@ -97,27 +97,6 @@ class Patron
     borrow_limit - checkouts.length
   end
 
-  def group?
-    member_list.any?
-  end
-
-  def member_list
-    @member_list ||= begin
-      members = fields.dig('groupSettings', 'fields', 'group', 'fields', 'memberList') || []
-      members.map { |member| Patron.new(member) }.reject { |patron| patron.key == key || patron.sponsor? }
-    end
-  end
-
-  def member_list_names
-    @member_list_names ||= begin
-      member_list.each_with_object({}) { |member, hash| hash[member.key] = member.first_name }
-    end
-  end
-
-  def member_name(key)
-    member_list_names.fetch(key, '').gsub(/(\A\w+\s)\(P=([a-zA-Z]+)\)\z/, '\2')
-  end
-
   def proxy_borrower?
     fields.dig('groupSettings', 'fields', 'responsibility', 'key') == 'PROXY'
   end
@@ -142,16 +121,12 @@ class Patron
     @requests ||= fields['holdRecordList'].map { |request| Request.new(request) }
   end
 
-  def group_checkouts
-    @group_checkouts ||= member_list.flat_map(&:checkouts)
+  def group
+    @group ||= Group.new(record)
   end
 
-  def group_fines
-    @group_fines ||= member_list.flat_map(&:fines)
-  end
-
-  def group_requests
-    @group_requests ||= member_list.flat_map(&:requests)
+  def group?
+    group.member_list.any?
   end
 
   def to_partial_path

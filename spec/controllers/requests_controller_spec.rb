@@ -54,7 +54,7 @@ RSpec.describe RequestsController do
     end
 
     before do
-      allow(mock_patron).to receive(:group_requests).and_return(requests)
+      allow(mock_patron).to receive(:group).and_return(instance_double(Group, requests: requests))
       warden.set_user(user)
     end
 
