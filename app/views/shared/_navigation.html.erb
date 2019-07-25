@@ -59,10 +59,10 @@
 <% if patron_or_group.group? %>
   <nav class="container">
     <ul class="nav nav-tabs nav-justified col-12 pt-3">
-      <li class="nav-item">
+      <li class="nav-item h3">
         <%= link_to patron_or_group.proxy_borrower_name || 'Self', url_for(group: nil), class: "nav-link #{params[:group].nil? && 'active'}" %>
       </li>
-      <li class="nav-item">
+      <li class="nav-item h3">
         <%= link_to 'Group', url_for(group: true), class: "nav-link #{params[:group] && 'active'}" %>
       </li>
     </ul>
