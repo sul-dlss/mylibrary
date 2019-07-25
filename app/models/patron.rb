@@ -59,7 +59,13 @@ class Patron
   end
 
   def patron_type
-    user_profile
+    if user_profile.present?
+      user_profile
+    elsif proxy_borrower?
+      'Research group proxy'
+    elsif sponsor?
+      'Research group sponsor'
+    end
   end
 
   def fee_borrower?

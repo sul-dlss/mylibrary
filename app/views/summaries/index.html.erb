@@ -7,8 +7,8 @@
 <div class="page-section">
   <h2><%= "#{@patron.first_name} #{@patron.last_name}" %></h2>
   <dl class="row">
-    <% if @patron.fee_borrower? %>
-      <dt class='col-2 col-sm-1 font-weight-normal'>Type:</dt>
+    <% if @patron.patron_type %>
+      <dt class='col-2 col-sm-1 font-weight-normal'>Patron Type:</dt>
       <dd class='col-10 col-sm-11 patron-type'><%= @patron.patron_type %></dd>
     <% end %>
     <dt class="col-2 col-sm-1 font-weight-normal">Status:</dt>
