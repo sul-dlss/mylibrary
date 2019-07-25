@@ -109,7 +109,7 @@ RSpec.describe 'Navigation', type: :feature do
     it 'shows the patron status and various counts' do
       visit summaries_path
 
-      expect(page).to have_css('.nav-link.active', text: 'Summary Blocked')
+      expect(page).to have_css('.nav-link.active', text: 'Summary Contact us')
     end
   end
 

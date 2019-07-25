@@ -4,7 +4,11 @@
       <%= link_to summaries_path(group: params[:group]), class: "nav-link #{active_page_class('summaries')}" do %>
         <%= sul_icon :'sharp-person-24px', classes: 'lg' %>
         <span class="label">Summary</span>
-        <span class="info"><%= patron_or_group.status %></span>
+        <% if patron_or_group.barred? %>
+          <span class="info patron-barred"><%= sul_icon :'sharp-error-24px' %><%= patron_or_group.status %></span>
+        <% elsif %>
+          <span class="info"><%= patron_or_group.status %></span>
+        <% end %>
       <% end %>
     </li>
     <li class="nav-item">
