@@ -174,10 +174,26 @@ RSpec.describe Checkout do
           'renewFromPeriod': 999_999
         }
       }
+      fields['unseenRenewalsRemaining'] = 1
     end
 
     it 'has a renewable? status' do
       expect(checkout).to be_renewable
+    end
+  end
+
+  context 'with a record that has unseenRenewalsRemaining as 0' do
+    before do
+      fields['circulationRule'] = {
+        'fields': {
+          'renewFromPeriod': 999_999
+        }
+      }
+      fields['unseenRenewalsRemaining'] = 0
+    end
+
+    it 'does not have a renewable? status' do
+      expect(checkout).not_to be_renewable
     end
   end
 
