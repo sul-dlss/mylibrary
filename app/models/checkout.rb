@@ -55,7 +55,11 @@ class Checkout
   ##
   # Is this item renewable
   def renewable?
-    Time.zone.now > renewable_at if renewable_at
+    unseen_renewals_remaining.positive? && renewable_at.past? if renewable_at
+  end
+
+  def unseen_renewals_remaining
+    fields['unseenRenewalsRemaining'].to_i
   end
 
   ##
