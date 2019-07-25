@@ -54,11 +54,11 @@
         <%= today_with_time_or_date(checkout.checkout_date, short_term: checkout.short_term_loan?) %>
       </dd>
       <% if checkout.renewal_date  %>
-        <dt class="col-3 offset-1 col-md-2 offset-md-2">Renewed on:</dt>
+        <dt class="col-3 offset-1 col-md-2 offset-md-2">Renewed:</dt>
         <dd class="col-8"><%= l(checkout.renewal_date, format: :short) %></dd>
       <% end %>
       <% if checkout.recalled_date  %>
-        <dt class="col-3 offset-1 col-md-2 offset-md-2">Recalled on:</dt>
+        <dt class="col-3 offset-1 col-md-2 offset-md-2">Recalled:</dt>
         <dd class="col-8"><%= l(checkout.recalled_date, format: :short) %></dd>
       <% end %>
       <% if checkout.overdue? %>

@@ -35,13 +35,13 @@
     </button>
   </div>
   <div class="collapse w-100" id="collapseExample-<%= request.key.parameterize %>">
-    <dl class="row">
+    <dl class="row mb-0">
       <% if params[:group] %>
         <dt class="col-3 offset-1 col-md-2 offset-md-2">Borrower:</dt>
         <dd class="col-8"><%= patron.group.member_name(request.patron_key) %></dd>
       <% end %>
       <% if request.placed_date %>
-        <dt class="col-3 offset-1 col-md-2 offset-md-2">Requested on:</dt>
+        <dt class="col-3 offset-1 col-md-2 offset-md-2">Requested:</dt>
         <dd class="col-8"><%= l(request.placed_date, format: :short) %></dd>
       <% end %>
       <dt class="col-3 offset-1 col-md-2 offset-md-2">Waitlist position:</dt>

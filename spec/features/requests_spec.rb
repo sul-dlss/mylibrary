@@ -38,10 +38,10 @@ RSpec.describe 'Request Page', type: :feature do
 
     within(first('ul.ready-requests li')) do
       expect(page).not_to have_css('dl', visible: true)
-      expect(page).not_to have_css('dt', text: 'Requested on:', visible: true)
+      expect(page).not_to have_css('dt', text: 'Requested:', visible: true)
       click_button 'Expand'
       expect(page).to have_css('dl', visible: true)
-      expect(page).to have_css('dt', text: 'Requested on:', visible: true)
+      expect(page).to have_css('dt', text: 'Requested:', visible: true)
     end
   end
 
