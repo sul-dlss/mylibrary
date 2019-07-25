@@ -192,4 +192,32 @@ RSpec.describe 'Navigation', type: :feature do
       expect(page).to have_css('.nav-link', text: 'Fines $100.00')
     end
   end
+
+  context 'with a group' do
+    before do
+      # Un-stub the symphony client so we hit our fixture data endpoint
+      allow(SymphonyClient).to receive(:new).and_call_original
+
+      login_as(username: 'PROXY21', patron_key: '521197')
+    end
+
+    it 'preserves the group parameter across navigation' do
+      visit summaries_path
+
+      click_link 'Group'
+      expect(page).to have_css('.nav-link.active', text: 'Group')
+
+      click_link 'Requests'
+      expect(page).to have_css('.nav-link.active', text: 'Group')
+
+      click_link 'Checkouts'
+      expect(page).to have_css('.nav-link.active', text: 'Group')
+
+      click_link 'Fines'
+      expect(page).to have_css('.nav-link.active', text: 'Group')
+
+      click_link 'Summary'
+      expect(page).to have_css('.nav-link.active', text: 'Group')
+    end
+  end
 end
