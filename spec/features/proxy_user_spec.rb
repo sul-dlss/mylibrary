@@ -13,8 +13,8 @@ RSpec.describe 'Proxy User', type: :feature do
     expect(page).to have_css('.nav-tabs .nav-link', count: 2)
     expect(page).to have_css('.nav-tabs .nav-link.active', text: 'Proxy FirstProxyLN')
 
-    click_link 'Group'
-    expect(page).to have_css('.nav-tabs .nav-link.active', text: 'Group')
+    click_link 'Other proxies'
+    expect(page).to have_css('.nav-tabs .nav-link.active', text: 'Other proxies')
 
     click_link 'Proxy FirstProxyLN'
     expect(page).to have_css('.nav-tabs .nav-link.active', text: 'Proxy FirstProxyLN')
@@ -25,7 +25,7 @@ RSpec.describe 'Proxy User', type: :feature do
 
     expect(page).to have_text('Programming cultures : art and architecture in the age of software')
 
-    click_link 'Group'
+    click_link 'Other proxies'
     expect(page).to have_text('Making plans : how to engage with landscape, design, and the urban environment')
     expect(page).not_to have_text('Programming cultures : art and architecture in the age of software')
     expect(page).to have_text('SecondproxyLN')
@@ -37,7 +37,7 @@ RSpec.describe 'Proxy User', type: :feature do
     expect(page).to have_text('The blockchain and the new architecture of trust')
     expect(page).not_to have_text('Borrower:')
 
-    click_link 'Group'
+    click_link 'Other proxies'
     expect(page).to have_text('San Filippo di Fragalà')
     expect(page).not_to have_text('The blockchain and the new architecture of trust')
     expect(page).to have_text('SecondproxyLN')
@@ -49,7 +49,7 @@ RSpec.describe 'Proxy User', type: :feature do
     expect(page).to have_text('Aspects of grammatical architecture')
     expect(page).not_to have_text('Borrower:')
 
-    click_link 'Group'
+    click_link 'Other proxies'
     expect(page).not_to have_text('Aspects of grammatical architecture')
     expect(page).not_to have_text('SecondproxyLN')
   end

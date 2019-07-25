@@ -30,11 +30,7 @@
       <dt class="col-5">Resolved:</dt>
       <dd class="col-5"><%= l(payment.payment_date, format: :short) %></dd>
       <dt class="col-5">Amount billed:</dt>
-      <% if payment.paid_fee? %>
-          <dd class="col-5"><%= number_to_currency(payment.bill_amount) %></dd>
-      <% else %>
-          <dd class="col-5">$0.00</dd>
-      <% end %>
+      <dd class="col-5"><%= number_to_currency(payment.bill_amount) %></dd>
       <dt class="col-5">Amount paid:</dt>
       <% if payment.paid_fee? %>
           <dd class="col-5"><%= number_to_currency(payment.payment_amount) %></dd>

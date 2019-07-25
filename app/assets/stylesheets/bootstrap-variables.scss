@@ -18,3 +18,10 @@ $input-focus-border-color:       rgba($blue, .25);
 $input-focus-box-shadow:  0 0 0 $input-focus-width $input-focus-border-color;
 
 $link-color:                              $blue;
+
+$nav-tabs-link-active-border-color: $cardinal-red $cardinal-red $sul-bg-color;
+$nav-tabs-border-color: $cardinal-red;
+$nav-tabs-link-active-bg: $sul-bg-color;
+
+
+$nav-tabs-link-hover-border-color: rgba($cardinal-red, .25) rgba($cardinal-red, .25) $cardinal-red;

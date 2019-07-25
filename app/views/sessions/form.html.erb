@@ -3,13 +3,13 @@
 
   <div class="form-group">
     <%= label_tag :library_id, 'Library ID' %>
-    <%= text_field_tag :library_id, nil, class: 'form-control', 'aria-describedby': 'libraryIdHelp', autofocus: true %>
+    <%= text_field_tag :library_id, nil, class: 'form-control col-8 col-sm-4', 'aria-describedby': 'libraryIdHelp', autofocus: true %>
     <small id="libraryIdHelp" class="form-text text-muted">Last 10 digits above the barcode on your library card</small>
   </div>
 
   <div class="form-group">
     <%= label_tag :pin, 'PIN' %>
-    <%= password_field_tag :pin, nil, class: 'form-control' %>
+    <%= password_field_tag :pin, nil, class: 'form-control col-8 col-sm-4' %>
     <div class="form-text">
       <%= link_to "Forgot your PIN? Don't have one yet?", reset_pin_path %>
     </div>

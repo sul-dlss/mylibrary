@@ -1,3 +1,4 @@
+// scss-lint:disable SelectorFormat
 
 .record-title {
   @include h3-index-title-font;
@@ -7,6 +8,10 @@
 .list-header {
   margin-left: 0;
   margin-right: 0;
+
+  .call_number {
+    white-space: nowrap;
+  }
 }
 
 .expand-icon,

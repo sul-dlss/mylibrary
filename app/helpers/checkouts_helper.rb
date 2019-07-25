@@ -42,6 +42,8 @@ module CheckoutsHelper
                            icon: 'sharp-warning-24px',
                            text: 'Overdue',
                            accrued: checkout.accrued)
+    else
+      content_tag :span, 'OK', class: 'd-none d-md-block'
     end
   end
   # rubocop:enable Metrics/MethodLength

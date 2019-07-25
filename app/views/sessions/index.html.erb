@@ -1,15 +1,17 @@
 <h1>Log in to your library account</h1>
 <p>See your checkouts, requests made from SearchWorks, and any fines or fees you owe.</p>
 
-<div class="page-section">
-  <h2>Stanford students, faculty, staff</h2>
-  <%= link_to 'Log in with SUNet ID', login_by_sunetid_url, class: 'btn btn-primary' %>
-</div>
+<div class="row">
+  <div class="page-section col-12 col-sm-6">
+    <h2>Stanford students, faculty, staff</h2>
+    <%= link_to 'Log in with SUNet ID', login_by_sunetid_url, class: 'btn btn-primary' %>
+  </div>
 
-<div class="page-section">
-  <h2>Proxy or fee accounts</h2>
-  <%= link_to 'Log in with PIN', login_url, class: 'btn btn-secondary' %>
-  <%= link_to 'Request a PIN', reset_pin_path, class: 'btn btn-link' %>
+  <div class="page-section col-12 col-sm-6">
+    <h2>Proxy or fee accounts</h2>
+    <%= link_to 'Log in with PIN', login_url, class: 'btn btn-secondary' %>
+    <%= link_to 'Request a PIN', reset_pin_path, class: 'btn btn-link' %>
+  </div>
 </div>
 
 <div class="page-section">

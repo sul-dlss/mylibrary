@@ -134,5 +134,11 @@ RSpec.describe CheckoutsHelper do
         expect(content).to have_css('.text-overdue', text: 'Overdue').and(have_css('.sul-icons'))
       end
     end
+
+    context 'when an item is not deliquent' do
+      it 'renders the right html' do
+        expect(content).to have_text('OK')
+      end
+    end
   end
 end
