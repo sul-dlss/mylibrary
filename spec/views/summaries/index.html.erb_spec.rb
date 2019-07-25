@@ -13,6 +13,7 @@ RSpec.describe 'summaries/index.html.erb' do
       status: 'OK',
       borrow_limit: nil,
       proxy_borrower?: false,
+      barred?: false,
       fee_borrower?: false,
       expired_date: nil,
       email: 'jane@stanford.edu',
@@ -56,6 +57,30 @@ RSpec.describe 'summaries/index.html.erb' do
       render
 
       expect(rendered).not_to have_css('dt', text: 'Privileges expire')
+    end
+  end
+
+  context 'when the patron is barred' do
+    let(:patron_options) { { barred?: true, status: 'Contact us' } }
+
+    it 'links to contact form' do
+      render
+
+      expect(rendered).to have_link('Contact us')
+    end
+  end
+
+  context 'when the patron is not barred' do
+    it 'renders the status without a link' do
+      render
+
+      expect(rendered).not_to have_link('OK')
+    end
+
+    it 'renders the patron status' do
+      render
+
+      expect(rendered).to have_css('dd', text: 'OK')
     end
   end
 end
