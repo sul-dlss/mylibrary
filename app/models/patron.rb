@@ -154,6 +154,10 @@ class Patron
     @group_requests ||= member_list.flat_map(&:requests)
   end
 
+  def to_partial_path
+    'patron/patron'
+  end
+
   private
 
   def fields

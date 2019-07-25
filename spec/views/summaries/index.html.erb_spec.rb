@@ -20,6 +20,7 @@ RSpec.describe 'summaries/index.html.erb' do
       requests: [],
       fines: [],
       remaining_checkouts: nil,
+      to_partial_path: 'patron/patron',
       **patron_options
     )
   end

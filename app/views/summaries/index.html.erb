@@ -5,55 +5,10 @@
 <% end %>
 
 <div class="page-section">
-  <h2><%= "#{@patron.first_name} #{@patron.last_name}" %></h2>
-  <dl class="row">
-    <% if @patron.patron_type %>
-      <dt class='col-2 col-sm-1 font-weight-normal'>Patron Type:</dt>
-      <dd class='col-10 col-sm-11 patron-type'><%= @patron.patron_type %></dd>
-    <% end %>
-    <dt class="col-2 col-sm-1 font-weight-normal">Status:</dt>
-    <dd class="col-10 col-sm-11 patron-status"><%= @patron.status %></dd>
-    <% if @patron.borrow_limit %>
-      <dt class="col-2 col-sm-1 font-weight-normal">Borrower limit:</dt>
-      <dd class="col-10 col-sm-11 patron-status"><%= pluralize(@patron.borrow_limit, 'checkout') %></dd>
-    <% end %>
-    <% if @patron.expired_date && (@patron.fee_borrower? || @patron.proxy_borrower?) %>
-      <dt class="col-2 col-sm-1 font-weight-normal">Privileges expire:</dt>
-      <dd class="col-10 col-sm-11 expired-date"><%= l(@patron.expired_date, format: :short) %></dd>
-    <% end %>
-    <dt class="col-2 col-sm-1 font-weight-normal">Email:</dt>
-    <dd class="col-10 col-sm-11 email"><%= @patron.email %></dd>
-  </dl>
+  <%= render @patron %>
 </div>
 
-<div class="page-section">
-  <h3><%= sul_icon :'sharp-playlist_add_check-24px', classes: 'lg' %> Checkouts: <%= @patron.checkouts.length %><%= " (#{@patron.remaining_checkouts} remaining)" if @patron.remaining_checkouts %></h3>
-  <% count = @patron.checkouts.select(&:recalled?).length %>
-  <% if count.positive? %>
-    <div><%= sul_icon :'sharp-error-24px', classes: 'text-recalled' %> <%= count %> recalled</div>
-  <% end %>
-
-  <% count = @patron.checkouts.select(&:overdue?).length %>
-  <% if count.positive? %>
-    <div><%= sul_icon :'sharp-warning-24px', classes: 'text-overdue' %> <%= count %> overdue</div>
-  <% end %>
-</div>
-
-<div class="page-section">
-  <h3><%= sul_icon :'sharp-access_time-24px', classes: 'lg' %> Requests: <%= @patron.requests.length %></h3>
-  <% count = @patron.requests.select(&:ready_for_pickup?).length %>
-  <% if count.positive? %>
-    <div><%= sul_icon :'sharp-check_circle-24px', classes: 'text-ready' %> <%= count %> ready for pickup</div>
-  <% end %>
-</div>
-
-<div class="page-section">
-  <h3><%= sul_icon :'sharp-attach_money-24px', classes: 'lg' %> Fines &amp; fees payable: <%= number_to_currency(@patron.fines.sum(&:owed)) %></h3>
-  <% accruing = @patron.checkouts.sum(&:accrued) %>
-  <% if accruing.positive? %>
-    <div><%= sul_icon :'sharp-warning-24px', classes: 'text-overdue' %> <%= number_to_currency(accruing) %> accruing on overdue items</div>
-  <% end %>
-</div>
+<%= render 'summary', patron: @patron %>
 
 <div class="page-section">
   <h2>Policies &amp; information</h2>
