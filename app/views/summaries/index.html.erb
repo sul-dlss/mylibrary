@@ -5,10 +5,14 @@
 <% end %>
 
 <div class="page-section">
-  <%= render @patron %>
+  <% if params[:group] %>
+    <%= render @patron.group %>
+  <% else %>
+    <%= render @patron %>
+  <% end %>
 </div>
 
-<%= render 'summary', patron: @patron %>
+<%= render 'summary', patron: params[:group] ? @patron.group : @patron %>
 
 <div class="page-section">
   <h2>Policies &amp; information</h2>
