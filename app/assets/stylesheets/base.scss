@@ -74,7 +74,7 @@ thead {
 }
 
 .text-recalled {
-  color: $color-recalled;
+  color: theme-color-level('danger', 6);
 
   svg {
     fill: $color-recalled;
@@ -83,7 +83,7 @@ thead {
 
 .text-overdue,
 .text-lost {
-  color: $color-overdue;
+  color: theme-color-level('warning', 6);
 
   svg {
     fill: $color-overdue;
@@ -91,7 +91,7 @@ thead {
 }
 
 .text-ready {
-  color: $color-ready;
+  color: $dark-mint;
 
   svg {
     fill: $color-ready;
