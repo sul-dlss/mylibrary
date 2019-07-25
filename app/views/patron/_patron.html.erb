@@ -12,7 +12,7 @@
   <% end %>
   <% if patron.fee_borrower? %>
     <dt class="col-4 col-md-2 font-weight-normal">eResource access:</dt>
-    <dd class="col-10 col-sm-11 patron-status">In-library only</dd>
+    <dd class="col-8 col-md-10 patron-status">In-library only</dd>
   <% end %>
   <% if patron.expired_date && (patron.fee_borrower? || patron.proxy_borrower?) %>
     <dt class="col-2 col-sm-1 font-weight-normal">Privileges expire:</dt>
