@@ -204,20 +204,20 @@ RSpec.describe 'Navigation', type: :feature do
     it 'preserves the group parameter across navigation' do
       visit summaries_path
 
-      click_link 'Group'
-      expect(page).to have_css('.nav-link.active', text: 'Group')
+      click_link 'Other proxies'
+      expect(page).to have_css('.nav-link.active', text: 'Other proxies')
 
       click_link 'Requests'
-      expect(page).to have_css('.nav-link.active', text: 'Group')
+      expect(page).to have_css('.nav-link.active', text: 'Other proxies')
 
       click_link 'Checkouts'
-      expect(page).to have_css('.nav-link.active', text: 'Group')
+      expect(page).to have_css('.nav-link.active', text: 'Other proxies')
 
       click_link 'Fines'
-      expect(page).to have_css('.nav-link.active', text: 'Group')
+      expect(page).to have_css('.nav-link.active', text: 'Other proxies')
 
       click_link 'Summary'
-      expect(page).to have_css('.nav-link.active', text: 'Group')
+      expect(page).to have_css('.nav-link.active', text: 'Other proxies')
     end
   end
 end
