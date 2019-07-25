@@ -1,14 +1,14 @@
 <nav role="navigation" aria-label="Main navigation" id="mainnav" class="pt-3 pb-3">
   <ul class="nav nav-pills nav-justified container pr-0">
     <li class="nav-item">
-      <%= link_to root_path, class: "nav-link #{active_page_class('summaries')}" do %>
+      <%= link_to summaries_path(group: params[:group]), class: "nav-link #{active_page_class('summaries')}" do %>
         <%= sul_icon :'sharp-person-24px', classes: 'lg' %>
         <span class="label">Summary</span>
         <span class="info"><%= patron.status %></span>
       <% end %>
     </li>
     <li class="nav-item">
-      <%= link_to checkouts_path, class: "nav-link #{active_page_class('checkouts')}" do %>
+      <%= link_to checkouts_path(group: params[:group]), class: "nav-link #{active_page_class('checkouts')}" do %>
         <%= sul_icon :'sharp-playlist_add_check-24px', classes: 'lg' %>
         <span class="label">Checkouts</span>
         <% recalled_count = patron.checkouts.select(&:recalled?).length %>
@@ -23,7 +23,7 @@
       <% end %>
     </li>
     <li class="nav-item">
-      <%= link_to requests_path, class: "nav-link #{active_page_class('requests')}" do %>
+      <%= link_to requests_path(group: params[:group]), class: "nav-link #{active_page_class('requests')}" do %>
         <%= sul_icon :'sharp-access_time-24px', classes: 'lg' %>
         <span class="label">Requests</span>
         <% pickup_count = patron.requests.select(&:ready_for_pickup?).length %>
@@ -35,7 +35,7 @@
       <% end %>
     </li>
     <li class="nav-item">
-      <%= link_to fines_path, class: "nav-link #{active_page_class('fines')}" do %>
+      <%= link_to fines_path(group: params[:group]), class: "nav-link #{active_page_class('fines')}" do %>
         <%= sul_icon :'sharp-attach_money-24px', classes: 'lg' %>
         <span class="label">Fines</span>
         <% owed = patron.fines.sum(&:owed) %>
