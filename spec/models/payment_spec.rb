@@ -18,6 +18,7 @@ RSpec.describe Payment do
         'feePaymentInfo' => {
           'paymentDate' => '2013-12-23',
           'paymentAmount' => '21.00',
+          'paymentTypeID' => 'CREDITCARD',
           'paymentTypeDescription' =>
             'Payment using credit or debit card via MyAccount'
         },

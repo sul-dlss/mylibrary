@@ -56,7 +56,7 @@ class Payment
   end
 
   def paid_fee?
-    resolution.match(/credit or debit card/).present?
+    %w[CASH CHECK CREDITCARD].include? fee_pay_info['paymentTypeID']
   end
 
   def to_partial_path
