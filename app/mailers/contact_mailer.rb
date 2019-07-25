@@ -8,7 +8,7 @@ class ContactMailer < ActionMailer::Base
     @message = params[:message]
     @ip = ip
 
-    mail(to: Settings.ACCESS_SERVICES_EMAIL,
+    mail(to: params[:contact_form_to],
          subject: 'Access Services Question/Comment from My Library App',
          from: 'contact@mylibrary.stanford.edu',
          reply_to: params[:email])

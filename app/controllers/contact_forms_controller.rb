@@ -2,6 +2,8 @@
 
 # Controller for Contct forms
 class ContactFormsController < ApplicationController
+  before_action :authenticate_user!
+
   def new
     respond_to do |format|
       format.html do

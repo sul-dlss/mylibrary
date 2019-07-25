@@ -11,8 +11,14 @@ RSpec.describe 'Contact form', type: :feature do
 
     describe 'hidden', js: true do
       it 'form should be hidden' do
-        expect(page).not_to have_css('.contact-form', visible: true)
+        expect(page).not_to have_css('#mylibrary-modal', visible: true)
       end
+    end
+
+    it 'can have custom library contact information' do
+      visit contact_path(library: 'EARTH-SCI')
+
+      expect(page).to have_css 'dd', text: 'Earth Sciences Library (Branner) (brannerlibrary@stanford.edu)'
     end
 
     describe 'visible', js: true do
@@ -21,12 +27,11 @@ RSpec.describe 'Contact form', type: :feature do
       end
 
       it 'is shown' do
-        expect(page).to have_css('#contact-modal-window', visible: true)
-        page.save_screenshot('screen.png')
+        expect(page).to have_css('#contactForm', visible: true)
       end
 
       it 'has a Cancel link' do
-        expect(page).to have_css('.contact-form button', text: 'Cancel')
+        expect(page).to have_css('.contact-form a', text: 'Cancel')
       end
 
       it 'has a Send button' do
