@@ -2,7 +2,7 @@
   <div class="d-flex flex-row flex-grow-1 justify-content-between w-100 row col-md-4">
     <div class="w-50 col-md-6 library">
       <% if request.ready_for_pickup? %>
-        <span class="text-ready font-weight-bold">
+        <span class="text-ready">
           <%= sul_icon 'sharp-check_circle-24px' %>
           <span class="d-md-none">Pick up at </span><%= library_name request.pickup_library %>
         </span>
