@@ -47,7 +47,7 @@
       <% end %>
       <% if params[:group] %>
         <dt class="col-3 offset-1 col-md-2 offset-md-2">Borrower:</dt>
-        <dd class="col-8"><%= patron.member_name(checkout.patron_key) %></dd>
+        <dd class="col-8"><%= patron.group.member_name(checkout.patron_key) %></dd>
       <% end %>
       <dt class="col-3 offset-1 col-md-2 offset-md-2">Borrowed:</dt>
       <dd class="col-8">

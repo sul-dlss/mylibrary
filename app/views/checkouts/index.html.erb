@@ -29,7 +29,7 @@
 
 <div id="checkouts" class="page-section">
   <div class="d-flex justify-content-between">
-    <h2>Checked out: <%= other_checkouts.length %><%= " (#{patron.remaining_checkouts} remaining)" if patron.remaining_checkouts %></h2>
+    <h2>Checked out: <%= other_checkouts.length %><%= " (#{patron_or_group.remaining_checkouts} remaining)" if patron_or_group.remaining_checkouts %></h2>
     <div class="dropdown">
       <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         Sort (<span data-sort-label>Due date</span>)

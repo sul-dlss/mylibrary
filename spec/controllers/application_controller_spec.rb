@@ -41,7 +41,7 @@ RSpec.describe ApplicationController do
     end
   end
 
-  describe 'patron' do
+  describe '#patron' do
     context 'with a logged in user' do
       let(:patron) { Patron.new('fields' => { 'address1' => [], 'standing' => { 'key' => '' } }) }
 
@@ -59,6 +59,24 @@ RSpec.describe ApplicationController do
       it 'is a new instance of the Patron class' do
         expect(controller.patron).to be nil
       end
+    end
+  end
+
+  describe '#patron_or_group' do
+    let(:patron) { Patron.new('fields' => { 'address1' => [], 'standing' => { 'key' => '' } }) }
+
+    before do
+      allow(mock_client).to receive(:patron_info).with('123').and_return(patron)
+      warden.set_user(user)
+    end
+
+    it 'returns the patron' do
+      expect(controller.patron_or_group).to be_an_instance_of Patron
+    end
+
+    it 'returns the group' do
+      controller.params[:group] = true
+      expect(controller.patron_or_group).to be_an_instance_of Group
     end
   end
 end

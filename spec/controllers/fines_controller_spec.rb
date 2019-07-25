@@ -124,8 +124,9 @@ RSpec.describe FinesController do
     end
 
     before do
-      allow(mock_patron).to receive(:group_fines).and_return(fines)
-      allow(mock_patron).to receive(:group_checkouts).and_return(checkouts)
+      allow(mock_patron).to receive(:group).and_return(
+        instance_double(Group, fines: fines, checkouts: checkouts)
+      )
       warden.set_user(user)
     end
 

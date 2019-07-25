@@ -4,21 +4,21 @@
       <%= link_to summaries_path(group: params[:group]), class: "nav-link #{active_page_class('summaries')}" do %>
         <%= sul_icon :'sharp-person-24px', classes: 'lg' %>
         <span class="label">Summary</span>
-        <span class="info"><%= patron.status %></span>
+        <span class="info"><%= patron_or_group.status %></span>
       <% end %>
     </li>
     <li class="nav-item">
       <%= link_to checkouts_path(group: params[:group]), class: "nav-link #{active_page_class('checkouts')}" do %>
         <%= sul_icon :'sharp-playlist_add_check-24px', classes: 'lg' %>
         <span class="label">Checkouts</span>
-        <% recalled_count = patron.checkouts.select(&:recalled?).length %>
-        <% overdue_count = patron.checkouts.select(&:overdue?).length %>
+        <% recalled_count = patron_or_group.checkouts.select(&:recalled?).length %>
+        <% overdue_count = patron_or_group.checkouts.select(&:overdue?).length %>
         <% if recalled_count.positive? %>
           <span class="info text-recalled"><%= sul_icon :'sharp-error-24px' %> <%= pluralize(recalled_count, 'recall') %></span>
         <% elsif overdue_count.positive? %>
           <span class="info text-overdue"><%= sul_icon :'sharp-warning-24px' %> <%= overdue_count %> overdue</span>
         <% else %>
-          <span class="info"><%= patron.checkouts.length %></span>
+          <span class="info"><%= patron_or_group.checkouts.length %></span>
         <% end %>
       <% end %>
     </li>
@@ -26,11 +26,11 @@
       <%= link_to requests_path(group: params[:group]), class: "nav-link #{active_page_class('requests')}" do %>
         <%= sul_icon :'sharp-access_time-24px', classes: 'lg' %>
         <span class="label">Requests</span>
-        <% pickup_count = patron.requests.select(&:ready_for_pickup?).length %>
+        <% pickup_count = patron_or_group.requests.select(&:ready_for_pickup?).length %>
         <% if pickup_count.positive? %>
           <span class="info text-ready"><%= sul_icon :'sharp-check_circle-24px' %> <%= pickup_count %> ready</span>
         <% else %>
-          <span class="info"><%= patron.requests.length %></span>
+          <span class="info"><%= patron_or_group.requests.length %></span>
         <% end %>
       <% end %>
     </li>
@@ -38,8 +38,8 @@
       <%= link_to fines_path(group: params[:group]), class: "nav-link #{active_page_class('fines')}" do %>
         <%= sul_icon :'sharp-attach_money-24px', classes: 'lg' %>
         <span class="label">Fines</span>
-        <% owed = patron.fines.sum(&:owed) %>
-        <% accruing = patron.checkouts.sum(&:accrued) %>
+        <% owed = patron_or_group.fines.sum(&:owed) %>
+        <% accruing = patron_or_group.checkouts.sum(&:accrued) %>
         <% if owed.positive? %>
           <span class="info text-recalled"><%= sul_icon :'sharp-error-24px' %> <%= number_to_currency(owed) %></span>
         <% elsif accruing.positive? %>
@@ -52,11 +52,11 @@
   </ul>
 </nav>
 
-<% if patron.group? %>
+<% if patron_or_group.group? %>
   <nav class="container">
     <ul class="nav nav-tabs nav-justified col-12 pt-3">
       <li class="nav-item">
-        <%= link_to patron.proxy_borrower_name || 'Self', url_for(group: nil), class: "nav-link #{params[:group].nil? && 'active'}" %>
+        <%= link_to patron_or_group.proxy_borrower_name || 'Self', url_for(group: nil), class: "nav-link #{params[:group].nil? && 'active'}" %>
       </li>
       <li class="nav-item">
         <%= link_to 'Group', url_for(group: true), class: "nav-link #{params[:group] && 'active'}" %>

@@ -20,13 +20,21 @@ RSpec.describe 'summaries/index.html.erb' do
       requests: [],
       fines: [],
       remaining_checkouts: nil,
+      to_partial_path: 'patron/patron',
       **patron_options
     )
   end
 
   before do
+    controller.singleton_class.class_eval do
+      protected
+
+      def patron_or_group; end
+      helper_method :patron_or_group
+    end
+
     stub_template 'shared/_navigation.html.erb' => 'Navigation'
-    assign(:patron, patron)
+    allow(view).to receive(:patron_or_group).and_return(patron)
   end
 
   context 'when the patron has an expired_date' do
