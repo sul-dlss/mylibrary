@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe Fine do
   subject do
     described_class.new({
-      key: '1',
+      key: '1:1',
       fields: fields
     }.with_indifferent_access)
   end
@@ -40,7 +40,11 @@ RSpec.describe Fine do
   end
 
   it 'has a key' do
-    expect(fine.key).to eq '1'
+    expect(fine.key).to eq '1:1'
+  end
+
+  it 'has a sequence' do
+    expect(fine.sequence).to eq '1'
   end
 
   it 'has a status' do

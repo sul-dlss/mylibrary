@@ -4,8 +4,8 @@ require 'rails_helper'
 
 RSpec.describe 'Fines Page', type: :feature do
   let(:user_with_payments) { '521181' }
-  let(:user_without_payments) { '521182' }
   let(:user_witout_fines) { '521206' }
+  let(:user_with_single_payment) { '521182' }
 
   before do
     login_as(username: 'SUPER1', patron_key: user_with_payments)
@@ -83,7 +83,7 @@ RSpec.describe 'Fines Page', type: :feature do
 
   context 'when user has a single payment' do
     before do
-      login_as(username: 'SUPER2', patron_key: user_without_payments)
+      login_as(username: 'SUPER2', patron_key: user_with_single_payment)
     end
 
     it 'renders a list item for a single payment' do
@@ -120,6 +120,18 @@ RSpec.describe 'Fines Page', type: :feature do
       visit fines_path
 
       expect(page).not_to have_css('.list-header')
+    end
+  end
+
+  context 'when a user pays a fine' do
+    before do
+      login_as(username: 'SUPER2', patron_key: user_with_single_payment)
+    end
+
+    it 'does payment' do
+      visit fines_path(payment_pending: true)
+
+      expect(page).to have_css('span', text: 'payment processing')
     end
   end
 end

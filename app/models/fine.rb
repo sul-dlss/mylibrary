@@ -41,6 +41,10 @@ class Fine
     record['key']
   end
 
+  def sequence
+    key.split(':').last
+  end
+
   def patron_key
     fields['patron']['key']
   end
@@ -50,7 +54,7 @@ class Fine
   end
 
   def nice_status
-    FINE_STATUS[status]
+    FINE_STATUS[status] || status
   end
 
   def catkey

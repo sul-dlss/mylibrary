@@ -57,3 +57,5 @@ en:
       success_html: <span class="font-weight-bold">Check your email!</span> A PIN reset link has been sent to the address associated with library ID %{library_id}
     feedback_form:
       success: Thank you! Your feedback has been sent.
+    fine_payment:
+      success_html: <span class="font-weight-bold">Success!</span> $%{amount} paid. A receipt was sent to the email on your account. Payment may take up to 5 minutes to appear in your payment history.
