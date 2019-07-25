@@ -36,7 +36,8 @@
     <span class="text-overdue">
       <%= sul_icon :'sharp-warning-24px' %>
     </span>
-    Fines are accruing on <%= pluralize(accruing.length, 'overdue item') %>. You must return the <%= pluralize(accruing.length, 'item')%> before you can pay this fine.
+
+    Fines are accruing on <%= pluralize(accruing.length, 'overdue item') %>. You must return the <%= accruing.length == 1 ? 'item' : 'items' %> before you can pay this fine.
   </div>
 <% end %>
 
