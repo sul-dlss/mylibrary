@@ -29,6 +29,10 @@
     color: $white;
     margin-left: $spacer;
 
+    &:first-child {
+      margin-left: 0;
+    }
+
     &:hover,
     &:focus,
     &:active {
