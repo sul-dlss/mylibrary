@@ -42,13 +42,13 @@
 
 @each $color, $value in $theme-colors {
   .btn-#{$color} {
-    .sul-icons g {
+    .sul-icons svg {
       @include stroke-yiq(theme-color($color));
     }
   }
 
   .btn-outline-#{$color} {
-    .blacklight-icons g {
+    .sul-icons svg {
       fill: $value;
       stroke: $value;
     }
@@ -57,7 +57,7 @@
     &:hover,
     &:active,
     &.active {
-      .sul-icons g {
+      .sul-icons svg {
         @include stroke-yiq(theme-color($color));
       }
     }
