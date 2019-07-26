@@ -28,6 +28,7 @@ Metrics/ClassLength:
     - 'app/models/checkout.rb'
     - 'app/models/patron.rb'
     - 'app/services/symphony_client.rb'
+    - 'config/application.rb'
 
 Metrics/LineLength:
   Max: 120
