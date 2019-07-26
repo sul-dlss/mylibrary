@@ -39,29 +39,6 @@ RSpec.describe CheckoutsHelper do
     end
   end
 
-  describe '#today_with_time_or_date' do
-    context 'when the checkout is a short term loan' do
-      it 'returns a string that says Today and the time' do
-        expect(helper.today_with_time_or_date(Time.zone.now + 42.minutes, short_term: true))
-          .to match(/^Today at\s{1,2}\d/)
-      end
-
-      context 'when the due date is on a past date' do
-        it 'returns a formatted date' do
-          expect(
-            helper.today_with_time_or_date(Time.zone.parse('2019-01-01'), short_term: true)
-          ).to eq 'January  1, 2019'
-        end
-      end
-    end
-
-    context 'when the short term flag is false' do
-      it 'returns a formatted date' do
-        expect(helper.today_with_time_or_date(Time.zone.parse('2019-01-01'))).to eq 'January  1, 2019'
-      end
-    end
-  end
-
   describe '#render_checkout_status' do
     let(:checkout) do
       instance_double(

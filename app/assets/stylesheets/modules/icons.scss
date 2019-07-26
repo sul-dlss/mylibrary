@@ -21,6 +21,13 @@
   }
 }
 
+.btn-icon-prefix {
+  padding-left: 0;
+
+  svg {
+    fill: $link-color;
+  }
+}
 
 // Stroke contrast
 // Derived from https://github.com/twbs/bootstrap/commit/c31d52499811d5c68d122db806ce27a112b489bd
