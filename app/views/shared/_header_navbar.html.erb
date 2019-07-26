@@ -3,7 +3,7 @@
     <%= link_to 'My Library Account', root_path, class: 'navbar-brand font-weight-light py-3 mr-0' %>
     <div class="topnav-links">
       <% if current_user? %>
-        <%= link_to contact_path, class: 'navbar-link', 'data-toggle' =>  'modal', 'data-target' => '#contact-modal-window' do %>
+        <%= link_to contact_path, class: 'navbar-link', data: { 'mylibrary-modal' => 'trigger' } do %>
           <%= sul_icon :'sharp-email-24px' %> Contact Access Services
         <% end %>
         <%= link_to 'tel:+16507231493', class: 'navbar-link' do %>
@@ -13,13 +13,3 @@
     </div>
   </div>
 </div>
-
-<% if current_user? %>
-  <div class="modal fade" id="contact-modal-window" tabindex="-1" role="dialog" aria-labelledby="contactForm" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <%= render 'shared/contact_forms/form' %>
-      </div>
-    </div>
-  </div>
-<% end %>

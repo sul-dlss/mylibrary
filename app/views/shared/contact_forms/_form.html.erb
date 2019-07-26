@@ -3,6 +3,7 @@
 </div>
 <div class="modal-body">
   <%= form_tag contact_path, method: :post, class: 'contact-form', role: 'form' do %>
+    <%= hidden_field_tag :contact_form_to, library_email(params[:library]) %>
     <dl class="row">
       <dt class="col-2">Source:<dt>
       <dd class="col-10 reporting-from-field"><%= request.referer %></dd>
@@ -10,7 +11,7 @@
       <dt class="col-2">From:<dt>
       <dd class="col-10"><%= patron.display_name %></dd>
       <dt class="col-2">To:<dt>
-      <dd class="col-10">Access Services (<%= link_to Settings.ACCESS_SERVICES_EMAIL, "mailto:#{Settings.ACCESS_SERVICES_EMAIL}" %>)</dd>
+      <dd class="col-10"><%= contact_form_to(params[:library]) %></dd>
     </dl>
     <div class="row">
       <div class="col-12 mt-3 mb-3">

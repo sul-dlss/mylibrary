@@ -38,6 +38,36 @@ module Mylibrary
       manager.default_strategies :shibboleth
     end
 
+    config.library_contact = {
+      'ARS' => 'soundarchive@stanford.edu',
+      'ART' => 'artlibrary@stanford.edu',
+      'BIOLOGY' => 'greencirc@stanford.edu',
+      'BUSINESS' => 'library@gsb.stanford.edu',
+      'CHEMCHMENG' => 'greencirc@stanford.edu',
+      'CLASSICS' => 'classics@stanford.edu',
+      'EARTH-SCI' => 'brannerlibrary@stanford.edu',
+      'EAST-ASIA' => 'eastasialibrary@stanford.edu',
+      'EDUCATION' => 'cubberley@stanford.edu',
+      'ENG' => 'englibrary@stanford.edu',
+      'GREEN' => 'greencirc@stanford.edu',
+      'HOOVER' => 'hoover-library-archives@stanford.edu',
+      'HOPKINS' => 'HMS-Library@lists.stanford.edu',
+      'HV-ARCHIVE' => 'hoover-library-archives@stanford.edu',
+      'LANE-MED' => 'laneaskus@stanford.edu',
+      'LATHROP' => 'greencirc@stanford.edu',
+      'LAW' => 'reference@law.stanford.edu',
+      'MATH-CS' => 'greencirc@stanford.edu',
+      'MEDIA-MTXT' => 'greencirc@stanford.edu',
+      'MUSIC' => 'muslibcirc@stanford.edu',
+      'RUMSEYMAP' => 'rumseymapcenter@stanford.edu',
+      'SAL' => 'salcirculation@stanford.edu',
+      'SAL3' => 'greencirc@stanford.edu',
+      'SAL-NEWARK' => 'greencirc@stanford.edu',
+      'SCIENCE' => 'sciencelibrary@stanford.edu',
+      'SPEC-COLL' => 'specialcollections@stanford.edu',
+      'TANNER' => 'tanner-library@stanford.edu'
+    }
+
     config.library_map = {
       'ARS' => 'Archive of Recorded Sound',
       'ART' => 'Art & Architecture Library (Bowes)',

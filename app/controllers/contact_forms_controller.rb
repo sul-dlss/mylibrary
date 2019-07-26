@@ -2,7 +2,15 @@
 
 # Controller for Contct forms
 class ContactFormsController < ApplicationController
-  def new; end
+  before_action :authenticate_user!
+
+  def new
+    respond_to do |format|
+      format.html do
+        return render layout: false if request.xhr?
+      end
+    end
+  end
 
   def create
     return unless request.post?

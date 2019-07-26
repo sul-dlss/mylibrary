@@ -41,4 +41,14 @@ RSpec.describe ApplicationHelper do
       expect(helper.library_name('NOSUCHLIBRARY')).to eq 'NOSUCHLIBRARY'
     end
   end
+
+  describe '#library_email' do
+    it 'translates the code to a an email' do
+      expect(helper.library_email('EARTH-SCI')).to eq 'brannerlibrary@stanford.edu'
+    end
+
+    it 'falls back to greencirc' do
+      expect(helper.library_email('NOSUCHLIBRARY')).to eq 'greencirc@stanford.edu'
+    end
+  end
 end

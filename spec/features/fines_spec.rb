@@ -31,6 +31,7 @@ RSpec.describe 'Fines Page', type: :feature do
         expect(page).to have_css('li', count: 1)
         expect(page).to have_css('li h3', text: 'Research handbook on the law of virtual and augmented reality')
         expect(page).to have_css('li .status', text: 'Damaged item')
+        expect(page).to have_css('li a', text: 'Contact library')
       end
     end
 

@@ -33,4 +33,8 @@ module ApplicationHelper
   def library_name(code)
     Mylibrary::Application.config.library_map[code] || code
   end
+
+  def library_email(code)
+    Mylibrary::Application.config.library_contact[code] || Settings.ACCESS_SERVICES_EMAIL
+  end
 end

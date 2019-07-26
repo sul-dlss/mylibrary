@@ -9,7 +9,8 @@ RSpec.describe ContactMailer do
       let(:params) do
         {
           name: 'Daenerys Targaryen',
-          email: 'dtarg@westeros.org'
+          email: 'dtarg@westeros.org',
+          contact_form_to: 'greencirc@stanford.edu'
         }
       end
       let(:mail) { described_class.submit_feedback(params, ip) }
