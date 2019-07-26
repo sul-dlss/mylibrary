@@ -108,6 +108,61 @@ RSpec.describe Group do
     end
   end
 
+  describe '#barred?' do
+    context 'when a member of the group is barred' do
+      let(:member_list) do
+        [
+          { key: '1', fields: {} },
+          { key: '2', fields: { groupSettings: {
+            fields: { responsibility: { key: 'SPONSOR' } }
+          } } },
+          { key: '3', fields: { standing: { key: 'BARRED' } } },
+          { key: '411612', fields: { firstName: 'Mark (P=Wangchuk)' } }
+        ]
+      end
+
+      it 'is barred' do
+        expect(group).to be_barred
+      end
+    end
+
+    context 'with all members in good standing' do
+      it 'is not barred' do
+        expect(group).not_to be_barred
+      end
+    end
+  end
+
+  describe '#standing' do
+    let(:member_list) do
+      [
+        { key: '1', fields: {} },
+        { key: '2', fields: { standing: { key: 'OK' } } },
+        { key: '3', fields: { standing: { key: 'BARRED' } } },
+        { key: '411612', fields: { standing: { key: 'OK' } } }
+      ]
+    end
+
+    it 'is the worst possible standing of the members of the group' do
+      expect(group.standing).to eq 'BARRED'
+    end
+  end
+
+  describe '#status' do
+    let(:member_list) do
+      [
+        { key: '1', fields: {} },
+        { key: '2', fields: { standing: { key: 'OK' } } },
+        { key: '3', fields: { standing: { key: 'DELINQUENT' } } },
+        { key: '411612', fields: { standing: { key: 'BLOCKED' } } }
+      ]
+    end
+
+    it 'is the worst possible status of the members of the group' do
+      expect(group.status).to eq 'Blocked'
+    end
+  end
+
   describe '#checkouts' do
     let(:member_list) do
       [fields: {

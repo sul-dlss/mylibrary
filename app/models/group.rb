@@ -10,6 +10,19 @@ class Group < Patron
     members.find(&:sponsor?)
   end
 
+  def barred?
+    members.any?(&:barred?)
+  end
+
+  def status
+    Patron::PATRON_STANDING.fetch(standing, '')
+  end
+
+  def standing
+    possible_standings = Patron::PATRON_STANDING.keys
+    members.map(&:standing).min_by { |s| possible_standings.index(s) || Float::INFINITY }
+  end
+
   def checkouts
     @checkouts ||= member_list.flat_map(&:checkouts)
   end

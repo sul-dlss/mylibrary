@@ -7,11 +7,11 @@ class Patron
   CHARGE_LIMIT_THRESHOLD = 25_000
 
   PATRON_STANDING = {
-    'COLLECTION' => 'Blocked',
     'BARRED' => 'Contact us',
+    'COLLECTION' => 'Blocked',
     'BLOCKED' => 'Blocked',
-    'OK' => 'OK',
-    'DELINQUENT' => 'OK'
+    'DELINQUENT' => 'OK',
+    'OK' => 'OK'
   }.freeze
 
   USER_PROFILE = {
@@ -36,8 +36,24 @@ class Patron
   def status
     if expired?
       'Expired'
+    elsif proxy_borrower?
+      # proxy borrowers inherit from the group
+      group.status
     else
-      PATRON_STANDING.fetch(fields['standing']['key'], '')
+      PATRON_STANDING.fetch(standing, '')
+    end
+  end
+
+  def standing
+    fields.dig('standing', 'key')
+  end
+
+  def barred?
+    # proxy borrowers inherit from the group
+    if proxy_borrower?
+      group.standing == 'BARRED'
+    else
+      standing == 'BARRED'
     end
   end
 
@@ -127,10 +143,6 @@ class Patron
 
   def group?
     group.member_list.any?
-  end
-
-  def barred?
-    fields.dig('standing', 'key') == 'BARRED'
   end
 
   def to_partial_path
