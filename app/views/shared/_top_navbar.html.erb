@@ -1,19 +1,21 @@
-<nav id="topnav" class="navbar navbar-expand-always container" role="navigation">
-  <%= link_to 'https://library.stanford.edu', class: 'navbar-brand' do %>
-    <%= image_tag "sul-logo.svg", class: "su-logo d-none d-sm-block", alt: "Stanford Libraries", height: 25 %>
-    <%= image_tag "sul-logo-stacked.svg", class: "su-logo d-sm-none d-md-none d-lg-none d-xl-none", alt: "Stanford Libraries", height: 25 %>
-  <% end %>
+<nav id="topnav" class="navbar navbar-expand-always" role="navigation">
+  <div class="container">
+    <%= link_to 'https://library.stanford.edu', class: 'navbar-brand' do %>
+      <%= image_tag "sul-logo.svg", class: "su-logo d-none d-sm-block", alt: "Stanford Libraries", height: 25 %>
+      <%= image_tag "sul-logo-stacked.svg", class: "su-logo d-sm-none d-md-none d-lg-none d-xl-none", alt: "Stanford Libraries", height: 25 %>
+    <% end %>
 
-  <ul class="navbar-nav ml-auto">
-    <li class="nav-item">
-      <%= link_to "#{current_user.username}: logout", logout_url, class: 'nav-link', data: { turbolinks: false } if current_user? %>
-    </li>
-    <li class="nav-item">
-      <%= link_to feedback_path, data: { toggle: 'collapse', target: '#feedback-form' }, class: 'nav-link' do %>
-        Feedback
-      <% end %>
-    </li>
-  </ul>
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <%= link_to "#{current_user.username}: logout", logout_url, class: 'nav-link', data: { turbolinks: false } if current_user? %>
+      </li>
+      <li class="nav-item">
+        <%= link_to feedback_path, data: { toggle: 'collapse', target: '#feedback-form' }, class: 'nav-link' do %>
+          Feedback
+        <% end %>
+      </li>
+    </ul>
+  </div>
 </nav>
 <div id='feedback-form' class='feedback-form-container collapse'>
   <%= render 'shared/feedback_forms/form' if show_feedback_form? %>
