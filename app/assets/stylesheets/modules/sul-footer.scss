@@ -1,23 +1,37 @@
 // scss-lint:disable IdSelector, ImportantRule, SelectorDepth, NestingDepth
 
+$stanford-footer-height: 250px;
+$stanford-footer-md-height: 140px;
+$sul-footer-height: 80px;
+
 #su-content {
   height: 100%;
-  padding-bottom: 200px !important;
+  padding-bottom: $stanford-footer-height + $sul-footer-height !important;
+
+  @media (min-width: 768px) {
+    padding-bottom: $stanford-footer-md-height + $sul-footer-height !important;
+  }
 }
 
 #sul-footer-container {
   background-color: $sul-footer-bg-color;
   box-shadow: inset 0 4px 8px -8px $sul-shadow-color;
   clear: both;
-  margin-top: -200px;
-  min-height: 200px;
+  margin-top: -1 * ($stanford-footer-height + $sul-footer-height);
+  min-height: $stanford-footer-height + $sul-footer-height;
+
+  @media (min-width: 768px) {
+    margin-top: -1 * ($stanford-footer-md-height + $sul-footer-height);
+    min-height: $stanford-footer-md-height + $sul-footer-height;
+  }
+
   padding: 0;
   position: relative;
 }
 
 #sul-footer {
   display: table;
-  height: 80px;
+  height: $sul-footer-height;
   padding: 0;
 
   ul {
