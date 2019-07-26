@@ -16,6 +16,11 @@ class RequestsController < ApplicationController
 
   def edit
     @request = patron.requests.find { |r| r.key == params['id'] }
+    respond_to do |format|
+      format.html do
+        return render layout: false if request.xhr?
+      end
+    end
   end
 
   def update
