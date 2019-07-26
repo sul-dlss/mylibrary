@@ -98,3 +98,7 @@ thead {
     fill: $color-ready;
   }
 }
+
+[data-sort] {
+  cursor: pointer;
+}
