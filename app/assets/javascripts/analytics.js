@@ -68,6 +68,14 @@ $(document).on('turbolinks:load', function(){
     });
   });
 
+  $('.btn-request-cancel').on('click', function(e) {
+    ga('send', 'event', {
+      eventCategory: 'Request',
+      eventAction: 'cancel-single',
+      transport: 'beacon'
+    });
+  });
+
   $('[href="/renewals/all_eligible"]').on('click', function(e) {
     ga('send', 'event', {
       eventCategory: 'Renew',
