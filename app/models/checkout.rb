@@ -19,7 +19,7 @@ class Checkout
   end
 
   def due_date
-    Time.zone.parse(fields['dueDate'])
+    fields['dueDate'] && Time.zone.parse(fields['dueDate'])
   end
 
   def days_overdue
