@@ -1,0 +1,7 @@
+.collapse {
+  &:not(.show) {
+    &:not(.feedback-form-container) {
+      display: block;
+    }
+  }
+}
