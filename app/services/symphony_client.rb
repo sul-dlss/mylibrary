@@ -107,13 +107,11 @@ class SymphonyClient
   end
 
   def cancel_hold(resource, item_key)
-    Rails.logger.info "#{[resource, item_key]} is not yet being cancelled, waiting for user setup"
     response = authenticated_request('/circulation/holdRecord/cancelHold', method: :post, json: {
-      # TODO: Uncomment this when we can get a user to cancel requests for
-      # item: {
-      #   resource: resource,
-      #   key: item_key
-      # }
+      holdRecord: {
+        resource: resource,
+        key: item_key
+      }
     })
 
     response

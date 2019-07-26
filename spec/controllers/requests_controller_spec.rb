@@ -104,7 +104,7 @@ RSpec.describe RequestsController do
       end
 
       context 'when the response is not 200' do
-        let(:api_response) { instance_double('Response', status: 401, content_type: :json) }
+        let(:api_response) { instance_double('Response', status: 401, content_type: :json, body: 'foo') }
 
         it 'does not cancel the hold and sets flash messages' do
           delete :destroy, params: { resource: 'abc', id: '123' }
