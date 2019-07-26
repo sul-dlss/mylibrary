@@ -2,6 +2,7 @@
 
 <% content_for(:navigation) do %>
   <%= render 'shared/navigation' %>
+  <%= render partial: 'shared/group_tabs', locals: { self_value: patron.checkouts.length, group_value: patron.group.checkouts.length } if patron_or_group.group? %>
 <% end %>
 
 <% recalled, other_checkouts = @checkouts.partition(&:recalled?) %>

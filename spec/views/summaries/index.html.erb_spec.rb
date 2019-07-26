@@ -13,6 +13,7 @@ RSpec.describe 'summaries/index.html.erb' do
       status: 'OK',
       borrow_limit: nil,
       proxy_borrower?: false,
+      group?: false,
       barred?: false,
       fee_borrower?: false,
       expired_date: nil,
