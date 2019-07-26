@@ -42,7 +42,6 @@ Mylibrary.modal.receiveAjax = function (contents) {
   if (container.length !== 0) {
     contents = container.html();
   }
-  console.log(contents);
 
   $(Mylibrary.modal.modalSelector).find('.modal-content').html(contents);
 
