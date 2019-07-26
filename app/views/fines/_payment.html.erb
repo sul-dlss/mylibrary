@@ -23,25 +23,25 @@
   </div>
   <div class="collapse" id="collapseExample-<%= payment.key.parameterize %>">
     <dl class="row justify-content-center">
-      <dt class="col-5">Resolution:</dt>
-      <dd class="col-5"><%= payment.resolution %></dd>
-      <dt class="col-5">Billed:</dt>
-      <dd class="col-5"><%= l(payment.bill_date, format: :short) %></dd>
-      <dt class="col-5">Resolved:</dt>
-      <dd class="col-5"><%= l(payment.payment_date, format: :short) %></dd>
-      <dt class="col-5">Amount billed:</dt>
-      <dd class="col-5"><%= number_to_currency(payment.bill_amount) %></dd>
-      <dt class="col-5">Amount paid:</dt>
+      <dt class="col-3 offset-1 col-md-2 offset-md-2">Resolution:</dt>
+      <dd class="col-8"><%= payment.resolution %></dd>
+      <dt class="col-3 offset-1 col-md-2 offset-md-2">Billed:</dt>
+      <dd class="col-8"><%= l(payment.bill_date, format: :short) %></dd>
+      <dt class="col-3 offset-1 col-md-2 offset-md-2">Resolved:</dt>
+      <dd class="col-8"><%= l(payment.payment_date, format: :short) %></dd>
+      <dt class="col-3 offset-1 col-md-2 offset-md-2">Amount billed:</dt>
+      <dd class="col-8"><%= number_to_currency(payment.bill_amount) %></dd>
+      <dt class="col-3 offset-1 col-md-2 offset-md-2">Amount paid:</dt>
       <% if payment.paid_fee? %>
-          <dd class="col-5"><%= number_to_currency(payment.payment_amount) %></dd>
+          <dd class="col-8"><%= number_to_currency(payment.payment_amount) %></dd>
       <% else %>
-          <dd class="col-5">$0.00</dd>
+          <dd class="col-8">$0.00</dd>
       <% end %>
-      <dt class="col-5">Source:</dt>
+      <dt class="col-3 offset-1 col-md-2 offset-md-2">Source:</dt>
       <% if payment.item_library %>
-          <dd class="col-5"><%= library_name(payment.item_library) %></dd>
+          <dd class="col-8"><%= library_name(payment.item_library) %></dd>
       <% else %>
-          <dd class="col-5">Access Services</dd>
+          <dd class="col-8">Access Services</dd>
       <% end %>
     </dl>
   </div>
