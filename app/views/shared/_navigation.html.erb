@@ -6,7 +6,7 @@
         <span class="label">Summary</span>
         <% if patron_or_group.barred? %>
           <span class="info patron-barred"><%= sul_icon :'sharp-error-24px' %><%= patron_or_group.status %></span>
-        <% elsif %>
+        <% else %>
           <span class="info"><%= patron_or_group.status %></span>
         <% end %>
       <% end %>
