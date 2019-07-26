@@ -29,12 +29,12 @@
     </div>
   </div>
   <div>
-    <button class="btn collapsed" type="button" data-toggle="collapse" data-target="#collapseExample-<%= request.key.parameterize %>" aria-expanded="false" aria-controls="collapseExample-<%= request.key.parameterize %>">
+    <button class="btn collapsed" type="button" data-toggle="collapse" data-target="#collapseDetails-<%= request.key.parameterize %>" aria-expanded="false" aria-controls="collapseDetails-<%= request.key.parameterize %>">
       <span class="expand-icon"><%= sul_icon :'sharp-add-24px' %><span class="sr-only">Expand</span></span>
       <span class="collapse-icon"><%= sul_icon :'sharp-remove-24px' %><span class="sr-only">Collapse</span></span>
     </button>
   </div>
-  <div class="collapse w-100" id="collapseExample-<%= request.key.parameterize %>">
+  <div class="collapse w-100" id="collapseDetails-<%= request.key.parameterize %>">
     <div class="row mb-0">
       <div class="col-11 offset-1 col-md-10 offset-md-2">
         <% if request.ready_for_pickup? %>
