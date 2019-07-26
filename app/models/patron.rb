@@ -134,7 +134,7 @@ class Patron
   end
 
   def requests
-    @requests ||= fields['holdRecordList'].map { |request| Request.new(request) }
+    @requests ||= symphony_requests + borrow_direct_requests
   end
 
   def group
@@ -150,6 +150,16 @@ class Patron
   end
 
   private
+
+  def borrow_direct_requests
+    return [] if proxy_borrower? # Proxies can't submit borrow direct requests, so don't check.
+
+    BorrowDirectRequests.new(self).requests
+  end
+
+  def symphony_requests
+    fields['holdRecordList'].map { |request| Request.new(request) }
+  end
 
   def fields
     record['fields']

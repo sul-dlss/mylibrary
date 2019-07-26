@@ -203,8 +203,18 @@ RSpec.describe Group do
       }]
     end
 
-    it 'has fines' do
-      expect(group.requests).to all(be_a(Request))
+    before do
+      allow(BorrowDirectRequests).to receive(:new).and_return(
+        instance_double(BorrowDirectRequests, requests: [{ key: 2 }])
+      )
+    end
+
+    it 'has checkouts from symphony' do
+      expect(group.requests.first).to be_a(Request)
+    end
+
+    it 'has checkouts from BorrowDirect' do
+      expect(group.requests.last[:key]).to be(2)
     end
   end
 end
