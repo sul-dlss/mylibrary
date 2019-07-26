@@ -23,6 +23,8 @@ RSpec.describe 'Proxy User', type: :feature do
   it 'toggles between proxy user and group checkouts' do
     visit checkouts_path
 
+    expect(page).to have_css('.nav-tabs .nav-link.active', text: 'Proxy FirstProxyLN (3)')
+    expect(page).to have_css('.nav-tabs .nav-link', text: 'Other proxies (2)')
     expect(page).to have_text('Programming cultures : art and architecture in the age of software')
 
     click_link 'Other proxies'
@@ -34,6 +36,8 @@ RSpec.describe 'Proxy User', type: :feature do
   it 'toggles between proxy user and group requests' do
     visit requests_path
 
+    expect(page).to have_css('.nav-tabs .nav-link.active', text: 'Proxy FirstProxyLN (1)')
+    expect(page).to have_css('.nav-tabs .nav-link', text: 'Other proxies (1)')
     expect(page).to have_text('The blockchain and the new architecture of trust')
     expect(page).not_to have_text('Borrower:')
 
@@ -45,7 +49,8 @@ RSpec.describe 'Proxy User', type: :feature do
 
   it 'toggles between proxy user and group fines' do
     visit fines_path
-
+    expect(page).to have_css('.nav-tabs .nav-link.active', text: 'Proxy FirstProxyLN ($320.00)')
+    expect(page).to have_css('.nav-tabs .nav-link', text: 'Other proxies ($0.00)')
     expect(page).to have_text('Aspects of grammatical architecture')
     expect(page).not_to have_text('Borrower:')
 

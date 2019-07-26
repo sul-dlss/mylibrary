@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe 'checkouts/index.html.erb' do
-  let(:patron) { instance_double(Patron, remaining_checkouts: nil) }
+  let(:patron) { instance_double(Patron, group?: false, remaining_checkouts: nil) }
 
   before do
     controller.singleton_class.class_eval do

@@ -2,6 +2,7 @@
 
 <% content_for(:navigation) do %>
   <%= render 'shared/navigation' %>
+  <%= render partial: 'shared/group_tabs', locals: { self_value: number_to_currency(patron.fines.sum(&:owed)), group_value: number_to_currency(patron.group.fines.sum(&:owed)) } if patron_or_group.group? %>
 <% end %>
 
 <% if @fines.any? %>
