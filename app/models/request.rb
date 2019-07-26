@@ -20,6 +20,10 @@ class Request
     fields['patron']['key']
   end
 
+  def resource
+    record['resource']
+  end
+
   def status
     fields['status']
   end
@@ -78,6 +82,10 @@ class Request
 
   def placed_library
     fields['placedLibrary']['key']
+  end
+
+  def home_location
+    fields['item']['fields']['homeLocation']['key']
   end
 
   private
