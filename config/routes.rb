@@ -7,7 +7,9 @@ Rails.application.routes.draw do
   resources :checkouts
   resources :requests
   resources :fines
-  resources :renewals, only: %I[create]
+  resources :renewals, only: %I[create] do
+    post 'all_eligible', on: :collection
+  end
 
   resource :contact_forms, path: 'contact', only: %I[new create]
   get 'contact' => 'contact_forms#new'
