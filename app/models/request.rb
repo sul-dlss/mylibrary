@@ -2,6 +2,10 @@
 
 # Model for requests in Symphony
 class Request
+  # A sufficiently large time used to sort nil values last
+  # TODO: Update before 2099
+  END_OF_DAYS = Time.zone.parse('2099-01-01')
+
   attr_reader :record
 
   def initialize(record)
@@ -79,6 +83,32 @@ class Request
   def placed_library
     fields['placedLibrary']['key']
   end
+
+  # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
+  def sort_key(key)
+    sort_key = case key
+               when :library
+                 [pickup_library, title, author, shelf_key]
+               when :date
+                 [*date_sort_key, title, author, shelf_key]
+               when :title
+                 [title, author, shelf_key]
+               when :author
+                 [author, title, shelf_key]
+               when :call_number
+                 [shelf_key]
+               end
+
+    sort_key.join('---')
+  end
+
+  def date_sort_key
+    [
+      (expiration_date || END_OF_DAYS).strftime('%FT%T'),
+      (fill_by_date || END_OF_DAYS).strftime('%FT%T')
+    ]
+  end
+  # rubocop:enable Metrics/AbcSize,Metrics/MethodLength
 
   private
 

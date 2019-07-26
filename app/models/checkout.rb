@@ -140,6 +140,41 @@ class Checkout
     current_location == 'LOST-ASSUM'
   end
 
+  # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
+  def sort_key(key)
+    sort_key = case key
+               when :status
+                 [status_sort_key, title, author, shelf_key]
+               when :due_date
+                 [due_date.strftime('%FT%T'), title, author, shelf_key]
+               when :title
+                 [title, author, shelf_key]
+               when :author
+                 [author, title, shelf_key]
+               when :call_number
+                 [shelf_key]
+               end
+
+    sort_key.join('---')
+  end
+
+  def status_sort_key
+    if recalled?
+      0
+    elsif lost?
+      1
+    elsif claimed_returned?
+      4
+    elsif accrued.positive?
+      2
+    elsif overdue?
+      3
+    else
+      9
+    end
+  end
+  # rubocop:enable Metrics/AbcSize,Metrics/MethodLength
+
   private
 
   def fields

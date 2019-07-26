@@ -4,13 +4,7 @@
 class RequestsController < ApplicationController
   before_action :authenticate_user!
 
-  # A sufficiently large time used to sort nil values last
-  # TODO: Update before 2099
-  END_OF_DAYS = Time.zone.parse('2099-01-01')
-
   def index
-    @requests = patron_or_group.requests.sort_by do |request|
-      [request.expiration_date || END_OF_DAYS, request.fill_by_date || END_OF_DAYS]
-    end
+    @requests = patron_or_group.requests.sort_by { |request| request.sort_key(:date) }
   end
 end

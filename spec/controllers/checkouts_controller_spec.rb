@@ -22,7 +22,7 @@ RSpec.describe CheckoutsController do
 
     let(:checkouts) do
       [
-        instance_double(Checkout, key: '1', due_date: Time.zone.now)
+        instance_double(Checkout, key: '1', sort_key: nil)
       ]
     end
 
@@ -49,7 +49,7 @@ RSpec.describe CheckoutsController do
 
     let(:checkouts) do
       [
-        instance_double(Checkout, key: '2', due_date: Time.zone.now)
+        instance_double(Checkout, key: '2', sort_key: nil)
       ]
     end
 

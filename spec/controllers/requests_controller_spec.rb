@@ -22,7 +22,7 @@ RSpec.describe RequestsController do
 
     let(:requests) do
       [
-        instance_double(Request, key: '1', expiration_date: Time.zone.now, fill_by_date: nil)
+        instance_double(Request, key: '1', sort_key: nil)
       ]
     end
 
@@ -49,7 +49,7 @@ RSpec.describe RequestsController do
 
     let(:requests) do
       [
-        instance_double(Request, key: '1', expiration_date: Time.zone.now, fill_by_date: nil)
+        instance_double(Request, key: '1', sort_key: nil)
       ]
     end
 

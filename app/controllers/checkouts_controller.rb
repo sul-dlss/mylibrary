@@ -5,6 +5,6 @@ class CheckoutsController < ApplicationController
   before_action :authenticate_user!
 
   def index
-    @checkouts = patron_or_group.checkouts.sort_by(&:due_date)
+    @checkouts = patron_or_group.checkouts.sort_by { |x| x.sort_key(:due_date) }
   end
 end

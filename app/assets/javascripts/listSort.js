@@ -2,20 +2,20 @@ $(document).on('turbolinks:load', function(){
   // var listSort = new List('listSort', options);
   var checkoutOptions = {
       valueNames: [
-        'status',
-        'title',
-        'author',
-        { name: 'call_number', attr: 'data-shelfkey' },
-        { name: 'due_date', attr: 'data-date' },
+        { name: 'status', attr: 'data-sort-status' },
+        { name: 'title', attr: 'data-sort-title' },
+        { name: 'author', attr: 'data-sort-author' },
+        { name: 'call_number', attr: 'data-sort-call_number' },
+        { name: 'due_date', attr: 'data-sort-date' },
       ],
   };
   var requestOptions = {
       valueNames: [
-        'library',
-        'title',
-        'author',
-        { name: 'call_number', attr: 'data-shelfkey' },
-        { name: 'date', attr: 'data-date' },
+        { name: 'library', attr: 'data-sort-library' },
+        { name: 'title', attr: 'data-sort-title' },
+        { name: 'author', attr: 'data-sort-author' },
+        { name: 'call_number', attr: 'data-sort-call_number' },
+        { name: 'date', attr: 'data-sort-date' },
       ],
   };
 
