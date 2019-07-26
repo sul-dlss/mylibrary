@@ -59,4 +59,44 @@ $(document).on('turbolinks:load', function(){
   if (GoogleAnalytics.analyticsId){
     GoogleAnalytics.trackPageview();
   }
+
+  $('.btn-renewable-submit').on('click', function(e) {
+    ga('send', 'event', {
+      eventCategory: 'Renew',
+      eventAction: 'renew-single',
+      transport: 'beacon'
+    });
+  });
+
+  $('[href="/renewals/all_eligible"]').on('click', function(e) {
+    ga('send', 'event', {
+      eventCategory: 'Renew',
+      eventAction: 'renew-all',
+      transport: 'beacon'
+    });
+  });
+
+  $('[data-target^="#collapseDetails"]').on('click', function(e) {
+    var collapsed = $(e.currentTarget).hasClass('collapsed');
+    ga('send', 'event', {
+      eventCategory: 'Toggle Details',
+      eventAction: collapsed ? 'open' : close,
+      transport: 'beacon'
+    });
+  });
+
+  $('[href^="https://searchworks.stanford.edu"]').on('click', function(e) {
+    ga('send', 'event', {
+      eventCategory: 'View in SearchWorks',
+      transport: 'beacon'
+    });
+  });
+
+  $('[data-sort]').on('click', function(e) {
+    ga('send', 'event', {
+      eventCategory: 'Sort',
+      eventAction: e.currentTarget.innerText,
+      transport: 'beacon'
+    });
+  });
 });
