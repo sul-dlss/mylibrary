@@ -47,15 +47,15 @@ RSpec.describe Patron do
         fields: {
           group: {
             fields: {
-              memberList: [
-                key: '521187'
-              ]
+              memberList: member_list
             }
           }
         }
       }
     }
   end
+
+  let(:member_list) { [key: '521187'] }
 
   it 'has a key' do
     expect(patron.key).to eq '1'
@@ -202,7 +202,16 @@ RSpec.describe Patron do
 
   context 'with a proxy borrower' do
     before do
-      fields[:groupSettings] = { fields: { responsibility: { key: 'PROXY' } } }
+      fields[:groupSettings] = {
+        fields: {
+          responsibility: { key: 'PROXY' },
+          group: {
+            fields: {
+              memberList: member_list
+            }
+          }
+        }
+      }
       fields[:firstName] = 'Second (P=FirstProxyLN)'
     end
 
@@ -215,6 +224,40 @@ RSpec.describe Patron do
     describe '#proxy_borrower_name' do
       it 'is derived from the first name' do
         expect(patron.proxy_borrower_name).to eq 'Proxy FirstProxyLN'
+      end
+    end
+
+    describe '#status' do
+      context 'when the group is blocked' do
+        let(:member_list) do
+          [
+            { key: '1', fields: {} },
+            { key: '2', fields: { standing: { key: 'OK' } } },
+            { key: '3', fields: { standing: { key: 'DELINQUENT' } } },
+            { key: '411612', fields: { standing: { key: 'BLOCKED' } } }
+          ]
+        end
+
+        it 'inherits the group status' do
+          expect(patron.status).to eq 'Blocked'
+        end
+      end
+    end
+
+    describe '#barred?' do
+      context 'when the group is barred' do
+        let(:member_list) do
+          [
+            { key: '1', fields: {} },
+            { key: '2', fields: { standing: { key: 'OK' } } },
+            { key: '3', fields: { standing: { key: 'DELINQUENT' } } },
+            { key: '411612', fields: { standing: { key: 'BARRED' } } }
+          ]
+        end
+
+        it 'inherits the group barred status' do
+          expect(patron).to be_barred
+        end
       end
     end
   end

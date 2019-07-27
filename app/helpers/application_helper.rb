@@ -5,6 +5,29 @@ module ApplicationHelper
     'active' if controller_name == name
   end
 
+  # Return a nice, human-readable date (for e.g. a due date or request deadline)
+  # For short-term loans, also include the time.
+  def today_with_time_or_date(date, short_term: false)
+    return l(date, format: :time_today) if short_term && date.today?
+
+    format_human_readable_date(date)
+  end
+
+  # Format a date as 'human readable' by showing today/yesterday/tomorrow,
+  # as appropriate, and otherwise falling back on an actual date display
+  def format_human_readable_date(date)
+    case date.to_date
+    when Time.zone.today.to_date
+      'Today'
+    when Time.zone.tomorrow
+      'Tomorrow'
+    when Time.zone.yesterday
+      'Yesterday'
+    else
+      l(date, format: :short)
+    end
+  end
+
   # Wrap a link to the SearchWorks record for the given Catkey wrapped in the markup
   # necessary to be aligned with the content in the collapsible list sections
   def detail_link_to_searchworks(catkey)

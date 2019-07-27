@@ -29,12 +29,29 @@
     </div>
   </div>
   <div>
-    <button class="btn collapsed" type="button" data-toggle="collapse" data-target="#collapseExample-<%= request.key.parameterize %>" aria-expanded="false" aria-controls="collapseExample-<%= request.key.parameterize %>">
+    <button class="btn collapsed" type="button" data-toggle="collapse" data-target="#collapseDetails-<%= request.key.parameterize %>" aria-expanded="false" aria-controls="collapseDetails-<%= request.key.parameterize %>">
       <span class="expand-icon"><%= sul_icon :'sharp-add-24px' %><span class="sr-only">Expand</span></span>
       <span class="collapse-icon"><%= sul_icon :'sharp-remove-24px' %><span class="sr-only">Collapse</span></span>
     </button>
   </div>
-  <div class="collapse w-100" id="collapseExample-<%= request.key.parameterize %>">
+  <div class="collapse w-100" id="collapseDetails-<%= request.key.parameterize %>">
+    <div class="row mb-0">
+      <div class="col-11 offset-1 col-md-10 offset-md-2">
+        <% if request.ready_for_pickup? %>
+          <%= form_tag request_path(request.key), method: :delete do %>
+            <%= hidden_field_tag :resource, request.resource %>
+            <%= hidden_field_tag :title, request.title %>
+            <%= button_tag class: 'btn btn-link btn-request-cancel btn-icon-prefix', type: 'submit' do %>
+              <%= sul_icon 'outline-cancel-24px' %> Cancel this request
+            <% end %>
+          <% end %>
+        <% else %>
+          <%= link_to edit_request_path(request.key), data: { 'mylibrary-modal' => 'trigger' } do %>
+            <%= sul_icon 'outline-cancel-24px' %> Cancel or change this request
+          <% end %>
+        <% end %>
+      </div>
+    </div>
     <dl class="row mb-0">
       <% if params[:group] %>
         <dt class="col-3 offset-1 col-md-2 offset-md-2">Borrower:</dt>

@@ -13,6 +13,7 @@ RSpec.describe 'summaries/index.html.erb' do
       status: 'OK',
       borrow_limit: nil,
       proxy_borrower?: false,
+      group?: false,
       barred?: false,
       fee_borrower?: false,
       expired_date: nil,
@@ -31,6 +32,7 @@ RSpec.describe 'summaries/index.html.erb' do
       protected
 
       def patron_or_group; end
+
       helper_method :patron_or_group
     end
 
@@ -57,6 +59,11 @@ RSpec.describe 'summaries/index.html.erb' do
       render
 
       expect(rendered).not_to have_css('dt', text: 'Privileges expire')
+    end
+    it 'renders eResource access restriction' do
+      render
+
+      expect(rendered).to have_css 'dt', text: 'eResource access:'
     end
   end
 

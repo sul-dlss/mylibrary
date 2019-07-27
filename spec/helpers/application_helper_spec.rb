@@ -13,6 +13,45 @@ RSpec.describe ApplicationHelper do
     end
   end
 
+  describe '#today_with_time_or_date' do
+    context 'when the checkout is a short term loan' do
+      it 'returns a string that says Today and the time' do
+        expect(helper.today_with_time_or_date(Time.zone.now + 42.minutes, short_term: true))
+          .to match(/^Today at\s{1,2}\d/)
+      end
+
+      context 'when the due date is on a past date' do
+        it 'returns a formatted date' do
+          expect(
+            helper.today_with_time_or_date(Time.zone.parse('2019-01-01'), short_term: true)
+          ).to eq 'January  1, 2019'
+        end
+      end
+    end
+
+    it 'returns a formatted date' do
+      expect(helper.today_with_time_or_date(Time.zone.parse('2019-01-01'))).to eq 'January  1, 2019'
+    end
+
+    context 'with a time from today' do
+      it 'returns "Today"' do
+        expect(helper.today_with_time_or_date(Time.zone.now)).to eq 'Today'
+      end
+    end
+
+    context 'with a time from tomorrow' do
+      it 'returns "Tomorrow"' do
+        expect(helper.today_with_time_or_date(Time.zone.now + 1.day)).to eq 'Tomorrow'
+      end
+    end
+
+    context 'with a time from yesterday' do
+      it 'returns "Yesterday"' do
+        expect(helper.today_with_time_or_date(Time.zone.now - 1.day)).to eq 'Yesterday'
+      end
+    end
+  end
+
   describe '#detail_link_to_searchworks' do
     let(:content) { Capybara.string(helper.detail_link_to_searchworks('12345')) }
 
