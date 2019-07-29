@@ -37,7 +37,7 @@ class Request
   end
 
   def catkey
-    fields['item']['fields']['bib']['key']
+    fields['bib']['key']
   end
 
   def title
@@ -125,7 +125,7 @@ class Request
   end
 
   def bib
-    fields['item']['fields']['bib']['fields']
+    fields.dig('bib', 'fields')
   end
 
   def call
