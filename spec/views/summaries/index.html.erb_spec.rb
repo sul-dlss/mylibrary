@@ -40,33 +40,6 @@ RSpec.describe 'summaries/index.html.erb' do
     allow(view).to receive(:patron_or_group).and_return(patron)
   end
 
-  context 'when the patron has an expired_date' do
-    context 'when the user is a fee_borrower' do
-      let(:patron_options) { { expired_date: Time.zone.today, fee_borrower?: true } }
-
-      it 'renders data about when the privilegs expire' do
-        render
-
-        expect(rendered).to have_css('dt', text: 'Privileges expire')
-      end
-    end
-  end
-
-  context 'when the patron does not have an expired date' do
-    let(:patron_options) { { fee_borrower?: true } }
-
-    it 'is not displayed (even for fee borrowers)' do
-      render
-
-      expect(rendered).not_to have_css('dt', text: 'Privileges expire')
-    end
-    it 'renders eResource access restriction' do
-      render
-
-      expect(rendered).to have_css 'dt', text: 'eResource access:'
-    end
-  end
-
   context 'when the patron is barred' do
     let(:patron_options) { { barred?: true, status: 'Contact us' } }
 

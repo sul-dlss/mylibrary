@@ -146,6 +146,9 @@ class Patron
   end
 
   def to_partial_path
+    return 'patron/expired' if expired?
+    return 'patron/fee_borrower' if fee_borrower?
+
     'patron/patron'
   end
 

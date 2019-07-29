@@ -349,4 +349,26 @@ RSpec.describe Patron do
       end
     end
   end
+
+  describe '#to_partial_path' do
+    context 'when expired' do
+      before do
+        fields[:privilegeExpiresDate] = '1990-01-01'
+      end
+
+      it { expect(patron.to_partial_path).to eq('patron/expired') }
+    end
+
+    context 'when a fee borrower' do
+      before do
+        fields[:profile]['key'] = 'MXFEE'
+      end
+
+      it { expect(patron.to_partial_path).to eq('patron/fee_borrower') }
+    end
+
+    context 'when any other type of patron' do
+      it { expect(patron.to_partial_path).to eq('patron/patron') }
+    end
+  end
 end
