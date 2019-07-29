@@ -1,4 +1,6 @@
 GOOGLE_ANALYTICS_ID:
+borrow_direct:
+  api_key: ''
 symws:
   url:
   headers: {}

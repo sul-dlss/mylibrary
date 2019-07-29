@@ -46,6 +46,8 @@ gem 'warden'
 
 gem 'nokogiri'
 
+gem 'borrow_direct'
+
 group :production do
   gem 'mysql2', '~> 0.5'
   gem 'newrelic_rpm'

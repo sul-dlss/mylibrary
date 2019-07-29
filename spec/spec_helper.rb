@@ -103,5 +103,6 @@ RSpec.configure do |config|
   # Mock all requests to symphony for feature tests
   config.before type: :feature do
     stub_request(:any, %r{example.com/symws}).to_rack(FakeSymphony)
+    stub_request(:any, /rc\.relais-host\.com/).to_return(status: 200)
   end
 end

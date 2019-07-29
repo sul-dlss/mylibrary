@@ -334,11 +334,18 @@ RSpec.describe Patron do
   context 'with requests' do
     before do
       fields[:holdRecordList] = [{ key: 1, fields: {} }]
+      allow(BorrowDirectRequests).to receive(:new).and_return(
+        instance_double(BorrowDirectRequests, requests: [{ key: 2 }])
+      )
     end
 
     describe '#requests' do
       it 'returns a list of requests for the patron' do
         expect(patron.requests).to include a_kind_of(Request).and(have_attributes(key: 1))
+      end
+
+      it 'includes requests that come from the BorrowDirectRequests class' do
+        expect(patron.requests.last[:key]).to be 2
       end
     end
   end
