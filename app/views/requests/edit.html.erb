@@ -1,4 +1,8 @@
-<div class="modal-body">
+<div class="modal-header">
+  <h2>Change or cancel request</h2>
+</div>
+<div class="modal-body request-edit">
+  <h3 class="record-title"><%=@request.title %></h3>
   <%= form_tag request_path(@request.key), method: :patch do %>
     <%= hidden_field_tag :resource, @request.resource %>
     <%= hidden_field_tag :id, @request.key %>
@@ -12,17 +16,17 @@
       <%= label_tag :not_needed_after, 'Not needed after', class: 'form-label' %>
       <%= date_field_tag :not_needed_after, @request.fill_by_date.strftime('%Y-%m-%d'), class: 'form-control' %>
     </div>
-    <div class="form-group">
+    <div class="form-group pb-3">
       <div class="form-text">
         Cancel this request
       </div>
-      <div class="form-check">
+      <div class="form-check ml-3">
         <%= check_box_tag :cancel, 'cancel', false, class: 'form-check-input' %>
         <%= label_tag :cancel, 'I no longer need this item', class: 'form-check-label' %>
       </div>
     </div>
 
     <%= button_tag 'Change', class: 'btn btn-primary', type: 'submit'  %>
-    <%= button_tag 'Cancel', class: 'btn btn-link', data: { dismiss: 'modal' } %>
+    <%= link_to 'Cancel', :back, class: 'btn btn-link', data: { dismiss: 'modal' } %>
   <% end %>
 </div>
