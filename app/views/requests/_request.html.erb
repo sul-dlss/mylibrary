@@ -46,8 +46,8 @@
             <% end %>
           <% end %>
         <% else %>
-          <%= link_to edit_request_path(request.key), data: { 'mylibrary-modal' => 'trigger' } do %>
-            <%= sul_icon 'outline-cancel-24px' %> Cancel or change this request
+          <%= link_to edit_request_path(request.key), data: { 'mylibrary-modal' => 'trigger', 'convert-button' => true } do %>
+            <%= sul_icon 'outline-cancel-24px' %> Change or cancel this request
           <% end %>
         <% end %>
       </div>
