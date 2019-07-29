@@ -1,0 +1,63 @@
+{
+  "resource": "/user/patron",
+  "key": "521206",
+  "fields": {
+    "displayName": "Test User, Nothing",
+    "access": {
+      "resource": "/policy/userAccess",
+      "key": "PUBLIC"
+    },
+    "alternateID": "",
+    "barcode": "NOTHING",
+    "birthDate": null,
+    "checkoutLocation": {
+      "resource": "/policy/location",
+      "key": "CHECKEDOUT"
+    },
+    "createdDate": "2019-07-29",
+    "department": "",
+    "environment": {
+      "resource": "/policy/environment",
+      "key": "PUBLIC"
+    },
+    "firstName": "Nothing",
+    "language": {
+      "resource": "/policy/language",
+      "key": "ENGLISH"
+    },
+    "lastName": "Test User",
+    "library": {
+      "resource": "/policy/library",
+      "key": "SUL"
+    },
+    "middleName": "",
+    "preferredName": "",
+    "privilegeExpiresDate": null,
+    "profile": {
+      "resource": "/policy/userProfile",
+      "key": "RED"
+    },
+    "suffix": "",
+    "title": "",
+    "usePreferredName": false,
+    "webAuthID": "",
+    "category01": null,
+    "category02": null,
+    "category03": null,
+    "category04": null,
+    "category05": null,
+    "category06": null,
+    "category07": null,
+    "category08": null,
+    "category09": null,
+    "category10": null,
+    "category11": null,
+    "category12": null,
+    "claimsReturnedCount": 0,
+    "standing": {
+      "resource": "/policy/patronStanding",
+      "key": "OK"
+    },
+    "groupId": ""
+  }
+}
