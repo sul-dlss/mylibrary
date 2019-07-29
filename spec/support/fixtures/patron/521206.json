@@ -35,7 +35,10 @@
     "privilegeExpiresDate": null,
     "profile": {
       "resource": "/policy/userProfile",
-      "key": "RED"
+      "key": "RED",
+      "fields": {
+        "chargeLimit": 25000
+      }
     },
     "suffix": "",
     "title": "",
@@ -58,6 +61,111 @@
       "resource": "/policy/patronStanding",
       "key": "OK"
     },
-    "groupId": ""
+    "groupId": "",
+    "address1": [{
+      "resource": "/user/patron/address1",
+      "key": "9",
+      "fields": {
+        "code": {
+          "resource": "/policy/patronAddress1",
+          "key": "LINE"
+        },
+        "data": null
+      }
+    }, {
+      "resource": "/user/patron/address1",
+      "key": "3",
+      "fields": {
+        "code": {
+          "resource": "/policy/patronAddress1",
+          "key": "LINE1"
+        },
+        "data": "557 Escondido Mall"
+      }
+    }, {
+      "resource": "/user/patron/address1",
+      "key": "4",
+      "fields": {
+        "code": {
+          "resource": "/policy/patronAddress1",
+          "key": "LINE2"
+        },
+        "data": "Stanford CA 94305-6063"
+      }
+    }, {
+      "resource": "/user/patron/address1",
+      "key": "10",
+      "fields": {
+        "code": {
+          "resource": "/policy/patronAddress1",
+          "key": "LINE3"
+        },
+        "data": null
+      }
+    }, {
+      "resource": "/user/patron/address1",
+      "key": "11",
+      "fields": {
+        "code": {
+          "resource": "/policy/patronAddress1",
+          "key": "LIB-EMAIL"
+        },
+        "data": null
+      }
+    }, {
+      "resource": "/user/patron/address1",
+      "key": "12",
+      "fields": {
+        "code": {
+          "resource": "/policy/patronAddress1",
+          "key": "LIB-PHONE"
+        },
+        "data": null
+      }
+    }, {
+      "resource": "/user/patron/address1",
+      "key": "8",
+      "fields": {
+        "code": {
+          "resource": "/policy/patronAddress1",
+          "key": "EMAIL"
+        },
+        "data": "nothing@stanford.edu"
+      }
+    }, {
+      "resource": "/user/patron/address1",
+      "key": "13",
+      "fields": {
+        "code": {
+          "resource": "/policy/patronAddress1",
+          "key": "PHONE"
+        },
+        "data": null
+      }
+    }, {
+      "resource": "/user/patron/address1",
+      "key": "1",
+      "fields": {
+        "code": {
+          "resource": "/policy/patronAddress1",
+          "key": "DISCLOSE?"
+        },
+        "data": "YES"
+      }
+    }, {
+      "resource": "/user/patron/address1",
+      "key": "14",
+      "fields": {
+        "code": {
+          "resource": "/policy/patronAddress1",
+          "key": "DEPT"
+        },
+        "data": null
+      }
+    }],
+    "circRecordList": [],
+    "blockList": [],
+    "holdRecordList": [],
+    "groupSettings": null
   }
 }

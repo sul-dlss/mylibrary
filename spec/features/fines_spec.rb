@@ -109,4 +109,16 @@ RSpec.describe 'Fines Page', type: :feature do
       end
     end
   end
+
+  context 'with no fines' do
+    before do
+      login_as(username: 'NOTHING', patron_key: '521206')
+    end
+
+    it 'does not render table headers' do
+      visit fines_path
+
+      expect(page).not_to have_css('.list-header')
+    end
+  end
 end
