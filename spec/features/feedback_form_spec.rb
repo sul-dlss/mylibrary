@@ -3,6 +3,13 @@
 require 'rails_helper'
 
 RSpec.describe 'Feedback form', type: :feature do
+  context 'when not logged in' do
+    it 'reCAPTCHA challenge is present' do
+      visit feedback_path
+      expect(page).to have_css '.mylibrary-captcha'
+    end
+  end
+
   context 'with js', js: true do
     before do
       login_as(username: 'SUPER1', patron_key: '521181')
@@ -31,6 +38,11 @@ RSpec.describe 'Feedback form', type: :feature do
     before do
       login_as(username: 'SUPER1', patron_key: '521181')
       visit root_path
+    end
+
+    it 'reCAPTCHA challenge is present' do
+      visit feedback_path
+      expect(page).not_to have_css '.mylibrary-captcha'
     end
 
     it 'feedback form should be shown filled out and submitted' do

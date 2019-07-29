@@ -42,6 +42,10 @@ Metrics/MethodLength:
     - 'app/controllers/feedback_forms_controller.rb'
     - 'app/mailers/feedback_mailer.rb'
 
+Metrics/PerceivedComplexity:
+  Exclude:
+    - 'app/controllers/feedback_forms_controller.rb'
+
 RSpec/ExampleLength:
   Exclude:
     - 'spec/features/**/*'
