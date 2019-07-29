@@ -74,4 +74,8 @@ class RequestsController < ApplicationController
   def not_needed_after_params
     params.require(%I[resource id not_needed_after])
   end
+
+  def item_details
+    { holdRecordList: true }
+  end
 end
