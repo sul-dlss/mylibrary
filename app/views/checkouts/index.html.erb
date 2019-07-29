@@ -70,7 +70,9 @@
     </ul>
   </div>
 <% else %>
-  <h2>Checked out: <%= @checkouts.length %><%= " (#{patron_or_group.remaining_checkouts} remaining)" if patron_or_group.remaining_checkouts %></h2>
+  <div id="checkouts" class="page-section">
+    <h2>Checked out: <%= @checkouts.length %><%= " (#{patron_or_group.remaining_checkouts} remaining)" if patron_or_group.remaining_checkouts %></h2>
+  </div>
 <% end %>
 <div class="page-section">
   <h2>Policies &amp; information</h2>
