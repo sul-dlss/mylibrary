@@ -16,7 +16,10 @@ RSpec.describe ApplicationHelper do
   describe '#today_with_time_or_date' do
     context 'when the checkout is a short term loan' do
       it 'returns a string that says Today and the time' do
-        expect(helper.today_with_time_or_date(Time.zone.now + 42.minutes, short_term: true))
+        date = Time.zone.today + 10.minutes
+        date = Time.zone.today - 10.minutes unless date.today?
+
+        expect(helper.today_with_time_or_date(date, short_term: true))
           .to match(/^Today at\s{1,2}\d/)
       end
 
