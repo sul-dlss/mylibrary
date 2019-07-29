@@ -6,28 +6,8 @@
 <% end %>
 <% if @checkouts.any? %>
   <% recalled, other_checkouts = @checkouts.partition(&:recalled?) %>
-  <div class="page-section">
-    <h2>Recalled: <%= recalled.length %></h2>
-      <% if recalled.any? %>
-        <div class="d-none d-md-flex row font-weight-bold list-header">
-          <div class="row col-md-4">
-            <div class="col-md-6">Status</div>
-            <div class="col-md-6">Due date</div>
-          </div>
-          <div class="row col-md-8">
-            <div class="col-md-7">Title</div>
-            <div class="row col-md-5">
-              <div class="col-md-6">Author</div>
-              <div class="col-md-6 call_number">Call number</div>
-            </div>
-          </div>
-        </div>
-        <ul class="recalled-checkouts list-group">
-          <%= render recalled %>
-        </ul>
-      <% end %>
-  </div>
-
+  <%= render 'checkouts/recalled', recalled: recalled if recalled.any? %>
+  
   <div id="checkouts" class="page-section">
     <div class="d-flex justify-content-between">
       <h2>Checked out: <%= other_checkouts.length %><%= " (#{patron_or_group.remaining_checkouts} remaining)" if patron_or_group.remaining_checkouts %></h2>
