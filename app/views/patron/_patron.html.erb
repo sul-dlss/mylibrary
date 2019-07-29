@@ -6,14 +6,6 @@
   <% end %>
   <dt class="col-4 col-md-2 font-weight-normal">Status:</dt>
   <dd class="col-8 col-md-10 patron-status"><%= link_to_if patron.barred?, patron.status, contact_path, class: 'navbar-link', 'data-toggle' =>  'modal', 'data-target' => '#contact-modal-window' %></dd>
-  <% if patron.borrow_limit %>
-    <dt class="col-4 col-md-2 font-weight-normal">Borrower limit:</dt>
-    <dd class="col-8 col-md-10 patron-status"><%= pluralize(patron.borrow_limit, 'checkout') %></dd>
-  <% end %>
-  <% if patron.fee_borrower? %>
-    <dt class="col-4 col-md-2 font-weight-normal">eResource access:</dt>
-    <dd class="col-8 col-md-10 patron-status">In-library only</dd>
-  <% end %>
   <% if patron.expired_date && (patron.fee_borrower? || patron.proxy_borrower?) %>
     <dt class="col-4 col-md-2 font-weight-normal">Privileges expire:</dt>
     <dd class="col-8 col-md-10 expired-date"><%= l(patron.expired_date, format: :short) %></dd>
@@ -21,6 +13,20 @@
   <% if patron.expired_date && patron.expired? %>
     <dt class="col-4 col-md-2 font-weight-normal">Privileges expired:</dt>
     <dd class="col-8 col-md-10 expired-date"><%= l(patron.expired_date, format: :short) %></dd>
+  <% end %>
+  <% if patron.borrow_limit %>
+    <dt class="col-4 col-md-2 font-weight-normal">Borrower limit:</dt>
+    <dd class="col-8 col-md-10 patron-status"><%= pluralize(patron.borrow_limit, 'checkout') %></dd>
+  <% elsif patron.expired? %>
+    <dt class="col-4 col-md-2 font-weight-normal">Borrower limit:</dt>
+    <dd class="col-8 col-md-10">No access</dd>
+  <% end %>
+  <% if patron.fee_borrower? %>
+    <dt class="col-4 col-md-2 font-weight-normal">eResource access:</dt>
+    <dd class="col-8 col-md-10 patron-status">In-library only</dd>
+  <% elsif patron.expired? %>
+    <dt class="col-4 col-md-2 font-weight-normal">eResource access:</dt>
+    <dd class="col-8 col-md-10 patron-status">No access</dd>
   <% end %>
   <% if patron.email %>
     <dt class="col-4 col-md-2 font-weight-normal">Email:</dt>
