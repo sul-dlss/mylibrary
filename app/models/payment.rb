@@ -25,7 +25,7 @@ class Payment
   end
 
   def fee_pay_info
-    record['feePaymentInfo']
+    Array.wrap(record['feePaymentInfo']).first
   end
 
   def fee_item_info

@@ -70,10 +70,40 @@ RSpec.describe Payment do
     end
   end
 
-  context 'without item associated with payment' do
-    subject do
-      described_class.new(record.with_indifferent_access)
+  context 'with multiple payments' do
+    let(:record) do
+      {
+        'billNumber' => '5',
+        'billReasonDescription' => 'Overdue recall',
+        'amount' => '21.00',
+        'dateBilled' => '2013-11-25',
+        'feePaymentInfo' => [
+          {
+            'paymentDate' => '2013-12-23',
+            'paymentAmount' => '21.00',
+            'paymentTypeID' => 'CREDITCARD',
+            'paymentTypeDescription' =>
+              'Payment using credit or debit card via MyAccount'
+          },
+          {
+            'paymentDate' => '2018-11-03',
+            'paymentAmount' => '1.00',
+            'paymentTypeID' => 'CREDITCARD',
+            'paymentTypeDescription' =>
+              'Payment using credit or debit card via MyAccount'
+          }
+        ],
+        'feeItemInfo' => {
+          'itemLibraryID' => 'GREEN',
+          'title' => 'California : a history'
+        }
+      }
     end
+
+    it 'picks the first one' do
+      expect(payment.payment_amount).to eq '21.00'
+    end
+  end
 
     let(:payment) { subject }
     let(:record) do
