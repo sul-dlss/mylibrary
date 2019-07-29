@@ -5,6 +5,7 @@ require 'rails_helper'
 RSpec.describe 'Fines Page', type: :feature do
   let(:user_with_payments) { '521181' }
   let(:user_without_payments) { '521182' }
+  let(:user_witout_fines) { '521206' }
 
   before do
     login_as(username: 'SUPER1', patron_key: user_with_payments)
@@ -112,7 +113,7 @@ RSpec.describe 'Fines Page', type: :feature do
 
   context 'with no fines' do
     before do
-      login_as(username: 'NOTHING', patron_key: '521206')
+      login_as(username: 'NOTHING', patron_key: user_witout_fines)
     end
 
     it 'does not render table headers' do
