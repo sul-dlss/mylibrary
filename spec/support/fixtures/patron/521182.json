@@ -1,1401 +1,27 @@
 {
-   "key" : "521182",
    "resource" : "/user/patron",
    "fields" : {
-      "library" : {
-         "resource" : "/policy/library",
-         "key" : "SUL"
-      },
-      "preferredName" : "",
-      "createdDate" : "2019-07-08",
-      "profile" : {
-         "key" : "RED",
-         "resource" : "/policy/userProfile",
-         "fields" : {
-            "chargeLimit" : 25000
-         }
-      },
       "webAuthID" : "",
-      "birthDate" : "2019-07-18",
-      "category06" : null,
-      "suffix" : "",
-      "environment" : {
-         "key" : "PUBLIC",
-         "resource" : "/policy/environment"
-      },
-      "claimsReturnedCount" : 1,
-      "alternateID" : "",
-      "groupId" : "",
-      "blockList" : [
-         {
-            "fields" : {
-               "owed" : {
-                  "amount" : "75.00",
-                  "currencyCode" : "USD"
-               },
-               "billDate" : "2019-07-18",
-               "library" : {
-                  "key" : "GREEN",
-                  "resource" : "/policy/library"
-               },
-               "block" : {
-                  "resource" : "/policy/block",
-                  "key" : "LOST"
-               },
-               "comment" : null,
-               "createDate" : "2019-07-18",
-               "amount" : {
-                  "currencyCode" : "USD",
-                  "amount" : "75.00"
-               },
-               "patron" : {
-                  "key" : "521182",
-                  "resource" : "/user/patron"
-               },
-               "estimatedOverdueAmount" : {
-                  "amount" : "0.00",
-                  "currencyCode" : "USD"
-               },
-               "tax" : {
-                  "currencyCode" : "USD",
-                  "amount" : "0.00"
-               },
-               "item" : {
-                  "key" : "12858065:2:1",
-                  "resource" : "/catalog/item",
-                  "fields" : {
-                     "permanent" : true,
-                     "bib" : {
-                        "resource" : "/catalog/bib",
-                        "key" : "12858065",
-                        "fields" : {
-                           "title" : "Bright signals : a history of color television",
-                           "author" : "Murray, Susan, 1967- author."
-                        }
-                     },
-                     "itemCategory2" : null,
-                     "itemCategory5" : null,
-                     "circulate" : false,
-                     "systemModifiedDate" : "2019-07-18T10:04:00-07:00",
-                     "barcode" : "36105229988378",
-                     "lastInvDate" : null,
-                     "itemType" : {
-                        "resource" : "/policy/itemType",
-                        "key" : "STKS-MONO"
-                     },
-                     "itemCategory1" : null,
-                     "itemCategory3" : null,
-                     "call" : {
-                        "fields" : {
-                           "sortCallNumber" : "PN 001992.3 .U5  M86  2018",
-                           "dispCallNumber" : "PN1992.3 .U5 M86 2018"
-                        },
-                        "resource" : "/catalog/call",
-                        "key" : "12858065:2"
-                     },
-                     "pieces" : 1,
-                     "copyNumber" : 1,
-                     "homeLocation" : {
-                        "key" : "STACKS",
-                        "resource" : "/policy/location"
-                     },
-                     "currentLocation" : {
-                        "resource" : "/policy/location",
-                        "key" : "LOST-ASSUM"
-                     },
-                     "shadowed" : false,
-                     "price" : {
-                        "currencyCode" : "USD",
-                        "amount" : "0.00"
-                     },
-                     "library" : {
-                        "resource" : "/policy/library",
-                        "key" : "GREEN"
-                     },
-                     "createdDate" : "2018-12-12",
-                     "itemCategory4" : null,
-                     "mediaDesk" : null,
-                     "timesInventoried" : 0
-                  }
-               }
-            },
-            "resource" : "/circulation/block",
-            "key" : "521182:1"
-         },
-         {
-            "resource" : "/circulation/block",
-            "key" : "521182:2",
-            "fields" : {
-               "estimatedOverdueAmount" : {
-                  "currencyCode" : "USD",
-                  "amount" : "0.00"
-               },
-               "tax" : {
-                  "amount" : "0.00",
-                  "currencyCode" : "USD"
-               },
-               "item" : {
-                  "key" : "12858065:2:1",
-                  "resource" : "/catalog/item",
-                  "fields" : {
-                     "copyNumber" : 1,
-                     "currentLocation" : {
-                        "key" : "LOST-ASSUM",
-                        "resource" : "/policy/location"
-                     },
-                     "homeLocation" : {
-                        "key" : "STACKS",
-                        "resource" : "/policy/location"
-                     },
-                     "price" : {
-                        "currencyCode" : "USD",
-                        "amount" : "0.00"
-                     },
-                     "shadowed" : false,
-                     "call" : {
-                        "fields" : {
-                           "dispCallNumber" : "PN1992.3 .U5 M86 2018",
-                           "sortCallNumber" : "PN 001992.3 .U5  M86  2018"
-                        },
-                        "key" : "12858065:2",
-                        "resource" : "/catalog/call"
-                     },
-                     "pieces" : 1,
-                     "mediaDesk" : null,
-                     "timesInventoried" : 0,
-                     "createdDate" : "2018-12-12",
-                     "library" : {
-                        "resource" : "/policy/library",
-                        "key" : "GREEN"
-                     },
-                     "itemCategory4" : null,
-                     "barcode" : "36105229988378",
-                     "lastInvDate" : null,
-                     "permanent" : true,
-                     "bib" : {
-                        "fields" : {
-                           "title" : "Bright signals : a history of color television",
-                           "author" : "Murray, Susan, 1967- author."
-                        },
-                        "key" : "12858065",
-                        "resource" : "/catalog/bib"
-                     },
-                     "itemCategory5" : null,
-                     "itemCategory2" : null,
-                     "systemModifiedDate" : "2019-07-18T10:04:00-07:00",
-                     "circulate" : false,
-                     "itemCategory3" : null,
-                     "itemCategory1" : null,
-                     "itemType" : {
-                        "resource" : "/policy/itemType",
-                        "key" : "STKS-MONO"
-                     }
-                  }
-               },
-               "patron" : {
-                  "resource" : "/user/patron",
-                  "key" : "521182"
-               },
-               "library" : {
-                  "key" : "GREEN",
-                  "resource" : "/policy/library"
-               },
-               "comment" : null,
-               "block" : {
-                  "key" : "PROCESSFEE",
-                  "resource" : "/policy/block"
-               },
-               "createDate" : "2019-07-18",
-               "amount" : {
-                  "amount" : "5.00",
-                  "currencyCode" : "USD"
-               },
-               "owed" : {
-                  "amount" : "5.00",
-                  "currencyCode" : "USD"
-               },
-               "billDate" : "2019-07-18"
-            }
-         },
-         {
-            "fields" : {
-               "patron" : {
-                  "key" : "521182",
-                  "resource" : "/user/patron"
-               },
-               "tax" : {
-                  "amount" : "0.00",
-                  "currencyCode" : "USD"
-               },
-               "item" : {
-                  "fields" : {
-                     "mediaDesk" : null,
-                     "timesInventoried" : 0,
-                     "itemCategory4" : null,
-                     "library" : {
-                        "resource" : "/policy/library",
-                        "key" : "ART"
-                     },
-                     "createdDate" : "2018-11-14",
-                     "currentLocation" : {
-                        "resource" : "/policy/location",
-                        "key" : "INTRANSIT"
-                     },
-                     "homeLocation" : {
-                        "key" : "STACKS",
-                        "resource" : "/policy/location"
-                     },
-                     "copyNumber" : 1,
-                     "price" : {
-                        "currencyCode" : "USD",
-                        "amount" : "33.00"
-                     },
-                     "shadowed" : false,
-                     "call" : {
-                        "resource" : "/catalog/call",
-                        "key" : "12759000:1",
-                        "fields" : {
-                           "dispCallNumber" : "ND1510 .H37 2018",
-                           "sortCallNumber" : "ND 001510 .H37  2018"
-                        }
-                     },
-                     "pieces" : 1,
-                     "itemCategory3" : null,
-                     "itemCategory1" : null,
-                     "itemType" : {
-                        "key" : "STKS-MONO",
-                        "resource" : "/policy/itemType"
-                     },
-                     "barcode" : "36105230011988",
-                     "lastInvDate" : null,
-                     "systemModifiedDate" : "2018-11-14T09:19:00-08:00",
-                     "circulate" : true,
-                     "bib" : {
-                        "resource" : "/catalog/bib",
-                        "key" : "12759000",
-                        "fields" : {
-                           "author" : "Harvard Art Museums. Forbes Pigment Collection, owner.",
-                           "title" : "An atlas of rare & familiar colour : the Harvard Art Museums' Forbes Pigment Collection"
-                        }
-                     },
-                     "permanent" : true,
-                     "itemCategory2" : null,
-                     "itemCategory5" : null
-                  },
-                  "resource" : "/catalog/item",
-                  "key" : "12759000:1:1"
-               },
-               "estimatedOverdueAmount" : {
-                  "currencyCode" : "USD",
-                  "amount" : "0.00"
-               },
-               "billDate" : "2019-07-19",
-               "owed" : {
-                  "amount" : "5.00",
-                  "currencyCode" : "USD"
-               },
-               "amount" : {
-                  "currencyCode" : "USD",
-                  "amount" : "5.00"
-               },
-               "createDate" : "2019-07-19",
-               "library" : {
-                  "resource" : "/policy/library",
-                  "key" : "SUL"
-               },
-               "block" : {
-                  "resource" : "/policy/block",
-                  "key" : "OVERDUE"
-               },
-               "comment" : null
-            },
-            "key" : "521182:3",
-            "resource" : "/circulation/block"
-         }
-      ],
-      "groupSettings" : null,
-      "category08" : null,
-      "category10" : null,
-      "category02" : null,
-      "standing" : {
-         "key" : "BLOCKED",
-         "resource" : "/policy/patronStanding"
-      },
-      "category01" : null,
-      "circRecordList" : [
-         {
-            "fields" : {
-               "seenRenewalsRemaining" : null,
-               "checkOutDate" : "2019-07-08T21:43:00-07:00",
-               "dueDate" : "2019-07-10T23:59:00-07:00",
-               "piecesReturned" : 0,
-               "claimsReturnedDate" : null,
-               "overdue" : true,
-               "item" : {
-                  "resource" : "/catalog/item",
-                  "key" : "12283722:1:1",
-                  "fields" : {
-                     "itemType" : {
-                        "resource" : "/policy/itemType",
-                        "key" : "STKS-MONO"
-                     },
-                     "itemCategory1" : null,
-                     "itemCategory3" : null,
-                     "itemCategory2" : null,
-                     "permanent" : true,
-                     "itemCategory5" : null,
-                     "bib" : {
-                        "fields" : {
-                           "title" : "The anatomy of color : the story of heritage paints and pigments",
-                           "author" : "Baty, Patrick, author."
-                        },
-                        "resource" : "/catalog/bib",
-                        "key" : "12283722"
-                     },
-                     "circulate" : false,
-                     "systemModifiedDate" : "2018-01-25T09:22:00-08:00",
-                     "barcode" : "36105229519546",
-                     "lastInvDate" : null,
-                     "library" : {
-                        "resource" : "/policy/library",
-                        "key" : "ART"
-                     },
-                     "createdDate" : "2018-01-25",
-                     "itemCategory4" : null,
-                     "timesInventoried" : 0,
-                     "mediaDesk" : null,
-                     "pieces" : 1,
-                     "call" : {
-                        "fields" : {
-                           "dispCallNumber" : "NK2115.5 .C6 B383 2017",
-                           "sortCallNumber" : "NK 002115.5 .C6  B383  2017"
-                        },
-                        "key" : "12283722:1",
-                        "resource" : "/catalog/call"
-                     },
-                     "price" : {
-                        "amount" : "50.00",
-                        "currencyCode" : "USD"
-                     },
-                     "shadowed" : false,
-                     "copyNumber" : 1,
-                     "homeLocation" : {
-                        "resource" : "/policy/location",
-                        "key" : "STACKS"
-                     },
-                     "currentLocation" : {
-                        "resource" : "/policy/location",
-                        "key" : "CHECKEDOUT"
-                     }
-                  }
-               },
-               "unseenRenewalsRemaining" : 3,
-               "estimatedOverdueAmount" : {
-                  "currencyCode" : "USD",
-                  "amount" : "0.00"
-               },
-               "renewalDate" : null,
-               "patron" : {
-                  "resource" : "/user/patron",
-                  "key" : "521182"
-               },
-               "recallDueDate" : null,
-               "status" : "ACTIVE",
-               "circulationRule" : {
-                  "fields" : {
-                     "loanPeriod" : {
-                        "fields" : {
-                           "periodType" : {
-                              "key" : "DATELIST",
-                              "resource" : "/policy/periodType"
-                           }
-                        },
-                        "key" : "FXQ",
-                        "resource" : "/policy/loanPeriod"
-                     },
-                     "renewFromPeriod" : 60
-                  },
-                  "key" : "FXQNF2",
-                  "resource" : "/policy/circulationRule"
-               },
-               "library" : {
-                  "key" : "ART",
-                  "resource" : "/policy/library"
-               },
-               "renewalCount" : null,
-               "recalledDate" : null
-            },
-            "key" : "12283722:1:1:1",
-            "resource" : "/circulation/circRecord"
-         },
-         {
-            "fields" : {
-               "seenRenewalsRemaining" : null,
-               "overdue" : true,
-               "claimsReturnedDate" : null,
-               "piecesReturned" : 0,
-               "dueDate" : "2019-07-02T23:59:00-07:00",
-               "checkOutDate" : "2019-07-08T21:47:00-07:00",
-               "renewalDate" : null,
-               "patron" : {
-                  "key" : "521182",
-                  "resource" : "/user/patron"
-               },
-               "unseenRenewalsRemaining" : 3,
-               "estimatedOverdueAmount" : {
-                  "amount" : "0.00",
-                  "currencyCode" : "USD"
-               },
-               "item" : {
-                  "resource" : "/catalog/item",
-                  "key" : "12746312:1:1",
-                  "fields" : {
-                     "itemType" : {
-                        "resource" : "/policy/itemType",
-                        "key" : "STKS-MONO"
-                     },
-                     "itemCategory1" : null,
-                     "itemCategory3" : null,
-                     "systemModifiedDate" : "2018-10-17T09:19:00-07:00",
-                     "circulate" : false,
-                     "itemCategory2" : null,
-                     "permanent" : true,
-                     "bib" : {
-                        "key" : "12746312",
-                        "resource" : "/catalog/bib",
-                        "fields" : {
-                           "title" : "The language of color in China",
-                           "author" : "Zhou, Jun, author."
-                        }
-                     },
-                     "itemCategory5" : null,
-                     "lastInvDate" : null,
-                     "barcode" : "36105229891457",
-                     "itemCategory4" : null,
-                     "createdDate" : "2018-10-17",
-                     "library" : {
-                        "key" : "ART",
-                        "resource" : "/policy/library"
-                     },
-                     "timesInventoried" : 0,
-                     "mediaDesk" : null,
-                     "pieces" : 1,
-                     "call" : {
-                        "key" : "12746312:1",
-                        "resource" : "/catalog/call",
-                        "fields" : {
-                           "sortCallNumber" : "BF 000789 .C7  Z47  2018",
-                           "dispCallNumber" : "BF789 .C7 Z47 2018"
-                        }
-                     },
-                     "shadowed" : false,
-                     "price" : {
-                        "currencyCode" : "USD",
-                        "amount" : "99.95"
-                     },
-                     "homeLocation" : {
-                        "resource" : "/policy/location",
-                        "key" : "STACKS"
-                     },
-                     "currentLocation" : {
-                        "key" : "CHECKEDOUT",
-                        "resource" : "/policy/location"
-                     },
-                     "copyNumber" : 1
-                  }
-               },
-               "renewalCount" : null,
-               "recalledDate" : null,
-               "circulationRule" : {
-                  "fields" : {
-                     "loanPeriod" : {
-                        "key" : "FXQ",
-                        "resource" : "/policy/loanPeriod",
-                        "fields" : {
-                           "periodType" : {
-                              "resource" : "/policy/periodType",
-                              "key" : "DATELIST"
-                           }
-                        }
-                     },
-                     "renewFromPeriod" : 60
-                  },
-                  "resource" : "/policy/circulationRule",
-                  "key" : "FXQNF2"
-               },
-               "status" : "ACTIVE",
-               "library" : {
-                  "resource" : "/policy/library",
-                  "key" : "ART"
-               },
-               "recallDueDate" : null
-            },
-            "key" : "12746312:1:1:1",
-            "resource" : "/circulation/circRecord"
-         },
-         {
-            "resource" : "/circulation/circRecord",
-            "key" : "11967572:1:1:1",
-            "fields" : {
-               "overdue" : true,
-               "claimsReturnedDate" : null,
-               "dueDate" : "2019-07-02T23:59:00-07:00",
-               "piecesReturned" : 0,
-               "checkOutDate" : "2019-07-08T21:48:00-07:00",
-               "seenRenewalsRemaining" : null,
-               "renewalCount" : null,
-               "recalledDate" : "2019-07-18",
-               "circulationRule" : {
-                  "key" : "FXQNF2",
-                  "resource" : "/policy/circulationRule",
-                  "fields" : {
-                     "renewFromPeriod" : 60,
-                     "loanPeriod" : {
-                        "resource" : "/policy/loanPeriod",
-                        "key" : "FXQ",
-                        "fields" : {
-                           "periodType" : {
-                              "key" : "DATELIST",
-                              "resource" : "/policy/periodType"
-                           }
-                        }
-                     }
-                  }
-               },
-               "status" : "ACTIVE",
-               "library" : {
-                  "resource" : "/policy/library",
-                  "key" : "ART"
-               },
-               "recallDueDate" : "2019-07-25T23:59:00-07:00",
-               "renewalDate" : null,
-               "patron" : {
-                  "key" : "521182",
-                  "resource" : "/user/patron"
-               },
-               "estimatedOverdueAmount" : {
-                  "currencyCode" : "USD",
-                  "amount" : "0.00"
-               },
-               "unseenRenewalsRemaining" : 3,
-               "item" : {
-                  "fields" : {
-                     "itemCategory1" : null,
-                     "itemType" : {
-                        "key" : "STKS-MONO",
-                        "resource" : "/policy/itemType"
-                     },
-                     "itemCategory3" : null,
-                     "systemModifiedDate" : "2019-07-18T12:40:00-07:00",
-                     "circulate" : false,
-                     "permanent" : true,
-                     "itemCategory2" : null,
-                     "itemCategory5" : null,
-                     "bib" : {
-                        "key" : "11967572",
-                        "resource" : "/catalog/bib",
-                        "fields" : {
-                           "author" : "Pastoureau, Michel, 1947- author.",
-                           "title" : "Red : The History of a Color"
-                        }
-                     },
-                     "lastInvDate" : null,
-                     "barcode" : "36105229274381",
-                     "itemCategory4" : null,
-                     "library" : {
-                        "key" : "ART",
-                        "resource" : "/policy/library"
-                     },
-                     "createdDate" : "2017-04-27",
-                     "timesInventoried" : 0,
-                     "mediaDesk" : null,
-                     "pieces" : 1,
-                     "call" : {
-                        "fields" : {
-                           "sortCallNumber" : "BF 000789 .C7  P39813  2016",
-                           "dispCallNumber" : "BF789 .C7 P39813 2016"
-                        },
-                        "key" : "11967572:1",
-                        "resource" : "/catalog/call"
-                     },
-                     "shadowed" : false,
-                     "price" : {
-                        "amount" : "39.95",
-                        "currencyCode" : "USD"
-                     },
-                     "homeLocation" : {
-                        "key" : "STACKS",
-                        "resource" : "/policy/location"
-                     },
-                     "currentLocation" : {
-                        "key" : "CHECKEDOUT",
-                        "resource" : "/policy/location"
-                     },
-                     "copyNumber" : 1
-                  },
-                  "resource" : "/catalog/item",
-                  "key" : "11967572:1:1"
-               }
-            }
-         },
-         {
-            "resource" : "/circulation/circRecord",
-            "key" : "11936759:1:1:1",
-            "fields" : {
-               "claimsReturnedDate" : "2019-07-16",
-               "overdue" : true,
-               "checkOutDate" : "2019-07-08T21:51:00-07:00",
-               "piecesReturned" : 0,
-               "dueDate" : "2019-07-02T23:59:00-07:00",
-               "seenRenewalsRemaining" : null,
-               "renewalCount" : null,
-               "recalledDate" : null,
-               "recallDueDate" : null,
-               "library" : {
-                  "resource" : "/policy/library",
-                  "key" : "ART"
-               },
-               "status" : "ACTIVE",
-               "circulationRule" : {
-                  "key" : "FXQNF2",
-                  "resource" : "/policy/circulationRule",
-                  "fields" : {
-                     "loanPeriod" : {
-                        "key" : "FXQ",
-                        "resource" : "/policy/loanPeriod",
-                        "fields" : {
-                           "periodType" : {
-                              "key" : "DATELIST",
-                              "resource" : "/policy/periodType"
-                           }
-                        }
-                     },
-                     "renewFromPeriod" : 60
-                  }
-               },
-               "renewalDate" : null,
-               "patron" : {
-                  "resource" : "/user/patron",
-                  "key" : "521182"
-               },
-               "item" : {
-                  "key" : "11936759:1:1",
-                  "resource" : "/catalog/item",
-                  "fields" : {
-                     "mediaDesk" : null,
-                     "timesInventoried" : 0,
-                     "library" : {
-                        "key" : "ART",
-                        "resource" : "/policy/library"
-                     },
-                     "createdDate" : "2017-08-16",
-                     "itemCategory4" : null,
-                     "copyNumber" : 1,
-                     "homeLocation" : {
-                        "resource" : "/policy/location",
-                        "key" : "STACKS"
-                     },
-                     "currentLocation" : {
-                        "key" : "CHECKEDOUT",
-                        "resource" : "/policy/location"
-                     },
-                     "price" : {
-                        "amount" : "45.00",
-                        "currencyCode" : "USD"
-                     },
-                     "shadowed" : false,
-                     "call" : {
-                        "key" : "11936759:1",
-                        "resource" : "/catalog/call",
-                        "fields" : {
-                           "sortCallNumber" : "TT 000505 .M57  C37  2016",
-                           "dispCallNumber" : "TT505 .M57 C37 2016"
-                        }
-                     },
-                     "pieces" : 1,
-                     "itemCategory3" : null,
-                     "itemType" : {
-                        "resource" : "/policy/itemType",
-                        "key" : "STKS-MONO"
-                     },
-                     "itemCategory1" : null,
-                     "barcode" : "36105229469866",
-                     "lastInvDate" : null,
-                     "permanent" : true,
-                     "bib" : {
-                        "key" : "11936759",
-                        "resource" : "/catalog/bib",
-                        "fields" : {
-                           "author" : "Caramel, Luciano, author.",
-                           "title" : "Missoni : art colour"
-                        }
-                     },
-                     "itemCategory5" : null,
-                     "itemCategory2" : null,
-                     "circulate" : false,
-                     "systemModifiedDate" : "2017-08-16T11:01:00-07:00"
-                  }
-               },
-               "estimatedOverdueAmount" : {
-                  "currencyCode" : "USD",
-                  "amount" : "0.00"
-               },
-               "unseenRenewalsRemaining" : 3
-            }
-         },
-         {
-            "resource" : "/circulation/circRecord",
-            "key" : "12858065:2:1:1",
-            "fields" : {
-               "renewalCount" : null,
-               "recalledDate" : null,
-               "recallDueDate" : null,
-               "status" : "INACTIVE",
-               "library" : {
-                  "resource" : "/policy/library",
-                  "key" : "GREEN"
-               },
-               "circulationRule" : {
-                  "fields" : {
-                     "loanPeriod" : {
-                        "resource" : "/policy/loanPeriod",
-                        "key" : "2H",
-                        "fields" : {
-                           "periodType" : {
-                              "key" : "HOURLY",
-                              "resource" : "/policy/periodType"
-                           }
-                        }
-                     },
-                     "renewFromPeriod" : 0
-                  },
-                  "resource" : "/policy/circulationRule",
-                  "key" : "2HWF-RES"
-               },
-               "patron" : {
-                  "key" : "521182",
-                  "resource" : "/user/patron"
-               },
-               "renewalDate" : null,
-               "item" : {
-                  "fields" : {
-                     "timesInventoried" : 0,
-                     "mediaDesk" : null,
-                     "library" : {
-                        "resource" : "/policy/library",
-                        "key" : "GREEN"
-                     },
-                     "createdDate" : "2018-12-12",
-                     "itemCategory4" : null,
-                     "price" : {
-                        "amount" : "0.00",
-                        "currencyCode" : "USD"
-                     },
-                     "shadowed" : false,
-                     "copyNumber" : 1,
-                     "homeLocation" : {
-                        "key" : "STACKS",
-                        "resource" : "/policy/location"
-                     },
-                     "currentLocation" : {
-                        "resource" : "/policy/location",
-                        "key" : "LOST-ASSUM"
-                     },
-                     "pieces" : 1,
-                     "call" : {
-                        "resource" : "/catalog/call",
-                        "key" : "12858065:2",
-                        "fields" : {
-                           "sortCallNumber" : "PN 001992.3 .U5  M86  2018",
-                           "dispCallNumber" : "PN1992.3 .U5 M86 2018"
-                        }
-                     },
-                     "itemCategory3" : null,
-                     "itemCategory1" : null,
-                     "itemType" : {
-                        "resource" : "/policy/itemType",
-                        "key" : "STKS-MONO"
-                     },
-                     "barcode" : "36105229988378",
-                     "lastInvDate" : null,
-                     "permanent" : true,
-                     "bib" : {
-                        "fields" : {
-                           "author" : "Murray, Susan, 1967- author.",
-                           "title" : "Bright signals : a history of color television"
-                        },
-                        "key" : "12858065",
-                        "resource" : "/catalog/bib"
-                     },
-                     "itemCategory5" : null,
-                     "itemCategory2" : null,
-                     "circulate" : false,
-                     "systemModifiedDate" : "2019-07-18T10:04:00-07:00"
-                  },
-                  "resource" : "/catalog/item",
-                  "key" : "12858065:2:1"
-               },
-               "estimatedOverdueAmount" : {
-                  "amount" : "30.00",
-                  "currencyCode" : "USD"
-               },
-               "unseenRenewalsRemaining" : 0,
-               "claimsReturnedDate" : null,
-               "overdue" : true,
-               "checkOutDate" : "2019-07-18T10:05:00-07:00",
-               "dueDate" : "2019-07-14T23:59:00-07:00",
-               "piecesReturned" : 0,
-               "seenRenewalsRemaining" : null
-            }
-         }
-      ],
-      "category05" : {
-         "resource" : "/policy/patronCategory05",
-         "key" : "FAKE"
-      },
-      "holdRecordList" : [
-         {
-            "key" : "1675116",
-            "resource" : "/circulation/holdRecord",
-            "fields" : {
-               "fillByDate" : "2020-07-07",
-               "holdPriority" : null,
-               "item" : {
-                  "fields" : {
-                     "lastInvDate" : null,
-                     "barcode" : "36105229929240",
-                     "itemCategory2" : null,
-                     "permanent" : true,
-                     "itemCategory5" : null,
-                     "bib" : {
-                        "fields" : {
-                           "author" : "",
-                           "title" : "A history of video games in 64 objects"
-                        },
-                        "key" : "12730702",
-                        "resource" : "/catalog/bib"
-                     },
-                     "circulate" : true,
-                     "systemModifiedDate" : "2019-07-08T21:53:00-07:00",
-                     "itemCategory3" : null,
-                     "itemCategory1" : null,
-                     "itemType" : {
-                        "key" : "STKS-MONO",
-                        "resource" : "/policy/itemType"
-                     },
-                     "copyNumber" : 1,
-                     "currentLocation" : {
-                        "resource" : "/policy/location",
-                        "key" : "GRE-LOAN"
-                     },
-                     "homeLocation" : {
-                        "resource" : "/policy/location",
-                        "key" : "STACKS"
-                     },
-                     "shadowed" : false,
-                     "price" : {
-                        "currencyCode" : "USD",
-                        "amount" : "0.00"
-                     },
-                     "call" : {
-                        "fields" : {
-                           "sortCallNumber" : "GV 001469.3 .H57  2018",
-                           "dispCallNumber" : "GV1469.3 .H57 2018"
-                        },
-                        "key" : "12730702:2",
-                        "resource" : "/catalog/call"
-                     },
-                     "pieces" : 1,
-                     "mediaDesk" : null,
-                     "timesInventoried" : 0,
-                     "library" : {
-                        "key" : "GREEN",
-                        "resource" : "/policy/library"
-                     },
-                     "createdDate" : "2018-08-09",
-                     "itemCategory4" : null
-                  },
-                  "resource" : "/catalog/item",
-                  "key" : "12730702:2:1"
-               },
-               "patron" : {
-                  "key" : "521182",
-                  "resource" : "/user/patron"
-               },
-               "queueLength" : 1,
-               "expirationDate" : "2019-07-18",
-               "inactiveReason" : null,
-               "holdRange" : {
-                  "resource" : "/policy/holdRange",
-                  "key" : "SYSTEM"
-               },
-               "comment" : "",
-               "status" : "BEING_HELD",
-               "placedDate" : "2019-07-08",
-               "beingHeldDate" : "2019-07-11",
-               "queuePosition" : 1,
-               "holdType" : "COPY",
-               "bib" : {
-                  "key" : "12730702",
-                  "resource" : "/catalog/bib"
-               },
-               "suspendBeginDate" : null,
-               "recallStatus" : "RUSH",
-               "suspendEndDate" : null,
-               "pickupLibrary" : {
-                  "key" : "GREEN",
-                  "resource" : "/policy/library"
-               },
-               "placedLibrary" : {
-                  "key" : "GREEN",
-                  "resource" : "/policy/library"
-               },
-               "selectedItem" : {
-                  "key" : "12730702:2:1",
-                  "resource" : "/catalog/item"
-               }
-            }
-         },
-         {
-            "key" : "1675117",
-            "resource" : "/circulation/holdRecord",
-            "fields" : {
-               "inactiveReason" : null,
-               "expirationDate" : null,
-               "queueLength" : 1,
-               "patron" : {
-                  "key" : "521182",
-                  "resource" : "/user/patron"
-               },
-               "item" : {
-                  "resource" : "/catalog/item",
-                  "key" : "5574416:2:1",
-                  "fields" : {
-                     "lastInvDate" : null,
-                     "barcode" : "36105111937236",
-                     "permanent" : true,
-                     "bib" : {
-                        "fields" : {
-                           "title" : "Pikachu's global adventure : the rise and fall of Pokémon",
-                           "author" : ""
-                        },
-                        "resource" : "/catalog/bib",
-                        "key" : "5574416"
-                     },
-                     "itemCategory2" : {
-                        "resource" : "/policy/itemCategory2",
-                        "key" : "TAX=8.25"
-                     },
-                     "itemCategory5" : null,
-                     "systemModifiedDate" : "2019-07-08T21:53:00-07:00",
-                     "circulate" : false,
-                     "itemCategory3" : null,
-                     "itemType" : {
-                        "key" : "STKS-MONO",
-                        "resource" : "/policy/itemType"
-                     },
-                     "itemCategory1" : null,
-                     "copyNumber" : 1,
-                     "homeLocation" : {
-                        "resource" : "/policy/location",
-                        "key" : "STACKS"
-                     },
-                     "currentLocation" : {
-                        "key" : "CHECKEDOUT",
-                        "resource" : "/policy/location"
-                     },
-                     "price" : {
-                        "amount" : "0.00",
-                        "currencyCode" : "USD"
-                     },
-                     "shadowed" : false,
-                     "call" : {
-                        "fields" : {
-                           "dispCallNumber" : "GV1469.35 .P63 P54 2004",
-                           "sortCallNumber" : "GV 001469.35 .P63  P54  2004"
-                        },
-                        "key" : "5574416:2",
-                        "resource" : "/catalog/call"
-                     },
-                     "pieces" : 1,
-                     "mediaDesk" : null,
-                     "timesInventoried" : 0,
-                     "library" : {
-                        "key" : "GREEN",
-                        "resource" : "/policy/library"
-                     },
-                     "createdDate" : "2004-02-26",
-                     "itemCategory4" : null
-                  }
-               },
-               "holdPriority" : null,
-               "fillByDate" : "2020-07-07",
-               "queuePosition" : 1,
-               "beingHeldDate" : null,
-               "placedDate" : "2019-07-08",
-               "status" : "PLACED",
-               "comment" : "",
-               "holdRange" : {
-                  "key" : "SYSTEM",
-                  "resource" : "/policy/holdRange"
-               },
-               "suspendBeginDate" : null,
-               "bib" : {
-                  "resource" : "/catalog/bib",
-                  "key" : "5574416"
-               },
-               "holdType" : "COPY",
-               "selectedItem" : {
-                  "resource" : "/catalog/item",
-                  "key" : "5574416:2:1"
-               },
-               "pickupLibrary" : {
-                  "key" : "GREEN",
-                  "resource" : "/policy/library"
-               },
-               "suspendEndDate" : null,
-               "placedLibrary" : {
-                  "resource" : "/policy/library",
-                  "key" : "GREEN"
-               },
-               "recallStatus" : "RUSH"
-            }
-         },
-         {
-            "fields" : {
-               "fillByDate" : "2020-07-07",
-               "holdPriority" : null,
-               "item" : {
-                  "fields" : {
-                     "itemCategory4" : null,
-                     "library" : {
-                        "resource" : "/policy/library",
-                        "key" : "ART"
-                     },
-                     "createdDate" : "2019-01-09",
-                     "timesInventoried" : 0,
-                     "mediaDesk" : null,
-                     "pieces" : 1,
-                     "call" : {
-                        "fields" : {
-                           "sortCallNumber" : "ND 000237 .G45  A4  2018  F",
-                           "dispCallNumber" : "ND237 .G45 A4 2018 F"
-                        },
-                        "key" : "12869113:2",
-                        "resource" : "/catalog/call"
-                     },
-                     "shadowed" : false,
-                     "price" : {
-                        "currencyCode" : "USD",
-                        "amount" : "0.00"
-                     },
-                     "currentLocation" : {
-                        "key" : "CHECKEDOUT",
-                        "resource" : "/policy/location"
-                     },
-                     "homeLocation" : {
-                        "key" : "STACKS",
-                        "resource" : "/policy/location"
-                     },
-                     "copyNumber" : 1,
-                     "itemCategory1" : null,
-                     "itemType" : {
-                        "resource" : "/policy/itemType",
-                        "key" : "STKS-MONO"
-                     },
-                     "itemCategory3" : null,
-                     "systemModifiedDate" : "2019-07-08T21:53:00-07:00",
-                     "circulate" : false,
-                     "permanent" : true,
-                     "bib" : {
-                        "resource" : "/catalog/bib",
-                        "key" : "12869113",
-                        "fields" : {
-                           "title" : "The music of color : Sam Gilliam 1967-1973 : Kunstmuseum Basel, June 9-September 30, 2018",
-                           "author" : "Gilliam, Sam, 1933- artist."
-                        }
-                     },
-                     "itemCategory2" : null,
-                     "itemCategory5" : null,
-                     "barcode" : "36105229976266",
-                     "lastInvDate" : null
-                  },
-                  "resource" : "/catalog/item",
-                  "key" : "12869113:2:1"
-               },
-               "patron" : {
-                  "resource" : "/user/patron",
-                  "key" : "521182"
-               },
-               "expirationDate" : null,
-               "queueLength" : 1,
-               "inactiveReason" : null,
-               "holdRange" : {
-                  "key" : "SYSTEM",
-                  "resource" : "/policy/holdRange"
-               },
-               "comment" : "",
-               "status" : "PLACED",
-               "placedDate" : "2019-07-08",
-               "beingHeldDate" : null,
-               "queuePosition" : 1,
-               "holdType" : "COPY",
-               "bib" : {
-                  "resource" : "/catalog/bib",
-                  "key" : "12869113"
-               },
-               "suspendBeginDate" : null,
-               "recallStatus" : "RUSH",
-               "suspendEndDate" : null,
-               "placedLibrary" : {
-                  "key" : "GREEN",
-                  "resource" : "/policy/library"
-               },
-               "pickupLibrary" : {
-                  "resource" : "/policy/library",
-                  "key" : "ART"
-               },
-               "selectedItem" : {
-                  "resource" : "/catalog/item",
-                  "key" : "12869113:2:1"
-               }
-            },
-            "key" : "1675119",
-            "resource" : "/circulation/holdRecord"
-         },
-         {
-            "fields" : {
-               "selectedItem" : {
-                  "key" : "12754346:2:1",
-                  "resource" : "/catalog/item"
-               },
-               "recallStatus" : "RUSH",
-               "placedLibrary" : {
-                  "resource" : "/policy/library",
-                  "key" : "GREEN"
-               },
-               "suspendEndDate" : null,
-               "pickupLibrary" : {
-                  "resource" : "/policy/library",
-                  "key" : "ART"
-               },
-               "suspendBeginDate" : null,
-               "holdType" : "COPY",
-               "bib" : {
-                  "key" : "12754346",
-                  "resource" : "/catalog/bib"
-               },
-               "queuePosition" : 1,
-               "beingHeldDate" : null,
-               "placedDate" : "2019-07-08",
-               "holdRange" : {
-                  "key" : "SYSTEM",
-                  "resource" : "/policy/holdRange"
-               },
-               "comment" : "",
-               "status" : "PLACED",
-               "expirationDate" : null,
-               "queueLength" : 1,
-               "inactiveReason" : null,
-               "patron" : {
-                  "key" : "521182",
-                  "resource" : "/user/patron"
-               },
-               "item" : {
-                  "key" : "12754346:2:1",
-                  "resource" : "/catalog/item",
-                  "fields" : {
-                     "barcode" : "36105229951863",
-                     "lastInvDate" : null,
-                     "systemModifiedDate" : "2019-07-08T21:53:00-07:00",
-                     "circulate" : false,
-                     "permanent" : true,
-                     "bib" : {
-                        "resource" : "/catalog/bib",
-                        "key" : "12754346",
-                        "fields" : {
-                           "title" : "Colour and light in ancient and medieval art",
-                           "author" : ""
-                        }
-                     },
-                     "itemCategory2" : null,
-                     "itemCategory5" : null,
-                     "itemCategory3" : null,
-                     "itemCategory1" : null,
-                     "itemType" : {
-                        "resource" : "/policy/itemType",
-                        "key" : "STKS-MONO"
-                     },
-                     "price" : {
-                        "amount" : "0.00",
-                        "currencyCode" : "USD"
-                     },
-                     "shadowed" : false,
-                     "currentLocation" : {
-                        "resource" : "/policy/location",
-                        "key" : "CHECKEDOUT"
-                     },
-                     "homeLocation" : {
-                        "key" : "STACKS",
-                        "resource" : "/policy/location"
-                     },
-                     "copyNumber" : 1,
-                     "pieces" : 1,
-                     "call" : {
-                        "resource" : "/catalog/call",
-                        "key" : "12754346:2",
-                        "fields" : {
-                           "dispCallNumber" : "N5315 .C65 2018",
-                           "sortCallNumber" : "N  005315 .C65  2018"
-                        }
-                     },
-                     "timesInventoried" : 0,
-                     "mediaDesk" : null,
-                     "itemCategory4" : null,
-                     "library" : {
-                        "resource" : "/policy/library",
-                        "key" : "ART"
-                     },
-                     "createdDate" : "2018-09-12"
-                  }
-               },
-               "fillByDate" : "2020-07-07",
-               "holdPriority" : null
-            },
-            "key" : "1675120",
-            "resource" : "/circulation/holdRecord"
-         },
-         {
-            "resource" : "/circulation/holdRecord",
-            "key" : "1675121",
-            "fields" : {
-               "placedDate" : "2019-07-08",
-               "holdRange" : {
-                  "resource" : "/policy/holdRange",
-                  "key" : "SYSTEM"
-               },
-               "comment" : "",
-               "status" : "BEING_HELD",
-               "queuePosition" : 1,
-               "beingHeldDate" : "2019-07-08",
-               "item" : {
-                  "key" : "12258217:2:1",
-                  "resource" : "/catalog/item",
-                  "fields" : {
-                     "call" : {
-                        "key" : "12258217:2",
-                        "resource" : "/catalog/call",
-                        "fields" : {
-                           "sortCallNumber" : "ND 000237 .R725  A4  2017  F",
-                           "dispCallNumber" : "ND237 .R725 A4 2017 F"
-                        }
-                     },
-                     "pieces" : 1,
-                     "copyNumber" : 1,
-                     "homeLocation" : {
-                        "key" : "STACKS",
-                        "resource" : "/policy/location"
-                     },
-                     "currentLocation" : {
-                        "resource" : "/policy/location",
-                        "key" : "GRE-LOAN"
-                     },
-                     "price" : {
-                        "amount" : "0.00",
-                        "currencyCode" : "USD"
-                     },
-                     "shadowed" : false,
-                     "library" : {
-                        "key" : "ART",
-                        "resource" : "/policy/library"
-                     },
-                     "createdDate" : "2017-11-30",
-                     "itemCategory4" : null,
-                     "mediaDesk" : null,
-                     "timesInventoried" : 0,
-                     "bib" : {
-                        "resource" : "/catalog/bib",
-                        "key" : "12258217",
-                        "fields" : {
-                           "title" : "Rothko : the color field paintings",
-                           "author" : "Rothko, Mark, 1903-1970, artist."
-                        }
-                     },
-                     "permanent" : true,
-                     "itemCategory2" : null,
-                     "itemCategory5" : null,
-                     "circulate" : true,
-                     "systemModifiedDate" : "2017-12-13T15:36:00-08:00",
-                     "lastInvDate" : null,
-                     "barcode" : "36105229342808",
-                     "itemType" : {
-                        "key" : "STKS-MONO",
-                        "resource" : "/policy/itemType"
-                     },
-                     "itemCategory1" : null,
-                     "itemCategory3" : null
-                  }
-               },
-               "fillByDate" : "2020-07-07",
-               "holdPriority" : null,
-               "expirationDate" : "2019-07-15",
-               "queueLength" : 1,
-               "inactiveReason" : null,
-               "patron" : {
-                  "resource" : "/user/patron",
-                  "key" : "521182"
-               },
-               "recallStatus" : "STANDARD",
-               "suspendEndDate" : null,
-               "placedLibrary" : {
-                  "resource" : "/policy/library",
-                  "key" : "GREEN"
-               },
-               "pickupLibrary" : {
-                  "resource" : "/policy/library",
-                  "key" : "GREEN"
-               },
-               "selectedItem" : {
-                  "key" : "12258217:2:1",
-                  "resource" : "/catalog/item"
-               },
-               "holdType" : "TITLE",
-               "bib" : {
-                  "resource" : "/catalog/bib",
-                  "key" : "12258217"
-               },
-               "suspendBeginDate" : null
-            }
-         }
-      ],
       "category03" : null,
-      "barcode" : "999182",
-      "title" : "",
-      "lastName" : "Superuser",
-      "checkoutLocation" : {
-         "resource" : "/policy/location",
-         "key" : "CHECKEDOUT"
-      },
+      "groupSettings" : null,
       "access" : {
          "resource" : "/policy/userAccess",
          "key" : "PUBLIC"
       },
-      "displayName" : "Superuser, Doc",
-      "category09" : null,
-      "usePreferredName" : false,
       "address1" : [
          {
+            "key" : "9",
+            "resource" : "/user/patron/address1",
             "fields" : {
-               "data" : null,
                "code" : {
                   "key" : "LINE",
                   "resource" : "/policy/patronAddress1"
-               }
-            },
-            "key" : "9",
-            "resource" : "/user/patron/address1"
+               },
+               "data" : null
+            }
          },
          {
+            "key" : "3",
             "fields" : {
                "data" : "152B Green Library, 557 Escondido Mall",
                "code" : {
@@ -1403,109 +29,1463 @@
                   "resource" : "/policy/patronAddress1"
                }
             },
-            "key" : "3",
             "resource" : "/user/patron/address1"
          },
          {
             "resource" : "/user/patron/address1",
-            "key" : "4",
             "fields" : {
-               "data" : "Stanford, CA 94305-6063",
                "code" : {
                   "resource" : "/policy/patronAddress1",
                   "key" : "LINE2"
-               }
-            }
+               },
+               "data" : "Stanford, CA 94305-6063"
+            },
+            "key" : "4"
          },
          {
             "fields" : {
+               "data" : null,
                "code" : {
-                  "key" : "LINE3",
-                  "resource" : "/policy/patronAddress1"
-               },
-               "data" : null
+                  "resource" : "/policy/patronAddress1",
+                  "key" : "LINE3"
+               }
             },
             "resource" : "/user/patron/address1",
             "key" : "10"
          },
          {
-            "key" : "11",
-            "resource" : "/user/patron/address1",
             "fields" : {
-               "data" : null,
                "code" : {
-                  "resource" : "/policy/patronAddress1",
-                  "key" : "LIB-EMAIL"
-               }
-            }
+                  "key" : "LIB-EMAIL",
+                  "resource" : "/policy/patronAddress1"
+               },
+               "data" : null
+            },
+            "resource" : "/user/patron/address1",
+            "key" : "11"
          },
          {
             "key" : "12",
             "resource" : "/user/patron/address1",
             "fields" : {
-               "data" : null,
                "code" : {
-                  "key" : "LIB-PHONE",
-                  "resource" : "/policy/patronAddress1"
-               }
+                  "resource" : "/policy/patronAddress1",
+                  "key" : "LIB-PHONE"
+               },
+               "data" : null
             }
          },
          {
-            "resource" : "/user/patron/address1",
             "key" : "8",
+            "resource" : "/user/patron/address1",
             "fields" : {
-               "data" : "superuser2@stanford.edu",
                "code" : {
                   "key" : "EMAIL",
                   "resource" : "/policy/patronAddress1"
-               }
-            }
-         },
-         {
-            "resource" : "/user/patron/address1",
-            "key" : "13",
-            "fields" : {
-               "code" : {
-                  "key" : "PHONE",
-                  "resource" : "/policy/patronAddress1"
                },
-               "data" : null
+               "data" : "superuser2@stanford.edu"
             }
          },
          {
             "resource" : "/user/patron/address1",
-            "key" : "1",
-            "fields" : {
-               "data" : "YES",
-               "code" : {
-                  "key" : "DISCLOSE?",
-                  "resource" : "/policy/patronAddress1"
-               }
-            }
-         },
-         {
             "fields" : {
                "code" : {
                   "resource" : "/policy/patronAddress1",
-                  "key" : "DEPT"
+                  "key" : "PHONE"
                },
                "data" : null
             },
+            "key" : "13"
+         },
+         {
+            "key" : "1",
+            "fields" : {
+               "code" : {
+                  "resource" : "/policy/patronAddress1",
+                  "key" : "DISCLOSE?"
+               },
+               "data" : "YES"
+            },
+            "resource" : "/user/patron/address1"
+         },
+         {
+            "key" : "14",
             "resource" : "/user/patron/address1",
-            "key" : "14"
+            "fields" : {
+               "code" : {
+                  "key" : "DEPT",
+                  "resource" : "/policy/patronAddress1"
+               },
+               "data" : null
+            }
          }
       ],
+      "groupId" : "",
       "category11" : null,
+      "suffix" : "",
+      "category07" : null,
+      "holdRecordList" : [
+         {
+            "fields" : {
+               "queueLength" : 1,
+               "patron" : {
+                  "resource" : "/user/patron",
+                  "key" : "521182"
+               },
+               "suspendEndDate" : null,
+               "bib" : {
+                  "fields" : {
+                     "author" : "",
+                     "title" : "A history of video games in 64 objects"
+                  },
+                  "resource" : "/catalog/bib",
+                  "key" : "12730702"
+               },
+               "recallStatus" : "RUSH",
+               "suspendBeginDate" : null,
+               "pickupLibrary" : {
+                  "key" : "GREEN",
+                  "resource" : "/policy/library"
+               },
+               "inactiveReason" : null,
+               "placedLibrary" : {
+                  "key" : "GREEN",
+                  "resource" : "/policy/library"
+               },
+               "item" : {
+                  "key" : "12730702:2:1",
+                  "fields" : {
+                     "copyNumber" : 1,
+                     "itemCategory2" : null,
+                     "currentLocation" : {
+                        "resource" : "/policy/location",
+                        "key" : "GRE-LOAN"
+                     },
+                     "shadowed" : false,
+                     "itemCategory5" : null,
+                     "library" : {
+                        "resource" : "/policy/library",
+                        "key" : "GREEN"
+                     },
+                     "systemModifiedDate" : "2019-07-08T21:53:00-07:00",
+                     "permanent" : true,
+                     "price" : {
+                        "amount" : "0.00",
+                        "currencyCode" : "USD"
+                     },
+                     "createdDate" : "2018-08-09",
+                     "call" : {
+                        "key" : "12730702:2",
+                        "fields" : {
+                           "sortCallNumber" : "GV 001469.3 .H57  2018",
+                           "dispCallNumber" : "GV1469.3 .H57 2018"
+                        },
+                        "resource" : "/catalog/call"
+                     },
+                     "itemType" : {
+                        "resource" : "/policy/itemType",
+                        "key" : "STKS-MONO"
+                     },
+                     "mediaDesk" : null,
+                     "timesInventoried" : 0,
+                     "itemCategory4" : null,
+                     "itemCategory3" : null,
+                     "barcode" : "36105229929240",
+                     "lastInvDate" : null,
+                     "pieces" : 1,
+                     "circulate" : true,
+                     "homeLocation" : {
+                        "resource" : "/policy/location",
+                        "key" : "STACKS"
+                     },
+                     "itemCategory1" : null
+                  },
+                  "resource" : "/catalog/item"
+               },
+               "placedDate" : "2019-07-08",
+               "beingHeldDate" : "2019-07-11",
+               "holdPriority" : null,
+               "comment" : "",
+               "selectedItem" : {
+                  "resource" : "/catalog/item",
+                  "key" : "12730702:2:1"
+               },
+               "fillByDate" : "2020-07-07",
+               "holdRange" : {
+                  "key" : "SYSTEM",
+                  "resource" : "/policy/holdRange"
+               },
+               "status" : "BEING_HELD",
+               "expirationDate" : "2019-07-18",
+               "queuePosition" : 1,
+               "holdType" : "COPY"
+            },
+            "resource" : "/circulation/holdRecord",
+            "key" : "1675116"
+         },
+         {
+            "key" : "1675117",
+            "fields" : {
+               "holdType" : "COPY",
+               "expirationDate" : null,
+               "queuePosition" : 1,
+               "status" : "PLACED",
+               "holdRange" : {
+                  "key" : "SYSTEM",
+                  "resource" : "/policy/holdRange"
+               },
+               "fillByDate" : "2020-07-07",
+               "comment" : "",
+               "selectedItem" : {
+                  "resource" : "/catalog/item",
+                  "key" : "5574416:2:1"
+               },
+               "beingHeldDate" : null,
+               "holdPriority" : null,
+               "placedDate" : "2019-07-08",
+               "item" : {
+                  "key" : "5574416:2:1",
+                  "fields" : {
+                     "systemModifiedDate" : "2019-07-08T21:53:00-07:00",
+                     "permanent" : true,
+                     "createdDate" : "2004-02-26",
+                     "price" : {
+                        "currencyCode" : "USD",
+                        "amount" : "0.00"
+                     },
+                     "currentLocation" : {
+                        "resource" : "/policy/location",
+                        "key" : "CHECKEDOUT"
+                     },
+                     "shadowed" : false,
+                     "itemCategory5" : null,
+                     "library" : {
+                        "key" : "GREEN",
+                        "resource" : "/policy/library"
+                     },
+                     "copyNumber" : 1,
+                     "itemCategory2" : {
+                        "key" : "TAX=8.25",
+                        "resource" : "/policy/itemCategory2"
+                     },
+                     "barcode" : "36105111937236",
+                     "itemCategory3" : null,
+                     "pieces" : 1,
+                     "lastInvDate" : null,
+                     "homeLocation" : {
+                        "resource" : "/policy/location",
+                        "key" : "STACKS"
+                     },
+                     "circulate" : false,
+                     "itemCategory1" : null,
+                     "itemCategory4" : null,
+                     "mediaDesk" : null,
+                     "timesInventoried" : 0,
+                     "call" : {
+                        "resource" : "/catalog/call",
+                        "fields" : {
+                           "sortCallNumber" : "GV 001469.35 .P63  P54  2004",
+                           "dispCallNumber" : "GV1469.35 .P63 P54 2004"
+                        },
+                        "key" : "5574416:2"
+                     },
+                     "itemType" : {
+                        "key" : "STKS-MONO",
+                        "resource" : "/policy/itemType"
+                     }
+                  },
+                  "resource" : "/catalog/item"
+               },
+               "placedLibrary" : {
+                  "key" : "GREEN",
+                  "resource" : "/policy/library"
+               },
+               "inactiveReason" : null,
+               "pickupLibrary" : {
+                  "key" : "GREEN",
+                  "resource" : "/policy/library"
+               },
+               "suspendBeginDate" : null,
+               "recallStatus" : "RUSH",
+               "suspendEndDate" : null,
+               "bib" : {
+                  "resource" : "/catalog/bib",
+                  "fields" : {
+                     "author" : "",
+                     "title" : "Pikachu's global adventure : the rise and fall of Pokémon"
+                  },
+                  "key" : "5574416"
+               },
+               "queueLength" : 1,
+               "patron" : {
+                  "resource" : "/user/patron",
+                  "key" : "521182"
+               }
+            },
+            "resource" : "/circulation/holdRecord"
+         },
+         {
+            "key" : "1675119",
+            "resource" : "/circulation/holdRecord",
+            "fields" : {
+               "queueLength" : 1,
+               "patron" : {
+                  "resource" : "/user/patron",
+                  "key" : "521182"
+               },
+               "bib" : {
+                  "fields" : {
+                     "author" : "Gilliam, Sam, 1933- artist.",
+                     "title" : "The music of color : Sam Gilliam 1967-1973 : Kunstmuseum Basel, June 9-September 30, 2018"
+                  },
+                  "resource" : "/catalog/bib",
+                  "key" : "12869113"
+               },
+               "suspendEndDate" : null,
+               "recallStatus" : "RUSH",
+               "suspendBeginDate" : null,
+               "pickupLibrary" : {
+                  "key" : "ART",
+                  "resource" : "/policy/library"
+               },
+               "inactiveReason" : null,
+               "placedLibrary" : {
+                  "resource" : "/policy/library",
+                  "key" : "GREEN"
+               },
+               "item" : {
+                  "fields" : {
+                     "lastInvDate" : null,
+                     "circulate" : false,
+                     "pieces" : 1,
+                     "homeLocation" : {
+                        "resource" : "/policy/location",
+                        "key" : "STACKS"
+                     },
+                     "itemCategory1" : null,
+                     "itemCategory3" : null,
+                     "barcode" : "36105229976266",
+                     "itemCategory4" : null,
+                     "timesInventoried" : 0,
+                     "mediaDesk" : null,
+                     "itemType" : {
+                        "key" : "STKS-MONO",
+                        "resource" : "/policy/itemType"
+                     },
+                     "call" : {
+                        "key" : "12869113:2",
+                        "fields" : {
+                           "dispCallNumber" : "ND237 .G45 A4 2018 F",
+                           "sortCallNumber" : "ND 000237 .G45  A4  2018  F"
+                        },
+                        "resource" : "/catalog/call"
+                     },
+                     "price" : {
+                        "amount" : "0.00",
+                        "currencyCode" : "USD"
+                     },
+                     "createdDate" : "2019-01-09",
+                     "systemModifiedDate" : "2019-07-08T21:53:00-07:00",
+                     "permanent" : true,
+                     "shadowed" : false,
+                     "library" : {
+                        "key" : "ART",
+                        "resource" : "/policy/library"
+                     },
+                     "itemCategory5" : null,
+                     "currentLocation" : {
+                        "key" : "CHECKEDOUT",
+                        "resource" : "/policy/location"
+                     },
+                     "itemCategory2" : null,
+                     "copyNumber" : 1
+                  },
+                  "resource" : "/catalog/item",
+                  "key" : "12869113:2:1"
+               },
+               "beingHeldDate" : null,
+               "holdPriority" : null,
+               "placedDate" : "2019-07-08",
+               "selectedItem" : {
+                  "key" : "12869113:2:1",
+                  "resource" : "/catalog/item"
+               },
+               "comment" : "",
+               "fillByDate" : "2020-07-07",
+               "expirationDate" : null,
+               "queuePosition" : 1,
+               "status" : "PLACED",
+               "holdRange" : {
+                  "key" : "SYSTEM",
+                  "resource" : "/policy/holdRange"
+               },
+               "holdType" : "COPY"
+            }
+         },
+         {
+            "key" : "1675120",
+            "resource" : "/circulation/holdRecord",
+            "fields" : {
+               "holdType" : "COPY",
+               "status" : "PLACED",
+               "holdRange" : {
+                  "key" : "SYSTEM",
+                  "resource" : "/policy/holdRange"
+               },
+               "expirationDate" : null,
+               "queuePosition" : 1,
+               "fillByDate" : "2020-07-07",
+               "comment" : "",
+               "selectedItem" : {
+                  "resource" : "/catalog/item",
+                  "key" : "12754346:2:1"
+               },
+               "placedDate" : "2019-07-08",
+               "holdPriority" : null,
+               "beingHeldDate" : null,
+               "item" : {
+                  "key" : "12754346:2:1",
+                  "resource" : "/catalog/item",
+                  "fields" : {
+                     "shadowed" : false,
+                     "itemCategory5" : null,
+                     "library" : {
+                        "resource" : "/policy/library",
+                        "key" : "ART"
+                     },
+                     "currentLocation" : {
+                        "key" : "CHECKEDOUT",
+                        "resource" : "/policy/location"
+                     },
+                     "itemCategory2" : null,
+                     "copyNumber" : 1,
+                     "createdDate" : "2018-09-12",
+                     "price" : {
+                        "currencyCode" : "USD",
+                        "amount" : "0.00"
+                     },
+                     "systemModifiedDate" : "2019-07-08T21:53:00-07:00",
+                     "permanent" : true,
+                     "timesInventoried" : 0,
+                     "mediaDesk" : null,
+                     "itemType" : {
+                        "resource" : "/policy/itemType",
+                        "key" : "STKS-MONO"
+                     },
+                     "call" : {
+                        "key" : "12754346:2",
+                        "fields" : {
+                           "sortCallNumber" : "N  005315 .C65  2018",
+                           "dispCallNumber" : "N5315 .C65 2018"
+                        },
+                        "resource" : "/catalog/call"
+                     },
+                     "circulate" : false,
+                     "pieces" : 1,
+                     "homeLocation" : {
+                        "key" : "STACKS",
+                        "resource" : "/policy/location"
+                     },
+                     "lastInvDate" : null,
+                     "itemCategory1" : null,
+                     "itemCategory3" : null,
+                     "barcode" : "36105229951863",
+                     "itemCategory4" : null
+                  }
+               },
+               "placedLibrary" : {
+                  "key" : "GREEN",
+                  "resource" : "/policy/library"
+               },
+               "inactiveReason" : null,
+               "pickupLibrary" : {
+                  "key" : "ART",
+                  "resource" : "/policy/library"
+               },
+               "suspendBeginDate" : null,
+               "recallStatus" : "RUSH",
+               "suspendEndDate" : null,
+               "bib" : {
+                  "key" : "12754346",
+                  "resource" : "/catalog/bib",
+                  "fields" : {
+                     "title" : "Colour and light in ancient and medieval art",
+                     "author" : ""
+                  }
+               },
+               "queueLength" : 1,
+               "patron" : {
+                  "resource" : "/user/patron",
+                  "key" : "521182"
+               }
+            }
+         },
+         {
+            "fields" : {
+               "fillByDate" : "2020-07-07",
+               "queuePosition" : 1,
+               "expirationDate" : "2019-07-15",
+               "status" : "BEING_HELD",
+               "holdRange" : {
+                  "key" : "SYSTEM",
+                  "resource" : "/policy/holdRange"
+               },
+               "holdType" : "TITLE",
+               "placedLibrary" : {
+                  "resource" : "/policy/library",
+                  "key" : "GREEN"
+               },
+               "item" : {
+                  "fields" : {
+                     "itemType" : {
+                        "resource" : "/policy/itemType",
+                        "key" : "STKS-MONO"
+                     },
+                     "call" : {
+                        "key" : "12258217:2",
+                        "fields" : {
+                           "dispCallNumber" : "ND237 .R725 A4 2017 F",
+                           "sortCallNumber" : "ND 000237 .R725  A4  2017  F"
+                        },
+                        "resource" : "/catalog/call"
+                     },
+                     "mediaDesk" : null,
+                     "timesInventoried" : 0,
+                     "itemCategory4" : null,
+                     "itemCategory1" : null,
+                     "pieces" : 1,
+                     "lastInvDate" : null,
+                     "homeLocation" : {
+                        "key" : "STACKS",
+                        "resource" : "/policy/location"
+                     },
+                     "circulate" : true,
+                     "barcode" : "36105229342808",
+                     "itemCategory3" : null,
+                     "itemCategory2" : null,
+                     "copyNumber" : 1,
+                     "itemCategory5" : null,
+                     "library" : {
+                        "resource" : "/policy/library",
+                        "key" : "ART"
+                     },
+                     "shadowed" : false,
+                     "currentLocation" : {
+                        "resource" : "/policy/location",
+                        "key" : "GRE-LOAN"
+                     },
+                     "price" : {
+                        "currencyCode" : "USD",
+                        "amount" : "0.00"
+                     },
+                     "createdDate" : "2017-11-30",
+                     "permanent" : true,
+                     "systemModifiedDate" : "2017-12-13T15:36:00-08:00"
+                  },
+                  "resource" : "/catalog/item",
+                  "key" : "12258217:2:1"
+               },
+               "beingHeldDate" : "2019-07-08",
+               "holdPriority" : null,
+               "placedDate" : "2019-07-08",
+               "comment" : "",
+               "selectedItem" : {
+                  "resource" : "/catalog/item",
+                  "key" : "12258217:2:1"
+               },
+               "suspendBeginDate" : null,
+               "pickupLibrary" : {
+                  "resource" : "/policy/library",
+                  "key" : "GREEN"
+               },
+               "inactiveReason" : null,
+               "queueLength" : 1,
+               "patron" : {
+                  "key" : "521182",
+                  "resource" : "/user/patron"
+               },
+               "bib" : {
+                  "key" : "12258217",
+                  "fields" : {
+                     "author" : "Rothko, Mark, 1903-1970, artist.",
+                     "title" : "Rothko : the color field paintings"
+                  },
+                  "resource" : "/catalog/bib"
+               },
+               "suspendEndDate" : null,
+               "recallStatus" : "STANDARD"
+            },
+            "resource" : "/circulation/holdRecord",
+            "key" : "1675121"
+         }
+      ],
+      "library" : {
+         "key" : "SUL",
+         "resource" : "/policy/library"
+      },
+      "alternateID" : "",
+      "displayName" : "Superuser, Doc",
       "privilegeExpiresDate" : "2019-09-23",
-      "middleName" : "",
-      "language" : {
-         "resource" : "/policy/language",
-         "key" : "ENGLISH"
+      "title" : "",
+      "claimsReturnedCount" : 1,
+      "category02" : null,
+      "category08" : null,
+      "blockList" : [
+         {
+            "fields" : {
+               "amount" : {
+                  "amount" : "75.00",
+                  "currencyCode" : "USD"
+               },
+               "block" : {
+                  "key" : "LOST",
+                  "resource" : "/policy/block"
+               },
+               "owed" : {
+                  "currencyCode" : "USD",
+                  "amount" : "75.00"
+               },
+               "tax" : {
+                  "amount" : "0.00",
+                  "currencyCode" : "USD"
+               },
+               "item" : {
+                  "fields" : {
+                     "circulate" : false,
+                     "pieces" : 1,
+                     "lastInvDate" : null,
+                     "homeLocation" : {
+                        "resource" : "/policy/location",
+                        "key" : "STACKS"
+                     },
+                     "itemCategory1" : null,
+                     "itemCategory3" : null,
+                     "barcode" : "36105229988378",
+                     "itemCategory4" : null,
+                     "mediaDesk" : null,
+                     "timesInventoried" : 0,
+                     "itemType" : {
+                        "key" : "STKS-MONO",
+                        "resource" : "/policy/itemType"
+                     },
+                     "call" : {
+                        "key" : "12858065:2",
+                        "resource" : "/catalog/call",
+                        "fields" : {
+                           "dispCallNumber" : "PN1992.3 .U5 M86 2018",
+                           "sortCallNumber" : "PN 001992.3 .U5  M86  2018"
+                        }
+                     },
+                     "price" : {
+                        "amount" : "0.00",
+                        "currencyCode" : "USD"
+                     },
+                     "createdDate" : "2018-12-12",
+                     "systemModifiedDate" : "2019-07-18T10:04:00-07:00",
+                     "permanent" : true,
+                     "shadowed" : false,
+                     "itemCategory5" : null,
+                     "library" : {
+                        "resource" : "/policy/library",
+                        "key" : "GREEN"
+                     },
+                     "currentLocation" : {
+                        "key" : "LOST-ASSUM",
+                        "resource" : "/policy/location"
+                     },
+                     "bib" : {
+                        "fields" : {
+                           "title" : "Bright signals : a history of color television",
+                           "author" : "Murray, Susan, 1967- author."
+                        },
+                        "resource" : "/catalog/bib",
+                        "key" : "12858065"
+                     },
+                     "itemCategory2" : null,
+                     "copyNumber" : 1
+                  },
+                  "resource" : "/catalog/item",
+                  "key" : "12858065:2:1"
+               },
+               "patron" : {
+                  "key" : "521182",
+                  "resource" : "/user/patron"
+               },
+               "library" : {
+                  "key" : "GREEN",
+                  "resource" : "/policy/library"
+               },
+               "comment" : null,
+               "billDate" : "2019-07-18",
+               "createDate" : "2019-07-18",
+               "estimatedOverdueAmount" : {
+                  "currencyCode" : "USD",
+                  "amount" : "0.00"
+               }
+            },
+            "resource" : "/circulation/block",
+            "key" : "521182:1"
+         },
+         {
+            "key" : "521182:2",
+            "fields" : {
+               "amount" : {
+                  "currencyCode" : "USD",
+                  "amount" : "5.00"
+               },
+               "block" : {
+                  "key" : "PROCESSFEE",
+                  "resource" : "/policy/block"
+               },
+               "owed" : {
+                  "currencyCode" : "USD",
+                  "amount" : "5.00"
+               },
+               "item" : {
+                  "key" : "12858065:2:1",
+                  "resource" : "/catalog/item",
+                  "fields" : {
+                     "systemModifiedDate" : "2019-07-18T10:04:00-07:00",
+                     "permanent" : true,
+                     "createdDate" : "2018-12-12",
+                     "price" : {
+                        "currencyCode" : "USD",
+                        "amount" : "0.00"
+                     },
+                     "currentLocation" : {
+                        "key" : "LOST-ASSUM",
+                        "resource" : "/policy/location"
+                     },
+                     "bib" : {
+                        "key" : "12858065",
+                        "resource" : "/catalog/bib",
+                        "fields" : {
+                           "author" : "Murray, Susan, 1967- author.",
+                           "title" : "Bright signals : a history of color television"
+                        }
+                     },
+                     "shadowed" : false,
+                     "library" : {
+                        "key" : "GREEN",
+                        "resource" : "/policy/library"
+                     },
+                     "itemCategory5" : null,
+                     "copyNumber" : 1,
+                     "itemCategory2" : null,
+                     "itemCategory3" : null,
+                     "barcode" : "36105229988378",
+                     "pieces" : 1,
+                     "circulate" : false,
+                     "homeLocation" : {
+                        "resource" : "/policy/location",
+                        "key" : "STACKS"
+                     },
+                     "lastInvDate" : null,
+                     "itemCategory1" : null,
+                     "itemCategory4" : null,
+                     "mediaDesk" : null,
+                     "timesInventoried" : 0,
+                     "call" : {
+                        "resource" : "/catalog/call",
+                        "fields" : {
+                           "dispCallNumber" : "PN1992.3 .U5 M86 2018",
+                           "sortCallNumber" : "PN 001992.3 .U5  M86  2018"
+                        },
+                        "key" : "12858065:2"
+                     },
+                     "itemType" : {
+                        "resource" : "/policy/itemType",
+                        "key" : "STKS-MONO"
+                     }
+                  }
+               },
+               "tax" : {
+                  "amount" : "0.00",
+                  "currencyCode" : "USD"
+               },
+               "patron" : {
+                  "resource" : "/user/patron",
+                  "key" : "521182"
+               },
+               "library" : {
+                  "key" : "GREEN",
+                  "resource" : "/policy/library"
+               },
+               "createDate" : "2019-07-18",
+               "billDate" : "2019-07-18",
+               "comment" : null,
+               "estimatedOverdueAmount" : {
+                  "amount" : "0.00",
+                  "currencyCode" : "USD"
+               }
+            },
+            "resource" : "/circulation/block"
+         },
+         {
+            "fields" : {
+               "item" : {
+                  "key" : "12759000:1:1",
+                  "fields" : {
+                     "price" : {
+                        "currencyCode" : "USD",
+                        "amount" : "33.00"
+                     },
+                     "createdDate" : "2018-11-14",
+                     "systemModifiedDate" : "2018-11-14T09:19:00-08:00",
+                     "permanent" : true,
+                     "itemCategory2" : null,
+                     "copyNumber" : 1,
+                     "shadowed" : false,
+                     "itemCategory5" : null,
+                     "library" : {
+                        "resource" : "/policy/library",
+                        "key" : "ART"
+                     },
+                     "currentLocation" : {
+                        "key" : "INTRANSIT",
+                        "resource" : "/policy/location"
+                     },
+                     "bib" : {
+                        "fields" : {
+                           "author" : "Harvard Art Museums. Forbes Pigment Collection, owner.",
+                           "title" : "An atlas of rare & familiar colour : the Harvard Art Museums' Forbes Pigment Collection"
+                        },
+                        "resource" : "/catalog/bib",
+                        "key" : "12759000"
+                     },
+                     "itemCategory4" : null,
+                     "homeLocation" : {
+                        "resource" : "/policy/location",
+                        "key" : "STACKS"
+                     },
+                     "circulate" : true,
+                     "lastInvDate" : null,
+                     "pieces" : 1,
+                     "itemCategory1" : null,
+                     "itemCategory3" : null,
+                     "barcode" : "36105230011988",
+                     "itemType" : {
+                        "key" : "STKS-MONO",
+                        "resource" : "/policy/itemType"
+                     },
+                     "call" : {
+                        "resource" : "/catalog/call",
+                        "fields" : {
+                           "dispCallNumber" : "ND1510 .H37 2018",
+                           "sortCallNumber" : "ND 001510 .H37  2018"
+                        },
+                        "key" : "12759000:1"
+                     },
+                     "timesInventoried" : 0,
+                     "mediaDesk" : null
+                  },
+                  "resource" : "/catalog/item"
+               },
+               "tax" : {
+                  "currencyCode" : "USD",
+                  "amount" : "0.00"
+               },
+               "patron" : {
+                  "resource" : "/user/patron",
+                  "key" : "521182"
+               },
+               "library" : {
+                  "key" : "SUL",
+                  "resource" : "/policy/library"
+               },
+               "createDate" : "2019-07-19",
+               "billDate" : "2019-07-19",
+               "comment" : null,
+               "estimatedOverdueAmount" : {
+                  "amount" : "0.00",
+                  "currencyCode" : "USD"
+               },
+               "amount" : {
+                  "currencyCode" : "USD",
+                  "amount" : "5.00"
+               },
+               "block" : {
+                  "key" : "OVERDUE",
+                  "resource" : "/policy/block"
+               },
+               "owed" : {
+                  "currencyCode" : "USD",
+                  "amount" : "5.00"
+               }
+            },
+            "resource" : "/circulation/block",
+            "key" : "521182:3"
+         }
+      ],
+      "department" : "",
+      "profile" : {
+         "key" : "RED",
+         "resource" : "/policy/userProfile",
+         "fields" : {
+            "chargeLimit" : 25000
+         }
+      },
+      "category04" : null,
+      "preferredName" : "",
+      "barcode" : "999182",
+      "lastName" : "Superuser",
+      "category01" : null,
+      "environment" : {
+         "key" : "PUBLIC",
+         "resource" : "/policy/environment"
       },
       "firstName" : "Doc",
-      "department" : "",
-      "category04" : null,
-      "category07" : null,
+      "middleName" : "",
+      "standing" : {
+         "key" : "BLOCKED",
+         "resource" : "/policy/patronStanding"
+      },
+      "checkoutLocation" : {
+         "key" : "CHECKEDOUT",
+         "resource" : "/policy/location"
+      },
+      "language" : {
+         "key" : "ENGLISH",
+         "resource" : "/policy/language"
+      },
+      "usePreferredName" : false,
+      "category06" : null,
+      "birthDate" : "2019-07-18",
+      "category05" : {
+         "resource" : "/policy/patronCategory05",
+         "key" : "FAKE"
+      },
+      "category09" : null,
+      "createdDate" : "2019-07-08",
+      "circRecordList" : [
+         {
+            "resource" : "/circulation/circRecord",
+            "fields" : {
+               "overdue" : true,
+               "claimsReturnedDate" : null,
+               "renewalCount" : null,
+               "dueDate" : "2019-07-10T23:59:00-07:00",
+               "estimatedOverdueAmount" : {
+                  "currencyCode" : "USD",
+                  "amount" : "0.00"
+               },
+               "library" : {
+                  "resource" : "/policy/library",
+                  "key" : "ART"
+               },
+               "checkOutDate" : "2019-07-08T21:43:00-07:00",
+               "patron" : {
+                  "resource" : "/user/patron",
+                  "key" : "521182"
+               },
+               "unseenRenewalsRemaining" : 3,
+               "piecesReturned" : 0,
+               "circulationRule" : {
+                  "resource" : "/policy/circulationRule",
+                  "fields" : {
+                     "renewFromPeriod" : 60,
+                     "loanPeriod" : {
+                        "fields" : {
+                           "periodType" : {
+                              "key" : "DATELIST",
+                              "resource" : "/policy/periodType"
+                           }
+                        },
+                        "resource" : "/policy/loanPeriod",
+                        "key" : "FXQ"
+                     }
+                  },
+                  "key" : "FXQNF2"
+               },
+               "status" : "ACTIVE",
+               "recalledDate" : null,
+               "renewalDate" : null,
+               "seenRenewalsRemaining" : null,
+               "item" : {
+                  "key" : "12283722:1:1",
+                  "resource" : "/catalog/item",
+                  "fields" : {
+                     "homeLocation" : {
+                        "key" : "STACKS",
+                        "resource" : "/policy/location"
+                     },
+                     "lastInvDate" : null,
+                     "pieces" : 1,
+                     "circulate" : false,
+                     "itemCategory1" : null,
+                     "itemCategory3" : null,
+                     "barcode" : "36105229519546",
+                     "itemCategory4" : null,
+                     "timesInventoried" : 0,
+                     "mediaDesk" : null,
+                     "itemType" : {
+                        "key" : "STKS-MONO",
+                        "resource" : "/policy/itemType"
+                     },
+                     "call" : {
+                        "resource" : "/catalog/call",
+                        "fields" : {
+                           "sortCallNumber" : "NK 002115.5 .C6  B383  2017",
+                           "dispCallNumber" : "NK2115.5 .C6 B383 2017"
+                        },
+                        "key" : "12283722:1"
+                     },
+                     "price" : {
+                        "currencyCode" : "USD",
+                        "amount" : "50.00"
+                     },
+                     "createdDate" : "2018-01-25",
+                     "systemModifiedDate" : "2018-01-25T09:22:00-08:00",
+                     "permanent" : true,
+                     "shadowed" : false,
+                     "library" : {
+                        "key" : "ART",
+                        "resource" : "/policy/library"
+                     },
+                     "itemCategory5" : null,
+                     "currentLocation" : {
+                        "resource" : "/policy/location",
+                        "key" : "CHECKEDOUT"
+                     },
+                     "bib" : {
+                        "resource" : "/catalog/bib",
+                        "fields" : {
+                           "title" : "The anatomy of color : the story of heritage paints and pigments",
+                           "author" : "Baty, Patrick, author."
+                        },
+                        "key" : "12283722"
+                     },
+                     "itemCategory2" : null,
+                     "copyNumber" : 1
+                  }
+               },
+               "recallDueDate" : null
+            },
+            "key" : "12283722:1:1:1"
+         },
+         {
+            "key" : "12746312:1:1:1",
+            "fields" : {
+               "claimsReturnedDate" : null,
+               "overdue" : true,
+               "renewalCount" : null,
+               "dueDate" : "2019-07-02T23:59:00-07:00",
+               "estimatedOverdueAmount" : {
+                  "amount" : "0.00",
+                  "currencyCode" : "USD"
+               },
+               "unseenRenewalsRemaining" : 3,
+               "piecesReturned" : 0,
+               "library" : {
+                  "resource" : "/policy/library",
+                  "key" : "ART"
+               },
+               "checkOutDate" : "2019-07-08T21:47:00-07:00",
+               "patron" : {
+                  "key" : "521182",
+                  "resource" : "/user/patron"
+               },
+               "status" : "ACTIVE",
+               "recalledDate" : null,
+               "circulationRule" : {
+                  "key" : "FXQNF2",
+                  "fields" : {
+                     "renewFromPeriod" : 60,
+                     "loanPeriod" : {
+                        "resource" : "/policy/loanPeriod",
+                        "fields" : {
+                           "periodType" : {
+                              "resource" : "/policy/periodType",
+                              "key" : "DATELIST"
+                           }
+                        },
+                        "key" : "FXQ"
+                     }
+                  },
+                  "resource" : "/policy/circulationRule"
+               },
+               "seenRenewalsRemaining" : null,
+               "renewalDate" : null,
+               "item" : {
+                  "resource" : "/catalog/item",
+                  "fields" : {
+                     "currentLocation" : {
+                        "key" : "CHECKEDOUT",
+                        "resource" : "/policy/location"
+                     },
+                     "bib" : {
+                        "resource" : "/catalog/bib",
+                        "fields" : {
+                           "title" : "The language of color in China",
+                           "author" : "Zhou, Jun, author."
+                        },
+                        "key" : "12746312"
+                     },
+                     "shadowed" : false,
+                     "library" : {
+                        "key" : "ART",
+                        "resource" : "/policy/library"
+                     },
+                     "itemCategory5" : null,
+                     "copyNumber" : 1,
+                     "itemCategory2" : null,
+                     "systemModifiedDate" : "2018-10-17T09:19:00-07:00",
+                     "permanent" : true,
+                     "createdDate" : "2018-10-17",
+                     "price" : {
+                        "currencyCode" : "USD",
+                        "amount" : "99.95"
+                     },
+                     "timesInventoried" : 0,
+                     "mediaDesk" : null,
+                     "call" : {
+                        "key" : "12746312:1",
+                        "resource" : "/catalog/call",
+                        "fields" : {
+                           "dispCallNumber" : "BF789 .C7 Z47 2018",
+                           "sortCallNumber" : "BF 000789 .C7  Z47  2018"
+                        }
+                     },
+                     "itemType" : {
+                        "resource" : "/policy/itemType",
+                        "key" : "STKS-MONO"
+                     },
+                     "barcode" : "36105229891457",
+                     "itemCategory3" : null,
+                     "homeLocation" : {
+                        "resource" : "/policy/location",
+                        "key" : "STACKS"
+                     },
+                     "circulate" : false,
+                     "pieces" : 1,
+                     "lastInvDate" : null,
+                     "itemCategory1" : null,
+                     "itemCategory4" : null
+                  },
+                  "key" : "12746312:1:1"
+               },
+               "recallDueDate" : null
+            },
+            "resource" : "/circulation/circRecord"
+         },
+         {
+            "key" : "11967572:1:1:1",
+            "fields" : {
+               "renewalCount" : null,
+               "claimsReturnedDate" : null,
+               "overdue" : true,
+               "unseenRenewalsRemaining" : 3,
+               "piecesReturned" : 0,
+               "library" : {
+                  "resource" : "/policy/library",
+                  "key" : "ART"
+               },
+               "patron" : {
+                  "resource" : "/user/patron",
+                  "key" : "521182"
+               },
+               "checkOutDate" : "2019-07-08T21:48:00-07:00",
+               "dueDate" : "2019-07-02T23:59:00-07:00",
+               "estimatedOverdueAmount" : {
+                  "amount" : "0.00",
+                  "currencyCode" : "USD"
+               },
+               "status" : "ACTIVE",
+               "recalledDate" : "2019-07-18",
+               "circulationRule" : {
+                  "resource" : "/policy/circulationRule",
+                  "fields" : {
+                     "loanPeriod" : {
+                        "key" : "FXQ",
+                        "resource" : "/policy/loanPeriod",
+                        "fields" : {
+                           "periodType" : {
+                              "key" : "DATELIST",
+                              "resource" : "/policy/periodType"
+                           }
+                        }
+                     },
+                     "renewFromPeriod" : 60
+                  },
+                  "key" : "FXQNF2"
+               },
+               "recallDueDate" : "2019-07-25T23:59:00-07:00",
+               "item" : {
+                  "key" : "11967572:1:1",
+                  "fields" : {
+                     "itemCategory2" : null,
+                     "copyNumber" : 1,
+                     "shadowed" : false,
+                     "itemCategory5" : null,
+                     "library" : {
+                        "resource" : "/policy/library",
+                        "key" : "ART"
+                     },
+                     "currentLocation" : {
+                        "resource" : "/policy/location",
+                        "key" : "CHECKEDOUT"
+                     },
+                     "bib" : {
+                        "resource" : "/catalog/bib",
+                        "fields" : {
+                           "title" : "Red : The History of a Color",
+                           "author" : "Pastoureau, Michel, 1947- author."
+                        },
+                        "key" : "11967572"
+                     },
+                     "createdDate" : "2017-04-27",
+                     "price" : {
+                        "currencyCode" : "USD",
+                        "amount" : "39.95"
+                     },
+                     "systemModifiedDate" : "2019-07-18T12:40:00-07:00",
+                     "permanent" : true,
+                     "itemType" : {
+                        "key" : "STKS-MONO",
+                        "resource" : "/policy/itemType"
+                     },
+                     "call" : {
+                        "key" : "11967572:1",
+                        "resource" : "/catalog/call",
+                        "fields" : {
+                           "dispCallNumber" : "BF789 .C7 P39813 2016",
+                           "sortCallNumber" : "BF 000789 .C7  P39813  2016"
+                        }
+                     },
+                     "timesInventoried" : 0,
+                     "mediaDesk" : null,
+                     "itemCategory4" : null,
+                     "pieces" : 1,
+                     "homeLocation" : {
+                        "resource" : "/policy/location",
+                        "key" : "STACKS"
+                     },
+                     "lastInvDate" : null,
+                     "circulate" : false,
+                     "itemCategory1" : null,
+                     "barcode" : "36105229274381",
+                     "itemCategory3" : null
+                  },
+                  "resource" : "/catalog/item"
+               },
+               "seenRenewalsRemaining" : null,
+               "renewalDate" : null
+            },
+            "resource" : "/circulation/circRecord"
+         },
+         {
+            "key" : "11936759:1:1:1",
+            "resource" : "/circulation/circRecord",
+            "fields" : {
+               "estimatedOverdueAmount" : {
+                  "currencyCode" : "USD",
+                  "amount" : "0.00"
+               },
+               "dueDate" : "2019-07-02T23:59:00-07:00",
+               "library" : {
+                  "resource" : "/policy/library",
+                  "key" : "ART"
+               },
+               "patron" : {
+                  "key" : "521182",
+                  "resource" : "/user/patron"
+               },
+               "checkOutDate" : "2019-07-08T21:51:00-07:00",
+               "unseenRenewalsRemaining" : 3,
+               "piecesReturned" : 0,
+               "overdue" : true,
+               "claimsReturnedDate" : "2019-07-16",
+               "renewalCount" : null,
+               "renewalDate" : null,
+               "seenRenewalsRemaining" : null,
+               "recallDueDate" : null,
+               "item" : {
+                  "key" : "11936759:1:1",
+                  "fields" : {
+                     "bib" : {
+                        "fields" : {
+                           "author" : "Caramel, Luciano, author.",
+                           "title" : "Missoni : art colour"
+                        },
+                        "resource" : "/catalog/bib",
+                        "key" : "11936759"
+                     },
+                     "currentLocation" : {
+                        "key" : "CHECKEDOUT",
+                        "resource" : "/policy/location"
+                     },
+                     "library" : {
+                        "resource" : "/policy/library",
+                        "key" : "ART"
+                     },
+                     "itemCategory5" : null,
+                     "shadowed" : false,
+                     "copyNumber" : 1,
+                     "itemCategory2" : null,
+                     "permanent" : true,
+                     "systemModifiedDate" : "2017-08-16T11:01:00-07:00",
+                     "createdDate" : "2017-08-16",
+                     "price" : {
+                        "currencyCode" : "USD",
+                        "amount" : "45.00"
+                     },
+                     "mediaDesk" : null,
+                     "timesInventoried" : 0,
+                     "call" : {
+                        "fields" : {
+                           "dispCallNumber" : "TT505 .M57 C37 2016",
+                           "sortCallNumber" : "TT 000505 .M57  C37  2016"
+                        },
+                        "resource" : "/catalog/call",
+                        "key" : "11936759:1"
+                     },
+                     "itemType" : {
+                        "resource" : "/policy/itemType",
+                        "key" : "STKS-MONO"
+                     },
+                     "itemCategory3" : null,
+                     "barcode" : "36105229469866",
+                     "itemCategory1" : null,
+                     "circulate" : false,
+                     "lastInvDate" : null,
+                     "pieces" : 1,
+                     "homeLocation" : {
+                        "resource" : "/policy/location",
+                        "key" : "STACKS"
+                     },
+                     "itemCategory4" : null
+                  },
+                  "resource" : "/catalog/item"
+               },
+               "circulationRule" : {
+                  "resource" : "/policy/circulationRule",
+                  "fields" : {
+                     "loanPeriod" : {
+                        "resource" : "/policy/loanPeriod",
+                        "fields" : {
+                           "periodType" : {
+                              "key" : "DATELIST",
+                              "resource" : "/policy/periodType"
+                           }
+                        },
+                        "key" : "FXQ"
+                     },
+                     "renewFromPeriod" : 60
+                  },
+                  "key" : "FXQNF2"
+               },
+               "status" : "ACTIVE",
+               "recalledDate" : null
+            }
+         },
+         {
+            "resource" : "/circulation/circRecord",
+            "fields" : {
+               "item" : {
+                  "key" : "12858065:2:1",
+                  "resource" : "/catalog/item",
+                  "fields" : {
+                     "barcode" : "36105229988378",
+                     "itemCategory3" : null,
+                     "circulate" : false,
+                     "pieces" : 1,
+                     "lastInvDate" : null,
+                     "homeLocation" : {
+                        "key" : "STACKS",
+                        "resource" : "/policy/location"
+                     },
+                     "itemCategory1" : null,
+                     "itemCategory4" : null,
+                     "mediaDesk" : null,
+                     "timesInventoried" : 0,
+                     "call" : {
+                        "key" : "12858065:2",
+                        "resource" : "/catalog/call",
+                        "fields" : {
+                           "dispCallNumber" : "PN1992.3 .U5 M86 2018",
+                           "sortCallNumber" : "PN 001992.3 .U5  M86  2018"
+                        }
+                     },
+                     "itemType" : {
+                        "resource" : "/policy/itemType",
+                        "key" : "STKS-MONO"
+                     },
+                     "systemModifiedDate" : "2019-07-18T10:04:00-07:00",
+                     "permanent" : true,
+                     "price" : {
+                        "amount" : "0.00",
+                        "currencyCode" : "USD"
+                     },
+                     "createdDate" : "2018-12-12",
+                     "currentLocation" : {
+                        "key" : "LOST-ASSUM",
+                        "resource" : "/policy/location"
+                     },
+                     "bib" : {
+                        "resource" : "/catalog/bib",
+                        "fields" : {
+                           "title" : "Bright signals : a history of color television",
+                           "author" : "Murray, Susan, 1967- author."
+                        },
+                        "key" : "12858065"
+                     },
+                     "shadowed" : false,
+                     "library" : {
+                        "resource" : "/policy/library",
+                        "key" : "GREEN"
+                     },
+                     "itemCategory5" : null,
+                     "copyNumber" : 1,
+                     "itemCategory2" : null
+                  }
+               },
+               "recallDueDate" : null,
+               "renewalDate" : null,
+               "seenRenewalsRemaining" : null,
+               "circulationRule" : {
+                  "key" : "2HWF-RES",
+                  "fields" : {
+                     "loanPeriod" : {
+                        "key" : "2H",
+                        "resource" : "/policy/loanPeriod",
+                        "fields" : {
+                           "periodType" : {
+                              "resource" : "/policy/periodType",
+                              "key" : "HOURLY"
+                           }
+                        }
+                     },
+                     "renewFromPeriod" : 0
+                  },
+                  "resource" : "/policy/circulationRule"
+               },
+               "status" : "INACTIVE",
+               "recalledDate" : null,
+               "checkOutDate" : "2019-07-18T10:05:00-07:00",
+               "patron" : {
+                  "resource" : "/user/patron",
+                  "key" : "521182"
+               },
+               "library" : {
+                  "resource" : "/policy/library",
+                  "key" : "GREEN"
+               },
+               "piecesReturned" : 0,
+               "unseenRenewalsRemaining" : 0,
+               "dueDate" : "2019-07-14T23:59:00-07:00",
+               "estimatedOverdueAmount" : {
+                  "currencyCode" : "USD",
+                  "amount" : "30.00"
+               },
+               "renewalCount" : null,
+               "overdue" : true,
+               "claimsReturnedDate" : null
+            },
+            "key" : "12858065:2:1:1"
+         }
+      ],
+      "category10" : null,
       "category12" : null
-   }
+   },
+   "key" : "521182"
 }
