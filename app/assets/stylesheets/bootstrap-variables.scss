@@ -18,7 +18,7 @@ $input-focus-width:       .2rem;
 $input-focus-border-color:       rgba($blue, .25);
 $input-focus-box-shadow:  0 0 0 $input-focus-width $input-focus-border-color;
 
-$link-color:                              $blue;
+$link-color: $sul-link-color;
 
 $nav-tabs-link-active-border-color: $cardinal-red $cardinal-red $sul-bg-color;
 $nav-tabs-border-color: $cardinal-red;
