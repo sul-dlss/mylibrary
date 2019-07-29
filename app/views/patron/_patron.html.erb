@@ -18,6 +18,10 @@
     <dt class="col-4 col-md-2 font-weight-normal">Privileges expire:</dt>
     <dd class="col-8 col-md-10 expired-date"><%= l(patron.expired_date, format: :short) %></dd>
   <% end %>
+  <% if patron.expired_date && patron.expired? %>
+    <dt class="col-4 col-md-2 font-weight-normal">Privileges expired:</dt>
+    <dd class="col-8 col-md-10 expired-date"><%= l(patron.expired_date, format: :short) %></dd>
+  <% end %>
   <dt class="col-4 col-md-2 font-weight-normal">Email:</dt>
   <dd class="col-8 col-md-10 email"><%= patron.email %></dd>
 </dl>
