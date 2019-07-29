@@ -46,6 +46,13 @@ RSpec.describe 'Navigation', type: :feature do
     end
   end
 
+  it 'has aria-current labels' do
+    visit checkouts_path
+
+    expect(page).to have_css '[aria-current="page"][href^="/checkouts"]'
+    expect(page).to have_css '[aria-current="false"][href^="/requests"]'
+  end
+
   it 'allows the user to navigate to the checkouts page' do
     visit root_path
 
@@ -218,6 +225,13 @@ RSpec.describe 'Navigation', type: :feature do
 
       click_link 'Summary'
       expect(page).to have_css('.nav-link.active', text: 'Other proxies')
+    end
+
+    it 'has aria-current and nav labels' do
+      visit checkouts_path
+
+      expect(page).to have_css 'nav[aria-label="Proxy tabs"]'
+      expect(page).to have_css '[aria-current=true][href^="/checkouts"]'
     end
   end
 end

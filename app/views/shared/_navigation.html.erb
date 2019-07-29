@@ -1,7 +1,7 @@
 <nav role="navigation" aria-label="Main navigation" id="mainnav" class="pt-3 pb-3">
   <ul class="nav nav-pills nav-justified container pr-0">
     <li class="nav-item">
-      <%= link_to summaries_path(group: params[:group]), class: "nav-link #{active_page_class('summaries')}" do %>
+      <%= link_to summaries_path(group: params[:group]), class: "nav-link #{active_page_class('summaries')}", aria: {current: controller_name == 'summaries' ? 'page' : false } do %>
         <%= sul_icon :'sharp-person-24px', classes: 'lg' %>
         <span class="label">Summary</span>
         <% if patron_or_group.barred? %>
@@ -12,7 +12,7 @@
       <% end %>
     </li>
     <li class="nav-item">
-      <%= link_to checkouts_path(group: params[:group]), class: "nav-link #{active_page_class('checkouts')}" do %>
+      <%= link_to checkouts_path(group: params[:group]), class: "nav-link #{active_page_class('checkouts')}", aria: {current: controller_name == 'checkouts' ? 'page' : false } do %>
         <%= sul_icon :'sharp-playlist_add_check-24px', classes: 'lg' %>
         <span class="label">Checkouts</span>
         <% recalled_count = patron_or_group.checkouts.select(&:recalled?).length %>
@@ -27,7 +27,7 @@
       <% end %>
     </li>
     <li class="nav-item">
-      <%= link_to requests_path(group: params[:group]), class: "nav-link #{active_page_class('requests')}" do %>
+      <%= link_to requests_path(group: params[:group]), class: "nav-link #{active_page_class('requests')}", aria: {current: controller_name == 'requests' ? 'page' : false } do %>
         <%= sul_icon :'sharp-access_time-24px', classes: 'lg' %>
         <span class="label">Requests</span>
         <% pickup_count = patron_or_group.requests.select(&:ready_for_pickup?).length %>
@@ -39,7 +39,7 @@
       <% end %>
     </li>
     <li class="nav-item">
-      <%= link_to fines_path(group: params[:group]), class: "nav-link #{active_page_class('fines')}" do %>
+      <%= link_to fines_path(group: params[:group]), class: "nav-link #{active_page_class('fines')}", aria: {current: controller_name == 'fines' ? 'page' : false } do %>
         <%= sul_icon :'sharp-attach_money-24px', classes: 'lg' %>
         <span class="label">Fines</span>
         <% owed = patron_or_group.fines.sum(&:owed) %>
