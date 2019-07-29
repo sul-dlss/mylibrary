@@ -36,9 +36,9 @@ RSpec.describe 'Request Page', type: :feature do
     expect(page).to have_css('ul.requested-requests li', count: 3)
 
     within(first('ul.requested-requests li')) do
-      expect(page).to have_css('.library', text: 'Green Library')
-      expect(page).to have_css('.title', text: /Pikachu's global adventure/)
-      expect(page).to have_css('.call_number', text: 'GV1469.35 .P63 P54 2004')
+      expect(page).to have_css('.library', text: 'Art & Architecture Library')
+      expect(page).to have_css('.title', text: 'Colour and light in ancient and medieval art')
+      expect(page).to have_css('.call_number', text: 'N5315 .C65 2018')
     end
   end
 

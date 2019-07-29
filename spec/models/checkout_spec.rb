@@ -237,6 +237,10 @@ RSpec.describe Checkout do
     it 'is lost' do
       expect(checkout).to be_lost
     end
+
+    it 'has an appropriate sort with a higher priority than overdues' do
+      expect(checkout.status_sort_key).to eq 1
+    end
   end
 
   it 'is not claimed returned' do
@@ -254,6 +258,10 @@ RSpec.describe Checkout do
 
     it 'has a claimed returned date' do
       expect(checkout.claims_returned_date.strftime('%m/%d/%Y')).to eq '07/10/2019'
+    end
+
+    it 'has an appropriate sort with a lower priority than overdues' do
+      expect(checkout.status_sort_key).to eq 4
     end
   end
 
