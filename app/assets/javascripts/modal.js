@@ -55,5 +55,5 @@ Mylibrary.modal.receiveAjax = function (contents) {
 };
 
 $(document).on('turbolinks:load', function(){
-  $('body').on('click', 'a[data-mylibrary-modal~=trigger]', Mylibrary.modal.modalAjaxClickLink);
+  $('body').on('click', '[data-mylibrary-modal~=trigger]', Mylibrary.modal.modalAjaxClickLink);
 });
