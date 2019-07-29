@@ -7,7 +7,7 @@
 <% if @checkouts.any? %>
   <% recalled, other_checkouts = @checkouts.partition(&:recalled?) %>
   <%= render 'checkouts/recalled', recalled: recalled if recalled.any? %>
-  
+
   <div id="checkouts" class="page-section">
     <div class="d-flex justify-content-between">
       <h2>Checked out: <%= other_checkouts.length %><%= " (#{patron_or_group.remaining_checkouts} remaining)" if patron_or_group.remaining_checkouts %></h2>
@@ -54,23 +54,4 @@
     <h2>Checked out: <%= @checkouts.length %><%= " (#{patron_or_group.remaining_checkouts} remaining)" if patron_or_group.remaining_checkouts %></h2>
   </div>
 <% end %>
-<div class="page-section">
-  <h2>Policies &amp; information</h2>
-  <ul class="list-unstyled">
-    <li>
-      <%= link_to 'https://library.stanford.edu/using/borrow-renew-return/renew', target: '_blank' do %>
-        <%= sul_icon :'sharp-open_in_new-24px' %> Renewal policies
-      <% end %>
-    </li>
-    <li>
-      <%= link_to 'https://library.stanford.edu/using/borrow-renew-return/did-you-lose-item', target: '_blank' do %>
-        <%= sul_icon :'sharp-open_in_new-24px' %> Did you lose an item?
-      <% end %>
-    </li>
-    <li>
-      <%= link_to 'https://library.stanford.edu/using/borrow-renew-return/return', target: '_blank' do %>
-        <%= sul_icon :'sharp-open_in_new-24px' %> Returning items by mail
-      <% end %>
-    </li>
-  </ul>
-</div>
+<%= render 'checkouts/policies' %>
