@@ -16,15 +16,15 @@ RSpec.describe Request do
       status: 'ACTIVE',
       queuePosition: '3',
       queueLength: '7',
+      bib: {
+        key: '1184859',
+        fields: {
+          title: 'The Lego movie videogame [electronic resource]',
+          author: 'Cool people made this'
+        }
+      },
       item: {
         fields: {
-          bib: {
-            key: '1184859',
-            fields: {
-              title: 'The Lego movie videogame [electronic resource]',
-              author: 'Cool people made this'
-            }
-          },
           call: {
             fields: {
               dispCallNumber: 'ZMS 4033',
