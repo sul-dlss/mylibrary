@@ -239,6 +239,8 @@ GEM
     rb-fsevent (0.10.3)
     rb-inotify (0.10.0)
       ffi (~> 1.0)
+    recaptcha (4.14.0)
+      json
     regexp_parser (1.6.0)
     rspec-core (3.8.2)
       rspec-support (~> 3.8.0)
@@ -388,6 +390,7 @@ DEPENDENCIES
   puma (~> 3.11)
   rails (~> 5.2.3)
   rails-controller-testing
+  recaptcha
   rspec-rails
   rubocop
   rubocop-performance

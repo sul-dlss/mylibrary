@@ -29,6 +29,7 @@ class FeedbackFormsController < ApplicationController
 
   def validate
     errors = []
+    errors << 'You must pass the reCAPTCHA challenge' if !current_user? && !verify_recaptcha
     errors << 'A message is required' if params[:message].blank?
     if params[:email_address].present?
       errors << 'You have filled in a field that makes you appear as a spammer.  Please follow the directions for the individual form fields.'
