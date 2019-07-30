@@ -1950,7 +1950,7 @@
       "groupSettings" : null,
       "standing" : {
          "resource" : "/policy/patronStanding",
-         "key" : "BLOCKED"
+         "key" : "OK"
       },
       "middleName" : ""
    }
