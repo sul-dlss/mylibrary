@@ -26,3 +26,4 @@ set :honeybadger_env, fetch(:stage)
 
 # update shared_configs before restarting app
 before 'deploy:restart', 'shared_configs:update'
+set :branch, 'privgroups'

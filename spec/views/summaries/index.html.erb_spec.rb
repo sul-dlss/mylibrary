@@ -27,7 +27,7 @@ RSpec.describe 'summaries/index.html.erb' do
     )
   end
 
-  let(:user) { instance_double(User, has_eresources_access?: true) }
+  let(:user) { instance_double(User, has_eresources_access?: true, privgroups: []) }
 
   before do
     controller.singleton_class.class_eval do

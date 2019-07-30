@@ -23,4 +23,9 @@
     <dt class="col-4 col-md-2 font-weight-normal">eResource access:</dt>
     <dd class="col-8 col-md-10 patron-status">In-library only</dd>
   <% end %>
+
+  <% if current_user.privgroups %>
+    <dt class="col-4 col-md-2 font-weight-normal">Privgroups:</dt>
+    <dd class="col-8 col-md-10 email"><%= current_user.privgroups.inspect %></dd>
+  <% end %>
 </dl>

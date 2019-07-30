@@ -19,7 +19,7 @@ RSpec.describe 'patron/_patron.html.erb' do
       **patron_options
     )
   end
-  let(:user) { instance_double(User, has_eresources_access?: true) }
+  let(:user) { instance_double(User, has_eresources_access?: true, privgroups: []) }
 
   before do
     controller.singleton_class.class_eval do
@@ -70,7 +70,7 @@ RSpec.describe 'patron/_patron.html.erb' do
     end
 
     context 'when the user has no access' do
-      let(:user) { instance_double(User, has_eresources_access?: false) }
+      let(:user) { instance_double(User, has_eresources_access?: false, privgroups: []) }
 
       it { expect(rendered).to have_css('dt', text: 'eResource access') }
     end
