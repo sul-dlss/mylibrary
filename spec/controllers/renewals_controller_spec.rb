@@ -49,7 +49,7 @@ RSpec.describe RenewalsController, type: :controller do
     let(:mock_client) do
       instance_double(SymphonyClient, renew_items: api_response)
     end
-    let(:api_response) { { success: ['Success!'], error: ['Sorry!'] } }
+    let(:api_response) { { success: [checkouts[0]], error: [checkouts[1]] } }
     let(:mock_patron) { instance_double(Patron, checkouts: checkouts) }
     let(:checkouts) do
       [
@@ -72,16 +72,28 @@ RSpec.describe RenewalsController, type: :controller do
                                                               ])
     end
 
-    it 'sets a success flash message' do
-      post :all_eligible
+    context 'when successful' do
+      before { post :all_eligible }
 
-      expect(flash[:success]).to include(/Success!/)
+      it 'sets a success flash message' do
+        expect(flash[:success]).to include('Success!')
+      end
+
+      it 'includes the titles of successful renewals' do
+        expect(Capybara.string(flash[:success])).to have_css('li', text: 'ABC')
+      end
     end
 
-    it 'sets an reror flash message' do
-      post :all_eligible
+    describe 'when unsuccessful' do
+      before { post :all_eligible }
 
-      expect(flash[:error]).to include(/Sorry!/)
+      it 'sets an error flash message' do
+        expect(flash[:error]).to include('Sorry!')
+      end
+
+      it 'includes the titles of errored renewals' do
+        expect(Capybara.string(flash[:error])).to have_css('li', text: 'XYZ')
+      end
     end
 
     it 'renews the item and redirects to checkouts_path' do
