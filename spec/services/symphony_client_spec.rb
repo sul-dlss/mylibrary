@@ -120,7 +120,7 @@ RSpec.describe SymphonyClient do
       ]
     end
 
-    it 'returns successfull + errorored titles for individual renewal requests in symphony' do
+    it 'returns successful + errored titles for individual renewal requests in symphony' do
       actual = client.renew_items(checkouts)
 
       expect(actual).to include success: [checkouts.first],
