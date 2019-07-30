@@ -5,3 +5,7 @@
 .clamp-2 {
   @include truncate-by-lines(2);
 }
+
+.clamp-3 {
+  @include truncate-by-lines(3);
+}
