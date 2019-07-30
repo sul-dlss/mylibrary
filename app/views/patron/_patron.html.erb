@@ -14,11 +14,6 @@
     <dd class="col-8 col-md-10 expired-date"><%= l(patron.expired_date, format: :short) %></dd>
   <% end %>
 
-  <% if patron.borrow_limit %>
-    <dt class="col-4 col-md-2 font-weight-normal">Borrower limit:</dt>
-    <dd class="col-8 col-md-10 patron-status"><%= pluralize(patron.borrow_limit, 'checkout') %></dd>
-  <% end %>
-
   <% if patron.email %>
     <dt class="col-4 col-md-2 font-weight-normal">Email:</dt>
     <dd class="col-8 col-md-10 email"><%= patron.email %></dd>
