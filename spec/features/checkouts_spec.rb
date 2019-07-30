@@ -86,4 +86,14 @@ RSpec.describe 'Checkout Page', type: :feature do
       end
     end
   end
+
+  context 'with a user who has no checkouts' do
+    before do
+      login_as(username: 'NOTHING', patron_key: '521206')
+    end
+
+    it 'does not render table headers' do
+      expect(page).not_to have_css('.list-header')
+    end
+  end
 end

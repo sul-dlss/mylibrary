@@ -5,42 +5,42 @@
   <%= render partial: 'shared/group_tabs', locals: { self_value: number_to_currency(patron.fines.sum(&:owed)), group_value: number_to_currency(patron.group.fines.sum(&:owed)) } if patron_or_group.group? %>
 <% end %>
 
-<% if @fines.any? %>
-  <div class="page-section">
-    <h2>Payable: <%= number_to_currency(@fines.sum(&:owed)) %></h2>
 
-    <div class="d-none d-md-flex row font-weight-bold list-header">
-      <div class="row col-md-4">
-        <div class="col-md-6">Reason</div>
-        <div class="col-md-6">Amount</div>
-      </div>
-      <div class="row col-md-8">
-        <div class="col-md-7">Title</div>
-        <div class="row col-md-5">
-          <div class="col-md-6">Author</div>
-          <div class="col-md-6 call_number">Call number</div>
+<div class="page-section">
+  <h2>Payable: <%= number_to_currency(@fines.sum(&:owed)) %></h2>
+    <% if @fines.any? %>
+      <div class="d-none d-md-flex row font-weight-bold list-header">
+        <div class="row col-md-4">
+          <div class="col-md-6">Reason</div>
+          <div class="col-md-6">Amount</div>
+        </div>
+        <div class="row col-md-8">
+          <div class="col-md-7">Title</div>
+          <div class="row col-md-5">
+            <div class="col-md-6">Author</div>
+            <div class="col-md-6 call_number">Call number</div>
+          </div>
         </div>
       </div>
-    </div>
 
-    <ul class="fines list-group">
-      <%= render @fines %>
-    </ul>
-  </div>
-<% end %>
+      <ul class="fines list-group">
+        <%= render @fines %>
+      </ul>
+    <% end %>
+</div>
 
 <% accruing = @checkouts.select{ |item| item.accrued > 0.0 } %>
-<% if accruing.any? %>
-  <div class="page-section">
-    <h2>Accruing: <%= number_to_currency(accruing.sum(&:accrued)) %></h2>
+<div class="page-section">
+  <h2>Accruing: <%= number_to_currency(accruing.sum(&:accrued)) %></h2>
+    <% if accruing.any? %>
+      <span class="text-overdue">
+        <%= sul_icon :'sharp-warning-24px' %>
+      </span>
 
-    <span class="text-overdue">
-      <%= sul_icon :'sharp-warning-24px' %>
-    </span>
+      Fines are accruing on <%= pluralize(accruing.length, 'overdue item') %>. You must return the <%= accruing.length == 1 ? 'item' : 'items' %> before you can pay this fine.
+    <% end %>
+</div>
 
-    Fines are accruing on <%= pluralize(accruing.length, 'overdue item') %>. You must return the <%= accruing.length == 1 ? 'item' : 'items' %> before you can pay this fine.
-  </div>
-<% end %>
 
 <% if @payments.any? %>
   <div id="payments" class="page-section">

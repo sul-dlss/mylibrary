@@ -25,6 +25,12 @@ RSpec.describe 'checkouts/index.html.erb' do
     expect(rendered).to include('<h2>Checked out: 0</h2>')
   end
 
+  it 'does not show headers for zero checkouts' do
+    render
+
+    expect(rendered).not_to include('<div class="list-header">')
+  end
+
   context 'with a fee borrower' do
     before do
       allow(patron).to receive(:remaining_checkouts).and_return(25)

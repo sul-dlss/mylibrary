@@ -5,6 +5,7 @@ require 'rails_helper'
 RSpec.describe 'Fines Page', type: :feature do
   let(:user_with_payments) { '521181' }
   let(:user_without_payments) { '521182' }
+  let(:user_witout_fines) { '521206' }
 
   before do
     login_as(username: 'SUPER1', patron_key: user_with_payments)
@@ -107,6 +108,18 @@ RSpec.describe 'Fines Page', type: :feature do
           expect(page).to have_css('dt', text: 'Resolution', visible: true)
         end
       end
+    end
+  end
+
+  context 'with no fines' do
+    before do
+      login_as(username: 'NOTHING', patron_key: user_witout_fines)
+    end
+
+    it 'does not render table headers' do
+      visit fines_path
+
+      expect(page).not_to have_css('.list-header')
     end
   end
 end
