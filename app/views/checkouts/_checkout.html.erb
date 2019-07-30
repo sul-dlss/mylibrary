@@ -1,29 +1,31 @@
-<li class="row d-flex flex-wrap list-group-item <%= list_group_item_status_for_checkout(checkout)%>">
-  <div class="d-flex flex-row flex-grow-1 justify-content-between w-100 row col-md-4">
-    <div class="w-50 col-md-6 status" data-sort-status="<%= h checkout.sort_key(:status) %>">
-      <%= render_checkout_status(checkout) %>
+<li class="list-group-item <%= list_group_item_status_for_checkout(checkout)%>">
+  <div class="row d-flex flex-wrap position-relative">
+    <div class="d-flex flex-row flex-grow-1 justify-content-between w-100 row col-md-4">
+      <div class="w-50 col-md-6 status" data-sort-status="<%= h checkout.sort_key(:status) %>">
+        <%= render_checkout_status(checkout) %>
+      </div>
+      <div class="w-50 col-md-6 text-right text-md-left due_date" data-sort-date="<%= h checkout.sort_key(:due_date) %>">
+        <% if checkout.renewable? %>
+          <span class="renewable-indicator">
+            <%= sul_icon 'renew' %>
+          </span>
+        <% end %>
+        <%= today_with_time_or_date(checkout.due_date, short_term: checkout.short_term_loan?) %>
+      </div>
     </div>
-    <div class="w-50 col-md-6 text-right text-md-left due_date" data-sort-date="<%= h checkout.sort_key(:due_date) %>">
-      <% if checkout.renewable? %>
-        <span class="renewable-indicator">
-          <%= sul_icon 'renew' %>
-        </span>
-      <% end %>
-      <%= today_with_time_or_date(checkout.due_date, short_term: checkout.short_term_loan?) %>
+    <div class="d-flex flex-grow-1 flex-column flex-md-row w-75 row col-md-8">
+      <h3 class="col-md-7 clamp-2 record-title title text-reset" data-sort-title="<%= h checkout.sort_key(:title) %>"><%= checkout.title %></h3>
+      <div class="d-flex flex-row row col-md-5">
+        <div class="w-50 col-md-6 clamp-1 author" data-sort-author="<%= h checkout.sort_key(:author) %>"><%= checkout.author %></div>
+        <div class="w-50 col-md-6 call_number" data-sort-call_number="<%= h checkout.sort_key(:call_number) %>"><%= checkout.call_number %></div>
+      </div>
     </div>
-  </div>
-  <div class="d-flex flex-grow-1 flex-column flex-md-row w-75 row col-md-8">
-    <h3 class="col-md-7 clamp-2 record-title title text-reset" data-sort-title="<%= h checkout.sort_key(:title) %>"><%= checkout.title %></h3>
-    <div class="d-flex flex-row row col-md-5">
-      <div class="w-50 col-md-6 clamp-1 author" data-sort-author="<%= h checkout.sort_key(:author) %>"><%= checkout.author %></div>
-      <div class="w-50 col-md-6 call_number" data-sort-call_number="<%= h checkout.sort_key(:call_number) %>"><%= checkout.call_number %></div>
+    <div>
+      <button class="btn collapsed stretched-link" type="button" data-toggle="collapse" data-target="#collapseDetails-<%= checkout.key.parameterize %>" aria-expanded="false" aria-controls="collapseDetails-<%= checkout.key.parameterize %>">
+        <span class="expand-icon"><%= sul_icon :'sharp-add-24px' %><span class="sr-only">Expand</span></span>
+        <span class="collapse-icon"><%= sul_icon :'sharp-remove-24px' %><span class="sr-only">Collapse</span></span>
+      </button>
     </div>
-  </div>
-  <div>
-    <button class="btn collapsed" type="button" data-toggle="collapse" data-target="#collapseDetails-<%= checkout.key.parameterize %>" aria-expanded="false" aria-controls="collapseDetails-<%= checkout.key.parameterize %>">
-      <span class="expand-icon"><%= sul_icon :'sharp-add-24px' %><span class="sr-only">Expand</span></span>
-      <span class="collapse-icon"><%= sul_icon :'sharp-remove-24px' %><span class="sr-only">Collapse</span></span>
-    </button>
   </div>
   <div class="collapse w-100" id="collapseDetails-<%= checkout.key.parameterize %>">
     <% if checkout.renewable? %>
