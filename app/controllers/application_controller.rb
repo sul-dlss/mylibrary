@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   def patron
     return unless current_user?
 
-    @patron ||= Patron.new(symphony_client.patron_info(current_user.patron_key))
+    @patron ||= Patron.new(patron_info_response)
   end
 
   def patron_or_group
@@ -39,11 +39,19 @@ class ApplicationController < ActionController::Base
     @symphony_legacy_client ||= SymphonyLegacyClient.new
   end
 
+  def patron_info_response
+    symphony_client.patron_info(current_user.patron_key, item_details: item_details)
+  end
+
   def authenticate_user!
     redirect_to root_url unless current_user?
   end
 
   def logout_user!
     redirect_to logout_path if current_user?
+  end
+
+  def item_details
+    {}
   end
 end

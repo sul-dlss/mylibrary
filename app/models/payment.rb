@@ -24,14 +24,6 @@ class Payment
     Time.strptime(record['dateBilled'], '%Y-%m-%d')
   end
 
-  def fee_pay_info
-    record['feePaymentInfo']
-  end
-
-  def fee_item_info
-    record['feeItemInfo']
-  end
-
   def item_title
     fee_item_info && fee_item_info['title'] || 'No item associated with this payment'
   end
@@ -61,5 +53,15 @@ class Payment
 
   def to_partial_path
     'fines/payment'
+  end
+
+  private
+
+  def fee_pay_info
+    Array.wrap(record['feePaymentInfo']).first
+  end
+
+  def fee_item_info
+    record['feeItemInfo']
   end
 end

@@ -37,23 +37,23 @@ class Request
   end
 
   def catkey
-    fields['bib']['key']
+    fields.dig('bib', 'key')
   end
 
   def title
-    bib['title']
+    bib && bib['title']
   end
 
   def author
-    bib['author']
+    bib && bib['author']
   end
 
   def call_number
-    call['dispCallNumber']
+    call && call['dispCallNumber']
   end
 
   def shelf_key
-    call['sortCallNumber']
+    call && call['sortCallNumber']
   end
 
   def queue_position
@@ -129,6 +129,6 @@ class Request
   end
 
   def call
-    fields['item']['fields']['call']['fields']
+    fields.dig('item', 'fields', 'call', 'fields')
   end
 end

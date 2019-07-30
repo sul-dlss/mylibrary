@@ -71,4 +71,31 @@ RSpec.describe Request do
   it 'has the queue position' do
     expect(request.queue_position).to eq '3'
   end
+
+  context 'without an associated item or bib' do
+    before do
+      fields[:item] = nil
+      fields[:bib] = nil
+    end
+
+    it 'has no title' do
+      expect(request.title).to eq nil
+    end
+
+    it 'has no author' do
+      expect(request.author).to eq nil
+    end
+
+    it 'has no catkey' do
+      expect(request.catkey).to eq nil
+    end
+
+    it 'has no call number' do
+      expect(request.call_number).to eq nil
+    end
+
+    it 'has no shelf key' do
+      expect(request.shelf_key).to eq nil
+    end
+  end
 end

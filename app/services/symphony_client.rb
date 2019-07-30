@@ -43,21 +43,24 @@ class SymphonyClient
 
   ITEM_RESOURCES = 'bib{title,author},item{*,bib{title,author},call{sortCallNumber,dispCallNumber}}'
 
-  PATRON_LINKED_RESOURCES = [
-    "holdRecordList{*,#{ITEM_RESOURCES}}",
-    "circRecordList{*,circulationRule{loanPeriod{periodType{key}},renewFromPeriod},#{ITEM_RESOURCES}}",
-    "blockList{*,#{ITEM_RESOURCES}}",
-    'groupSettings{*,responsibility}'
-  ].freeze
+  def patron_linked_resources_fields(item_details = {})
+    [
+      "holdRecordList{*,#{ITEM_RESOURCES if item_details[:holdRecordList]}}",
+      'circRecordList{*,circulationRule{loanPeriod{periodType{key}},renewFromPeriod},' \
+        "#{ITEM_RESOURCES if item_details[:circRecordList]}}",
+      "blockList{*,#{ITEM_RESOURCES if item_details[:blockList]}}",
+      'groupSettings{*,responsibility}'
+    ]
+  end
 
-  def patron_info(patron_key)
+  def patron_info(patron_key, item_details: {})
     response = authenticated_request("/user/patron/key/#{patron_key}", params: {
       includeFields: [
         '*',
         'address1',
         'profile{chargeLimit}',
-        "groupSettings{*,group{memberList{*,#{PATRON_LINKED_RESOURCES.join(',')}}}}",
-        *PATRON_LINKED_RESOURCES
+        "groupSettings{*,group{memberList{*,#{patron_linked_resources_fields(item_details).join(',')}}}}",
+        *patron_linked_resources_fields(item_details)
       ].join(',')
     })
 

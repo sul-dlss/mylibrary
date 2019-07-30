@@ -31,4 +31,8 @@ class FinesController < ApplicationController
   def payments
     (Hash.from_xml(Nokogiri::XML(payments_response).to_s) || {}).dig('LookupPatronInfoResponse', 'feeInfo')
   end
+
+  def item_details
+    { blockList: true }
+  end
 end

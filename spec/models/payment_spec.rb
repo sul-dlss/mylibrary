@@ -3,12 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe Payment do
-  context 'with ana item associated with payment record' do
-    subject do
-      described_class.new(record.with_indifferent_access)
-    end
+  subject(:payment) { described_class.new(record.with_indifferent_access) }
 
-    let(:payment) { subject }
+  context 'with an item associated with payment record' do
     let(:record) do
       {
         'billNumber' => '5',
@@ -70,12 +67,42 @@ RSpec.describe Payment do
     end
   end
 
-  context 'without item associated with payment' do
-    subject do
-      described_class.new(record.with_indifferent_access)
+  context 'with multiple payments' do
+    let(:record) do
+      {
+        'billNumber' => '5',
+        'billReasonDescription' => 'Overdue recall',
+        'amount' => '21.00',
+        'dateBilled' => '2013-11-25',
+        'feePaymentInfo' => [
+          {
+            'paymentDate' => '2013-12-23',
+            'paymentAmount' => '21.00',
+            'paymentTypeID' => 'CREDITCARD',
+            'paymentTypeDescription' =>
+              'Payment using credit or debit card via MyAccount'
+          },
+          {
+            'paymentDate' => '2018-11-03',
+            'paymentAmount' => '1.00',
+            'paymentTypeID' => 'CREDITCARD',
+            'paymentTypeDescription' =>
+              'Payment using credit or debit card via MyAccount'
+          }
+        ],
+        'feeItemInfo' => {
+          'itemLibraryID' => 'GREEN',
+          'title' => 'California : a history'
+        }
+      }
     end
 
-    let(:payment) { subject }
+    it 'picks the first one' do
+      expect(payment.payment_amount).to eq '21.00'
+    end
+  end
+
+  context 'without item associated with payment' do
     let(:record) do
       {
         'billNumber' => '6',
@@ -133,11 +160,6 @@ RSpec.describe Payment do
   end
 
   context 'when there is no payment description but there is a payment amount' do
-    subject do
-      described_class.new(record.with_indifferent_access)
-    end
-
-    let(:payment) { subject }
     let(:record) do
       {
         'feePaymentInfo' => {
@@ -153,11 +175,6 @@ RSpec.describe Payment do
   end
 
   context 'when there is no payment description and no payment amount' do
-    subject do
-      described_class.new(record.with_indifferent_access)
-    end
-
-    let(:payment) { subject }
     let(:record) do
       {
         'feePaymentInfo' => {

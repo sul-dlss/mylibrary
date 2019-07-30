@@ -64,6 +64,12 @@ RSpec.describe ApplicationHelper do
     it 'has a link to SerachWorks' do
       expect(content).to have_link(text: /View in SearchWorks/, href: %r{/view/12345$})
     end
+
+    context 'without a catkey' do
+      it 'returns nothing' do
+        expect(helper.detail_link_to_searchworks(nil)).to eq nil
+      end
+    end
   end
 
   describe '#sul_icon' do

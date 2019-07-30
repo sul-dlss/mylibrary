@@ -46,12 +46,26 @@ RSpec.describe ApplicationController do
       let(:patron) { Patron.new('fields' => { 'address1' => [], 'standing' => { 'key' => '' } }) }
 
       before do
-        allow(mock_client).to receive(:patron_info).with('123').and_return(patron)
+        allow(mock_client).to receive(:patron_info).with('123', item_details: {}).and_return(patron)
         warden.set_user(user)
       end
 
       it 'is a new instance of the Patron class' do
         expect(controller.patron).to be_an_instance_of Patron
+      end
+    end
+
+    context 'with some needed item details' do
+      before do
+        allow(mock_client).to receive(:patron_info)
+        warden.set_user(user)
+      end
+
+      it 'passes through the details' do
+        allow(controller).to receive(:item_details).and_return(some: :value)
+
+        controller.patron
+        expect(mock_client).to have_received(:patron_info).with('123', item_details: { some: :value })
       end
     end
 
@@ -66,7 +80,7 @@ RSpec.describe ApplicationController do
     let(:patron) { Patron.new('fields' => { 'address1' => [], 'standing' => { 'key' => '' } }) }
 
     before do
-      allow(mock_client).to receive(:patron_info).with('123').and_return(patron)
+      allow(mock_client).to receive(:patron_info).with('123', item_details: {}).and_return(patron)
       warden.set_user(user)
     end
 

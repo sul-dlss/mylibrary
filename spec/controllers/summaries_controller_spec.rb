@@ -29,7 +29,7 @@ RSpec.describe SummariesController do
     end
 
     before do
-      allow(mock_client).to receive(:patron_info).with('123').and_return(mock_response)
+      allow(mock_client).to receive(:patron_info).with('123', item_details: {}).and_return(mock_response)
       warden.set_user(user)
     end
 

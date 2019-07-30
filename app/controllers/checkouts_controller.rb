@@ -7,4 +7,10 @@ class CheckoutsController < ApplicationController
   def index
     @checkouts = patron_or_group.checkouts.sort_by { |x| x.sort_key(:due_date) }
   end
+
+  private
+
+  def item_details
+    { circRecordList: true }
+  end
 end
