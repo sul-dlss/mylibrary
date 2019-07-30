@@ -48,6 +48,7 @@ class Payment
 
   def resolution
     return fee_pay_info['paymentTypeDescription'] if fee_pay_info['paymentTypeDescription']
+    return fee_pay_info['paymentTypeID'] if fee_pay_info['paymentTypeID']
     return 'Paid' if payment_amount
 
     'Unknown'

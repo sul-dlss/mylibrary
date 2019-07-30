@@ -5,27 +5,27 @@ require 'rails_helper'
 RSpec.describe Payment do
   subject(:payment) { described_class.new(record.with_indifferent_access) }
 
-  context 'with an item associated with payment record' do
-    let(:record) do
-      {
-        'billNumber' => '5',
-        'billReasonDescription' => 'Overdue recall',
-        'amount' => '21.00',
-        'dateBilled' => '2013-11-25',
-        'feePaymentInfo' => {
-          'paymentDate' => '2013-12-23',
-          'paymentAmount' => '21.00',
-          'paymentTypeID' => 'CREDITCARD',
-          'paymentTypeDescription' =>
-            'Payment using credit or debit card via MyAccount'
-        },
-        'feeItemInfo' => {
-          'itemLibraryID' => 'GREEN',
-          'title' => 'California : a history'
-        }
+  let(:record) do
+    {
+      'billNumber' => '5',
+      'billReasonDescription' => 'Overdue recall',
+      'amount' => '21.00',
+      'dateBilled' => '2013-11-25',
+      'feePaymentInfo' => {
+        'paymentDate' => '2013-12-23',
+        'paymentAmount' => '21.00',
+        'paymentTypeID' => 'CREDITCARD',
+        'paymentTypeDescription' =>
+          'Payment using credit or debit card via MyAccount'
+      },
+      'feeItemInfo' => {
+        'itemLibraryID' => 'GREEN',
+        'title' => 'California : a history'
       }
-    end
+    }
+  end
 
+  context 'with an item associated with payment record' do
     it 'has a key' do
       expect(payment.key).to eq '5'
     end
@@ -58,12 +58,39 @@ RSpec.describe Payment do
       expect(payment.payment_date).to eq Time.strptime('2013-12-23', '%Y-%m-%d')
     end
 
+    it 'can tell if they paid their bill using a card' do
+      expect(payment).to be_paid_fee
+    end
+  end
+
+  context 'when paymentTypeDescription' do
     it 'has a resolution desctiption' do
       expect(payment.resolution).to eq 'Payment using credit or debit card via MyAccount'
     end
+  end
 
-    it 'can tell if they paid their bill using a card' do
-      expect(payment).to be_paid_fee
+  context 'when no paymentTypeDescription' do
+    let(:record) do
+      {
+        'billNumber' => '5',
+        'billReasonDescription' => 'Overdue recall',
+        'amount' => '21.00',
+        'dateBilled' => '2013-11-25',
+        'feePaymentInfo' => {
+          'paymentDate' => '2013-12-23',
+          'paymentAmount' => '21.00',
+          'paymentTypeID' => 'FORGIVEN',
+          'paymentTypeDescription' => nil
+        },
+        'feeItemInfo' => {
+          'itemLibraryID' => 'GREEN',
+          'title' => 'California : a history'
+        }
+      }
+    end
+
+    it 'has a resolution desctiption' do
+      expect(payment.resolution).to eq 'FORGIVEN'
     end
   end
 
