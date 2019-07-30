@@ -29,6 +29,10 @@ class RenewalsController < ApplicationController
 
   private
 
+  def item_details
+    { circRecordList: true }
+  end
+
   def bulk_renewal_flash(response, type:)
     return unless response[type].any?
 
