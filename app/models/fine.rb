@@ -42,7 +42,7 @@ class Fine
   end
 
   def sequence
-    key.split(':').last
+    key&.split(':')&.last
   end
 
   def patron_key
@@ -50,7 +50,7 @@ class Fine
   end
 
   def status
-    fields['block']['key']
+    fields.dig('block', 'key')
   end
 
   def nice_status
