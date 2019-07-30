@@ -97,14 +97,14 @@ class SymphonyClient
   end
 
   def renew_items(checkouts)
-    checkouts.each_with_object(success: [], error: []) do |checkout, flash|
+    checkouts.each_with_object(success: [], error: []) do |checkout, status|
       response = renew_item(checkout.resource, checkout.item_key)
 
       case response.status
       when 200
-        flash[:success] << I18n.t('mylibrary.renew_item.success_html', title: checkout.title)
+        status[:success] << checkout
       else
-        flash[:error] << I18n.t('mylibrary.renew_item.error_html', title: checkout.title)
+        status[:error] << checkout
       end
     end
   end
