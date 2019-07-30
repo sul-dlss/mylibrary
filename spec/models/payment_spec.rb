@@ -61,13 +61,13 @@ RSpec.describe Payment do
     end
   end
 
-  context 'when payment resolution is a PAID_TYPE' do
-    it 'has a resolution desctiption' do
-      expect(payment.resolution).to eq 'Paid using a credit or debit card'
+  context 'when payment resolution is a paid type' do
+    it 'has a resolution description' do
+      expect(payment.resolution).to eq 'Paid by credit card'
     end
   end
 
-  context 'when no payment resolution is an UNPAID_TYPE' do
+  context 'when payment resolution is forgiven' do
     let(:record) do
       {
         'billNumber' => '5',
@@ -82,12 +82,12 @@ RSpec.describe Payment do
       }
     end
 
-    it 'has a resolution desctiption' do
+    it 'has a resolution description' do
       expect(payment.resolution).to eq 'Forgiven'
     end
   end
 
-  context 'when payment resolution is unknow' do
+  context 'when payment resolution is unknown' do
     let(:record) do
       {
         'billNumber' => '5',
@@ -103,7 +103,7 @@ RSpec.describe Payment do
       }
     end
 
-    it 'has a resolution desctiption' do
+    it 'has a resolution description' do
       expect(payment.resolution).to eq 'Unknown'
     end
   end
@@ -189,8 +189,8 @@ RSpec.describe Payment do
       expect(payment.payment_date).to eq Time.strptime('2014-2-23', '%Y-%m-%d')
     end
 
-    it 'has a resolution desctiption' do
-      expect(payment.resolution).to eq 'Cancelled'
+    it 'has a resolution description' do
+      expect(payment.resolution).to eq 'Removed'
     end
 
     it 'can tell if they paid their bill using a card' do

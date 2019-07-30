@@ -4,26 +4,23 @@
 class Payment
   attr_reader :record
 
-  UNPAID_TYPES = {
-    'AUTOREFUND' => 'Removed',
-    'CANCEL' => 'Cancelled',
-    'CLMS-RTND' => 'Returned',
+  PAYMENT_TYPES = {
+    'AUTOREFUND' => 'Returned',
+    'CANCEL' => 'Removed',
+    'CARDSWIPE' => 'Paid by credit card',
+    'CASH' => 'Paid by cash',
+    'CHECK' => 'Paid by check',
+    'CLMS-RTND' => 'Processing claim',
+    'CREDITACCT' => 'Returned',
+    'CREDITCARD' => 'Paid by credit card',
     'FORGIVEN' => 'Forgiven',
     'LIB-ERROR' => 'Removed',
+    'NONE' => 'Returned',
     'REFUND' => 'Removed',
     'RETURNED' => 'Returned',
-    'U-REPLACED' => 'Removed',
-    'TRANS-BILL' => 'Removed',
-    'XREMBILL' => 'Removed',
-    'NONE' => 'Removed'
-  }.freeze
-
-  PAID_TYPES = {
-    'CARDSWIPE' => 'Paid using a credit or debit card',
-    'CASH' => 'Paid',
-    'CHECK' => 'Paid',
-    'CREDITACCT' => 'Paid',
-    'CREDITCARD' => 'Paid using a credit or debit card'
+    'TRANS-BILL' => 'Forgiven',
+    'U-REPLACED' => 'Replacement provided',
+    'XREMBILL' => 'Removed'
   }.freeze
 
   def initialize(record)
@@ -69,8 +66,7 @@ class Payment
   end
 
   def resolution
-    return PAID_TYPES.fetch(fee_pay_info['paymentTypeID'], '') if PAID_TYPES.key?(fee_pay_info['paymentTypeID'])
-    return UNPAID_TYPES.fetch(fee_pay_info['paymentTypeID'], '') if UNPAID_TYPES.key?(fee_pay_info['paymentTypeID'])
+    return PAYMENT_TYPES.fetch(fee_pay_info['paymentTypeID'], '') if PAYMENT_TYPES.key?(fee_pay_info['paymentTypeID'])
 
     'Unknown'
   end
