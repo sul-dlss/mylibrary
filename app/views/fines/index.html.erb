@@ -9,7 +9,7 @@
   <div class="page-section">
     <h2>Payable: <%= number_to_currency(@fines.sum(&:owed)) %></h2>
     <div>
-    <%= link_to cybersource_pay_url, class: 'btn btn-md btn-info' do %>
+    <%= link_to cybersource_pay_url, class: 'btn btn-md btn-info mb-3' do %>
       <%= sul_icon :'sharp-payment-24px' %>
       <span>Pay <%= number_to_currency(@fines.sum(&:owed)) %> now</span>
     <% end %>
