@@ -5,7 +5,7 @@
         <%= render_checkout_status(checkout) %>
       </div>
       <div class="w-50 col-md-12 col-lg-6 text-right align-items-baseline text-md-left due_date" data-sort-date="<%= h checkout.sort_key(:due_date) %>">
-        <% if checkout.renewable? %>
+        <% if patron.can_renew? && checkout.renewable? %>
           <span class="renewable-indicator">
             <%= sul_icon 'renew' %>
           </span>
@@ -28,7 +28,7 @@
     </div>
   </div>
   <div class="collapse w-100" id="collapseDetails-<%= checkout.key.parameterize %>">
-    <% if checkout.renewable? %>
+    <% if patron.can_renew? && checkout.renewable? %>
       <div class="row">
         <div class="col-11 offset-1 col-md-10 offset-md-2">
           <%= form_tag renewals_path, method: :post do %>

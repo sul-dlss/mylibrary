@@ -39,17 +39,19 @@
   <div class="collapse w-100" id="collapseDetails-<%= request.key.parameterize %>">
     <div class="row mb-0">
       <div class="col-11 offset-1 col-md-10 offset-md-2">
-        <% if request.ready_for_pickup? %>
-          <%= form_tag request_path(request.key), method: :delete do %>
-            <%= hidden_field_tag :resource, request.resource %>
-            <%= hidden_field_tag :title, request.title %>
-            <%= button_tag class: 'btn btn-link btn-request-cancel btn-icon-prefix', type: 'submit' do %>
-              <%= sul_icon 'outline-cancel-24px' %> Cancel this request
+        <% if patron.can_modify_requests? %>
+          <% if request.ready_for_pickup? %>
+            <%= form_tag request_path(request.key), method: :delete do %>
+              <%= hidden_field_tag :resource, request.resource %>
+              <%= hidden_field_tag :title, request.title %>
+              <%= button_tag class: 'btn btn-link btn-request-cancel btn-icon-prefix', type: 'submit' do %>
+                <%= sul_icon 'outline-cancel-24px' %> Cancel this request
+              <% end %>
             <% end %>
-          <% end %>
-        <% else %>
-          <%= link_to edit_request_path(request.key), data: { 'mylibrary-modal' => 'trigger', 'convert-button' => true } do %>
-            <%= sul_icon 'outline-cancel-24px' %> Change or cancel this request
+          <% else %>
+            <%= link_to edit_request_path(request.key), data: { 'mylibrary-modal' => 'trigger', 'convert-button' => true } do %>
+              <%= sul_icon 'outline-cancel-24px' %> Change or cancel this request
+            <% end %>
           <% end %>
         <% end %>
       </div>

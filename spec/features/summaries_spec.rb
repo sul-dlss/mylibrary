@@ -14,7 +14,7 @@ RSpec.describe 'Summaries Page', type: :feature do
 
   it 'has patron data' do
     expect(page).to have_css('h2', text: 'Undergrad Superuser')
-    expect(page).to have_css('dd.patron-status', text: 'Blocked')
+    expect(page).to have_css('dd.patron-status', text: 'OK')
     expect(page).to have_css('dd.email', text: 'superuser1@stanford.edu')
     expect(page).not_to have_css('dd.expired-date')
     expect(page).not_to have_css('dd.patron-type')

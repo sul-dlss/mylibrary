@@ -1,0 +1,9 @@
+<% if patron_or_group.checkouts.any?(&:renewable?) %>
+  <% if patron_or_group.can_renew? %>
+    <%= link_to all_eligible_renewals_path(group: params[:group]), class: 'btn btn-info mb-1', method: :post do %>
+      <%= sul_icon :'renew' %> Renew <%= pluralize(patron_or_group.checkouts.count(&:renewable?), 'eligible item') %>
+    <% end %>
+  <% else %>
+    <button disabled class="btn btn-info mb-1"><%= sul_icon :'renew' %> Renewals blocked</button>
+  <% end %>
+<% end %>

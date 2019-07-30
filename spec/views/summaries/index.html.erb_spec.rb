@@ -23,6 +23,7 @@ RSpec.describe 'summaries/index.html.erb' do
       fines: [],
       remaining_checkouts: nil,
       to_partial_path: 'patron/patron',
+      can_renew?: true,
       **patron_options
     )
   end

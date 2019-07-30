@@ -937,7 +937,7 @@
       "firstName" : "Doc",
       "middleName" : "",
       "standing" : {
-         "key" : "BLOCKED",
+         "key" : "OK",
          "resource" : "/policy/patronStanding"
       },
       "checkoutLocation" : {
