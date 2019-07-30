@@ -32,6 +32,20 @@
 
 <div class="page-section">
   <h3><%= sul_icon :'sharp-attach_money-24px', classes: 'lg' %> Fines &amp; fees payable: <%= number_to_currency(patron.fines.sum(&:owed)) %></h3>
+
+  <% if patron.fines.sum(&:owed).positive? %>
+    <div>
+      <% if patron_or_group.can_pay_fines? %>
+        <%= link_to cybersource_pay_url, class: 'btn btn-md btn-info' do %>
+          <%= sul_icon :'sharp-payment-24px' %>
+          <span>Pay <%= number_to_currency(patron.fines.sum(&:owed)) %> now</span>
+        <% end %>
+      <% else %>
+        <button class="btn btn-info" disabled><%= sul_icon :'sharp-payment-24px' %> Payments blocked</button>
+      <% end %>
+    </div>
+  <% end %>
+
   <% accruing = patron.checkouts.sum(&:accrued) %>
   <% if accruing.positive? %>
     <div class="ml-4"><%= sul_icon :'sharp-warning-24px', classes: 'text-overdue' %> <%= number_to_currency(accruing) %> accruing on overdue items</div>
