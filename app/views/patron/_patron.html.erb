@@ -18,4 +18,9 @@
     <dt class="col-4 col-md-2 font-weight-normal">Email:</dt>
     <dd class="col-8 col-md-10 email"><%= patron.email %></dd>
   <% end %>
+
+  <% unless current_user.has_eresources_access? || patron.proxy_borrower? %>
+    <dt class="col-4 col-md-2 font-weight-normal">eResource access:</dt>
+    <dd class="col-8 col-md-10 patron-status">In-library only</dd>
+  <% end %>
 </dl>

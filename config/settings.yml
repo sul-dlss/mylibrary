@@ -19,3 +19,10 @@ auth:
   borrow_direct_privgroups:
     - stanford:stanford
     - stanford:academic
+  eresources_privgroups:
+    - stanford:stanford
+    - stanford:academic
+    - stanford:administrative
+    - organization:sumc
+    - sulair:proxy-access
+    - lane:proxy-access

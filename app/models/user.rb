@@ -16,4 +16,8 @@ class User
   def has_borrow_direct_access?
     ((privgroups || []) & Settings.auth.borrow_direct_privgroups).any?
   end
+
+  def has_eresources_access?
+    ((privgroups || []) & Settings.auth.eresources_privgroups).any?
+  end
 end

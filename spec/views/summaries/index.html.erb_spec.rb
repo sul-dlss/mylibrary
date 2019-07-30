@@ -27,17 +27,22 @@ RSpec.describe 'summaries/index.html.erb' do
     )
   end
 
+  let(:user) { instance_double(User, has_eresources_access?: true) }
+
   before do
     controller.singleton_class.class_eval do
       protected
 
       def patron_or_group; end
 
-      helper_method :patron_or_group
+      def current_user; end
+
+      helper_method :patron_or_group, :current_user
     end
 
     stub_template 'shared/_navigation.html.erb' => 'Navigation'
     allow(view).to receive(:patron_or_group).and_return(patron)
+    allow(view).to receive(:current_user).and_return(user)
   end
 
   context 'when the patron is barred' do
