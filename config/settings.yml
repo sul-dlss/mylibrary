@@ -13,4 +13,6 @@ ACCESS_SERVICES_EMAIL: greencirc@stanford.edu
 RECAPTCHA:
   SITE_KEY: 6Lc6BAAAAAAAAChqRbQZcn_yyyyyyyyyyyyyyyyy
   SECRET_KEY: 6Lc6BAAAAAAAAKN3DRm6VA_xxxxxxxxxxxxxxxxx
-  
+
+symphony:
+  host:
