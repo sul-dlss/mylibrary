@@ -3,7 +3,13 @@
 require 'rails_helper'
 
 RSpec.describe FinesController do
-  let(:mock_patron) { instance_double(Patron) }
+  let(:mock_patron) { instance_double(Patron, group?: false, barcode: '1234') }
+
+  let(:fines) do
+    [
+      instance_double(Fine, key: '1', sequence: '1', owed: '12', status: 'BADCHECK')
+    ]
+  end
 
   let(:mock_legacy_client) do
     instance_double(
@@ -39,12 +45,6 @@ RSpec.describe FinesController do
   context 'with an authenticated request' do
     let(:user) do
       { username: 'somesunetid', patron_key: '123' }
-    end
-
-    let(:fines) do
-      [
-        instance_double(Fine, key: '1')
-      ]
     end
 
     let(:checkouts) do
@@ -109,12 +109,6 @@ RSpec.describe FinesController do
   context 'with an authenticated request for group fines' do
     let(:user) do
       { username: 'somesunetid', patron_key: '123' }
-    end
-
-    let(:fines) do
-      [
-        instance_double(Fine, key: '1')
-      ]
     end
 
     let(:checkouts) do

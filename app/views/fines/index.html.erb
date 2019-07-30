@@ -5,29 +5,34 @@
   <%= render partial: 'shared/group_tabs', locals: { self_value: number_to_currency(patron.fines.sum(&:owed)), group_value: number_to_currency(patron.group.fines.sum(&:owed)) } if patron_or_group.group? %>
 <% end %>
 
-
-<div class="page-section">
-  <h2>Payable: <%= number_to_currency(@fines.sum(&:owed)) %></h2>
-    <% if @fines.any? %>
-      <div class="d-none d-md-flex row font-weight-bold list-header">
-        <div class="row col-md-4">
-          <div class="col-md-6">Reason</div>
-          <div class="col-md-6">Amount</div>
-        </div>
-        <div class="row col-md-8">
-          <div class="col-md-7">Title</div>
-          <div class="row col-md-5">
-            <div class="col-md-6">Author</div>
-            <div class="col-md-6 call_number">Call number</div>
-          </div>
+<% if @fines.any? && !params[:payment_pending] %>
+  <div class="page-section">
+    <h2>Payable: <%= number_to_currency(@fines.sum(&:owed)) %></h2>
+    <div>
+    <%= link_to cybersource_pay_url, class: 'btn btn-md btn-info' do %>
+      <%= sul_icon :'sharp-payment-24px' %>
+      <span>Pay <%= number_to_currency(@fines.sum(&:owed)) %> now</span>
+    <% end %>
+    </div>
+    <div class="d-none d-md-flex row font-weight-bold list-header">
+      <div class="row col-md-4">
+        <div class="col-md-6">Reason</div>
+        <div class="col-md-6">Amount</div>
+      </div>
+      <div class="row col-md-8">
+        <div class="col-md-7">Title</div>
+        <div class="row col-md-5">
+          <div class="col-md-6">Author</div>
+          <div class="col-md-6 call_number">Call number</div>
         </div>
       </div>
 
       <ul class="fines list-group">
         <%= render @fines %>
       </ul>
-    <% end %>
-</div>
+    </div>
+  </div>
+<% end %>
 
 <% accruing = @checkouts.select{ |item| item.accrued > 0.0 } %>
 <div class="page-section">

@@ -5,3 +5,5 @@ symws:
   login_params:
     login: 'fake_user'
     password: 'some_password'
+symphony:
+  host: example.com
