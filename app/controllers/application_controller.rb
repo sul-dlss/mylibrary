@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   def patron
     return unless current_user?
 
-    @patron ||= Patron.new(patron_info_response)
+    @patron ||= Patron.new(patron_info_response, current_user)
   end
 
   def patron_or_group

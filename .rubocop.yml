@@ -69,3 +69,7 @@ Layout/IndentFirstHashElement:
 Style/WordArray:
   Exclude:
     - 'config/application.rb'
+
+Naming/PredicateName:
+  Exclude:
+    - 'app/models/user.rb'

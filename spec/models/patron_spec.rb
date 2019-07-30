@@ -8,8 +8,13 @@ RSpec.describe Patron do
       {
         key: '1',
         fields: fields
-      }.with_indifferent_access
+      }.with_indifferent_access,
+      mock_user
     )
+  end
+
+  let(:mock_user) do
+    instance_double(User, has_borrow_direct_access?: true)
   end
 
   let(:fields) do
@@ -346,6 +351,14 @@ RSpec.describe Patron do
 
       it 'includes requests that come from the BorrowDirectRequests class' do
         expect(patron.requests.last[:key]).to be 2
+      end
+
+      context 'without borrow direct access' do
+        let(:mock_user) { instance_double(User, has_borrow_direct_access?: false) }
+
+        it 'excludes requests from BorrowDirect' do
+          expect(patron.requests).to have_attributes(length: 1).and(match([have_attributes(key: 1)]))
+        end
       end
     end
   end

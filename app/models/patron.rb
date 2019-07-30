@@ -2,7 +2,7 @@
 
 # Class to model Patron information
 class Patron
-  attr_reader :record
+  attr_reader :record, :user
 
   CHARGE_LIMIT_THRESHOLD = 25_000
 
@@ -21,8 +21,9 @@ class Patron
     'MXFEE-NO25' => 'Fee borrower'
   }.freeze
 
-  def initialize(record)
+  def initialize(record, user = nil)
     @record = record
+    @user = user
   end
 
   def key
@@ -156,6 +157,7 @@ class Patron
 
   def borrow_direct_requests
     return [] if proxy_borrower? # Proxies can't submit borrow direct requests, so don't check.
+    return [] unless user&.has_borrow_direct_access?
 
     BorrowDirectRequests.new(self).requests
   end

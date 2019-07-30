@@ -1,0 +1,3 @@
+auth:
+  default_privgroups:
+    - stanford:stanford
