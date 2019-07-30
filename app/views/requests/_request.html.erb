@@ -1,38 +1,40 @@
-<li class="row d-flex flex-wrap list-group-item">
-  <div class="d-flex flex-row flex-grow-1 justify-content-between w-100 row col-md-4">
-    <div class="w-50 col-md-6 library" data-sort-library="<%= h request.sort_key(:library) %>">
-      <% if request.ready_for_pickup? %>
-        <span class="text-ready">
-          <%= sul_icon 'sharp-check_circle-24px' %>
-          <span class="d-md-none">Pick up at </span><%= library_name request.pickup_library %>
-        </span>
-      <% else %>
-        <span class="d-md-none">Deliver to </span><%= library_name request.pickup_library %>
-      <% end %>
+<li class="list-group-item">
+  <div class="row d-flex flex-wrap position-relative">
+    <div class="d-flex flex-row flex-grow-1 justify-content-between w-100 row col-md-4">
+      <div class="w-50 col-md-6 library" data-sort-library="<%= h request.sort_key(:library) %>">
+        <% if request.ready_for_pickup? %>
+          <span class="text-ready">
+            <%= sul_icon 'sharp-check_circle-24px' %>
+            <span class="d-md-none">Pick up at </span><%= library_name request.pickup_library %>
+          </span>
+        <% else %>
+          <span class="d-md-none">Deliver to </span><%= library_name request.pickup_library %>
+        <% end %>
 
-    </div>
-    <% if request.expiration_date %>
-      <div class="w-50 col-md-6 text-right text-md-left date" data-sort-date="<%= h request.sort_key(:date) %>">
-        <%= l(request.expiration_date, format: :short) %>
       </div>
-    <% elsif request.fill_by_date %>
-      <div class="w-50 col-md-6 text-right text-md-left date" data-sort-date="<%= h request.sort_key(:date) %>">
-        <%= l(request.fill_by_date, format: :short) %>
-      </div>
-    <% end %>
-  </div>
-  <div class="d-flex flex-grow-1 flex-column flex-md-row w-75 row col-md-8">
-    <h3 class="col-md-7 clamp-2 record-title title text-reset" data-sort-title="<%= h request.sort_key(:title) %>"><%= request.title %></h3>
-    <div class="d-flex flex-row row col-md-5">
-      <div class="w-50 col-md-6 clamp-1 author" data-sort-author="<%= h request.sort_key(:author) %>"><%= request.author %></div>
-      <div class="w-50 col-md-6 call_number" data-sort-call_number="<%= h request.sort_key(:call_number) %>"><%= request.call_number %></div>
+      <% if request.expiration_date %>
+        <div class="w-50 col-md-6 text-right text-md-left date" data-sort-date="<%= h request.sort_key(:date) %>">
+          <%= l(request.expiration_date, format: :short) %>
+        </div>
+      <% elsif request.fill_by_date %>
+        <div class="w-50 col-md-6 text-right text-md-left date" data-sort-date="<%= h request.sort_key(:date) %>">
+          <%= l(request.fill_by_date, format: :short) %>
+        </div>
+      <% end %>
     </div>
-  </div>
-  <div>
-    <button class="btn collapsed" type="button" data-toggle="collapse" data-target="#collapseDetails-<%= request.key.parameterize %>" aria-expanded="false" aria-controls="collapseDetails-<%= request.key.parameterize %>">
-      <span class="expand-icon"><%= sul_icon :'sharp-add-24px' %><span class="sr-only">Expand</span></span>
-      <span class="collapse-icon"><%= sul_icon :'sharp-remove-24px' %><span class="sr-only">Collapse</span></span>
-    </button>
+    <div class="d-flex flex-grow-1 flex-column flex-md-row w-75 row col-md-8">
+      <h3 class="col-md-7 clamp-2 record-title title text-reset" data-sort-title="<%= h request.sort_key(:title) %>"><%= request.title %></h3>
+      <div class="d-flex flex-row row col-md-5">
+        <div class="w-50 col-md-6 clamp-1 author" data-sort-author="<%= h request.sort_key(:author) %>"><%= request.author %></div>
+        <div class="w-50 col-md-6 call_number" data-sort-call_number="<%= h request.sort_key(:call_number) %>"><%= request.call_number %></div>
+      </div>
+    </div>
+    <div>
+      <button class="btn collapsed stretched-link" type="button" data-toggle="collapse" data-target="#collapseDetails-<%= request.key.parameterize %>" aria-expanded="false" aria-controls="collapseDetails-<%= request.key.parameterize %>">
+        <span class="expand-icon"><%= sul_icon :'sharp-add-24px' %><span class="sr-only">Expand</span></span>
+        <span class="collapse-icon"><%= sul_icon :'sharp-remove-24px' %><span class="sr-only">Collapse</span></span>
+      </button>
+    </div>
   </div>
   <div class="collapse w-100" id="collapseDetails-<%= request.key.parameterize %>">
     <div class="row mb-0">
