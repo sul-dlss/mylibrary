@@ -7,11 +7,11 @@ class PaymentsController < ApplicationController
 
   def accept
     redirect_to fines_path(payment_pending: true), flash: {
-      success: (t 'mylibrary.fine_payment.success_html', amount: params[:req_amount])
+      success: (t 'mylibrary.fine_payment.accept_html', amount: params[:req_amount])
     }
   end
 
   def cancel
-    redirect_to fines_path, flash: { error: 'Payment canceled. No payment was made for the payable amount.' }
+    redirect_to fines_path, flash: { error: (t 'mylibrary.fine_payment.cancel_html') }
   end
 end
