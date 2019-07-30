@@ -9,15 +9,8 @@
   <h2>Payable: <%= number_to_currency(@fines.sum(&:owed)) %></h2>
 
   <% if @fines.any? && !params[:payment_pending] %>
-    <div>
-      <% if patron_or_group.can_pay_fines? %>
-        <%= link_to cybersource_pay_url, class: 'btn btn-md btn-inf mb-3o' do %>
-          <%= sul_icon :'sharp-payment-24px' %>
-          <span>Pay <%= number_to_currency(@fines.sum(&:owed)) %> now</span>
-        <% end %>
-      <% else %>
-        <button class="btn btn-info mb-3" disabled><%= sul_icon :'sharp-payment-24px' %> Payments blocked</button>
-      <% end %>
+    <div class="mb-3">
+      <%= render 'fines/pay_all_button' %>
     </div>
 
     <div class="d-none d-md-flex row font-weight-bold list-header">

@@ -55,7 +55,7 @@ class Checkout
   ##
   # Is this item renewable
   def renewable?
-    unseen_renewals_remaining.positive? && renewable_at.past? if renewable_at
+    unseen_renewals_remaining.positive? && renewable_at.past? && !recalled? if renewable_at
   end
 
   def unseen_renewals_remaining

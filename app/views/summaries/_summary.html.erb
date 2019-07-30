@@ -1,15 +1,9 @@
 <div class="page-section">
   <h3><%= sul_icon :'sharp-playlist_add_check-24px', classes: 'lg' %> Checkouts: <%= patron.checkouts.length %><%= " (#{patron.remaining_checkouts} remaining)" if patron.remaining_checkouts %></h3>
 
-  <% if patron.checkouts.any?(&:renewable?) %>
-    <% if patron.can_renew? %>
-      <%= link_to all_eligible_renewals_path(group: params[:group]), class: 'btn btn-info mb-1', method: :post do %>
-        <%= sul_icon :'renew' %> Renew <%= pluralize(patron.checkouts.count(&:renewable?), 'eligible item') %>
-      <% end %>
-    <% else %>
-      <button disabled class="btn btn-info mb-1"><%= sul_icon :'renew' %> Renewals blocked</button>
-    <% end %>
-  <% end %>
+  <div class="mb-1">
+    <%= render 'checkouts/renew_all_button' %>
+  </div>
 
   <% count = patron.checkouts.select(&:recalled?).length %>
   <% if count.positive? %>
@@ -33,18 +27,9 @@
 <div class="page-section">
   <h3><%= sul_icon :'sharp-attach_money-24px', classes: 'lg' %> Fines &amp; fees payable: <%= number_to_currency(patron.fines.sum(&:owed)) %></h3>
 
-  <% if patron.fines.sum(&:owed).positive? %>
-    <div>
-      <% if patron_or_group.can_pay_fines? %>
-        <%= link_to cybersource_pay_url, class: 'btn btn-md btn-info' do %>
-          <%= sul_icon :'sharp-payment-24px' %>
-          <span>Pay <%= number_to_currency(patron.fines.sum(&:owed)) %> now</span>
-        <% end %>
-      <% else %>
-        <button class="btn btn-info" disabled><%= sul_icon :'sharp-payment-24px' %> Payments blocked</button>
-      <% end %>
-    </div>
-  <% end %>
+  <div class="mb-1">
+    <%= render 'fines/pay_all_button' %>
+  </div>
 
   <% accruing = patron.checkouts.sum(&:accrued) %>
   <% if accruing.positive? %>
