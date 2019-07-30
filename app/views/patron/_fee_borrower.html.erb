@@ -7,7 +7,7 @@
   <% end %>
 
   <dt class="col-4 col-md-2 font-weight-normal">Status:</dt>
-  <dd class="col-8 col-md-10 patron-status"><%= link_to_if patron.barred?, patron.status, contact_path, class: 'navbar-link', 'data-toggle' =>  'modal', 'data-target' => '#contact-modal-window' %></dd>
+  <dd class="col-8 col-md-10 patron-status"><%= link_to_if patron.barred?, patron.status, contact_path, class: 'navbar-link', 'data-mylibrary-modal' => 'trigger' %></dd>
 
   <% if patron.expired_date %>
     <dt class="col-4 col-md-2 font-weight-normal">Privileges expire:</dt>
