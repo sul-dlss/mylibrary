@@ -40,6 +40,12 @@ class Payment
     fee_pay_info && Time.strptime(fee_pay_info['paymentDate'], '%Y-%m-%d')
   end
 
+  def sort_key
+    return Time.zone.parse(fee_pay_info['paymentDate']) if fee_pay_info && fee_pay_info['paymentDate']
+
+    Request::END_OF_DAYS
+  end
+
   def resolution
     return fee_pay_info['paymentTypeDescription'] if fee_pay_info['paymentTypeDescription']
     return 'Paid' if payment_amount

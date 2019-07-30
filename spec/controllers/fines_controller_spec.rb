@@ -22,9 +22,18 @@ RSpec.describe FinesController do
     '<LookupPatronInfoResponse>
       <feeInfo>
         <billNumber>1</billNumber>
+        <feePaymentInfo>
+          <paymentDate>2019-01-01</paymentDate>
+        </feePaymentInfo>
        </feeInfo>
        <feeInfo>
         <billNumber>2</billNumber>
+       </feeInfo>
+       <feeInfo>
+        <billNumber>3</billNumber>
+        <feePaymentInfo>
+          <paymentDate>2019-02-01</paymentDate>
+        </feePaymentInfo>
        </feeInfo>
     </LookupPatronInfoResponse>'
   end
@@ -85,7 +94,13 @@ RSpec.describe FinesController do
       it 'shows the correct number of payments in the list' do
         get(:index)
 
-        expect(assigns(:payments).length).to eq 2
+        expect(assigns(:payments).length).to eq 3
+      end
+
+      it 'shows the payments sorted appropriately (bills w/o a payment date at the top the reverse date sort)' do
+        get(:index)
+
+        expect(assigns(:payments).map(&:key)).to eq(%w[2 3 1])
       end
     end
 

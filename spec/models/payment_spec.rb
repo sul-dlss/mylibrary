@@ -187,4 +187,26 @@ RSpec.describe Payment do
       expect(payment.resolution).to eq 'Unknown'
     end
   end
+
+  describe '#sort_key' do
+    context 'when there is no payment date' do
+      let(:record) { { 'billNumber' => '5' } }
+
+      it { expect(payment.sort_key).to eq Request::END_OF_DAYS }
+    end
+
+    context 'when there is a payment date' do
+      let(:record) do
+        {
+          'feePaymentInfo' => {
+            'paymentDate' => '2014-2-23'
+          }
+        }
+      end
+
+      it 'is the parsed payment date' do
+        expect(payment.sort_key).to eq(Time.zone.parse('2014-2-23'))
+      end
+    end
+  end
 end
