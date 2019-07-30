@@ -4,6 +4,28 @@
 class Payment
   attr_reader :record
 
+  UNPAID_TYPES = {
+    'AUTOREFUND' => 'Removed',
+    'CANCEL' => 'Cancelled',
+    'CLMS-RTND' => 'Returned',
+    'FORGIVEN' => 'Forgiven',
+    'LIB-ERROR' => 'Removed',
+    'REFUND' => 'Removed',
+    'RETURNED' => 'Returned',
+    'U-REPLACED' => 'Removed',
+    'TRANS-BILL' => 'Removed',
+    'XREMBILL' => 'Removed',
+    'NONE' => 'Removed'
+  }.freeze
+
+  PAID_TYPES = {
+    'CARDSWIPE' => 'Paid using a credit or debit card',
+    'CASH' => 'Paid',
+    'CHECK' => 'Paid',
+    'CREDITACCT' => 'Paid',
+    'CREDITCARD' => 'Paid using a credit or debit card'
+  }.freeze
+
   def initialize(record)
     @record = record
   end
@@ -47,9 +69,8 @@ class Payment
   end
 
   def resolution
-    return fee_pay_info['paymentTypeDescription'] if fee_pay_info['paymentTypeDescription']
-    return fee_pay_info['paymentTypeID'] if fee_pay_info['paymentTypeID']
-    return 'Paid' if payment_amount
+    return PAID_TYPES.fetch(fee_pay_info['paymentTypeID'], '') if PAID_TYPES.key?(fee_pay_info['paymentTypeID'])
+    return UNPAID_TYPES.fetch(fee_pay_info['paymentTypeID'], '') if UNPAID_TYPES.key?(fee_pay_info['paymentTypeID'])
 
     'Unknown'
   end

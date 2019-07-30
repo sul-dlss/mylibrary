@@ -14,9 +14,7 @@ RSpec.describe Payment do
       'feePaymentInfo' => {
         'paymentDate' => '2013-12-23',
         'paymentAmount' => '21.00',
-        'paymentTypeID' => 'CREDITCARD',
-        'paymentTypeDescription' =>
-          'Payment using credit or debit card via MyAccount'
+        'paymentTypeID' => 'CREDITCARD'
       },
       'feeItemInfo' => {
         'itemLibraryID' => 'GREEN',
@@ -63,13 +61,13 @@ RSpec.describe Payment do
     end
   end
 
-  context 'when paymentTypeDescription' do
+  context 'when payment resolution is a PAID_TYPE' do
     it 'has a resolution desctiption' do
-      expect(payment.resolution).to eq 'Payment using credit or debit card via MyAccount'
+      expect(payment.resolution).to eq 'Paid using a credit or debit card'
     end
   end
 
-  context 'when no paymentTypeDescription' do
+  context 'when no payment resolution is an UNPAID_TYPE' do
     let(:record) do
       {
         'billNumber' => '5',
@@ -79,18 +77,34 @@ RSpec.describe Payment do
         'feePaymentInfo' => {
           'paymentDate' => '2013-12-23',
           'paymentAmount' => '21.00',
-          'paymentTypeID' => 'FORGIVEN',
-          'paymentTypeDescription' => nil
-        },
-        'feeItemInfo' => {
-          'itemLibraryID' => 'GREEN',
-          'title' => 'California : a history'
+          'paymentTypeID' => 'FORGIVEN'
         }
       }
     end
 
     it 'has a resolution desctiption' do
-      expect(payment.resolution).to eq 'FORGIVEN'
+      expect(payment.resolution).to eq 'Forgiven'
+    end
+  end
+
+  context 'when payment resolution is unknow' do
+    let(:record) do
+      {
+        'billNumber' => '5',
+        'billReasonDescription' => 'Overdue recall',
+        'amount' => '21.00',
+        'dateBilled' => '2013-11-25',
+        'feePaymentInfo' => {
+          'paymentDate' => '2013-12-23',
+          'paymentAmount' => '21.00',
+          'paymentTypeID' => 'GROMET',
+          'paymentTypeDescription' => nil
+        }
+      }
+    end
+
+    it 'has a resolution desctiption' do
+      expect(payment.resolution).to eq 'Unknown'
     end
   end
 
@@ -112,9 +126,7 @@ RSpec.describe Payment do
           {
             'paymentDate' => '2018-11-03',
             'paymentAmount' => '1.00',
-            'paymentTypeID' => 'CREDITCARD',
-            'paymentTypeDescription' =>
-              'Payment using credit or debit card via MyAccount'
+            'paymentTypeID' => 'CREDITCARD'
           }
         ],
         'feeItemInfo' => {
@@ -139,8 +151,8 @@ RSpec.describe Payment do
         'feePaymentInfo' => {
           'paymentDate' => '2014-2-23',
           'paymentAmount' => '0.01',
-          'paymentTypeDescription' =>
-            'Fee cancelled'
+          'paymentTypeID' =>
+            'CANCEL'
         }
       }
     end
@@ -178,7 +190,7 @@ RSpec.describe Payment do
     end
 
     it 'has a resolution desctiption' do
-      expect(payment.resolution).to eq 'Fee cancelled'
+      expect(payment.resolution).to eq 'Cancelled'
     end
 
     it 'can tell if they paid their bill using a card' do
