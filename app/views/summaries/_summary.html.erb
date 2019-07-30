@@ -1,7 +1,7 @@
 <div class="page-section">
   <h3><%= sul_icon :'sharp-playlist_add_check-24px', classes: 'lg' %> Checkouts: <%= patron.checkouts.length %><%= " (#{patron.remaining_checkouts} remaining)" if patron.remaining_checkouts %></h3>
 
-  <% if patron.checkouts.any?(&:renewable?) %>
+  <% if patron.can_renew? && patron.checkouts.any?(&:renewable?) %>
     <%= link_to all_eligible_renewals_path(group: params[:group]), class: 'btn btn-info', method: :post do %>
       <%= sul_icon :'renew' %> Renew <%= pluralize(patron.checkouts.count(&:renewable?), 'eligible item') %>
     <% end %>

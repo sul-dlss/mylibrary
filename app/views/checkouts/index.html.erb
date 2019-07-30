@@ -26,7 +26,7 @@
       </div>
     </div>
 
-    <% if other_checkouts.any?(&:renewable?) %>
+    <% if patron.can_renew? && other_checkouts.any?(&:renewable?) %>
       <%= link_to all_eligible_renewals_path(group: params[:group]), class: 'btn btn-info mb-3', method: :post do %>
         <%= sul_icon :'renew' %> Renew <%= pluralize(other_checkouts.count(&:renewable?), 'eligible item') %>
       <% end %>

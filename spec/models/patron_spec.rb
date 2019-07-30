@@ -87,6 +87,22 @@ RSpec.describe Patron do
     expect(patron.remaining_checkouts).to be_nil
   end
 
+  it 'is not blocked' do
+    expect(patron).not_to be_blocked
+  end
+
+  it 'can renew material' do
+    expect(patron.can_renew?).to eq true
+  end
+
+  it 'can request material' do
+    expect(patron.can_modify_requests?).to eq true
+  end
+
+  it 'can pay fines' do
+    expect(patron.can_pay_fines?).to eq true
+  end
+
   context 'when there is not an email resource in the patron record' do
     before do
       fields[:address1] = []
@@ -146,6 +162,32 @@ RSpec.describe Patron do
 
   describe 'a blocked patron' do
     before do
+      fields[:standing]['key'] = 'BLOCKED'
+    end
+
+    it 'can have unexpired borrowing privileges' do
+      expect(patron.expired?).to be false
+    end
+
+    it 'is blocked' do
+      expect(patron).to be_blocked
+    end
+
+    it 'cannot renew material' do
+      expect(patron.can_renew?).to eq false
+    end
+
+    it 'cannot request material' do
+      expect(patron.can_modify_requests?).to eq false
+    end
+
+    it 'can pay fines' do
+      expect(patron.can_pay_fines?).to eq true
+    end
+  end
+
+  describe 'a barred patron' do
+    before do
       fields[:standing]['key'] = 'BARRED'
     end
 
@@ -160,6 +202,18 @@ RSpec.describe Patron do
     end
     it 'can be barred' do
       expect(patron.barred?).to be true
+    end
+
+    it 'cannot renew material' do
+      expect(patron.can_renew?).to eq false
+    end
+
+    it 'cannot request material' do
+      expect(patron.can_modify_requests?).to eq false
+    end
+
+    it 'cannot pay fines' do
+      expect(patron.can_pay_fines?).to eq false
     end
   end
 

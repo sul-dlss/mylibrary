@@ -57,6 +57,15 @@ class Patron
     end
   end
 
+  def blocked?
+    # proxy borrowers inherit from the group
+    if proxy_borrower?
+      group.standing == 'BLOCKED'
+    else
+      standing == 'BLOCKED'
+    end
+  end
+
   def expired?
     return false unless expired_date
 
@@ -150,6 +159,24 @@ class Patron
     return 'patron/fee_borrower' if fee_borrower?
 
     'patron/patron'
+  end
+
+  def can_renew?
+    return false if barred? || blocked? || expired?
+
+    true
+  end
+
+  def can_modify_requests?
+    return false if barred? || blocked? || expired?
+
+    true
+  end
+
+  def can_pay_fines?
+    return false if barred?
+
+    true
   end
 
   private
