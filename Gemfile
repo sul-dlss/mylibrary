@@ -50,6 +50,8 @@ gem 'borrow_direct'
 
 gem 'recaptcha'
 
+gem 'ruby-oci8'
+
 group :production do
   gem 'mysql2', '~> 0.5'
   gem 'newrelic_rpm'
