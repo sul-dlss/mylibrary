@@ -5,27 +5,25 @@ require 'rails_helper'
 RSpec.describe Payment do
   subject(:payment) { described_class.new(record.with_indifferent_access) }
 
-  context 'with an item associated with payment record' do
-    let(:record) do
-      {
-        'billNumber' => '5',
-        'billReasonDescription' => 'Overdue recall',
-        'amount' => '21.00',
-        'dateBilled' => '2013-11-25',
-        'feePaymentInfo' => {
-          'paymentDate' => '2013-12-23',
-          'paymentAmount' => '21.00',
-          'paymentTypeID' => 'CREDITCARD',
-          'paymentTypeDescription' =>
-            'Payment using credit or debit card via MyAccount'
-        },
-        'feeItemInfo' => {
-          'itemLibraryID' => 'GREEN',
-          'title' => 'California : a history'
-        }
+  let(:record) do
+    {
+      'billNumber' => '5',
+      'billReasonDescription' => 'Overdue recall',
+      'amount' => '21.00',
+      'dateBilled' => '2013-11-25',
+      'feePaymentInfo' => {
+        'paymentDate' => '2013-12-23',
+        'paymentAmount' => '21.00',
+        'paymentTypeID' => 'CREDITCARD'
+      },
+      'feeItemInfo' => {
+        'itemLibraryID' => 'GREEN',
+        'title' => 'California : a history'
       }
-    end
+    }
+  end
 
+  context 'with an item associated with payment record' do
     it 'has a key' do
       expect(payment.key).to eq '5'
     end
@@ -58,12 +56,55 @@ RSpec.describe Payment do
       expect(payment.payment_date).to eq Time.strptime('2013-12-23', '%Y-%m-%d')
     end
 
-    it 'has a resolution desctiption' do
-      expect(payment.resolution).to eq 'Payment using credit or debit card via MyAccount'
-    end
-
     it 'can tell if they paid their bill using a card' do
       expect(payment).to be_paid_fee
+    end
+  end
+
+  context 'when payment resolution is a paid type' do
+    it 'has a resolution description' do
+      expect(payment.resolution).to eq 'Paid by credit card'
+    end
+  end
+
+  context 'when payment resolution is forgiven' do
+    let(:record) do
+      {
+        'billNumber' => '5',
+        'billReasonDescription' => 'Overdue recall',
+        'amount' => '21.00',
+        'dateBilled' => '2013-11-25',
+        'feePaymentInfo' => {
+          'paymentDate' => '2013-12-23',
+          'paymentAmount' => '21.00',
+          'paymentTypeID' => 'FORGIVEN'
+        }
+      }
+    end
+
+    it 'has a resolution description' do
+      expect(payment.resolution).to eq 'Forgiven'
+    end
+  end
+
+  context 'when payment resolution is unknown' do
+    let(:record) do
+      {
+        'billNumber' => '5',
+        'billReasonDescription' => 'Overdue recall',
+        'amount' => '21.00',
+        'dateBilled' => '2013-11-25',
+        'feePaymentInfo' => {
+          'paymentDate' => '2013-12-23',
+          'paymentAmount' => '21.00',
+          'paymentTypeID' => 'GROMET',
+          'paymentTypeDescription' => nil
+        }
+      }
+    end
+
+    it 'has a resolution description' do
+      expect(payment.resolution).to eq 'Unknown'
     end
   end
 
@@ -85,9 +126,7 @@ RSpec.describe Payment do
           {
             'paymentDate' => '2018-11-03',
             'paymentAmount' => '1.00',
-            'paymentTypeID' => 'CREDITCARD',
-            'paymentTypeDescription' =>
-              'Payment using credit or debit card via MyAccount'
+            'paymentTypeID' => 'CREDITCARD'
           }
         ],
         'feeItemInfo' => {
@@ -112,8 +151,8 @@ RSpec.describe Payment do
         'feePaymentInfo' => {
           'paymentDate' => '2014-2-23',
           'paymentAmount' => '0.01',
-          'paymentTypeDescription' =>
-            'Fee cancelled'
+          'paymentTypeID' =>
+            'CANCEL'
         }
       }
     end
@@ -150,27 +189,12 @@ RSpec.describe Payment do
       expect(payment.payment_date).to eq Time.strptime('2014-2-23', '%Y-%m-%d')
     end
 
-    it 'has a resolution desctiption' do
-      expect(payment.resolution).to eq 'Fee cancelled'
+    it 'has a resolution description' do
+      expect(payment.resolution).to eq 'Removed'
     end
 
     it 'can tell if they paid their bill using a card' do
       expect(payment).not_to be_paid_fee
-    end
-  end
-
-  context 'when there is no payment description but there is a payment amount' do
-    let(:record) do
-      {
-        'feePaymentInfo' => {
-          'paymentDate' => '2014-2-23',
-          'paymentAmount' => '0.01'
-        }
-      }
-    end
-
-    it 'shows the resolution as Paid' do
-      expect(payment.resolution).to eq 'Paid'
     end
   end
 
