@@ -14,8 +14,8 @@ RSpec.describe PaymentsController do
 
     it 'flashes a success message' do
       expect(flash[:success]).to eq '<span class="font-weight-bold">Success!</span> $10.00 paid. '\
-                                                'A receipt was sent to the email on your account. ' \
-                                                'Payment may take up to 5 minutes to appear in your payment history.'
+                                      'A receipt has been sent to the email address associated with your account. '\
+                                      'Payment may take up to 5 minutes to appear in your payment history.'
     end
   end
 
