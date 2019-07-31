@@ -7,19 +7,17 @@
       In transit
     </div>
   </div>
-  <div class="d-flex flex-grow-1 flex-column flex-md-row w-75 row col-md-8">
-    <h3 class="col-md-7 clamp-3 record-title title text-reset"><%= borrow_direct_request.title %></h3>
-    <div class="d-flex flex-row row col-md-5">
-      <div class="w-50 col-md-12 col-lg-6"></div>
-      <div class="w-50 col-md-12 col-lg-6"></div>
-    </div>
+  <div class="order-1 order-md-1 d-flex col-10 col-md-5 align-items-baseline">
+    <h3 class="clamp-3 record-title title text-reset"><%= borrow_direct_request.title %></h3>
   </div>
-  <div>
-    <button class="btn collapsed" type="button" data-toggle="collapse" data-target="#collapseRequest-<%= borrow_direct_request.key %>" aria-expanded="false" aria-controls="collapseRequest-<%= borrow_direct_request.key %>">
-      <span class="expand-icon"><%= sul_icon :'sharp-add-24px' %><span class="sr-only">Expand</span></span>
-      <span class="collapse-icon"><%= sul_icon :'sharp-remove-24px' %><span class="sr-only">Collapse</span></span>
-    </button>
+  <div class="order-3 order-md-2 d-flex flex-row flex-grow-1 row col-md-3">
+    <div class="w-50 col-md-12 col-lg-6"></div>
+    <div class="w-50 col-md-12 col-lg-6"></div>
   </div>
+  <button class="col-2 col-md order-2 order-md-3 d-flex col-2 col-md btn collapsed" type="button" data-toggle="collapse" data-target="#collapseRequest-<%= borrow_direct_request.key %>" aria-expanded="false" aria-controls="collapseRequest-<%= borrow_direct_request.key %>">
+    <span class="expand-icon"><%= sul_icon :'sharp-add-24px' %><span class="sr-only">Expand</span></span>
+    <span class="collapse-icon"><%= sul_icon :'sharp-remove-24px' %><span class="sr-only">Collapse</span></span>
+  </button>
   <div class="collapse w-100" id="collapseRequest-<%= borrow_direct_request.key %>">
     <dl class="row mb-0">
       <dt class="col-3 offset-1 col-md-2 offset-md-2">Requested:</dt>
