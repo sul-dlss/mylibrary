@@ -19,7 +19,7 @@ class Checkout
   end
 
   def due_date
-    fields['dueDate'] && Time.zone.parse(fields['dueDate'])
+    recall_due_date || original_due_date
   end
 
   def days_overdue
@@ -191,5 +191,13 @@ class Checkout
 
   def call
     fields['item']['fields']['call']['fields']
+  end
+
+  def original_due_date
+    fields['dueDate'] && Time.zone.parse(fields['dueDate'])
+  end
+
+  def recall_due_date
+    fields['recallDueDate'] && Time.zone.parse(fields['recallDueDate'])
   end
 end

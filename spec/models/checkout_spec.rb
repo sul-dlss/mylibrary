@@ -156,6 +156,11 @@ RSpec.describe Checkout do
   context 'with a record that has been recalled' do
     before do
       fields[:recalledDate] = '2019-07-11T13:59:00-07:00'
+      fields[:recallDueDate] = '2019-08-11T13:59:00-07:00'
+    end
+
+    it 'has an updated due date' do
+      expect(checkout.due_date.strftime('%m/%d/%Y')).to eq '08/11/2019'
     end
 
     it 'has a recalled date' do
