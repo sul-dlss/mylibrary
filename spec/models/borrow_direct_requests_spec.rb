@@ -14,7 +14,9 @@ RSpec.describe BorrowDirectRequests do
       date_submitted: Time.zone.today - 3.days
     )
   end
-  let(:completed_request) { instance_double(BorrowDirect::RequestQuery::Item, request_status: 'COMPLETED') }
+  let(:completed_request) do
+    instance_double(BorrowDirect::RequestQuery::Item, request_status: 'COMPLETED', title: 'BD Request Title')
+  end
   let(:mock_requests) do
     instance_double(BorrowDirect::RequestQuery, requests: [in_process_request, completed_request])
   end
@@ -66,6 +68,22 @@ RSpec.describe BorrowDirectRequests do
       end
 
       it { expect(request).not_to be_active }
+    end
+
+    describe '#sort_key' do
+      let(:request) { BorrowDirectRequests::Request.new(completed_request) }
+
+      context 'when title' do
+        it { expect(request.sort_key(:title)).to eq 'BD Request Title' }
+      end
+
+      context 'when date' do
+        it { expect(request.sort_key(:date)).to eq "#{Request::END_OF_DAYS.strftime('%FT%T')}---BD Request Title" }
+      end
+
+      context 'when any other sort value' do
+        it { expect(request.sort_key(:something_else)).to eq '' }
+      end
     end
   end
 end

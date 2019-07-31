@@ -39,6 +39,17 @@ class BorrowDirectRequests
       request_number
     end
 
+    def sort_key(sort)
+      case sort
+      when :title
+        title
+      when :date
+        [::Request::END_OF_DAYS.strftime('%FT%T'), title].join('---')
+      else
+        ''
+      end
+    end
+
     def expiration_date; end
 
     def fill_by_date; end
