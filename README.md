@@ -57,6 +57,24 @@ $ uid=someuser rails s
 
 Note, again, that the user must exist in symphony web services as well; this is only a bypass for the shibboleth authentication.
 
+## Fixture users
+
+Some integration tests use fixture users (stored in `spec/support/fixtures`) using some webmock magic to route
+API requests to the appropriate fixture (see `spec/support/fake_symphony.rb`). These fixtures can be created
+using the supplied rake task if you have the patron key:
+
+```
+$ rake fixtures:create[521183]
+```
+
+Note: these fixture objects are a snapshot of Symphony data frozen in time, and almost certainly do not reflect
+the current data. This makes them useful for integration tests, but confusing to try to compare test output
+with what you may see if you poke around the application in development.
+
+Additional note: some fixture users have even been modified from their original form for ease of testing, perhaps
+in ways that would be impossible to achieve by manipulating data in Symphony (e.g. `521181` has some fines, but
+the patron standing is marked as 'OK' so we can reuse the patron for many different types of tests)
+
 ## Testing
 
 The test suite (with RuboCop style enforcement) will be run with the default rake task (also run on travis)
