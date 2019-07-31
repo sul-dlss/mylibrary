@@ -23,7 +23,7 @@ RSpec.describe 'Contact form', type: :feature do
 
     describe 'visible', js: true do
       before do
-        click_link 'Contact Access Services'
+        click_link 'Circulation & Privileges'
       end
 
       it 'is shown' do
@@ -67,7 +67,7 @@ RSpec.describe 'Contact form', type: :feature do
 
     describe 'contact links in the header' do
       it 'does not show the modal form link' do
-        expect(page).not_to have_css('.navbar-link', text: 'Contact Access Services')
+        expect(page).not_to have_css('.navbar-link', text: 'Circulation & Privileges')
       end
 
       it 'does not show the telephone number' do

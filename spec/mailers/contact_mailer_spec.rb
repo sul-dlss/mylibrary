@@ -20,7 +20,7 @@ RSpec.describe ContactMailer do
       end
 
       it 'has the correct subject' do
-        expect(mail.subject).to eq 'Access Services Question/Comment from My Library App'
+        expect(mail.subject).to eq 'Circulation & Privileges Question/Comment from My Library App'
       end
 
       it 'has the correct from field' do
