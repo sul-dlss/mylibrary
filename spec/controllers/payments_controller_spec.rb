@@ -29,8 +29,8 @@ RSpec.describe PaymentsController do
     end
 
     it 'flashes an error message' do
-      expect(flash[:error]).to eq '<span class="font-weight-bold">Payment Canceled.</span> No payment was made '\
-                                          '-- your payable balance remains unchanged.'
+      expect(flash[:error]).to eq '<span class="font-weight-bold">Payment canceled.</span> No payment was made '\
+                                          '&mdash; your payable balance remains unchanged.'
     end
   end
 end

@@ -66,4 +66,4 @@ en:
       success: Thank you! Your feedback has been sent.
     fine_payment:
       accept_html: <span class="font-weight-bold">Success!</span> $%{amount} paid. A receipt has been sent to the email address associated with your account. Payment may take up to 5 minutes to appear in your payment history.
-      cancel_html: <span class="font-weight-bold">Payment Canceled.</span> No payment was made -- your payable balance remains unchanged.
+      cancel_html: <span class="font-weight-bold">Payment canceled.</span> No payment was made &mdash; your payable balance remains unchanged.
