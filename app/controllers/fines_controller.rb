@@ -8,7 +8,7 @@ class FinesController < ApplicationController
     @fines = fines
     @checkouts = checkouts
     @payments = if payments
-                  Array.wrap(payments).map { |payment| Payment.new(payment) }
+                  Array.wrap(payments).map { |payment| Payment.new(payment) }.sort_by(&:sort_key).reverse
                 else
                   []
                 end
