@@ -79,6 +79,23 @@ class Payment
     'fines/payment'
   end
 
+  # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
+  def sort_options(key)
+    sort_key = case key
+               when :payment_date
+                 [payment_date.strftime('%FT%T'), item_title, bill_description]
+               when :item_title
+                 [item_title, payment_date, bill_description]
+               when :bill_amount
+                 [bill_amount, payment_date, item_title, bill_description]
+               when :bill_description
+                 [bill_description, payment_date.strftime('%FT%T'), item_title]
+               end
+
+    sort_key.join('---')
+  end
+  # rubocop:enable Metrics/AbcSize,Metrics/MethodLength
+
   private
 
   def fee_pay_info

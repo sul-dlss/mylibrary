@@ -10,7 +10,7 @@
     <feePaymentInfo>
       <paymentDate>2013-12-23</paymentDate>
       <paymentAmount ns2:currency="USD">21.00</paymentAmount>
-      <paymentTypeDescription>Payment using credit or debit card via MyAccount</paymentTypeDescription>
+      <paymentTypeID>CREDITCARD</paymentTypeID>
     </feePaymentInfo>
     <feeItemInfo>
       <itemLibraryID>GREEN</itemLibraryID>
@@ -25,7 +25,7 @@
     <feePaymentInfo>
       <paymentDate>2013-12-23</paymentDate>
       <paymentAmount ns2:currency="USD">0.01</paymentAmount>
-      <paymentTypeDescription>Fee cancelled</paymentTypeDescription>
+      <paymentTypeID>FORGIVEN</paymentTypeID>
     </feePaymentInfo>
   </feeInfo>
 </LookupPatronInfoResponse>
