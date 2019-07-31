@@ -198,21 +198,6 @@ RSpec.describe Payment do
     end
   end
 
-  context 'when there is no payment description but there is a payment amount' do
-    let(:record) do
-      {
-        'feePaymentInfo' => {
-          'paymentDate' => '2014-2-23',
-          'paymentAmount' => '0.01'
-        }
-      }
-    end
-
-    it 'shows the resolution as Paid' do
-      expect(payment.resolution).to eq 'Paid'
-    end
-  end
-
   context 'when there is no payment description and no payment amount' do
     let(:record) do
       {
