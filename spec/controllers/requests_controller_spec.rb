@@ -40,6 +40,22 @@ RSpec.describe RequestsController do
 
       expect(assigns(:requests)).to eq requests
     end
+
+    describe 'BorrowDirect requests' do
+      let(:requests) do
+        [
+          instance_double(Request, key: '1', sort_key: nil),
+          instance_double(BorrowDirectRequests::Request, key: 'sta-1', sort_key: nil)
+        ]
+      end
+
+      it 'are returned along with normal requests' do
+        get(:index)
+
+        expect(assigns(:requests).length).to eq 2
+      end
+    end
+
     describe '#update' do
       let(:api_response) { instance_double('Response', status: 200, content_type: :json) }
 
