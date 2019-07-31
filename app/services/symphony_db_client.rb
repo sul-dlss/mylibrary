@@ -6,7 +6,6 @@ class SymphonyDbClient
 
   def initialize(patron_key)
     @patron_key = patron_key.to_i
-    @group_circrecord_keys = []
   end
 
   def connection
@@ -30,11 +29,11 @@ class SymphonyDbClient
   end
 
   def group_circrecord_keys
-    return @group_circrecord_keys if @group_circrecord_keys.any?
+    @group_circrecord_keys ||= begin
+      cursor.exec
 
-    cursor.exec
-    cursor.fetch { |row| @group_circrecord_keys << row.join(':') }
-    @group_circrecord_keys
+      cursor.enum_for(:fetch).map { |row| row.join(':') }
+    end
   end
 
   private
