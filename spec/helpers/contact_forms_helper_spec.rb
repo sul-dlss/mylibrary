@@ -6,7 +6,7 @@ RSpec.describe ContactFormsHelper do
   describe '#contact_form_to' do
     context 'when code is not provided' do
       it 'creates a default contact' do
-        expect(helper.contact_form_to).to eq 'Access Services '\
+        expect(helper.contact_form_to).to eq 'Circulation &amp; Privileges '\
           '(<a href="mailto:greencirc@stanford.edu">greencirc@stanford.edu</a>)'
       end
     end
