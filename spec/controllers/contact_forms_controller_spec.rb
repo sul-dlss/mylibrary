@@ -29,7 +29,7 @@ RSpec.describe ContactFormsController, type: :controller do
         url: '/summaries',
         contact_form_to: 'greencirc@stanford.edu'
       }
-      expect(flash[:success]).to eq 'Thank you! Someone from Access Services will be in touch with you soon.'
+      expect(flash[:success]).to eq 'Thank you! Library staff will be in touch with you soon.'
     end
   end
 

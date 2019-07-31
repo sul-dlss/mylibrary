@@ -48,7 +48,7 @@ RSpec.describe 'Contact form', type: :feature do
 
         it 'displays a success message' do
           expect(page).to have_css('div.alert-success',
-                                   text: 'Thank you! Someone from Access Services will be in touch with you soon.')
+                                   text: 'Thank you! Library staff will be in touch with you soon.')
         end
       end
     end

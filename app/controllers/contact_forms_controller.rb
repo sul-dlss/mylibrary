@@ -19,7 +19,7 @@ class ContactFormsController < ApplicationController
       params[:name] = patron.display_name
       params[:email] = patron.email
       ContactMailer.submit_feedback(params, request.remote_ip).deliver_now
-      flash[:success] = 'Thank you! Someone from Access Services will be in touch with you soon.'
+      flash[:success] = 'Thank you! Library staff will be in touch with you soon.'
     end
     respond_to do |format|
       format.json { render json: flash }
