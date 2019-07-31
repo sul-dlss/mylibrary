@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe SessionsController do
-  let(:mock_client) { instance_double(SymphonyClient) }
+  let(:mock_client) { instance_double(SymphonyClient, ping: true) }
 
   before do
     allow(SymphonyClient).to receive(:new).and_return(mock_client)
@@ -56,6 +56,24 @@ RSpec.describe SessionsController do
   describe 'GET index' do
     it 'renders the index template' do
       expect(get(:index)).to render_template 'index'
+    end
+
+    it 'pings symphony to make sure it is up' do
+      get(:index)
+
+      expect(assigns(:symphony_ok)).to eq true
+    end
+
+    context 'when symphony is down' do
+      before do
+        allow(mock_client).to receive(:ping).and_return(false)
+      end
+
+      it 'assigns false to symphony_ok' do
+        get(:index)
+
+        expect(assigns(:symphony_ok)).to eq false
+      end
     end
   end
 
