@@ -75,4 +75,24 @@ RSpec.describe 'Contact form', type: :feature do
       end
     end
   end
+
+  describe 'form header' do
+    before { login_as(username: 'SUPER1', patron_key: '521181') }
+
+    context 'when the standard Circ & Privs link' do
+      before { visit contact_path }
+
+      it 'is "Contact Circuation & Privileges"' do
+        expect(page).to have_css('h2', text: 'Contact Circulation & Privileges')
+      end
+    end
+
+    context 'when the library specific link' do
+      before { visit contact_path(library: 'LATHROP') }
+
+      it 'is "Contact Library"' do
+        expect(page).to have_css('h2', text: 'Contact library')
+      end
+    end
+  end
 end
