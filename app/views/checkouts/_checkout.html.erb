@@ -43,9 +43,12 @@
       </div>
     <% end %>
     <dl class="row mb-0">
-      <% if checkout.claimed_returned? %>
-        <dt class="col-11 offset-1 col-md-10 offset-md-2">Claim review is in process</dt>
-        <dd></dd>
+      <% if !patron.can_renew? %>
+          <dt class="col-3 offset-1 col-md-2 offset-md-2">Can I renew?</dt>
+          <dd class="col-8">No. Your status is blocked (or barred).</dd>
+      <% elsif !checkout.renewable? %>
+          <dt class="col-3 offset-1 col-md-2 offset-md-2">Can I renew?</dt>
+          <dd class="col-8"><%= checkout.non_renewable_reason %></dd>
       <% end %>
       <% if params[:group] %>
         <dt class="col-3 offset-1 col-md-2 offset-md-2">Borrower:</dt>

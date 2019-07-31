@@ -43,23 +43,34 @@ RSpec.describe 'Checkout Page', type: :feature do
     expect(page).to have_css '.renewable-indicator .sul-icons'
   end
 
-  it 'hides some data behind a toggle', js: true do
-    visit checkouts_path
+  context 'when data is hidden behind a toggle' do
+    it 'shows the renew data when the list item is expanded', js: true do
+      visit checkouts_path
 
-    within(first('ul.checkouts li')) do
-      expect(page).not_to have_css('dl', visible: true)
-      expect(page).not_to have_css('dt', text: 'Borrowed:', visible: true)
-      click_button 'Expand'
-      expect(page).to have_css('dl', visible: true)
-      expect(page).to have_css('dt', text: 'Borrowed:', visible: true)
-      expect(page).to have_css('dt', text: 'Days overdue:', visible: true)
-      expect(page).to have_css('dd', text: /^\d+$/, visible: true)
+      within('ul.checkouts li:nth-child(4)') do
+        click_button 'Expand'
+        expect(page).to have_css('dt', text: 'Can I renew?', visible: true)
+      end
     end
 
-    within('ul.checkouts li:nth-child(5)') do
-      click_button 'Expand'
-      expect(page).to have_css('dt', text: 'Fines accrued:', visible: true)
-      expect(page).to have_css('dd', text: '$30.00', visible: true)
+    it 'shows other circulation status data when the list item is expanded', js: true do
+      visit checkouts_path
+
+      within(first('ul.checkouts li')) do
+        expect(page).not_to have_css('dl', visible: true)
+        expect(page).not_to have_css('dt', text: 'Borrowed:', visible: true)
+        click_button 'Expand'
+        expect(page).to have_css('dl', visible: true)
+        expect(page).to have_css('dt', text: 'Borrowed:', visible: true)
+        expect(page).to have_css('dt', text: 'Days overdue:', visible: true)
+        expect(page).to have_css('dd', text: /^\d+$/, visible: true)
+      end
+
+      within('ul.checkouts li:nth-child(5)') do
+        click_button 'Expand'
+        expect(page).to have_css('dt', text: 'Fines accrued:', visible: true)
+        expect(page).to have_css('dd', text: '$30.00', visible: true)
+      end
     end
   end
 
