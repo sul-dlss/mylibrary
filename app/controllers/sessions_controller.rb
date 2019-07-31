@@ -3,6 +3,8 @@
 # :nodoc:
 class SessionsController < ApplicationController
   def index
+    @symphony_ok = symphony_client.ping
+
     redirect_to summaries_url if current_user?
   end
 

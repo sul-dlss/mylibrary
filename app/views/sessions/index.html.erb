@@ -1,18 +1,26 @@
 <h1>Log in to your library account</h1>
 <p>See your checkouts, requests made from SearchWorks, and any fines or fees you owe.</p>
 
-<div class="row">
-  <div class="page-section col-12 col-sm-6">
-    <h2>Stanford students, faculty, staff</h2>
-    <%= link_to 'Log in with SUNet ID', login_by_sunetid_url, class: 'btn btn-primary' %>
-  </div>
+<% if @symphony_ok %>
+  <div class="row">
+    <div class="page-section col-12 col-sm-6">
+      <h2>Stanford students, faculty, staff</h2>
+      <%= link_to 'Log in with SUNet ID', login_by_sunetid_url, class: 'btn btn-primary' %>
+    </div>
 
-  <div class="page-section col-12 col-sm-6">
-    <h2>Proxy, fee, or courtesy accounts</h2>
-    <%= link_to 'Log in with PIN', login_url, class: 'btn btn-secondary' %>
-    <%= link_to 'Request a PIN', reset_pin_path, class: 'btn btn-link' %>
+    <div class="page-section col-12 col-sm-6">
+      <h2>Proxy, fee, or courtesy accounts</h2>
+      <%= link_to 'Log in with PIN', login_url, class: 'btn btn-secondary' %>
+      <%= link_to 'Request a PIN', reset_pin_path, class: 'btn btn-link' %>
+    </div>
   </div>
-</div>
+<% else %>
+  <div class="page-section">
+    <h2>Temporarily unavailable</h2>
+    <p>We're sorry, my Library Account is unavailable while its underlying systems are undergoing maintenance. </p>
+    <p>If you need help with your account, email <a href="mailto:greencirc@stanford.edu">greencirc@stanford.edu</a> or call (650) 723-1493.</p>
+  </div>
+<% end %>
 
 <div class="page-section">
   <h2>Policies &amp; information</h2>

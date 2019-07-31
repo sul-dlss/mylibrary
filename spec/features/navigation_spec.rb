@@ -9,6 +9,7 @@ RSpec.describe 'Navigation', type: :feature do
       patron_info: {
         'fields' => fields
       }.with_indifferent_access,
+      ping: true,
       session_token: '1a2b3c4d5e6f8g9h0j'
     )
   end
