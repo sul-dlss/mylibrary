@@ -18,7 +18,8 @@ class SymphonyDbClient
   end
 
   def statement
-    'select catalog_key, call_sequence, copy_number, charge_number from charge where user_key = :user_key and usergroup_key >=0'
+    'select catalog_key, call_sequence, copy_number, charge_number from charge' \
+    ' where user_key = :user_key and usergroup_key >=0'
   end
 
   def cursor
