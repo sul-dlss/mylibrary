@@ -336,6 +336,54 @@ RSpec.describe Patron do
       end
     end
 
+    describe '#group_checkouts' do
+      let(:symphony_db_client) { instance_double(SymphonyDbClient, group_circrecord_keys: ['1234:1:1']) }
+
+      before do
+        fields['circRecordList'] = [
+          { key: '1234:1:1' },
+          { key: '5678:2:1' }
+        ]
+        allow(SymphonyDbClient).to receive(:new).and_return(symphony_db_client)
+      end
+
+      it 'filters group checkouts using query from Symphony database' do
+        expect(patron.group_checkouts).to have_attributes(length: 1).and(include(have_attributes(key: '1234:1:1')))
+      end
+    end
+
+    describe '#group_requests' do
+      let(:symphony_db_client) { instance_double(SymphonyDbClient, group_holdrecord_keys: ['1234']) }
+
+      before do
+        fields['holdRecordList'] = [
+          { key: '1234' },
+          { key: '5678' }
+        ]
+        allow(BorrowDirectRequests).to receive(:new).and_return(
+          instance_double(BorrowDirectRequests, requests: [])
+        )
+        allow(SymphonyDbClient).to receive(:new).and_return(symphony_db_client)
+      end
+
+      it 'filters group requests using query from Symphony database' do
+        expect(patron.group_requests).to have_attributes(length: 1).and(include(have_attributes(key: '1234')))
+      end
+    end
+
+    describe '#group_fines' do
+      before do
+        fields['blockList'] = [
+          { key: '1234:1' },
+          { key: '5678:2' }
+        ]
+      end
+
+      it 'filters group fines' do
+        expect(patron.group_fines).to eq []
+      end
+    end
+
     describe '#group?' do
       context 'when there are group members' do
         let(:member_list) do
@@ -371,6 +419,12 @@ RSpec.describe Patron do
         expect(patron.checkouts).to include a_kind_of(Checkout).and(have_attributes(key: 1))
       end
     end
+
+    describe '#group_checkouts' do
+      it 'returns a list of group checkouts for the patron' do
+        expect(patron.group_checkouts).to include a_kind_of(Checkout).and(have_attributes(key: 1))
+      end
+    end
   end
 
   context 'with fines' do
@@ -381,6 +435,12 @@ RSpec.describe Patron do
     describe '#fines' do
       it 'returns a list of fines for the patron' do
         expect(patron.fines).to include a_kind_of(Fine).and(have_attributes(key: 1))
+      end
+    end
+
+    describe '#group_fines' do
+      it 'returns a list of group fines for the patron' do
+        expect(patron.group_fines).to include a_kind_of(Fine).and(have_attributes(key: 1))
       end
     end
   end
@@ -400,6 +460,16 @@ RSpec.describe Patron do
 
       it 'includes requests that come from the BorrowDirectRequests class' do
         expect(patron.requests.last[:key]).to be 2
+      end
+    end
+
+    describe '#group_requests' do
+      it 'returns a list of group requests for the patron' do
+        expect(patron.group_requests).to include a_kind_of(Request).and(have_attributes(key: 1))
+      end
+
+      it 'includes group requests that come from the BorrowDirectRequests class' do
+        expect(patron.group_requests.last[:key]).to be 2
       end
     end
   end
