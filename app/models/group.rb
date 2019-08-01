@@ -24,7 +24,7 @@ class Group < Patron
   end
 
   def checkouts
-    @checkouts ||= member_list.flat_map(&:checkouts)
+    @checkouts ||= member_list.flat_map(&:group_checkouts)
   end
 
   def fines
@@ -36,17 +36,23 @@ class Group < Patron
   end
 
   def member_list
-    @member_list ||= members.reject { |patron| patron.key == key || patron.sponsor? }
+    @member_list ||= members.reject { |patron| patron.key == key }
   end
 
   def member_list_names
     @member_list_names ||= begin
-      member_list.each_with_object({}) { |member, hash| hash[member.key] = member.first_name }
+      member_list.each_with_object({}) do |member, hash|
+        hash[member.key] = if member.sponsor?
+                             member.display_name
+                           else
+                             member.first_name.gsub(/(\A\w+\s)\(P=([a-zA-Z]+)\)\z/, '\2')
+                           end
+      end
     end
   end
 
   def member_name(key)
-    member_list_names.fetch(key, '').gsub(/(\A\w+\s)\(P=([a-zA-Z]+)\)\z/, '\2')
+    member_list_names.fetch(key, '')
   end
 
   def to_partial_path

@@ -152,6 +152,16 @@ class Patron
     group.member_list.any?
   end
 
+  def group_checkouts
+    return checkouts if proxy_borrower?
+
+    checkouts.select { |checkout| group_circrecord_keys.include?(checkout.key) }
+  end
+
+  def group_circrecord_keys
+    @group_circrecord_keys ||= SymphonyDbClient.new(key).group_circrecord_keys
+  end
+
   def to_partial_path
     return 'patron/expired' if expired?
     return 'patron/fee_borrower' if fee_borrower?
