@@ -2,6 +2,7 @@
 
 # :nodoc:
 class SessionsController < ApplicationController
+  before_action :set_home_page_flash_message, only: :index
   def index
     @symphony_ok = symphony_client.ping
 
@@ -35,5 +36,15 @@ class SessionsController < ApplicationController
     else
       redirect_to root_url
     end
+  end
+
+  private
+
+  def set_home_page_flash_message
+    return unless Settings.home_page_flash_message_html
+
+    # rubocop:disable Rails/OutputSafety
+    flash.now[:success] = Settings.home_page_flash_message_html.html_safe
+    # rubocop:enable Rails/OutputSafety
   end
 end

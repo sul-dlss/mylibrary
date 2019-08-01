@@ -14,5 +14,12 @@ RECAPTCHA:
   SITE_KEY: 6Lc6BAAAAAAAAChqRbQZcn_yyyyyyyyyyyyyyyyy
   SECRET_KEY: 6Lc6BAAAAAAAAKN3DRm6VA_xxxxxxxxxxxxxxxxx
 
+home_page_flash_message_html: |-
+  <h1 class="h3 alert-heading">Welcome to the new My Library Account!</h1>
+
+  <p>My Account has been completely re-designed. It shows more information, highlights items that need attention, requires fewer steps, and is easier to use on mobile devices.</p>
+
+  <p class="mb-0">Use the feedback link to let us know what you think!</p>
+
 symphony:
   host:
