@@ -88,7 +88,7 @@ $(document).on('turbolinks:load', function(){
     var collapsed = $(e.currentTarget).hasClass('collapsed');
     ga('send', 'event', {
       eventCategory: 'Toggle Details',
-      eventAction: collapsed ? 'open' : close,
+      eventAction: collapsed ? 'open' : 'close',
       transport: 'beacon'
     });
   });
