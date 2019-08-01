@@ -7,6 +7,8 @@ class SymphonyDbClient
     ' where user_key = :user_key and usergroup_key >=0'
   REQUESTS_QUERY =
     'select key from hold where user_key = :user_key and usergroup_key >=0'
+  FINES_QUERY =
+    'select user_key, bill_number from bill where user_key = :user_key and usergroup_key >=0'
 
   def connection
     @connection ||= begin
@@ -32,6 +34,16 @@ class SymphonyDbClient
     requests_cursor.exec
 
     requests_cursor.enum_for(:fetch).map { |row| row.join('') }
+  rescue OCIException => e
+    Honeybadger.notify(e)
+    []
+  end
+
+  def group_billrecord_keys(patron_key)
+    requests_cursor = cursor(FINES_QUERY, patron_key)
+    requests_cursor.exec
+
+    requests_cursor.enum_for(:fetch).map { |row| row.join(':') }
   rescue OCIException => e
     Honeybadger.notify(e)
     []

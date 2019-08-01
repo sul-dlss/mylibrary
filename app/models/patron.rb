@@ -179,7 +179,7 @@ class Patron
   end
 
   def group_billrecord_keys
-    []
+    @group_billrecord_keys ||= SymphonyDbClient.new.group_billrecord_keys(key)
   end
 
   def to_partial_path

@@ -372,15 +372,18 @@ RSpec.describe Patron do
     end
 
     describe '#group_fines' do
+      let(:symphony_db_client) { instance_double(SymphonyDbClient, group_billrecord_keys: ['1234:5']) }
+
       before do
         fields['blockList'] = [
-          { key: '1234:1' },
+          { key: '1234:5' },
           { key: '5678:2' }
         ]
+        allow(SymphonyDbClient).to receive(:new).and_return(symphony_db_client)
       end
 
       it 'filters group fines' do
-        expect(patron.group_fines).to eq []
+        expect(patron.group_fines).to have_attributes(length: 1).and(include(have_attributes(key: '1234:5')))
       end
     end
 
