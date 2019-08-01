@@ -230,6 +230,7 @@ class Checkout
   # nil means "unlimited" for seenRenewalsRemaining
   def seen_renewals_remaining
     fields['seenRenewalsRemaining'] || Float::INFINITY
+  end
 
   def original_due_date
     fields['dueDate'] && Time.zone.parse(fields['dueDate'])
