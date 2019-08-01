@@ -16,14 +16,14 @@ class SymphonyDbClient
     @connection.logoff
   end
 
-  def statement
+  def checkouts_query
     'select catalog_key, call_sequence, copy_number, charge_number from charge' \
     ' where user_key = :user_key and usergroup_key >=0'
   end
 
   def cursor
     @cursor ||= begin
-      c = connection.parse(statement)
+      c = connection.parse(checkouts_query)
       c.bind_param(':user_key', patron_key, Integer)
     end
   end
@@ -33,6 +33,25 @@ class SymphonyDbClient
       cursor.exec
 
       cursor.enum_for(:fetch).map { |row| row.join(':') }
+    end
+  end
+
+  def requests_query
+    'select key from hold where user_key = :user_key and usergroup_key >=0'
+  end
+
+  def requests_cursor
+    @requests_cursor ||= begin
+      c = connection.parse(requests_query)
+      c.bind_param(':user_key', patron_key, Integer)
+    end
+  end
+
+  def group_holdrecord_keys
+    @group_holdrecord_keys ||= begin
+      requests_cursor.exec
+
+      requests_cursor.enum_for(:fetch).map { |row| row.join('') }
     end
   end
 
