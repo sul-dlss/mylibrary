@@ -2,11 +2,11 @@
 
 # Oracle client to query Symphony database
 class SymphonyDbClient
-  attr_reader :patron_key
-
-  def initialize(patron_key)
-    @patron_key = patron_key.to_i
-  end
+  CHECKOUTS_QUERY =
+    'select catalog_key, call_sequence, copy_number, charge_number from charge' \
+    ' where user_key = :user_key and usergroup_key >=0'
+  REQUESTS_QUERY =
+    'select key from hold where user_key = :user_key and usergroup_key >=0'
 
   def connection
     @connection ||= begin
@@ -17,47 +17,24 @@ class SymphonyDbClient
                     end
   end
 
-  def logoff
-    @connection.logoff
+  def group_circrecord_keys(patron_key)
+    checkouts_cursor = cursor(CHECKOUTS_QUERY, patron_key)
+    checkouts_cursor.exec
+
+    checkouts_cursor.enum_for(:fetch).map { |row| row.join(':') }
+  rescue OCIException => e
+    Honeybadger.notify(e)
+    []
   end
 
-  def checkouts_query
-    'select catalog_key, call_sequence, copy_number, charge_number from charge' \
-    ' where user_key = :user_key and usergroup_key >=0'
-  end
+  def group_holdrecord_keys(patron_key)
+    requests_cursor = cursor(REQUESTS_QUERY, patron_key)
+    requests_cursor.exec
 
-  def cursor
-    @cursor ||= begin
-      c = connection.parse(checkouts_query)
-      c.bind_param(':user_key', patron_key, Integer)
-    end
-  end
-
-  def group_circrecord_keys
-    @group_circrecord_keys ||= begin
-      cursor.exec
-
-      cursor.enum_for(:fetch).map { |row| row.join(':') }
-    end
-  end
-
-  def requests_query
-    'select key from hold where user_key = :user_key and usergroup_key >=0'
-  end
-
-  def requests_cursor
-    @requests_cursor ||= begin
-      c = connection.parse(requests_query)
-      c.bind_param(':user_key', patron_key, Integer)
-    end
-  end
-
-  def group_holdrecord_keys
-    @group_holdrecord_keys ||= begin
-      requests_cursor.exec
-
-      requests_cursor.enum_for(:fetch).map { |row| row.join('') }
-    end
+    requests_cursor.enum_for(:fetch).map { |row| row.join('') }
+  rescue OCIException => e
+    Honeybadger.notify(e)
+    []
   end
 
   private
@@ -67,6 +44,13 @@ class SymphonyDbClient
   end
 
   def connection_settings
+    return '/' unless config
+
     "#{config.username}/#{config.password}@//#{config.host}/#{config.database}"
+  end
+
+  def cursor(query, patron_key)
+    c = connection.parse(query)
+    c.bind_param(':user_key', patron_key.to_i, Integer)
   end
 end

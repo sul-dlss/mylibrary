@@ -159,7 +159,7 @@ class Patron
   end
 
   def group_circrecord_keys
-    @group_circrecord_keys ||= SymphonyDbClient.new(key).group_circrecord_keys
+    @group_circrecord_keys ||= SymphonyDbClient.new.group_circrecord_keys(key)
   end
 
   def group_requests
@@ -169,7 +169,7 @@ class Patron
   end
 
   def group_holdrecord_keys
-    @group_holdrecord_keys ||= SymphonyDbClient.new(key).group_holdrecord_keys
+    @group_holdrecord_keys ||= SymphonyDbClient.new.group_holdrecord_keys(key)
   end
 
   def group_fines
