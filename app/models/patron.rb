@@ -162,6 +162,16 @@ class Patron
     @group_circrecord_keys ||= SymphonyDbClient.new(key).group_circrecord_keys
   end
 
+  def group_requests
+    return requests if proxy_borrower?
+
+    requests.select { |request| group_holdrecord_keys.include?(request.key) }
+  end
+
+  def group_holdrecord_keys
+    @group_holdrecord_keys ||= SymphonyDbClient.new(key).group_holdrecord_keys
+  end
+
   def to_partial_path
     return 'patron/expired' if expired?
     return 'patron/fee_borrower' if fee_borrower?

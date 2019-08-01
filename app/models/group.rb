@@ -32,7 +32,7 @@ class Group < Patron
   end
 
   def requests
-    @requests ||= member_list.flat_map(&:requests)
+    @requests ||= member_list.flat_map(&:group_requests)
   end
 
   def member_list
