@@ -59,4 +59,31 @@ RSpec.describe 'Proxy User', type: :feature do
     expect(page).not_to have_text('Aspects of grammatical architecture')
     expect(page).not_to have_text('SecondproxyLN')
   end
+
+  context 'with faculty stuff on behalf of the group' do
+    let(:symphony_db_client) do
+      instance_double(SymphonyDbClient,
+                      group_circrecord_keys: ['12838155:2:1:1'],
+                      group_holdrecord_keys: ['1675130'],
+                      group_billrecord_keys: ['1234:5'])
+    end
+
+    before do
+      allow(SymphonyDbClient).to receive(:new).and_return(symphony_db_client)
+    end
+
+    it 'show the sponsor checkouts on behalf of the group' do
+      visit checkouts_path
+      click_link 'Other proxies'
+      expect(page).to have_text('The architecture of nothingness')
+      expect(page).not_to have_text('Soft living architecture')
+    end
+
+    it 'shows the sponsor requests on behalf of the group' do
+      visit requests_path
+      click_link 'Other proxies'
+      expect(page).to have_text('Architecture, festival and the city')
+      expect(page).not_to have_text('theorizing the practice of architecture')
+    end
+  end
 end
