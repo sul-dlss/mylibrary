@@ -142,6 +142,31 @@ $(document).on('turbolinks:load', function(){
   $('form.contact-form button[type="submit"]').on('click', contactFormSubmission);
   $('.request-edit form button[type="submit"]').on('click', changeRequestSubmission);
 
+  $('[data-pay-button]').on('click', function(e) {
+    ga('send', 'event', {
+      eventCategory: 'Pay fine',
+      eventAction: 'click to pay',
+      transport: 'beacon'
+    });
+  });
+
+  $('body .alert-success:contains("Payment may take up to 5 minutes to appear in your payment history")').each(function(i, val) {
+    ga('send', 'event', {
+      eventCategory: 'Pay fine',
+      eventAction: 'success',
+      transport: 'beacon'
+    });
+  });
+
+  $('body .alert-danger:contains("Payment canceled")').each(function(i, val) {
+    ga('send', 'event', {
+      eventCategory: 'Pay fine',
+      eventAction: 'canceled',
+      transport: 'beacon'
+    });
+  });
+
+
   // Things that may happen in a modal
   $('#mylibrary-modal').on('shown.bs.modal', function(e) {
     $('form.contact-form button[type="submit"]').on('click', contactFormSubmission);
