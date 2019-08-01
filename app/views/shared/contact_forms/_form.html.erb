@@ -7,12 +7,12 @@
   <%= form_tag contact_path, method: :post, class: 'contact-form', role: 'form' do %>
     <%= hidden_field_tag :contact_form_to, library_email(params[:library]) %>
     <dl class="row">
-      <dt class="col-2">Source:<dt>
+      <dt class="col-2">Source:</dt>
       <dd class="col-10 reporting-from-field"><%= request.referer %></dd>
       <%= hidden_field_tag :url, request.referer, id: 'contact_url', class:"reporting-from-field" %>
-      <dt class="col-2">From:<dt>
+      <dt class="col-2">From:</dt>
       <dd class="col-10"><%= patron.display_name %></dd>
-      <dt class="col-2">To:<dt>
+      <dt class="col-2">To:</dt>
       <dd class="col-10"><%= contact_form_to(params[:library]) %></dd>
     </dl>
     <div class="row">
