@@ -88,8 +88,6 @@ class Patron
       user_profile
     elsif proxy_borrower?
       'Research group proxy'
-    elsif sponsor?
-      'Research group sponsor'
     end
   end
 
