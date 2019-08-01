@@ -28,7 +28,7 @@ class Group < Patron
   end
 
   def fines
-    @fines ||= member_list.flat_map(&:fines)
+    @fines ||= member_list.flat_map(&:group_fines)
   end
 
   def requests

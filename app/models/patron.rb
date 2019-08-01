@@ -172,6 +172,16 @@ class Patron
     @group_holdrecord_keys ||= SymphonyDbClient.new(key).group_holdrecord_keys
   end
 
+  def group_fines
+    return fines if proxy_borrower?
+
+    fines.select { |fine| group_billrecord_keys.include?(fine.key) }
+  end
+
+  def group_billrecord_keys
+    []
+  end
+
   def to_partial_path
     return 'patron/expired' if expired?
     return 'patron/fee_borrower' if fee_borrower?
