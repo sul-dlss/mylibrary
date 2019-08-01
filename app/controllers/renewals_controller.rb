@@ -7,14 +7,22 @@ class RenewalsController < ApplicationController
   before_action :authenticate_user!
 
   def create
-    @response = symphony_client.renew_item(*renew_item_params)
-    case @response.status
-    when 200
-      flash[:success] = t 'mylibrary.renew_item.success_html', title: params['title']
-    else
-      flash[:error] = t 'mylibrary.renew_item.error_html', title: params['title']
+    response, data = symphony_client.renew_item(*renew_item_params)
+    checkout = Checkout.new(data) if data
+
+    respond_to do |format|
+      format.html do
+        case response.status
+        when 200
+          flash[:success] = t 'mylibrary.renew_item.success_html', title: params['title']
+        else
+          flash[:error] = t 'mylibrary.renew_item.error_html', title: params['title']
+        end
+        redirect_to checkouts_path
+      end
+
+      format.json { render json: { key: checkout.key, type: 'checkout', html: (render_to_string(checkout, formats: ['html']) if checkout) } }
     end
-    redirect_to checkouts_path
   end
 
   def all_eligible

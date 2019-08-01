@@ -43,11 +43,14 @@ class SymphonyClient
 
   ITEM_RESOURCES = 'bib{title,author},item{*,bib{title,author},call{sortCallNumber,dispCallNumber}}'
 
+  def circ_record_fields(item_details = false)
+    "*,circulationRule{loanPeriod{periodType{key}},renewFromPeriod},#{ITEM_RESOURCES if item_details}"
+  end
+
   def patron_linked_resources_fields(item_details = {})
     [
       "holdRecordList{*,#{ITEM_RESOURCES if item_details[:holdRecordList]}}",
-      'circRecordList{*,circulationRule{loanPeriod{periodType{key}},renewFromPeriod},' \
-        "#{ITEM_RESOURCES if item_details[:circRecordList]}}",
+      "circRecordList{#{circ_record_fields(item_details[:circRecordList])}}",
       "blockList{*,#{ITEM_RESOURCES if item_details[:blockList]}}",
       'groupSettings{*,responsibility}'
     ]
@@ -86,19 +89,27 @@ class SymphonyClient
   end
 
   def renew_item(resource, item_key)
-    response = authenticated_request('/circulation/circRecord/renew', method: :post, json: {
-      item: {
-        resource: resource,
-        key: item_key
+    response = authenticated_request('/circulation/circRecord/renew',
+      method: :post,
+      json: {
+        item: {
+          resource: resource,
+          key: item_key
+        }
+      },
+      params: {
+        includeFields: ["circRecord{#{circ_record_fields(true)}}"],
       }
-    })
+    )
 
-    response
+    data = JSON.parse(response.body) rescue {}
+
+    [response, data['circRecord']]
   end
 
   def renew_items(checkouts)
     checkouts.each_with_object(success: [], error: []) do |checkout, status|
-      response = renew_item(checkout.resource, checkout.item_key)
+      response, _circRecord = renew_item(checkout.resource, checkout.item_key)
 
       case response.status
       when 200

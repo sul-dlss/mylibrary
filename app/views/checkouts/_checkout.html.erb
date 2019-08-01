@@ -1,4 +1,4 @@
-<li class="list-group-item <%= list_group_item_status_for_checkout(checkout)%>">
+<li class="list-group-item <%= list_group_item_status_for_checkout(checkout)%>" data-key="<%= checkout.key %>" data-type="checkout">
   <div class="row d-flex flex-wrap position-relative">
     <div class="d-flex flex-row flex-grow-1 justify-content-between align-items-baseline w-100 row col-md-4">
       <div class="w-50 col-md-12 col-lg-6 status" data-sort-status="<%= h checkout.sort_key(:status) %>">
@@ -31,7 +31,7 @@
     <% if patron.can_renew? && checkout.renewable? %>
       <div class="row">
         <div class="col-11 offset-1 col-md-10 offset-md-2">
-          <%= form_tag renewals_path, method: :post do %>
+          <%= form_with url: renewals_path, method: :post, remote: true, data: { type: 'json' } do %>
             <%= hidden_field_tag :resource, checkout.resource %>
             <%= hidden_field_tag :item_key, checkout.item_key %>
             <%= hidden_field_tag :title, checkout.title %>
