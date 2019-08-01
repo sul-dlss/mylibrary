@@ -107,4 +107,20 @@ $(document).on('turbolinks:load', function(){
       transport: 'beacon'
     });
   });
+
+  function contactFormSubmission(e) {
+    var contactFormTo = $(e.currentTarget).closest('form').find('[data-contact-form-to-value]').text();
+    ga('send', 'event', {
+      eventCategory: 'Contact form',
+      eventAction: contactFormTo,
+      transport: 'beacon'
+    });
+  }
+  $('form.contact-form button[type="submit"]').on('click', contactFormSubmission);
+
+  // Things that may happen in a modal
+  $('#mylibrary-modal').on('shown.bs.modal', function(e) {
+    $('form.contact-form button[type="submit"]').on('click', contactFormSubmission);
+  });
+
 });
