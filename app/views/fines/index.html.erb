@@ -9,24 +9,33 @@
   <h2>Payable: <%= number_to_currency(@fines.sum(&:owed)) %></h2>
 
   <% if @fines.any? && !params[:payment_pending] %>
-    <div class="mb-3">
-      <%= render 'fines/pay_all_button' %>
-    </div>
-
-    <div class="d-none d-md-flex row font-weight-bold list-header">
-      <div class="row col-md-4">
-        <div class="col-md-12 col-lg-6">Reason</div>
-        <div class="col-md-12 col-lg-6">Amount</div>
+      <% unless params[:group] && patron.sponsor? %>
+        <div class="mb-3">
+          <%= render 'fines/pay_all_button' %>
+        </div>
+      <% else %>
+        <div class="pb-3">
+          Fines can be paid in My Library Account only by the borrower who accrued them. <br />
+          To pay group fines using iJournal,
+          <%= link_to contact_path, data: { 'mylibrary-modal' => 'trigger' } do %>
+              contact Circulation & Privileges.
+          <% end %>
+        </div>
+      <% end %>
+      <div class="d-none d-md-flex row font-weight-bold list-header">
+        <div class="row col-md-4">
+          <div class="col-md-12 col-lg-6">Reason</div>
+          <div class="col-md-12 col-lg-6">Amount</div>
+        </div>
+        <div class="col-md-5">Title</div>
+        <div class="row col-md-3">
+          <div class="col-md-12 col-lg-6">Author</div>
+          <div class="col-md-12 col-lg-6 call_number">Call number</div>
+        </div>
       </div>
-      <div class="col-md-5">Title</div>
-      <div class="row col-md-3">
-        <div class="col-md-12 col-lg-6">Author</div>
-        <div class="col-md-12 col-lg-6 call_number">Call number</div>
-      </div>
-    </div>
-    <ul class="fines list-group">
-      <%= render @fines %>
-    </ul>
+      <ul class="fines list-group">
+        <%= render @fines %>
+      </ul>
   <% end %>
 </div>
 
