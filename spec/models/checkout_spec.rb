@@ -156,6 +156,11 @@ RSpec.describe Checkout do
   context 'with a record that has been recalled' do
     before do
       fields[:recalledDate] = '2019-07-11T13:59:00-07:00'
+      fields[:recallDueDate] = '2019-08-11T13:59:00-07:00'
+    end
+
+    it 'has an updated due date' do
+      expect(checkout.due_date.strftime('%m/%d/%Y')).to eq '08/11/2019'
     end
 
     it 'has a recalled date' do
@@ -353,5 +358,13 @@ RSpec.describe Checkout do
 
   it 'does not have a claimed returned date' do
     expect(checkout.claims_returned_date).to be_nil
+  end
+
+  context 'when the library is SUL' do
+    before { fields[:library] = { key: 'SUL' } }
+
+    it 'represents itself as coming from BorrowDirect' do
+      expect(checkout.library).to eq 'BORROW_DIRECT'
+    end
   end
 end

@@ -72,6 +72,7 @@ module Mylibrary
       'ARS' => 'Archive of Recorded Sound',
       'ART' => 'Art & Architecture Library (Bowes)',
       'BIOLOGY' => 'Biology Library (Falconer)',
+      'BORROW_DIRECT' => 'BorrowDirect',
       'BUSINESS' => 'Business Library',
       'CHEMCHMENG' => 'Chemistry & ChemEng Library (Swain)',
       'CLASSICS' => 'Classics Library',

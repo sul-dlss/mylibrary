@@ -4,6 +4,7 @@
 class Checkout
   attr_reader :record
 
+  BORROW_DIRECT_CODE = 'BORROW_DIRECT'
   SHORT_TERM_LOAN_PERIODS = %w[HOURLY].freeze
 
   def initialize(record)
@@ -19,7 +20,7 @@ class Checkout
   end
 
   def due_date
-    fields['dueDate'] && Time.zone.parse(fields['dueDate'])
+    recall_due_date || original_due_date
   end
 
   def days_overdue
@@ -114,7 +115,10 @@ class Checkout
   end
 
   def library
-    fields['library']['key']
+    code = fields['library']['key']
+    return BORROW_DIRECT_CODE if code == 'SUL'
+
+    code
   end
 
   def catkey
@@ -226,5 +230,12 @@ class Checkout
   # nil means "unlimited" for seenRenewalsRemaining
   def seen_renewals_remaining
     fields['seenRenewalsRemaining'] || Float::INFINITY
+
+  def original_due_date
+    fields['dueDate'] && Time.zone.parse(fields['dueDate'])
+  end
+
+  def recall_due_date
+    fields['recallDueDate'] && Time.zone.parse(fields['recallDueDate'])
   end
 end

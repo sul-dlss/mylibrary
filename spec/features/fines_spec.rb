@@ -62,7 +62,7 @@ RSpec.describe 'Fines Page', type: :feature do
       within('ul.payments') do
         expect(page).to have_css('li', count: 2)
         expect(page).to have_css('li h3', text: 'California : a history')
-        expect(page).to have_css('li .description', text: 'Overdue recall')
+        expect(page).to have_css('li .bill_description', text: 'Overdue recall')
       end
     end
 
@@ -79,6 +79,22 @@ RSpec.describe 'Fines Page', type: :feature do
         end
       end
     end
+
+    it 'is sortable', js: true do
+      visit fines_path
+
+      within '#payments' do
+        expect(page).to have_css('.dropdown-toggle', text: 'Sort (Date paid)')
+        find('[data-sort="bill_description"]').click
+
+        expect(page).to have_css('.dropdown-toggle', text: 'Sort (Reason)')
+        expect(page).to have_css('.active[data-sort="bill_description"]', count: 2, visible: false)
+
+        within(first('ul.payments li')) do
+          expect(page).to have_css('.bill_description', text: /Overdue recall/)
+        end
+      end
+    end
   end
 
   context 'when user has a single payment' do
@@ -92,7 +108,7 @@ RSpec.describe 'Fines Page', type: :feature do
       within('ul.payments') do
         expect(page).to have_css('li', count: 1)
         expect(page).to have_css('li h3', text: 'No item associated with this payment')
-        expect(page).to have_css('li .description', text: 'Privileges fee')
+        expect(page).to have_css('li .bill_description', text: 'Privileges fee')
       end
     end
 

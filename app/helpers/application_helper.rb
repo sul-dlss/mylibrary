@@ -62,4 +62,8 @@ module ApplicationHelper
   def library_email(code)
     Mylibrary::Application.config.library_contact[code] || Settings.ACCESS_SERVICES_EMAIL
   end
+
+  def proxy_login_header
+    'Proxy, fee, or courtesy accounts'
+  end
 end

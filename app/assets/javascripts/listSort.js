@@ -19,7 +19,17 @@ $(document).on('turbolinks:load', function(){
       ],
   };
 
+  var paymentOptions = {
+    valueNames: [
+      { name: 'bill_description', attr: 'data-sort-bill_description' },
+      { name: 'item_title', attr: 'data-sort-item_title' },
+      { name: 'payment_date', attr: 'data-sort-payment_date' },
+      { name: 'bill_amount', attr: 'data-sort-bill_amount'},
+    ],
+  };
+
   $('#checkouts').listSort(checkoutOptions);
+  $('#payments').listSort(paymentOptions);
   $('#requests').listSort(requestOptions);
 });
 

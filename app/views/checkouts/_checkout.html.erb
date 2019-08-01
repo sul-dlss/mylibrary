@@ -1,5 +1,5 @@
 <li class="list-group-item <%= list_group_item_status_for_checkout(checkout)%>">
-  <div class="row d-flex flex-wrap position-relative">
+  <div class="row d-flex flex-wrap position-relative justify-content-between">
     <div class="d-flex flex-row flex-grow-1 justify-content-between align-items-baseline w-100 row col-md-4">
       <div class="w-50 col-md-12 col-lg-6 status" data-sort-status="<%= h checkout.sort_key(:status) %>">
         <%= render_checkout_status(checkout) %>
@@ -13,19 +13,17 @@
         <%= today_with_time_or_date(checkout.due_date, short_term: checkout.short_term_loan?) %>
       </div>
     </div>
-    <div class="d-flex flex-grow-1 flex-column flex-md-row w-75 row col-md-8">
-      <h3 class="col-md-7 clamp-3 record-title title text-reset" data-sort-title="<%= h checkout.sort_key(:title) %>"><%= checkout.title %></h3>
-      <div class="d-flex flex-row row col-md-5">
-        <div class="w-50 col-md-12 col-lg-6 clamp-1 author" data-sort-author="<%= h checkout.sort_key(:author) %>"><%= checkout.author %></div>
-        <div class="w-50 col-md-12 col-lg-6 call_number" data-sort-call_number="<%= h checkout.sort_key(:call_number) %>"><%= checkout.call_number %></div>
-      </div>
+    <div class="order-1 order-md-1 d-flex col-10 col-md-5 align-items-baseline">
+      <h3 class="clamp-3 record-title title text-reset" data-sort-title="<%= h checkout.sort_key(:title) %>"><%= checkout.title %></h3>
     </div>
-    <div>
-      <button class="btn collapsed stretched-link" type="button" data-toggle="collapse" data-target="#collapseDetails-<%= checkout.key.parameterize %>" aria-expanded="false" aria-controls="collapseDetails-<%= checkout.key.parameterize %>">
-        <span class="expand-icon"><%= sul_icon :'sharp-add-24px' %><span class="sr-only">Expand</span></span>
-        <span class="collapse-icon"><%= sul_icon :'sharp-remove-24px' %><span class="sr-only">Collapse</span></span>
-      </button>
+    <div class="order-3 order-md-2 d-flex flex-row flex-grow-1 row col-md-3">
+      <div class="w-50 col-md-12 col-lg-6 clamp-1 author" data-sort-author="<%= h checkout.sort_key(:author) %>"><%= checkout.author %></div>
+      <div class="w-50 col-md-12 col-lg-6 call_number" data-sort-call_number="<%= h checkout.sort_key(:call_number) %>"><%= checkout.call_number %></div>
     </div>
+    <button class="col-2 col-md order-2 order-md-3 btn collapsed stretched-link" type="button" data-toggle="collapse" data-target="#collapseDetails-<%= checkout.key.parameterize %>" aria-expanded="false" aria-controls="collapseDetails-<%= checkout.key.parameterize %>">
+      <span class="expand-icon"><%= sul_icon :'sharp-add-24px' %><span class="sr-only">Expand</span></span>
+      <span class="collapse-icon"><%= sul_icon :'sharp-remove-24px' %><span class="sr-only">Collapse</span></span>
+    </button>
   </div>
   <div class="collapse w-100" id="collapseDetails-<%= checkout.key.parameterize %>">
     <% if patron.can_renew? && checkout.renewable? %>
@@ -79,6 +77,6 @@
       <dd class="col-8"><%= library_name checkout.library %></dd>
     </dl>
 
-    <%= detail_link_to_searchworks(checkout.catkey) %>
+    <%= detail_link_to_searchworks(checkout.catkey) unless checkout.library == Checkout::BORROW_DIRECT_CODE %>
   </div>
 </li>

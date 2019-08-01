@@ -23,7 +23,7 @@ RSpec.describe 'Contact form', type: :feature do
 
     describe 'visible', js: true do
       before do
-        click_link 'Contact Access Services'
+        click_link 'Circulation & Privileges'
       end
 
       it 'is shown' do
@@ -48,7 +48,7 @@ RSpec.describe 'Contact form', type: :feature do
 
         it 'displays a success message' do
           expect(page).to have_css('div.alert-success',
-                                   text: 'Thank you! Someone from Access Services will be in touch with you soon.')
+                                   text: 'Thank you! Library staff will be in touch with you soon.')
         end
       end
     end
@@ -67,11 +67,31 @@ RSpec.describe 'Contact form', type: :feature do
 
     describe 'contact links in the header' do
       it 'does not show the modal form link' do
-        expect(page).not_to have_css('.navbar-link', text: 'Contact Access Services')
+        expect(page).not_to have_css('.navbar-link', text: 'Circulation & Privileges')
       end
 
       it 'does not show the telephone number' do
         expect(page).not_to have_css('.navbar-link', text: '(650) 723-1493')
+      end
+    end
+  end
+
+  describe 'form header' do
+    before { login_as(username: 'SUPER1', patron_key: '521181') }
+
+    context 'when the standard Circ & Privs link' do
+      before { visit contact_path }
+
+      it 'is "Contact Circuation & Privileges"' do
+        expect(page).to have_css('h2', text: 'Contact Circulation & Privileges')
+      end
+    end
+
+    context 'when the library specific link' do
+      before { visit contact_path(library: 'LATHROP') }
+
+      it 'is "Contact Library"' do
+        expect(page).to have_css('h2', text: 'Contact library')
       end
     end
   end

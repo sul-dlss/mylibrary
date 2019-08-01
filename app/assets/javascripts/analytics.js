@@ -88,7 +88,7 @@ $(document).on('turbolinks:load', function(){
     var collapsed = $(e.currentTarget).hasClass('collapsed');
     ga('send', 'event', {
       eventCategory: 'Toggle Details',
-      eventAction: collapsed ? 'open' : close,
+      eventAction: collapsed ? 'open' : 'close',
       transport: 'beacon'
     });
   });
@@ -107,4 +107,45 @@ $(document).on('turbolinks:load', function(){
       transport: 'beacon'
     });
   });
+
+  function contactFormSubmission(e) {
+    var contactFormTo = $(e.currentTarget).closest('form').find('[data-contact-form-to-value]').text();
+    ga('send', 'event', {
+      eventCategory: 'Contact form',
+      eventAction: contactFormTo,
+      transport: 'beacon'
+    });
+  }
+
+  function changeRequestSubmission(e) {
+    var changeForm = $(e.currentTarget).closest('form');
+    var originalDate = changeForm.find('#current_fill_by_date').val();
+    var notNeededAfter = changeForm.find('#not_needed_after').val();
+
+    var action = [];
+    if (changeForm.find('#pickup_library').val().length > 0) {
+      action.push('library');
+    }
+    if (originalDate !== notNeededAfter) {
+      action.push('date');
+    }
+    if (changeForm.find('#cancel').prop('checked')) {
+      action.push('cancel');
+    }
+    ga('send', 'event', {
+      eventCategory: 'Change Request',
+      eventAction: action.join(' '),
+      transport: 'beacon'
+    });
+  }
+
+  $('form.contact-form button[type="submit"]').on('click', contactFormSubmission);
+  $('.request-edit form button[type="submit"]').on('click', changeRequestSubmission);
+
+  // Things that may happen in a modal
+  $('#mylibrary-modal').on('shown.bs.modal', function(e) {
+    $('form.contact-form button[type="submit"]').on('click', contactFormSubmission);
+    $('.request-edit form button[type="submit"]').on('click', changeRequestSubmission);
+  });
+
 });
