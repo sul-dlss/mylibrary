@@ -268,4 +268,12 @@ RSpec.describe Checkout do
   it 'does not have a claimed returned date' do
     expect(checkout.claims_returned_date).to be_nil
   end
+
+  context 'when the library is SUL' do
+    before { fields[:library] = { key: 'SUL' } }
+
+    it 'represents itself as coming from BorrowDirect' do
+      expect(checkout.library).to eq 'BORROW_DIRECT'
+    end
+  end
 end
