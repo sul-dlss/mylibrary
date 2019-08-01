@@ -170,6 +170,14 @@ RSpec.describe Checkout do
     it 'is recalled' do
       expect(checkout).to be_recalled
     end
+
+    it 'gives a reason why it is not renewable' do
+      expect(checkout.non_renewable_reason).to match('user is waiting')
+    end
+
+    it 'is not renewable' do
+      expect(checkout).not_to be_renewable
+    end
   end
 
   context 'with a record that is renewable' do
@@ -185,6 +193,12 @@ RSpec.describe Checkout do
     it 'has a renewable? status' do
       expect(checkout).to be_renewable
     end
+
+    describe '#non_renewable_reason' do
+      it 'is nil' do
+        expect(checkout.non_renewable_reason).to be_nil
+      end
+    end
   end
 
   context 'with a record that has unseenRenewalsRemaining as 0' do
@@ -197,7 +211,63 @@ RSpec.describe Checkout do
       fields['unseenRenewalsRemaining'] = 0
     end
 
-    it 'does not have a renewable? status' do
+    it 'gives a reason why it is not renewable' do
+      expect(checkout.non_renewable_reason).to match('No online renewals for this item')
+    end
+
+    it 'is not renewable' do
+      expect(checkout).not_to be_renewable
+    end
+
+    context 'when a record has already been renewed' do
+      before do
+        fields['renewalCount'] = 10
+      end
+
+      it 'gives a more specific reason why it is not renewable' do
+        expect(checkout.non_renewable_reason).to match('No online renewals left')
+      end
+
+      it 'is not renewable' do
+        expect(checkout).not_to be_renewable
+      end
+    end
+  end
+
+  context 'when a record has seenRenewalsRemaining as 0' do
+    before do
+      fields['circulationRule'] = {
+        'fields': {
+          'renewFromPeriod': 999_999
+        }
+      }
+      fields['seenRenewalsRemaining'] = 0
+    end
+
+    it 'gives a reason why it is not renewable' do
+      expect(checkout.non_renewable_reason).to match('No renewals left for this item')
+    end
+
+    it 'is not renewable' do
+      expect(checkout).not_to be_renewable
+    end
+  end
+
+  context 'when a record is a reserve item' do
+    before do
+      fields['circulationRule'] = {
+        'fields': {
+          'renewFromPeriod': 999_999
+        },
+        'key': '2HWF-RES'
+      }
+    end
+
+    it 'gives a reason why it is not renewable' do
+      expect(checkout.non_renewable_reason).to match('Renew Reserve items in person')
+    end
+
+    it 'is not renewable' do
       expect(checkout).not_to be_renewable
     end
   end
@@ -246,6 +316,14 @@ RSpec.describe Checkout do
     it 'has an appropriate sort with a higher priority than overdues' do
       expect(checkout.status_sort_key).to eq 1
     end
+
+    it 'gives a reason why it is not renewable' do
+      expect(checkout.non_renewable_reason).to match('assumed lost')
+    end
+
+    it 'is not renewable' do
+      expect(checkout).not_to be_renewable
+    end
   end
 
   it 'is not claimed returned' do
@@ -267,6 +345,14 @@ RSpec.describe Checkout do
 
     it 'has an appropriate sort with a lower priority than overdues' do
       expect(checkout.status_sort_key).to eq 4
+    end
+
+    it 'gives a reason why it is not renewable' do
+      expect(checkout.non_renewable_reason).to match('review is in process')
+    end
+
+    it 'is not renewable' do
+      expect(checkout).not_to be_renewable
     end
   end
 

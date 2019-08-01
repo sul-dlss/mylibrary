@@ -53,18 +53,31 @@ class Checkout
     Time.zone.parse(fields['renewalDate']) if fields['renewalDate']
   end
 
-  ##
-  # Is this item renewable
+  # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
+  def non_renewable_reason
+    return 'Item is assumed lost; you must pay the fee or return the item.' if lost?
+    return 'No. Another user is waiting for this item.' if recalled?
+    return 'No. Claim review is in process.' if claimed_returned?
+
+    if unseen_renewals_remaining.zero?
+      return 'No online renewals left; you may renew this item in person.' if renewal_count.positive?
+
+      return 'No online renewals for this item.'
+    end
+
+    return 'No renewals left for this item.' if seen_renewals_remaining.zero?
+    return 'Renew Reserve items in person.' if reserve_item?
+
+    'Too soon to renew.' unless renewable_at&.past?
+  end
+  # rubocop:enable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
+
   def renewable?
-    unseen_renewals_remaining.positive? && renewable_at.past? && !recalled? if renewable_at
-  end
-
-  def unseen_renewals_remaining
-    fields['unseenRenewalsRemaining'].to_i
+    non_renewable_reason.blank?
   end
 
   ##
-  # The date in which the item can be renewed
+  # The date in which the item can be renewed (i.e too soon to renew)
   def renewable_at
     due_date.to_date - renew_from_period.days if due_date && renew_from_period.positive?
   end
@@ -195,6 +208,28 @@ class Checkout
 
   def call
     fields['item']['fields']['call']['fields']
+  end
+
+  def circulation_rule
+    fields.dig('circulationRule', 'key')
+  end
+
+  def reserve_item?
+    circulation_rule&.end_with?('-RES')
+  end
+
+  def renewal_count
+    fields['renewalCount'] || 0
+  end
+
+  # nil means "unlimited" for unseenRenewalsRemaining
+  def unseen_renewals_remaining
+    fields['unseenRenewalsRemaining'] || Float::INFINITY
+  end
+
+  # nil means "unlimited" for seenRenewalsRemaining
+  def seen_renewals_remaining
+    fields['seenRenewalsRemaining'] || Float::INFINITY
   end
 
   def original_due_date
