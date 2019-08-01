@@ -1,5 +1,5 @@
 <li class="list-group-item">
-  <div class="row d-flex flex-wrap position-relative">
+  <div class="row d-flex flex-wrap position-relative justify-content-between">
     <div class="d-flex flex-row flex-grow-1 justify-content-between w-100 row col-md-4">
       <div class="w-50 col-md-12 col-lg-6 status">
         <%= fine.nice_status %>
@@ -8,21 +8,19 @@
         <%= number_to_currency(fine.owed) %>
       </div>
     </div>
-    <div class="d-flex flex-grow-1 flex-column flex-md-row w-75 row col-md-8">
-      <% if fine.bib? %>
-        <h3 class="col-md-7 clamp-3 record-title title text-reset"><%= fine.title %></h3>
-        <div class="d-flex flex-row row col-md-5">
-          <div class="w-50 col-md-12 col-lg-6 clamp-1 author"><%= fine.author %></div>
-          <div class="w-50 col-md-12 col-lg-6 call_number" data-shelfkey="<%= fine.shelf_key %>"><%= fine.call_number %></div>
-        </div>
-      <% end %>
-    </div>
-    <div>
-      <button class="btn collapsed stretched-link" type="button" data-toggle="collapse" data-target="#collapseDetails-<%= fine.key.parameterize %>" aria-expanded="false" aria-controls="collapseDetails-<%= fine.key.parameterize %>">
-        <span class="expand-icon"><%= sul_icon :'sharp-add-24px' %><span class="sr-only">Expand</span></span>
-        <span class="collapse-icon"><%= sul_icon :'sharp-remove-24px' %><span class="sr-only">Collapse</span></span>
-      </button>
-    </div>
+    <% if fine.bib? %>
+      <div class="order-1 order-md-1 d-flex col-10 col-md-5 align-items-baseline">
+        <h3 class="clamp-3 record-title title text-reset"><%= fine.title %></h3>
+      </div>
+      <div class="order-3 order-md-2 d-flex flex-row flex-grow-1 row col-md-3">
+        <div class="w-50 col-md-12 col-lg-6 clamp-1 author"><%= fine.author %></div>
+        <div class="w-50 col-md-12 col-lg-6 call_number" data-shelfkey="<%= fine.shelf_key %>"><%= fine.call_number %></div>
+      </div>
+    <% end %>
+    <button class="col-2 col-md order-2 order-md-3 btn collapsed stretched-link" type="button" data-toggle="collapse" data-target="#collapseDetails-<%= fine.key.parameterize %>" aria-expanded="false" aria-controls="collapseDetails-<%= fine.key.parameterize %>">
+      <span class="expand-icon"><%= sul_icon :'sharp-add-24px' %><span class="sr-only">Expand</span></span>
+      <span class="collapse-icon"><%= sul_icon :'sharp-remove-24px' %><span class="sr-only">Collapse</span></span>
+    </button>
   </div>
   <div class="collapse w-100" id="collapseDetails-<%= fine.key.parameterize %>">
     <dl class="row mb-0">
