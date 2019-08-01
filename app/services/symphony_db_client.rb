@@ -9,7 +9,12 @@ class SymphonyDbClient
   end
 
   def connection
-    @connection ||= OCI8.new(connection_settings)
+    @connection ||= begin
+                      require 'ruby-oci8'
+                      OCI8.new(connection_settings)
+                    rescue LoadError => e
+                      Rails.logger.error('No OCI8 gem available.', e)
+                    end
   end
 
   def logoff
