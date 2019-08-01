@@ -153,9 +153,9 @@ class Patron
   end
 
   def group_checkouts
-    return checkouts if proxy_borrower?
+    return checkouts.select { |checkout| group_circrecord_keys.include?(checkout.key) } if sponsor?
 
-    checkouts.select { |checkout| group_circrecord_keys.include?(checkout.key) }
+    checkouts
   end
 
   def group_circrecord_keys
@@ -163,9 +163,9 @@ class Patron
   end
 
   def group_requests
-    return requests if proxy_borrower?
+    return requests.select { |request| group_holdrecord_keys.include?(request.key) } if sponsor?
 
-    requests.select { |request| group_holdrecord_keys.include?(request.key) }
+    requests
   end
 
   def group_holdrecord_keys
@@ -173,9 +173,9 @@ class Patron
   end
 
   def group_fines
-    return fines if proxy_borrower?
+    return fines.select { |fine| group_billrecord_keys.include?(fine.key) } if sponsor?
 
-    fines.select { |fine| group_billrecord_keys.include?(fine.key) }
+    fines
   end
 
   def group_billrecord_keys
