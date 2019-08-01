@@ -98,4 +98,10 @@ RSpec.describe ApplicationHelper do
       expect(helper.library_email('NOSUCHLIBRARY')).to eq 'greencirc@stanford.edu'
     end
   end
+
+  describe '#proxy_login_header' do
+    it 'returns the expected text' do
+      expect(helper.proxy_login_header).to eq 'Proxy, fee, or courtesy accounts'
+    end
+  end
 end
