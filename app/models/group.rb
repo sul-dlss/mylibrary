@@ -15,11 +15,11 @@ class Group < Patron
   end
 
   def status
-    Patron::PATRON_STANDING.fetch(standing, '')
+    Settings.PATRON_STANDING[standing] || ''
   end
 
   def standing
-    possible_standings = Patron::PATRON_STANDING.keys
+    possible_standings = Settings.PATRON_STANDING.keys.map(&:to_s)
     members.map(&:standing).min_by { |s| possible_standings.index(s) || Float::INFINITY }
   end
 

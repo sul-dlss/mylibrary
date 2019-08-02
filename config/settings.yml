@@ -44,3 +44,18 @@ PAYMENT_TYPES:
   TRANS-BILL: 'Forgiven'
   U-REPLACED: 'Replacement provided'
   XREMBILL: 'Removed'
+
+CHARGE_LIMIT_THRESHOLD: 25000
+
+PATRON_STANDING:
+  BARRED: 'Contact us'
+  COLLECTION: 'Blocked'
+  BLOCKED: 'Blocked'
+  DELINQUENT: 'OK'
+  OK: 'OK'
+
+PATRON_PROFILE:
+  MXFEE: 'Fee borrower'
+  MXFEE-BUS: 'Fee borrower'
+  MXFEE-LAW: 'Fee borrower'
+  MXFEE-NO25: 'Fee borrower'

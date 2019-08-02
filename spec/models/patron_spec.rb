@@ -22,7 +22,7 @@ RSpec.describe Patron do
       profile: {
         key: '',
         fields: {
-          chargeLimit: described_class::CHARGE_LIMIT_THRESHOLD
+          chargeLimit: Settings.CHARGE_LIMIT_THRESHOLD
         }
       },
       privilegeExpiresDate: nil,
@@ -78,7 +78,7 @@ RSpec.describe Patron do
   end
 
   it 'does not have a borrow limit if the number returned in the response exceeds the threshold' do
-    fields[:profile][:fields][:chargeLimit] = described_class::CHARGE_LIMIT_THRESHOLD
+    fields[:profile][:fields][:chargeLimit] = Settings.CHARGE_LIMIT_THRESHOLD
 
     expect(patron.borrow_limit).to be_nil
   end

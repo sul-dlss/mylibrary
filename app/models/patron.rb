@@ -4,23 +4,6 @@
 class Patron
   attr_reader :record
 
-  CHARGE_LIMIT_THRESHOLD = 25_000
-
-  PATRON_STANDING = {
-    'BARRED' => 'Contact us',
-    'COLLECTION' => 'Blocked',
-    'BLOCKED' => 'Blocked',
-    'DELINQUENT' => 'OK',
-    'OK' => 'OK'
-  }.freeze
-
-  USER_PROFILE = {
-    'MXFEE' => 'Fee borrower',
-    'MXFEE-BUS' => 'Fee borrower',
-    'MXFEE-LAW' => 'Fee borrower',
-    'MXFEE-NO25' => 'Fee borrower'
-  }.freeze
-
   def initialize(record)
     @record = record
   end
@@ -40,7 +23,7 @@ class Patron
       # proxy borrowers inherit from the group
       group.status
     else
-      PATRON_STANDING.fetch(standing, '')
+      Settings.PATRON_STANDING[standing] || ''
     end
   end
 
@@ -109,7 +92,7 @@ class Patron
 
   def borrow_limit
     return unless profile['chargeLimit']
-    return if profile['chargeLimit'].to_i >= CHARGE_LIMIT_THRESHOLD
+    return if profile['chargeLimit'].to_i >= Settings.CHARGE_LIMIT_THRESHOLD
 
     profile['chargeLimit'].to_i
   end
@@ -198,6 +181,6 @@ class Patron
   end
 
   def user_profile
-    USER_PROFILE.fetch(fields['profile']['key'], '')
+    Settings.PATRON_PROFILE[fields['profile']['key']]
   end
 end

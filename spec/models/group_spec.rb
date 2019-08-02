@@ -22,7 +22,7 @@ RSpec.describe Group do
       profile: {
         key: '',
         fields: {
-          chargeLimit: described_class::CHARGE_LIMIT_THRESHOLD
+          chargeLimit: Settings.CHARGE_LIMIT_THRESHOLD
         }
       },
       groupSettings: {
