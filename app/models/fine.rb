@@ -4,35 +4,6 @@
 class Fine
   attr_reader :record
 
-  FINE_STATUS = {
-    'OVERDUE' => 'Overdue item',
-    'RECALLOVD' => 'Overdue recall',
-    'RESERVEOVD' => 'Overdue course reserve',
-    'LOST' => 'Lost item',
-    'REPLCMENT' => 'Lost item',
-    'LOST-ILL' => 'Lost interlibrary loan item',
-    'CLAIM-LOST' => 'Lost item',
-    'CLAIM-FEE' => 'Processing fee',
-    'PROCESSFEE' => 'Processing fee',
-    'PROCESSING' => 'Processing fee',
-    'DAMAGED' => 'Damaged item',
-    'PRIVILEGES' => 'Privileges fee',
-    'LOSTCARD' => 'Lost card fee',
-    'LOSTKEY' => 'Lost key fee',
-    'BILLED-OD' => 'Lost item',
-    'BILLING-FEE' => 'Processing fee',
-    'PRE-NOTIS' => 'Lost item',
-    'PRE-UNICRN' => 'Lost item',
-    'RECAL-BILL' => 'Lost item',
-    'RECAL-FEE' => 'Overdue recall',
-    'RECOD-MBIL' => 'Lost item',
-    'RECOD-MFEE' => 'Processing fee',
-    'RECOD-MOD' => 'Lost item',
-    'BADCHECK' => 'Privileges fee',
-    'LOSTRECALL' => 'Lost item',
-    'MISC' => 'Overdue item'
-  }.freeze
-
   def initialize(record)
     @record = record
   end
@@ -54,7 +25,7 @@ class Fine
   end
 
   def nice_status
-    FINE_STATUS[status] || status
+    Settings.FINE_STATUS[status] || status
   end
 
   def catkey
