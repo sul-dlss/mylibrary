@@ -6,17 +6,25 @@ class RenewalsController < ApplicationController
   include ActionView::Helpers::TagHelper
   before_action :authenticate_user!
 
+  # Renew a single item for a patron
+  #
+  # POST /renewals
   def create
     @response = symphony_client.renew_item(*renew_item_params)
+
     case @response.status
     when 200
       flash[:success] = t 'mylibrary.renew_item.success_html', title: params['title']
     else
       flash[:error] = t 'mylibrary.renew_item.error_html', title: params['title']
     end
+
     redirect_to checkouts_path
   end
 
+  # Renew all eligible items for a patron
+  #
+  # POST /renewals/all_eligible
   def all_eligible
     eligible_renewals = patron_or_group.checkouts.select(&:renewable?)
     response = symphony_client.renew_items(eligible_renewals)

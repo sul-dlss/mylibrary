@@ -4,6 +4,10 @@
 class FinesController < ApplicationController
   before_action :authenticate_user!
 
+  # Render a patron or groups fines or checkouts
+  #
+  # GET /fines
+  # GET /fines.json
   def index
     @fines = fines
     @checkouts = checkouts

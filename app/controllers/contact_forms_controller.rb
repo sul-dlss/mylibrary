@@ -1,9 +1,14 @@
 # frozen_string_literal: true
 
-# Controller for Contct forms
+# Controller for contact forms; note that this is
+# only accessible to logged-in users.
 class ContactFormsController < ApplicationController
   before_action :authenticate_user!
 
+  # Render a form for contacting a library or access services
+  #
+  # GET /contact
+  # GET /contact/new
   def new
     respond_to do |format|
       format.html do
@@ -12,6 +17,10 @@ class ContactFormsController < ApplicationController
     end
   end
 
+  # Handle contact form submission by sending an email to the
+  # appropriate recipients
+  #
+  # POST /contact
   def create
     return unless request.post?
 
