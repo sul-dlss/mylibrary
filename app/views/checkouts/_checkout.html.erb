@@ -10,6 +10,7 @@
             <%= sul_icon 'renew' %>
           </span>
         <% end %>
+        <span class="d-inline d-md-none mr-2">Due</span>
         <%= today_with_time_or_date(checkout.due_date, short_term: checkout.short_term_loan?) %>
       </div>
     </div>
