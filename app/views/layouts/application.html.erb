@@ -20,6 +20,9 @@
 
   <body>
     <div data-analytics-id="<%= Settings.GOOGLE_ANALYTICS_ID %>"></div>
+    <div id="skip-link">
+      <a href="#main" class="element-invisible element-focusable" data-turbolinks="false">Skip to main content</a>
+    </div>
     <div id="su-wrap"> <!-- #su-wrap start -->
       <div id="su-content"> <!-- #su-content start -->
         <%= render '/shared/header' %>
