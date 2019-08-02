@@ -2,7 +2,7 @@
   <div class="row d-flex flex-wrap position-relative">
     <div class="d-flex flex-row flex-grow-1 justify-content-start w-100 row col-md-12 col-lg-6">
       <div class="col-4 col-md-4 order-md-first bill_description" data-sort-bill_description="<%= h payment.sort_options(:bill_description) %>" >
-        <%= payment.bill_description %>
+        <%= payment.nice_bill_description %>
       </div>
 
       <div class="col-3 col-md-4 order-first order-sm-first bill_amount" data-sort-bill_amount="<%= h payment.sort_options(:bill_amount) %>">

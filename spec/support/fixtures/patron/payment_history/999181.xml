@@ -5,6 +5,7 @@
   <feeInfo>
     <billNumber>5</billNumber>
     <billReasonDescription>Overdue recall</billReasonDescription>
+    <billReasonID>OVERDUE</billReasonID>
     <amount ns2:currency="USD">21.00</amount>
     <dateBilled>2013-11-25</dateBilled>
     <feePaymentInfo>
@@ -20,6 +21,7 @@
   <feeInfo>
     <billNumber>6</billNumber>
     <billReasonDescription>Privileges fee</billReasonDescription>
+    <billReasonID>PRIVILEGES</billReasonID>
     <amount ns2:currency="USD">0.01</amount>
     <dateBilled>2013-12-23</dateBilled>
     <feePaymentInfo>
