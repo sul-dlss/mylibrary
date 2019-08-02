@@ -64,8 +64,12 @@ RSpec.describe PaymentsController do
       post :accept, params: { req_amount: '10.00' }
     end
 
-    it 'redirects to index with payment_pending param' do
-      expect(controller).to redirect_to('/fines?payment_pending=true')
+    it 'redirects to fines ' do
+      expect(controller).to redirect_to(fines_path)
+    end
+
+    it 'a flash payment_pending is true' do
+      expect(flash[:payment_pending]).to be true
     end
 
     it 'flashes a success message' do

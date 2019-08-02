@@ -33,8 +33,9 @@ class PaymentsController < ApplicationController
   #
   # POST /payments/accept
   def accept
-    redirect_to fines_path(payment_pending: true), flash: {
-      success: (t 'mylibrary.fine_payment.accept_html', amount: params[:req_amount])
+    redirect_to fines_path, flash: {
+      success: (t 'mylibrary.fine_payment.accept_html', amount: params[:req_amount]),
+      payment_pending: true
     }
   end
 
