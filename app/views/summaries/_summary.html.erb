@@ -27,7 +27,7 @@
 <div class="page-section">
   <h3><%= sul_icon :'sharp-attach_money-24px', classes: 'lg' %> Fines &amp; fees payable: <%= number_to_currency(patron.fines.sum(&:owed)) %></h3>
 
-  <% if params[:group] # temporary fix until Symphony CGI scripts are updated %>
+  <% if params[:group] && patron.fines.sum(&:owed).positive? # temporary fix until Symphony CGI scripts are updated %>
     <% if patron.sponsor? # temporary fix until Symphony CGI scripts are updated %>
       <div class="ml-4">
         Fines can be paid in My Library Account only by the borrower who accrued them. <br />
