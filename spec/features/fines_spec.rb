@@ -143,19 +143,4 @@ RSpec.describe 'Fines Page', type: :feature do
       expect(page).not_to have_css('.list-header')
     end
   end
-
-  context 'when a user pays a fine' do
-    before do
-      login_as(username: 'SUPER2', patron_key: user_with_single_payment)
-      # rubocop:disable RSpec/AnyInstance
-      allow_any_instance_of(ActionDispatch::Flash::RequestMethods).to receive(:flash).and_return(payment_pending: true)
-      # rubocop:enable RSpec/AnyInstance
-    end
-
-    it 'shows pending when flash is set' do
-      visit fines_path
-
-      expect(page).to have_css('span', text: 'pending')
-    end
-  end
 end

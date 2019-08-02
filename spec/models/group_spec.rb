@@ -185,7 +185,7 @@ RSpec.describe Group do
     let(:member_list) do
       [fields: {
         blockList: [
-          key: 1,
+          key: '1',
           fields: {}
         ]
       }]

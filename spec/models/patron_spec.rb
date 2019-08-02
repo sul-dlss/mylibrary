@@ -432,18 +432,18 @@ RSpec.describe Patron do
 
   context 'with fines' do
     before do
-      fields[:blockList] = [{ key: 1, fields: {} }]
+      fields[:blockList] = [{ key: '1', fields: {} }]
     end
 
     describe '#fines' do
       it 'returns a list of fines for the patron' do
-        expect(patron.fines).to include a_kind_of(Fine).and(have_attributes(key: 1))
+        expect(patron.fines).to include a_kind_of(Fine).and(have_attributes(key: '1'))
       end
     end
 
     describe '#group_fines' do
       it 'returns a list of group fines for the patron' do
-        expect(patron.group_fines).to include a_kind_of(Fine).and(have_attributes(key: 1))
+        expect(patron.group_fines).to include a_kind_of(Fine).and(have_attributes(key: '1'))
       end
     end
 
