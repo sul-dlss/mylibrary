@@ -1,7 +1,7 @@
 <% if patron_or_group.fines.sum(&:owed).positive? %>
   <div>
     <% if patron_or_group.can_pay_fines? %>
-      <%= link_to cybersource_pay_url, class: 'btn btn-md btn-info' do %>
+      <%= link_to cybersource_pay_url, class: 'btn btn-md btn-info', data: { 'pay-button' => true } do %>
         <%= sul_icon :'sharp-payment-24px' %>
         <span>Pay <%= number_to_currency(patron_or_group.fines.sum(&:owed)) %> now</span>
       <% end %>
