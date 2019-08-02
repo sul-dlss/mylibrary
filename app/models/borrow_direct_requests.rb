@@ -44,7 +44,7 @@ class BorrowDirectRequests
       when :title
         title
       when :date
-        [::Request::END_OF_DAYS.strftime('%FT%T'), title].join('---')
+        [::Settings.END_OF_DAYS.strftime('%FT%T'), title].join('---')
       else
         ''
       end

@@ -23,3 +23,6 @@ home_page_flash_message_html: |-
 
 symphony:
   host:
+
+# A sufficiently large time used to sort nil values last
+END_OF_DAYS: <%= Time.parse('2099-01-01') %>

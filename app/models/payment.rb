@@ -62,7 +62,7 @@ class Payment
   def sort_key
     return Time.zone.parse(fee_pay_info['paymentDate']) if fee_pay_info && fee_pay_info['paymentDate']
 
-    Request::END_OF_DAYS
+    Settings.END_OF_DAYS
   end
 
   def resolution

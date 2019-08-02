@@ -216,7 +216,7 @@ RSpec.describe Payment do
     context 'when there is no payment date' do
       let(:record) { { 'billNumber' => '5' } }
 
-      it { expect(payment.sort_key).to eq Request::END_OF_DAYS }
+      it { expect(payment.sort_key).to eq Settings.END_OF_DAYS }
     end
 
     context 'when there is a payment date' do
