@@ -11,7 +11,7 @@ class SymphonyLegacyClient
       allowedDisplayGroupFees: true
     })
 
-    response.body
+    (Hash.from_xml(response.body.to_s) || {}).dig('LookupPatronInfoResponse', 'feeInfo')
   end
 
   private

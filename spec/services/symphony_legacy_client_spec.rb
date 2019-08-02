@@ -54,8 +54,10 @@ RSpec.describe SymphonyLegacyClient do
         .to_return(status: 200, body: mock_legacy_client_response)
     end
 
-    it 'requests payment xml and converts into an array' do
-      expect(client.payments('1a2b3c4d5e6f7g8h9i0', mock_patron)).to be_kind_of HTTP::Response::Body
+    it 'requests payment xml and converts into an array of hashes representing the xml' do
+      expect(client.payments('1a2b3c4d5e6f7g8h9i0', mock_patron)).to include(
+        hash_including('amount' => '21.00')
+      )
     end
   end
 end

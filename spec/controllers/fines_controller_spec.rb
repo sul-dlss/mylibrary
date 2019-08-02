@@ -11,38 +11,10 @@ RSpec.describe FinesController do
     ]
   end
 
-  let(:mock_legacy_client) do
-    instance_double(
-      SymphonyLegacyClient,
-      payments: mock_legacy_client_response
-    )
-  end
-
-  let(:mock_legacy_client_response) do
-    '<LookupPatronInfoResponse>
-      <feeInfo>
-        <billNumber>1</billNumber>
-        <feePaymentInfo>
-          <paymentDate>2019-01-01</paymentDate>
-        </feePaymentInfo>
-       </feeInfo>
-       <feeInfo>
-        <billNumber>2</billNumber>
-       </feeInfo>
-       <feeInfo>
-        <billNumber>3</billNumber>
-        <feePaymentInfo>
-          <paymentDate>2019-02-01</paymentDate>
-        </feePaymentInfo>
-       </feeInfo>
-    </LookupPatronInfoResponse>'
-  end
-
   before do
     allow(controller).to receive(:patron).and_return(mock_patron)
     allow(controller).to receive(:symphony_client)
       .and_return(instance_double(SymphonyClient, session_token: '1a2b3c4d5e6f7g8h9i0j'))
-    allow(SymphonyLegacyClient).to receive(:new).and_return(mock_legacy_client)
   end
 
   context 'with an unauthenticated request' do
@@ -82,42 +54,6 @@ RSpec.describe FinesController do
       get(:index)
 
       expect(assigns(:checkouts)).to eq checkouts
-    end
-
-    context 'when a user has multiple payments' do
-      it 'shows a list of payments from the payments array' do
-        get(:index)
-
-        expect(assigns(:payments)).to all(be_a Payment)
-      end
-
-      it 'shows the correct number of payments in the list' do
-        get(:index)
-
-        expect(assigns(:payments).length).to eq 3
-      end
-
-      it 'shows the payments sorted appropriately (bills w/o a payment date at the top the reverse date sort)' do
-        get(:index)
-
-        expect(assigns(:payments).map(&:key)).to eq(%w[2 3 1])
-      end
-    end
-
-    context 'when a user has only one payment' do
-      let(:mock_legacy_client_response) do
-        '<LookupPatronInfoResponse>
-          <feeInfo>
-           <billNumber>1</billNumber>
-          </feeInfo>
-        </LookupPatronInfoResponse>'
-      end
-
-      it 'wraps a single payment in an array' do
-        get(:index)
-
-        expect(assigns(:payments).first.key).to eq '1'
-      end
     end
   end
 

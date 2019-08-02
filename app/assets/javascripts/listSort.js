@@ -1,4 +1,4 @@
-$(document).on('turbolinks:load', function(){
+$(document).on('turbolinks:load ajax:loaded', function(){
   // var listSort = new List('listSort', options);
   var checkoutOptions = {
       valueNames: [

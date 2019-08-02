@@ -11,11 +11,6 @@ class FinesController < ApplicationController
   def index
     @fines = fines
     @checkouts = checkouts
-    @payments = if payments
-                  Array.wrap(payments).map { |payment| Payment.new(payment) }.sort_by(&:sort_key).reverse
-                else
-                  []
-                end
   end
 
   private
@@ -26,14 +21,6 @@ class FinesController < ApplicationController
 
   def checkouts
     patron_or_group.checkouts.sort_by(&:due_date)
-  end
-
-  def payments_response
-    symphony_legacy_client.payments(symphony_client.session_token, patron)
-  end
-
-  def payments
-    (Hash.from_xml(Nokogiri::XML(payments_response).to_s) || {}).dig('LookupPatronInfoResponse', 'feeInfo')
   end
 
   def item_details

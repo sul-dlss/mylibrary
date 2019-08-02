@@ -35,10 +35,6 @@ class ApplicationController < ActionController::Base
     @symphony_client ||= SymphonyClient.new
   end
 
-  def symphony_legacy_client
-    @symphony_legacy_client ||= SymphonyLegacyClient.new
-  end
-
   def patron_info_response
     symphony_client.patron_info(current_user.patron_key, item_details: item_details)
   end
