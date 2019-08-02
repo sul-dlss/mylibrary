@@ -4,6 +4,7 @@ $(document).on('turbolinks:load', function(){
 
     if (data && data.key && data.type && data.html) {
       $('[data-key="' + data.key + '"][data-type="' + data.type + '"]').replaceWith(data.html);
+      $(document).trigger('ajax:loaded');
     }
   });
 });
