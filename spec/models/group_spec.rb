@@ -62,14 +62,11 @@ RSpec.describe Group do
         ]
       end
 
-      it 'doesn\'t include the sponsor' do
-        expect(group.member_list.select(&:sponsor?)).to eq []
-      end
       it 'doesn\'t include the currently logged in user' do
         expect(group.member_list.map(&:key)).not_to include group.key
       end
-      it 'only has member with key 3' do
-        expect(group.member_list.map(&:key)).to eq ['3']
+      it 'has all the other members' do
+        expect(group.member_list.map(&:key)).to eq %w[2 3]
       end
     end
   end
@@ -77,17 +74,23 @@ RSpec.describe Group do
   describe '#member_names' do
     let(:member_list) do
       [
-        { key: '1', fields: {} },
-        { key: '2', fields: { groupSettings: {
-          fields: { responsibility: { key: 'SPONSOR' } }
-        } } },
-        { key: '3', fields: {} },
+        { key: '2', fields: {
+          firstName: 'Faculty',
+          lastName: 'Sponsor',
+          groupSettings: {
+            fields: { responsibility: { key: 'SPONSOR' } }
+          }
+        } },
         { key: '411612', fields: { firstName: 'Mark (P=Wangchuk)' } }
       ]
     end
 
     it 'returns a name give a patron key' do
       expect(group.member_name('411612')).to eq 'Wangchuk'
+    end
+
+    it 'returns the display name for the group sponsor' do
+      expect(group.member_name('2')).to eq 'Faculty Sponsor'
     end
   end
 
@@ -205,16 +208,18 @@ RSpec.describe Group do
 
     before do
       allow(BorrowDirectRequests).to receive(:new).and_return(
-        instance_double(BorrowDirectRequests, requests: [{ key: 2 }])
+        instance_double(BorrowDirectRequests, requests: [
+                          instance_double(BorrowDirectRequests::Request, key: 2)
+                        ])
       )
     end
 
-    it 'has checkouts from symphony' do
+    it 'has requests from symphony' do
       expect(group.requests.first).to be_a(Request)
     end
 
-    it 'has checkouts from BorrowDirect' do
-      expect(group.requests.last[:key]).to be(2)
+    it 'has requests from BorrowDirect' do
+      expect(group.requests.last).to have_attributes(key: 2)
     end
   end
 end

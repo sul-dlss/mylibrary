@@ -152,6 +152,36 @@ class Patron
     group.member_list.any?
   end
 
+  def group_checkouts
+    return checkouts.select { |checkout| group_circrecord_keys.include?(checkout.key) } if sponsor?
+
+    checkouts
+  end
+
+  def group_circrecord_keys
+    @group_circrecord_keys ||= SymphonyDbClient.new.group_circrecord_keys(key)
+  end
+
+  def group_requests
+    return requests.select { |request| group_holdrecord_keys.include?(request.key) } if sponsor?
+
+    requests
+  end
+
+  def group_holdrecord_keys
+    @group_holdrecord_keys ||= SymphonyDbClient.new.group_holdrecord_keys(key)
+  end
+
+  def group_fines
+    return fines.select { |fine| group_billrecord_keys.include?(fine.key) } if sponsor?
+
+    fines
+  end
+
+  def group_billrecord_keys
+    @group_billrecord_keys ||= SymphonyDbClient.new.group_billrecord_keys(key)
+  end
+
   def to_partial_path
     return 'patron/expired' if expired?
     return 'patron/fee_borrower' if fee_borrower?

@@ -53,6 +53,7 @@ gem 'recaptcha'
 group :production do
   gem 'mysql2', '~> 0.5'
   gem 'newrelic_rpm'
+  gem 'ruby-oci8'
 end
 
 group :development, :test do

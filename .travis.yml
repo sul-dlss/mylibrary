@@ -8,6 +8,7 @@ notifications:
 sudo: false
 language: ruby
 cache: bundler
+bundler_args: --without production
 
 rvm:
   - 2.6.3
