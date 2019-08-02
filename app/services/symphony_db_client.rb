@@ -19,16 +19,10 @@ class SymphonyDbClient
   FINES_QUERY =
     'select user_key, bill_number from bill where user_key = :user_key and usergroup_key >=0'
 
-  def connection
-    @connection ||= begin
-      if defined?(OCI8)
-        OCI8.properties[:connect_timeout] = 5
-        OCI8.new(connection_settings)
-      else
-        Rails.logger.error('ruby-oci8 gem not available; sponsor checkouts on behalf of the group will not display')
-        raise OCIException, 'ruby-oci8 gem not available'
-      end
-    end
+  def ping
+    connection.ping
+  rescue OCIException
+    false
   end
 
   def group_circrecord_keys(patron_key)
@@ -62,6 +56,18 @@ class SymphonyDbClient
   end
 
   private
+
+  def connection
+    @connection ||= begin
+      if defined?(OCI8)
+        OCI8.properties[:connect_timeout] = 5
+        OCI8.new(connection_settings)
+      else
+        Rails.logger.error('ruby-oci8 gem not available; sponsor checkouts on behalf of the group will not display')
+        raise OCIException, 'ruby-oci8 gem not available'
+      end
+    end
+  end
 
   def config
     Settings.symphony_db
