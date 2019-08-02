@@ -86,11 +86,10 @@ RSpec.describe 'Proxy User', type: :feature do
       expect(page).not_to have_text('theorizing the practice of architecture')
     end
 
-    it 'shows the sponsor fines on behalf of the group' do
+    it 'does not show the sponsor fines on behalf of the group' do
       visit fines_path
       click_link 'Other proxies'
-      expect(page).to have_text('Frontier women and their art')
-      expect(page).not_to have_text('dictionary of materials')
+      expect(page).not_to have_text('Frontier women and their art')
     end
   end
 end
