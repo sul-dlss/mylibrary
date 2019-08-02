@@ -75,6 +75,18 @@ Additional note: some fixture users have even been modified from their original 
 in ways that would be impossible to achieve by manipulating data in Symphony (e.g. `521181` has some fines, but
 the patron standing is marked as 'OK' so we can reuse the patron for many different types of tests)
 
+### Symphony Web Services API
+
+This application uses the Symphony Web Services API to interact with the ILS. Documentation for this API is available
+in the SDK and from the web services host (at e.g. `https://example.com/symws/sdk.html`). However, at this time,
+the API does not provide all the information we need, so we use several other methods to get at patron information as well:
+
+- the legacy web services API (used for retrieving payment history)
+- direct Oracle Database access (used for differentiating the group sponsor's checkouts/requests/fines)
+
+Note, too, that the API does not allow us to paginate within a list of checkouts/requests/fines, as they are retrieved as
+part of the patron information request.
+
 ## Testing
 
 The test suite (with RuboCop style enforcement) will be run with the default rake task (also run on travis)
