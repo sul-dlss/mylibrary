@@ -2,11 +2,15 @@
 
 # :nodoc:
 class ApplicationController < ActionController::Base
-  helper_method :current_user, :current_user?, :patron, :patron_or_group, :symphony_client
+  helper_method :current_user, :current_user?, :patron, :patron_or_group, :symphony_client, :payment_processing?
 
   def current_user
     session_data = request.env['warden'].user
     session_data && User.new(session_data)
+  end
+
+  def payment_processing?
+    payment_in_process_cookie[:pending] && patron_or_group.all_fines.any?
   end
 
   def current_user?
@@ -16,7 +20,7 @@ class ApplicationController < ActionController::Base
   def patron
     return unless current_user?
 
-    @patron ||= Patron.new(patron_info_response)
+    @patron ||= Patron.new(patron_info_response, payment_in_process_cookie)
   end
 
   def patron_or_group
@@ -30,6 +34,10 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def payment_in_process_cookie
+    @payment_in_process_cookie ||= JSON.parse(cookies[:payment_in_process] || {}.to_json).with_indifferent_access
+  end
 
   def symphony_client
     @symphony_client ||= SymphonyClient.new

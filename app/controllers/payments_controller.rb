@@ -11,6 +11,7 @@ class PaymentsController < ApplicationController
   skip_forgery_protection only: %i[accept cancel]
 
   def create
+    set_payment_cookie
     redirect_to URI::HTTPS.build(
       host: Settings.symphony.host,
       path: '/secureacceptance/payment_form.php',
@@ -41,9 +42,9 @@ class PaymentsController < ApplicationController
   #
   # POST /payments/accept
   def accept
+    alter_payment_cookie
     redirect_to fines_path, flash: {
-      success: (t 'mylibrary.fine_payment.accept_html', amount: params[:req_amount]),
-      payment_pending: true
+      success: (t 'mylibrary.fine_payment.accept_html', amount: params[:req_amount])
     }
   end
 
@@ -51,6 +52,7 @@ class PaymentsController < ApplicationController
   #
   # POST /payments/cancel
   def cancel
+    cookies.delete :payment_in_process
     redirect_to fines_path, flash: { error: (t 'mylibrary.fine_payment.cancel_html') }
   end
 
@@ -62,6 +64,28 @@ class PaymentsController < ApplicationController
       key: 'payments',
       type: 'async',
       html: render_to_string(formats: ['html'], layout: false)
+    }
+  end
+
+  def alter_payment_cookie
+    new_cookie = payment_in_process_cookie.dup.to_h
+    new_cookie[:pending] = true if new_cookie[:session_id] == params[:req_merchant_defined_data2]
+    cookies[:payment_in_process] = {
+      value: new_cookie.to_json,
+      httponly: true,
+      expires: 10.minutes
+    }
+  end
+
+  def set_payment_cookie
+    cookies[:payment_in_process] = {
+      value: {
+        billseq: create_payment_params[:billseq],
+        session_id: create_payment_params[:session_id],
+        group: create_payment_params[:group]
+      }.to_json,
+      httponly: true,
+      expires: 10.minutes
     }
   end
 

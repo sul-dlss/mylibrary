@@ -64,6 +64,14 @@ RSpec.describe PaymentsController do
       post :create
       expect(controller).to redirect_to 'https://example.com/secureacceptance/payment_form.php?'
     end
+    it 'creates a cookie with needed information' do
+      post :create, params: { billseq: 'b', session_id: 's', group: 'g' }
+      expect(JSON.parse(response.cookies['payment_in_process'])).to include(
+        'billseq' => 'b',
+        'session_id' => 's',
+        'group' => 'g'
+      )
+    end
     it 'passes through parameters' do
       post :create, params: { reason: 'r', billseq: 'b', amount: 'a', session_id: 's', user: 'u', group: 'g' }
       expect(controller).to redirect_to 'https://example.com/secureacceptance/payment_form.php?amount=a&billseq=b&group=g&reason=r&session_id=s&user=u'
@@ -71,32 +79,51 @@ RSpec.describe PaymentsController do
   end
 
   context 'when a user makes a payment' do
-    before do
-      post :accept, params: { req_amount: '10.00' }
+    context 'when session_id matches cookie' do
+      before do
+        post :accept, params: { req_amount: '10.00', req_merchant_defined_data2: 'session_this_is_the_one' }
+        request.cookies['payment_in_process'] = {
+          value: { session_id: 'session_this_is_the_one' }.to_json
+        }
+      end
+
+      xit 'sets pending in the new cookie' do
+        expect(JSON.parse(response.cookies['payment_in_process'])).to include(
+          'pending' => true,
+          'session_id' => 'session_this_is_the_one'
+        )
+      end
     end
 
-    it 'redirects to fines ' do
-      expect(controller).to redirect_to(fines_path)
-    end
+    context 'when indifferent of the cookie' do
+      before do
+        post :accept, params: { req_amount: '10.00' }
+      end
 
-    it 'a flash payment_pending is true' do
-      expect(flash[:payment_pending]).to be true
-    end
+      it 'redirects to fines ' do
+        expect(controller).to redirect_to(fines_path)
+      end
 
-    it 'flashes a success message' do
-      expect(flash[:success]).to eq '<span class="font-weight-bold">Success!</span> $10.00 paid. '\
-                                      'A receipt has been sent to the email address associated with your account. '\
-                                      'Payment may take up to 5 minutes to appear in your payment history.'
+      it 'flashes a success message' do
+        expect(flash[:success]).to eq '<span class="font-weight-bold">Success!</span> $10.00 paid. '\
+                                        'A receipt has been sent to the email address associated with your account. '\
+                                        'Payment may take up to 5 minutes to appear in your payment history.'
+      end
     end
   end
 
   context 'when a user cancels a payment' do
     before do
       post :cancel
+      request.cookies['payment_in_process'] = true
     end
 
     it 'redirects to index with no payment_pending param' do
       expect(controller).to redirect_to(fines_path)
+    end
+
+    it 'removes payment_in_process cookie' do
+      expect(response.cookies['payment_in_process']).to be_nil
     end
 
     it 'flashes an error message' do
