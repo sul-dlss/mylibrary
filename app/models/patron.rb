@@ -148,9 +148,9 @@ class Patron
   ##
   # Creates a range of integers based of a payment sequence string
   def payment_sequence
-    return Range.new(0, 0) unless payment_in_process[:sequence]
+    return Range.new(0, 0) unless payment_in_process[:billseq] && payment_in_process[:pending]
 
-    Range.new(*payment_in_process[:sequence].split('-').map(&:to_i))
+    Range.new(*payment_in_process[:billseq].split('-').map(&:to_i))
   end
 
   def requests

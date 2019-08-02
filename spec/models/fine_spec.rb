@@ -44,7 +44,7 @@ RSpec.describe Fine do
   end
 
   it 'has a sequence' do
-    expect(fine.sequence).to eq '1'
+    expect(fine.sequence).to eq 1
   end
 
   it 'has a status' do

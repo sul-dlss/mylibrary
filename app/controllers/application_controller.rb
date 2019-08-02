@@ -2,15 +2,11 @@
 
 # :nodoc:
 class ApplicationController < ActionController::Base
-  helper_method :current_user, :current_user?, :patron, :patron_or_group, :symphony_client, :payment_processing?
+  helper_method :current_user, :current_user?, :patron, :patron_or_group, :symphony_client
 
   def current_user
     session_data = request.env['warden'].user
     session_data && User.new(session_data)
-  end
-
-  def payment_processing?
-    payment_in_process_cookie[:pending] && patron_or_group.all_fines.any?
   end
 
   def current_user?

@@ -81,13 +81,13 @@ RSpec.describe PaymentsController do
   context 'when a user makes a payment' do
     context 'when session_id matches cookie' do
       before do
-        post :accept, params: { req_amount: '10.00', req_merchant_defined_data2: 'session_this_is_the_one' }
         request.cookies['payment_in_process'] = {
-          value: { session_id: 'session_this_is_the_one' }.to_json
-        }
+          session_id: 'session_this_is_the_one'
+        }.to_json
+        post :accept, params: { req_amount: '10.00', req_merchant_defined_data2: 'session_this_is_the_one' }
       end
 
-      xit 'sets pending in the new cookie' do
+      it 'sets pending in the new cookie' do
         expect(JSON.parse(response.cookies['payment_in_process'])).to include(
           'pending' => true,
           'session_id' => 'session_this_is_the_one'
