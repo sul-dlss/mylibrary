@@ -1,5 +1,14 @@
 # frozen_string_literal: true
 
+begin
+  require 'ruby-oci8'
+rescue LoadError => e
+  Rails.logger.error('ruby-oci8 gem not available; sponsor checkouts on behalf of the group will not display')
+  Rails.logger.error(e)
+
+  class OCIException < RuntimeError; end
+end
+
 # Oracle client to query Symphony database
 class SymphonyDbClient
   CHECKOUTS_QUERY =
@@ -12,11 +21,13 @@ class SymphonyDbClient
 
   def connection
     @connection ||= begin
-                      require 'ruby-oci8'
-                      OCI8.new(connection_settings)
-                    rescue LoadError => e
-                      Rails.logger.error('No OCI8 gem available.', e)
-                    end
+      if defined?(OCI8)
+        OCI8.new(connection_settings)
+      else
+        Rails.logger.error('ruby-oci8 gem not available; sponsor checkouts on behalf of the group will not display')
+        raise OCIException, 'ruby-oci8 gem not available'
+      end
+    end
   end
 
   def group_circrecord_keys(patron_key)
