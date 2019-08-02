@@ -27,9 +27,11 @@
 <div class="page-section">
   <h3><%= sul_icon :'sharp-attach_money-24px', classes: 'lg' %> Fines &amp; fees payable: <%= number_to_currency(patron.fines.sum(&:owed)) %></h3>
 
-  <div class="mb-1">
-    <%= render 'fines/pay_all_button' %>
-  </div>
+  <% if params[:group].nil? %>
+    <div class="mb-1">
+      <%= render 'fines/pay_all_button' %>
+    </div>
+  <% end %>
 
   <% accruing = patron.checkouts.sum(&:accrued) %>
   <% if accruing.positive? %>
