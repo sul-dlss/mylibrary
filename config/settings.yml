@@ -91,3 +91,10 @@ FINE_STATUS:
 BORROW_DIRECT_CODE: BORROW_DIRECT
 SHORT_TERM_LOAN_PERIODS:
   - HOURLY
+
+# Request becomes ON_LOAN once we receive it (and should show as a request ready for pickup/checkout)
+# Request becomes COMPLETED once the uesr returns it
+BORROW_DIRECT_ACTIVE_REQUEST_STATUSES:
+  - ENTERED
+  - IN_PROCESS
+  - SHIPPED

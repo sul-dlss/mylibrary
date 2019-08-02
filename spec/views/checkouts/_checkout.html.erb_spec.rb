@@ -60,7 +60,7 @@ RSpec.describe 'checkouts/_checkout.html.erb' do
   end
 
   context 'when the library is BORROW_DIRECT' do
-    let(:checkout_attributes) { { library: Checkout::BORROW_DIRECT_CODE } }
+    let(:checkout_attributes) { { library: Settings.BORROW_DIRECT_CODE } }
 
     it 'does not include a link to the item in SearchWorks' do
       expect(rendered).not_to have_link('View in SearchWorks')

@@ -25,14 +25,8 @@ class BorrowDirectRequests
   # Wrap the BorrowDirect::RequestQuery::Item in a class
   # so we can give it a similar iterface to Symphony Requests
   class Request < SimpleDelegator
-    # Request becomes ON_LOAN once we receive it (and should show as a request ready for pickup/checkout)
-    # Request becomes COMPLETED once the uesr returns it
-    ACTIVE_REQUEST_STATUSES = %w[
-      ENTERED IN_PROCESS SHIPPED
-    ].freeze
-
     def active?
-      ACTIVE_REQUEST_STATUSES.include? request_status
+      Settings.BORROW_DIRECT_ACTIVE_REQUEST_STATUSES.include? request_status
     end
 
     def key
