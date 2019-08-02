@@ -63,7 +63,7 @@ RSpec.describe 'Fines Page', type: :feature do
       within('ul.payments') do
         expect(page).to have_css('li', count: 2)
         expect(page).to have_css('li h3', text: 'California : a history')
-        expect(page).to have_css('li .bill_description', text: 'Overdue recall')
+        expect(page).to have_css('li .bill_description', text: 'Overdue item')
       end
     end
 
@@ -94,7 +94,7 @@ RSpec.describe 'Fines Page', type: :feature do
         expect(page).to have_css('.active[data-sort="bill_description"]', count: 2, visible: false)
 
         within(first('ul.payments li')) do
-          expect(page).to have_css('.bill_description', text: /Overdue recall/)
+          expect(page).to have_css('.bill_description', text: /Overdue item/)
         end
       end
     end

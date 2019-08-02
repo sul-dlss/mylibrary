@@ -5,6 +5,7 @@
   <feeInfo>
     <billNumber>6</billNumber>
     <billReasonDescription>Privileges fee</billReasonDescription>
+    <billReasonID>PRIVILEGES</billReasonID>
     <amount ns2:currency="USD">10.01</amount>
     <dateBilled>2013-12-23</dateBilled>
     <feePaymentInfo>

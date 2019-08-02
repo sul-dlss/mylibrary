@@ -27,6 +27,7 @@ Metrics/ClassLength:
   Exclude:
     - 'app/models/checkout.rb'
     - 'app/models/patron.rb'
+    - 'app/models/payment.rb'
     - 'app/services/symphony_client.rb'
     - 'config/application.rb'
 

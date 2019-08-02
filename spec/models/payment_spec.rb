@@ -9,6 +9,7 @@ RSpec.describe Payment do
     {
       'billNumber' => '5',
       'billReasonDescription' => 'Overdue recall',
+      'billReasonID' => 'OVERDUE',
       'amount' => '21.00',
       'dateBilled' => '2013-11-25',
       'feePaymentInfo' => {
@@ -30,6 +31,10 @@ RSpec.describe Payment do
 
     it 'has a bill description' do
       expect(payment.bill_description).to eq 'Overdue recall'
+    end
+
+    it 'has a translated bill description' do
+      expect(payment.nice_bill_description).to eq 'Overdue item'
     end
 
     it 'has a bill amount' do

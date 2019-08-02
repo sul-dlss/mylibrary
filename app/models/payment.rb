@@ -23,6 +23,23 @@ class Payment
     'XREMBILL' => 'Removed'
   }.freeze
 
+  BILL_REASONS = {
+    'OVERDUE' => 'Overdue item',
+    'RECALLOVD' => 'Overdue recall',
+    'RESERVEOVD' => 'Overdue course reserve',
+    'LOST' => 'Lost item',
+    'REPLCMENT' => 'Lost item',
+    'LOST-ILL' => 'Lost interlibrary loan item',
+    'CLAIM-LOST' => 'Lost item',
+    'CLAIM-FEE' => 'Processing fee',
+    'PROCESSFEE' => 'Processing fee',
+    'PROCESSING' => 'Processing fee',
+    'DAMAGED' => 'Damaged item',
+    'PRIVILEGES' => 'Privileges fee',
+    'LOSTCARD' => 'Lost card fee',
+    'LOSTKEY' => 'Lost key fee'
+  }.freeze
+
   def initialize(record)
     @record = record
   end
@@ -33,6 +50,10 @@ class Payment
 
   def bill_description
     record['billReasonDescription']
+  end
+
+  def nice_bill_description
+    BILL_REASONS[bill_reason_id]
   end
 
   def bill_amount
@@ -104,5 +125,9 @@ class Payment
 
   def fee_item_info
     record['feeItemInfo']
+  end
+
+  def bill_reason_id
+    record['billReasonID']
   end
 end
