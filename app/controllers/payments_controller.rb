@@ -10,6 +10,14 @@ class PaymentsController < ApplicationController
   # forgery protection can use to validate the request
   skip_forgery_protection only: %i[accept cancel]
 
+  def create
+    redirect_to URI::HTTPS.build(
+      host: Settings.symphony.host,
+      path: '/secureacceptance/payment_form.php',
+      query: create_payment_params.to_query
+    ).to_s
+  end
+
   # Render a list of the payment histroy for the patron
   #
   # GET /payments
@@ -66,5 +74,9 @@ class PaymentsController < ApplicationController
 
   def payments
     symphony_legacy_client.payments(symphony_client.session_token, patron)
+  end
+
+  def create_payment_params
+    params.permit(%I[reason billseq amount session_id user group])
   end
 end

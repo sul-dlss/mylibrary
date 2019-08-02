@@ -59,6 +59,17 @@ RSpec.describe PaymentsController do
     end
   end
 
+  describe '#create' do
+    it 'redirects to payment system' do
+      post :create
+      expect(controller).to redirect_to 'https://example.com/secureacceptance/payment_form.php?'
+    end
+    it 'passes through parameters' do
+      post :create, params: { reason: 'r', billseq: 'b', amount: 'a', session_id: 's', user: 'u', group: 'g' }
+      expect(controller).to redirect_to 'https://example.com/secureacceptance/payment_form.php?amount=a&billseq=b&group=g&reason=r&session_id=s&user=u'
+    end
+  end
+
   context 'when a user makes a payment' do
     before do
       post :accept, params: { req_amount: '10.00' }
