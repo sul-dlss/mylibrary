@@ -21,7 +21,7 @@ class LibraryLocation
     when library_specific_pickup_libraries?
       library_specific_pickup_libraries[@home_location]
     else
-      config.pickup_libraries
+      Settings.pickup_libraries
     end
   end
   # rubocop:enable Style/EmptyCaseCondition
@@ -29,22 +29,18 @@ class LibraryLocation
   private
 
   def library_specific_pickup_libraries
-    config.library_specific_pickup_libraries
+    Settings.library_specific_pickup_libraries
   end
 
   def location_specific_pickup_libraries
-    config.location_specific_pickup_libraries
+    Settings.location_specific_pickup_libraries
   end
 
   def library_specific_pickup_libraries?
-    config.library_specific_pickup_libraries.key?(@home_location)
+    Settings.library_specific_pickup_libraries.key?(@home_location.to_sym)
   end
 
   def location_specific_pickup_libraries?
-    config.location_specific_pickup_libraries.key?(@home_location)
-  end
-
-  def config
-    Mylibrary::Application.config
+    Settings.location_specific_pickup_libraries.key?(@home_location.to_sym)
   end
 end
