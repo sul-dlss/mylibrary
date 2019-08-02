@@ -26,3 +26,21 @@ symphony:
 
 # A sufficiently large time used to sort nil values last
 END_OF_DAYS: <%= Time.parse('2099-01-01') %>
+
+PAYMENT_TYPES:
+  AUTOREFUND: 'Returned'
+  CANCEL: 'Removed'
+  CARDSWIPE: 'Paid by credit card'
+  CASH: 'Paid by cash'
+  CHECK: 'Paid by check'
+  CLMS-RTND: 'Processing claim'
+  CREDITACCT: 'Returned'
+  CREDITCARD: 'Paid by credit card'
+  FORGIVEN: 'Forgiven'
+  LIB-ERROR: 'Removed'
+  NONE: 'Returned'
+  REFUND: 'Removed'
+  RETURNED: 'Returned'
+  TRANS-BILL: 'Forgiven'
+  U-REPLACED: 'Replacement provided'
+  XREMBILL: 'Removed'
