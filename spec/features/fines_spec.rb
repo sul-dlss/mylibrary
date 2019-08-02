@@ -53,12 +53,12 @@ RSpec.describe 'Fines Page', type: :feature do
     it 'has a header for payment history' do
       visit fines_path
 
-      expect(page).to have_css('h2', text: 'Payment History')
+      expect(page).to have_css('h2', text: 'History')
     end
 
     it 'renders a list item for every payment', js: true do
       visit fines_path
-      click_on 'Show payment history'
+      click_on 'Show history'
 
       within('ul.payments') do
         expect(page).to have_css('li', count: 2)
@@ -69,7 +69,7 @@ RSpec.describe 'Fines Page', type: :feature do
 
     it 'has content behind a payments toggle', js: true do
       visit fines_path
-      click_on 'Show payment history'
+      click_on 'Show history'
 
       within('ul.payments') do
         within(first('li')) do
@@ -84,7 +84,7 @@ RSpec.describe 'Fines Page', type: :feature do
 
     it 'is sortable', js: true do
       visit fines_path
-      click_on 'Show payment history'
+      click_on 'Show history'
 
       within '#payments' do
         expect(page).to have_css('.dropdown-toggle', text: 'Sort (Date paid)')
@@ -107,7 +107,7 @@ RSpec.describe 'Fines Page', type: :feature do
 
     it 'renders a list item for a single payment', js: true do
       visit fines_path
-      click_on 'Show payment history'
+      click_on 'Show history'
 
       within('ul.payments') do
         expect(page).to have_css('li', count: 1)
@@ -118,7 +118,7 @@ RSpec.describe 'Fines Page', type: :feature do
 
     it 'has content behind a payments toggle', js: true do
       visit fines_path
-      click_on 'Show payment history'
+      click_on 'Show history'
 
       within('ul.payments') do
         within(first('li')) do
