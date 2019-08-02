@@ -3,14 +3,26 @@
 # :nodoc:
 class SessionsController < ApplicationController
   before_action :set_home_page_flash_message, only: :index
+
+  # Render the application home page with various login options
+  #
+  # GET /
   def index
     @symphony_ok = symphony_client.ping
 
     redirect_to summaries_url if current_user?
   end
 
+  # Render a login form for Barcode + PIN users (Stanford single-sign-on are
+  # authenticated using a different route)
+  #
+  # GET /login
   def form; end
 
+  # Handle login for Barcode + PIN users by authenticating them against Symphony
+  # using the Warden configuration.
+  #
+  # GET /sessions/login_by_library_id
   def login_by_library_id
     if request.env['warden'].authenticate(:library_id)
       redirect_to summaries_url
@@ -19,6 +31,11 @@ class SessionsController < ApplicationController
     end
   end
 
+  # Handle Stanford single-sign-on users; this route should be protected by
+  # Shibboleth, so if they get here we'll be able to read the necessary user
+  # information out of the request headers (using the Warden configurations)
+  #
+  # GET /sessions/login_by_sunetid
   def login_by_sunetid
     if request.env['warden'].authenticate(:shibboleth, :development_shibboleth_stub)
       redirect_to summaries_url
@@ -27,6 +44,10 @@ class SessionsController < ApplicationController
     end
   end
 
+  # Handle user logout by destroying their current application session and
+  # sending them through the single-sign-on logout process (if necessary)
+  #
+  # GET /logout
   def destroy
     needs_shibboleth_logout = current_user&.shibboleth?
     request.env['warden'].logout

@@ -1,15 +1,23 @@
 # frozen_string_literal: true
 
-# Controller for the requests page
+# Controller for user requests/holds/etc
 class RequestsController < ApplicationController
   before_action :authenticate_user!
 
+  # Renders user requests from Symphony and/or BorrowDirect
+  #
+  # GET /requests
+  # GET /requests.json
   def index
     @requests = patron_or_group.requests.sort_by { |request| request.sort_key(:date) }
   end
 
+  # Renders a form for editing a request/hold
+  #
+  # GET /requests/:id/edit
   def edit
     @request = patron.requests.find { |r| r.key == params['id'] }
+
     respond_to do |format|
       format.html do
         return render layout: false if request.xhr?
@@ -17,18 +25,29 @@ class RequestsController < ApplicationController
     end
   end
 
+  # Handles form submission for changing or canceling requests/holds/etc in Symphony
+  #
+  # PATCH /requests/:id
+  # PUT /requests/:id
   def update
     destroy && return if params['cancel'].present?
+
     flash[:success] = []
     flash[:error] = []
+
     handle_pickup_change_request if params['pickup_library'].present?
     handle_not_needed_after_request if params['not_needed_after'].present? &&
                                        params['not_needed_after'] != params['current_fill_by_date']
+
     redirect_to requests_path
   end
 
+  # Handles form submission for canceling requests/holds/etc in Symphony
+  #
+  # DELETE /requests/:id
   def destroy
     @response = symphony_client.cancel_hold(*cancel_hold_params)
+
     case @response.status
     when 200
       flash[:success] = t 'mylibrary.request.cancel.success_html', title: params['title']
@@ -36,6 +55,7 @@ class RequestsController < ApplicationController
       Rails.logger.error(@response.body)
       flash[:error] = t 'mylibrary.request.cancel.error_html', title: params['title']
     end
+
     redirect_to requests_path
   end
 

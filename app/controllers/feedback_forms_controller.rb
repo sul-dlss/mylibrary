@@ -2,8 +2,16 @@
 
 # Controller for Feedback forms
 class FeedbackFormsController < ApplicationController
+  # Render a form for submitting application feedback
+  #
+  # GET /feedback
+  # GET /feedback/new
   def new; end
 
+  # Handle contact form submission by sending an email to the
+  # appropriate recipients
+  #
+  # POST /feedback
   def create
     return unless request.post?
 
