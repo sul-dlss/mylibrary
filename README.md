@@ -3,9 +3,9 @@
 [![Code Climate](https://codeclimate.com/github/sul-dlss/mylibrary/badges/gpa.svg)](https://codeclimate.com/github/sul-dlss/mylibrary)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/a8f1c5dab3a53ffba586/test_coverage)](https://codeclimate.com/github/sul-dlss/mylibrary/test_coverage)
 
-MyLibrary rails front-end application that uses Symphony Web Services to display library patron account information, 
+MyLibrary rails front-end application that uses Symphony Web Services to display library patron account information,
 allow renewal of materials, cancel hold requests, make payments of library fees and fines (via a hosted payment gateway),
-and other features supported by Symphony Web Services API and other supported APIs to enhance library user experience and 
+and other features supported by Symphony Web Services API and other supported APIs to enhance library user experience and
 interactions with library access services.
 
 ## Requirements
@@ -23,11 +23,11 @@ Clone the repository
 Change directories into the app and install dependencies
 
     $ bundle install
-    
+
 Start the development server
-    
+
     $ rails s
-    
+
 ## Configuring
 
 The MyLibrary app will be configuired to connect to various backend web services, particularly Symphony Web Services and
@@ -37,7 +37,7 @@ mode will point to `symphony-webservices-dev` and `sul-illiad-test` respectively
 ### Web Services Connectivity
 
 For running the application in development mode you will need to connecting from a Stanford IP address (LAN, WiFi, or VPN)
-in order to sucessfully make web services requests. Furthermore, ILLiad Web services requires an API key which will be 
+in order to sucessfully make web services requests. Furthermore, ILLiad Web services requires an API key which will be
 made available via a `shared_configs` file.
 
 ## Development
@@ -57,7 +57,7 @@ $ uid=someuser rails s
 
 Note, again, that the user must exist in symphony web services as well; this is only a bypass for the shibboleth authentication.
 
-## Fixture users
+### Fixture users
 
 Some integration tests use fixture users (stored in `spec/support/fixtures`) using some webmock magic to route
 API requests to the appropriate fixture (see `spec/support/fake_symphony.rb`). These fixtures can be created
@@ -75,6 +75,18 @@ Additional note: some fixture users have even been modified from their original 
 in ways that would be impossible to achieve by manipulating data in Symphony (e.g. `521181` has some fines, but
 the patron standing is marked as 'OK' so we can reuse the patron for many different types of tests)
 
+### Symphony Web Services API
+
+This application uses the Symphony Web Services API to interact with the ILS. Documentation for this API is available
+in the SDK and from the web services host (at e.g. `https://example.com/symws/sdk.html`). However, at this time,
+the API does not provide all the information we need, so we use several other methods to get at patron information as well:
+
+- the legacy web services API (used for retrieving payment history)
+- direct Oracle Database access (used for differentiating the group sponsor's checkouts/requests/fines)
+
+Note, too, that the API does not allow us to paginate within a list of checkouts/requests/fines, as they are retrieved as
+part of the patron information request.
+
 ## Testing
 
 The test suite (with RuboCop style enforcement) will be run with the default rake task (also run on travis)
@@ -91,8 +103,7 @@ The RuboCop style enforcement can be run without running the tests
 
 ## Deployment
 
-Deployment of the application will be handled using the DLSS capistrano gem. To deploy the app to the development application 
+Deployment of the application will be handled using the DLSS capistrano gem. To deploy the app to the development application
 server run:
-    
-    $ cap dev deploy
 
+    $ cap dev deploy
