@@ -2,20 +2,20 @@
 
 <dl class="row">
   <% if patron.patron_type %>
-    <dt class='col-4 col-md-2 font-weight-normal'>Patron type:</dt>
-    <dd class='col-8 col-md-10 patron-type'><%= patron.patron_type %></dd>
+    <dt class='col-5 col-sm-4 col-md-3 col-lg-2 font-weight-normal'>Patron type:</dt>
+    <dd class='col-7 col-sm-8 col-md-9 col-lg-10 patron-type'><%= patron.patron_type %></dd>
   <% end %>
 
-  <dt class="col-4 col-md-2 font-weight-normal">Status:</dt>
-  <dd class="col-8 col-md-10 patron-status"><%= link_to_if patron.barred?, patron.status, contact_path, class: 'navbar-link', 'data-mylibrary-modal' => 'trigger' %></dd>
+  <dt class="col-5 col-sm-4 col-md-3 col-lg-2 font-weight-normal">Status:</dt>
+  <dd class="col-7 col-sm-8 col-md-9 col-lg-10 patron-status"><%= link_to_if patron.barred?, patron.status, contact_path, class: 'navbar-link', 'data-mylibrary-modal' => 'trigger' %></dd>
 
   <% if patron.expired_date && patron.proxy_borrower? %>
-    <dt class="col-4 col-md-2 font-weight-normal">Privileges expire:</dt>
-    <dd class="col-8 col-md-10 expired-date"><%= l(patron.expired_date, format: :short) %></dd>
+    <dt class="col-5 col-sm-4 col-md-3 col-lg-2 font-weight-normal">Privileges expire:</dt>
+    <dd class="col-7 col-sm-8 col-md-9 col-lg-10 expired-date"><%= l(patron.expired_date, format: :short) %></dd>
   <% end %>
 
   <% if patron.email %>
-    <dt class="col-4 col-md-2 font-weight-normal">Email:</dt>
-    <dd class="col-8 col-md-10 email"><%= patron.email %></dd>
+    <dt class="col-5 col-sm-4 col-md-3 col-lg-2 font-weight-normal">Email:</dt>
+    <dd class="col-7 col-sm-8 col-md-9 col-lg-10 email"><%= patron.email %></dd>
   <% end %>
 </dl>
