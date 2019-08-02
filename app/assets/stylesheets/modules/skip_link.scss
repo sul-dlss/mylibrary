@@ -1,0 +1,35 @@
+// scss-lint:disable IdSelector, ImportantRule, VendorPrefix
+#skip-link {
+  margin-left: 10px;
+  padding-top: 4px;
+  position: absolute;
+  top: 0;
+  z-index: 1;
+
+  .element-invisible {
+    clip: rect(1px, 1px, 1px, 1px);
+    height: 1px;
+    overflow: hidden;
+    position: absolute !important;
+  }
+
+  .element-invisible.element-focusable:active,
+  .element-invisible.element-focusable:focus {
+    clip: auto;
+    height: auto;
+    overflow: visible;
+    position: static !important;
+  }
+
+  a:focus {
+    background-color: $sul-skip-to-nav-bg;
+    -moz-border-radius: 0 0 6px 6px;
+    -webkit-border-radius: 0 0 6px 6px;
+    border-radius: 0 0 6px 6px;
+    -moz-box-shadow: 0 0 6px $black;
+    -webkit-box-shadow: 0 0 6px $black;
+    box-shadow: 0 0 6px $black;
+    margin: 0;
+    padding: 6px 15px;
+  }
+}
