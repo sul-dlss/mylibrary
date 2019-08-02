@@ -4,9 +4,6 @@
 class Checkout
   attr_reader :record
 
-  BORROW_DIRECT_CODE = 'BORROW_DIRECT'
-  SHORT_TERM_LOAN_PERIODS = %w[HOURLY].freeze
-
   def initialize(record)
     @record = record
   end
@@ -116,7 +113,7 @@ class Checkout
 
   def library
     code = fields['library']['key']
-    return BORROW_DIRECT_CODE if code == 'SUL'
+    return Settings.BORROW_DIRECT_CODE if code == 'SUL'
 
     code
   end
@@ -142,7 +139,7 @@ class Checkout
   end
 
   def short_term_loan?
-    SHORT_TERM_LOAN_PERIODS.include?(loan_period_type)
+    Settings.SHORT_TERM_LOAN_PERIODS.include?(loan_period_type)
   end
 
   def to_partial_path
