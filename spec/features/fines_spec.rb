@@ -152,7 +152,7 @@ RSpec.describe 'Fines Page', type: :feature do
     it 'does payment' do
       visit fines_path(payment_pending: true)
 
-      expect(page).to have_css('span', text: 'payment processing')
+      expect(page).to have_css('span', text: 'pending')
     end
   end
 end
