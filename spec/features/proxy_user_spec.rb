@@ -15,6 +15,7 @@ RSpec.describe 'Proxy User', type: :feature do
 
     click_link 'Other proxies'
     expect(page).to have_css('.nav-tabs .nav-link.active', text: 'Other proxies')
+    expect(page).to have_text('The research group has unpaid fines that may affect the status of all proxies')
 
     click_link 'Proxy FirstProxyLN'
     expect(page).to have_css('.nav-tabs .nav-link.active', text: 'Proxy FirstProxyLN')

@@ -26,6 +26,7 @@ RSpec.describe 'Sponsor User', type: :feature do
     expect(page).to have_css('a.btn', text: 'Pay $13.00 now')
 
     click_link 'Proxies'
+    expect(page).to have_text('Fines can be paid in My Library Account only by the borrower who accrued them')
     expect(page).not_to have_css('a.btn', text: 'Pay $340.00 now')
   end
 end
