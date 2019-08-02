@@ -101,6 +101,63 @@ RSpec.describe SymphonyClient do
     it 'renews an item in symphony' do
       expect(client.renew_item('item', '123')).to have_attributes status: 200
     end
+
+    context 'when item has a title-level hold' do
+      before do
+        stub_request(:post, 'https://example.com/symws/circulation/circRecord/renew')
+          .with(body: { item: { resource: 'item', key: '456' } })
+          .to_return(status: 500, body: error_prompt)
+          .then.to_return(status: 200)
+      end
+
+      let(:error_prompt) do
+        { dataMap: { promptType: 'CIRC_HOLDS_OVRCD' } }.to_json
+      end
+
+      it 'renews an item in symphony' do
+        expect(client.renew_item('item', '456')).to have_attributes status: 200
+      end
+
+      # rubocop:disable RSpec/ExampleLength
+      it 'sends an override request for a title-level hold' do
+        client.renew_item('item', '456')
+
+        expect(a_request(:post, 'https://example.com/symws/circulation/circRecord/renew')
+          .with(
+            body: { item: { resource: 'item', key: '456' } },
+            headers: { 'SD-Prompt-Return': 'CIRC_HOLDS_OVRCD/PASSWORD' }
+          )).to have_been_made.once
+      end
+      # rubocop:enable RSpec/ExampleLength
+    end
+
+    context 'when item has a different kind of hold error' do
+      before do
+        stub_request(:post, 'https://example.com/symws/circulation/circRecord/renew')
+          .with(body: { item: { resource: 'item', key: '456' } })
+          .to_return(status: 500, body: fake_error_prompt)
+      end
+
+      let(:fake_error_prompt) do
+        { dataMap: { promptType: 'CIRC_HOLDS_OTHER_ERROR' } }.to_json
+      end
+
+      it 'fails to renews an item in symphony' do
+        expect(client.renew_item('item', '456')).to have_attributes status: 500
+      end
+    end
+
+    context 'when item has a non-json error status' do
+      before do
+        stub_request(:post, 'https://example.com/symws/circulation/circRecord/renew')
+          .with(body: { item: { resource: 'item', key: '456' } })
+          .to_return(status: 500, body: '<html>error</html>')
+      end
+
+      it 'fails to renews an item in symphony' do
+        expect(client.renew_item('item', '456')).to have_attributes status: 500
+      end
+    end
   end
 
   describe '#renew_items' do
