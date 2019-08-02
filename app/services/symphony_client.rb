@@ -86,14 +86,16 @@ class SymphonyClient
   end
 
   def renew_item(resource, item_key)
-    response = authenticated_request('/circulation/circRecord/renew', method: :post, json: {
-      item: {
-        resource: resource,
-        key: item_key
-      }
-    })
+    response = renew_item_request(resource, item_key)
+    error_prompt = response_prompt(response)
 
-    response
+    if error_prompt == 'CIRC_HOLDS_OVRCD'
+      renew_item_request(resource,
+                         item_key,
+                         headers: { 'SD-Prompt-Return': "#{error_prompt}/#{Settings.symphony.override}" })
+    else
+      response
+    end
   end
 
   def renew_items(checkouts)
@@ -150,6 +152,23 @@ class SymphonyClient
   end
 
   private
+
+  def renew_item_request(resource, item_key, headers: {})
+    authenticated_request('/circulation/circRecord/renew', headers: headers, method: :post, json: {
+      item: {
+        resource: resource,
+        key: item_key
+      }
+    })
+  end
+
+  def response_prompt(response)
+    return if response.status.ok?
+
+    JSON.parse(response.body).dig('dataMap', 'promptType')
+  rescue JSON::ParserError
+    nil
+  end
 
   def authenticated_request(path, headers: {}, **other)
     request(path, headers: headers.merge('x-sirs-sessionToken': session_token), **other)
