@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :checkouts
   resources :requests
   resources :fines
+  resources :payments, only: :index
   resources :renewals, only: %I[create] do
     post 'all_eligible', on: :collection
   end

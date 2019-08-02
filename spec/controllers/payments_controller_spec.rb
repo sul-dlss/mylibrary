@@ -3,6 +3,62 @@
 require 'rails_helper'
 
 RSpec.describe PaymentsController do
+  describe '#index' do
+    let(:mock_patron) { instance_double(Patron, group?: false, barcode: '1234') }
+    let(:mock_legacy_client) do
+      instance_double(
+        SymphonyLegacyClient,
+        payments: mock_legacy_client_response
+      )
+    end
+    let(:mock_legacy_client_response) do
+      [
+        { 'billNumber' => '1', 'feePaymentInfo' => { 'paymentDate' => '2019-01-01' } },
+        { 'billNumber' => '2' },
+        { 'billNumber' => '3', 'feePaymentInfo' => { 'paymentDate' => '2019-02-01' } }
+      ]
+    end
+
+    before do
+      allow(controller).to receive(:patron).and_return(mock_patron)
+      allow(controller).to receive(:symphony_client)
+        .and_return(instance_double(SymphonyClient, session_token: '1a2b3c4d5e6f7g8h9i0j'))
+      allow(SymphonyLegacyClient).to receive(:new).and_return(mock_legacy_client)
+    end
+
+    context 'when a user has multiple payments' do
+      it 'shows a list of payments from the payments array' do
+        get(:index)
+
+        expect(assigns(:payments)).to all(be_a Payment)
+      end
+
+      it 'shows the correct number of payments in the list' do
+        get(:index)
+
+        expect(assigns(:payments).length).to eq 3
+      end
+
+      it 'shows the payments sorted appropriately (bills w/o a payment date at the top the reverse date sort)' do
+        get(:index)
+
+        expect(assigns(:payments).map(&:key)).to eq(%w[2 3 1])
+      end
+    end
+
+    context 'when a user has only one payment' do
+      let(:mock_legacy_client_response) do
+        { 'billNumber' => '1' }
+      end
+
+      it 'wraps a single payment in an array' do
+        get(:index)
+
+        expect(assigns(:payments).first.key).to eq '1'
+      end
+    end
+  end
+
   context 'when a user makes a payment' do
     before do
       post :accept, params: { req_amount: '10.00' }
