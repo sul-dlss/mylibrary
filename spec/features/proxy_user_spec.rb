@@ -55,6 +55,7 @@ RSpec.describe 'Proxy User', type: :feature do
     expect(page).not_to have_text('Borrower:')
 
     click_link 'Other proxies'
+    expect(page).not_to have_css('.fines')
     expect(page).not_to have_text('Aspects of grammatical architecture')
     expect(page).not_to have_text('SecondproxyLN')
   end
