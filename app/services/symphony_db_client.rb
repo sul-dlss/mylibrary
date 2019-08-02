@@ -22,6 +22,7 @@ class SymphonyDbClient
   def connection
     @connection ||= begin
       if defined?(OCI8)
+        OCI8.properties[:connect_timeout] = 5
         OCI8.new(connection_settings)
       else
         Rails.logger.error('ruby-oci8 gem not available; sponsor checkouts on behalf of the group will not display')
