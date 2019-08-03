@@ -27,9 +27,25 @@
 <div class="page-section">
   <h3><%= sul_icon :'sharp-attach_money-24px', classes: 'lg' %> Fines &amp; fees payable: <%= number_to_currency(patron.fines.sum(&:owed)) %></h3>
 
-  <div class="mb-1">
-    <%= render 'fines/pay_all_button' %>
-  </div>
+  <% if params[:group] && patron.fines.sum(&:owed).positive? # temporary fix until Symphony CGI scripts are updated %>
+    <% if patron.sponsor? # temporary fix until Symphony CGI scripts are updated %>
+      <div class="ml-4">
+        Fines can be paid in My Library Account only by the borrower who accrued them. <br />
+        To pay proxy fines using iJournal,
+        <%= link_to contact_path, data: { 'mylibrary-modal' => 'trigger' } do %>
+            contact Circulation & Privileges.
+        <% end %>
+      </div>
+    <% else %>
+      <div class="ml-4">
+        <%= sul_icon :'sharp-error-24px', classes: 'text-recalled' %> The research group has unpaid fines that may affect the status of all proxies.
+      </div>
+    <% end %>
+  <% else %>
+    <div class="mb-1">
+      <%= render 'fines/pay_all_button' %>
+    </div>
+  <% end %>
 
   <% accruing = patron.checkouts.sum(&:accrued) %>
   <% if accruing.positive? %>
