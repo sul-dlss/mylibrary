@@ -49,6 +49,7 @@ class SessionsController < ApplicationController
   #
   # GET /logout
   def destroy
+    cookies.delete(:payment_in_process)
     needs_shibboleth_logout = current_user&.shibboleth?
     request.env['warden'].logout
 

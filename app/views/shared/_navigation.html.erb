@@ -44,9 +44,7 @@
         <span class="label">Fines</span>
         <% owed = patron_or_group.fines.sum(&:owed) %>
         <% accruing = patron_or_group.checkouts.sum(&:accrued) %>
-        <% if params[:payment_pending] %>
-          <span class="info text-recalled">payment processing</span>
-        <% elsif owed.positive? %>
+        <% if owed.positive? %>
           <span class="info text-recalled"><%= sul_icon :'sharp-error-24px' %> <%= number_to_currency(owed) %></span>
         <% elsif accruing.positive? %>
           <span class="info text-overdue"><%= sul_icon :'sharp-warning-24px' %> <%= number_to_currency(accruing) %></span>

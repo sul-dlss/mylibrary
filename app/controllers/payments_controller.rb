@@ -10,6 +10,15 @@ class PaymentsController < ApplicationController
   # forgery protection can use to validate the request
   skip_forgery_protection only: %i[accept cancel]
 
+  def create
+    set_payment_cookie
+    redirect_to URI::HTTPS.build(
+      host: Settings.symphony.host,
+      path: '/secureacceptance/payment_form.php',
+      query: create_payment_params.to_query
+    ).to_s
+  end
+
   # Render a list of the payment histroy for the patron
   #
   # GET /payments
@@ -33,7 +42,8 @@ class PaymentsController < ApplicationController
   #
   # POST /payments/accept
   def accept
-    redirect_to fines_path(payment_pending: true), flash: {
+    alter_payment_cookie
+    redirect_to fines_path, flash: {
       success: (t 'mylibrary.fine_payment.accept_html', amount: params[:req_amount])
     }
   end
@@ -42,6 +52,7 @@ class PaymentsController < ApplicationController
   #
   # POST /payments/cancel
   def cancel
+    cookies.delete :payment_in_process
     redirect_to fines_path, flash: { error: (t 'mylibrary.fine_payment.cancel_html') }
   end
 
@@ -56,6 +67,34 @@ class PaymentsController < ApplicationController
     }
   end
 
+  ##
+  # Sets a cookie with information from the payment so that we can understand
+  # that there is a payment in flight
+  def set_payment_cookie
+    cookies[:payment_in_process] = {
+      value: {
+        billseq: create_payment_params[:billseq],
+        session_id: create_payment_params[:session_id],
+        group: create_payment_params[:group]
+      }.to_json,
+      httponly: true,
+      expires: 10.minutes
+    }
+  end
+
+  ##
+  # On return from cybersource check the session_id to see if it checks out and
+  # then set the payment as "pending"
+  def alter_payment_cookie
+    new_cookie = payment_in_process_cookie.dup
+    new_cookie[:pending] = true if new_cookie[:session_id] == params[:req_merchant_defined_data2]
+    cookies[:payment_in_process] = {
+      value: new_cookie.to_json,
+      httponly: true,
+      expires: 10.minutes
+    }
+  end
+
   # The regular SymphonyClient does not provide payment history
   # so we have to use a legacy client to access that data.
   # We should avoid using this when possible.
@@ -65,5 +104,9 @@ class PaymentsController < ApplicationController
 
   def payments
     symphony_legacy_client.payments(symphony_client.session_token, patron)
+  end
+
+  def create_payment_params
+    params.permit(%I[reason billseq amount session_id user group])
   end
 end

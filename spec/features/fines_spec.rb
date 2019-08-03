@@ -143,16 +143,4 @@ RSpec.describe 'Fines Page', type: :feature do
       expect(page).not_to have_css('.list-header')
     end
   end
-
-  context 'when a user pays a fine' do
-    before do
-      login_as(username: 'SUPER2', patron_key: user_with_single_payment)
-    end
-
-    it 'does payment' do
-      visit fines_path(payment_pending: true)
-
-      expect(page).to have_css('span', text: 'payment processing')
-    end
-  end
 end

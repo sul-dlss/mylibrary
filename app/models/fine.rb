@@ -42,7 +42,7 @@ class Fine
   end
 
   def sequence
-    key&.split(':')&.last
+    key&.split(':')&.last&.to_i
   end
 
   def patron_key

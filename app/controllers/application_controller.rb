@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   def patron
     return unless current_user?
 
-    @patron ||= Patron.new(patron_info_response)
+    @patron ||= Patron.new(patron_info_response, payment_in_process_cookie)
   end
 
   def patron_or_group
@@ -30,6 +30,13 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  ##
+  # Used in conjuction with Patron to determine if fines should be filtered by
+  # in flight payment sequence
+  def payment_in_process_cookie
+    @payment_in_process_cookie ||= JSON.parse(cookies[:payment_in_process] || {}.to_json).with_indifferent_access
+  end
 
   def symphony_client
     @symphony_client ||= SymphonyClient.new

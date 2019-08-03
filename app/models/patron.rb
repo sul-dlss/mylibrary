@@ -2,7 +2,7 @@
 
 # Class to model Patron information
 class Patron
-  attr_reader :record
+  attr_reader :record, :payment_in_process
 
   CHARGE_LIMIT_THRESHOLD = 25_000
 
@@ -21,8 +21,9 @@ class Patron
     'MXFEE-NO25' => 'Fee borrower'
   }.freeze
 
-  def initialize(record)
+  def initialize(record, payment_in_process = {})
     @record = record
+    @payment_in_process = payment_in_process
   end
 
   def key
@@ -137,7 +138,19 @@ class Patron
   end
 
   def fines
-    @fines ||= fields['blockList'].map { |fine| Fine.new(fine) }
+    all_fines.reject { |fine| payment_sequence.include?(fine.sequence) }
+  end
+
+  def all_fines
+    @all_fines ||= fields['blockList'].map { |fine| Fine.new(fine) }
+  end
+
+  ##
+  # Creates a range of integers based of a payment sequence string
+  def payment_sequence
+    return Range.new(0, 0) unless payment_in_process[:billseq] && payment_in_process[:pending]
+
+    Range.new(*payment_in_process[:billseq].split('-').map(&:to_i))
   end
 
   def requests

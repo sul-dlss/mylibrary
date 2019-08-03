@@ -28,6 +28,7 @@ Rails.application.routes.draw do
   get '/change_pin/:token', to: 'reset_pins#change_form', as: :change_pin_with_token
   post '/change_pin', to: 'reset_pins#change'
 
+  resources :payments, only: %I[create]
   post '/payments/accept', to: 'payments#accept'
   post '/payments/cancel', to: 'payments#cancel'
 

@@ -23,7 +23,7 @@ RSpec.describe 'Sponsor User', type: :feature do
   it 'shows the pay fine button on the self tab only' do
     visit summaries_path
 
-    expect(page).to have_css('a.btn', text: 'Pay $13.00 now')
+    expect(page).to have_css('button.btn', text: 'Pay $13.00 now')
 
     click_link 'Proxies'
     expect(page).to have_text('Fines can be paid in My Library Account only by the borrower who accrued them')
