@@ -41,7 +41,7 @@
         <%= sul_icon :'sharp-error-24px', classes: 'text-recalled' %> The research group has unpaid fines that may affect the status of all proxies.
       </div>
     <% end %>
-  <% elsif params[:group].nil? %>
+  <% else %>
     <div class="mb-1">
       <%= render 'fines/pay_all_button' %>
     </div>
