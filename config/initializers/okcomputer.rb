@@ -22,3 +22,5 @@ end
 
 OkComputer::Registry.register 'symphony_web_services', SymphonyClientCheck.new
 OkComputer::Registry.register 'symphony_db_client', SymphonyDbClientCheck.new
+
+OkComputer.make_optional %w[symphony_db_client]
