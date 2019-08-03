@@ -34,6 +34,7 @@
             <%= hidden_field_tag :resource, checkout.resource %>
             <%= hidden_field_tag :item_key, checkout.item_key %>
             <%= hidden_field_tag :title, checkout.title %>
+            <%= hidden_field_tag :group, params[:group] if params[:group] %>
             <%= button_tag class: 'btn btn-link btn-renewable-submit btn-icon-prefix', type: 'submit' do %>
               <%= sul_icon 'renew' %> Renew this item
             <% end %>

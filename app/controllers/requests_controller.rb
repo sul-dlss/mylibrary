@@ -39,7 +39,7 @@ class RequestsController < ApplicationController
     handle_not_needed_after_request if params['not_needed_after'].present? &&
                                        params['not_needed_after'] != params['current_fill_by_date']
 
-    redirect_to requests_path
+    redirect_to requests_path(group: params[:group])
   end
 
   # Handles form submission for canceling requests/holds/etc in Symphony
@@ -56,7 +56,7 @@ class RequestsController < ApplicationController
       flash[:error] = t 'mylibrary.request.cancel.error_html', title: params['title']
     end
 
-    redirect_to requests_path
+    redirect_to requests_path(group: params[:group])
   end
 
   private

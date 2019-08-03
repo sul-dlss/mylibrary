@@ -19,7 +19,7 @@ class RenewalsController < ApplicationController
       flash[:error] = t 'mylibrary.renew_item.error_html', title: params['title']
     end
 
-    redirect_to checkouts_path
+    redirect_to checkouts_path(group: params[:group])
   end
 
   # Renew all eligible items for a patron
@@ -32,7 +32,7 @@ class RenewalsController < ApplicationController
     bulk_renewal_flash(response, type: :success)
     bulk_renewal_flash(response, type: :error)
 
-    redirect_to checkouts_path
+    redirect_to checkouts_path(group: params[:group])
   end
 
   private
