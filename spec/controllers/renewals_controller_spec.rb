@@ -62,6 +62,20 @@ RSpec.describe RenewalsController, type: :controller do
         expect(response).to redirect_to checkouts_path(group: true)
       end
     end
+
+    context 'when the requested item is not checked out to the patron' do
+      it 'does not renew the item and sets flash messages' do
+        post :create, params: { resource: 'abc', item_key: 'some_made_up_item_key' }
+
+        expect(flash[:error]).to match('An unexpected error has occurred')
+      end
+
+      it 'does not renew the item and redirects to checkouts_path' do
+        post :create, params: { resource: 'abc', item_key: 'some_made_up_item_key' }
+
+        expect(response).to redirect_to checkouts_path
+      end
+    end
   end
 
   describe '#all_eligible' do

@@ -3,6 +3,8 @@
 # Controller for user requests/holds/etc
 class RequestsController < ApplicationController
   before_action :authenticate_user!
+  before_action :authorize_update!, except: :index
+  rescue_from RequestException, with: :deny_access
 
   # Renders user requests from Symphony and/or BorrowDirect
   #
@@ -97,5 +99,17 @@ class RequestsController < ApplicationController
 
   def item_details
     { holdRecordList: true }
+  end
+
+  def authorize_update!
+    return if patron_or_group.requests.any? { |request| request.key == params[:id] }
+
+    raise RequestException, 'Error'
+  end
+
+  def deny_access
+    flash[:error] = 'An unexpected error has occurred'
+
+    redirect_to requests_path(group: params[:group])
   end
 end

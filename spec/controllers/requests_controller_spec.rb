@@ -116,6 +116,20 @@ RSpec.describe RequestsController do
           expect(response).to redirect_to requests_path(group: true)
         end
       end
+
+      context 'when the requested item is not available to the patron' do
+        it 'does not renew the item and sets flash messages' do
+          patch :update, params: { resource: 'abc', id: 'some_made_up_item_key' }
+
+          expect(flash[:error]).to match('An unexpected error has occurred')
+        end
+
+        it 'does not renew the item and redirects to checkouts_path' do
+          patch :update, params: { resource: 'abc', id: 'some_made_up_item_key' }
+
+          expect(response).to redirect_to requests_path
+        end
+      end
     end
 
     describe '#destroy' do
@@ -163,6 +177,20 @@ RSpec.describe RequestsController do
         delete :destroy, params: { resource: 'abc', id: '123', group: true }
 
         expect(response).to redirect_to requests_path(group: true)
+      end
+    end
+
+    context 'when the requested item is not avaiable to the patron' do
+      it 'does not renew the item and sets flash messages' do
+        delete :destroy, params: { resource: 'abc', id: 'some_made_up_item_key' }
+
+        expect(flash[:error]).to match('An unexpected error has occurred')
+      end
+
+      it 'does not renew the item and redirects to checkouts_path' do
+        delete :destroy, params: { resource: 'abc', id: 'some_made_up_item_key' }
+
+        expect(response).to redirect_to requests_path
       end
     end
   end
