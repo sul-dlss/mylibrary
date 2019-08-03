@@ -92,6 +92,13 @@ the API does not provide all the information we need, so we use several other me
 Note, too, that the API does not allow us to paginate within a list of checkouts/requests/fines, as they are retrieved as
 part of the patron information request.
 
+## A note about payments to CyberSource
+So... MyLibrary will make post requests to a CyberSource payment form. If successful this form will return us some information back. That information will be used in conjunction with a cookie set in PaymentsController to filter Patron fines. Those fines will be filtered for that current user's in browser session for 10 minutes. We are assuming a few things:
+ - That Symphony will resolve these transactions in at least 10 minutes
+ - That the user won't be switching browsers and expect their payments to be filtered to in flight payments
+
+We recognize that this is not optimal, but can't determine a better way forward at the moment with CyberSource constraints.
+
 ## Testing
 
 The test suite (with RuboCop style enforcement) will be run with the default rake task (also run on travis)

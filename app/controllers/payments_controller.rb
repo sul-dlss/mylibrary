@@ -67,16 +67,9 @@ class PaymentsController < ApplicationController
     }
   end
 
-  def alter_payment_cookie
-    new_cookie = payment_in_process_cookie.dup
-    new_cookie[:pending] = true if new_cookie[:session_id] == params[:req_merchant_defined_data2]
-    cookies[:payment_in_process] = {
-      value: new_cookie.to_json,
-      httponly: true,
-      expires: 10.minutes
-    }
-  end
-
+  ##
+  # Sets a cookie with information from the payment so that we can understand
+  # that there is a payment in flight
   def set_payment_cookie
     cookies[:payment_in_process] = {
       value: {
@@ -84,6 +77,19 @@ class PaymentsController < ApplicationController
         session_id: create_payment_params[:session_id],
         group: create_payment_params[:group]
       }.to_json,
+      httponly: true,
+      expires: 10.minutes
+    }
+  end
+
+  ##
+  # On return from cybersource check the session_id to see if it checks out and
+  # then set the payment as "pending"
+  def alter_payment_cookie
+    new_cookie = payment_in_process_cookie.dup
+    new_cookie[:pending] = true if new_cookie[:session_id] == params[:req_merchant_defined_data2]
+    cookies[:payment_in_process] = {
+      value: new_cookie.to_json,
       httponly: true,
       expires: 10.minutes
     }
