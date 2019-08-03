@@ -16,7 +16,7 @@ class RequestsController < ApplicationController
   #
   # GET /requests/:id/edit
   def edit
-    @request = patron.requests.find { |r| r.key == params['id'] }
+    @request = patron_or_group.requests.find { |r| r.key == params['id'] }
 
     respond_to do |format|
       format.html do
