@@ -2,6 +2,8 @@
 
 # Model for the Fine page
 class Fine
+  include BibRecord
+
   attr_reader :record
 
   FINE_STATUS = {
@@ -57,26 +59,6 @@ class Fine
     FINE_STATUS[status] || status
   end
 
-  def catkey
-    bib && fields['item']['fields']['bib']['key']
-  end
-
-  def title
-    bib && bib['title']
-  end
-
-  def author
-    bib && bib['author']
-  end
-
-  def call_number
-    call && call['dispCallNumber']
-  end
-
-  def shelf_key
-    call && call['sortCallNumber']
-  end
-
   def library
     fields['library']['key']
   end
@@ -105,13 +87,5 @@ class Fine
 
   def fields
     record['fields']
-  end
-
-  def bib
-    fields['item'] && fields['item']['fields']['bib'] && fields['item']['fields']['bib']['fields']
-  end
-
-  def call
-    fields['item'] && fields['item']['fields']['call'] && fields['item']['fields']['call']['fields']
   end
 end
