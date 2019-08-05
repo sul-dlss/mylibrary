@@ -218,24 +218,26 @@ RSpec.describe Payment do
   end
 
   describe '#sort_key' do
-    context 'when there is no payment date' do
-      let(:record) { { 'billNumber' => '5' } }
-
-      it { expect(payment.sort_key).to eq Request::END_OF_DAYS }
+    def payment_with_date(bill_number, date)
+      described_class.new(record.merge(
+        'billNumber' => bill_number,
+        'feePaymentInfo' => { 'paymentDate' => date }
+      ).with_indifferent_access)
     end
 
-    context 'when there is a payment date' do
-      let(:record) do
-        {
-          'feePaymentInfo' => {
-            'paymentDate' => '2014-2-23'
-          }
-        }
-      end
+    let(:payments) do
+      [
+        payment_with_date('1', nil),
+        payment_with_date('2', '2017-2-23'),
+        payment_with_date('3', '2014-2-23'),
+        payment_with_date('4', '2015-2-23')
+      ]
+    end
 
-      it 'is the parsed payment date' do
-        expect(payment.sort_key).to eq(Time.zone.parse('2014-2-23'))
-      end
+    it 'sorts requests by payment date (inverted), with nil values last' do
+      sorted_payments = payments.sort_by { |p| p.sort_key(:payment_date) }
+
+      expect(sorted_payments.map(&:key)).to eq %w[1 2 4 3]
     end
   end
 end
