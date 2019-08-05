@@ -2,6 +2,8 @@
 
 # Model for requests in Symphony
 class Request
+  include BibRecord
+
   # A sufficiently large time used to sort nil values last
   # TODO: Update before 2099
   END_OF_DAYS = Time.zone.parse('2099-01-01')
@@ -34,26 +36,6 @@ class Request
 
   def ready_for_pickup?
     status == 'BEING_HELD'
-  end
-
-  def catkey
-    fields.dig('bib', 'key')
-  end
-
-  def title
-    bib && bib['title']
-  end
-
-  def author
-    bib && bib['author']
-  end
-
-  def call_number
-    call && call['dispCallNumber']
-  end
-
-  def shelf_key
-    call && call['sortCallNumber']
   end
 
   def queue_position
@@ -124,21 +106,9 @@ class Request
   end
   # rubocop:enable Metrics/AbcSize,Metrics/MethodLength
 
-  def home_location
-    fields['item']['fields']['homeLocation']['key']
-  end
-
   private
 
   def fields
     record['fields']
-  end
-
-  def bib
-    fields.dig('bib', 'fields')
-  end
-
-  def call
-    fields.dig('item', 'fields', 'call', 'fields')
   end
 end

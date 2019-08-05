@@ -2,6 +2,8 @@
 
 # Model for the Checkouts page
 class Checkout
+  include BibRecord
+
   attr_reader :record
 
   SHORT_TERM_LOAN_PERIODS = %w[HOURLY].freeze
@@ -91,14 +93,6 @@ class Checkout
     fields['patron']['key']
   end
 
-  def resource
-    fields['item']['resource']
-  end
-
-  def item_key
-    fields['item']['key']
-  end
-
   def overdue?
     fields['overdue']
   end
@@ -124,40 +118,12 @@ class Checkout
     fields.dig('library', 'key') == 'SUL'
   end
 
-  def catkey
-    fields['item']['fields']['bib']['key']
-  end
-
-  def title
-    bib['title']
-  end
-
-  def author
-    bib['author']
-  end
-
-  def call_number
-    call['dispCallNumber']
-  end
-
-  def shelf_key
-    call['sortCallNumber']
-  end
-
   def short_term_loan?
     SHORT_TERM_LOAN_PERIODS.include?(loan_period_type)
   end
 
   def to_partial_path
     'checkouts/checkout'
-  end
-
-  def current_location
-    fields.dig('item', 'fields', 'currentLocation', 'key')
-  end
-
-  def lost?
-    current_location == 'LOST-ASSUM'
   end
 
   # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
@@ -203,14 +169,6 @@ class Checkout
 
   def loan_period_type
     fields.dig('circulationRule', 'fields', 'loanPeriod', 'fields', 'periodType', 'key')
-  end
-
-  def bib
-    fields['item']['fields']['bib']['fields']
-  end
-
-  def call
-    fields['item']['fields']['call']['fields']
   end
 
   def circulation_rule
