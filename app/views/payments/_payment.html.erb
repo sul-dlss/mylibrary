@@ -9,7 +9,7 @@
         <%= number_to_currency(payment.bill_amount) %>
       </div>
 
-      <div class="col-5 col-md-4 text-right text-md-left payment_date" data-date="<%= h payment.sort_key(:payment_date) %>" data-sort-payment_date="<%= payment.payment_date %>" >
+      <div class="col-5 col-md-4 text-right text-md-left payment_date" data-sort-payment_date="<%= h payment.sort_key(:payment_date) %>" >
         <%= l(payment.payment_date, format: :short) %>
       </div>
     </div>
