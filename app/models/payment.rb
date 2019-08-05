@@ -91,7 +91,7 @@ class Payment
   end
 
   def to_partial_path
-    'fines/payment'
+    'payments/payment'
   end
 
   # rubocop:disable Metrics/MethodLength
