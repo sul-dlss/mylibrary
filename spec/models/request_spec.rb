@@ -98,4 +98,16 @@ RSpec.describe Request do
       expect(request.shelf_key).to eq nil
     end
   end
+
+  context 'when a hold is for an on order item' do
+    before do
+      fields[:item] = nil
+      fields[:queuePosition] = nil
+      fields[:queueLength] = nil
+    end
+
+    it 'has an unknown waitlist position' do
+      expect(request.waitlist_position).to eq 'Unknown'
+    end
+  end
 end

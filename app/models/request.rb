@@ -77,6 +77,8 @@ class Request
   end
 
   def waitlist_position
+    return 'Unknown' if queue_position.nil? && queue_length.nil?
+
     "#{queue_position} of #{queue_length}"
   end
 
