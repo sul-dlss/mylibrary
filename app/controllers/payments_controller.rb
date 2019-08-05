@@ -5,6 +5,7 @@
 # They send the user back with a POST request that contains
 # information about the payment made (or canceled)
 class PaymentsController < ApplicationController
+  before_action :authenticate_user!
   # CyberSource is posting back to our controller, so we don't
   # get an authenticity token that the cross-site request
   # forgery protection can use to validate the request

@@ -3,6 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe PaymentsController do
+  let(:user) { { username: 'somesunetid', patron_key: '123' } }
+
   describe '#index' do
     let(:mock_patron) { instance_double(Patron, group?: false, barcode: '1234') }
     let(:mock_legacy_client) do
@@ -26,40 +28,52 @@ RSpec.describe PaymentsController do
       allow(SymphonyLegacyClient).to receive(:new).and_return(mock_legacy_client)
     end
 
-    context 'when a user has multiple payments' do
-      it 'shows a list of payments from the payments array' do
-        get(:index)
-
-        expect(assigns(:payments)).to all(be_a Payment)
-      end
-
-      it 'shows the correct number of payments in the list' do
-        get(:index)
-
-        expect(assigns(:payments).length).to eq 3
-      end
-
-      it 'shows the payments sorted appropriately (bills w/o a payment date at the top the reverse date sort)' do
-        get(:index)
-
-        expect(assigns(:payments).map(&:key)).to eq(%w[2 3 1])
+    context 'when an unathenticated user' do
+      it 'redirects to the home page' do
+        expect(get(:index)).to redirect_to root_url
       end
     end
 
-    context 'when a user has only one payment' do
-      let(:mock_legacy_client_response) do
-        { 'billNumber' => '1' }
+    context 'with an authenticated user' do
+      before { warden.set_user(user) }
+
+      context 'when a user has multiple payments' do
+        it 'shows a list of payments from the payments array' do
+          get(:index)
+
+          expect(assigns(:payments)).to all(be_a Payment)
+        end
+
+        it 'shows the correct number of payments in the list' do
+          get(:index)
+
+          expect(assigns(:payments).length).to eq 3
+        end
+
+        it 'shows the payments sorted appropriately (bills w/o a payment date at the top the reverse date sort)' do
+          get(:index)
+
+          expect(assigns(:payments).map(&:key)).to eq(%w[2 3 1])
+        end
       end
 
-      it 'wraps a single payment in an array' do
-        get(:index)
+      context 'when a user has only one payment' do
+        let(:mock_legacy_client_response) do
+          { 'billNumber' => '1' }
+        end
 
-        expect(assigns(:payments).first.key).to eq '1'
+        it 'wraps a single payment in an array' do
+          get(:index)
+
+          expect(assigns(:payments).first.key).to eq '1'
+        end
       end
     end
   end
 
   describe '#create' do
+    before { warden.set_user(user) }
+
     it 'redirects to payment system' do
       post :create
       expect(controller).to redirect_to 'https://example.com/secureacceptance/payment_form.php?'
@@ -81,6 +95,7 @@ RSpec.describe PaymentsController do
   context 'when a user makes a payment' do
     context 'when session_id matches cookie' do
       before do
+        warden.set_user(user)
         request.cookies['payment_in_process'] = {
           session_id: 'session_this_is_the_one'
         }.to_json
@@ -97,6 +112,7 @@ RSpec.describe PaymentsController do
 
     context 'when indifferent of the cookie' do
       before do
+        warden.set_user(user)
         post :accept, params: { req_amount: '10.00' }
       end
 
@@ -114,6 +130,7 @@ RSpec.describe PaymentsController do
 
   context 'when a user cancels a payment' do
     before do
+      warden.set_user(user)
       post :cancel
       request.cookies['payment_in_process'] = true
     end
