@@ -276,6 +276,10 @@ RSpec.describe Checkout do
     expect(checkout.library).to eq 'LAW'
   end
 
+  it 'is not from borrow direct' do
+    expect(checkout).not_to be_from_borrow_direct
+  end
+
   it 'has a title' do
     expect(checkout.title).to eq 'The Lego movie videogame [electronic resource]'
   end
@@ -365,6 +369,10 @@ RSpec.describe Checkout do
 
     it 'represents itself as coming from BorrowDirect' do
       expect(checkout.library).to eq 'BORROW_DIRECT'
+    end
+
+    it 'is from borrow direct' do
+      expect(checkout).to be_from_borrow_direct
     end
   end
 end

@@ -16,6 +16,7 @@ RSpec.describe 'checkouts/_checkout.html.erb' do
       days_overdue: nil,
       days_remaining: 120,
       due_date: Time.zone.now + 120.days,
+      from_borrow_direct?: false,
       item_key: nil,
       key: 'abc123',
       library: 'GREEN',
@@ -46,10 +47,9 @@ RSpec.describe 'checkouts/_checkout.html.erb' do
       helper_method :checkout, :patron
     end
 
-    allow(view).to receive(:checkout).and_return(checkout)
     allow(view).to receive(:patron).and_return(patron)
 
-    render
+    render 'checkouts/checkout', checkout: checkout
   end
 
   it 'links to the item in SearchWorks' do
@@ -60,7 +60,7 @@ RSpec.describe 'checkouts/_checkout.html.erb' do
   end
 
   context 'when the library is BORROW_DIRECT' do
-    let(:checkout_attributes) { { library: Checkout::BORROW_DIRECT_CODE } }
+    let(:checkout_attributes) { { from_borrow_direct?: true } }
 
     it 'does not include a link to the item in SearchWorks' do
       expect(rendered).not_to have_link('View in SearchWorks')

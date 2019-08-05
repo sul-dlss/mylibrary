@@ -78,6 +78,6 @@
       <dd class="col-8"><%= library_name checkout.library %></dd>
     </dl>
 
-    <%= detail_link_to_searchworks(checkout.catkey) unless checkout.library == Checkout::BORROW_DIRECT_CODE %>
+    <%= detail_link_to_searchworks(checkout.catkey) unless checkout.from_borrow_direct? %>
   </div>
 </li>

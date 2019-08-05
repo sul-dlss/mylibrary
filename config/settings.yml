@@ -24,3 +24,5 @@ home_page_flash_message_html: |-
 symphony:
   host:
   override: PASSWORD
+
+BORROW_DIRECT_CODE: BORROW_DIRECT

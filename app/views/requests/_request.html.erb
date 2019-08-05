@@ -71,6 +71,6 @@
       <dd class="col-8"><%= library_name request.placed_library %></dd>
     </dl>
 
-    <%= detail_link_to_searchworks(request.catkey) %>
+    <%= detail_link_to_searchworks(request.catkey) unless request.from_borrow_direct? %>
   </div>
 </li>
