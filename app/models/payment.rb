@@ -77,13 +77,7 @@ class Payment
   end
 
   def payment_date
-    fee_pay_info && Time.strptime(fee_pay_info['paymentDate'], '%Y-%m-%d')
-  end
-
-  def sort_key
-    return Time.zone.parse(fee_pay_info['paymentDate']) if fee_pay_info && fee_pay_info['paymentDate']
-
-    Request::END_OF_DAYS
+    fee_pay_info && fee_pay_info['paymentDate'] && Time.strptime(fee_pay_info['paymentDate'], '%Y-%m-%d')
   end
 
   def resolution
@@ -100,22 +94,29 @@ class Payment
     'fines/payment'
   end
 
-  # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
-  def sort_options(key)
+  # rubocop:disable Metrics/MethodLength
+  def sort_key(key)
     sort_key = case key
                when :payment_date
-                 [payment_date.strftime('%FT%T'), item_title, bill_description]
+                 [payment_sort_key, item_title, nice_bill_description]
                when :item_title
-                 [item_title, payment_date, bill_description]
+                 [item_title, payment_sort_key, nice_bill_description]
                when :bill_amount
-                 [bill_amount, payment_date, item_title, bill_description]
+                 [bill_amount, payment_sort_key, item_title, nice_bill_description]
                when :bill_description
-                 [bill_description, payment_date.strftime('%FT%T'), item_title]
+                 [nice_bill_description, payment_sort_key, item_title]
                end
 
     sort_key.join('---')
   end
-  # rubocop:enable Metrics/AbcSize,Metrics/MethodLength
+  # rubocop:enable Metrics/MethodLength
+
+  # Sort payments by date in descending order
+  def payment_sort_key
+    return Request::END_OF_DAYS - payment_date if payment_date
+
+    0
+  end
 
   private
 

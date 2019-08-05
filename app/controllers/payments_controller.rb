@@ -24,7 +24,9 @@ class PaymentsController < ApplicationController
   # GET /payments
   # GET /payments.json
   def index
-    @payments = Array.wrap(payments).map { |payment| Payment.new(payment) }.sort_by(&:sort_key).reverse
+    @payments = Array.wrap(payments)
+                     .map { |payment| Payment.new(payment) }
+                     .sort_by { |payment| payment.sort_key(:payment_date) }
 
     respond_to do |format|
       format.html { render }
