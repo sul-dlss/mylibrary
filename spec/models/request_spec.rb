@@ -72,6 +72,10 @@ RSpec.describe Request do
     expect(request.queue_position).to eq '3'
   end
 
+  it 'is not from borrow direct' do
+    expect(request).not_to be_from_borrow_direct
+  end
+
   context 'without an associated item or bib' do
     before do
       fields[:item] = nil
@@ -108,6 +112,18 @@ RSpec.describe Request do
 
     it 'has an unknown waitlist position' do
       expect(request.waitlist_position).to eq 'Unknown'
+    end
+  end
+
+  context 'when the placed_library is SUL' do
+    before { fields[:placedLibrary] = { key: 'SUL' } }
+
+    it 'represents itself as coming from BorrowDirect' do
+      expect(request.placed_library).to eq 'BORROW_DIRECT'
+    end
+
+    it 'is from borrow direct' do
+      expect(request).to be_from_borrow_direct
     end
   end
 end

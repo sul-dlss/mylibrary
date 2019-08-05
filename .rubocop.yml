@@ -28,6 +28,7 @@ Metrics/ClassLength:
     - 'app/models/checkout.rb'
     - 'app/models/patron.rb'
     - 'app/models/payment.rb'
+    - 'app/models/request.rb'
     - 'app/services/symphony_client.rb'
     - 'config/application.rb'
 
