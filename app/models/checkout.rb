@@ -4,7 +4,6 @@
 class Checkout
   attr_reader :record
 
-  BORROW_DIRECT_CODE = 'BORROW_DIRECT'
   SHORT_TERM_LOAN_PERIODS = %w[HOURLY].freeze
 
   def initialize(record)
@@ -116,9 +115,13 @@ class Checkout
 
   def library
     code = fields['library']['key']
-    return BORROW_DIRECT_CODE if code == 'SUL'
+    return Settings.BORROW_DIRECT_CODE if from_borrow_direct?
 
     code
+  end
+
+  def from_borrow_direct?
+    fields.dig('library', 'key') == 'SUL'
   end
 
   def catkey
