@@ -5,12 +5,26 @@ require 'rails_helper'
 RSpec.describe 'Payments History', type: :feature do
   let(:user_with_payments) { '521181' }
   let(:user_with_single_payment) { '521182' }
+  let(:user_with_no_payments) { '521206' }
 
   before do
     login_as(username: 'SUPER1', patron_key: user_with_payments)
   end
 
-  context 'when user has a single payment' do
+  context 'with no payments' do
+    before do
+      login_as(username: 'NOTHING', patron_key: user_with_no_payments)
+    end
+
+    it 'does not load table', js: true do
+      visit fines_path
+      click_on 'Show history'
+
+      expect(page).to have_css('span', text: 'There is no history on this account')
+    end
+  end
+
+  context 'with a single payment' do
     before do
       login_as(username: 'SUPER2', patron_key: user_with_single_payment)
     end
