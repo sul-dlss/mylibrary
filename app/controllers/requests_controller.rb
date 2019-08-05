@@ -3,6 +3,8 @@
 # Controller for user requests/holds/etc
 class RequestsController < ApplicationController
   before_action :authenticate_user!
+  before_action :authorize_update!, except: :index
+  rescue_from RequestException, with: :deny_access
 
   # Renders user requests from Symphony and/or BorrowDirect
   #
@@ -16,7 +18,7 @@ class RequestsController < ApplicationController
   #
   # GET /requests/:id/edit
   def edit
-    @request = patron.requests.find { |r| r.key == params['id'] }
+    @request = patron_or_group.requests.find { |r| r.key == params['id'] }
 
     respond_to do |format|
       format.html do
@@ -39,7 +41,7 @@ class RequestsController < ApplicationController
     handle_not_needed_after_request if params['not_needed_after'].present? &&
                                        params['not_needed_after'] != params['current_fill_by_date']
 
-    redirect_to requests_path
+    redirect_to requests_path(group: params[:group])
   end
 
   # Handles form submission for canceling requests/holds/etc in Symphony
@@ -56,7 +58,7 @@ class RequestsController < ApplicationController
       flash[:error] = t 'mylibrary.request.cancel.error_html', title: params['title']
     end
 
-    redirect_to requests_path
+    redirect_to requests_path(group: params[:group])
   end
 
   private
@@ -97,5 +99,17 @@ class RequestsController < ApplicationController
 
   def item_details
     { holdRecordList: true }
+  end
+
+  def authorize_update!
+    return if patron_or_group.requests.any? { |request| request.key == params[:id] }
+
+    raise RequestException, 'Error'
+  end
+
+  def deny_access
+    flash[:error] = 'An unexpected error has occurred'
+
+    redirect_to requests_path(group: params[:group])
   end
 end

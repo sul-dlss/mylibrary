@@ -12,6 +12,7 @@ Metrics/AbcSize:
   Exclude:
     - 'app/controllers/contact_forms_controller.rb'
     - 'app/controllers/feedback_forms_controller.rb'
+    - 'app/controllers/renewals_controller.rb'
     - 'app/controllers/requests_controller.rb'
 
 Metrics/CyclomaticComplexity:

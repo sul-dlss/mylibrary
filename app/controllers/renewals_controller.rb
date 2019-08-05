@@ -5,6 +5,8 @@ class RenewalsController < ApplicationController
   include ActionView::Context
   include ActionView::Helpers::TagHelper
   before_action :authenticate_user!
+  before_action :authorize_update!, only: :create
+  rescue_from CheckoutException, with: :deny_access
 
   # Renew a single item for a patron
   #
@@ -19,7 +21,7 @@ class RenewalsController < ApplicationController
       flash[:error] = t 'mylibrary.renew_item.error_html', title: params['title']
     end
 
-    redirect_to checkouts_path
+    redirect_to checkouts_path(group: params[:group])
   end
 
   # Renew all eligible items for a patron
@@ -32,7 +34,7 @@ class RenewalsController < ApplicationController
     bulk_renewal_flash(response, type: :success)
     bulk_renewal_flash(response, type: :error)
 
-    redirect_to checkouts_path
+    redirect_to checkouts_path(group: params[:group])
   end
 
   private
@@ -56,5 +58,17 @@ class RenewalsController < ApplicationController
 
   def renew_item_params
     params.require(%I[resource item_key])
+  end
+
+  def authorize_update!
+    return if patron_or_group.checkouts.any? { |request| request.item_key == params.require(:item_key) }
+
+    raise CheckoutException, 'Error'
+  end
+
+  def deny_access
+    flash[:error] = 'An unexpected error has occurred'
+
+    redirect_to checkouts_path(group: params[:group])
   end
 end

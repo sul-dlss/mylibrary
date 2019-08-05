@@ -3,10 +3,11 @@
 require 'rails_helper'
 
 RSpec.describe RequestsController do
-  let(:mock_patron) { instance_double(Patron) }
+  let(:mock_patron) { instance_double(Patron, requests: requests) }
+  let(:requests) { [] }
 
   before do
-    allow(controller).to receive(:patron).and_return(mock_patron)
+    allow(controller).to receive(:patron_or_group).and_return(mock_patron)
   end
 
   context 'with an unauthenticated request' do
@@ -27,7 +28,6 @@ RSpec.describe RequestsController do
     end
 
     before do
-      allow(mock_patron).to receive(:requests).and_return(requests)
       warden.set_user(user)
     end
 
@@ -59,6 +59,12 @@ RSpec.describe RequestsController do
     describe '#update' do
       let(:api_response) { instance_double('Response', status: 200, content_type: :json) }
 
+      let(:requests) do
+        [instance_double(Request, key: '123')]
+      end
+
+      let(:mock_client) { instance_double(SymphonyClient) }
+
       before do
         allow(SymphonyClient).to receive(:new).and_return(mock_client)
       end
@@ -68,6 +74,7 @@ RSpec.describe RequestsController do
 
         it 'cancels the hold and sets the flash message' do
           patch :update, params: { resource: 'abc', id: '123', cancel: true }
+
           expect(flash[:success]).to match(/Success!.*was canceled/)
         end
       end
@@ -77,6 +84,7 @@ RSpec.describe RequestsController do
 
         it 'updates the pickup library and sets the flash message' do
           patch :update, params: { resource: 'abc', id: '123', pickup_library: 'Other library' }
+
           expect(flash[:success].first).to match(/Success!.*pickup location was updated/)
         end
       end
@@ -86,13 +94,40 @@ RSpec.describe RequestsController do
 
         it 'updates the not needed after and sets the flash message' do
           patch :update, params: { resource: 'abc', id: '123', not_needed_after: '1999/01/01' }
+
           expect(flash[:success].first).to match(/Success!.*not needed after date was updated/)
         end
+
         it 'does not update the not needed after if dates are not changed' do
           patch :update, params: {
             resource: 'abc', id: '123', not_needed_after: '1999/01/01', current_fill_by_date: '1999/01/01'
           }
+
           expect(flash[:success]).to eq []
+        end
+      end
+
+      context 'with a group request' do
+        let(:mock_client) { instance_double(SymphonyClient, change_pickup_library: api_response) }
+
+        it 'renews the item and redirects to checkouts_path' do
+          patch :update, params: { resource: 'abc', id: '123', pickup_library: 'Other library', group: true }
+
+          expect(response).to redirect_to requests_path(group: true)
+        end
+      end
+
+      context 'when the requested item is not available to the patron' do
+        it 'does not renew the item and sets flash messages' do
+          patch :update, params: { resource: 'abc', id: 'some_made_up_item_key' }
+
+          expect(flash[:error]).to match('An unexpected error has occurred')
+        end
+
+        it 'does not renew the item and redirects to checkouts_path' do
+          patch :update, params: { resource: 'abc', id: 'some_made_up_item_key' }
+
+          expect(response).to redirect_to requests_path
         end
       end
     end
@@ -100,6 +135,10 @@ RSpec.describe RequestsController do
     describe '#destroy' do
       let(:api_response) { instance_double('Response', status: 200, content_type: :json) }
       let(:mock_client) { instance_double(SymphonyClient, cancel_hold: api_response) }
+
+      let(:requests) do
+        [instance_double(Request, key: '123')]
+      end
 
       before do
         allow(SymphonyClient).to receive(:new).and_return(mock_client)
@@ -132,6 +171,28 @@ RSpec.describe RequestsController do
         end
       end
     end
+
+    context 'with a group request' do
+      it 'renews the item and redirects to checkouts_path' do
+        delete :destroy, params: { resource: 'abc', id: '123', group: true }
+
+        expect(response).to redirect_to requests_path(group: true)
+      end
+    end
+
+    context 'when the requested item is not avaiable to the patron' do
+      it 'does not renew the item and sets flash messages' do
+        delete :destroy, params: { resource: 'abc', id: 'some_made_up_item_key' }
+
+        expect(flash[:error]).to match('An unexpected error has occurred')
+      end
+
+      it 'does not renew the item and redirects to checkouts_path' do
+        delete :destroy, params: { resource: 'abc', id: 'some_made_up_item_key' }
+
+        expect(response).to redirect_to requests_path
+      end
+    end
   end
 
   context 'with an authenticated request for group requests' do
@@ -146,7 +207,6 @@ RSpec.describe RequestsController do
     end
 
     before do
-      allow(mock_patron).to receive(:group).and_return(instance_double(Group, requests: requests))
       warden.set_user(user)
     end
 

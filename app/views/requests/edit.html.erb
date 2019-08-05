@@ -7,6 +7,7 @@
     <%= hidden_field_tag :resource, @request.resource %>
     <%= hidden_field_tag :id, @request.key %>
     <%= hidden_field_tag :title, @request.title %>
+    <%= hidden_field_tag :group, params[:group] if params[:group] %>
     <%= hidden_field_tag :current_fill_by_date, @request.fill_by_date.strftime('%Y-%m-%d') %>
     <div class="form-group">
       <%= label_tag :pickup_library, 'Pickup library' %>
