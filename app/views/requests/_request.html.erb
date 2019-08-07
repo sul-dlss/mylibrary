@@ -69,7 +69,7 @@
       <dt class="col-3 offset-1 col-md-2 offset-md-2">Waitlist position:</dt>
       <dd class="col-8"><%= request.waitlist_position %></dd>
       <dt class="col-3 offset-1 col-md-2 offset-md-2">Source:</dt>
-      <dd class="col-8"><%= library_name request.placed_library %></dd>
+      <dd class="col-8"><%= library_name request.library %></dd>
     </dl>
 
     <%= detail_link_to_searchworks(request.catkey) unless request.from_borrow_direct? %>

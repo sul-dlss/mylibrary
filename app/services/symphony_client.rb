@@ -41,7 +41,7 @@ class SymphonyClient
     end
   end
 
-  ITEM_RESOURCES = 'bib{title,author},item{*,bib{title,author},call{sortCallNumber,dispCallNumber}}'
+  ITEM_RESOURCES = 'bib{title,author,callList{*}},item{*,bib{title,author},call{sortCallNumber,dispCallNumber}}'
 
   def patron_linked_resources_fields(item_details = {})
     [

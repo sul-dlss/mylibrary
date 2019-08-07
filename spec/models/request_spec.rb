@@ -108,18 +108,23 @@ RSpec.describe Request do
       fields[:item] = nil
       fields[:queuePosition] = nil
       fields[:queueLength] = nil
+      fields[:bib][:fields][:callList] = [{ fields: { library: { key: 'GREEN' } } }]
     end
 
     it 'has an unknown waitlist position' do
       expect(request.waitlist_position).to eq 'Unknown'
     end
+
+    it 'pulls the library from the calllist' do
+      expect(request.library).to eq 'GREEN'
+    end
   end
 
-  context 'when the placed_library is SUL' do
-    before { fields[:placedLibrary] = { key: 'SUL' } }
+  context 'when the item library is SUL' do
+    before { fields[:item][:fields][:library] = { key: 'SUL' } }
 
     it 'represents itself as coming from BorrowDirect' do
-      expect(request.placed_library).to eq 'BORROW_DIRECT'
+      expect(request.library).to eq 'BORROW_DIRECT'
     end
 
     it 'is from borrow direct' do
