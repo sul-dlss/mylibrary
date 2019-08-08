@@ -15,7 +15,7 @@ RSpec.describe 'requests/_request.html.erb' do
       key: 'abc123',
       pickup_library: 'XYZ',
       placed_date: Time.zone.now,
-      placed_library: 'SAL3',
+      library: 'SAL3',
       ready_for_pickup?: false,
       sort_key: '1',
       title: 'A Book',

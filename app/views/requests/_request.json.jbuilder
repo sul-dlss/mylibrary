@@ -17,6 +17,7 @@ json.attributes do
   json.fill_by_date request.fill_by_date
   json.pickup_library request.pickup_library
   json.placed_library request.placed_library
+  json.library request.library
 
   json.symphony_api_response request.record if Rails.env.development?
 end

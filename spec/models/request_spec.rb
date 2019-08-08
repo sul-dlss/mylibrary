@@ -14,6 +14,8 @@ RSpec.describe Request do
   let(:fields) do
     {
       status: 'ACTIVE',
+      pickupLibrary: { key: 'GREEN' },
+      placedLibrary: { key: 'SUL' },
       queuePosition: '3',
       queueLength: '7',
       bib: {
@@ -72,6 +74,14 @@ RSpec.describe Request do
     expect(request.queue_position).to eq '3'
   end
 
+  it 'has a placed library' do
+    expect(request.placed_library).to eq 'SUL'
+  end
+
+  it 'has a pickup library' do
+    expect(request.pickup_library).to eq 'GREEN'
+  end
+
   it 'is not from borrow direct' do
     expect(request).not_to be_from_borrow_direct
   end
@@ -108,18 +118,23 @@ RSpec.describe Request do
       fields[:item] = nil
       fields[:queuePosition] = nil
       fields[:queueLength] = nil
+      fields[:bib][:fields][:callList] = [{ fields: { library: { key: 'GREEN' } } }]
     end
 
     it 'has an unknown waitlist position' do
       expect(request.waitlist_position).to eq 'Unknown'
     end
+
+    it 'pulls the library from the calllist' do
+      expect(request.library).to eq 'GREEN'
+    end
   end
 
-  context 'when the placed_library is SUL' do
-    before { fields[:placedLibrary] = { key: 'SUL' } }
+  context 'when the item library is SUL' do
+    before { fields[:item][:fields][:library] = { key: 'SUL' } }
 
     it 'represents itself as coming from BorrowDirect' do
-      expect(request.placed_library).to eq 'BORROW_DIRECT'
+      expect(request.library).to eq 'BORROW_DIRECT'
     end
 
     it 'is from borrow direct' do
