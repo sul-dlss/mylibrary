@@ -14,6 +14,8 @@ RSpec.describe Request do
   let(:fields) do
     {
       status: 'ACTIVE',
+      pickupLibrary: { key: 'GREEN' },
+      placedLibrary: { key: 'SUL' },
       queuePosition: '3',
       queueLength: '7',
       bib: {
@@ -70,6 +72,14 @@ RSpec.describe Request do
 
   it 'has the queue position' do
     expect(request.queue_position).to eq '3'
+  end
+
+  it 'has a placed library' do
+    expect(request.placed_library).to eq 'SUL'
+  end
+
+  it 'has a pickup library' do
+    expect(request.pickup_library).to eq 'GREEN'
   end
 
   it 'is not from borrow direct' do
