@@ -151,6 +151,21 @@ class SymphonyClient
     response
   end
 
+  def checkout(patron_barcode, item_barcode)
+    response = checkout_request(patron_barcode, item_barcode)
+    error_prompt = response_prompt(response)
+
+    if %w[CKOBLOCKS IGNORE_GROUP_DELINQ].include? error_prompt
+      checkout_request(patron_barcode,
+                       item_barcode,
+                       headers: { 'SD-Prompt-Return': "#{error_prompt}" })
+    else
+      response
+    end
+
+    response
+  end
+
   private
 
   def renew_item_request(resource, item_key, headers: {})
@@ -159,6 +174,13 @@ class SymphonyClient
         resource: resource,
         key: item_key
       }
+    })
+  end
+
+  def checkout_request(patron_barcode, item_barcode, headers: {})
+    authenticated_request('/circulation/circRecord/checkOut', headers: headers, method: :post, json: {
+      itemBarcode: item_barcode,
+      patronBarcode: patron_barcode
     })
   end
 
