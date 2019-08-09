@@ -2,14 +2,14 @@
   <h2>Self Checkout</h2>
 </div>
 <div class="modal-body">
-  <%= form_with url: checkouts_path, remote: false do |f| %>
+  <%= form_with url: confirm_checkouts_path, local: true do |f| %>
     <%= hidden_field_tag :group, params[:group] if params[:group] %>
     <div class="form-group">
       <%= f.label :barcode, 'Barcode' %>
       <%= f.text_field :barcode, class: 'form-control' %>
     </div>
 
-    <%= button_tag 'Checkout', class: 'btn btn-primary', type: 'submit'  %>
+    <%= button_tag 'Checkout', class: 'btn btn-primary', type: 'submit' %>
     <%= link_to 'Cancel', :back, class: 'btn btn-link', data: { dismiss: 'modal' } %>
   <% end %>
 </div>

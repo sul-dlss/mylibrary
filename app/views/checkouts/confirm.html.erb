@@ -1,0 +1,20 @@
+<div class="modal-header">
+  <h2>Self Checkout</h2>
+</div>
+<div class="modal-body">
+  <%= form_with url: checkouts_path, remote: false do |f| %>
+    <%= hidden_field_tag :group, params[:group] if params[:group] %>
+    <%= hidden_field_tag :barcode, params[:barcode] %>
+
+    <h3><%= @item.title %></h3>
+    <dl>
+      <dt>Author</dt>
+      <dd><%= @item.author %></dd>
+      <dt>Call number</dt>
+      <dd><%= @item.call_number %></dd>
+    </dl>
+
+    <%= button_tag 'Checkout', class: 'btn btn-primary', type: 'submit'  %>
+    <%= link_to 'Cancel', :back, class: 'btn btn-link', data: { dismiss: 'modal' } %>
+  <% end %>
+</div>
