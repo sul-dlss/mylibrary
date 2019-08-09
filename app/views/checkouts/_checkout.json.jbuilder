@@ -26,6 +26,7 @@ json.attributes do
   json.author checkout.author
   json.call_number checkout.call_number
   json.shelf_key checkout.shelf_key
+  json.barcode checkout.barcode
   json.short_term_loan checkout.short_term_loan?
   json.current_location checkout.current_location
   json.lost checkout.lost?

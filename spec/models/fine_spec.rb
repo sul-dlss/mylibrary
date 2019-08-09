@@ -21,6 +21,7 @@ RSpec.describe Fine do
       },
       item: {
         fields: {
+          barcode: 'xyz',
           bib: {
             key: '1184859',
             fields: {
@@ -69,6 +70,10 @@ RSpec.describe Fine do
 
   it 'has a shelf key' do
     expect(fine.shelf_key).to eq 'ZMS 004033'
+  end
+
+  it 'has a barcode' do
+    expect(fine.barcode).to eq 'xyz'
   end
 
   it 'has a catkey' do

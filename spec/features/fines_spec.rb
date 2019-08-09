@@ -44,6 +44,8 @@ RSpec.describe 'Fines Page', type: :feature do
         click_button 'Expand'
         expect(page).to have_css('dl', visible: true)
         expect(page).to have_css('dt', text: 'Billed', visible: true)
+        expect(page).to have_css('dt', text: 'Barcode', visible: true)
+        expect(page).to have_css('dd', text: '36105228879115', visible: true)
       end
     end
   end
