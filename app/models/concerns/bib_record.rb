@@ -22,6 +22,10 @@ module BibRecord
     call['sortCallNumber']
   end
 
+  def barcode
+    item['barcode']
+  end
+
   def resource
     fields.dig('item', 'resource')
   end

@@ -53,7 +53,7 @@ RSpec.describe 'Checkout Page', type: :feature do
       end
     end
 
-    it 'shows other circulation status data when the list item is expanded', js: true do
+    it 'shows other data when the list item is expanded', js: true do
       visit checkouts_path
 
       within(first('ul.checkouts li')) do
@@ -64,6 +64,8 @@ RSpec.describe 'Checkout Page', type: :feature do
         expect(page).to have_css('dt', text: 'Borrowed:', visible: true)
         expect(page).to have_css('dt', text: 'Days overdue:', visible: true)
         expect(page).to have_css('dd', text: /^\d+$/, visible: true)
+        expect(page).to have_css('dt', text: 'Barcode:', visible: true)
+        expect(page).to have_css('dd', text: '36105229207159', visible: true)
       end
 
       within('ul.checkouts li:nth-child(5)') do

@@ -32,6 +32,10 @@
       <dd class="col-8"><%= number_to_currency(fine.fee) %></dd>
       <dt class="col-3 offset-1 col-md-2 offset-md-2">Source:</dt>
       <dd class="col-8"><%= library_name fine.library %></dd>
+      <% if fine.barcode %>
+        <dt class="col-3 offset-1 col-md-2 offset-md-2">Barcode:</dt>
+        <dd class="col-8"><%= fine.barcode %></dd>
+      <% end %>
     </dl>
     <div class="row">
       <div class="col-11 offset-1 col-md-10 offset-md-2">

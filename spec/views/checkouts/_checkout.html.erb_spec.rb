@@ -9,6 +9,7 @@ RSpec.describe 'checkouts/_checkout.html.erb' do
       Checkout,
       accrued: nil,
       author: '',
+      barcode: nil,
       call_number: '',
       catkey: '12345',
       checkout_date: Time.zone.now - 120.days,
