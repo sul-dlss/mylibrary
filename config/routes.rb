@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   root to: 'sessions#index'
   resources :summaries
   resources :checkouts, only: %I[index new create]
+  post '/checkouts/confirm' => 'checkouts#confirm', as: :confirm_checkouts
   resources :requests
   resources :fines
   resources :payments, only: :index

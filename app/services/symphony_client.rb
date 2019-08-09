@@ -166,6 +166,12 @@ class SymphonyClient
     response
   end
 
+  def item_info(item_barcode)
+    response = authenticated_request("/catalog/item/barcode/#{item_barcode}", params: { includeFields: '*,bib{title,author},call{sortCallNumber,dispCallNumber}' })
+
+    JSON.parse(response.body) if response.status.ok?
+  end
+
   private
 
   def renew_item_request(resource, item_key, headers: {})

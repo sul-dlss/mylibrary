@@ -13,11 +13,17 @@ class CheckoutsController < ApplicationController
   end
 
   # GET /checkouts/new
-  def new; end
+  def new
+    respond_to do |format|
+      format.html do
+        return render layout: false if request.xhr?
+      end
+    end
+  end
 
   # POST /checkouts
   def create
-    response = symphony_client.checkout(patron_or_group.barcode, params[:barcode])
+    response = symphony_client.checkout(patron_or_group.barcode, *checkout_params)
 
     case response.status
     when 200
@@ -30,9 +36,25 @@ class CheckoutsController < ApplicationController
     redirect_to checkouts_path(group: params[:group])
   end
 
+  def confirm
+    response = symphony_client.item_info(*params.require(:barcode))
+
+    @item = Item.new(response)
+
+    respond_to do |format|
+      format.html do
+        return render layout: false if request.xhr?
+      end
+    end
+  end
+
   private
 
   def item_details
     { circRecordList: true }
+  end
+
+  def checkout_params
+    params.require(:barcode)
   end
 end

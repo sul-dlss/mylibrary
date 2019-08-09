@@ -5,6 +5,10 @@
     <%= render 'checkouts/renew_all_button' %>
   </div>
 
+  <%= link_to new_checkout_path(group: params[:group]), class: 'btn btn-primary', data: { 'mylibrary-modal' => 'trigger', 'convert-button' => true } do %>
+    Self-checkout
+  <% end %>
+
   <% count = patron.checkouts.select(&:recalled?).length %>
   <% if count.positive? %>
     <div class="ml-4"><%= sul_icon :'sharp-error-24px', classes: 'text-recalled' %> <%= count %> recalled</div>
