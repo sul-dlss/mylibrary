@@ -105,6 +105,8 @@ class Patron
   end
 
   def display_name
+    return proxy_borrower_name if proxy_borrower_name.present?
+
     "#{first_name} #{last_name}"
   end
 
@@ -123,10 +125,6 @@ class Patron
 
   def proxy_borrower?
     fields.dig('groupSettings', 'fields', 'responsibility', 'key') == 'PROXY'
-  end
-
-  def proxy_borrower_name
-    "Proxy #{first_name.gsub(/(\A\w+\s)\(P=([a-zA-Z]+)\)\z/, '\2')}" if proxy_borrower?
   end
 
   def sponsor?
@@ -242,5 +240,11 @@ class Patron
 
   def user_profile
     USER_PROFILE.fetch(fields['profile']['key'], '')
+  end
+
+  def proxy_borrower_name
+    return unless proxy_borrower? && first_name.match?(/(\A\w+\s)\(P=([a-zA-Z]+)\)\z/)
+
+    first_name.gsub(/(\A\w+\s)\(P=([a-zA-Z]+)\)\z/, '\2')
   end
 end

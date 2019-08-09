@@ -250,8 +250,8 @@ RSpec.describe Patron do
     expect(patron.proxy_borrower?).to be false
   end
 
-  it 'has no #proxy_borrower_name' do
-    expect(patron.proxy_borrower_name).to be_nil
+  it 'has a display name' do
+    expect(patron.display_name).to eq 'Student Borrower'
   end
 
   context 'with a proxy borrower' do
@@ -267,6 +267,7 @@ RSpec.describe Patron do
         }
       }
       fields[:firstName] = 'Second (P=FirstProxyLN)'
+      fields[:lastName] = 'Whatever'
     end
 
     describe '#proxy_borrower?' do
@@ -275,9 +276,20 @@ RSpec.describe Patron do
       end
     end
 
-    describe '#proxy_borrower_name' do
+    describe '#display_name' do
       it 'is derived from the first name' do
-        expect(patron.proxy_borrower_name).to eq 'Proxy FirstProxyLN'
+        expect(patron.display_name).to eq 'FirstProxyLN'
+      end
+    end
+
+    context 'with an unexpected first name value' do
+      before do
+        fields[:firstName] = 'Some'
+        fields[:lastName] = 'Proxy'
+      end
+
+      it 'returns the usual display name' do
+        expect(patron.display_name).to eq 'Some Proxy'
       end
     end
 
