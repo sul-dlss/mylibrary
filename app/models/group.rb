@@ -42,11 +42,7 @@ class Group < Patron
   def member_list_names
     @member_list_names ||= begin
       member_list.each_with_object({}) do |member, hash|
-        hash[member.key] = if member.sponsor?
-                             member.display_name
-                           else
-                             member.first_name.gsub(/(\A\w+\s)\(P=([a-zA-Z]+)\)\z/, '\2')
-                           end
+        hash[member.key] = member.display_name
       end
     end
   end

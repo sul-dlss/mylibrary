@@ -81,7 +81,12 @@ RSpec.describe Group do
             fields: { responsibility: { key: 'SPONSOR' } }
           }
         } },
-        { key: '411612', fields: { firstName: 'Mark (P=Wangchuk)' } }
+        { key: '411612', fields: {
+          firstName: 'Mark (P=Wangchuk)',
+          groupSettings: {
+            fields: { responsibility: { key: 'PROXY' } }
+          }
+        } }
       ]
     end
 

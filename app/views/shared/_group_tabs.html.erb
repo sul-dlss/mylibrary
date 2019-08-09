@@ -2,7 +2,7 @@
   <ul class="nav nav-tabs nav-justified col-12 pt-3">
     <li class="nav-item h3">
       <%= link_to url_for(group: nil), class: "nav-link #{params[:group].nil? && 'active'} p-3 mt-3", aria: { current: params[:group].nil? } do %>
-        <%= patron_or_group.proxy_borrower_name || 'Self' %>
+        <%= patron_or_group.proxy_borrower? ? "Proxy #{patron_or_group.display_name}" : 'Self' %>
         <%= "(#{self_value})" if defined?(self_value) %>
       <% end %>
     </li>
