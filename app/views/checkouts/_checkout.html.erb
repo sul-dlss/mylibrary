@@ -77,6 +77,10 @@
       <% end %>
       <dt class="col-3 offset-1 col-md-2 offset-md-2">Source:</dt>
       <dd class="col-8"><%= library_name checkout.library %></dd>
+      <% if checkout.barcode %>
+        <dt class="col-3 offset-1 col-md-2 offset-md-2">Barcode:</dt>
+        <dd class="col-8"><%= checkout.barcode %></dd>
+      <% end %>
     </dl>
 
     <%= detail_link_to_searchworks(checkout.catkey) unless checkout.from_borrow_direct? %>

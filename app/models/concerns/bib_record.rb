@@ -2,6 +2,10 @@
 
 # Common accessors into bib item data
 module BibRecord
+  def barcode
+    item['barcode']
+  end
+
   def catkey
     fields.dig('bib', 'key') || item.dig('bib', 'key')
   end

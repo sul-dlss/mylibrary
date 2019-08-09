@@ -29,6 +29,7 @@ json.attributes do
   json.short_term_loan checkout.short_term_loan?
   json.current_location checkout.current_location
   json.lost checkout.lost?
+  json.barcode checkout.barcode
 
   json.symphony_api_response checkout.record if Rails.env.development?
 end
