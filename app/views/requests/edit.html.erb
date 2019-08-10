@@ -8,15 +8,17 @@
     <%= hidden_field_tag :id, @request.key %>
     <%= hidden_field_tag :title, @request.title %>
     <%= hidden_field_tag :group, params[:group] if params[:group] %>
-    <%= hidden_field_tag :current_fill_by_date, @request.fill_by_date.strftime('%Y-%m-%d') %>
+    <%= hidden_field_tag :current_fill_by_date, @request&.fill_by_date&.strftime('%Y-%m-%d') %>
     <div class="form-group">
       <%= label_tag :pickup_library, 'Pickup library' %>
       <%= select_tag :pickup_library, request_location_options(@request), include_blank: library_name(@request.pickup_library), class: 'form-control' %>
     </div>
-    <div class="form-group">
-      <%= label_tag :not_needed_after, 'Not needed after', class: 'form-label' %>
-      <%= date_field_tag :not_needed_after, @request.fill_by_date.strftime('%Y-%m-%d'), class: 'form-control' %>
-    </div>
+    <% if @request.fill_by_date %>
+      <div class="form-group">
+        <%= label_tag :not_needed_after, 'Not needed after', class: 'form-label' %>
+        <%= date_field_tag :not_needed_after, @request.fill_by_date.strftime('%Y-%m-%d'), class: 'form-control' %>
+      </div>
+    <% end %>
     <div class="form-group pb-3">
       <div class="form-text">
         Cancel this request
