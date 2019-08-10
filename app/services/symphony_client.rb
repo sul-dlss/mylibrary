@@ -162,8 +162,6 @@ class SymphonyClient
     else
       response
     end
-
-    response
   end
 
   def item_info(item_barcode)
