@@ -20,7 +20,7 @@ RSpec.describe 'Renew item', type: :feature, js: true do
   it 'has a button to renew all items' do
     visit checkouts_path
 
-    click_on 'Renew 6 eligible items'
+    click_on 'Renew 8 eligible items'
 
     expect(page).to have_css '.flash_messages', text: 'Success!'
   end
