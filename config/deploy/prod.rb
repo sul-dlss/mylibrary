@@ -8,5 +8,3 @@ server 'mylibrary-prod-b.stanford.edu', user: 'mylibrary', roles: %w[web app]
 set :bundle_without, %w[deployment test].join(' ')
 
 Capistrano::OneTimeKey.generate_one_time_key!
-
-after 'deploy:updated', 'newrelic:notice_deployment'
