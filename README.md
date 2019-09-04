@@ -119,3 +119,6 @@ Deployment of the application will be handled using the DLSS capistrano gem. To 
 server run:
 
     $ cap dev deploy
+
+## Feedback
+You can provide feedback on MyLibrary through the "Feedback" link on the homepage. The [feedback queue](https://jirasul.stanford.edu/jira/projects/MYLIBACCNT) is mangaged in SUL JIRA.
