@@ -3,6 +3,7 @@
 # :nodoc:
 class ApplicationController < ActionController::Base
   helper_method :current_user, :current_user?, :patron, :patron_or_group, :symphony_client
+  before_action :set_internal_pages_flash_message
 
   def current_user
     session_data = request.env['warden'].user
@@ -56,5 +57,15 @@ class ApplicationController < ActionController::Base
 
   def item_details
     {}
+  end
+
+  def set_internal_pages_flash_message
+    return unless Settings.internal_pages_flash_message_html && action_name == 'index'
+
+    Settings.internal_pages_flash_message_config.each do |controller|
+      # rubocop:disable Rails/OutputSafety
+      controller == controller_name && flash.now[:alert] = Settings.internal_pages_flash_message_html.html_safe
+      # rubocop:enable Rails/OutputSafety
+    end
   end
 end
