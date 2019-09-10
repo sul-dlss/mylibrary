@@ -60,7 +60,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_internal_pages_flash_message
-    return unless Settings.internal_pages_flash_message_html && action_name == 'index'
+    return unless Settings.internal_pages_flash_message_html.present? && action_name == 'index'
 
     Settings.internal_pages_flash_message_config.each do |controller|
       # rubocop:disable Rails/OutputSafety
