@@ -21,12 +21,9 @@ home_page_flash_message_html: |-
 
   <p class="mb-0">Use the feedback link to let us know what you think!</p>
 
-internal_pages_flash_message_html: |-
-  <p>As of Monday, 9/9/19, we are having an issue with renewing materials due on 9/23/19.  Renewals will be available on Tuesday, 9/10/19.</p>
+internal_pages_flash_message_html: ''
 
-internal_pages_flash_message_config:
-  - summaries
-  - checkouts
+internal_pages_flash_message_config: []
 
 symphony:
   host:
