@@ -380,4 +380,12 @@ RSpec.describe Checkout do
       expect(checkout).to be_from_borrow_direct
     end
   end
+
+  context 'when the library is null' do
+    before { fields[:library] = nil }
+
+    it 'returns an empty string' do
+      expect(checkout.library).to eq ''
+    end
+  end
 end
