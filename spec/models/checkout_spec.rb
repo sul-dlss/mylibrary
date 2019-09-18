@@ -384,8 +384,8 @@ RSpec.describe Checkout do
   context 'when the library is null' do
     before { fields[:library] = nil }
 
-    it 'returns an empty string' do
-      expect(checkout.library).to eq ''
+    it 'returns a generic library name' do
+      expect(checkout.library).to eq 'Stanford Libraries'
     end
   end
 end
