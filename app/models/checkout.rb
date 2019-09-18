@@ -108,6 +108,9 @@ class Checkout
   end
 
   def library
+    # In some edge cases Symws returns an empty block for fields['library']
+    return '' if fields['library'].nil?
+
     code = fields['library']['key']
     return Settings.BORROW_DIRECT_CODE if from_borrow_direct?
 
