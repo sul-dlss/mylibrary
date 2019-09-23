@@ -1628,7 +1628,7 @@
          "key" : "ENGLISH",
          "resource" : "/policy/language"
       },
-      "privilegeExpiresDate" : "2019-09-23",
+      "privilegeExpiresDate" : "2999-12-31",
       "preferredName" : "",
       "category07" : null,
       "groupId" : "",
