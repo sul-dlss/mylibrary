@@ -44,9 +44,11 @@ RSpec.describe Group do
     it 'is an array of patrons' do
       expect(group.member_list).to all(be_a(Patron))
     end
+
     it 'has a patron with a key' do
       expect(group.member_list.first.key).to eq '521187'
     end
+
     describe 'filtering' do
       let(:member_list) do
         [
@@ -65,6 +67,7 @@ RSpec.describe Group do
       it 'doesn\'t include the currently logged in user' do
         expect(group.member_list.map(&:key)).not_to include group.key
       end
+
       it 'has all the other members' do
         expect(group.member_list.map(&:key)).to eq %w[2 3]
       end

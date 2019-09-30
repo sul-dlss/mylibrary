@@ -78,6 +78,7 @@ RSpec.describe PaymentsController do
       post :create
       expect(controller).to redirect_to 'https://example.com/secureacceptance/payment_form.php?'
     end
+
     it 'creates a cookie with needed information' do
       post :create, params: { billseq: 'b', session_id: 's', group: 'g' }
       expect(JSON.parse(response.cookies['payment_in_process'])).to include(
@@ -86,6 +87,7 @@ RSpec.describe PaymentsController do
         'group' => 'g'
       )
     end
+
     it 'passes through parameters' do
       post :create, params: { reason: 'r', billseq: 'b', amount: 'a', session_id: 's', user: 'u', group: 'g' }
       expect(controller).to redirect_to 'https://example.com/secureacceptance/payment_form.php?amount=a&billseq=b&group=g&reason=r&session_id=s&user=u'

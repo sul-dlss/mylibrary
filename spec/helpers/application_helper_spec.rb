@@ -8,6 +8,7 @@ RSpec.describe ApplicationHelper do
       allow(helper).to receive(:controller_name).and_return 'summaries'
       expect(helper.active_page_class('summaries')).to eq 'active'
     end
+
     it 'when the controller_name does not match' do
       expect(helper.active_page_class('summaries')).to be_nil
     end

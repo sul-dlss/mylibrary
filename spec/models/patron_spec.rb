@@ -134,6 +134,7 @@ RSpec.describe Patron do
       it 'a patron has expired privileges' do
         expect(patron.expired?).to be true
       end
+
       it 'a patron has an OK standing but expired status' do
         expect(patron.status).to eq 'Expired'
       end
@@ -194,12 +195,15 @@ RSpec.describe Patron do
     it 'shows a blocked status' do
       expect(patron.status).to eq 'Contact us'
     end
+
     it 'shows more status information if Symphony standing is BARRED' do
       # some wording about needing to contact access services staff
     end
+
     it 'can have unexpired borrowing privileges' do
       expect(patron.expired?).to be false
     end
+
     it 'can be barred' do
       expect(patron.barred?).to be true
     end
