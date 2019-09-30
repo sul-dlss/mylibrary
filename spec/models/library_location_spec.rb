@@ -18,11 +18,13 @@ RSpec.describe LibraryLocation do
         'HOPKINS', 'LAW', 'MUSIC', 'SAL', 'SCIENCE'
       )
     end
+
     it 'provides location specific pickup libraries' do
       expect(described_class.new('PAGE-AR').pickup_libraries).to include(
         'ART', 'SPEC-COLL'
       )
     end
+
     it 'provides library specific pickup libraries' do
       expect(described_class.new('RUMSEYMAP').pickup_libraries).to include(
         'RUMSEYMAP'

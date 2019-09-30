@@ -9,6 +9,7 @@ RSpec.describe Icon do
     it 'returns a string' do
       expect(icon.svg).to be_an String
     end
+
     it 'returns raw svg' do
       expect(Capybara.string(icon.svg))
         .to have_css 'svg title', text: 'Eligible for renewal'

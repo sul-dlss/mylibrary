@@ -38,6 +38,7 @@ RSpec.describe ContactFormsController, type: :controller do
       post :create, params: { message: '', email: 'test@test.mail', url: '/summaries' }
       expect(flash[:danger]).to eq 'A message is required'
     end
+
     it 'blocks potential spam with a url in the message' do
       post :create, params: { message: 'I like to spam by sending you a http://www.somespam.com.  lolzzzz',
                               email: 'test@test.mail',

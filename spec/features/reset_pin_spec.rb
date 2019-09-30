@@ -21,6 +21,7 @@ RSpec.describe 'Reset Pin', type: :feature do
       click_button 'Reset/Request PIN'
       expect(page).to have_css '.flash_messages', text: 'Check your email!'
     end
+
     it 'a user can change their pin' do
       visit change_pin_with_token_path('foo')
       fill_in('pin', with: '123456')
@@ -34,6 +35,7 @@ RSpec.describe 'Reset Pin', type: :feature do
       visit change_pin_with_token_path('foo')
       expect(page).to have_css '[type="password"]'
     end
+
     it 'can be shown by clicking show/hide button' do
       visit change_pin_with_token_path('foo')
       within '#main form' do

@@ -19,6 +19,7 @@ RSpec.describe 'Feedback form', type: :feature do
     it 'feedback form should be hidden' do
       expect(page).not_to have_css('#feedback-form', visible: true)
     end
+
     it 'feedback form should be shown filled out and submitted' do
       click_link 'Feedback'
       skip('Passes locally, not on Travis.') if ENV['CI']
