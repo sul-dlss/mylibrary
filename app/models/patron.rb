@@ -227,7 +227,7 @@ class Patron
   end
 
   def symphony_requests
-    fields['holdRecordList'].map { |request| Request.new(request) }
+    (fields['holdRecordList'] || []).map { |request| Request.new(request) }
   end
 
   def fields
