@@ -10,7 +10,7 @@ RSpec.describe 'Reset Pin', type: :feature do
 
     it 'logs out user and redirects to root' do
       visit reset_pin_path
-      expect(page).to have_css 'h1', text: 'Log in to your library account'
+      expect(page).to have_css 'h1', text: 'Log in to see your checkouts, requests, fines & fees'
     end
   end
 
