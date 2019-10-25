@@ -40,7 +40,9 @@ class SessionsController < ApplicationController
     if request.env['warden'].authenticate(:shibboleth, :development_shibboleth_stub)
       redirect_to summaries_url
     else
-      redirect_to root_url, alert: 'Unable to authenticate.'
+      redirect_to root_url, flash: {
+        error: t('mylibrary.sessions.login_by_sunetid.error_html', mailto: Settings.ACCESS_SERVICES_EMAIL)
+      }
     end
   end
 

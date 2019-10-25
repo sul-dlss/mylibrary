@@ -135,6 +135,11 @@ RSpec.describe SessionsController do
       it 'redirects failed requests back to the login page' do
         expect(get(:login_by_sunetid)).to redirect_to root_url
       end
+
+      it 'sets a flash error' do
+        get(:login_by_sunetid)
+        expect(flash[:error]).to include('Your SUNet ID is not linked to a library account')
+      end
     end
   end
 end
