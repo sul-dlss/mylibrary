@@ -47,8 +47,7 @@ RSpec.describe SymphonyLegacyClient do
         .with(
           headers: {
             'Connection' => 'close',
-            'Host' => 'example.com',
-            'User-Agent' => 'http.rb/4.1.1'
+            'Host' => 'example.com'
           }
         )
         .to_return(status: 200, body: mock_legacy_client_response)
