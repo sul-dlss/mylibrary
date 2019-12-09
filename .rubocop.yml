@@ -63,11 +63,11 @@ RSpec/DescribeClass:
   Exclude:
     - 'spec/views/**/*'
 
-Layout/AlignHash:
+Layout/HashAlignment:
   Exclude:
     - 'config/application.rb'
 
-Layout/IndentFirstHashElement:
+Layout/FirstHashElementIndentation:
   EnforcedStyle: consistent
 
 Style/WordArray:
