@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # ContactMailer
-class ContactMailer < ActionMailer::Base
+class ContactMailer < ApplicationMailer
   def submit_feedback(params, ip)
     @name = params[:name].presence || 'User not logged in'
     @email = params[:email] || 'User not logged in'
