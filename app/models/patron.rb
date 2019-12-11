@@ -26,6 +26,10 @@ class Patron
     @payment_in_process = payment_in_process
   end
 
+  def record_unavailable?
+    record.nil?
+  end
+
   def key
     record['key']
   end

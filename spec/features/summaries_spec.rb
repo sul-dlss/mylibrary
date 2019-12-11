@@ -166,4 +166,24 @@ RSpec.describe 'Summaries Page', type: :feature do
       end
     end
   end
+
+  context 'with no data returned' do
+    let(:mock_client) do
+      instance_double(
+        SymphonyClient,
+        patron_info: nil
+      )
+    end
+
+    before do
+      allow(SymphonyClient).to receive(:new) { mock_client }
+      login_as(username: 'stub_user')
+    end
+
+    it 'redircts to the system unavailable page' do
+      visit summaries_path
+
+      expect(page).to have_css('div', text: 'Temporarily unavailable')
+    end
+  end
 end

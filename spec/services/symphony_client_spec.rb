@@ -5,6 +5,21 @@ require 'rails_helper'
 RSpec.describe SymphonyClient do
   let(:client) { subject }
 
+  let(:fiveOthree) do
+    { status: '503',
+      body: '<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
+       <html>
+        <head>
+          <title>503 Service Unavailable</title>
+        </head>
+        <body>
+          <h1>Service Unavailable</h1>
+            <p>The server is temporarily unable to service your request due to maintenance downtime
+             or capacity problems. Please try again later.</p>
+        </body>
+       </html>' }
+  end
+
   before do
     stub_request(:post, 'https://example.com/symws/user/staff/login')
       .with(body: Settings.symws.login_params.to_h)
@@ -28,8 +43,22 @@ RSpec.describe SymphonyClient do
   end
 
   describe '#session_token' do
-    it 'retrieves a session token from symws' do
-      expect(client.session_token).to eq 'tokentokentoken'
+    context 'when symphony is available' do
+      it 'retrieves a session token from symws' do
+        expect(client.session_token).to eq 'tokentokentoken'
+      end
+    end
+
+    context 'when symphony is unavailable' do
+      before do
+        stub_request(:post, 'https://example.com/symws/user/staff/login')
+          .with(body: Settings.symws.login_params.to_h)
+          .to_return(fiveOthree)
+      end
+
+      it 'retrieves a session token from symws' do
+        expect(client.session_token).to be nil
+      end
     end
   end
 
@@ -87,6 +116,18 @@ RSpec.describe SymphonyClient do
 
         expect(WebMock).to have_requested(:get, 'https://example.com/symws/user/patron/key/somepatronkey')
           .with(query: hash_including(includeFields: match(/blockList{.*,item{.*}}/)))
+      end
+    end
+
+    context 'when symphony returns no patron info' do
+      before do
+        allow(client).to receive(:authenticated_request).and_return(
+          instance_double('HTTP::Response', body: fiveOthree[:body], status: fiveOthree[:status])
+        )
+      end
+
+      it 'rescues an error and returns nil' do
+        expect(client.patron_info('somepatronkey')).to be nil
       end
     end
   end

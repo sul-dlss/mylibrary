@@ -34,10 +34,13 @@ class SymphonyClient
 
   # get a session token by authenticating to symws
   def session_token
-    @session_token ||= begin
+    @session_token ||=
+      begin
       response = request('/user/staff/login', json: Settings.symws.login_params, method: :post)
 
       JSON.parse(response.body)['sessionToken']
+      rescue JSON::ParserError
+        nil
     end
   end
 
@@ -53,6 +56,7 @@ class SymphonyClient
     ]
   end
 
+  # rubocop:disable Metrics/MethodLength
   def patron_info(patron_key, item_details: {})
     response = authenticated_request("/user/patron/key/#{patron_key}", params: {
       includeFields: [
@@ -64,8 +68,13 @@ class SymphonyClient
       ].join(',')
     })
 
-    JSON.parse(response.body)
+    begin
+      JSON.parse(response.body)
+    rescue JSON::ParserError
+      nil
+    end
   end
+  # rubocop:enable Metrics/MethodLength
 
   def reset_pin(library_id, reset_path)
     response = request('/user/patron/resetMyPin', method: :post, json: {
