@@ -10,9 +10,5 @@ class SummariesController < ApplicationController
   # GET /summaries.json
   def index
     @patron = patron
-
-    redirect_to unavailable_path if patron.record_unavailable?
   end
-
-  def unavailable; end
 end

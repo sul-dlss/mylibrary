@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe SummariesController do
-  let(:mock_client) { instance_double(SymphonyClient) }
+  let(:mock_client) { instance_double(SymphonyClient, ping: true) }
 
   let(:user) do
     { username: 'somesunetid', patron_key: '123' }
@@ -39,15 +39,12 @@ RSpec.describe SummariesController do
   end
 
   context 'when there is no response from symphony' do
-    let(:mock_response) { nil }
-
     before do
-      allow(mock_client).to receive(:patron_info).with('123', item_details: {}).and_return(mock_response)
-      warden.set_user(user)
+      allow(mock_client).to receive(:ping).and_return(false)
     end
 
     it 'redirects to a page that displays a message that the system is unavailable' do
-      expect(get(:index)).to redirect_to '/unavailable'
+      expect(get(:index)).to redirect_to unavailable_path
     end
   end
 end

@@ -40,6 +40,7 @@ class SymphonyClient
 
       JSON.parse(response.body)['sessionToken']
       rescue JSON::ParserError
+        Honeybadger.notify('Unable to connect to Symphony Web Services.')
         nil
     end
   end

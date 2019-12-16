@@ -50,7 +50,8 @@ RSpec.describe 'Summaries Page', type: :feature do
         SymphonyClient,
         patron_info: {
           'fields' => fields
-        }.with_indifferent_access
+        }.with_indifferent_access,
+        ping: true
       )
     end
 
@@ -171,7 +172,7 @@ RSpec.describe 'Summaries Page', type: :feature do
     let(:mock_client) do
       instance_double(
         SymphonyClient,
-        patron_info: nil
+        ping: false
       )
     end
 

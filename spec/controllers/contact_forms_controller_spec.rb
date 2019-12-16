@@ -6,7 +6,8 @@ RSpec.describe ContactFormsController, type: :controller do
   let(:mock_client) do
     instance_double(
       SymphonyClient,
-      patron_info: { 'fields' => { 'address1' => [], 'standing' => { 'key' => '' } } }
+      patron_info: { 'fields' => { 'address1' => [], 'standing' => { 'key' => '' } } },
+      ping: true
     )
   end
   let(:user) do
