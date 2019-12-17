@@ -33,6 +33,9 @@ class ApplicationController < ActionController::Base
   private
 
   def check_unavailable
+    # do not attempt redeirect to '/unavailable' if:
+    # - you are already there (infinite loop)
+    # - you do not have an active session (root_path; otherwise you would never be able to log in again..)
     return if request.path == unavailable_path || request.path == root_path
 
     redirect_to unavailable_path unless symphony_client.ping
