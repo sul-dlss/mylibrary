@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe RenewalsController, type: :controller do
   let(:api_response) { instance_double('Response', status: 200, content_type: :json) }
   let(:mock_client) do
-    instance_double(SymphonyClient, renew_item: api_response)
+    instance_double(SymphonyClient, renew_item: api_response, ping: true)
   end
   let(:user) do
     { username: 'somesunetid', patron_key: '123' }
@@ -80,7 +80,7 @@ RSpec.describe RenewalsController, type: :controller do
 
   describe '#all_eligible' do
     let(:mock_client) do
-      instance_double(SymphonyClient, renew_items: api_response)
+      instance_double(SymphonyClient, renew_items: api_response, ping: true)
     end
     let(:api_response) { { success: [checkouts[0]], error: [checkouts[1]] } }
     let(:mock_patron) { instance_double(Patron, checkouts: checkouts) }

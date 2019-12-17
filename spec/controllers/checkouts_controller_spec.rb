@@ -5,7 +5,10 @@ require 'rails_helper'
 RSpec.describe CheckoutsController do
   let(:mock_patron) { instance_double(Patron) }
 
+  let(:mock_client) { instance_double(SymphonyClient, ping: true) }
+
   before do
+    allow(SymphonyClient).to receive(:new).and_return(mock_client)
     allow(controller).to receive(:patron).and_return(mock_patron)
   end
 

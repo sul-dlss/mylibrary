@@ -24,6 +24,7 @@ Metrics/CyclomaticComplexity:
 Metrics/BlockLength:
   Exclude:
     - 'app/views/**/*.json.jbuilder'
+    - 'config/routes.rb'
     - 'spec/**/*'
 
 Metrics/ClassLength:

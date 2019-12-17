@@ -14,7 +14,7 @@ RSpec.describe FinesController do
   before do
     allow(controller).to receive(:patron).and_return(mock_patron)
     allow(controller).to receive(:symphony_client)
-      .and_return(instance_double(SymphonyClient, session_token: '1a2b3c4d5e6f7g8h9i0j'))
+      .and_return(instance_double(SymphonyClient, session_token: '1a2b3c4d5e6f7g8h9i0j', ping: true))
   end
 
   context 'with an unauthenticated request' do

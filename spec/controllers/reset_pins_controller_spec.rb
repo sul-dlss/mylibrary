@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe ResetPinsController, type: :controller do
-  let(:mock_client) { instance_double(SymphonyClient, reset_pin: {}) }
+  let(:mock_client) { instance_double(SymphonyClient, reset_pin: {}, ping: true) }
 
   before do
     allow(SymphonyClient).to receive(:new).and_return(mock_client)
@@ -43,7 +43,7 @@ RSpec.describe ResetPinsController, type: :controller do
 
     context 'when everything is good' do
       let(:response) { instance_double('Response', status: 200, content_type: :json) }
-      let(:mock_client) { instance_double(SymphonyClient, change_pin: response) }
+      let(:mock_client) { instance_double(SymphonyClient, change_pin: response, ping: true) }
 
       it 'changes the pin and sets flash messages' do
         post :change, params: { token: 'abc', pin: '123' }
@@ -58,7 +58,7 @@ RSpec.describe ResetPinsController, type: :controller do
 
     context 'when the response is not 200' do
       let(:response) { instance_double('Response', status: 401, content_type: :json) }
-      let(:mock_client) { instance_double(SymphonyClient, change_pin: response) }
+      let(:mock_client) { instance_double(SymphonyClient, change_pin: response, ping: true) }
 
       it 'does not change the pin and sets flash messages' do
         post :change, params: { token: 'abc', pin: '123' }

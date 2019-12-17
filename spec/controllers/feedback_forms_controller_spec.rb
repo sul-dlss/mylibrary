@@ -3,6 +3,12 @@
 require 'rails_helper'
 
 RSpec.describe FeedbackFormsController do
+  let(:mock_client) { instance_double(SymphonyClient, ping: true) }
+
+  before do
+    allow(SymphonyClient).to receive(:new).and_return(mock_client)
+  end
+
   context 'when the current user is anonymous' do
     context 'when they fill in the reCAPTCHA' do
       it 'sends an email (default scenario)' do

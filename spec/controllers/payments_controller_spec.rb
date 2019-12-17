@@ -24,7 +24,7 @@ RSpec.describe PaymentsController do
     before do
       allow(controller).to receive(:patron).and_return(mock_patron)
       allow(controller).to receive(:symphony_client)
-        .and_return(instance_double(SymphonyClient, session_token: '1a2b3c4d5e6f7g8h9i0j'))
+        .and_return(instance_double(SymphonyClient, session_token: '1a2b3c4d5e6f7g8h9i0j', ping: true))
       allow(SymphonyLegacyClient).to receive(:new).and_return(mock_legacy_client)
     end
 
@@ -72,7 +72,12 @@ RSpec.describe PaymentsController do
   end
 
   describe '#create' do
-    before { warden.set_user(user) }
+    let(:mock_client) { instance_double(SymphonyClient, ping: true) }
+
+    before do
+      allow(SymphonyClient).to receive(:new).and_return(mock_client)
+      warden.set_user(user)
+    end
 
     it 'redirects to payment system' do
       post :create
@@ -96,7 +101,10 @@ RSpec.describe PaymentsController do
 
   context 'when a user makes a payment' do
     context 'when session_id matches cookie' do
+      let(:mock_client) { instance_double(SymphonyClient, ping: true) }
+
       before do
+        allow(SymphonyClient).to receive(:new).and_return(mock_client)
         warden.set_user(user)
         request.cookies['payment_in_process'] = {
           session_id: 'session_this_is_the_one'
@@ -113,7 +121,10 @@ RSpec.describe PaymentsController do
     end
 
     context 'when indifferent of the cookie' do
+      let(:mock_client) { instance_double(SymphonyClient, ping: true) }
+
       before do
+        allow(SymphonyClient).to receive(:new).and_return(mock_client)
         warden.set_user(user)
         post :accept, params: { req_amount: '10.00' }
       end
@@ -131,7 +142,10 @@ RSpec.describe PaymentsController do
   end
 
   context 'when a user cancels a payment' do
+    let(:mock_client) { instance_double(SymphonyClient, ping: true) }
+
     before do
+      allow(SymphonyClient).to receive(:new).and_return(mock_client)
       warden.set_user(user)
       post :cancel
       request.cookies['payment_in_process'] = true

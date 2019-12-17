@@ -3,7 +3,7 @@
 # :nodoc:
 class ApplicationController < ActionController::Base
   helper_method :current_user, :current_user?, :patron, :patron_or_group, :symphony_client
-  before_action :set_internal_pages_flash_message
+  before_action :set_internal_pages_flash_message, :check_unavailable
 
   def current_user
     session_data = request.env['warden'].user
@@ -31,6 +31,15 @@ class ApplicationController < ActionController::Base
   end
 
   private
+
+  def check_unavailable
+    # do not attempt redeirect to '/unavailable' if:
+    # - you are already there (infinite loop)
+    # - you do not have an active session (root_path; otherwise you would never be able to log in again..)
+    return if request.path == unavailable_path || request.path == root_path
+
+    redirect_to unavailable_path unless symphony_client.ping
+  end
 
   ##
   # Used in conjuction with Patron to determine if fines should be filtered by

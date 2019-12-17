@@ -32,5 +32,7 @@ Rails.application.routes.draw do
   post '/payments/accept', to: 'payments#accept'
   post '/payments/cancel', to: 'payments#cancel'
 
+  get '/unavailable', to: 'services#unavailable'
+
   mount OkComputer::Engine, at: '/status'
 end

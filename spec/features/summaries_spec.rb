@@ -50,7 +50,8 @@ RSpec.describe 'Summaries Page', type: :feature do
         SymphonyClient,
         patron_info: {
           'fields' => fields
-        }.with_indifferent_access
+        }.with_indifferent_access,
+        ping: true
       )
     end
 
@@ -164,6 +165,26 @@ RSpec.describe 'Summaries Page', type: :feature do
 
         expect(page).to have_css('div', text: '$100.00 accruing on overdue items')
       end
+    end
+  end
+
+  context 'with no data returned' do
+    let(:mock_client) do
+      instance_double(
+        SymphonyClient,
+        ping: false
+      )
+    end
+
+    before do
+      allow(SymphonyClient).to receive(:new) { mock_client }
+      login_as(username: 'stub_user')
+    end
+
+    it 'redircts to the system unavailable page' do
+      visit summaries_path
+
+      expect(page).to have_css('div', text: 'Temporarily unavailable')
     end
   end
 end

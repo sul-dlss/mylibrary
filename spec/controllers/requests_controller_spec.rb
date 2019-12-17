@@ -6,7 +6,10 @@ RSpec.describe RequestsController do
   let(:mock_patron) { instance_double(Patron, requests: requests) }
   let(:requests) { [] }
 
+  let(:mock_client) { instance_double(SymphonyClient, ping: true) }
+
   before do
+    allow(SymphonyClient).to receive(:new).and_return(mock_client)
     allow(controller).to receive(:patron_or_group).and_return(mock_patron)
   end
 
@@ -27,7 +30,10 @@ RSpec.describe RequestsController do
       ]
     end
 
+    let(:mock_client) { instance_double(SymphonyClient, ping: true) }
+
     before do
+      allow(SymphonyClient).to receive(:new).and_return(mock_client)
       warden.set_user(user)
     end
 
@@ -63,14 +69,14 @@ RSpec.describe RequestsController do
         [instance_double(Request, key: '123')]
       end
 
-      let(:mock_client) { instance_double(SymphonyClient) }
+      let(:mock_client) { instance_double(SymphonyClient, ping: true) }
 
       before do
         allow(SymphonyClient).to receive(:new).and_return(mock_client)
       end
 
       context 'when cancel param is sent' do
-        let(:mock_client) { instance_double(SymphonyClient, cancel_hold: api_response) }
+        let(:mock_client) { instance_double(SymphonyClient, cancel_hold: api_response, ping: true) }
 
         it 'cancels the hold and sets the flash message' do
           patch :update, params: { resource: 'abc', id: '123', cancel: true }
@@ -80,7 +86,7 @@ RSpec.describe RequestsController do
       end
 
       context 'when pickup_library param is sent' do
-        let(:mock_client) { instance_double(SymphonyClient, change_pickup_library: api_response) }
+        let(:mock_client) { instance_double(SymphonyClient, change_pickup_library: api_response, ping: true) }
 
         it 'updates the pickup library and sets the flash message' do
           patch :update, params: { resource: 'abc', id: '123', pickup_library: 'Other library' }
@@ -90,7 +96,7 @@ RSpec.describe RequestsController do
       end
 
       context 'when not_needed_after param is sent' do
-        let(:mock_client) { instance_double(SymphonyClient, not_needed_after: api_response) }
+        let(:mock_client) { instance_double(SymphonyClient, not_needed_after: api_response, ping: true) }
 
         it 'updates the not needed after and sets the flash message' do
           patch :update, params: { resource: 'abc', id: '123', not_needed_after: '1999/01/01' }
@@ -108,7 +114,7 @@ RSpec.describe RequestsController do
       end
 
       context 'with a group request' do
-        let(:mock_client) { instance_double(SymphonyClient, change_pickup_library: api_response) }
+        let(:mock_client) { instance_double(SymphonyClient, change_pickup_library: api_response, ping: true) }
 
         it 'renews the item and redirects to checkouts_path' do
           patch :update, params: { resource: 'abc', id: '123', pickup_library: 'Other library', group: true }
@@ -134,7 +140,7 @@ RSpec.describe RequestsController do
 
     describe '#destroy' do
       let(:api_response) { instance_double('Response', status: 200, content_type: :json) }
-      let(:mock_client) { instance_double(SymphonyClient, cancel_hold: api_response) }
+      let(:mock_client) { instance_double(SymphonyClient, cancel_hold: api_response, ping: true) }
 
       let(:requests) do
         [instance_double(Request, key: '123')]
@@ -209,7 +215,10 @@ RSpec.describe RequestsController do
       ]
     end
 
+    let(:mock_client) { instance_double(SymphonyClient, ping: true) }
+
     before do
+      allow(SymphonyClient).to receive(:new).and_return(mock_client)
       warden.set_user(user)
     end
 
