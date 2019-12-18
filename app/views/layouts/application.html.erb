@@ -28,6 +28,7 @@
         <%= render '/shared/header' %>
         <%= content_for(:navigation) %>
         <main id="main" role="main" class="container mt-3 mb-3">
+          <%= render '/shared/global_alert' %>
           <%= render partial: '/shared/flash_msg', layout: nil %>
           <%= yield %>
         </main>
