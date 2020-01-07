@@ -10,6 +10,12 @@ AllCops:
   Exclude:
       - vendor/bundle/**/*
 
+Layout/LineLength:
+  Max: 120
+  Exclude:
+    - 'spec/controllers/feedback_forms_controller_spec.rb'
+    - 'app/controllers/feedback_forms_controller.rb'
+
 Metrics/AbcSize:
   Exclude:
     - 'app/controllers/contact_forms_controller.rb'
@@ -34,12 +40,6 @@ Metrics/ClassLength:
     - 'app/models/payment.rb'
     - 'app/services/symphony_client.rb'
     - 'config/application.rb'
-
-Metrics/LineLength:
-  Max: 120
-  Exclude:
-    - 'spec/controllers/feedback_forms_controller_spec.rb'
-    - 'app/controllers/feedback_forms_controller.rb'
 
 Metrics/MethodLength:
   Exclude:
