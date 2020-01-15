@@ -15,7 +15,7 @@ RSpec.describe LibraryLocation do
     it 'provides default pickup libraries' do
       expect(described_class.new('STACKS').pickup_libraries).to include(
         'ART', 'BUSINESS', 'EARTH-SCI', 'EAST-ASIA', 'EDUCATION', 'ENG', 'GREEN',
-        'HOPKINS', 'LAW', 'MUSIC', 'SAL', 'SCIENCE'
+        'HOPKINS', 'LAW', 'MUSIC', 'RWC', 'SAL', 'SCIENCE'
       )
     end
 
