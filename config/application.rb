@@ -91,6 +91,7 @@ module Mylibrary
       'MEDIA-MTXT' => 'Media & Microtext Center',
       'MUSIC' => 'Music Library',
       'RUMSEYMAP' => 'David Rumsey Map Center',
+      'RWC' => 'Academy Hall (SRWC)',
       'SAL' => 'SAL1&2 (on-campus shelving)',
       'SAL3' => 'SAL3 (off-campus storage)',
       'SAL-NEWARK' => 'SAL Newark (off-campus storage)',
@@ -110,6 +111,7 @@ module Mylibrary
       'HOPKINS',
       'LAW',
       'MUSIC',
+      'RWC',
       'SAL',
       'SCIENCE'
     ]

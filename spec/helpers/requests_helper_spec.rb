@@ -8,7 +8,7 @@ RSpec.describe RequestsHelper do
 
     it 'creates options for a requests location to be changed' do
       options = helper.request_location_options(request)
-      expect(options).to have_css 'option', count: 11
+      expect(options).to have_css 'option', count: 12
     end
 
     it 'creates options with value and text' do
