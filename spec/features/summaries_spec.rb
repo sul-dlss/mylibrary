@@ -40,7 +40,7 @@ RSpec.describe 'Summaries Page', type: :feature do
       expect(page).to have_css('h2', text: 'Second (P=FirstProxyLN) Faculty Group')
       expect(page).to have_css('dd.patron-status', text: 'Blocked')
       expect(page).to have_css('dd.email', text: 'faculty2@stanford.edu')
-      expect(page).to have_css('dd.expired-date', text: 'February 1, 2020')
+      expect(page).to have_css('dd.expired-date', text: 'February 1, 2999')
     end
   end
 
