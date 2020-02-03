@@ -32,7 +32,7 @@
     },
     "middleName": "",
     "preferredName": "",
-    "privilegeExpiresDate": "2020-02-01",
+    "privilegeExpiresDate": "2999-02-01",
     "profile": {
       "resource": "/policy/userProfile",
       "key": "CNF",
@@ -3772,7 +3772,7 @@
                   },
                   "middleName": "",
                   "preferredName": "",
-                  "privilegeExpiresDate": "2020-02-01",
+                  "privilegeExpiresDate": "2999-02-01",
                   "profile": {
                     "resource": "/policy/userProfile",
                     "key": "CNF"
