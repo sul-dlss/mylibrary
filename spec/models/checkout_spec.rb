@@ -98,7 +98,7 @@ RSpec.describe Checkout do
       end
     end
 
-    context 'when overdue' do
+    context 'when not overdue' do
       before do
         fields['dueDate'] = (Time.zone.now + 5.days).to_s
         fields['overdue'] = false
