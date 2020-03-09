@@ -80,8 +80,7 @@ RSpec.describe Checkout do
 
       it 'returns the number of days the item is overdue' do
         fields['dueDate'] = (Time.zone.now - 5.days).to_s
-
-        expect(checkout.days_overdue).to be 6
+        expect(checkout.days_overdue).to be 5
       end
     end
   end
