@@ -20,8 +20,12 @@ internal_pages_flash_message_html: ''
 
 internal_pages_flash_message_config: []
 
-GLOBAL_ALERT: <%= false %>
-global_alert_html: The Stanford Libraries will be operating on a reduced schedule during the Stanford Winter Closure period (December 21, 2019 - January 5, 2020).<br /><a href="https://library.stanford.edu/winterclosure">More information about schedules and affected services</a>
+GLOBAL_ALERT: <%= true %>
+global_alert_html: >
+  <b>COVID-19 update</b> <br/>
+  Access to Stanford Libraries will require a current Stanford ID. <br/>
+  Until further notice, visitor access has been suspended. <a href="https://library.stanford.edu/alerts">read more</a> <br/>
+  We apologize for the inconvenience this may cause visitors who will be unable to retrieve requested materials.
 
 symphony:
   host:
