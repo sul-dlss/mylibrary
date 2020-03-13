@@ -79,6 +79,8 @@ RSpec.describe Checkout do
       end
 
       it 'returns the number of days the item is overdue' do
+        # Set "now" to a spcific date and time so we don't this test passes consistently
+        allow(Time.zone).to receive(:now).and_return(Time.zone.parse('2020-03-11').noon)
         fields['dueDate'] = (Time.zone.now - 5.days).to_s
         expect(checkout.days_overdue).to be 5
       end
