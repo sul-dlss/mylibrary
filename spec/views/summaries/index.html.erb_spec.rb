@@ -24,6 +24,9 @@ RSpec.describe 'summaries/index.html.erb' do
       remaining_checkouts: nil,
       to_partial_path: 'patron/patron',
       can_renew?: true,
+      can_schedule_green_access?: false,
+      can_schedule_green_pickup?: false,
+      can_schedule_special_collections_visit?: false,
       **patron_options
     )
   end

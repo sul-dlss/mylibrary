@@ -3,6 +3,9 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root to: 'sessions#index'
+  get 'schedule/green' => 'schedules#show', oncehub_id: 'StanfordLibrariesGreenEntry'
+  get 'schedule/spec' => 'schedules#show', oncehub_id: 'StanfordLibrariesVisitSpecialCollections'
+  get 'schedule/pickup' => 'schedules#show', oncehub_id: 'StanfordLibrariesPagingPickupGreenLibrary'
   resources :summaries
   resources :checkouts
   resources :requests
