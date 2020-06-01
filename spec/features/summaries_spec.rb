@@ -166,6 +166,32 @@ RSpec.describe 'Summaries Page', type: :feature do
         expect(page).to have_css('div', text: '$100.00 accruing on overdue items')
       end
     end
+
+    describe 'ScheduleOnce Buttons' do
+      context 'with a user who cannot schedule a visit to Green' do
+        before do
+          fields[:profile]['key'] = 'CNS'
+        end
+
+        it 'renders a button to schedule access to Green' do
+          visit summaries_path
+
+          expect(page).not_to have_css('button#SOIBTN_StanfordLibrariesGreenEntry')
+        end
+      end
+
+      context 'with a user who can schedule a visit to Green' do
+        before do
+          fields[:profile]['key'] = 'MXF'
+        end
+
+        it 'renders a button to schedule access to Green' do
+          visit summaries_path
+
+          expect(page).to have_css('button#SOIBTN_StanfordLibrariesGreenEntry')
+        end
+      end
+    end
   end
 
   context 'with no data returned' do
