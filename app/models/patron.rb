@@ -218,6 +218,15 @@ class Patron
     true
   end
 
+  def can_schedule_green_access?
+    faculty = %w[CNF MXF]
+    grad_students_and_postdocs = %w[MXD RED REG REG-SUM]
+    visiting_scholars = %w[MXAS]
+
+    [*faculty, *grad_students_and_postdocs, *visiting_scholars].include?(profile_key) ||
+      (profile_key == 'CNAC' && affiliations.include?('affiliate:fellow'))
+  end
+
   private
 
   def borrow_direct_requests
@@ -238,8 +247,18 @@ class Patron
     fields['profile']['fields'] || {}
   end
 
+  def profile_key
+    fields.dig('profile', 'key')
+  end
+
   def user_profile
-    USER_PROFILE.fetch(fields['profile']['key'], '')
+    USER_PROFILE.fetch(profile_key, '')
+  end
+
+  def affiliations
+    fields.dig('customInformation').select { |ci| ci.dig('fields', 'code', 'key') =~ /AFFIL\d/ }.map do |info|
+      info.dig('fields', 'data')
+    end.compact
   end
 
   def proxy_borrower_name

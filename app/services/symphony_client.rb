@@ -64,6 +64,7 @@ class SymphonyClient
         '*',
         'address1',
         'profile{chargeLimit}',
+        'customInformation{*}',
         "groupSettings{*,group{memberList{*,#{patron_linked_resources_fields(item_details).join(',')}}}}",
         *patron_linked_resources_fields(item_details)
       ].join(',')
