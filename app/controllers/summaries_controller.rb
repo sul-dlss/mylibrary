@@ -11,4 +11,6 @@ class SummariesController < ApplicationController
   def index
     @patron = patron
   end
+
+  def blah;  @patron = patron; render layout: false; end
 end
