@@ -7,3 +7,6 @@ symws:
     password: 'some_password'
 symphony:
   host: example.com
+
+schedule_once:
+  enabled: true

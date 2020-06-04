@@ -8,22 +8,24 @@
 <div class="page-section">
   <%= render patron_or_group %>
 
-  <dl class="row">
-    <dt class="col-5 col-sm-4 col-md-3 col-lg-2 font-weight-normal">Library access:</dt>
-    <dd class="col-7 col-sm-8 col-md-9 col-lg-10 library-access">
-      <% if patron_or_group.can_schedule_green_access? %>
-        <%= link_to schedule_green_path, role: 'button', class: 'btn btn-primary', data: { 'mylibrary-modal': 'trigger' } do %>
-          🗓 Schedule access to Green Library
+  <% if Settings.schedule_once.enabled %>
+    <dl class="row">
+      <dt class="col-5 col-sm-4 col-md-3 col-lg-2 font-weight-normal">Library access:</dt>
+      <dd class="col-7 col-sm-8 col-md-9 col-lg-10 library-access">
+        <% if patron_or_group.can_schedule_green_access? %>
+          <%= link_to schedule_green_path, role: 'button', class: 'btn btn-primary', data: { 'mylibrary-modal': 'trigger' } do %>
+            🗓 Schedule access to Green Library
+          <% end %>
+        <% else %>
+          Not eligible during current phase of Research Restart Plan
         <% end %>
-      <% else %>
-        Not eligible during current phase of Research Restart Plan
-      <% end %>
 
-      <%= link_to 'https://library.stanford.edu/returntoresearch', class: 'd-block mt-1', target: '_blank' do %>
-        <%= sul_icon :'sharp-open_in_new-24px' %> Current status of library services
-      <% end %>
-    </dd>
-  </dl>
+        <%= link_to 'https://library.stanford.edu/returntoresearch', class: 'd-block mt-1', target: '_blank' do %>
+          <%= sul_icon :'sharp-open_in_new-24px' %> Current status of library services
+        <% end %>
+      </dd>
+    </dl>
+  <% end %>
 </div>
 
 <%= render 'summary', patron: patron_or_group %>

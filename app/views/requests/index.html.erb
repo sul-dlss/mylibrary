@@ -12,18 +12,20 @@
       <h2>Ready for pickup: <%= ready.length %></h2>
     </div>
 
-    <div class="mb-3">
-      <% if patron_or_group.can_schedule_green_pickup? %>
-        <%= link_to schedule_pickup_path, role: 'button', class: 'btn btn-primary', data: { 'mylibrary-modal': 'trigger' } do %>
-          🗓 Schedule pickup at Green Library
+    <% if Settings.schedule_once.enabled %>
+      <div class="mb-3">
+        <% if patron_or_group.can_schedule_green_pickup? %>
+          <%= link_to schedule_pickup_path, role: 'button', class: 'btn btn-primary', data: { 'mylibrary-modal': 'trigger' } do %>
+            🗓 Schedule pickup at Green Library
+          <% end %>
         <% end %>
-      <% end %>
-      <% if patron_or_group.can_schedule_special_collections_visit? %>
-        <%= link_to schedule_spec_path, role: 'button', class: 'btn btn-primary', data: { 'mylibrary-modal': 'trigger' } do %>
-          🗓 Schedule Special Collections visit
+        <% if patron_or_group.can_schedule_special_collections_visit? %>
+          <%= link_to schedule_spec_path, role: 'button', class: 'btn btn-primary', data: { 'mylibrary-modal': 'trigger' } do %>
+            🗓 Schedule Special Collections visit
+          <% end %>
         <% end %>
-      <% end %>
-    </div>
+      </div>
+    <% end %>
 
     <div class="d-none d-md-flex row font-weight-bold list-header">
       <div class="row col-md-4">
