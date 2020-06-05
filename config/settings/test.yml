@@ -10,3 +10,9 @@ symphony:
 
 schedule_once:
   enabled: true
+  green_pickup:
+    enabled: true
+  green_visits:
+    enabled: true
+  spec_visits:
+    enabled: true

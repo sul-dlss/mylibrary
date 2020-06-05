@@ -219,6 +219,8 @@ class Patron
   end
 
   def can_schedule_green_access?
+    return unless Settings.schedule_once.green_visits.enabled
+
     faculty = %w[CNF MXF]
     grad_students_and_postdocs = %w[MXD RED REG REG-SUM]
     visiting_scholars = %w[MXAS]
@@ -228,6 +230,8 @@ class Patron
   end
 
   def can_schedule_green_pickup?
+    return unless Settings.schedule_once.green_pickup.enabled
+
     faculty = %w[CNF MXF]
     grad_students_and_postdocs = %w[MXD RED REG REG-SUM]
     undergrads = %w[REU REU-SUM]
@@ -239,6 +243,8 @@ class Patron
   end
 
   def can_schedule_special_collections_visit?
+    return unless Settings.schedule_once.spec_visits.enabled
+
     can_schedule_green_access? && requests.any? { |r| r.pickup_library == 'SPEC-DESK' && r.ready_for_pickup? }
   end
 
