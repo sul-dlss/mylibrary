@@ -166,6 +166,138 @@ RSpec.describe 'Summaries Page', type: :feature do
         expect(page).to have_css('div', text: '$100.00 accruing on overdue items')
       end
     end
+
+    describe 'ScheduleOnce Buttons' do
+      context 'with a user who cannot schedule a visit to Green' do
+        before do
+          fields[:profile]['key'] = 'CNS'
+        end
+
+        it 'renders a button to schedule access to Green' do
+          visit summaries_path
+
+          expect(page).not_to have_link 'Schedule access to Green Library'
+        end
+      end
+
+      context 'with a user who can schedule a visit to Green' do
+        before do
+          fields[:profile]['key'] = 'MXF'
+          fields[:firstName] = 'My'
+          fields[:lastName] = 'Name'
+        end
+
+        it 'renders a button to schedule access to Green' do
+          visit summaries_path
+
+          click_link 'Schedule access to Green Library'
+          expect(page).to have_css '.modal-body iframe'
+          src = find('iframe')[:src]
+          expect(src).to start_with 'https://go.oncehub.com/StanfordLibrariesGreenEntry'
+          expect(src).to include 'name=My%20Name'
+        end
+      end
+
+      context 'with an eligible patron with a pickup at Green' do
+        before do
+          fields[:profile]['key'] = 'MXF'
+          fields[:firstName] = 'My'
+          fields[:lastName] = 'Name'
+          fields[:holdRecordList] = [
+            { fields: { status: 'BEING_HELD', pickupLibrary: { key: 'GREEN' } } }
+          ]
+        end
+
+        it 'renders a button to schedule access to Green' do
+          visit summaries_path
+          click_link 'Schedule pickup at Green Library'
+          expect(page).to have_css '.modal-body iframe'
+          src = find('iframe')[:src]
+          expect(src).to start_with 'https://go.oncehub.com/StanfordLibrariesPagingPickupGreenLibrary'
+          expect(src).to include 'name=My%20Name'
+        end
+      end
+
+      context 'with an eligible patron without a pickup at Green' do
+        before do
+          fields[:profile]['key'] = 'MXF'
+          fields[:firstName] = 'My'
+          fields[:lastName] = 'Name'
+          fields[:holdRecordList] = []
+        end
+
+        it 'renders a button to schedule access to Green' do
+          visit summaries_path
+          expect(page).not_to have_link 'Schedule pickup at Green Library'
+        end
+      end
+
+      context 'with an ineligible patron with a pickup at Green' do
+        before do
+          fields[:profile]['key'] = 'MXFEE'
+          fields[:firstName] = 'My'
+          fields[:lastName] = 'Name'
+          fields[:holdRecordList] = [
+            { fields: { status: 'BEING_HELD', pickupLibrary: { key: 'GREEN' } } }
+          ]
+        end
+
+        it 'renders a button to schedule access to Green' do
+          visit summaries_path
+          expect(page).not_to have_link 'Schedule pickup at Green Library'
+        end
+      end
+
+      context 'with an eligible patron with an item at spec' do
+        before do
+          fields[:profile]['key'] = 'MXF'
+          fields[:firstName] = 'My'
+          fields[:lastName] = 'Name'
+          fields[:holdRecordList] = [
+            { fields: { status: 'BEING_HELD', pickupLibrary: { key: 'SPEC-DESK' } } }
+          ]
+        end
+
+        it 'renders a button to schedule access to Green' do
+          visit summaries_path
+          click_link 'Schedule Special Collections visit'
+          expect(page).to have_css '.modal-body iframe'
+          src = find('iframe')[:src]
+          expect(src).to start_with 'https://go.oncehub.com/StanfordLibrariesVisitSpecialCollections'
+          expect(src).to include 'name=My%20Name'
+        end
+      end
+
+      context 'with an eligible patron without an item at spec' do
+        before do
+          fields[:profile]['key'] = 'MXF'
+          fields[:firstName] = 'My'
+          fields[:lastName] = 'Name'
+          fields[:holdRecordList] = []
+        end
+
+        it 'renders a button to schedule access to Green' do
+          visit summaries_path
+          expect(page).not_to have_link 'Schedule Special Collections visit'
+        end
+      end
+
+      context 'with an ineligible patron with an item at spec' do
+        before do
+          fields[:profile]['key'] = 'MXFEE'
+          fields[:firstName] = 'My'
+          fields[:lastName] = 'Name'
+          fields[:holdRecordList] = [
+            { fields: { status: 'BEING_HELD', pickupLibrary: { key: 'SPEC-COLL' } } }
+          ]
+        end
+
+        it 'renders a button to schedule access to Green' do
+          visit summaries_path
+          expect(page).not_to have_link 'Schedule Special Collections visit'
+        end
+      end
+    end
   end
 
   context 'with no data returned' do

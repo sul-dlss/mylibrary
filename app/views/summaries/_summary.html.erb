@@ -19,6 +19,16 @@
 <div class="page-section">
   <h3><%= sul_icon :'sharp-access_time-24px', classes: 'lg' %> Requests: <%= patron.requests.length %></h3>
   <% count = patron.requests.select(&:ready_for_pickup?).length %>
+  <% if Settings.schedule_once.enabled && patron_or_group.can_schedule_green_pickup? %>
+    <%= link_to schedule_pickup_path, role: 'button', class: 'btn btn-primary', data: { 'mylibrary-modal': 'trigger' } do %>
+      🗓 Schedule pickup at Green Library
+    <% end %>
+  <% end %>
+  <% if Settings.schedule_once.enabled && patron_or_group.can_schedule_special_collections_visit? %>
+    <%= link_to schedule_spec_path, role: 'button', class: 'btn btn-primary', data: { 'mylibrary-modal': 'trigger' } do %>
+      🗓 Schedule Special Collections visit
+    <% end %>
+  <% end %>
   <% if count.positive? %>
     <div class="ml-4"><%= sul_icon :'sharp-check_circle-24px', classes: 'text-ready' %> <%= count %> ready for pickup</div>
   <% end %>

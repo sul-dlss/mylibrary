@@ -32,3 +32,12 @@ symphony:
   override: PASSWORD
 
 BORROW_DIRECT_CODE: BORROW_DIRECT
+
+schedule_once:
+  enabled: false
+  green_pickup:
+    enabled: false
+  green_visits:
+    enabled: false
+  spec_visits:
+    enabled: false

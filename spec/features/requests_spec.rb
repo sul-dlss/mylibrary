@@ -89,4 +89,132 @@ RSpec.describe 'Request Page', type: :feature do
       expect(page).not_to have_css('.list-header')
     end
   end
+
+  context 'with a mock user' do
+    let(:mock_client) do
+      instance_double(
+        SymphonyClient,
+        patron_info: {
+          'fields' => fields
+        }.with_indifferent_access,
+        ping: true
+      )
+    end
+
+    let(:fields) do
+      {
+        address1: [],
+        standing: { key: '' },
+        profile: { key: '' },
+        circRecordList: [],
+        blockList: [],
+        holdRecordList: []
+      }
+    end
+
+    before do
+      allow(SymphonyClient).to receive(:new) { mock_client }
+      login_as(username: 'stub_user')
+    end
+
+    context 'with an eligible patron with a pickup at Green' do
+      before do
+        fields[:profile]['key'] = 'MXF'
+        fields[:firstName] = 'My'
+        fields[:lastName] = 'Name'
+        fields[:holdRecordList] = [
+          { fields: { status: 'BEING_HELD', pickupLibrary: { key: 'GREEN' } } }
+        ]
+      end
+
+      it 'renders a button to schedule access to Green' do
+        visit summaries_path
+        click_link 'Schedule pickup at Green Library'
+        expect(page).to have_css '.modal-body iframe'
+        src = find('iframe')[:src]
+        expect(src).to start_with 'https://go.oncehub.com/StanfordLibrariesPagingPickupGreenLibrary'
+        expect(src).to include 'name=My%20Name'
+      end
+    end
+
+    context 'with an eligible patron without a pickup at Green' do
+      before do
+        fields[:profile]['key'] = 'MXF'
+        fields[:firstName] = 'My'
+        fields[:lastName] = 'Name'
+        fields[:holdRecordList] = []
+      end
+
+      it 'renders a button to schedule access to Green' do
+        visit summaries_path
+        expect(page).not_to have_link 'Schedule pickup at Green Library'
+      end
+    end
+
+    context 'with an ineligible patron with a pickup at Green' do
+      before do
+        fields[:profile]['key'] = 'MXFEE'
+        fields[:firstName] = 'My'
+        fields[:lastName] = 'Name'
+        fields[:holdRecordList] = [
+          { fields: { status: 'BEING_HELD', pickupLibrary: { key: 'GREEN' } } }
+        ]
+      end
+
+      it 'renders a button to schedule access to Green' do
+        visit summaries_path
+        expect(page).not_to have_link 'Schedule pickup at Green Library'
+      end
+    end
+
+    context 'with an eligible patron with an item at spec' do
+      before do
+        fields[:profile]['key'] = 'MXF'
+        fields[:firstName] = 'My'
+        fields[:lastName] = 'Name'
+        fields[:holdRecordList] = [
+          { fields: { status: 'BEING_HELD', pickupLibrary: { key: 'SPEC-DESK' } } }
+        ]
+      end
+
+      it 'renders a button to schedule access to Green' do
+        visit summaries_path
+        click_link 'Schedule Special Collections visit'
+        expect(page).to have_css '.modal-body iframe'
+        src = find('iframe')[:src]
+        expect(src).to start_with 'https://go.oncehub.com/StanfordLibrariesVisitSpecialCollections'
+        expect(src).to include 'name=My%20Name'
+      end
+    end
+
+    context 'with an eligible patron without an item at spec' do
+      before do
+        fields[:profile]['key'] = 'MXF'
+        fields[:firstName] = 'My'
+        fields[:lastName] = 'Name'
+        fields[:holdRecordList] = []
+      end
+
+      it 'renders a button to schedule access to Green' do
+        visit summaries_path
+        expect(page).not_to have_link 'Schedule Special Collections visit'
+      end
+    end
+
+    context 'with an ineligible patron with an item at spec' do
+      before do
+        fields[:profile]['key'] = 'MXFEE'
+        fields[:firstName] = 'My'
+        fields[:lastName] = 'Name'
+        fields[:holdRecordList] = [
+          { fields: { status: 'BEING_HELD', pickupLibrary: { key: 'SPEC-COLL' } } }
+        ]
+      end
+
+      it 'renders a button to schedule access to Green' do
+        visit summaries_path
+        expect(page).not_to have_link 'Schedule Special Collections visit'
+      end
+    end
+  end
 end

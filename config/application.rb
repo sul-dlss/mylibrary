@@ -65,6 +65,7 @@ module Mylibrary
       'SAL-NEWARK' => 'greencirc@stanford.edu',
       'SCIENCE' => 'sciencelibrary@stanford.edu',
       'SPEC-COLL' => 'specialcollections@stanford.edu',
+      'SPEC-DESK' => 'specialcollections@stanford.edu',
       'TANNER' => 'tanner-library@stanford.edu'
     }
 
@@ -97,6 +98,7 @@ module Mylibrary
       'SAL-NEWARK' => 'SAL Newark (off-campus storage)',
       'SCIENCE' => 'Science Library (Li and Ma)',
       'SPEC-COLL' => 'Special Collections',
+      'SPEC-DESK' => 'Special Collections',
       'TANNER' => 'Philosophy Library (Tanner)'
     }
 
