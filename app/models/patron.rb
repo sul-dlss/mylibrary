@@ -239,7 +239,7 @@ class Patron
     staff = %w[CNAC CNS MXAC MXS]
 
     [*faculty, *grad_students_and_postdocs, *undergrads, *visiting_scholars, *staff].include?(profile_key) &&
-      requests.any? { |r| %w[GREEN MEDIA-MTXT].include?(r.pickup_library) && r.ready_for_pickup? }
+      requests.any? { |r| r.pickup_library == 'GREEN' && r.ready_for_pickup? }
   end
 
   def can_schedule_special_collections_visit?
