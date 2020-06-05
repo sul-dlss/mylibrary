@@ -20,9 +20,11 @@
           Not eligible during current phase of Research Restart Plan
         <% end %>
 
-        <%= link_to 'https://library.stanford.edu/returntoresearch', class: 'd-block mt-1', target: '_blank' do %>
-          <%= sul_icon :'sharp-open_in_new-24px' %> Current status of library services
-        <% end %>
+        <div class="mt-1">
+          <%= link_to 'https://library.stanford.edu/returntoresearch', target: '_blank' do %>
+            <%= sul_icon :'sharp-open_in_new-24px' %> Current status of library services
+          <% end %>
+        </div>
       </dd>
     </dl>
   <% end %>
