@@ -218,26 +218,6 @@ RSpec.describe 'Summaries Page', type: :feature do
         end
       end
 
-      context 'with an eligible patron with a pickup at Media Microtext' do
-        before do
-          fields[:profile]['key'] = 'MXF'
-          fields[:firstName] = 'My'
-          fields[:lastName] = 'Name'
-          fields[:holdRecordList] = [
-            { fields: { status: 'BEING_HELD', pickupLibrary: { key: 'MEDIA-MTXT' } } }
-          ]
-        end
-
-        it 'renders a button to schedule access to Green' do
-          visit summaries_path
-          click_link 'Schedule pickup at Green Library'
-          expect(page).to have_css '.modal-body iframe'
-          src = find('iframe')[:src]
-          expect(src).to start_with 'https://go.oncehub.com/StanfordLibrariesPagingPickupGreenLibrary'
-          expect(src).to include 'name=My%20Name'
-        end
-      end
-
       context 'with an eligible patron without a pickup at Green' do
         before do
           fields[:profile]['key'] = 'MXF'
