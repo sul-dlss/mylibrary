@@ -49,9 +49,8 @@ class RenewalsController < ApplicationController
     flash[type] = I18n.t(
       "mylibrary.renew_all_items.#{type}_html",
       count: response[type].length,
-      items: content_tag(
-        'ul',
-        safe_join(response[type].collect { |renewal| content_tag('li', renewal.title) }, '')
+      items: tag.ul(
+        safe_join(response[type].collect { |renewal| tag.li(renewal.title) }, '')
       )
     )
   end
