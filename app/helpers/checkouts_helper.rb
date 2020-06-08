@@ -36,7 +36,7 @@ module CheckoutsHelper
                            text: 'Overdue',
                            accrued: checkout.accrued)
     else
-      content_tag :span, 'OK', class: 'd-none d-md-block'
+      tag.span 'OK', class: 'd-none d-md-block'
     end
   end
   # rubocop:enable Metrics/MethodLength
@@ -44,7 +44,7 @@ module CheckoutsHelper
   private
 
   def checkout_status_html(css_class: nil, icon: nil, text:, accrued: 0)
-    content_tag(:span, class: css_class) do
+    tag.span(class: css_class) do
       safe_join([
                   (sul_icon(icon) if icon),
                   text,

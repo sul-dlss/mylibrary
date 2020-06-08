@@ -33,8 +33,8 @@ module ApplicationHelper
   def detail_link_to_searchworks(catkey)
     return if catkey.blank?
 
-    content_tag(:div, class: 'row') do
-      content_tag(:div, class: 'col-11 offset-1 col-md-10 offset-md-2') do
+    tag.div(class: 'row') do
+      tag.div(class: 'col-11 offset-1 col-md-10 offset-md-2') do
         link_to Settings.sw.url + catkey, rel: 'noopener', target: '_blank' do
           sul_icon(:'sharp-open_in_new-24px') + ' View in SearchWorks'
         end
@@ -51,7 +51,7 @@ module ApplicationHelper
   def sul_icon(icon_name, options = {})
     Rails.cache.fetch([:sul_icon, icon_name, options]) do
       icon = Icon.new(icon_name, options)
-      content_tag(:span, icon.svg.html_safe, icon.options) # rubocop:disable Rails/OutputSafety
+      tag.span(icon.svg.html_safe, icon.options) # rubocop:disable Rails/OutputSafety
     end
   end
 
