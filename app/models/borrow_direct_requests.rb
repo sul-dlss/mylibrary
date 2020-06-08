@@ -5,6 +5,7 @@
 # can inject our patron barcode from (and do error handling)
 class BorrowDirectRequests
   attr_reader :patron
+
   def initialize(patron)
     @patron = patron
   end

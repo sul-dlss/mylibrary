@@ -3,6 +3,7 @@
 # wrapper for getting SUL-specific icons to show up
 class Icon
   attr_reader :icon_name
+
   ##
   # @param [String, Symbol] icon_name
   # @param [Hash] options
