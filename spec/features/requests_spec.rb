@@ -46,11 +46,11 @@ RSpec.describe 'Request Page', type: :feature do
     visit requests_path
 
     within(first('ul.ready-requests li')) do
-      expect(page).not_to have_css('dl', visible: true)
-      expect(page).not_to have_css('dt', text: 'Requested:', visible: true)
+      expect(page).not_to have_css('dl', visible: :visible)
+      expect(page).not_to have_css('dt', text: 'Requested:', visible: :visible)
       click_button 'Expand'
-      expect(page).to have_css('dl', visible: true)
-      expect(page).to have_css('dt', text: 'Requested:', visible: true)
+      expect(page).to have_css('dl', visible: :visible)
+      expect(page).to have_css('dt', text: 'Requested:', visible: :visible)
     end
   end
 
@@ -70,7 +70,7 @@ RSpec.describe 'Request Page', type: :feature do
       find('[data-sort="title"]').click
 
       expect(page).to have_css('.dropdown-toggle', text: 'Sort (Title)')
-      expect(page).to have_css('.active[data-sort="title"]', count: 2, visible: false)
+      expect(page).to have_css('.active[data-sort="title"]', count: 2, visible: :all)
 
       within(first('ul.requested-requests li')) do
         expect(page).to have_css('.title', text: /Colour and light/)

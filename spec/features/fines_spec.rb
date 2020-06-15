@@ -39,13 +39,13 @@ RSpec.describe 'Fines Page', type: :feature do
       visit fines_path
 
       within('ul.fines') do
-        expect(page).not_to have_css('dl', visible: true)
-        expect(page).not_to have_css('dt', text: 'Billed', visible: true)
+        expect(page).not_to have_css('dl', visible: :visible)
+        expect(page).not_to have_css('dt', text: 'Billed', visible: :visible)
         click_button 'Expand'
-        expect(page).to have_css('dl', visible: true)
-        expect(page).to have_css('dt', text: 'Billed', visible: true)
-        expect(page).to have_css('dt', text: 'Barcode', visible: true)
-        expect(page).to have_css('dd', text: '36105228879115', visible: true)
+        expect(page).to have_css('dl', visible: :visible)
+        expect(page).to have_css('dt', text: 'Billed', visible: :visible)
+        expect(page).to have_css('dt', text: 'Barcode', visible: :visible)
+        expect(page).to have_css('dd', text: '36105228879115', visible: :visible)
       end
     end
   end

@@ -46,11 +46,11 @@ RSpec.describe 'Payments History', type: :feature do
 
       within('ul.payments') do
         within(first('li')) do
-          expect(page).not_to have_css('dl', visible: true)
-          expect(page).not_to have_css('dt', text: 'Resolution', visible: true)
+          expect(page).not_to have_css('dl', visible: :visible)
+          expect(page).not_to have_css('dt', text: 'Resolution', visible: :visible)
           click_button 'Expand'
-          expect(page).to have_css('dl', visible: true)
-          expect(page).to have_css('dt', text: 'Resolution', visible: true)
+          expect(page).to have_css('dl', visible: :visible)
+          expect(page).to have_css('dt', text: 'Resolution', visible: :visible)
         end
       end
     end
@@ -80,11 +80,11 @@ RSpec.describe 'Payments History', type: :feature do
 
       within('ul.payments') do
         within(first('li')) do
-          expect(page).not_to have_css('dl', visible: true)
-          expect(page).not_to have_css('dt', text: 'Resolution', visible: true)
+          expect(page).not_to have_css('dl', visible: :visible)
+          expect(page).not_to have_css('dt', text: 'Resolution', visible: :visible)
           click_button 'Expand'
-          expect(page).to have_css('dl', visible: true)
-          expect(page).to have_css('dt', text: 'Resolution', visible: true)
+          expect(page).to have_css('dl', visible: :visible)
+          expect(page).to have_css('dt', text: 'Resolution', visible: :visible)
         end
       end
     end
@@ -98,7 +98,7 @@ RSpec.describe 'Payments History', type: :feature do
         find('[data-sort="bill_description"]').click
 
         expect(page).to have_css('.dropdown-toggle', text: 'Sort (Reason)')
-        expect(page).to have_css('.active[data-sort="bill_description"]', count: 2, visible: false)
+        expect(page).to have_css('.active[data-sort="bill_description"]', count: 2, visible: :all)
 
         within(first('ul.payments li')) do
           expect(page).to have_css('.bill_description', text: /Overdue item/)

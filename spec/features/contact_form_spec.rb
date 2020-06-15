@@ -11,7 +11,7 @@ RSpec.describe 'Contact form', type: :feature do
 
     describe 'hidden', js: true do
       it 'form should be hidden' do
-        expect(page).not_to have_css('#mylibrary-modal', visible: true)
+        expect(page).not_to have_css('#mylibrary-modal', visible: :visible)
       end
     end
 
@@ -27,7 +27,7 @@ RSpec.describe 'Contact form', type: :feature do
       end
 
       it 'is shown' do
-        expect(page).to have_css('#contactForm', visible: true)
+        expect(page).to have_css('#contactForm', visible: :visible)
       end
 
       it 'has a Cancel link' do
