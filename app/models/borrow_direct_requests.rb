@@ -50,6 +50,8 @@ class BorrowDirectRequests
       end
     end
 
+    def pickup_library; end
+
     def expiration_date; end
 
     def fill_by_date; end
