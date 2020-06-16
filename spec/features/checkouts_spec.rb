@@ -49,7 +49,7 @@ RSpec.describe 'Checkout Page', type: :feature do
 
       within('ul.checkouts li:nth-child(4)') do
         click_button 'Expand'
-        expect(page).to have_css('dt', text: 'Can I renew?', visible: true)
+        expect(page).to have_css('dt', text: 'Can I renew?', visible: :visible)
       end
     end
 
@@ -57,21 +57,21 @@ RSpec.describe 'Checkout Page', type: :feature do
       visit checkouts_path
 
       within(first('ul.checkouts li')) do
-        expect(page).not_to have_css('dl', visible: true)
-        expect(page).not_to have_css('dt', text: 'Borrowed:', visible: true)
+        expect(page).not_to have_css('dl', visible: :visible)
+        expect(page).not_to have_css('dt', text: 'Borrowed:', visible: :visible)
         click_button 'Expand'
-        expect(page).to have_css('dl', visible: true)
-        expect(page).to have_css('dt', text: 'Borrowed:', visible: true)
-        expect(page).to have_css('dt', text: 'Days overdue:', visible: true)
-        expect(page).to have_css('dd', text: /^\d+$/, visible: true)
-        expect(page).to have_css('dt', text: 'Barcode:', visible: true)
-        expect(page).to have_css('dd', text: '36105229207159', visible: true)
+        expect(page).to have_css('dl', visible: :visible)
+        expect(page).to have_css('dt', text: 'Borrowed:', visible: :visible)
+        expect(page).to have_css('dt', text: 'Days overdue:', visible: :visible)
+        expect(page).to have_css('dd', text: /^\d+$/, visible: :visible)
+        expect(page).to have_css('dt', text: 'Barcode:', visible: :visible)
+        expect(page).to have_css('dd', text: '36105229207159', visible: :visible)
       end
 
       within('ul.checkouts li:nth-child(5)') do
         click_button 'Expand'
-        expect(page).to have_css('dt', text: 'Fines accrued:', visible: true)
-        expect(page).to have_css('dd', text: '$30.00', visible: true)
+        expect(page).to have_css('dt', text: 'Fines accrued:', visible: :visible)
+        expect(page).to have_css('dd', text: '$30.00', visible: :visible)
       end
     end
   end
@@ -80,7 +80,7 @@ RSpec.describe 'Checkout Page', type: :feature do
     visit checkouts_path
 
     within(first('ul.checkouts li')) do
-      expect(page).to have_css('dl dd', text: 'Green Library', visible: false)
+      expect(page).to have_css('dl dd', text: 'Green Library', visible: :all)
     end
   end
 
@@ -92,7 +92,7 @@ RSpec.describe 'Checkout Page', type: :feature do
       find('[data-sort="title"]').click
 
       expect(page).to have_css('.dropdown-toggle', text: 'Sort (Title)')
-      expect(page).to have_css('.active[data-sort="title"]', count: 2, visible: false)
+      expect(page).to have_css('.active[data-sort="title"]', count: 2, visible: :all)
 
       within(first('ul.checkouts li')) do
         expect(page).to have_css('.title', text: /Japanese animation/)

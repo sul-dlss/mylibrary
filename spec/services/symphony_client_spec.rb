@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe SymphonyClient do
   let(:client) { subject }
 
-  let(:fiveOthree) do
+  let(:unavailable) do
     { status: '503',
       body: '<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN">
        <html>
@@ -53,7 +53,7 @@ RSpec.describe SymphonyClient do
       before do
         stub_request(:post, 'https://example.com/symws/user/staff/login')
           .with(body: Settings.symws.login_params.to_h)
-          .to_return(fiveOthree)
+          .to_return(unavailable)
       end
 
       it 'retrieves a session token from symws' do
@@ -122,7 +122,7 @@ RSpec.describe SymphonyClient do
     context 'when symphony returns no patron info' do
       before do
         allow(client).to receive(:authenticated_request).and_return(
-          instance_double('HTTP::Response', body: fiveOthree[:body], status: fiveOthree[:status])
+          instance_double('HTTP::Response', body: unavailable[:body], status: unavailable[:status])
         )
       end
 

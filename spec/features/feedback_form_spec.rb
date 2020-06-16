@@ -17,13 +17,13 @@ RSpec.describe 'Feedback form', type: :feature do
     end
 
     it 'feedback form should be hidden' do
-      expect(page).not_to have_css('#feedback-form', visible: true)
+      expect(page).not_to have_css('#feedback-form', visible: :visible)
     end
 
     it 'feedback form should be shown filled out and submitted' do
       click_link 'Feedback'
       skip('Passes locally, not on Travis.') if ENV['CI']
-      expect(page).to have_css('#feedback-form', visible: true)
+      expect(page).to have_css('#feedback-form', visible: :visible)
       expect(page).to have_css('button', text: 'Cancel')
       within 'form.feedback-form' do
         fill_in('message', with: 'This is only a test')
@@ -48,7 +48,7 @@ RSpec.describe 'Feedback form', type: :feature do
 
     it 'feedback form should be shown filled out and submitted' do
       click_link 'Feedback'
-      expect(page).to have_css('#feedback-form', visible: true)
+      expect(page).to have_css('#feedback-form', visible: :visible)
       expect(page).to have_css('a', text: 'Cancel')
       within 'form.feedback-form' do
         fill_in('message', with: 'This is only a test')
