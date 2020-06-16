@@ -229,6 +229,17 @@ class Patron
       (profile_key == 'CNAC' && affiliations.include?('affiliate:fellow'))
   end
 
+  def can_schedule_eal_access?
+    return unless Settings.schedule_once.eal_visits.enabled
+
+    faculty = %w[CNF MXF]
+    grad_students_and_postdocs = %w[MXD RED REG REG-SUM]
+    visiting_scholars = %w[MXAS]
+
+    [*faculty, *grad_students_and_postdocs, *visiting_scholars].include?(profile_key) ||
+      (profile_key == 'CNAC' && affiliations.include?('affiliate:fellow'))
+  end
+
   def can_schedule_green_pickup?
     return unless Settings.schedule_once.green_pickup.enabled
 

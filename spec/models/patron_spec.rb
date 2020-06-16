@@ -556,6 +556,38 @@ RSpec.describe Patron do
     end
   end
 
+  describe '#can_schedule_eal_access?' do
+    context 'with a user that should get access (faculty)' do
+      before do
+        fields[:profile]['key'] = 'MXF'
+      end
+
+      it { expect(patron.can_schedule_eal_access?).to eq true }
+    end
+
+    context 'with a user that should get access (fellow)' do
+      before do
+        fields[:profile]['key'] = 'CNAC'
+        fields[:customInformation] = [
+          { 'fields' => { 'code' => { 'key' => 'AFFIL1' }, 'data' => 'affiliate:fellow' } }
+        ]
+      end
+
+      it { expect(patron.can_schedule_eal_access?).to eq true }
+    end
+
+    context 'with a user that that should not get access (non-fellow)' do
+      before do
+        fields[:profile]['key'] = 'CNAC'
+        fields[:customInformation] = [
+          { 'fields' => { 'code' => { 'key' => 'AFFIL1' }, 'data' => 'staff' } }
+        ]
+      end
+
+      it { expect(patron.can_schedule_eal_access?).to eq false }
+    end
+  end
+
   describe '#to_partial_path' do
     context 'when expired' do
       before do

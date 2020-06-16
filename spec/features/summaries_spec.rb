@@ -190,7 +190,10 @@ RSpec.describe 'Summaries Page', type: :feature do
         it 'renders a button to schedule access to Green' do
           visit summaries_path
 
-          click_link 'Schedule access to Green Library'
+          within '.schedule-once-dropdown' do
+            click_link 'Green Library'
+          end
+
           expect(page).to have_css '.modal-body iframe'
           src = find('iframe')[:src]
           expect(src).to start_with 'https://go.oncehub.com/StanfordLibrariesGreenEntry'
