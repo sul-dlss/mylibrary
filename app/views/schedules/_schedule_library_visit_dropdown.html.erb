@@ -1,0 +1,10 @@
+<div class="schedule-once-dropdown dropdown">
+  <button class="btn btn-primary dropdown-toggle" type="button" id="scheduleOnceDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    🗓 Schedule access to ...
+  </button>
+  <div class="dropdown-menu" aria-labelledby="scheduleOnceDropdown">
+    <% schedulable_libraries.each do |library| %>
+      <%= link_to_schedule_once_visit(library: library, text: library_name(library), css_class: 'dropdown-item') %>
+    <% end %>
+  </div>
+</div>

@@ -18,12 +18,29 @@ module SummariesHelper
     )
   end
 
+  def schedule_once_link_or_dropdown
+    return 'Not eligible during current phase of Research Restart Plan' if library_schedule_path_map.blank?
+
+    schedulable_libraries = library_schedule_path_map.keys
+
+    if schedulable_libraries.one?
+      return link_to_schedule_once_visit(
+        library: schedulable_libraries.first,
+        text: "🗓 Schedule access to #{library_name(schedulable_libraries.first)}",
+        css_class: 'btn btn-primary'
+      )
+    end
+
+    render 'schedules/schedule_library_visit_dropdown', schedulable_libraries: schedulable_libraries
+  end
+
   private
 
   def library_schedule_path_map
-    {
-      'EAST-ASIA' => schedule_eal_path,
-      'GREEN' => schedule_green_path
-    }
+    map = {}
+    map['GREEN'] = schedule_green_path if patron_or_group.can_schedule_green_access?
+    map['EAST-ASIA'] = schedule_eal_path if patron_or_group.can_schedule_eal_access?
+
+    map
   end
 end
