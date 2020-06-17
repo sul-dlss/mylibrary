@@ -225,8 +225,7 @@ class Patron
     grad_students_and_postdocs = %w[MXD RED REG REG-SUM]
     visiting_scholars = %w[MXAS]
 
-    [*faculty, *grad_students_and_postdocs, *visiting_scholars].include?(profile_key) ||
-      (profile_key == 'CNAC' && affiliations.include?('affiliate:fellow'))
+    [*faculty, *grad_students_and_postdocs, *visiting_scholars].include?(profile_key) || academic_staff_or_fellow?
   end
 
   def can_schedule_eal_access?
@@ -236,8 +235,7 @@ class Patron
     grad_students_and_postdocs = %w[MXD RED REG REG-SUM]
     visiting_scholars = %w[MXAS]
 
-    [*faculty, *grad_students_and_postdocs, *visiting_scholars].include?(profile_key) ||
-      (profile_key == 'CNAC' && affiliations.include?('affiliate:fellow'))
+    [*faculty, *grad_students_and_postdocs, *visiting_scholars].include?(profile_key) || academic_staff_or_fellow?
   end
 
   def can_schedule_green_pickup?
@@ -260,6 +258,14 @@ class Patron
   end
 
   private
+
+  def academic_staff_or_fellow?
+    return unless profile_key == 'CNAC'
+
+    allowed_affiliations = ['affiliate:fellow', 'staff:academic', 'staff:otherteaching']
+
+    (affiliations & allowed_affiliations).any?
+  end
 
   def borrow_direct_requests
     return [] if proxy_borrower? # Proxies can't submit borrow direct requests, so don't check.
