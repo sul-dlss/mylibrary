@@ -262,7 +262,9 @@ class Patron
   def academic_staff_or_fellow?
     return unless profile_key == 'CNAC'
 
-    affiliations.include?('staff:academic') || affiliations.include?('affiliate:fellow')
+    allowed_affiliations = ['affiliate:fellow', 'staff:academic', 'staff:otherteaching']
+
+    (affiliations & allowed_affiliations).any?
   end
 
   def borrow_direct_requests
