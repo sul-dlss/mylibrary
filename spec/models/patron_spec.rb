@@ -544,6 +544,17 @@ RSpec.describe Patron do
       it { expect(patron.can_schedule_green_access?).to eq true }
     end
 
+    context 'with a user that should get access (academic staff)' do
+      before do
+        fields[:profile]['key'] = 'CNAC'
+        fields[:customInformation] = [
+          { 'fields' => { 'code' => { 'key' => 'AFFIL1' }, 'data' => 'staff:academic' } }
+        ]
+      end
+
+      it { expect(patron.can_schedule_green_access?).to eq true }
+    end
+
     context 'with a user that that should not get access (non-fellow)' do
       before do
         fields[:profile]['key'] = 'CNAC'
@@ -570,6 +581,17 @@ RSpec.describe Patron do
         fields[:profile]['key'] = 'CNAC'
         fields[:customInformation] = [
           { 'fields' => { 'code' => { 'key' => 'AFFIL1' }, 'data' => 'affiliate:fellow' } }
+        ]
+      end
+
+      it { expect(patron.can_schedule_eal_access?).to eq true }
+    end
+
+    context 'with a user that should get access (academic staff)' do
+      before do
+        fields[:profile]['key'] = 'CNAC'
+        fields[:customInformation] = [
+          { 'fields' => { 'code' => { 'key' => 'AFFIL1' }, 'data' => 'staff:academic' } }
         ]
       end
 
