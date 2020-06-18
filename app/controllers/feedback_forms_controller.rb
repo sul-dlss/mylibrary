@@ -32,7 +32,7 @@ class FeedbackFormsController < ApplicationController
   protected
 
   def url_regex
-    %r{/.*href=.*|.*url=.*|.*http:\/\/.*|.*https:\/\/.*/i}
+    %r/.*href=.*|.*url=.*|.*https?:\/{2}.*/i
   end
 
   def validate

@@ -9,6 +9,14 @@ AllCops:
   TargetRubyVersion: 2.6
   Exclude:
       - vendor/bundle/**/*
+  NewCops: enable
+
+Layout/FirstHashElementIndentation:
+  EnforcedStyle: consistent
+
+Layout/HashAlignment:
+  Exclude:
+    - 'config/application.rb'
 
 Layout/LineLength:
   Max: 120
@@ -60,16 +68,12 @@ RSpec/MultipleExpectations:
   Exclude:
     - 'spec/features/**/*'
 
+RSpec/NestedGroups:
+  Max: 4
+
 RSpec/DescribeClass:
   Exclude:
     - 'spec/views/**/*'
-
-Layout/HashAlignment:
-  Exclude:
-    - 'config/application.rb'
-
-Layout/FirstHashElementIndentation:
-  EnforcedStyle: consistent
 
 Style/WordArray:
   Exclude:
