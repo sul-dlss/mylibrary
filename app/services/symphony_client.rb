@@ -88,12 +88,10 @@ class SymphonyClient
   end
 
   def change_pin(token, pin)
-    response = request('/user/patron/changeMyPin', method: :post, json: {
+    request('/user/patron/changeMyPin', method: :post, json: {
       resetPinToken: token,
       newPin: pin
     })
-
-    response
   end
 
   def renew_item(resource, item_key)
@@ -123,19 +121,16 @@ class SymphonyClient
   end
 
   def cancel_hold(resource, item_key)
-    response = authenticated_request('/circulation/holdRecord/cancelHold', method: :post, json: {
+    authenticated_request('/circulation/holdRecord/cancelHold', method: :post, json: {
       holdRecord: {
         resource: resource,
         key: item_key
       }
     })
-
-    response
   end
 
-  # rubocop:disable Metrics/MethodLength
   def change_pickup_library(resource, item_key, pickup_library)
-    response = authenticated_request('/circulation/holdRecord/changePickupLibrary', method: :post, json: {
+    authenticated_request('/circulation/holdRecord/changePickupLibrary', method: :post, json: {
       holdRecord: {
         resource: resource,
         key: item_key
@@ -145,21 +140,16 @@ class SymphonyClient
         key: pickup_library
       }
     })
-
-    response
   end
-  # rubocop:enable Metrics/MethodLength
 
   def not_needed_after(resource, item_key, not_needed_after)
-    response = authenticated_request("/circulation/holdRecord/key/#{item_key}", method: :put, json: {
+    authenticated_request("/circulation/holdRecord/key/#{item_key}", method: :put, json: {
       resource: resource,
       key: item_key,
       fields: {
         fillByDate: not_needed_after
       }
     })
-
-    response
   end
 
   private
