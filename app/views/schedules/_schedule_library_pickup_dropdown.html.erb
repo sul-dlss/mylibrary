@@ -1,0 +1,10 @@
+<div class="schedule-dropdown schedule-pickup dropdown d-inline">
+  <button class="btn btn-primary dropdown-toggle" type="button" id="schedulePickupDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    🗓 Schedule pickup at ...
+  </button>
+  <div class="dropdown-menu" aria-labelledby="schedulePickupDropdown">
+    <% pickup_libraries.each do |library, path| %>
+      <%= link_to_schedule_pickup(library: library, text: library_name(library), css_class: 'dropdown-item') %>
+    <% end %>
+  </div>
+</div>

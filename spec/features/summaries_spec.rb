@@ -190,7 +190,7 @@ RSpec.describe 'Summaries Page', type: :feature do
         it 'renders a button to schedule access to Green' do
           visit summaries_path
 
-          within '.schedule-once-dropdown' do
+          within '.schedule-dropdown.schedule-visit' do
             click_link 'Green Library'
           end
 

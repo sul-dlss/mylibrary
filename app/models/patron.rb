@@ -238,8 +238,8 @@ class Patron
     [*faculty, *grad_students_and_postdocs, *visiting_scholars].include?(profile_key) || academic_staff_or_fellow?
   end
 
-  def can_schedule_green_pickup?
-    return unless Settings.schedule_once.green_pickup.enabled
+  def can_schedule_pickup?(library)
+    return unless Settings.schedule_pickup[library]
 
     faculty = %w[CNF MXF]
     grad_students_and_postdocs = %w[MXD RED REG REG-SUM]
@@ -248,7 +248,7 @@ class Patron
     staff = %w[CNAC CNS MXAC MXS]
 
     [*faculty, *grad_students_and_postdocs, *undergrads, *visiting_scholars, *staff].include?(profile_key) &&
-      requests.any? { |r| r.pickup_library == 'GREEN' && r.ready_for_pickup? }
+      requests.any? { |r| r.pickup_library == library && r.ready_for_pickup? }
   end
 
   def can_schedule_special_collections_visit?

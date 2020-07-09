@@ -34,17 +34,32 @@ module SummariesHelper
     render 'schedules/schedule_library_visit_dropdown', schedulable_libraries: schedulable_libraries
   end
 
+  def link_to_schedule_pickup(library:, text:, css_class: nil)
+    return unless library_pickup_path_map[library]
+
+    link_to(
+      text,
+      library_pickup_path_map[library],
+      role: 'button',
+      class: css_class,
+      data: { 'mylibrary-modal': 'trigger' }
+    )
+  end
+
   def schedule_pickup_link_or_dropdown
+    return if library_pickup_path_map.blank?
+
     pickup_libraries = library_pickup_path_map.keys
+
     if pickup_libraries.one?
-      return link_to(
-        "🗓 Schedule pickup at #{library_name(pickup_libraries.first)}",
-        library_pickup_path_map[pickup_libraries.first],
-        role: 'button',
-        class: 'btn btn-primary',
-          data: { 'mylibrary-modal': 'trigger' }
-        )
+      return link_to_schedule_pickup(
+        library: pickup_libraries.first,
+        text: "🗓 Schedule pickup at #{library_name(pickup_libraries.first)}",
+        css_class: 'btn btn-primary'
+      )
     end
+
+    render 'schedules/schedule_library_pickup_dropdown', pickup_libraries: pickup_libraries
   end
 
   private
@@ -59,7 +74,8 @@ module SummariesHelper
 
   def library_pickup_path_map
     map = {}
-    map['GREEN'] = schedule_pickup_path if patron_or_group.can_schedule_green_pickup?
+    map['GREEN'] = schedule_green_pickup_path if patron_or_group.can_schedule_pickup?('GREEN')
+    map['BUSINESS'] = schedule_business_pickup_path if patron_or_group.can_schedule_pickup?('BUSINESS')
 
     map
   end
