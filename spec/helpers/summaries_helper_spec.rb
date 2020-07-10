@@ -59,7 +59,7 @@ RSpec.describe SummariesHelper do
       it 'renders a single button to schedule a visit' do
         expect(
           Capybara.string(helper.schedule_once_link_or_dropdown)
-        ).to have_link('🗓 Schedule access to Green Library', href: '/schedule/green')
+        ).to have_link('🗓 Schedule visit to Green Library', href: '/schedule/green')
       end
     end
 
@@ -68,7 +68,7 @@ RSpec.describe SummariesHelper do
       let(:dropdown) { Capybara.string(helper.schedule_once_link_or_dropdown) }
 
       it 'renders a dropdown to select each library' do
-        expect(dropdown).to have_css('.schedule-dropdown button.dropdown-toggle', text: '🗓 Schedule access to ...')
+        expect(dropdown).to have_css('.schedule-dropdown button.dropdown-toggle', text: '🗓 Schedule visit to ...')
       end
 
       it 'renders a link in the dropdown to Green Library' do

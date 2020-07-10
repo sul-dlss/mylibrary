@@ -23,7 +23,7 @@
 
     <% if patron_or_group.can_schedule_special_collections_visit? %>
       <%= link_to schedule_spec_path, role: 'button', class: 'btn btn-primary', data: { 'mylibrary-modal': 'trigger' } do %>
-        🗓 Schedule Special Collections visit
+        🗓 Schedule visit to Special Collections
       <% end %>
     <% end %>
   <% end %>

@@ -26,7 +26,7 @@ module SummariesHelper
     if schedulable_libraries.one?
       return link_to_schedule_once_visit(
         library: schedulable_libraries.first,
-        text: "🗓 Schedule access to #{library_name(schedulable_libraries.first)}",
+        text: "🗓 Schedule visit to #{library_name(schedulable_libraries.first)}",
         css_class: 'btn btn-primary'
       )
     end
