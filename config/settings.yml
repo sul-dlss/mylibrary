@@ -33,11 +33,13 @@ symphony:
 
 BORROW_DIRECT_CODE: BORROW_DIRECT
 
+schedule_pickup:
+  BUSINESS: false
+  GREEN: false
+
 schedule_once:
   enabled: false
   eal_visits:
-    enabled: false
-  green_pickup:
     enabled: false
   green_visits:
     enabled: false

@@ -26,12 +26,40 @@ module SummariesHelper
     if schedulable_libraries.one?
       return link_to_schedule_once_visit(
         library: schedulable_libraries.first,
-        text: "🗓 Schedule access to #{library_name(schedulable_libraries.first)}",
+        text: "🗓 Schedule visit to #{library_name(schedulable_libraries.first)}",
         css_class: 'btn btn-primary'
       )
     end
 
     render 'schedules/schedule_library_visit_dropdown', schedulable_libraries: schedulable_libraries
+  end
+
+  def link_to_schedule_pickup(library:, text:, css_class: nil)
+    return unless library_pickup_path_map[library]
+
+    link_to(
+      text,
+      library_pickup_path_map[library],
+      role: 'button',
+      class: css_class,
+      data: { 'mylibrary-modal': 'trigger' }
+    )
+  end
+
+  def schedule_pickup_link_or_dropdown
+    return if library_pickup_path_map.blank?
+
+    pickup_libraries = library_pickup_path_map.keys
+
+    if pickup_libraries.one?
+      return link_to_schedule_pickup(
+        library: pickup_libraries.first,
+        text: "🗓 Schedule pickup at #{library_name(pickup_libraries.first)}",
+        css_class: 'btn btn-primary'
+      )
+    end
+
+    render 'schedules/schedule_library_pickup_dropdown', pickup_libraries: pickup_libraries
   end
 
   private
@@ -40,6 +68,14 @@ module SummariesHelper
     map = {}
     map['GREEN'] = schedule_green_path if patron_or_group.can_schedule_green_access?
     map['EAST-ASIA'] = schedule_eal_path if patron_or_group.can_schedule_eal_access?
+
+    map
+  end
+
+  def library_pickup_path_map
+    map = {}
+    map['GREEN'] = schedule_green_pickup_path if patron_or_group.can_schedule_pickup?('GREEN')
+    map['BUSINESS'] = schedule_business_pickup_path if patron_or_group.can_schedule_pickup?('BUSINESS')
 
     map
   end

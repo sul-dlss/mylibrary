@@ -59,7 +59,7 @@ RSpec.describe SummariesHelper do
       it 'renders a single button to schedule a visit' do
         expect(
           Capybara.string(helper.schedule_once_link_or_dropdown)
-        ).to have_link('🗓 Schedule access to Green Library', href: '/schedule/green')
+        ).to have_link('🗓 Schedule visit to Green Library', href: '/schedule/green')
       end
     end
 
@@ -68,15 +68,107 @@ RSpec.describe SummariesHelper do
       let(:dropdown) { Capybara.string(helper.schedule_once_link_or_dropdown) }
 
       it 'renders a dropdown to select each library' do
-        expect(dropdown).to have_css('.schedule-once-dropdown button.dropdown-toggle', text: '🗓 Schedule access to ...')
+        expect(dropdown).to have_css('.schedule-dropdown button.dropdown-toggle', text: '🗓 Schedule visit to ...')
       end
 
       it 'renders a link in the dropdown to Green Library' do
-        expect(dropdown).to have_css('.schedule-once-dropdown .dropdown-menu a', text: 'Green Library')
+        expect(dropdown).to have_css('.schedule-dropdown .dropdown-menu a', text: 'Green Library')
       end
 
       it 'renders a link in the dropdown to East Asia Library' do
-        expect(dropdown).to have_css('.schedule-once-dropdown .dropdown-menu a', text: 'East Asia Library')
+        expect(dropdown).to have_css('.schedule-dropdown .dropdown-menu a', text: 'East Asia Library')
+      end
+    end
+  end
+
+  context 'when scheduling a pickup' do
+    let(:hold_record_list) do
+      [
+        { 'fields' => { 'status' => 'BEING_HELD', 'pickupLibrary' => { 'key' => 'GREEN' } } },
+        { 'fields' => { 'status' => 'BEING_HELD', 'pickupLibrary' => { 'key' => 'BUSINESS' } } }
+      ]
+    end
+
+    before do
+      stub_request(:any, /rc\.relais-host\.com/).to_return(status: 200)
+      helper.define_singleton_method(:patron_or_group, -> {}) # Define the helper we want to stub
+      allow(helper).to receive(:patron_or_group).and_return(
+        Patron.new('fields' => {
+          'profile' => { 'key' => 'MXF' },
+          'holdRecordList' => hold_record_list
+        })
+      )
+    end
+
+    describe '#link_to_schedule_pickup' do
+      it 'is nil when the library being requested is available for puckups' do
+        link = helper.link_to_schedule_pickup(library: 'NO-PICKUP', text: 'Anything')
+        expect(link).to be_nil
+      end
+
+      it 'is a link with the appropriate data attributes' do
+        link = helper.link_to_schedule_pickup(library: 'GREEN', text: 'Green Library')
+        expect(link).to include 'data-mylibrary-modal="trigger"'
+      end
+
+      it 'uses the given text as the link text' do
+        link = Capybara.string(helper.link_to_schedule_pickup(library: 'GREEN', text: 'Green Library'))
+        expect(link).to have_link('Green Library', href: '/schedule/green_pickup')
+      end
+
+      it 'links to the appropriate href given the library' do
+        link = helper.link_to_schedule_pickup(library: 'BUSINESS', text: 'Business Library')
+        expect(link).to include 'href="/schedule/business_pickup"'
+      end
+    end
+
+    describe '#schedule_pickup_link_or_dropdown' do
+      context 'when no libraries are available for pickup' do
+        let(:hold_record_list) { [] }
+
+        it { expect(helper.schedule_pickup_link_or_dropdown).to be_nil }
+      end
+
+      context 'when there is only one library available for pickup' do
+        let(:hold_record_list) do
+          [
+            { 'fields' => { 'status' => 'BEING_HELD', 'pickupLibrary' => { 'key' => 'GREEN' } } }
+          ]
+        end
+
+        it 'links directly to that library' do
+          link = helper.schedule_pickup_link_or_dropdown
+          expect(link).to have_link('🗓 Schedule pickup at Green Library', href: '/schedule/green_pickup')
+        end
+
+        it 'does not have a dropdown' do
+          link = helper.schedule_pickup_link_or_dropdown
+          expect(link).not_to have_css('.dropdown')
+        end
+      end
+
+      context 'when there are mutliple libraries available for pickup' do
+        let(:hold_record_list) do
+          [
+            { 'fields' => { 'status' => 'BEING_HELD', 'pickupLibrary' => { 'key' => 'GREEN' } } },
+            { 'fields' => { 'status' => 'BEING_HELD', 'pickupLibrary' => { 'key' => 'BUSINESS' } } }
+          ]
+        end
+
+        it 'has a dropdown with options for each enabled library available for pickup' do
+          dropdown = helper.schedule_pickup_link_or_dropdown
+          expect(dropdown).to have_css('.dropdown')
+        end
+
+        it 'has a dropdown with a link for GREEN' do
+          dropdown = helper.schedule_pickup_link_or_dropdown
+          expect(dropdown).to have_css('.dropdown .dropdown-menu .dropdown-item', text: 'Green Library')
+        end
+
+        it 'has a dropdown with a link for BUSINESS' do
+          dropdown = helper.schedule_pickup_link_or_dropdown
+          expect(dropdown).to have_css('.dropdown .dropdown-menu .dropdown-item', text: 'Business Library')
+        end
       end
     end
   end

@@ -1,4 +1,4 @@
-.schedule-once-iframe {
+.schedule-iframe {
   box-sizing: border-box;
   display: block;
   margin: 0 auto;
@@ -6,7 +6,7 @@
 }
 
 // Clear the border styling on link hovers in the scheduling dropdown
-.schedule-once-dropdown {
+.schedule-dropdown {
   .dropdown-menu a:hover {
     border-bottom: 0;
   }

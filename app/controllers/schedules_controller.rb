@@ -5,7 +5,10 @@ class SchedulesController < ApplicationController
   before_action :authenticate_user!
 
   def show
-    @patron = patron
+    render layout: !request.xhr?
+  end
+
+  def business_pickup
     render layout: !request.xhr?
   end
 end
