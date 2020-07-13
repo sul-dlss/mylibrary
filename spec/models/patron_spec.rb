@@ -55,7 +55,7 @@ RSpec.describe Patron do
     }
   end
 
-  let(:member_list) { [key: '521187'] }
+  let(:member_list) { [{ key: '521187' }] }
 
   it 'has a key' do
     expect(patron.key).to eq '1'
@@ -478,7 +478,7 @@ RSpec.describe Patron do
       end
 
       before do
-        fields[:blockList] = [{ key: '1:1', fields: {} }, key: '2:4', fields: {}]
+        fields[:blockList] = [{ key: '1:1', fields: {} }, { key: '2:4', fields: {} }]
       end
 
       describe '#fines' do
