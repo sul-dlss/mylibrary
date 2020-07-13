@@ -176,12 +176,12 @@ RSpec.describe Group do
 
   describe '#checkouts' do
     let(:member_list) do
-      [fields: {
+      [{ fields: {
         circRecordList: [
-          key: 1,
-          fields: {}
+          { key: 1,
+            fields: {} }
         ]
-      }]
+      } }]
     end
 
     it 'has checkouts' do
@@ -191,12 +191,12 @@ RSpec.describe Group do
 
   describe '#fines' do
     let(:member_list) do
-      [fields: {
+      [{ fields: {
         blockList: [
-          key: '1',
-          fields: {}
+          { key: '1',
+            fields: {} }
         ]
-      }]
+      } }]
     end
 
     it 'has fines' do
@@ -206,12 +206,12 @@ RSpec.describe Group do
 
   describe '#requests' do
     let(:member_list) do
-      [fields: {
+      [{ fields: {
         holdRecordList: [
-          key: 1,
-          fields: {}
+          { key: 1,
+            fields: {} }
         ]
-      }]
+      } }]
     end
 
     before do
