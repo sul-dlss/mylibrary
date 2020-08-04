@@ -17,6 +17,7 @@ Layout/FirstHashElementIndentation:
 Layout/HashAlignment:
   Exclude:
     - 'config/application.rb'
+    - 'config/environments/test.rb'
 
 Layout/LineLength:
   Max: 120
@@ -38,6 +39,7 @@ Metrics/CyclomaticComplexity:
 Metrics/BlockLength:
   Exclude:
     - 'app/views/**/*.json.jbuilder'
+    - 'config/environments/test.rb'
     - 'config/routes.rb'
     - 'spec/**/*'
 
@@ -78,3 +80,4 @@ RSpec/DescribeClass:
 Style/WordArray:
   Exclude:
     - 'config/application.rb'
+    - 'config/environments/test.rb'
