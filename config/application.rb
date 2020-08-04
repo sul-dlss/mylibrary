@@ -107,12 +107,17 @@ module Mylibrary
     ]
 
     config.library_specific_pickup_libraries = {
+      'EAST-ASIA' => ['EAST-ASIA'],
       'BUSINESS' => ['BUSINESS'],
       'RUMSEYMAP' => ['SPEC-COLL'],
       'SPEC-COLL' => ['SPEC-COLL']
     }
 
     config.location_specific_pickup_libraries = {
+      'EAL-SETS' => ['EAST-ASIA', 'GREEN'],
+      'EAL-STKS-C' => ['EAST-ASIA', 'GREEN'],
+      'EAL-STKS-J' => ['EAST-ASIA', 'GREEN'],
+      'EAL-STKS-K' => ['EAST-ASIA', 'GREEN'],
       'PAGE-EA' => ['EAST-ASIA'],
       'HY-PAGE-EA' => ['EAST-ASIA'],
       'L-PAGE-EA'  => ['EAST-ASIA'],
