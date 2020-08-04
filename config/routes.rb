@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   get 'schedule/green' => 'schedules#show', oncehub_id: 'StanfordLibrariesGreenEntry'
   get 'schedule/spec' => 'schedules#show', oncehub_id: 'StanfordLibrariesVisitSpecialCollections'
   get 'schedule/green_pickup' => 'schedules#show', oncehub_id: 'StanfordLibrariesPagingPickupGreenLibrary'
+  get 'schedule/eal_pickup' => 'schedules#show', oncehub_id: 'StanfordLibrariesPagingPickupEastAsiaLibrary'
   get 'schedule/business_pickup' => 'schedules#business_pickup'
 
   resources :summaries

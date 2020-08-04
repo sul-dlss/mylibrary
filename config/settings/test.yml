@@ -10,6 +10,7 @@ symphony:
 
 schedule_pickup:
   BUSINESS: true
+  EAST-ASIA: true
   GREEN: true
 
 schedule_once:
