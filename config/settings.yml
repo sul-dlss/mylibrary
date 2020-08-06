@@ -35,6 +35,7 @@ BORROW_DIRECT_CODE: BORROW_DIRECT
 
 schedule_pickup:
   BUSINESS: false
+  EAST-ASIA: false
   GREEN: false
 
 schedule_once:
