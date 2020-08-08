@@ -219,6 +219,7 @@ class Patron
   end
 
   def can_schedule_green_access?
+    return if expired?
     return unless Settings.schedule_once.green_visits.enabled
 
     faculty = %w[CNF MXF]
@@ -229,6 +230,7 @@ class Patron
   end
 
   def can_schedule_eal_access?
+    return if expired?
     return unless Settings.schedule_once.eal_visits.enabled
 
     faculty = %w[CNF MXF]
@@ -239,6 +241,7 @@ class Patron
   end
 
   def can_schedule_pickup?(library)
+    return if expired?
     return unless Settings.schedule_pickup[library]
 
     faculty = %w[CNF MXF]

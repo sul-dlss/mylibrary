@@ -524,7 +524,48 @@ RSpec.describe Patron do
     end
   end
 
+  describe '#can_schedule_pickup?' do
+    context 'with an expired user' do
+      before do
+        fields[:profile]['key'] = 'MXF'
+        fields['privilegeExpiresDate'] = (Time.zone.today - 1.month).to_s
+        fields['holdRecordList'] = [
+          { 'fields' => { 'status' => 'BEING_HELD', 'pickupLibrary' => { 'key' => 'GREEN' } } }
+        ]
+      end
+
+      it { expect(patron).not_to be_can_schedule_pickup('GREEN') }
+    end
+
+    context 'with a user that should get access (faculty)' do
+      before do
+        stub_request(:any, /rc\.relais-host\.com/).to_return(status: 200)
+        fields[:profile]['key'] = 'MXF'
+        fields['holdRecordList'] = [
+          { 'fields' => { 'status' => 'BEING_HELD', 'pickupLibrary' => { 'key' => 'GREEN' } } }
+        ]
+      end
+
+      context 'when they have an item in the requested library for pickup' do
+        it { expect(patron).to be_can_schedule_pickup('GREEN') }
+      end
+
+      context 'when they do not have an item in the requsted library for pickup' do
+        it { expect(patron).not_to be_can_schedule_pickup('EAST-ASIA') }
+      end
+    end
+  end
+
   describe '#can_schedule_green_access?' do
+    context 'with an expired user' do
+      before do
+        fields[:profile]['key'] = 'MXF'
+        fields['privilegeExpiresDate'] = (Time.zone.today - 1.month).to_s
+      end
+
+      it { expect(patron).not_to be_can_schedule_green_access }
+    end
+
     context 'with a user that should get access (faculty)' do
       before do
         fields[:profile]['key'] = 'MXF'
@@ -579,6 +620,15 @@ RSpec.describe Patron do
   end
 
   describe '#can_schedule_eal_access?' do
+    context 'with an expired user' do
+      before do
+        fields[:profile]['key'] = 'MXF'
+        fields['privilegeExpiresDate'] = (Time.zone.today - 1.month).to_s
+      end
+
+      it { expect(patron).not_to be_can_schedule_eal_access }
+    end
+
     context 'with a user that should get access (faculty)' do
       before do
         fields[:profile]['key'] = 'MXF'
