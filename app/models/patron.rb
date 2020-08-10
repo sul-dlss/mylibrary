@@ -297,7 +297,7 @@ class Patron
   end
 
   def affiliations
-    fields.dig('customInformation').select { |ci| ci.dig('fields', 'code', 'key') =~ /AFFIL\d/ }.map do |info|
+    fields['customInformation'].select { |ci| ci.dig('fields', 'code', 'key') =~ /AFFIL\d/ }.map do |info|
       info.dig('fields', 'data')
     end.compact
   end
