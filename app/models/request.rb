@@ -84,7 +84,7 @@ class Request
     fields.dig('item', 'fields', 'library', 'key') == 'SUL'
   end
 
-  # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
+  # rubocop:disable Metrics/MethodLength
   def sort_key(key)
     sort_key = case key
                when :library
@@ -101,6 +101,7 @@ class Request
 
     sort_key.join('---')
   end
+  # rubocop:enable Metrics/MethodLength
 
   def date_sort_key
     [
@@ -108,7 +109,6 @@ class Request
       (fill_by_date || END_OF_DAYS).strftime('%FT%T')
     ]
   end
-  # rubocop:enable Metrics/AbcSize,Metrics/MethodLength
 
   private
 

@@ -36,7 +36,7 @@ module ApplicationHelper
     tag.div(class: 'row') do
       tag.div(class: 'col-11 offset-1 col-md-10 offset-md-2') do
         link_to Settings.sw.url + catkey, rel: 'noopener', target: '_blank' do
-          sul_icon(:'sharp-open_in_new-24px') + ' View in SearchWorks'
+          sul_icon(:'sharp-open_in_new-24px') + ' View in SearchWorks' # rubocop:disable Style/StringConcatenation
         end
       end
     end
