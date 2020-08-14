@@ -224,9 +224,11 @@ class Patron
 
     faculty = %w[CNF MXF]
     grad_students_and_postdocs = %w[MXD RED REG REG-SUM]
+    undergrads = %w[REU REU-SUM]
     visiting_scholars = %w[MXAS]
 
-    [*faculty, *grad_students_and_postdocs, *visiting_scholars].include?(profile_key) || academic_staff_or_fellow?
+    [*faculty, *grad_students_and_postdocs, *undergrads, *visiting_scholars].include?(profile_key) ||
+      academic_staff_or_fellow?
   end
 
   def can_schedule_eal_access?
@@ -235,9 +237,11 @@ class Patron
 
     faculty = %w[CNF MXF]
     grad_students_and_postdocs = %w[MXD RED REG REG-SUM]
+    undergrads = %w[REU REU-SUM]
     visiting_scholars = %w[MXAS]
 
-    [*faculty, *grad_students_and_postdocs, *visiting_scholars].include?(profile_key) || academic_staff_or_fellow?
+    [*faculty, *grad_students_and_postdocs, *undergrads, *visiting_scholars].include?(profile_key) ||
+      academic_staff_or_fellow?
   end
 
   def can_schedule_pickup?(library)
