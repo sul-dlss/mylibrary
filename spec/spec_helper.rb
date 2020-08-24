@@ -104,5 +104,6 @@ RSpec.configure do |config|
   config.before type: :feature do
     stub_request(:any, %r{example.com/symws}).to_rack(FakeSymphony)
     stub_request(:any, /rc\.relais-host\.com/).to_return(status: 200)
+    stub_request(:any, 'https://github.com/sul-dlss/global-alerts/raw/main/sul.yaml').to_return(status: 200)
   end
 end

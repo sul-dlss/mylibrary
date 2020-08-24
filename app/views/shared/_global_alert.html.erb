@@ -1,5 +1,1 @@
-<% if Settings.GLOBAL_ALERT %>
-  <div class="global-alert">
-    <%= Settings.global_alert_html.html_safe %>
-  </div>
-<% end %>
+<%= render 'global_alerts/alerts' if Settings.GLOBAL_ALERT %>
