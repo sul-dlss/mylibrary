@@ -65,6 +65,8 @@ class Request
   end
 
   def pickup_library
+    return 'CDL' if cdl?
+
     fields['pickupLibrary']['key']
   end
 
@@ -76,6 +78,7 @@ class Request
     code = item&.dig('library', 'key')
     code ||= bib['callList']&.first&.dig('fields', 'library', 'key')
     return Settings.BORROW_DIRECT_CODE if from_borrow_direct?
+    return 'CDL' if cdl?
 
     code
   end
@@ -108,6 +111,52 @@ class Request
       (expiration_date || END_OF_DAYS).strftime('%FT%T'),
       (fill_by_date || END_OF_DAYS).strftime('%FT%T')
     ]
+  end
+
+  def cdl?
+    cdl[0] == 'CDL'
+  end
+
+  def cdl_checkedout?
+    cdl_checkedout.present?
+  end
+
+  def cdl_checkedout
+    cdl[2]
+  end
+
+  def cdl_druid
+    cdl[1]
+  end
+
+  def cdl_next_up?
+    cdl[4] == 'NEXT_UP'
+  end
+
+  def cdl_circ_record_checkout_date
+    return if cdl[3].blank?
+
+    Time.zone.at(cdl[3].to_i)
+  end
+
+  def cdl_expiration_date
+    return unless cdl_circ_record_checkout_date
+
+    cdl_circ_record_checkout_date + 30.minutes
+  end
+
+  def cdl_loan_period
+    return unless cdl?
+
+    (item.dig('itemCategory3', 'key')&.scan(/^CDL-(\d+)H$/)&.flatten&.first&.to_i || 2).hours
+  end
+
+  def cdl
+    comment.split(';')
+  end
+
+  def comment
+    fields['comment'].to_s
   end
 
   private

@@ -5,7 +5,7 @@
   <%= render partial: 'shared/group_tabs', locals: { self_value: patron.requests.length, group_value: patron.group.requests.length } if patron_or_group.group? %>
 <% end %>
 
-<% ready, requested = @requests.partition(&:ready_for_pickup?) %>
+<% ready, requested = @requests.partition { |request| request.ready_for_pickup? || request.cdl? } %>
 <% if ready.any? %>
   <div class="page-section">
     <div class="d-flex justify-content-between">

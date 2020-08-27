@@ -141,4 +141,28 @@ RSpec.describe Request do
       expect(request).to be_from_borrow_direct
     end
   end
+
+  context 'when item is a CDL item' do
+    before do
+      fields[:comment] = 'CDL;druid;123456:1:1'
+      fields[:bib][:fields][:callList] = [{ fields: { library: { key: 'GREEN' } } }]
+    end
+
+    it 'is cdl?' do
+      expect(request.cdl?).to eq true
+    end
+
+    it 'is cdl_checkedout? if circ record exists' do
+      allow(request).to receive(:circ_record).and_return({ abc: 123 })
+      expect(request.cdl_checkedout?).to eq true
+    end
+
+    it 'has a druid' do
+      expect(request.cdl_druid).to eq 'druid'
+    end
+
+    it 'library is CDL' do
+      expect(request.library).to eq 'CDL'
+    end
+  end
 end
