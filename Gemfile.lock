@@ -48,7 +48,7 @@ GEM
       sshkit (>= 1.6.1, != 1.7.0)
     arel (9.0.0)
     ast (2.4.1)
-    autoprefixer-rails (9.8.6.2)
+    autoprefixer-rails (9.8.6.3)
       execjs
     bindex (0.8.1)
     bootsnap (1.4.8)
@@ -153,6 +153,9 @@ GEM
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
       rake
+    global_alerts (0.0.4)
+      http
+      rails (>= 5.0, < 7)
     globalid (0.4.2)
       activesupport (>= 4.2.0)
     hashdiff (1.0.1)
@@ -393,6 +396,7 @@ DEPENDENCIES
   capybara
   config
   dlss-capistrano
+  global_alerts
   honeybadger
   http
   jbuilder (~> 2.5)
