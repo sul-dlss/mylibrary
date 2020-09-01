@@ -7,8 +7,6 @@
             <%= sul_icon 'sharp-check_circle-24px' %>
             <span class="d-md-none">Pick up at </span><%= library_name request.pickup_library %>
           </span>
-        <% elsif request.cdl_checkedout? %>
-          <%= cdl_resume_viewing_link(request) %>
         <% else %>
           <span class="d-md-none">Deliver to </span><%= library_name request.pickup_library %>
         <% end %>

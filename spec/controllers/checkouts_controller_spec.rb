@@ -6,10 +6,12 @@ RSpec.describe CheckoutsController do
   let(:mock_patron) { instance_double(Patron) }
 
   let(:mock_client) { instance_double(SymphonyClient, ping: true) }
+  let(:requests) { [] }
 
   before do
     allow(SymphonyClient).to receive(:new).and_return(mock_client)
     allow(controller).to receive(:patron).and_return(mock_patron)
+    allow(mock_patron).to receive(:requests).and_return(requests)
   end
 
   context 'with an unauthenticated request' do
@@ -43,6 +45,20 @@ RSpec.describe CheckoutsController do
 
       expect(assigns(:checkouts)).to eq checkouts
     end
+
+    context 'with requests' do
+      let(:requests) do
+        [
+          instance_double(Request, key: '1', sort_key: nil, cdl_checkedout?: false)
+        ]
+      end
+
+      it 'assigns the requests' do
+        get(:index)
+
+        expect(assigns(:requests)).to eq requests
+      end
+    end
   end
 
   context 'with an authenticated request for group checkouts' do
@@ -57,7 +73,7 @@ RSpec.describe CheckoutsController do
     end
 
     before do
-      allow(mock_patron).to receive(:group).and_return(instance_double(Group, checkouts: checkouts))
+      allow(mock_patron).to receive(:group).and_return(instance_double(Group, checkouts: checkouts, requests: requests))
       warden.set_user(user)
     end
 

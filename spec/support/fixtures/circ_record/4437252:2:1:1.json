@@ -1,0 +1,111 @@
+{
+  "resource": "/circulation/circRecord",
+  "key": "4437252:2:1:1",
+  "fields": {
+    "patron": {
+      "resource": "/user/patron",
+      "key": "549146"
+    },
+    "item": {
+      "resource": "/catalog/item",
+      "key": "4437252:2:1",
+      "fields": {
+        "bib": {
+          "resource": "/catalog/bib",
+          "key": "4437252",
+          "fields": {
+            "author": "Mingas, Amélia A.",
+            "title": "Interferência do Kimbundu no Português falado em Lwanda"
+          }
+        },
+        "call": {
+          "resource": "/catalog/call",
+          "key": "4437252:2",
+          "fields": {
+            "dispCallNumber": "PC5044 .M55 2000",
+            "sortCallNumber": "PC 005044 .M55  2000"
+          }
+        },
+        "barcode": "36105112411868",
+        "circulate": false,
+        "copyNumber": 1,
+        "createdDate": "2000-11-10",
+        "currentLocation": {
+          "resource": "/policy/location",
+          "key": "CHECKEDOUT"
+        },
+        "homeLocation": {
+          "resource": "/policy/location",
+          "key": "STACKS"
+        },
+        "itemCategory1": null,
+        "itemCategory2": {
+          "resource": "/policy/itemCategory2",
+          "key": "TAX=8.25"
+        },
+        "itemCategory3": {
+          "resource": "/policy/itemCategory3",
+          "key": "CDL-4H"
+        },
+        "itemCategory4": null,
+        "itemCategory5": null,
+        "itemType": {
+          "resource": "/policy/itemType",
+          "key": "STKS-MONO"
+        },
+        "lastInvDate": null,
+        "library": {
+          "resource": "/policy/library",
+          "key": "GREEN"
+        },
+        "mediaDesk": null,
+        "permanent": true,
+        "pieces": 1,
+        "price": {
+          "currencyCode": "USD",
+          "amount": "23.00"
+        },
+        "shadowed": false,
+        "systemModifiedDate": "2016-03-19T22:52:00-07:00",
+        "timesInventoried": 0
+      }
+    },
+    "checkOutDate": "2020-09-08T06:41:00-07:00",
+    "circulationRule": {
+      "resource": "/policy/circulationRule",
+      "key": "28DNF2",
+      "fields": {
+        "loanPeriod": {
+          "resource": "/policy/loanPeriod",
+          "key": "28D",
+          "fields": {
+            "periodType": {
+              "resource": "/policy/periodType",
+              "key": "DAILY"
+            }
+          }
+        },
+        "renewFromPeriod": 15
+      }
+    },
+    "claimsReturnedDate": null,
+    "dueDate": "2020-09-08T08:41:00-07:00",
+    "library": {
+      "resource": "/policy/library",
+      "key": "GREEN"
+    },
+    "overdue": false,
+    "estimatedOverdueAmount": {
+      "currencyCode": "USD",
+      "amount": "0.00"
+    },
+    "piecesReturned": 0,
+    "recallDueDate": null,
+    "recalledDate": null,
+    "renewalCount": null,
+    "renewalDate": null,
+    "seenRenewalsRemaining": null,
+    "status": null,
+    "unseenRenewalsRemaining": 2
+  }
+}

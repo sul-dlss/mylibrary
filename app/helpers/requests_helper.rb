@@ -18,10 +18,11 @@ module RequestsHelper
       hold_record_key: request.key,
       return_to: controller.request.original_url
     }
+    text = request.cdl_checkedout? ? 'Check in early' : 'Cancel this request'
     link_to(
       "#{Settings.cdl.url}/cdl/checkin?#{params.to_query}"
     ) do
-      safe_join([sul_icon('outline-cancel-24px'), 'Cancel this request'], ' ')
+      safe_join([sul_icon('outline-cancel-24px'), text], ' ')
     end
   end
 

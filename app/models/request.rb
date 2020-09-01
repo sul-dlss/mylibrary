@@ -15,6 +15,8 @@ class Request
   end
 
   def to_partial_path
+    return 'checkouts/cdl_checkout' if cdl_checkedout?
+
     'requests/request'
   end
 
@@ -113,15 +115,26 @@ class Request
     ]
   end
 
+  def circ_record
+    return unless cdl? && cdl_circ_record_key
+
+    @circ_record ||= begin
+      record = Checkout.find(cdl_circ_record_key, cdl: true)
+      return unless record.checkout_date == cdl_circ_record_checkout_date
+
+      record
+    end
+  end
+
   def cdl?
     cdl[0] == 'CDL'
   end
 
   def cdl_checkedout?
-    cdl_checkedout.present?
+    circ_record.present? && !cdl_next_up?
   end
 
-  def cdl_checkedout
+  def cdl_circ_record_key
     cdl[2]
   end
 

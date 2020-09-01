@@ -17,6 +17,7 @@ RSpec.describe 'checkouts/index.html.erb' do
     allow(view).to receive(:patron_or_group).and_return(patron)
 
     assign(:checkouts, [])
+    assign(:requests, [])
   end
 
   it 'shows the number of checkouts' do
