@@ -43,7 +43,7 @@ module CheckoutsHelper
 
   private
 
-  def checkout_status_html(css_class: nil, icon: nil, text:, accrued: 0)
+  def checkout_status_html(text:, css_class: nil, icon: nil, accrued: 0)
     tag.span(class: css_class) do
       safe_join([
                   (sul_icon(icon) if icon),
