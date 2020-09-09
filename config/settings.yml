@@ -33,6 +33,8 @@ symphony:
 
 BORROW_DIRECT_CODE: BORROW_DIRECT
 
+scheduling: false
+
 schedule_pickup:
   BUSINESS: false
   EAST-ASIA: false
@@ -42,6 +44,3 @@ schedule_access:
   EAST-ASIA: false
   GREEN: false
   SPEC-COLL: false
-
-schedule_once:
-  enabled: false

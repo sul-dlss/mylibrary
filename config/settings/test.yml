@@ -8,6 +8,8 @@ symws:
 symphony:
   host: example.com
 
+scheduling: true
+
 schedule_pickup:
   BUSINESS: true
   EAST-ASIA: true
@@ -17,6 +19,3 @@ schedule_access:
   EAST-ASIA: true
   GREEN: true
   SPEC-COLL: true
-
-schedule_once:
-  enabled: true
