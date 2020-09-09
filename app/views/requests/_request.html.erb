@@ -3,10 +3,14 @@
     <div class="d-flex flex-row flex-grow-1 justify-content-between w-100 row col-md-4">
       <div class="w-50 col-md-12 col-lg-6 library" data-sort-library="<%= h request.sort_key(:library) %>">
         <% if request.ready_for_pickup? %>
-          <span class="text-ready">
-            <%= sul_icon 'sharp-check_circle-24px' %>
-            <span class="d-md-none">Pick up at </span><%= library_name request.pickup_library %>
-          </span>
+          <% if request.cdl? %>
+            <%= cdl_resume_viewing_link(request) %>
+          <% else %>
+            <span class="text-ready">
+              <%= sul_icon 'sharp-check_circle-24px' %>
+              <span class="d-md-none">Pick up at </span><%= library_name request.pickup_library %>
+            </span>
+          <% end %>
         <% else %>
           <span class="d-md-none">Deliver to </span><%= library_name request.pickup_library %>
         <% end %>

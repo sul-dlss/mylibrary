@@ -37,7 +37,7 @@ class Request
   end
 
   def ready_for_pickup?
-    status == 'BEING_HELD'
+    status == 'BEING_HELD' || cdl_next_up?
   end
 
   def queue_position
