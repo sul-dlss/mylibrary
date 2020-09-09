@@ -53,7 +53,7 @@ RSpec.describe SummariesHelper do
       let(:patron) { Patron.new('fields' => { 'profile' => { 'key' => 'MXF' } }) }
 
       before do
-        allow(Settings.schedule_once.eal_visits).to receive(:enabled).and_return(false)
+        allow(Settings).to receive(:schedule_access).and_return({ 'GREEN' => true })
       end
 
       it 'renders a single button to schedule a visit' do

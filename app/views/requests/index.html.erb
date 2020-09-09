@@ -12,7 +12,7 @@
       <h2>Ready for pickup: <%= ready.length %></h2>
     </div>
 
-    <% if Settings.schedule_once.enabled %>
+    <% if Settings.scheduling %>
       <div class="mb-3">
         <%= schedule_pickup_link_or_dropdown %>
 

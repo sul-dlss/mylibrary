@@ -18,7 +18,7 @@
 
 <div class="page-section">
   <h3><%= sul_icon :'sharp-access_time-24px', classes: 'lg' %> Requests: <%= patron.requests.length %></h3>
-  <% if Settings.schedule_once.enabled %>
+  <% if Settings.scheduling %>
     <%= schedule_pickup_link_or_dropdown %>
 
     <% if patron_or_group.can_schedule_special_collections_visit? %>
