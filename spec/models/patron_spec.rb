@@ -556,14 +556,14 @@ RSpec.describe Patron do
     end
   end
 
-  describe '#can_schedule_green_access?' do
+  describe '#can_schedule_access?' do
     context 'with an expired user' do
       before do
         fields[:profile]['key'] = 'MXF'
         fields['privilegeExpiresDate'] = (Time.zone.today - 1.month).to_s
       end
 
-      it { expect(patron).not_to be_can_schedule_green_access }
+      it { expect(patron.can_schedule_access?('GREEN')).not_to eq true }
     end
 
     context 'with a user that should get access (faculty)' do
@@ -571,114 +571,31 @@ RSpec.describe Patron do
         fields[:profile]['key'] = 'MXF'
       end
 
-      it { expect(patron.can_schedule_green_access?).to eq true }
+      it { expect(patron.can_schedule_access?('SPEC-COLL')).to eq true }
     end
 
-    context 'with a user that should get access (fellow)' do
+    context 'with a user that should get access (academic staff/fellow)' do
       before do
         fields[:profile]['key'] = 'CNAC'
-        fields[:customInformation] = [
-          { 'fields' => { 'code' => { 'key' => 'AFFIL1' }, 'data' => 'affiliate:fellow' } }
-        ]
       end
 
-      it { expect(patron.can_schedule_green_access?).to eq true }
+      it { expect(patron.can_schedule_access?('EAST-ASIA')).to eq true }
     end
 
-    context 'with a user that should get access (academic staff)' do
+    context 'with a user that should get access (staff)' do
       before do
-        fields[:profile]['key'] = 'CNAC'
-        fields[:customInformation] = [
-          { 'fields' => { 'code' => { 'key' => 'AFFIL1' }, 'data' => 'staff:academic' } }
-        ]
+        fields[:profile]['key'] = 'CNS'
       end
 
-      it { expect(patron.can_schedule_green_access?).to eq true }
+      it { expect(patron.can_schedule_access?('GREEN')).to eq true }
     end
 
-    context 'with a user that should get access (other teaching staff)' do
+    context 'with a user that that should not get access' do
       before do
-        fields[:profile]['key'] = 'CNAC'
-        fields[:customInformation] = [
-          { 'fields' => { 'code' => { 'key' => 'AFFIL1' }, 'data' => 'staff:otherteaching' } }
-        ]
+        fields[:profile]['key'] = 'MXAS-6LMT'
       end
 
-      it { expect(patron.can_schedule_green_access?).to eq true }
-    end
-
-    context 'with a user that that should not get access (non-fellow)' do
-      before do
-        fields[:profile]['key'] = 'CNAC'
-        fields[:customInformation] = [
-          { 'fields' => { 'code' => { 'key' => 'AFFIL1' }, 'data' => 'staff' } }
-        ]
-      end
-
-      it { expect(patron.can_schedule_green_access?).to eq false }
-    end
-  end
-
-  describe '#can_schedule_eal_access?' do
-    context 'with an expired user' do
-      before do
-        fields[:profile]['key'] = 'MXF'
-        fields['privilegeExpiresDate'] = (Time.zone.today - 1.month).to_s
-      end
-
-      it { expect(patron).not_to be_can_schedule_eal_access }
-    end
-
-    context 'with a user that should get access (faculty)' do
-      before do
-        fields[:profile]['key'] = 'MXF'
-      end
-
-      it { expect(patron.can_schedule_eal_access?).to eq true }
-    end
-
-    context 'with a user that should get access (fellow)' do
-      before do
-        fields[:profile]['key'] = 'CNAC'
-        fields[:customInformation] = [
-          { 'fields' => { 'code' => { 'key' => 'AFFIL1' }, 'data' => 'affiliate:fellow' } }
-        ]
-      end
-
-      it { expect(patron.can_schedule_eal_access?).to eq true }
-    end
-
-    context 'with a user that should get access (academic staff)' do
-      before do
-        fields[:profile]['key'] = 'CNAC'
-        fields[:customInformation] = [
-          { 'fields' => { 'code' => { 'key' => 'AFFIL1' }, 'data' => 'staff:academic' } }
-        ]
-      end
-
-      it { expect(patron.can_schedule_eal_access?).to eq true }
-    end
-
-    context 'with a user that should get access (other teaching staff)' do
-      before do
-        fields[:profile]['key'] = 'CNAC'
-        fields[:customInformation] = [
-          { 'fields' => { 'code' => { 'key' => 'AFFIL1' }, 'data' => 'staff:otherteaching' } }
-        ]
-      end
-
-      it { expect(patron.can_schedule_eal_access?).to eq true }
-    end
-
-    context 'with a user that that should not get access (non-fellow)' do
-      before do
-        fields[:profile]['key'] = 'CNAC'
-        fields[:customInformation] = [
-          { 'fields' => { 'code' => { 'key' => 'AFFIL1' }, 'data' => 'staff' } }
-        ]
-      end
-
-      it { expect(patron.can_schedule_eal_access?).to eq false }
+      it { expect(patron.can_schedule_access?('GREEN')).to eq false }
     end
   end
 

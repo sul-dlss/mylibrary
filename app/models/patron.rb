@@ -218,30 +218,17 @@ class Patron
     true
   end
 
-  def can_schedule_green_access?
+  def can_schedule_access?(library)
     return if expired?
-    return unless Settings.schedule_once.green_visits.enabled
+    return unless Settings.schedule_access[library]
 
     faculty = %w[CNF MXF]
     grad_students_and_postdocs = %w[MXD RED REG REG-SUM]
     undergrads = %w[REU REU-SUM]
     visiting_scholars = %w[MXAS]
+    staff = %w[CNAC CNS MXAC MXS]
 
-    [*faculty, *grad_students_and_postdocs, *undergrads, *visiting_scholars].include?(profile_key) ||
-      academic_staff_or_fellow?
-  end
-
-  def can_schedule_eal_access?
-    return if expired?
-    return unless Settings.schedule_once.eal_visits.enabled
-
-    faculty = %w[CNF MXF]
-    grad_students_and_postdocs = %w[MXD RED REG REG-SUM]
-    undergrads = %w[REU REU-SUM]
-    visiting_scholars = %w[MXAS]
-
-    [*faculty, *grad_students_and_postdocs, *undergrads, *visiting_scholars].include?(profile_key) ||
-      academic_staff_or_fellow?
+    [*faculty, *grad_students_and_postdocs, *undergrads, *visiting_scholars, *staff].include?(profile_key)
   end
 
   def can_schedule_pickup?(library)
@@ -259,9 +246,7 @@ class Patron
   end
 
   def can_schedule_special_collections_visit?
-    return unless Settings.schedule_once.spec_visits.enabled
-
-    can_schedule_green_access? && requests.any? { |r| r.pickup_library == 'SPEC-DESK' && r.ready_for_pickup? }
+    can_schedule_access?('SPEC-COLL') && requests.any? { |r| r.pickup_library == 'SPEC-DESK' && r.ready_for_pickup? }
   end
 
   private

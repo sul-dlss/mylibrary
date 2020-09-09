@@ -66,8 +66,8 @@ module SummariesHelper
 
   def library_schedule_path_map
     map = {}
-    map['GREEN'] = schedule_green_path if patron_or_group.can_schedule_green_access?
-    map['EAST-ASIA'] = schedule_eal_path if patron_or_group.can_schedule_eal_access?
+    map['GREEN'] = schedule_green_path if patron_or_group.can_schedule_access?('GREEN')
+    map['EAST-ASIA'] = schedule_eal_path if patron_or_group.can_schedule_access?('EAST-ASIA')
 
     map
   end

@@ -13,11 +13,10 @@ schedule_pickup:
   EAST-ASIA: true
   GREEN: true
 
+schedule_access:
+  EAST-ASIA: true
+  GREEN: true
+  SPEC-COLL: true
+
 schedule_once:
   enabled: true
-  eal_visits:
-    enabled: true
-  green_visits:
-    enabled: true
-  spec_visits:
-    enabled: true
