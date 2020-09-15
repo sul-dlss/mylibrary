@@ -1,5 +1,5 @@
 <div class="modal-body">
-  <iframe src="https://go.oncehub.com/<%= params[:oncehub_id] %>?brdr=1pxd8d8d8&amp;dt=&amp;em=1&amp;<%= scheduler_data_param({ name: patron_or_group.display_name, email: patron_or_group.email, sul_myaccount_name: patron_or_group.display_name, sul_myaccount_email: patron_or_group.email, sul_myaccount_sunet: current_user.username })%>&amp;Si=1" class="schedule-iframe" name="ScheduleOnceIframe" scrolling="yes" frameborder="0" hspace="0" marginheight="0" marginwidth="0" height="578px" width="100%" vspace="0" sotheme="light"></iframe>
+  <iframe src="https://go.oncehub.com/<%= params[:oncehub_id] %>?brdr=1pxd8d8d8&amp;dt=&amp;em=1&amp;<%= scheduler_data_param({ name: patron_or_group.display_name, email: patron_or_group.email, sul_myaccount_name: patron_or_group.display_name, sul_myaccount_email: patron_or_group.email, sul_myaccount_sunet: current_user.username })%>&amp;Si=1" class="schedule-iframe" name="ScheduleOnceIframe" scrolling="yes" frameborder="0" hspace="0" marginheight="0" marginwidth="0" height="900px" width="100%" vspace="0" sotheme="light"></iframe>
 </div>
 <div class="modal-footer justify-content-start">
   <%= link_to 'Close', :back, class: 'btn btn-link cancel-link', data: { dismiss: 'modal' } %>
