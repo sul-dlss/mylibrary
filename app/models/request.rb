@@ -74,7 +74,7 @@ class Request
 
   def library
     code = item&.dig('library', 'key')
-    code ||= bib['callList'].first&.dig('fields', 'library', 'key')
+    code ||= bib['callList']&.first&.dig('fields', 'library', 'key')
     return Settings.BORROW_DIRECT_CODE if from_borrow_direct?
 
     code

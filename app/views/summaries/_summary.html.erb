@@ -18,19 +18,16 @@
 
 <div class="page-section">
   <h3><%= sul_icon :'sharp-access_time-24px', classes: 'lg' %> Requests: <%= patron.requests.length %></h3>
-  <% if Settings.scheduling %>
-    <%= schedule_pickup_link_or_dropdown %>
-
-    <% if patron_or_group.can_schedule_special_collections_visit? %>
-      <%= link_to schedule_spec_path, role: 'button', class: 'btn btn-primary', data: { 'mylibrary-modal': 'trigger' } do %>
-        🗓 Schedule visit to Special Collections
-      <% end %>
-    <% end %>
-  <% end %>
 
   <% count = patron.requests.select(&:ready_for_pickup?).length %>
   <% if count.positive? %>
-    <div class="ml-4"><%= sul_icon :'sharp-check_circle-24px', classes: 'text-ready' %> <%= count %> ready for pickup</div>
+    <div class="ml-4">
+      <%= sul_icon :'sharp-check_circle-24px', classes: 'text-ready' %> <%= count %> ready for pickup
+
+      <% if schedule_pickup_link_or_dropdown.present? || patron_or_group.can_schedule_special_collections_visit? %>
+        (<%= link_to('schedule appointment', requests_path) %>)
+      <% end if Settings.scheduling %>
+    </div>
   <% end %>
 </div>
 

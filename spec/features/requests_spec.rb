@@ -123,12 +123,12 @@ RSpec.describe 'Request Page', type: :feature do
         fields[:firstName] = 'My'
         fields[:lastName] = 'Name'
         fields[:holdRecordList] = [
-          { fields: { status: 'BEING_HELD', pickupLibrary: { key: 'GREEN' } } }
+          { key: '1', fields: { status: 'BEING_HELD', pickupLibrary: { key: 'GREEN' } } }
         ]
       end
 
       it 'renders a button to schedule access to Green' do
-        visit summaries_path
+        visit requests_path
         click_link 'Schedule pickup at Green Library'
         expect(page).to have_css '.modal-body iframe'
         src = find('iframe')[:src]
@@ -146,7 +146,7 @@ RSpec.describe 'Request Page', type: :feature do
       end
 
       it 'renders a button to schedule access to Green' do
-        visit summaries_path
+        visit requests_path
         expect(page).not_to have_link 'Schedule pickup at Green Library'
       end
     end
@@ -157,12 +157,12 @@ RSpec.describe 'Request Page', type: :feature do
         fields[:firstName] = 'My'
         fields[:lastName] = 'Name'
         fields[:holdRecordList] = [
-          { fields: { status: 'BEING_HELD', pickupLibrary: { key: 'GREEN' } } }
+          { key: '1', fields: { status: 'BEING_HELD', pickupLibrary: { key: 'GREEN' } } }
         ]
       end
 
       it 'renders a button to schedule access to Green' do
-        visit summaries_path
+        visit requests_path
         expect(page).not_to have_link 'Schedule pickup at Green Library'
       end
     end
@@ -173,12 +173,12 @@ RSpec.describe 'Request Page', type: :feature do
         fields[:firstName] = 'My'
         fields[:lastName] = 'Name'
         fields[:holdRecordList] = [
-          { fields: { status: 'BEING_HELD', pickupLibrary: { key: 'SPEC-DESK' } } }
+          { key: '1', fields: { status: 'BEING_HELD', pickupLibrary: { key: 'SPEC-DESK' } } }
         ]
       end
 
       it 'renders a button to schedule access to Green' do
-        visit summaries_path
+        visit requests_path
         click_link 'Schedule visit to Special Collections'
         expect(page).to have_css '.modal-body iframe'
         src = find('iframe')[:src]
@@ -196,7 +196,7 @@ RSpec.describe 'Request Page', type: :feature do
       end
 
       it 'renders a button to schedule access to Green' do
-        visit summaries_path
+        visit requests_path
         expect(page).not_to have_link 'Schedule visit to Special Collections'
       end
     end
@@ -207,12 +207,12 @@ RSpec.describe 'Request Page', type: :feature do
         fields[:firstName] = 'My'
         fields[:lastName] = 'Name'
         fields[:holdRecordList] = [
-          { fields: { status: 'BEING_HELD', pickupLibrary: { key: 'SPEC-COLL' } } }
+          { key: '1', fields: { status: 'BEING_HELD', pickupLibrary: { key: 'SPEC-COLL' } } }
         ]
       end
 
       it 'renders a button to schedule access to Green' do
-        visit summaries_path
+        visit requests_path
         expect(page).not_to have_link 'Schedule visit to Special Collections'
       end
     end

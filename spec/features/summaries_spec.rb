@@ -211,17 +211,13 @@ RSpec.describe 'Summaries Page', type: :feature do
           ]
         end
 
-        it 'renders a button to schedule access to Green' do
+        it 'renders a link to the requests page to schedule access' do
           visit summaries_path
-          click_link 'Schedule pickup at Green Library'
-          expect(page).to have_css '.modal-body iframe'
-          src = find('iframe')[:src]
-          expect(src).to start_with 'https://go.oncehub.com/StanfordLibrariesPagingPickupGreenLibrary'
-          expect(src).to include 'name=My%20Name'
+          expect(page).to have_link 'schedule appointment'
         end
       end
 
-      context 'with an eligible patron without a pickup at Green' do
+      context 'with an eligible patron without a pickup' do
         before do
           fields[:profile]['key'] = 'MXF'
           fields[:firstName] = 'My'
@@ -229,9 +225,9 @@ RSpec.describe 'Summaries Page', type: :feature do
           fields[:holdRecordList] = []
         end
 
-        it 'renders a button to schedule access to Green' do
+        it 'does not render a link to the requests page to schedule access' do
           visit summaries_path
-          expect(page).not_to have_link 'Schedule pickup at Green Library'
+          expect(page).not_to have_link 'schedule appointment'
         end
       end
 
@@ -245,9 +241,9 @@ RSpec.describe 'Summaries Page', type: :feature do
           ]
         end
 
-        it 'renders a button to schedule access to Green' do
+        it 'does not render a link to the requests page to schedule access' do
           visit summaries_path
-          expect(page).not_to have_link 'Schedule pickup at Green Library'
+          expect(page).not_to have_link 'schedule appointment'
         end
       end
 
@@ -261,27 +257,9 @@ RSpec.describe 'Summaries Page', type: :feature do
           ]
         end
 
-        it 'renders a button to schedule access to Green' do
+        it 'renders a link to the requests page to schedule access' do
           visit summaries_path
-          click_link 'Schedule visit to Special Collections'
-          expect(page).to have_css '.modal-body iframe'
-          src = find('iframe')[:src]
-          expect(src).to start_with 'https://go.oncehub.com/StanfordLibrariesVisitSpecialCollections'
-          expect(src).to include 'name=My%20Name'
-        end
-      end
-
-      context 'with an eligible patron without an item at spec' do
-        before do
-          fields[:profile]['key'] = 'MXF'
-          fields[:firstName] = 'My'
-          fields[:lastName] = 'Name'
-          fields[:holdRecordList] = []
-        end
-
-        it 'renders a button to schedule access to Green' do
-          visit summaries_path
-          expect(page).not_to have_link 'Schedule Special Collections visit'
+          expect(page).to have_link 'schedule appointment'
         end
       end
 
@@ -295,9 +273,9 @@ RSpec.describe 'Summaries Page', type: :feature do
           ]
         end
 
-        it 'renders a button to schedule access to Green' do
+        it 'does not render a link to the requests page to schedule access' do
           visit summaries_path
-          expect(page).not_to have_link 'Schedule Special Collections visit'
+          expect(page).not_to have_link 'schedule appointment'
         end
       end
     end
