@@ -14,6 +14,7 @@ schedule_pickup:
   BUSINESS: true
   EAST-ASIA: true
   GREEN: true
+  HOPKINS: true
 
 schedule_access:
   EAST-ASIA: true

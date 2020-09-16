@@ -77,6 +77,7 @@ module SummariesHelper
     map['GREEN'] = schedule_green_pickup_path if patron_or_group.can_schedule_pickup?('GREEN')
     map['BUSINESS'] = schedule_business_pickup_path if patron_or_group.can_schedule_pickup?('BUSINESS')
     map['EAST-ASIA'] = schedule_eal_pickup_path if patron_or_group.can_schedule_pickup?('EAST-ASIA')
+    map['HOPKINS'] = schedule_miller_pickup_path if patron_or_group.can_schedule_pickup?('HOPKINS')
 
     map
   end
