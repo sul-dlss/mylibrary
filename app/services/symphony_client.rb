@@ -34,14 +34,13 @@ class SymphonyClient
 
   # get a session token by authenticating to symws
   def session_token
-    @session_token ||=
-      begin
+    @session_token ||= begin
       response = request('/user/staff/login', json: Settings.symws.login_params, method: :post)
 
       JSON.parse(response.body)['sessionToken']
-      rescue JSON::ParserError
-        Honeybadger.notify('Unable to connect to Symphony Web Services.')
-        nil
+    rescue JSON::ParserError
+      Honeybadger.notify('Unable to connect to Symphony Web Services.')
+      nil
     end
   end
 
