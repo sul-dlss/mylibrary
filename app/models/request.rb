@@ -130,26 +130,26 @@ class Request
     cdl[0] == 'CDL'
   end
 
-  def cdl_checkedout?
-    circ_record.present? && !cdl_next_up?
+  def cdl_druid
+    cdl[1]
   end
 
   def cdl_circ_record_key
     cdl[2].presence
   end
 
-  def cdl_druid
-    cdl[1]
+  def cdl_circ_record_checkout_date
+    return if cdl[3].blank?
+
+    Time.zone.at(cdl[3].to_i)
   end
 
   def cdl_next_up?
     cdl[4] == 'NEXT_UP'
   end
 
-  def cdl_circ_record_checkout_date
-    return if cdl[3].blank?
-
-    Time.zone.at(cdl[3].to_i)
+  def cdl_checkedout?
+    circ_record.present? && !cdl_next_up?
   end
 
   def cdl_expiration_date
