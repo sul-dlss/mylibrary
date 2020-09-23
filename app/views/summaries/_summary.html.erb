@@ -1,4 +1,4 @@
-<% active_cdl_checkouts, _inactive_cdl_checkouts = patron.requests.partition { |request| request.cdl_checkedout? } %>
+<% active_cdl_checkouts = patron.requests.select(&:cdl_checkedout?) %>
 <div class="page-section">
   <h3><%= sul_icon :'sharp-playlist_add_check-24px', classes: 'lg' %> Checkouts: <%= patron.checkouts.length + active_cdl_checkouts.length %><%= " (#{patron.remaining_checkouts} remaining)" if patron.remaining_checkouts %></h3>
 
