@@ -82,7 +82,6 @@ class SymphonyClient
     response = authenticated_request("/circulation/circRecord/key/#{circ_record_key}", params: {
       includeFields: [
         '*',
-        'circulationRule{loanPeriod{periodType{key}},renewFromPeriod}',
         ITEM_RESOURCES
       ].join(',')
     })
