@@ -144,12 +144,30 @@ RSpec.describe Request do
 
   context 'when item is a CDL item' do
     before do
-      fields[:comment] = 'CDL;druid;123456:1:1'
+      fields[:comment] = 'CDL;druid;123456:1:1;1600892281'
       fields[:bib][:fields][:callList] = [{ fields: { library: { key: 'GREEN' } } }]
     end
 
     it 'is cdl?' do
       expect(request.cdl?).to eq true
+    end
+
+    it 'has cdl_circ_record_key' do
+      expect(request.cdl_circ_record_key).to eq '123456:1:1'
+    end
+
+    it 'has circ record checkout date' do
+      expect(request.cdl_circ_record_checkout_date.to_i).to eq 1_600_892_281
+    end
+
+    context 'when next up' do
+      before do
+        fields[:comment] = 'CDL;druid;123456:1:1;1600892281;NEXT_UP'
+      end
+
+      it 'is next up' do
+        expect(request.cdl_next_up?).to eq true
+      end
     end
 
     it 'is cdl_checkedout? if circ record exists' do
