@@ -135,7 +135,7 @@ class Request
   end
 
   def cdl_circ_record_key
-    cdl[2]
+    cdl[2].presence
   end
 
   def cdl_druid
