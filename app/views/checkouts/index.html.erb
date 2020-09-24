@@ -4,13 +4,15 @@
   <%= render 'shared/navigation' %>
   <%= render partial: 'shared/group_tabs', locals: { self_value: patron.checkouts.length, group_value: patron.group.checkouts.length } if patron_or_group.group? %>
 <% end %>
-<% if @checkouts.any? %>
+
+<% active_cdl_checkouts, _inactive_cdl_checkouts = @requests.partition { |request| request.cdl_checkedout? } %>
+<% if @checkouts.any? || active_cdl_checkouts.any? %>
   <% recalled, other_checkouts = @checkouts.partition(&:recalled?) %>
   <%= render 'checkouts/recalled', recalled: recalled if recalled.any? %>
 
   <div id="checkouts" class="page-section">
     <div class="d-flex justify-content-between">
-      <h2>Checked out: <%= other_checkouts.length %><%= " (#{patron_or_group.remaining_checkouts} remaining)" if patron_or_group.remaining_checkouts %></h2>
+      <h2>Checked out: <%= other_checkouts.length + active_cdl_checkouts.length %><%= " (#{patron_or_group.remaining_checkouts} remaining)" if patron_or_group.remaining_checkouts %></h2>
       <div class="dropdown">
         <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Sort (<span data-sort-label>Due date</span>)
@@ -43,6 +45,7 @@
     </div>
     <ul class="list checkouts list-group">
       <%= render other_checkouts %>
+      <%= render active_cdl_checkouts %>
     </ul>
   </div>
 <% else %>

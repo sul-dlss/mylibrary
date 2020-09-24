@@ -20,6 +20,7 @@ RSpec.describe 'requests/_request.html.erb' do
       sort_key: '1',
       title: 'A Book',
       waitlist_position: nil,
+      cdl_loan_period: nil,
       **request_attributes
     )
   end

@@ -10,11 +10,12 @@ class CheckoutsController < ApplicationController
   # GET /checkouts.json
   def index
     @checkouts = patron_or_group.checkouts.sort_by { |x| x.sort_key(:due_date) }
+    @requests = patron_or_group.requests.sort_by { |request| request.sort_key(:date) }
   end
 
   private
 
   def item_details
-    { circRecordList: true }
+    { circRecordList: true, holdRecordList: true }
   end
 end

@@ -26,7 +26,7 @@ RSpec.describe RequestsController do
 
     let(:requests) do
       [
-        instance_double(Request, key: '1', sort_key: nil)
+        instance_double(Request, key: '1', sort_key: nil, cdl_checkedout?: false)
       ]
     end
 
@@ -47,11 +47,26 @@ RSpec.describe RequestsController do
       expect(assigns(:requests)).to eq requests
     end
 
+    describe 'cdl and non cdl requests' do
+      let(:requests) do
+        [
+          instance_double(Request, key: '1', sort_key: nil, cdl_checkedout?: false),
+          instance_double(Request, key: '1', sort_key: nil, cdl_checkedout?: true)
+        ]
+      end
+
+      it 'filters out cdl requets' do
+        get(:index)
+
+        expect(assigns(:requests).length).to eq 1
+      end
+    end
+
     describe 'BorrowDirect requests' do
       let(:requests) do
         [
-          instance_double(Request, key: '1', sort_key: nil),
-          instance_double(BorrowDirectRequests::Request, key: 'sta-1', sort_key: nil)
+          instance_double(Request, key: '1', sort_key: nil, cdl_checkedout?: false),
+          instance_double(BorrowDirectRequests::Request, key: 'sta-1', sort_key: nil, cdl_checkedout?: false)
         ]
       end
 
@@ -211,7 +226,7 @@ RSpec.describe RequestsController do
 
     let(:requests) do
       [
-        instance_double(Request, key: '1', sort_key: nil)
+        instance_double(Request, key: '1', sort_key: nil, cdl_checkedout?: false)
       ]
     end
 

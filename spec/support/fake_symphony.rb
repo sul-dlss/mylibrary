@@ -50,6 +50,10 @@ class FakeSymphony < Sinatra::Base
     json_response 200, "patron/#{params[:key]}.json"
   end
 
+  get '/symws/circulation/circRecord/key/:key' do
+    json_response 200, "circ_record/#{params[:key]}.json"
+  end
+
   get '/symws/rest/patron/lookupPatronInfo' do
     content_type :'text/html'
     status 200

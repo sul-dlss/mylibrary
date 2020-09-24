@@ -44,3 +44,12 @@ schedule_access:
   EAST-ASIA: false
   GREEN: false
   SPEC-COLL: false
+
+cdl:
+  url: http://requests.example.com
+
+embed:
+  url: https://embed.stanford.edu
+
+purl:
+  url: https://purl.stanford.edu

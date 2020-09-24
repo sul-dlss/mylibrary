@@ -11,7 +11,9 @@ class RequestsController < ApplicationController
   # GET /requests
   # GET /requests.json
   def index
-    @requests = patron_or_group.requests.sort_by { |request| request.sort_key(:date) }
+    @requests = patron_or_group.requests
+                               .reject(&:cdl_checkedout?)
+                               .sort_by { |request| request.sort_key(:date) }
   end
 
   # Renders a form for editing a request/hold

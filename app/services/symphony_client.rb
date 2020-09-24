@@ -77,6 +77,23 @@ class SymphonyClient
   end
   # rubocop:enable Metrics/MethodLength
 
+  # rubocop:disable Metrics/MethodLength
+  def circ_record_info(circ_record_key)
+    response = authenticated_request("/circulation/circRecord/key/#{circ_record_key}", params: {
+      includeFields: [
+        '*',
+        ITEM_RESOURCES
+      ].join(',')
+    })
+
+    begin
+      JSON.parse(response.body)
+    rescue JSON::ParserError
+      nil
+    end
+  end
+  # rubocop:enable Metrics/MethodLength
+
   def reset_pin(library_id, reset_path)
     response = request('/user/patron/resetMyPin', method: :post, json: {
       login: library_id,

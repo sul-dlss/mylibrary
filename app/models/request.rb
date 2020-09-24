@@ -15,6 +15,8 @@ class Request
   end
 
   def to_partial_path
+    return 'checkouts/cdl_checkout' if cdl_checkedout?
+
     'requests/request'
   end
 
@@ -35,7 +37,7 @@ class Request
   end
 
   def ready_for_pickup?
-    status == 'BEING_HELD'
+    status == 'BEING_HELD' || cdl_next_up?
   end
 
   def queue_position
@@ -65,6 +67,8 @@ class Request
   end
 
   def pickup_library
+    return 'CDL' if cdl?
+
     fields['pickupLibrary']['key']
   end
 
@@ -76,6 +80,7 @@ class Request
     code = item&.dig('library', 'key')
     code ||= bib['callList']&.first&.dig('fields', 'library', 'key')
     return Settings.BORROW_DIRECT_CODE if from_borrow_direct?
+    return 'CDL' if cdl?
 
     code
   end
@@ -108,6 +113,63 @@ class Request
       (expiration_date || END_OF_DAYS).strftime('%FT%T'),
       (fill_by_date || END_OF_DAYS).strftime('%FT%T')
     ]
+  end
+
+  def circ_record
+    return unless cdl? && cdl_circ_record_key
+
+    @circ_record ||= begin
+      record = Checkout.find(cdl_circ_record_key, cdl: true)
+      return unless record.checkout_date == cdl_circ_record_checkout_date
+
+      record
+    end
+  end
+
+  def cdl?
+    cdl[0] == 'CDL'
+  end
+
+  def cdl_druid
+    cdl[1]
+  end
+
+  def cdl_circ_record_key
+    cdl[2].presence
+  end
+
+  def cdl_circ_record_checkout_date
+    return if cdl[3].blank?
+
+    Time.zone.at(cdl[3].to_i)
+  end
+
+  def cdl_next_up?
+    cdl[4] == 'NEXT_UP'
+  end
+
+  def cdl_checkedout?
+    circ_record.present? && !cdl_next_up?
+  end
+
+  def cdl_expiration_date
+    return unless cdl_circ_record_checkout_date
+
+    cdl_circ_record_checkout_date + 30.minutes
+  end
+
+  def cdl_loan_period
+    return unless cdl?
+
+    (item.dig('itemCategory3', 'key')&.scan(/^CDL-(\d+)H$/)&.flatten&.first&.to_i || 2).hours
+  end
+
+  def cdl
+    comment.split(';')
+  end
+
+  def comment
+    fields['comment'].to_s
   end
 
   private

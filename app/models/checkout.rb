@@ -8,8 +8,16 @@ class Checkout
 
   SHORT_TERM_LOAN_PERIODS = %w[HOURLY].freeze
 
-  def initialize(record)
+  def initialize(record, cdl: false)
     @record = record
+    @cdl = cdl
+  end
+
+  def self.find(key, **args)
+    symphony_client = SymphonyClient.new
+    new(symphony_client.circ_record_info(key), **args)
+  rescue HTTP::Error
+    nil
   end
 
   def key
@@ -122,7 +130,7 @@ class Checkout
   end
 
   def short_term_loan?
-    SHORT_TERM_LOAN_PERIODS.include?(loan_period_type)
+    SHORT_TERM_LOAN_PERIODS.include?(loan_period_type) || @cdl
   end
 
   def to_partial_path

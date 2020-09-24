@@ -1,5 +1,6 @@
+<% active_cdl_checkouts = patron.requests.select(&:cdl_checkedout?) %>
 <div class="page-section">
-  <h3><%= sul_icon :'sharp-playlist_add_check-24px', classes: 'lg' %> Checkouts: <%= patron.checkouts.length %><%= " (#{patron.remaining_checkouts} remaining)" if patron.remaining_checkouts %></h3>
+  <h3><%= sul_icon :'sharp-playlist_add_check-24px', classes: 'lg' %> Checkouts: <%= patron.checkouts.length + active_cdl_checkouts.length %><%= " (#{patron.remaining_checkouts} remaining)" if patron.remaining_checkouts %></h3>
 
   <div class="mb-1">
     <%= render 'checkouts/renew_all_button' %>
@@ -17,7 +18,7 @@
 </div>
 
 <div class="page-section">
-  <h3><%= sul_icon :'sharp-access_time-24px', classes: 'lg' %> Requests: <%= patron.requests.length %></h3>
+  <h3><%= sul_icon :'sharp-access_time-24px', classes: 'lg' %> Requests: <%= patron.requests.length - active_cdl_checkouts.length %></h3>
 
   <% count = patron.requests.select(&:ready_for_pickup?).length %>
   <% if count.positive? %>

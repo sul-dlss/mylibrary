@@ -21,7 +21,7 @@ RSpec.describe 'Summaries Page', type: :feature do
   end
 
   it 'has summary data' do
-    expect(page).to have_css('h3', text: 'Checkouts: 13')
+    expect(page).to have_css('h3', text: 'Checkouts: 14')
     expect(page).to have_css('div', text: '1 recalled')
     expect(page).to have_css('div', text: '5 overdue')
     expect(page).to have_css('h3', text: 'Requests: 3')
