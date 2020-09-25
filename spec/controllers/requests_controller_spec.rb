@@ -243,4 +243,29 @@ RSpec.describe RequestsController do
       expect(assigns(:requests)).to eq requests
     end
   end
+
+  describe '#cdl_waitlist_position' do
+    let(:user) do
+      { username: 'somesunetid', patron_key: '123' }
+    end
+
+    let(:requests) do
+      [
+        instance_double(Request, key: '1', sort_key: nil, cdl_waitlist_position: nil)
+      ]
+    end
+
+    let(:mock_client) { instance_double(SymphonyClient, ping: true) }
+
+    before do
+      allow(SymphonyClient).to receive(:new).and_return(mock_client)
+      warden.set_user(user)
+    end
+
+    it 'calls cdl_waitlist_position from the request' do
+      get(:cdl_waitlist_position, params: { format: 'js', id: '1' }, xhr: true)
+
+      expect(assigns(:request).key).to eq requests[0].key
+    end
+  end
 end

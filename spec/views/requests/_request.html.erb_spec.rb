@@ -21,6 +21,7 @@ RSpec.describe 'requests/_request.html.erb' do
       title: 'A Book',
       waitlist_position: nil,
       cdl_loan_period: nil,
+      cdl?: false,
       **request_attributes
     )
   end

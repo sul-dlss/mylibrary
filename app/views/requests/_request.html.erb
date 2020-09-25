@@ -77,7 +77,15 @@
         <dd class="col-8"><%= request.cdl_loan_period.to_i / 60 / 60 %> hours</dd>
       <% end %>
       <dt class="col-3 offset-1 col-md-2 offset-md-2">Waitlist position:</dt>
-      <dd class="col-8"><%= request.waitlist_position %></dd>
+      <% if request.cdl? && !request.cdl_next_up? %>
+        <dd class="col-8" data-cdl-waitlist="<%= request.key %>">
+          <%= link_to cdl_waitlist_position_request_path(request.key), remote: true do %>
+            <%= sul_icon 'cached-sharp' %> Check position
+          <% end %>
+        </dd>
+      <% else %>
+        <dd class="col-8"><%= request.waitlist_position %></dd>
+      <% end %>
       <dt class="col-3 offset-1 col-md-2 offset-md-2">Source:</dt>
       <dd class="col-8"><%= library_name request.library %></dd>
     </dl>

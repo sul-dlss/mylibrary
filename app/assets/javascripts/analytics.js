@@ -108,6 +108,13 @@ $(document).on('turbolinks:load', function(){
     });
   });
 
+  $('[data-cdl-waitlist] a').on('click', function(e) {
+    ga('send', 'event', {
+      eventCategory: 'CDL Waitlist Check',
+      transport: 'beacon'
+    });
+  });
+
   function contactFormSubmission(e) {
     var contactFormTo = $(e.currentTarget).closest('form').find('[data-contact-form-to-value]').text();
     ga('send', 'event', {
