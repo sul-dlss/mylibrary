@@ -63,6 +63,16 @@ class RequestsController < ApplicationController
     redirect_to requests_path(group: params[:group])
   end
 
+  def cdl_waitlist_position
+    @request = patron_or_group.requests.find { |r| r.key == params['id'] }
+
+    respond_to do |format|
+      format.js do
+        @cdl_waitlist_position = @request.cdl_waitlist_position
+      end
+    end
+  end
+
   private
 
   def handle_pickup_change_request

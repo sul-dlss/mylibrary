@@ -13,7 +13,11 @@ Rails.application.routes.draw do
 
   resources :summaries
   resources :checkouts
-  resources :requests
+  resources :requests do
+    member do
+      get 'cdl_waitlist_position'
+    end
+  end
   resources :fines
   resources :payments, only: :index
   resources :renewals, only: %I[create] do

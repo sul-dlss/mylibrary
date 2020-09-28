@@ -94,6 +94,23 @@ class SymphonyClient
   end
   # rubocop:enable Metrics/MethodLength
 
+  # rubocop:disable Metrics/MethodLength
+  def catalog_info(key)
+    response = authenticated_request("/catalog/item/barcode/#{ERB::Util.url_encode(key)}", params: {
+      includeFields: [
+        '*',
+        'bib{holdRecordList{*,item{call,bib{title}}}}',
+        'call{*,itemList{*}}',
+        'currentLocation'
+      ].join(',')
+    })
+
+    JSON.parse(response.body)
+  rescue JSON::ParserError, HTTP::Error
+    nil
+  end
+  # rubocop:enable Metrics/MethodLength
+
   def reset_pin(library_id, reset_path)
     response = request('/user/patron/resetMyPin', method: :post, json: {
       login: library_id,

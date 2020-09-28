@@ -16,8 +16,8 @@ RSpec.describe Request do
       status: 'ACTIVE',
       pickupLibrary: { key: 'GREEN' },
       placedLibrary: { key: 'SUL' },
-      queuePosition: '3',
-      queueLength: '7',
+      queuePosition: 3,
+      queueLength: 7,
       bib: {
         key: '1184859',
         fields: {
@@ -67,11 +67,11 @@ RSpec.describe Request do
   end
 
   it 'has the queue length' do
-    expect(request.queue_length).to eq '7'
+    expect(request.queue_length).to eq 7
   end
 
   it 'has the queue position' do
-    expect(request.queue_position).to eq '3'
+    expect(request.queue_position).to eq 3
   end
 
   it 'has a placed library' do
@@ -148,6 +148,14 @@ RSpec.describe Request do
       fields[:bib][:fields][:callList] = [{ fields: { library: { key: 'GREEN' } } }]
     end
 
+    let(:waitlist_hold_records) do
+      [
+        instance_double(described_class, cdl_checkedout?: true),
+        instance_double(described_class, cdl_checkedout?: true),
+        instance_double(described_class, cdl_checkedout?: false)
+      ]
+    end
+
     it 'is cdl?' do
       expect(request.cdl?).to eq true
     end
@@ -158,6 +166,13 @@ RSpec.describe Request do
 
     it 'has circ record checkout date' do
       expect(request.cdl_circ_record_checkout_date.to_i).to eq 1_600_892_281
+    end
+
+    it 'cdl_waitlist_position' do
+      allow(CatalogInfo).to receive(:find).and_return(
+        instance_double(CatalogInfo, hold_records: waitlist_hold_records)
+      )
+      expect(request.cdl_waitlist_position).to eq '1 of 5'
     end
 
     context 'when next up' do
@@ -171,6 +186,7 @@ RSpec.describe Request do
     end
 
     it 'is cdl_checkedout? if circ record exists' do
+      allow(request).to receive(:cdl).and_return([0, 0, 0, 0, 'ACTIVE'])
       allow(request).to receive(:circ_record).and_return({ abc: 123 })
       expect(request.cdl_checkedout?).to eq true
     end

@@ -66,6 +66,24 @@ class Request
     "#{queue_position} of #{queue_length}"
   end
 
+  def active?
+    %w[PLACED BEING_HELD].include?(status)
+  end
+
+  def item_call_key
+    fields.dig('item', 'fields', 'call', 'key')
+  end
+
+  ##
+  # Expensive calculation of CDL waitlist
+  def cdl_waitlist_position
+    return 'Next up ' if cdl_next_up?
+
+    catalog_info = CatalogInfo.find(barcode)
+    cdl_queue_length = catalog_info.hold_records.count(&:cdl_checkedout?)
+    "#{queue_position - cdl_queue_length} of #{queue_length - cdl_queue_length}"
+  end
+
   def pickup_library
     return 'CDL' if cdl?
 
@@ -149,7 +167,7 @@ class Request
   end
 
   def cdl_checkedout?
-    circ_record.present? && !cdl_next_up?
+    circ_record.present? if cdl[4] == 'ACTIVE'
   end
 
   def cdl_expiration_date
