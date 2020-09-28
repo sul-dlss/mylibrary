@@ -11,7 +11,7 @@ module SummariesHelper
   def link_to_schedule_once_visit(library:, text:, css_class: nil)
     link_to(
       text,
-      library_schedule_path_map[library],
+      enabled_schedule_libraries[library],
       role: 'button',
       class: css_class,
       data: { 'mylibrary-modal': 'trigger' }
@@ -19,9 +19,9 @@ module SummariesHelper
   end
 
   def schedule_once_link_or_dropdown
-    return 'Not eligible during current phase of Research Restart Plan' if library_schedule_path_map.blank?
+    return 'Not eligible during current phase of Research Restart Plan' if enabled_schedule_libraries.blank?
 
-    schedulable_libraries = library_schedule_path_map.keys
+    schedulable_libraries = enabled_schedule_libraries.keys
 
     if schedulable_libraries.one?
       return link_to_schedule_once_visit(
@@ -35,11 +35,11 @@ module SummariesHelper
   end
 
   def link_to_schedule_pickup(library:, text:, css_class: nil)
-    return unless library_pickup_path_map[library]
+    return unless enabled_pickup_libraries[library]
 
     link_to(
       text,
-      library_pickup_path_map[library],
+      enabled_pickup_libraries[library],
       role: 'button',
       class: css_class,
       data: { 'mylibrary-modal': 'trigger' }
@@ -47,9 +47,9 @@ module SummariesHelper
   end
 
   def schedule_pickup_link_or_dropdown
-    return if library_pickup_path_map.blank?
+    return if enabled_pickup_libraries.blank?
 
-    pickup_libraries = library_pickup_path_map.keys
+    pickup_libraries = enabled_pickup_libraries.keys
 
     if pickup_libraries.one?
       return link_to_schedule_pickup(
@@ -64,20 +64,35 @@ module SummariesHelper
 
   private
 
-  def library_schedule_path_map
-    map = {}
-    map['GREEN'] = schedule_green_path if patron_or_group.can_schedule_access?('GREEN')
-    map['EAST-ASIA'] = schedule_eal_path if patron_or_group.can_schedule_access?('EAST-ASIA')
+  def enabled_schedule_libraries
+    configured_schedule_libraries = Settings.schedule_access.keys.map(&:to_s)
 
-    map
+    library_schedule_path_map.select do |library|
+      configured_schedule_libraries.include?(library) && patron_or_group.can_schedule_access?(library)
+    end
+  end
+
+  def library_schedule_path_map
+    {
+      'GREEN' => schedule_green_path,
+      'EAST-ASIA' => schedule_eal_path
+    }
+  end
+
+  def enabled_pickup_libraries
+    configured_pickup_libraries = Settings.schedule_pickup.keys.map(&:to_s)
+
+    library_pickup_path_map.select do |library|
+      configured_pickup_libraries.include?(library) && patron_or_group.can_schedule_pickup?(library)
+    end
   end
 
   def library_pickup_path_map
-    map = {}
-    map['GREEN'] = schedule_green_pickup_path if patron_or_group.can_schedule_pickup?('GREEN')
-    map['BUSINESS'] = schedule_business_pickup_path if patron_or_group.can_schedule_pickup?('BUSINESS')
-    map['EAST-ASIA'] = schedule_eal_pickup_path if patron_or_group.can_schedule_pickup?('EAST-ASIA')
-
-    map
+    {
+      'GREEN' => schedule_green_pickup_path,
+      'BUSINESS' => schedule_business_pickup_path,
+      'EAST-ASIA' => schedule_eal_pickup_path,
+      'HOPKINS' => schedule_miller_pickup_path
+    }
   end
 end

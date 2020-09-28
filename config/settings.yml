@@ -39,6 +39,7 @@ schedule_pickup:
   BUSINESS: false
   EAST-ASIA: false
   GREEN: false
+  HOPKINS: false
 
 schedule_access:
   EAST-ASIA: false
