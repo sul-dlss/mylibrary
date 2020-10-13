@@ -23,6 +23,13 @@ RSpec.describe ApplicationHelper do
           .to match(/^Today at\s{1,2}\d/)
       end
 
+      it 'returns a string that says Tomorrow and the time' do
+        date = Time.zone.tomorrow.at_end_of_day
+
+        expect(helper.today_with_time_or_date(date, short_term: true))
+          .to match(/^Tomorrow at\s{1,2}\d/)
+      end
+
       context 'when the due date is on a past date' do
         it 'returns a formatted date' do
           expect(

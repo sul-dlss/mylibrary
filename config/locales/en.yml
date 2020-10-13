@@ -35,6 +35,7 @@ en:
       short: '%B %e, %Y'
       long: '%B %e, %Y %l:%M%P'
       time_today: 'Today at %-l:%M%P'
+      time_tomorrow: 'Tomorrow at %-l:%M%P'
   hello: "Hello world"
   mylibrary:
     renew_item:
