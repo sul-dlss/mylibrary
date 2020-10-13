@@ -44,9 +44,9 @@
     <div class="row mb-0">
       <div class="col-11 offset-1 col-md-10 offset-md-2">
         <% if patron.can_modify_requests? %>
-          <% if request.cdl? && request.cdl_next_up? %>
+          <% if request.cdl? %>
             <%= check_in_cdl_link(request) %>
-          <% elsif request.ready_for_pickup? || request.cdl? %>
+          <% elsif request.ready_for_pickup? %>
             <%= form_tag request_path(request.key), method: :delete do %>
               <%= hidden_field_tag :resource, request.resource %>
               <%= hidden_field_tag :title, request.title %>
