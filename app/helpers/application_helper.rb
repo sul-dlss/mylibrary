@@ -9,6 +9,7 @@ module ApplicationHelper
   # For short-term loans, also include the time.
   def today_with_time_or_date(date, short_term: false)
     return l(date, format: :time_today) if short_term && date.today?
+    return l(date, format: :time_tomorrow) if short_term && date.to_date == Time.zone.tomorrow
 
     format_human_readable_date(date)
   end
