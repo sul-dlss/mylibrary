@@ -137,7 +137,7 @@ RSpec.describe 'Request Page', type: :feature do
 
       it 'renders a button to schedule access to Green' do
         visit requests_path
-        click_link 'Schedule pickup at Green Library'
+        click_link 'Pick up requests at Green Library'
         expect(page).to have_css '.modal-body iframe'
         src = find('iframe')[:src]
         expect(src).to start_with 'https://go.oncehub.com/StanfordLibrariesPagingPickupGreenLibrary'
@@ -187,7 +187,7 @@ RSpec.describe 'Request Page', type: :feature do
 
       it 'renders a button to schedule access to Green' do
         visit requests_path
-        click_link 'Schedule visit to Special Collections'
+        click_link 'Visit Reading Room'
         expect(page).to have_css '.modal-body iframe'
         src = find('iframe')[:src]
         expect(src).to start_with 'https://go.oncehub.com/StanfordLibrariesVisitSpecialCollections'
@@ -205,7 +205,7 @@ RSpec.describe 'Request Page', type: :feature do
 
       it 'renders a button to schedule access to Green' do
         visit requests_path
-        expect(page).not_to have_link 'Schedule visit to Special Collections'
+        expect(page).not_to have_link 'Visit Reading Room'
       end
     end
 
@@ -221,7 +221,7 @@ RSpec.describe 'Request Page', type: :feature do
 
       it 'renders a button to schedule access to Green' do
         visit requests_path
-        expect(page).not_to have_link 'Schedule visit to Special Collections'
+        expect(page).not_to have_link 'Visit Reading Room'
       end
     end
   end

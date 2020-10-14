@@ -44,8 +44,8 @@ RSpec.describe SummariesHelper do
     context 'when the patron has no library access' do
       let(:patron) { Patron.new({ 'fields' => {} }) }
 
-      it 'renders text indicating that the user is not eligible' do
-        expect(helper.schedule_once_link_or_dropdown).to eq 'Not eligible during current phase of Research Restart Plan'
+      it 'returns nil if the user is not eligible' do
+        expect(helper.schedule_once_link_or_dropdown).to be_nil
       end
     end
 
@@ -59,7 +59,7 @@ RSpec.describe SummariesHelper do
       it 'renders a single button to schedule a visit' do
         expect(
           Capybara.string(helper.schedule_once_link_or_dropdown)
-        ).to have_link('🗓 Schedule visit to Green Library', href: '/schedule/green')
+        ).to have_link('Enter Green Library for research', href: '/schedule/green')
       end
     end
 
@@ -68,7 +68,7 @@ RSpec.describe SummariesHelper do
       let(:dropdown) { Capybara.string(helper.schedule_once_link_or_dropdown) }
 
       it 'renders a dropdown to select each library' do
-        expect(dropdown).to have_css('.schedule-dropdown button.dropdown-toggle', text: '🗓 Schedule visit to ...')
+        expect(dropdown).to have_css('.schedule-dropdown button.dropdown-toggle', text: /Enter for research/)
       end
 
       it 'renders a link in the dropdown to Green Library' do
@@ -126,7 +126,9 @@ RSpec.describe SummariesHelper do
       context 'when no libraries are available for pickup' do
         let(:hold_record_list) { [] }
 
-        it { expect(helper.schedule_pickup_link_or_dropdown).to be_nil }
+        it 'renders a disabled link' do
+          expect(helper.schedule_pickup_link_or_dropdown).to have_css('a.disabled', text: 'Pick up requests')
+        end
       end
 
       context 'when there is only one library available for pickup' do
@@ -138,7 +140,7 @@ RSpec.describe SummariesHelper do
 
         it 'links directly to that library' do
           link = helper.schedule_pickup_link_or_dropdown
-          expect(link).to have_link('🗓 Schedule pickup at Green Library', href: '/schedule/green_pickup')
+          expect(link).to have_link('Pick up requests at Green Library', href: '/schedule/green_pickup')
         end
 
         it 'does not have a dropdown' do

@@ -7,22 +7,10 @@
 
 <div class="page-section">
   <%= render patron_or_group %>
-
-  <% if Settings.scheduling %>
-    <dl class="row">
-      <dt class="col-5 col-sm-4 col-md-3 col-lg-2 font-weight-normal">Library access:</dt>
-      <dd class="col-7 col-sm-8 col-md-9 col-lg-10 library-access">
-        <%= schedule_once_link_or_dropdown %>
-
-        <div class="mt-1">
-          <%= link_to 'https://library.stanford.edu/returntoresearch', target: '_blank' do %>
-            <%= sul_icon :'sharp-open_in_new-24px' %> Current status of library services
-          <% end %>
-        </div>
-      </dd>
-    </dl>
-  <% end %>
 </div>
+
+
+<%= render 'shared/schedule_links' %>
 
 <%= render 'summary', patron: patron_or_group %>
 

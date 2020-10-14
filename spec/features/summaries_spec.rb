@@ -213,7 +213,8 @@ RSpec.describe 'Summaries Page', type: :feature do
 
         it 'renders a link to the requests page to schedule access' do
           visit summaries_path
-          expect(page).to have_link 'schedule appointment'
+
+          expect(page).to have_link 'Pick up requests at Green Library'
         end
       end
 
@@ -225,9 +226,9 @@ RSpec.describe 'Summaries Page', type: :feature do
           fields[:holdRecordList] = []
         end
 
-        it 'does not render a link to the requests page to schedule access' do
+        it 'renders a disabled schedule access links' do
           visit summaries_path
-          expect(page).not_to have_link 'schedule appointment'
+          expect(page).to have_css('a.disabled', text: 'Visit Reading Room')
         end
       end
 
@@ -243,7 +244,7 @@ RSpec.describe 'Summaries Page', type: :feature do
 
         it 'does not render a link to the requests page to schedule access' do
           visit summaries_path
-          expect(page).not_to have_link 'schedule appointment'
+          expect(page).not_to have_link 'Pick up requests at Green Library'
         end
       end
 
@@ -259,7 +260,7 @@ RSpec.describe 'Summaries Page', type: :feature do
 
         it 'renders a link to the requests page to schedule access' do
           visit summaries_path
-          expect(page).to have_link 'schedule appointment'
+          expect(page).to have_link 'Visit Reading Room'
         end
       end
 
@@ -275,7 +276,7 @@ RSpec.describe 'Summaries Page', type: :feature do
 
         it 'does not render a link to the requests page to schedule access' do
           visit summaries_path
-          expect(page).not_to have_link 'schedule appointment'
+          expect(page).not_to have_link 'Visit Reading Room'
         end
       end
     end
