@@ -1,0 +1,15 @@
+<% if Settings.scheduling %>
+  <div class="page-section mt-5">
+    <h3><%= sul_icon :event, classes: 'lg' %> Schedule appointments</h3>
+
+    <div class="ml-5">
+      <% if patron_or_group.can_schedule? %>
+        <div class="mb-3"><%= schedule_once_link_or_dropdown %></div>
+        <div class="mb-3"><%= schedule_pickup_link_or_dropdown %></div>
+        <div class="mb-3"><%= link_to_spec_visit %></div>
+      <% else %>
+        Access to campus libraries is limited. You are not currently <%= link_to 'eligible to make appointments', 'https://library.stanford.edu/status/limited-access-library-spaces' %>.
+      <% end %>
+    </div>
+  </div>
+<% end %>

@@ -24,10 +24,6 @@
   <% if count.positive? %>
     <div class="ml-4">
       <%= sul_icon :'sharp-check_circle-24px', classes: 'text-ready' %> <%= count %> ready for pickup
-
-      <% if schedule_pickup_link_or_dropdown.present? || patron_or_group.can_schedule_special_collections_visit? %>
-        (<%= link_to('schedule appointment', requests_path) %>)
-      <% end if Settings.scheduling %>
     </div>
   <% end %>
 </div>

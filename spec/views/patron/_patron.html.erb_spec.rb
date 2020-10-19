@@ -30,6 +30,7 @@ RSpec.describe 'patron/_patron.html.erb' do
     end
 
     allow(view).to receive(:patron).and_return(patron)
+    stub_template 'shared/_schedule_links.html.erb' => ''
   end
 
   describe 'Privileges expire' do

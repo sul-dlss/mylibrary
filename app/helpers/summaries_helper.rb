@@ -8,6 +8,34 @@ module SummariesHelper
     end.join('&')
   end
 
+  # rubocop:disable Layout/LineLength
+  def link_to_spec_visit
+    link = if patron_or_group.can_schedule_special_collections_visit?
+             link_to schedule_spec_path, role: 'button', class: 'btn btn-primary', data: { 'mylibrary-modal': 'trigger' } do
+               safe_join([sul_icon(:'visit-spec', classes: 'lg mr-2'), 'Visit Reading Room'], ' ')
+             end
+           else
+             link_to '#', role: 'button', class: 'btn btn-primary disabled' do
+               safe_join([sul_icon(:'visit-spec', classes: 'lg mr-2'), 'Visit Reading Room'], ' ')
+             end
+           end
+
+    link + spec_visit_note
+  end
+  # rubocop:enable Layout/LineLength
+
+  def spec_visit_note
+    return '' if controller_name == 'requests'
+
+    tag.span(class: 'ml-3') do
+      if patron_or_group.can_schedule_special_collections_visit?
+        'You have items ready for in-library use.'
+      else
+        'No items waiting.'
+      end
+    end
+  end
+
   def link_to_schedule_once_visit(library:, text:, css_class: nil)
     link_to(
       text,
@@ -18,20 +46,31 @@ module SummariesHelper
     )
   end
 
+  # rubocop:disable Layout/LineLength
   def schedule_once_link_or_dropdown
-    return 'Not eligible during current phase of Research Restart Plan' if enabled_schedule_libraries.blank?
+    return if enabled_schedule_libraries.blank?
 
     schedulable_libraries = enabled_schedule_libraries.keys
 
     if schedulable_libraries.one?
       return link_to_schedule_once_visit(
         library: schedulable_libraries.first,
-        text: "🗓 Schedule visit to #{library_name(schedulable_libraries.first)}",
+        text: safe_join([sul_icon(:'visit-library', classes: 'lg mr-2'), "Enter #{library_name(schedulable_libraries.first)} for research"], ' '),
         css_class: 'btn btn-primary'
-      )
+      ) + library_entry_note
     end
 
     render 'schedules/schedule_library_visit_dropdown', schedulable_libraries: schedulable_libraries
+  end
+  # rubocop:enable Layout/LineLength
+
+  def library_entry_note
+    tag.span(class: 'ml-3') do
+      safe_join(
+        ['You are eligible to enter and remain in the libraries.',
+         link_to('See entry requirements.', 'https://library.stanford.edu/status/entry-requirements')], ' '
+      )
+    end
   end
 
   def link_to_schedule_pickup(library:, text:, css_class: nil)
@@ -46,20 +85,44 @@ module SummariesHelper
     )
   end
 
+  # rubocop:disable Layout/LineLength
   def schedule_pickup_link_or_dropdown
-    return if enabled_pickup_libraries.blank?
+    return no_pickups_markup if enabled_pickup_libraries.blank?
 
     pickup_libraries = enabled_pickup_libraries.keys
 
     if pickup_libraries.one?
       return link_to_schedule_pickup(
         library: pickup_libraries.first,
-        text: "🗓 Schedule pickup at #{library_name(pickup_libraries.first)}",
+        text: safe_join([sul_icon(:'request-pickup', classes: 'lg mr-2'), "Pick up requests at #{library_name(pickup_libraries.first)}"], ' '),
         css_class: 'btn btn-primary'
-      )
+      ) + request_pickup_note
     end
 
     render 'schedules/schedule_library_pickup_dropdown', pickup_libraries: pickup_libraries
+  end
+  # rubocop:enable Layout/LineLength
+
+  def no_pickups_markup
+    return if controller_name == 'requests'
+
+    link = link_to '#', role: 'button', class: 'btn btn-primary disabled' do
+      safe_join([sul_icon(:'request-pickup', classes: 'lg mr-2'), 'Pick up requests'], ' ')
+    end
+
+    link + tag.span(class: 'ml-3') { 'No items waiting.' }
+  end
+
+  def request_pickup_note
+    return '' if controller_name == 'requests'
+
+    tag.span(class: 'ml-3') do
+      if enabled_pickup_libraries.keys.one?
+        'You have items waiting.'
+      else
+        safe_join(['You have items waiting at', link_to('multiple libraries.', requests_path)], ' ')
+      end
+    end
   end
 
   private

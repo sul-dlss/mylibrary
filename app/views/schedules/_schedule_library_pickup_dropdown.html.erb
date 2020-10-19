@@ -1,10 +1,12 @@
 <div class="schedule-dropdown schedule-pickup dropdown d-inline">
   <button class="btn btn-primary dropdown-toggle" type="button" id="schedulePickupDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    🗓 Schedule pickup at ...
+    <%= sul_icon(:'request-pickup', classes: 'lg mr-2') %> Pick up requests
   </button>
   <div class="dropdown-menu" aria-labelledby="schedulePickupDropdown">
     <% pickup_libraries.each do |library, path| %>
       <%= link_to_schedule_pickup(library: library, text: library_name(library), css_class: 'dropdown-item') %>
     <% end %>
   </div>
+
+  <%= request_pickup_note %>
 </div>
