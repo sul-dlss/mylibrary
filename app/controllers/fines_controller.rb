@@ -20,7 +20,7 @@ class FinesController < ApplicationController
   end
 
   def checkouts
-    patron_or_group.checkouts.sort_by(&:due_date)
+    patron_or_group.checkouts.sort_by { |c| c.sort_key(:due_date) }
   end
 
   def item_details
