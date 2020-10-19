@@ -13,7 +13,7 @@ module CheckoutsHelper
   def time_remaining_for_checkout(checkout)
     return pluralize(checkout.days_remaining, 'day') unless checkout.short_term_loan?
 
-    distance_of_time_in_words(Time.zone.now, checkout.due_date)
+    distance_of_time_in_words(Time.zone.now, checkout.due_date) if checkout.due_date
   end
 
   # rubocop:disable Metrics/MethodLength
