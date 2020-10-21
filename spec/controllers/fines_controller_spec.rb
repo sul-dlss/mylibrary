@@ -30,7 +30,7 @@ RSpec.describe FinesController do
 
     let(:checkouts) do
       [
-        instance_double(Checkout, key: '2', due_date: Time.zone.now)
+        instance_double(Checkout, key: '2', sort_key: Time.zone.now)
       ]
     end
 
@@ -64,7 +64,7 @@ RSpec.describe FinesController do
 
     let(:checkouts) do
       [
-        instance_double(Checkout, key: '2', due_date: Time.zone.now)
+        instance_double(Checkout, key: '2', sort_key: Time.zone.now)
       ]
     end
 

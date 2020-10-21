@@ -34,6 +34,7 @@ class Checkout
 
   def days_overdue
     return 0 unless overdue?
+    return 0 if due_date.nil?
 
     ((Time.zone.now - due_date).to_i / 60 / 60 / 24) + 1
   end
@@ -111,6 +112,7 @@ class Checkout
 
   def days_remaining
     return 0 if overdue?
+    return -1 if due_date.nil?
 
     (due_date.to_date - Time.zone.now.to_date).to_i
   end
@@ -137,13 +139,13 @@ class Checkout
     'checkouts/checkout'
   end
 
-  # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
+  # rubocop:disable Metrics/MethodLength
   def sort_key(key)
     sort_key = case key
                when :status
                  [status_sort_key, title, author, shelf_key]
                when :due_date
-                 [due_date.strftime('%FT%T'), title, author, shelf_key]
+                 [due_date_sort_value, title, author, shelf_key]
                when :title
                  [title, author, shelf_key]
                when :author
@@ -153,6 +155,10 @@ class Checkout
                end
 
     sort_key.join('---')
+  end
+
+  def due_date_sort_value
+    due_date&.strftime('%FT%T') || ''
   end
 
   def status_sort_key
@@ -170,7 +176,7 @@ class Checkout
       9
     end
   end
-  # rubocop:enable Metrics/AbcSize,Metrics/MethodLength
+  # rubocop:enable Metrics/MethodLength
 
   private
 
