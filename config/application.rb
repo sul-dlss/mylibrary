@@ -107,7 +107,8 @@ module Mylibrary
       'BUSINESS',
       'EAST-ASIA',
       'GREEN',
-      'HOPKINS'
+      'HOPKINS',
+      'LAW'
     ]
 
     config.library_specific_pickup_libraries = {
