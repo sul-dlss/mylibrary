@@ -46,6 +46,14 @@ schedule_access:
   GREEN: false
   SPEC-COLL: false
 
+libcal:
+  BUSINESS:
+    u: 69353
+    lid: 4596
+    id: 9430
+    iid: 5088
+    t: 'At the'
+
 cdl:
   url: http://requests.example.com
 
