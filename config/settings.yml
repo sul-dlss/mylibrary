@@ -40,11 +40,26 @@ schedule_pickup:
   EAST-ASIA: false
   GREEN: false
   HOPKINS: false
+  LAW: false
 
 schedule_access:
   EAST-ASIA: false
   GREEN: false
   SPEC-COLL: false
+
+libcal:
+  BUSINESS:
+    u: 69353
+    lid: 4596
+    id: 9430
+    iid: 5088
+    t: 'At the'
+  LAW:
+    u: 73555
+    lid: 1122
+    gid: 11656
+    iid: 3313
+    t: 'Pickup at Outside of Law Library'
 
 cdl:
   url: http://requests.example.com

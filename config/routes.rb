@@ -9,7 +9,8 @@ Rails.application.routes.draw do
   get 'schedule/green_pickup' => 'schedules#show', oncehub_id: 'StanfordLibrariesPagingPickupGreenLibrary'
   get 'schedule/eal_pickup' => 'schedules#show', oncehub_id: 'StanfordLibrariesPagingPickupEastAsiaLibrary'
   get 'schedule/miller_pickup' => 'schedules#show', oncehub_id: 'StanfordLibrariesPagingPickupMillerLibrary'
-  get 'schedule/business_pickup' => 'schedules#business_pickup'
+  get 'schedule/business_pickup' => 'schedules#libcal_pickup', libcal_library: 'BUSINESS'
+  get 'schedule/law_pickup' => 'schedules#libcal_pickup', libcal_library: 'LAW'
 
   resources :summaries
   resources :checkouts

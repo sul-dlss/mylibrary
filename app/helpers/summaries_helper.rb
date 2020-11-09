@@ -155,7 +155,8 @@ module SummariesHelper
       'GREEN' => schedule_green_pickup_path,
       'BUSINESS' => schedule_business_pickup_path,
       'EAST-ASIA' => schedule_eal_pickup_path,
-      'HOPKINS' => schedule_miller_pickup_path
+      'HOPKINS' => schedule_miller_pickup_path,
+      'LAW' => schedule_law_pickup_path
     }
   end
 end

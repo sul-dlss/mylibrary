@@ -8,7 +8,7 @@ class SchedulesController < ApplicationController
     render layout: !request.xhr?
   end
 
-  def business_pickup
+  def libcal_pickup
     render layout: !request.xhr?
   end
 end
