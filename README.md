@@ -1,5 +1,5 @@
 # MyLibrary
-[![Build Status](https://travis-ci.org/sul-dlss/mylibrary.svg?branch=master)](https://travis-ci.org/sul-dlss/mylibrary)
+[![Build Status](https://github.com/sul-dlss/mylibrary/workflows/CI/badge.svg?branch=master)](https://github.com/sul-dlss/mylibrary/actions?query=workflow%3ACI+branch%3Amaster)
 [![Code Climate](https://codeclimate.com/github/sul-dlss/mylibrary/badges/gpa.svg)](https://codeclimate.com/github/sul-dlss/mylibrary)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/a8f1c5dab3a53ffba586/test_coverage)](https://codeclimate.com/github/sul-dlss/mylibrary/test_coverage)
 
