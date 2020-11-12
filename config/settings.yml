@@ -21,12 +21,7 @@ internal_pages_flash_message_html: ''
 internal_pages_flash_message_config: []
 
 GLOBAL_ALERT: <%= true %>
-global_alert_html: >
-  <b>COVID-19 update</b><br/>
-  Stanford Libraries <a href="https://library.stanford.edu/remote-resources">e-resources</a> are available to support you during remote instruction.<br/>
-  At this time, physical access to materials is unavailable and locations remain closed. <a href="https://library.stanford.edu/alerts">read more</a>
-  <br><br><b>Returned materials</b> <br>
-  Library materials returned to a library book drop or by mail are being held for processing. <br>They will remain in your Checkouts list until libraries reopen.
+
 symphony:
   host:
   override: PASSWORD
