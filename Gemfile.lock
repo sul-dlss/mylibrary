@@ -152,7 +152,7 @@ GEM
     ffi-compiler (1.0.1)
       ffi (>= 1.0.0)
       rake
-    global_alerts (0.0.4)
+    global_alerts (0.1.0)
       http
       rails (>= 5.0, < 7)
     globalid (0.4.2)
@@ -352,7 +352,7 @@ GEM
     turbolinks (5.2.1)
       turbolinks-source (~> 5.2)
     turbolinks-source (5.2.0)
-    tzinfo (1.2.7)
+    tzinfo (1.2.8)
       thread_safe (~> 0.1)
     uglifier (4.2.0)
       execjs (>= 0.3.0, < 3)
