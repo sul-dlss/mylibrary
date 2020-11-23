@@ -83,8 +83,7 @@ RSpec/DescribeClass:
     - 'spec/views/**/*'
 
 Style/Documentation:
-  Exclude:
-    - 'spec/support/fake_symphony.rb'
+  Enabled: false
 
 Style/WordArray:
   Exclude:
