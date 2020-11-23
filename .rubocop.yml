@@ -82,6 +82,10 @@ RSpec/DescribeClass:
   Exclude:
     - 'spec/views/**/*'
 
+Style/Documentation:
+  Exclude:
+    - 'spec/support/fake_symphony.rb'
+
 Style/WordArray:
   Exclude:
     - 'config/application.rb'
