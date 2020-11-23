@@ -1,7 +1,7 @@
 <% if Settings.scheduling %>
   <div class="page-section mt-5">
     <h3><%= sul_icon :event, classes: 'lg' %> Schedule appointments</h3>
-
+    Appointments are no longer needed to enter or pick up books at Green Library, East Asia Library, Hopkins, and GSB.
     <div class="ml-5">
       <% if patron_or_group.can_schedule? %>
         <div class="mb-3"><%= schedule_once_link_or_dropdown %></div>
