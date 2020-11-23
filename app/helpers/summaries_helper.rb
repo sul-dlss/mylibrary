@@ -110,7 +110,9 @@ module SummariesHelper
       safe_join([sul_icon(:'request-pickup', classes: 'lg mr-2'), 'Pick up requests'], ' ')
     end
 
-    link + tag.span(class: 'ml-3') { 'No items waiting.' }
+    post_text = safe_join(['No items waiting that require an appointment.', link_to_pickup_requests], ' ')
+
+    link + tag.span(class: 'ml-3') { post_text }
   end
 
   def request_pickup_note
@@ -118,7 +120,7 @@ module SummariesHelper
 
     tag.span(class: 'ml-3') do
       if enabled_pickup_libraries.keys.one?
-        'You have items waiting.'
+        link_to('You have items waiting.', requests_path)
       else
         safe_join(['You have items waiting at', link_to('multiple libraries.', requests_path)], ' ')
       end
@@ -126,6 +128,12 @@ module SummariesHelper
   end
 
   private
+
+  def link_to_pickup_requests
+    return unless (count = patron_or_group.requests.count(&:ready_for_pickup?)).positive?
+
+    link_to("#{pluralize(count, 'request')} ready for pick up.", requests_path)
+  end
 
   def enabled_schedule_libraries
     configured_schedule_libraries = Settings.schedule_access.keys.map(&:to_s)
