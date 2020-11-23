@@ -82,6 +82,9 @@ RSpec/DescribeClass:
   Exclude:
     - 'spec/views/**/*'
 
+Style/Documentation:
+  Enabled: false
+
 Style/WordArray:
   Exclude:
     - 'config/application.rb'

@@ -39,7 +39,7 @@ class SymphonyDbClient
     requests_cursor = cursor(REQUESTS_QUERY, patron_key)
     requests_cursor.exec
 
-    requests_cursor.enum_for(:fetch).map { |row| row.join('') }
+    requests_cursor.enum_for(:fetch).map { |row| row.join }
   rescue OCIException => e
     Honeybadger.notify(e)
     []
