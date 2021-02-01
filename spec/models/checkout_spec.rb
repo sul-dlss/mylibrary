@@ -185,8 +185,8 @@ RSpec.describe Checkout do
   context 'with a record that is renewable' do
     before do
       fields['circulationRule'] = {
-        'fields': {
-          'renewFromPeriod': 999_999
+        fields: {
+          renewFromPeriod: 999_999
         }
       }
       fields['unseenRenewalsRemaining'] = 1
@@ -206,8 +206,8 @@ RSpec.describe Checkout do
   context 'with a record that has unseenRenewalsRemaining as 0' do
     before do
       fields['circulationRule'] = {
-        'fields': {
-          'renewFromPeriod': 999_999
+        fields: {
+          renewFromPeriod: 999_999
         }
       }
       fields['unseenRenewalsRemaining'] = 0
@@ -239,8 +239,8 @@ RSpec.describe Checkout do
   context 'when a record has seenRenewalsRemaining as 0' do
     before do
       fields['circulationRule'] = {
-        'fields': {
-          'renewFromPeriod': 999_999
+        fields: {
+          renewFromPeriod: 999_999
         }
       }
       fields['seenRenewalsRemaining'] = 0
@@ -258,10 +258,10 @@ RSpec.describe Checkout do
   context 'when a record is a reserve item' do
     before do
       fields['circulationRule'] = {
-        'fields': {
-          'renewFromPeriod': 999_999
+        fields: {
+          renewFromPeriod: 999_999
         },
-        'key': '2HWF-RES'
+        key: '2HWF-RES'
       }
     end
 
