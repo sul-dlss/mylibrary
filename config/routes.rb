@@ -3,18 +3,25 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
   root to: 'sessions#index'
-  get 'schedule/eal' => 'schedules#show', oncehub_id: 'StanfordLibrariesEastAsiaLibraryEntry'
-  get 'schedule/green' => 'schedules#show', oncehub_id: 'StanfordLibrariesGreenEntry'
-  get 'schedule/spec' => 'schedules#show', oncehub_id: 'StanfordLibrariesVisitSpecialCollections'
-  get 'schedule/ars' => 'schedules#show', oncehub_id: 'StanfordLibrariesVisitArs'
-  get 'schedule/music' => 'schedules#show', oncehub_id: 'StanfordLibrariesVisitMusic'
 
-  get 'schedule/green_pickup' => 'schedules#show', oncehub_id: 'StanfordLibrariesPagingPickupGreenLibrary'
-  get 'schedule/eal_pickup' => 'schedules#show', oncehub_id: 'StanfordLibrariesPagingPickupEastAsiaLibrary'
-  get 'schedule/miller_pickup' => 'schedules#show', oncehub_id: 'StanfordLibrariesPagingPickupMillerLibrary'
+  # business + law use libcal, not oncehub, so we override their routes:
+  get 'schedule/pickup/BUSINESS' => 'schedules#libcal_pickup', id: 'BUSINESS'
+  get 'schedule/pickup/LAW' => 'schedules#libcal_pickup', id: 'LAW'
 
-  get 'schedule/business_pickup' => 'schedules#libcal_pickup', libcal_library: 'BUSINESS'
-  get 'schedule/law_pickup' => 'schedules#libcal_pickup', libcal_library: 'LAW'
+  get 'schedule/visit/:id' => 'schedules#show', as: 'schedule_visit', type: :visit
+  get 'schedule/pickup/:id' => 'schedules#show', as: 'schedule_pickup', type: :pickup
+
+  # legacy url support
+  get 'schedule/eal' => 'schedules#show', id: 'EAST-ASIA', type: :visit
+  get 'schedule/green' => 'schedules#show', id: 'GREEN', type: :visit
+  get 'schedule/spec' => 'schedules#show', id: 'SPEC-COLL', type: :visit
+
+  get 'schedule/green_pickup' => 'schedules#show', id: 'GREEN', type: :pickup
+  get 'schedule/eal_pickup' => 'schedules#show', id: 'EAST-ASIA', type: :pickup
+  get 'schedule/miller_pickup' => 'schedules#show', id: 'HOPKINS', type: :pickup
+
+  get 'schedule/business_pickup' => 'schedules#libcal_pickup', id: 'BUSINESS'
+  get 'schedule/law_pickup' => 'schedules#libcal_pickup', id: 'LAW'
 
   resources :summaries
   resources :checkouts

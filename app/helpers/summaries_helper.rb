@@ -11,7 +11,7 @@ module SummariesHelper
   # rubocop:disable Layout/LineLength
   def link_to_spec_visit
     link = if patron_or_group.can_schedule_special_collections_visit?
-             link_to schedule_spec_path, role: 'button', class: 'btn btn-primary', data: { 'mylibrary-modal': 'trigger' } do
+             link_to schedule_visit_path('SPEC-COLL'), role: 'button', class: 'btn btn-primary', data: { 'mylibrary-modal': 'trigger' } do
                safe_join([sul_icon(:'visit-spec', classes: 'lg mr-2'), 'Visit Reading Room'], ' ')
              end
            else
@@ -39,7 +39,7 @@ module SummariesHelper
   def link_to_schedule_once_visit(library:, text:, css_class: nil)
     link_to(
       text,
-      enabled_schedule_libraries[library],
+      schedule_visit_path(library),
       role: 'button',
       class: css_class,
       data: { 'mylibrary-modal': 'trigger' }
@@ -48,9 +48,9 @@ module SummariesHelper
 
   # rubocop:disable Layout/LineLength
   def schedule_once_link_or_dropdown
-    return if enabled_schedule_libraries.blank?
+    schedulable_libraries = enabled_schedule_libraries
 
-    schedulable_libraries = enabled_schedule_libraries.keys
+    return if schedulable_libraries.blank?
 
     if schedulable_libraries.one?
       return link_to_schedule_once_visit(
@@ -74,11 +74,11 @@ module SummariesHelper
   end
 
   def link_to_schedule_pickup(library:, text:, css_class: nil)
-    return unless enabled_pickup_libraries[library]
+    return unless enabled_pickup_libraries.include? library
 
     link_to(
       text,
-      enabled_pickup_libraries[library],
+      schedule_pickup_path(library),
       role: 'button',
       class: css_class,
       data: { 'mylibrary-modal': 'trigger' }
@@ -87,9 +87,9 @@ module SummariesHelper
 
   # rubocop:disable Layout/LineLength
   def schedule_pickup_link_or_dropdown
-    return no_pickups_markup if enabled_pickup_libraries.blank?
+    pickup_libraries = enabled_pickup_libraries
 
-    pickup_libraries = enabled_pickup_libraries.keys
+    return no_pickups_markup if pickup_libraries.blank?
 
     if pickup_libraries.one?
       return link_to_schedule_pickup(
@@ -119,7 +119,7 @@ module SummariesHelper
     return '' if controller_name == 'requests'
 
     tag.span(class: 'ml-3') do
-      if enabled_pickup_libraries.keys.one?
+      if enabled_pickup_libraries.one?
         link_to('You have items waiting.', requests_path)
       else
         safe_join(['You have items waiting at', link_to('multiple libraries.', requests_path)], ' ')
@@ -138,35 +138,16 @@ module SummariesHelper
   def enabled_schedule_libraries
     configured_schedule_libraries = Settings.schedule_access.keys.map(&:to_s)
 
-    library_schedule_path_map.select do |library|
-      configured_schedule_libraries.include?(library) && patron_or_group.can_schedule_access?(library)
+    configured_schedule_libraries.select do |library|
+      patron_or_group.can_schedule_access?(library)
     end
-  end
-
-  def library_schedule_path_map
-    {
-      'GREEN' => schedule_green_path,
-      'EAST-ASIA' => schedule_eal_path,
-      'MUSIC' => schedule_music_path,
-      'ARS' => schedule_ars_path
-    }
   end
 
   def enabled_pickup_libraries
     configured_pickup_libraries = Settings.schedule_pickup.keys.map(&:to_s)
 
-    library_pickup_path_map.select do |library|
-      configured_pickup_libraries.include?(library) && patron_or_group.can_schedule_pickup?(library)
+    configured_pickup_libraries.select do |library|
+      patron_or_group.can_schedule_pickup?(library)
     end
-  end
-
-  def library_pickup_path_map
-    {
-      'GREEN' => schedule_green_pickup_path,
-      'BUSINESS' => schedule_business_pickup_path,
-      'EAST-ASIA' => schedule_eal_pickup_path,
-      'HOPKINS' => schedule_miller_pickup_path,
-      'LAW' => schedule_law_pickup_path
-    }
   end
 end

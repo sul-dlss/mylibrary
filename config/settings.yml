@@ -44,6 +44,19 @@ schedule_access:
   MUSIC: false
   SPEC-COLL: false
 
+oncehub:
+  visit:
+    EAST-ASIA: 'StanfordLibrariesEastAsiaLibraryEntry'
+    GREEN: 'StanfordLibrariesGreenEntry'
+    SPEC-COLL: 'StanfordLibrariesVisitSpecialCollections'
+    ARS: 'StanfordLibrariesVisitArs'
+    MUSIC: 'StanfordLibrariesMusicLibraryEntry'
+  pickup:
+    GREEN: 'StanfordLibrariesPagingPickupGreenLibrary'
+    EAST-ASIA: 'StanfordLibrariesPagingPickupEastAsiaLibrary'
+    HOPKINS: 'StanfordLibrariesPagingPickupMillerLibrary'
+
+
 libcal:
   BUSINESS:
     u: 69353
