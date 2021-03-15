@@ -38,8 +38,10 @@ schedule_pickup:
   LAW: false
 
 schedule_access:
+  ARS: false
   EAST-ASIA: false
   GREEN: false
+  MUSIC: false
   SPEC-COLL: false
 
 libcal:

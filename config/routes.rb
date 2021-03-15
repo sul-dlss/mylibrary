@@ -6,9 +6,13 @@ Rails.application.routes.draw do
   get 'schedule/eal' => 'schedules#show', oncehub_id: 'StanfordLibrariesEastAsiaLibraryEntry'
   get 'schedule/green' => 'schedules#show', oncehub_id: 'StanfordLibrariesGreenEntry'
   get 'schedule/spec' => 'schedules#show', oncehub_id: 'StanfordLibrariesVisitSpecialCollections'
+  get 'schedule/ars' => 'schedules#show', oncehub_id: 'StanfordLibrariesVisitArs'
+  get 'schedule/music' => 'schedules#show', oncehub_id: 'StanfordLibrariesVisitMusic'
+
   get 'schedule/green_pickup' => 'schedules#show', oncehub_id: 'StanfordLibrariesPagingPickupGreenLibrary'
   get 'schedule/eal_pickup' => 'schedules#show', oncehub_id: 'StanfordLibrariesPagingPickupEastAsiaLibrary'
   get 'schedule/miller_pickup' => 'schedules#show', oncehub_id: 'StanfordLibrariesPagingPickupMillerLibrary'
+
   get 'schedule/business_pickup' => 'schedules#libcal_pickup', libcal_library: 'BUSINESS'
   get 'schedule/law_pickup' => 'schedules#libcal_pickup', libcal_library: 'LAW'
 

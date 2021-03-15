@@ -146,7 +146,9 @@ module SummariesHelper
   def library_schedule_path_map
     {
       'GREEN' => schedule_green_path,
-      'EAST-ASIA' => schedule_eal_path
+      'EAST-ASIA' => schedule_eal_path,
+      'MUSIC' => schedule_music_path,
+      'ARS' => schedule_ars_path
     }
   end
 
