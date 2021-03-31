@@ -49,7 +49,7 @@ oncehub:
     EAST-ASIA: 'StanfordLibrariesEastAsiaLibraryEntry'
     GREEN: 'StanfordLibrariesGreenEntry'
     SPEC-COLL: 'StanfordLibrariesVisitSpecialCollections'
-    ARS: 'StanfordLibrariesVisitArs'
+    ARS: 'StanfordLibrariesArchiveofRecordedSoundEntry'
     MUSIC: 'StanfordLibrariesMusicLibraryEntry'
   pickup:
     GREEN: 'StanfordLibrariesPagingPickupGreenLibrary'
