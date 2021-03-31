@@ -26,12 +26,12 @@ RSpec.describe SummariesHelper do
 
     it 'links to the appropriate href given the library' do
       link = helper.link_to_schedule_once_visit(library: 'EAST-ASIA', text: 'East Asia Library')
-      expect(link).to include 'href="/schedule/eal"'
+      expect(link).to include 'href="/schedule/visit/EAST-ASIA"'
     end
 
     it 'uses the given text as the link text' do
       link = Capybara.string(helper.link_to_schedule_once_visit(library: 'GREEN', text: 'Green Library'))
-      expect(link).to have_link('Green Library', href: '/schedule/green')
+      expect(link).to have_link('Green Library', href: '/schedule/visit/GREEN')
     end
   end
 
@@ -59,7 +59,7 @@ RSpec.describe SummariesHelper do
       it 'renders a single button to schedule a visit' do
         expect(
           Capybara.string(helper.schedule_once_link_or_dropdown)
-        ).to have_link('Enter Green Library for research', href: '/schedule/green')
+        ).to have_link('Enter Green Library for research', href: '/schedule/visit/GREEN')
       end
     end
 
@@ -113,12 +113,12 @@ RSpec.describe SummariesHelper do
 
       it 'uses the given text as the link text' do
         link = Capybara.string(helper.link_to_schedule_pickup(library: 'GREEN', text: 'Green Library'))
-        expect(link).to have_link('Green Library', href: '/schedule/green_pickup')
+        expect(link).to have_link('Green Library', href: '/schedule/pickup/GREEN')
       end
 
       it 'links to the appropriate href given the library' do
         link = helper.link_to_schedule_pickup(library: 'BUSINESS', text: 'Business Library')
-        expect(link).to include 'href="/schedule/business_pickup"'
+        expect(link).to include 'href="/schedule/pickup/BUSINESS"'
       end
     end
 
@@ -140,7 +140,7 @@ RSpec.describe SummariesHelper do
 
         it 'links directly to that library' do
           link = helper.schedule_pickup_link_or_dropdown
-          expect(link).to have_link('Pick up requests at Green Library', href: '/schedule/green_pickup')
+          expect(link).to have_link('Pick up requests at Green Library', href: '/schedule/pickup/GREEN')
         end
 
         it 'does not have a dropdown' do

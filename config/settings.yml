@@ -38,9 +38,24 @@ schedule_pickup:
   LAW: false
 
 schedule_access:
+  ARS: false
   EAST-ASIA: false
   GREEN: false
+  MUSIC: false
   SPEC-COLL: false
+
+oncehub:
+  visit:
+    EAST-ASIA: 'StanfordLibrariesEastAsiaLibraryEntry'
+    GREEN: 'StanfordLibrariesGreenEntry'
+    SPEC-COLL: 'StanfordLibrariesVisitSpecialCollections'
+    ARS: 'StanfordLibrariesArchiveofRecordedSoundEntry'
+    MUSIC: 'StanfordLibrariesMusicLibraryEntry'
+  pickup:
+    GREEN: 'StanfordLibrariesPagingPickupGreenLibrary'
+    EAST-ASIA: 'StanfordLibrariesPagingPickupEastAsiaLibrary'
+    HOPKINS: 'StanfordLibrariesPagingPickupMillerLibrary'
+
 
 libcal:
   BUSINESS:

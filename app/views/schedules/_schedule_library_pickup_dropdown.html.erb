@@ -3,7 +3,7 @@
     <%= sul_icon(:'request-pickup', classes: 'lg mr-2') %> Pick up requests
   </button>
   <div class="dropdown-menu" aria-labelledby="schedulePickupDropdown">
-    <% pickup_libraries.each do |library, path| %>
+    <% pickup_libraries.each do |library| %>
       <%= link_to_schedule_pickup(library: library, text: library_name(library), css_class: 'dropdown-item') %>
     <% end %>
   </div>
