@@ -40,10 +40,8 @@ class Group < Patron
   end
 
   def member_list_names
-    @member_list_names ||= begin
-      member_list.each_with_object({}) do |member, hash|
-        hash[member.key] = member.display_name
-      end
+    @member_list_names ||= member_list.each_with_object({}) do |member, hash|
+      hash[member.key] = member.display_name
     end
   end
 
