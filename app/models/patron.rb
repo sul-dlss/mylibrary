@@ -245,7 +245,7 @@ class Patron
   end
 
   def can_schedule_special_collections_visit?
-    can_schedule_access?('SPEC-COLL') && requests.any? { |r| r.pickup_library == 'SPEC-DESK' && r.ready_for_pickup? }
+    Settings.schedule_spec && requests.any? { |r| r.pickup_library == 'SPEC-DESK' && r.ready_for_pickup? }
   end
 
   private
