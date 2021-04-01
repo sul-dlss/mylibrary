@@ -20,4 +20,5 @@ schedule_pickup:
 schedule_access:
   EAST-ASIA: true
   GREEN: true
-  SPEC-COLL: true
+
+schedule_spec: true

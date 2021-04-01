@@ -10,23 +10,21 @@ module SummariesHelper
 
   # rubocop:disable Layout/LineLength
   def link_to_spec_visit
-    link = if patron_or_group.can_schedule_special_collections_visit?
-             link_to schedule_visit_path('SPEC-COLL'), role: 'button', class: 'btn btn-primary', data: { 'mylibrary-modal': 'trigger' } do
-               safe_join([sul_icon(:'visit-spec', classes: 'lg mr-2'), 'Visit Reading Room'], ' ')
-             end
-           else
-             link_to '#', role: 'button', class: 'btn btn-primary disabled' do
-               safe_join([sul_icon(:'visit-spec', classes: 'lg mr-2'), 'Visit Reading Room'], ' ')
-             end
-           end
+    return unless Settings.schedule_spec
 
-    link + spec_visit_note
+    if patron_or_group.can_schedule_special_collections_visit?
+      link_to schedule_visit_path('SPEC-COLL'), role: 'button', class: 'btn btn-primary', data: { 'mylibrary-modal': 'trigger' } do
+        safe_join([sul_icon(:'visit-spec', classes: 'lg mr-2'), 'Visit Reading Room'], ' ')
+      end
+    else
+      link_to '#', role: 'button', class: 'btn btn-primary disabled' do
+        safe_join([sul_icon(:'visit-spec', classes: 'lg mr-2'), 'Visit Reading Room'], ' ')
+      end
+    end
   end
   # rubocop:enable Layout/LineLength
 
   def spec_visit_note
-    return '' if controller_name == 'requests'
-
     tag.span(class: 'ml-3') do
       if patron_or_group.can_schedule_special_collections_visit?
         'You have items ready for in-library use.'

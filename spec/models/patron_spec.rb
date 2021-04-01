@@ -571,7 +571,7 @@ RSpec.describe Patron do
         fields[:profile]['key'] = 'MXF'
       end
 
-      it { expect(patron.can_schedule_access?('SPEC-COLL')).to eq true }
+      it { expect(patron.can_schedule_access?('GREEN')).to eq true }
     end
 
     context 'with a user that should get access (academic staff/fellow)' do

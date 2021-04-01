@@ -44,6 +44,8 @@ schedule_access:
   MUSIC: false
   SPEC-COLL: false
 
+schedule_spec: true
+
 oncehub:
   visit:
     EAST-ASIA: 'StanfordLibrariesEastAsiaLibraryEntry'
@@ -55,7 +57,6 @@ oncehub:
     GREEN: 'StanfordLibrariesPagingPickupGreenLibrary'
     EAST-ASIA: 'StanfordLibrariesPagingPickupEastAsiaLibrary'
     HOPKINS: 'StanfordLibrariesPagingPickupMillerLibrary'
-
 
 libcal:
   BUSINESS:
