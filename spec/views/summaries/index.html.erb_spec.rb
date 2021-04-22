@@ -30,16 +30,10 @@ RSpec.describe 'summaries/index.html.erb' do
   end
 
   before do
-    controller.singleton_class.class_eval do
-      protected
-
-      def patron_or_group; end
-
-      helper_method :patron_or_group
-    end
-
     stub_template 'shared/_navigation.html.erb' => 'Navigation'
-    allow(view).to receive(:patron_or_group).and_return(patron)
+    without_partial_double_verification do
+      allow(view).to receive(:patron_or_group).and_return(patron)
+    end
   end
 
   context 'when the patron is barred' do

@@ -9,14 +9,9 @@ RSpec.describe 'checkouts/_renew_all_button.html.erb' do
   let(:checkouts) { [instance_double(Checkout, renewable?: true)] }
 
   before do
-    controller.singleton_class.class_eval do
-      protected
-
-      def patron_or_group; end
-      helper_method :patron_or_group
+    without_partial_double_verification do
+      allow(view).to receive(:patron_or_group).and_return(patron)
     end
-
-    allow(view).to receive(:patron_or_group).and_return(patron)
   end
 
   it 'renders a button' do
