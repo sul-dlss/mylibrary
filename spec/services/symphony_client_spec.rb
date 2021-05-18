@@ -96,6 +96,13 @@ RSpec.describe SymphonyClient do
       expect(client.patron_info('somepatronkey')).to include 'key' => 'somepatronkey'
     end
 
+    it 'requests the itemCategory5 details for checkouts' do
+      client.patron_info('somepatronkey', item_details: {})
+
+      expect(WebMock).to have_requested(:get, 'https://example.com/symws/user/patron/key/somepatronkey')
+        .with(query: hash_including(includeFields: match(/circRecordList{.*,item{itemCategory5}}/)))
+    end
+
     context 'when requesting item details' do
       it 'requests the item details for checkouts' do
         client.patron_info('somepatronkey', item_details: { circRecordList: true })
