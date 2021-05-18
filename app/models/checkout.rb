@@ -63,7 +63,7 @@ class Checkout
     Time.zone.parse(fields['renewalDate']) if fields['renewalDate']
   end
 
-  # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
+  # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity,Metrics/MethodLength
   def non_renewable_reason
     return 'Item is assumed lost; you must pay the fee or return the item.' if lost?
     return 'No. Another user is waiting for this item.' if recalled?
@@ -77,10 +77,15 @@ class Checkout
 
     return 'No renewals left for this item.' if seen_renewals_remaining.zero?
     return 'Renew Reserve items in person.' if reserve_item?
+    return 'No. Another user is waiting for this item.' if item_category_non_renewable?
 
     'Too soon to renew.' unless renewable_at&.past?
   end
-  # rubocop:enable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity
+  # rubocop:enable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity,Metrics/MethodLength
+
+  def item_category_non_renewable?
+    item.dig('itemCategory5', 'key') == 'NORENEW'
+  end
 
   def renewable?
     non_renewable_reason.blank?
