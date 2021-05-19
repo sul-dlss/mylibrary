@@ -203,6 +203,28 @@ RSpec.describe Checkout do
     end
   end
 
+  context 'with a record with *an item* that is not renewable' do
+    before do
+      fields[:item][:fields][:itemCategory5] = { resource: 'foobar', key: 'NORENEW' }
+      fields['circulationRule'] = {
+        fields: {
+          renewFromPeriod: 999_999
+        }
+      }
+      fields['unseenRenewalsRemaining'] = 1
+    end
+
+    it 'has a non-renewable status' do
+      expect(checkout).not_to be_renewable
+    end
+
+    describe '#non_renewable_reason' do
+      it 'gives a reason why it is not renewable' do
+        expect(checkout.non_renewable_reason).to match('No. Another user is waiting for this item')
+      end
+    end
+  end
+
   context 'with a record that has unseenRenewalsRemaining as 0' do
     before do
       fields['circulationRule'] = {

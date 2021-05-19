@@ -59,10 +59,15 @@ class RenewalsController < ApplicationController
     params.require(%I[resource item_key])
   end
 
+  # Make sure the checkout belongs to the user trying to do the renewal, and
+  # also make sure the item is not renewable for reasons that symphony doesn't
+  # know about (e.g. the itemCat5 hack we're doing during COVID-19 times; other
+  # conditions are handled by business logic in Symphony so we don't need to
+  # worry about being exhaustive here.)
   def authorize_update!
-    return if patron_or_group.checkouts.any? { |request| request.item_key == params.require(:item_key) }
+    checkout = patron_or_group.checkouts.find { |request| request.item_key == params.require(:item_key) }
 
-    raise CheckoutException, 'Error'
+    raise CheckoutException, 'Error' if checkout.nil? || checkout.item_category_non_renewable?
   end
 
   def deny_access

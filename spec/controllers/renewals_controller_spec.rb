@@ -12,7 +12,7 @@ RSpec.describe RenewalsController, type: :controller do
   end
 
   let(:mock_patron) { instance_double(Patron, checkouts: checkouts) }
-  let(:checkouts) { [instance_double(Checkout, item_key: '123')] }
+  let(:checkouts) { [instance_double(Checkout, item_key: '123', item_category_non_renewable?: false)] }
 
   before do
     warden.set_user(user)
@@ -74,6 +74,16 @@ RSpec.describe RenewalsController, type: :controller do
         post :create, params: { resource: 'abc', item_key: 'some_made_up_item_key' }
 
         expect(response).to redirect_to checkouts_path
+      end
+    end
+
+    context 'when the requested item is not eligible even though symphony does not stop us' do
+      let(:checkouts) { [instance_double(Checkout, item_key: '123', item_category_non_renewable?: true)] }
+
+      it 'does not renew the item and sets flash messages' do
+        post :create, params: { resource: 'abc', item_key: '123' }
+
+        expect(flash[:error]).to match('An unexpected error has occurred')
       end
     end
   end
