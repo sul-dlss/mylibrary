@@ -35,6 +35,8 @@ gem 'honeybadger'
 
 gem 'config'
 
+# Until we upgrade to Rails 6, we cannot upgrade http to v.5.
+# See https://github.com/httprb/http/issues/673#issuecomment-859139518
 gem 'http', '~> 4.4'
 
 gem 'okcomputer'

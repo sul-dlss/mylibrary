@@ -2,6 +2,7 @@
 
 set :application, 'mylibrary'
 set :repo_url, 'git@github.com:sul-dlss/mylibrary.git'
+set :branch, 'main'
 
 # Default deploy_to directory is /var/www/my_app_name
 set :deploy_to, '/opt/app/mylibrary/mylibrary'
