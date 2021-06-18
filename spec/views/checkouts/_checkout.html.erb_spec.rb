@@ -39,16 +39,9 @@ RSpec.describe 'checkouts/_checkout.html.erb' do
   let(:patron) { instance_double(Patron, can_renew?: false) }
 
   before do
-    controller.singleton_class.class_eval do
-      protected
-
-      def checkout; end
-
-      def patron; end
-      helper_method :checkout, :patron
+    without_partial_double_verification do
+      allow(view).to receive(:patron).and_return(patron)
     end
-
-    allow(view).to receive(:patron).and_return(patron)
 
     render 'checkouts/checkout', checkout: checkout
   end

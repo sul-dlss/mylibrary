@@ -66,7 +66,7 @@ class PaymentsController < ApplicationController
     {
       key: 'payments',
       type: 'async',
-      html: render_to_string(formats: ['html'], layout: false)
+      html: render_to_string(formats: [:html], layout: false)
     }
   end
 

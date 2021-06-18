@@ -21,15 +21,9 @@ RSpec.describe 'patron/_patron.html.erb' do
   end
 
   before do
-    controller.singleton_class.class_eval do
-      protected
-
-      def patron; end
-
-      helper_method :patron
+    without_partial_double_verification do
+      allow(view).to receive(:patron).and_return(patron)
     end
-
-    allow(view).to receive(:patron).and_return(patron)
     stub_template 'shared/_schedule_links.html.erb' => ''
   end
 

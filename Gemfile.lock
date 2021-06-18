@@ -213,6 +213,8 @@ GEM
     puma (3.12.6)
     racc (1.5.2)
     rack (2.2.3)
+    rack-mini-profiler (2.3.2)
+      rack (>= 1.2.0)
     rack-protection (2.1.0)
       rack
     rack-test (1.1.0)
@@ -400,8 +402,8 @@ DEPENDENCIES
   dlss-capistrano
   global_alerts
   honeybadger
-  http (~> 4.4)
-  jbuilder (~> 2.5)
+  http
+  jbuilder (~> 2.7)
   jquery-rails
   listen (>= 3.0.5, < 3.2)
   mysql2 (< 0.5.3)
@@ -409,6 +411,7 @@ DEPENDENCIES
   nokogiri
   okcomputer
   puma (~> 3.11)
+  rack-mini-profiler (~> 2.0)
   rails (~> 5.2.3)
   rails-controller-testing
   recaptcha

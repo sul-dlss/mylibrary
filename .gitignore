@@ -38,3 +38,10 @@ config/environments/*.local.yml
 
 # Ignore coverage results
 coverage/
+
+/public/packs
+/public/packs-test
+/node_modules
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity
