@@ -29,14 +29,9 @@ RSpec.describe 'requests/_request.html.erb' do
   let(:patron) { instance_double(Patron, can_modify_requests?: false) }
 
   before do
-    controller.singleton_class.class_eval do
-      protected
-
-      def patron; end
-      helper_method :request, :patron
+    without_partial_double_verification do
+      allow(view).to receive(:patron).and_return(patron)
     end
-
-    allow(view).to receive(:patron).and_return(patron)
 
     render partial: 'requests/request', locals: { request: mock_request }
   end

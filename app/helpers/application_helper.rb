@@ -51,10 +51,10 @@ module ApplicationHelper
   # the svg everytime.
   # @param [String, Symbol] icon_name
   # @return [String]
-  def sul_icon(icon_name, options = {})
-    Rails.cache.fetch([:sul_icon, icon_name, options]) do
-      icon = Icon.new(icon_name, options)
-      tag.span(icon.svg.html_safe, icon.options) # rubocop:disable Rails/OutputSafety
+  def sul_icon(icon_name, **kwargs)
+    Rails.cache.fetch([:sul_icon, icon_name, kwargs]) do
+      icon = Icon.new(icon_name, **kwargs)
+      tag.span(icon.svg.html_safe, **icon.options) # rubocop:disable Rails/OutputSafety
     end
   end
 

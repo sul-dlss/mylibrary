@@ -1,5 +1,11 @@
 {
   "name": "mylibrary",
   "private": true,
-  "dependencies": {}
+  "dependencies": {
+    "@rails/webpacker": "^5.4.0",
+    "npm": "^7.18.1"
+  },
+  "devDependencies": {
+    "webpack-dev-server": "^3.11.2"
+  }
 }
