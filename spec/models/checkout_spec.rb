@@ -301,7 +301,7 @@ RSpec.describe Checkout do
   end
 
   it 'is not from borrow direct' do
-    expect(checkout).not_to be_from_borrow_direct
+    expect(checkout).not_to be_from_ill
   end
 
   it 'has a title' do
@@ -395,12 +395,36 @@ RSpec.describe Checkout do
   context 'when the library is SUL' do
     before { fields[:library] = { key: 'SUL' } }
 
+    it 'represents itself as coming from ILL' do
+      expect(checkout.library).to eq 'ILL'
+    end
+
+    it 'is from borrow direct' do
+      expect(checkout).to be_from_ill
+    end
+  end
+
+  context 'when the item type is BORROWDIR' do
+    before { fields[:item][:fields][:itemType] = { key: 'BORROWDIR' } }
+
     it 'represents itself as coming from BorrowDirect' do
       expect(checkout.library).to eq 'BORROW_DIRECT'
     end
 
-    it 'is from borrow direct' do
-      expect(checkout).to be_from_borrow_direct
+    it 'is from ILL' do
+      expect(checkout).to be_from_ill
+    end
+  end
+
+  context 'when the item type is ILB*' do
+    before { fields[:item][:fields][:itemType] = { key: 'ILB12345' } }
+
+    it 'represents itself as coming from ILL' do
+      expect(checkout.library).to eq 'ILL'
+    end
+
+    it 'is from ILL' do
+      expect(checkout).to be_from_ill
     end
   end
 

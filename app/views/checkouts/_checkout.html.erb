@@ -83,6 +83,6 @@
       <% end %>
     </dl>
 
-    <%= detail_link_to_searchworks(checkout.catkey) unless checkout.from_borrow_direct? %>
+    <%= detail_link_to_searchworks(checkout.catkey) unless checkout.from_ill? %>
   </div>
 </li>

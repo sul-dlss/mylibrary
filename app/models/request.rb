@@ -95,16 +95,19 @@ class Request
   end
 
   def library
-    code = item&.dig('library', 'key')
-    code ||= bib['callList']&.first&.dig('fields', 'library', 'key')
-    return Settings.BORROW_DIRECT_CODE if from_borrow_direct?
-    return 'CDL' if cdl?
-
-    code
+    if from_borrow_direct?
+      Settings.BORROW_DIRECT_CODE
+    elsif from_ill?
+      Settings.ILL_CODE
+    elsif cdl?
+      'CDL'
+    else
+      library_key
+    end
   end
 
-  def from_borrow_direct?
-    fields.dig('item', 'fields', 'library', 'key') == 'SUL'
+  def from_ill?
+    (library_key == 'SUL') || from_borrow_direct? || from_ilb?
   end
 
   # rubocop:disable Metrics/MethodLength
@@ -194,5 +197,21 @@ class Request
 
   def fields
     record['fields']
+  end
+
+  def library_key
+    item&.dig('library', 'key') || bib['callList']&.first&.dig('fields', 'library', 'key')
+  end
+
+  def from_ilb?
+    item_type&.starts_with? 'ILB'
+  end
+
+  def from_borrow_direct?
+    item_type == 'BORROWDIR'
+  end
+
+  def item_type
+    fields.dig('item', 'fields', 'itemType', 'key')
   end
 end
