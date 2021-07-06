@@ -11,8 +11,7 @@ interactions with library access services.
 ## Requirements
 1. Ruby (2.6.3 or greater)
 2. Rails (5.2.3 or greater)
-3. Connection to Symphony Web Services (hosted on symphony-webservices-prod.stanford.edu and
-   symphony-webservices-dev.stanford.edu)
+3. Connection to Symphony Web Services (hosted on symws-prod.stanford.edu and symws-dev.stanford.edu)
 
 ## Installation
 
@@ -23,6 +22,7 @@ Clone the repository
 Change directories into the app and install dependencies
 
     $ bundle install
+    $ yarn install
 
 Start the development server
 
@@ -37,7 +37,7 @@ you need to have the Oracle database drivers available. Full [installation instr
 
 The MyLibrary app will be configuired to connect to various backend web services, particularly Symphony Web Services and
 ILLiad Web Services. This will likely happen on an environment to enviroment basis via `config/settings`, so that (e.g.) `development`
-mode will point to `symphony-webservices-dev` and `sul-illiad-test` respectively.
+mode will point to `symws-dev` and `sul-illiad-test` respectively.
 
 ### Web Services Connectivity
 
@@ -121,4 +121,4 @@ server run:
     $ cap dev deploy
 
 ## Feedback
-You can provide feedback on MyLibrary through the "Feedback" link on the homepage. The [feedback queue](https://jirasul.stanford.edu/jira/projects/MYLIBACCNT) is mangaged in SUL JIRA.
+You can provide feedback on MyLibrary through the "Feedback" link on the homepage. The [feedback queue](https://jirasul.stanford.edu/jira/projects/MYLIBACCNT) is managed in SUL JIRA.
