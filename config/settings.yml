@@ -27,6 +27,7 @@ symphony:
   override: PASSWORD
 
 BORROW_DIRECT_CODE: BORROW_DIRECT
+ILL_CODE: ILL
 
 scheduling: false
 

@@ -11,7 +11,7 @@ RSpec.describe 'requests/_request.html.erb' do
       call_number: '',
       catkey: '12345',
       expiration_date: Time.zone.now + 1.day,
-      from_borrow_direct?: false,
+      from_ill?: false,
       key: 'abc123',
       pickup_library: 'XYZ',
       placed_date: Time.zone.now,
@@ -43,8 +43,8 @@ RSpec.describe 'requests/_request.html.erb' do
     )
   end
 
-  context 'when the library is BORROW_DIRECT' do
-    let(:request_attributes) { { from_borrow_direct?: true } }
+  context 'when the library is from ILL' do
+    let(:request_attributes) { { from_ill?: true } }
 
     it 'does not include a link to the item in SearchWorks' do
       expect(rendered).not_to have_link('View in SearchWorks')

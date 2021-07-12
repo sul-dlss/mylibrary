@@ -86,6 +86,7 @@ module Mylibrary
       'HOOVER' => 'Hoover Library',
       'HOPKINS' => 'Marine Biology Library (Miller)',
       'HV-ARCHIVE' => 'Hoover Archives',
+      'ILL' => 'Interlibrary borrowing',
       'LANE-MED' => 'Medical Library (Lane)',
       'LATHROP' => 'Lathrop Library',
       'LAW' => 'Law Library (Crown)',

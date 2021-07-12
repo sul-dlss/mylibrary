@@ -123,17 +123,18 @@ class Checkout
   end
 
   def library
-    # In some edge cases Symws returns an empty block for fields['library']
-    return 'Stanford Libraries' if fields['library'].nil?
-
-    code = fields['library']['key']
-    return Settings.BORROW_DIRECT_CODE if from_borrow_direct?
-
-    code
+    if from_borrow_direct?
+      Settings.BORROW_DIRECT_CODE
+    elsif from_ill?
+      Settings.ILL_CODE
+    else
+      # In some edge cases Symws returns an empty block for fields['library']
+      library_key || 'Stanford Libraries'
+    end
   end
 
-  def from_borrow_direct?
-    fields.dig('library', 'key') == 'SUL'
+  def from_ill?
+    (library_key == 'SUL') || from_borrow_direct? || from_ilb?
   end
 
   def short_term_loan?
@@ -221,5 +222,21 @@ class Checkout
 
   def recall_due_date
     fields['recallDueDate'] && Time.zone.parse(fields['recallDueDate'])
+  end
+
+  def library_key
+    fields&.dig('library', 'key')
+  end
+
+  def from_ilb?
+    item_type&.starts_with? 'ILB'
+  end
+
+  def from_borrow_direct?
+    item_type == 'BORROWDIR'
+  end
+
+  def item_type
+    fields.dig('item', 'fields', 'itemType', 'key')
   end
 end
