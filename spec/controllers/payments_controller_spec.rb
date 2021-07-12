@@ -135,8 +135,8 @@ RSpec.describe PaymentsController do
 
       it 'flashes a success message' do
         expect(flash[:success]).to eq '<span class="font-weight-bold">Success!</span> $10.00 paid. '\
-                                        'A receipt has been sent to the email address associated with your account. '\
-                                        'Payment may take up to 5 minutes to appear in your payment history.'
+                                      'A receipt has been sent to the email address associated with your account. '\
+                                      'Payment may take up to 5 minutes to appear in your payment history.'
       end
     end
   end
@@ -161,7 +161,7 @@ RSpec.describe PaymentsController do
 
     it 'flashes an error message' do
       expect(flash[:error]).to eq '<span class="font-weight-bold">Payment canceled.</span> No payment was made '\
-                                          '&mdash; your payable balance remains unchanged.'
+                                  '&mdash; your payable balance remains unchanged.'
     end
   end
 end

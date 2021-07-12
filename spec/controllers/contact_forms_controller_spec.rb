@@ -45,7 +45,7 @@ RSpec.describe ContactFormsController, type: :controller do
                               email: 'test@test.mail',
                               url: '/summaries' }
       expect(flash[:danger]).to eq 'Your message appears to be spam, and has not been sent. ' \
-                                            'Please try sending your message again without any links in the comments.'
+                                   'Please try sending your message again without any links in the comments.'
     end
   end
 end

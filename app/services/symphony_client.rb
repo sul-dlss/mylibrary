@@ -50,7 +50,7 @@ class SymphonyClient
     [
       "holdRecordList{*,#{ITEM_RESOURCES if item_details[:holdRecordList]}}",
       'circRecordList{*,circulationRule{loanPeriod{periodType{key}},renewFromPeriod},' \
-        "#{item_details[:circRecordList] ? ITEM_RESOURCES : 'item{itemCategory5}'}}",
+      "#{item_details[:circRecordList] ? ITEM_RESOURCES : 'item{itemCategory5}'}}",
       "blockList{*,#{ITEM_RESOURCES if item_details[:blockList]}}",
       'groupSettings{*,responsibility}'
     ]
