@@ -121,10 +121,12 @@ class SymphonyClient
   end
 
   def change_pin(token, pin)
-    request('/user/patron/changeMyPin', method: :post, json: {
-      resetPinToken: token,
-      newPin: pin
-    })
+    request(
+      '/user/patron/changeMyPin',
+      method: :post,
+      json: { resetPinToken: token, newPin: pin },
+      headers: { 'SD-Prompt-Return': "USER_PRIVILEGE_OVRCD/#{Settings.symphony.override}" }
+    )
   end
 
   def renew_item(resource, item_key)
