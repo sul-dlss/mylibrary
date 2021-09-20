@@ -65,7 +65,7 @@ class Payment
   end
 
   def item_title
-    fee_item_info && fee_item_info['title'] || 'No item associated with this payment'
+    (fee_item_info && fee_item_info['title']) || 'No item associated with this payment'
   end
 
   def item_library
