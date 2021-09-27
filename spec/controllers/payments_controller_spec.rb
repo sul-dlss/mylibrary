@@ -129,7 +129,7 @@ RSpec.describe PaymentsController do
         post :accept, params: { req_amount: '10.00' }
       end
 
-      it 'redirects to fines ' do
+      it 'redirects to fines' do
         expect(controller).to redirect_to(fines_path)
       end
 
