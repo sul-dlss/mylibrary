@@ -19,5 +19,6 @@ jobs:
       run: bundle config set --local without 'production'
     - name: Install dependencies
       run: bundle install
+      run: yarn install
     - name: Run tests
       run: bundle exec rake
