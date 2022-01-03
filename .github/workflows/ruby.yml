@@ -17,8 +17,9 @@ jobs:
         ruby-version: 2.7.1
     - name: Configure bundler
       run: bundle config set --local without 'production'
-    - name: Install dependencies
+    - name: Install ruby dependencies
       run: bundle install
+    - name: Install javascript dependencies
       run: yarn install
     - name: Run tests
       run: bundle exec rake
