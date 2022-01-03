@@ -42,7 +42,7 @@ module Mylibrary
       'ARS' => 'soundarchive@stanford.edu',
       'ART' => 'artlibrary@stanford.edu',
       'BIOLOGY' => 'greencirc@stanford.edu',
-      'BUSINESS' => 'library@gsb.stanford.edu',
+      'BUSINESS' => 'gsb_librarycirc@stanford.edu',
       'CHEMCHMENG' => 'greencirc@stanford.edu',
       'CLASSICS' => 'classics@stanford.edu',
       'EARTH-SCI' => 'brannerlibrary@stanford.edu',
