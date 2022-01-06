@@ -51,13 +51,13 @@ RSpec.describe ApplicationHelper do
 
     context 'with a time from tomorrow' do
       it 'returns "Tomorrow"' do
-        expect(helper.today_with_time_or_date(Time.zone.now + 1.day)).to eq 'Tomorrow'
+        expect(helper.today_with_time_or_date(1.day.from_now)).to eq 'Tomorrow'
       end
     end
 
     context 'with a time from yesterday' do
       it 'returns "Yesterday"' do
-        expect(helper.today_with_time_or_date(Time.zone.now - 1.day)).to eq 'Yesterday'
+        expect(helper.today_with_time_or_date(1.day.ago)).to eq 'Yesterday'
       end
     end
   end

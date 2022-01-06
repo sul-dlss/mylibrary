@@ -23,7 +23,7 @@ RSpec.describe CheckoutsHelper do
 
   describe '#time_remaining_for_checkout' do
     context 'when the checkout is a short term loan' do
-      let(:checkout) { instance_double(Checkout, short_term_loan?: true, due_date: Time.zone.now + 42.minutes) }
+      let(:checkout) { instance_double(Checkout, short_term_loan?: true, due_date: 42.minutes.from_now) }
 
       it 'returns the distance of time in words' do
         expect(helper.time_remaining_for_checkout(checkout)).to eq '42 minutes'

@@ -10,7 +10,7 @@ RSpec.describe 'requests/_request.html.erb' do
       author: 'Some Author',
       call_number: '',
       catkey: '12345',
-      expiration_date: Time.zone.now + 1.day,
+      expiration_date: 1.day.from_now,
       from_ill?: false,
       key: 'abc123',
       pickup_library: 'XYZ',
