@@ -121,10 +121,12 @@ class SymphonyClient
   end
 
   def change_pin(token, pin)
-    request('/user/patron/changeMyPin', method: :post, json: {
-      resetPinToken: token,
-      newPin: pin
-    })
+    request(
+      '/user/patron/changeMyPin',
+      method: :post,
+      json: { resetPinToken: token, newPin: pin },
+      headers: { 'x-sirs-clientID': Settings.symws.public_clientID }
+    )
   end
 
   def renew_item(resource, item_key)
