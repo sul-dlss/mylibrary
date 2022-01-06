@@ -5,6 +5,7 @@ symws:
   url:
   headers: {}
   login_params: {}
+  public_clientID:
 sw:
   url: https://searchworks.stanford.edu/view/
 EMAIL_TO: yolo@example.com
