@@ -58,7 +58,7 @@ class FakeSymphony < Sinatra::Base
     content_type :'text/html'
     status 200
     begin
-      File.open(File.dirname(__FILE__) + '/fixtures/patron/payment_history/' + "#{params['userID']}.xml").read
+      File.read(File.dirname(__FILE__) + '/fixtures/patron/payment_history/' + "#{params['userID']}.xml")
     rescue Errno::ENOENT
       '<xml />'
     end
@@ -69,6 +69,6 @@ class FakeSymphony < Sinatra::Base
   def json_response(response_code, file_name)
     content_type :json
     status response_code
-    File.open(File.dirname(__FILE__) + '/fixtures/' + file_name, 'rb').read
+    File.binread(File.dirname(__FILE__) + '/fixtures/' + file_name)
   end
 end
