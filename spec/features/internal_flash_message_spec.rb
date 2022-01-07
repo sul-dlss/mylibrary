@@ -17,7 +17,7 @@ RSpec.describe 'Internal flash messages', type: :feature do
 
     it 'renders flash for a configured controller' do
       visit summaries_url
-      within('div.alert') do
+      within('.flash_messages div.alert') do
         expect(page).to have_css('p', text: 'Test message')
       end
     end
