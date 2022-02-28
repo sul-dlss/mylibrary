@@ -187,7 +187,7 @@ RSpec.describe Payment do
     end
 
     it 'does not have an item library' do
-      expect(payment.item_library).to be nil
+      expect(payment.item_library).to be_nil
     end
 
     it 'has a payment date' do

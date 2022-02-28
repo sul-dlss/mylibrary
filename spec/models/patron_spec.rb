@@ -92,15 +92,15 @@ RSpec.describe Patron do
   end
 
   it 'can renew material' do
-    expect(patron.can_renew?).to eq true
+    expect(patron.can_renew?).to be true
   end
 
   it 'can request material' do
-    expect(patron.can_modify_requests?).to eq true
+    expect(patron.can_modify_requests?).to be true
   end
 
   it 'can pay fines' do
-    expect(patron.can_pay_fines?).to eq true
+    expect(patron.can_pay_fines?).to be true
   end
 
   context 'when there is not an email resource in the patron record' do
@@ -175,15 +175,15 @@ RSpec.describe Patron do
     end
 
     it 'cannot renew material' do
-      expect(patron.can_renew?).to eq false
+      expect(patron.can_renew?).to be false
     end
 
     it 'cannot request material' do
-      expect(patron.can_modify_requests?).to eq false
+      expect(patron.can_modify_requests?).to be false
     end
 
     it 'can pay fines' do
-      expect(patron.can_pay_fines?).to eq true
+      expect(patron.can_pay_fines?).to be true
     end
   end
 
@@ -209,15 +209,15 @@ RSpec.describe Patron do
     end
 
     it 'cannot renew material' do
-      expect(patron.can_renew?).to eq false
+      expect(patron.can_renew?).to be false
     end
 
     it 'cannot request material' do
-      expect(patron.can_modify_requests?).to eq false
+      expect(patron.can_modify_requests?).to be false
     end
 
     it 'cannot pay fines' do
-      expect(patron.can_pay_fines?).to eq false
+      expect(patron.can_pay_fines?).to be false
     end
   end
 
@@ -563,7 +563,7 @@ RSpec.describe Patron do
         fields['privilegeExpiresDate'] = (Time.zone.today - 1.month).to_s
       end
 
-      it { expect(patron.can_schedule_access?('GREEN')).not_to eq true }
+      it { expect(patron.can_schedule_access?('GREEN')).not_to be true }
     end
 
     context 'with a user that should get access (faculty)' do
@@ -571,7 +571,7 @@ RSpec.describe Patron do
         fields[:profile]['key'] = 'MXF'
       end
 
-      it { expect(patron.can_schedule_access?('GREEN')).to eq true }
+      it { expect(patron.can_schedule_access?('GREEN')).to be true }
     end
 
     context 'with a user that should get access (academic staff/fellow)' do
@@ -579,7 +579,7 @@ RSpec.describe Patron do
         fields[:profile]['key'] = 'CNAC'
       end
 
-      it { expect(patron.can_schedule_access?('EAST-ASIA')).to eq true }
+      it { expect(patron.can_schedule_access?('EAST-ASIA')).to be true }
     end
 
     context 'with a user that should get access (staff)' do
@@ -587,7 +587,7 @@ RSpec.describe Patron do
         fields[:profile]['key'] = 'CNS'
       end
 
-      it { expect(patron.can_schedule_access?('GREEN')).to eq true }
+      it { expect(patron.can_schedule_access?('GREEN')).to be true }
     end
 
     context 'with a user that that should not get access' do
@@ -595,7 +595,7 @@ RSpec.describe Patron do
         fields[:profile]['key'] = 'MXAS-6LMT'
       end
 
-      it { expect(patron.can_schedule_access?('GREEN')).to eq false }
+      it { expect(patron.can_schedule_access?('GREEN')).to be false }
     end
   end
 

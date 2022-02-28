@@ -102,37 +102,37 @@ RSpec.describe Fine do
 
     describe '#bib?' do
       it 'is false' do
-        expect(fine.bib?).to eq false
+        expect(fine.bib?).to be false
       end
     end
 
     describe '#title' do
       it 'is nil' do
-        expect(fine.title).to eq nil
+        expect(fine.title).to be_nil
       end
     end
 
     describe '#author' do
       it 'is nil' do
-        expect(fine.author).to eq nil
+        expect(fine.author).to be_nil
       end
     end
 
     describe '#catkey' do
       it 'is nil' do
-        expect(fine.catkey).to eq nil
+        expect(fine.catkey).to be_nil
       end
     end
 
     describe '#call_number' do
       it 'is nil' do
-        expect(fine.call_number).to eq nil
+        expect(fine.call_number).to be_nil
       end
     end
 
     describe '#shelf_key' do
       it 'is nil' do
-        expect(fine.shelf_key).to eq nil
+        expect(fine.shelf_key).to be_nil
       end
     end
   end

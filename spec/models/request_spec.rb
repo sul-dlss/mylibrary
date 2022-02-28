@@ -93,23 +93,23 @@ RSpec.describe Request do
     end
 
     it 'has no title' do
-      expect(request.title).to eq nil
+      expect(request.title).to be_nil
     end
 
     it 'has no author' do
-      expect(request.author).to eq nil
+      expect(request.author).to be_nil
     end
 
     it 'has no catkey' do
-      expect(request.catkey).to eq nil
+      expect(request.catkey).to be_nil
     end
 
     it 'has no call number' do
-      expect(request.call_number).to eq nil
+      expect(request.call_number).to be_nil
     end
 
     it 'has no shelf key' do
-      expect(request.shelf_key).to eq nil
+      expect(request.shelf_key).to be_nil
     end
   end
 
@@ -181,7 +181,7 @@ RSpec.describe Request do
     end
 
     it 'is cdl?' do
-      expect(request.cdl?).to eq true
+      expect(request.cdl?).to be true
     end
 
     it 'has cdl_circ_record_key' do
@@ -205,14 +205,14 @@ RSpec.describe Request do
       end
 
       it 'is next up' do
-        expect(request.cdl_next_up?).to eq true
+        expect(request.cdl_next_up?).to be true
       end
     end
 
     it 'is cdl_checkedout? if circ record exists' do
       allow(request).to receive(:cdl).and_return([0, 0, 0, 0, 'ACTIVE'])
       allow(request).to receive(:circ_record).and_return({ abc: 123 })
-      expect(request.cdl_checkedout?).to eq true
+      expect(request.cdl_checkedout?).to be true
     end
 
     it 'has a druid' do

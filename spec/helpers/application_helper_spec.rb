@@ -75,7 +75,7 @@ RSpec.describe ApplicationHelper do
 
     context 'without a catkey' do
       it 'returns nothing' do
-        expect(helper.detail_link_to_searchworks(nil)).to eq nil
+        expect(helper.detail_link_to_searchworks(nil)).to be_nil
       end
     end
   end
