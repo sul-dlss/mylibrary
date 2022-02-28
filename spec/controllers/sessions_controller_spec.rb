@@ -67,7 +67,7 @@ RSpec.describe SessionsController do
     it 'pings symphony to make sure it is up' do
       get(:index)
 
-      expect(assigns(:symphony_ok)).to eq true
+      expect(assigns(:symphony_ok)).to be true
     end
 
     context 'when symphony is down' do
@@ -78,7 +78,7 @@ RSpec.describe SessionsController do
       it 'assigns false to symphony_ok' do
         get(:index)
 
-        expect(assigns(:symphony_ok)).to eq false
+        expect(assigns(:symphony_ok)).to be false
       end
     end
   end

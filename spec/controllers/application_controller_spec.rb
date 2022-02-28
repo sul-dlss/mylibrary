@@ -71,7 +71,7 @@ RSpec.describe ApplicationController do
 
     context 'without a logged in user' do
       it 'is a new instance of the Patron class' do
-        expect(controller.patron).to be nil
+        expect(controller.patron).to be_nil
       end
     end
   end
