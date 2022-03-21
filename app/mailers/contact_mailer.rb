@@ -9,7 +9,7 @@ class ContactMailer < ApplicationMailer
     @ip = ip
 
     mail(to: params[:contact_form_to],
-         subject: 'Circulation & Privileges Question/Comment from My Library App',
+         subject: t('mylibrary.contact_mailer.subject').to_s,
          from: 'contact@mylibrary.stanford.edu',
          reply_to: params[:email])
   end

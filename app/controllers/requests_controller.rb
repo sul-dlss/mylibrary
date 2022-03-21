@@ -120,7 +120,7 @@ class RequestsController < ApplicationController
   end
 
   def deny_access
-    flash[:error] = 'An unexpected error has occurred'
+    flash[:error] = t 'mylibrary.request.deny_access'
 
     redirect_to requests_path(group: params[:group])
   end

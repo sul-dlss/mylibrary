@@ -2,6 +2,7 @@
 
 require 'rails_helper'
 
+# rubocop: disable Rails/I18nLocaleTexts
 RSpec.describe 'shared/_flash_msg.html.erb' do
   context 'with an alert flash' do
     before do
@@ -49,3 +50,4 @@ RSpec.describe 'shared/_flash_msg.html.erb' do
     end
   end
 end
+# rubocop: enable Rails/I18nLocaleTexts

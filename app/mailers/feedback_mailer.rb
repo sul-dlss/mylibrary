@@ -12,7 +12,7 @@ class FeedbackMailer < ApplicationMailer
     @viewport = params[:viewport]
 
     mail(to: Settings.EMAIL_TO,
-         subject: 'Feedback from My Library',
+         subject: t('mylibrary.feedback_mailer.subject').to_s,
          from: 'feedback@mylibrary.stanford.edu',
          reply_to: Settings.EMAIL_TO)
   end

@@ -71,7 +71,7 @@ class RenewalsController < ApplicationController
   end
 
   def deny_access
-    flash[:error] = 'An unexpected error has occurred'
+    flash[:error] = t 'mylibrary.renew_item.deny_access'
 
     redirect_to checkouts_path(group: params[:group])
   end
