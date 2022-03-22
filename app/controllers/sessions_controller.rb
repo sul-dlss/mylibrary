@@ -27,7 +27,7 @@ class SessionsController < ApplicationController
     if request.env['warden'].authenticate(:library_id)
       redirect_to summaries_url
     else
-      redirect_to login_url, alert: 'Unable to authenticate.'
+      redirect_to login_url, alert: t('mylibrary.sessions.login_by_library_id.alert')
     end
   end
 

@@ -110,6 +110,11 @@ RSpec.describe SessionsController do
       it 'redirects failed requests back to the login page' do
         expect(post(:login_by_library_id)).to redirect_to login_url
       end
+
+      it 'sets an alert' do
+        get(:login_by_library_id)
+        expect(flash[:alert]).to include('Unable to authenticate.')
+      end
     end
   end
 

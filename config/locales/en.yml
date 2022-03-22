@@ -41,6 +41,7 @@ en:
     renew_item:
       success_html: <span class="font-weight-bold">Success!</span> "%{title}" was renewed.
       error_html: <span class="font-weight-bold">Sorry!</span> Something went wrong and "%{title}" was not renewed.
+      deny_access: An unexpected error has occurred
     renew_all_items:
       success_html:
         one: <span class="font-weight-bold">Success!</span> 1 item was renewed. %{items}
@@ -58,17 +59,26 @@ en:
       update_pickup:
         success_html: <span class="font-weight-bold">Success!</span> "%{title}" pickup location was updated.
         error_html: <span class="font-weight-bold">Sorry!</span> Something went wrong and "%{title}" pickup location was not updated.
+      deny_access: An unexpected error has occurred
     change_pin:
       success_html: <span class="font-weight-bold">Success!</span> Your new PIN is ready to use.
       error_html: <span class="font-weight-bold">Sorry!</span> That reset PIN link has expired or has already been used. Enter your library ID to request a new link.
     reset_pin:
       success_html: <span class="font-weight-bold">Check your email!</span> A PIN reset link has been sent to the address associated with library ID %{library_id}
+    contact_form:
+      success: Thank you! Library staff will be in touch with you soon.
+    contact_mailer:
+      subject: Circulation & Privileges Question/Comment from My Library App
     feedback_form:
       success: Thank you! Your feedback has been sent.
+    feedback_mailer:
+      subject: Feedback from My Library
     fine_payment:
       accept_html: <span class="font-weight-bold">Success!</span> $%{amount} paid. A receipt has been sent to the email address associated with your account. Payment may take up to 5 minutes to appear in your payment history.
       cancel_html: <span class="font-weight-bold">Payment canceled.</span> No payment was made &mdash; your payable balance remains unchanged.
     sessions:
+      login_by_library_id:
+        alert: Unable to authenticate.
       login_by_sunetid:
         error_html: <p class="h3">Unable to log in. Your SUNet ID is not linked to a library account.</p>
                     <ul>
