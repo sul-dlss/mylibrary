@@ -12,16 +12,20 @@
       <h2>Ready for pickup: <%= ready.length %></h2>
     </div>
 
-    <% if patron_or_group.can_schedule? %>
-      <div class="mb-3">
-        <%= schedule_pickup_link_or_dropdown %>
+    <% if Settings.scheduling %>
+      <% if patron_or_group.can_schedule? %>
+        <div class="mb-3">
+          <%= schedule_pickup_link_or_dropdown %>
 
-        <% if patron_or_group.can_schedule_special_collections_visit? %>
-          <span class="d-block mt-3 d-sm-inline d-sm-mt-auto">
-            <%= link_to_spec_visit  %>
-          </span>
-        <% end %>
-      </div>
+          <% if patron_or_group.can_schedule_special_collections_visit? %>
+            <span class="d-block mt-3 d-sm-inline d-sm-mt-auto">
+              <%= link_to_spec_visit  %>
+            </span>
+          <% end %>
+        </div>
+      <% end %>
+    <% else %>
+      <p><%= t('mylibrary.scheduling.false_message')%></p>
     <% end %>
 
     <div class="d-none d-md-flex row font-weight-bold list-header">

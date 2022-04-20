@@ -46,7 +46,7 @@ schedule_access:
   MUSIC: false
   SPEC-COLL: false
 
-schedule_spec: true
+schedule_spec: false
 
 oncehub:
   visit:

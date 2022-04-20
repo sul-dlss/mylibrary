@@ -38,6 +38,8 @@ en:
       time_tomorrow: 'Tomorrow at %-l:%M%P'
   hello: "Hello world"
   mylibrary:
+    scheduling:
+      false_message: As of May 2, 2022 appointments are no longer needed to enter the Special Collections Reading Room, or pickup materials at the Law Library. Simply arrive after you receive email confirmation that materials are ready for use.
     renew_item:
       success_html: <span class="font-weight-bold">Success!</span> "%{title}" was renewed.
       error_html: <span class="font-weight-bold">Sorry!</span> Something went wrong and "%{title}" was not renewed.
