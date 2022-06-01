@@ -30,50 +30,6 @@ symphony:
 BORROW_DIRECT_CODE: BORROW_DIRECT
 ILL_CODE: ILL
 
-scheduling: false
-
-schedule_pickup:
-  BUSINESS: false
-  EAST-ASIA: false
-  GREEN: false
-  HOPKINS: false
-  LAW: false
-
-schedule_access:
-  ARS: false
-  EAST-ASIA: false
-  GREEN: false
-  MUSIC: false
-  SPEC-COLL: false
-
-schedule_spec: false
-
-oncehub:
-  visit:
-    EAST-ASIA: 'StanfordLibrariesEastAsiaLibraryEntry'
-    GREEN: 'StanfordLibrariesGreenEntry'
-    SPEC-COLL: 'StanfordLibrariesVisitSpecialCollections'
-    ARS: 'StanfordLibrariesArchiveofRecordedSoundEntry'
-    MUSIC: 'StanfordLibrariesMusicLibraryEntry'
-  pickup:
-    GREEN: 'StanfordLibrariesPagingPickupGreenLibrary'
-    EAST-ASIA: 'StanfordLibrariesPagingPickupEastAsiaLibrary'
-    HOPKINS: 'StanfordLibrariesPagingPickupMillerLibrary'
-
-libcal:
-  BUSINESS:
-    u: 69353
-    lid: 4596
-    id: 9430
-    iid: 5088
-    t: 'At the'
-  LAW:
-    u: 73555
-    lid: 1122
-    gid: 11656
-    iid: 3313
-    t: 'Pickup at Outside of Law Library'
-
 cdl:
   url: http://requests.example.com
 

@@ -218,36 +218,6 @@ class Patron
     true
   end
 
-  def can_schedule?
-    return if expired?
-    return unless Settings.scheduling
-
-    faculty = %w[CNF MXF]
-    grad_students_and_postdocs = %w[MXD RED REG REG-SUM]
-    undergrads = %w[REU REU-SUM]
-    visiting_scholars = %w[MXAS]
-    staff = %w[CNAC CNS MXAC MXS]
-
-    [*faculty, *grad_students_and_postdocs, *undergrads, *visiting_scholars, *staff].include?(profile_key)
-  end
-
-  def can_schedule_access?(library)
-    return unless Settings.schedule_access[library]
-
-    can_schedule?
-  end
-
-  def can_schedule_pickup?(library)
-    return unless Settings.schedule_pickup[library]
-    return unless can_schedule?
-
-    requests.any? { |r| r.pickup_library == library && r.ready_for_pickup? }
-  end
-
-  def can_schedule_special_collections_visit?
-    Settings.schedule_spec && requests.any? { |r| r.pickup_library == 'SPEC-DESK' && r.ready_for_pickup? }
-  end
-
   private
 
   def academic_staff_or_fellow?
