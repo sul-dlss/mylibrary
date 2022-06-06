@@ -129,7 +129,7 @@ RSpec.describe SymphonyClient do
     context 'when symphony returns no patron info' do
       before do
         allow(client).to receive(:authenticated_request).and_return(
-          instance_double(HTTP::Response, body: unavailable[:body], status: unavailable[:status])
+          instance_double('HTTP::Response', body: unavailable[:body], status: unavailable[:status])
         )
       end
 

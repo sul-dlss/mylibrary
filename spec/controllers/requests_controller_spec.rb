@@ -78,7 +78,7 @@ RSpec.describe RequestsController do
     end
 
     describe '#update' do
-      let(:api_response) { instance_double(Response, status: 200, content_type: :json) }
+      let(:api_response) { instance_double('Response', status: 200, content_type: :json) }
 
       let(:requests) do
         [instance_double(Request, key: '123')]
@@ -154,7 +154,7 @@ RSpec.describe RequestsController do
     end
 
     describe '#destroy' do
-      let(:api_response) { instance_double(Response, status: 200, content_type: :json) }
+      let(:api_response) { instance_double('Response', status: 200, content_type: :json) }
       let(:mock_client) { instance_double(SymphonyClient, cancel_hold: api_response, ping: true) }
 
       let(:requests) do
@@ -182,7 +182,7 @@ RSpec.describe RequestsController do
       end
 
       context 'when the response is not 200' do
-        let(:api_response) { instance_double(Response, status: 401, content_type: :json, body: 'foo') }
+        let(:api_response) { instance_double('Response', status: 401, content_type: :json, body: 'foo') }
 
         it 'does not cancel the hold and sets flash messages' do
           delete :destroy, params: { resource: 'abc', id: '123' }

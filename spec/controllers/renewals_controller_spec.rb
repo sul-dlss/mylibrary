@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe RenewalsController, type: :controller do
-  let(:api_response) { instance_double(Response, status: 200, content_type: :json) }
+  let(:api_response) { instance_double('Response', status: 200, content_type: :json) }
   let(:mock_client) do
     instance_double(SymphonyClient, renew_item: api_response, ping: true)
   end
@@ -40,7 +40,7 @@ RSpec.describe RenewalsController, type: :controller do
     end
 
     context 'when the response is not 200' do
-      let(:api_response) { instance_double(Response, status: 401, content_type: :json) }
+      let(:api_response) { instance_double('Response', status: 401, content_type: :json) }
 
       it 'does not renew the item and sets flash messages' do
         post :create, params: { resource: 'abc', item_key: '123' }
