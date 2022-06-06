@@ -24,7 +24,6 @@ RSpec.describe 'patron/_patron.html.erb' do
     without_partial_double_verification do
       allow(view).to receive(:patron).and_return(patron)
     end
-    stub_template 'shared/_schedule_links.html.erb' => ''
   end
 
   describe 'Privileges expire' do

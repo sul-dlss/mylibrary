@@ -7,18 +7,3 @@ symws:
     password: 'some_password'
 symphony:
   host: example.com
-
-scheduling: true
-
-schedule_pickup:
-  BUSINESS: true
-  EAST-ASIA: true
-  GREEN: true
-  HOPKINS: true
-  LAW: true
-
-schedule_access:
-  EAST-ASIA: true
-  GREEN: true
-
-schedule_spec: true
