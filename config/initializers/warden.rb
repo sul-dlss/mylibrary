@@ -42,7 +42,7 @@ Warden::Strategies.add(:development_shibboleth_stub) do
   private
 
   def uid
-    ENV['uid']
+    ENV.fetch('uid', nil)
   end
 end
 

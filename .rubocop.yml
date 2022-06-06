@@ -83,6 +83,9 @@ RSpec/DescribeClass:
   Exclude:
     - 'spec/views/**/*'
 
+RSpec/VerifiedDoubleReference:
+  Enabled: false
+
 Style/Documentation:
   Enabled: false
 
