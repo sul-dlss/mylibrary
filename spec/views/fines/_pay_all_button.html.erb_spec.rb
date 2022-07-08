@@ -17,7 +17,7 @@ RSpec.describe 'fines/_pay_all_button.html.erb' do
   it 'renders a button' do
     render
 
-    expect(output).to have_css('button.btn', text: 'Pay $3.00 now')
+    expect(output).to have_button 'Pay $3.00 now'
   end
 
   context 'when the patron is e.g. blocked and unable to renew material' do

@@ -29,7 +29,7 @@ RSpec.describe 'Checkout Page', type: :feature do
       visit checkouts_path
       within(first('ul.checkouts')) do
         expect(page).to have_css 'li.cdl-checkout', count: 1
-        expect(page).to have_css 'a', text: /Open viewer/
+        expect(page).to have_link 'Open viewer'
       end
     end
   end

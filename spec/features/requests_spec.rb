@@ -23,8 +23,8 @@ RSpec.describe 'Request Page', type: :feature do
   it 'has special behavior for next-up CDL requests' do
     visit requests_path
     within('ul.ready-requests li:last-child') do
-      expect(page).to have_css 'a', text: /Open viewer/
-      expect(page).to have_css 'a', text: /.*Cancel this request/
+      expect(page).to have_link 'Open viewer'
+      expect(page).to have_link 'Cancel this request'
     end
   end
 
