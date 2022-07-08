@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'checkouts/_checkout.html.erb' do
+RSpec.describe 'checkouts/_checkout' do
   let(:checkout_attributes) { {} }
   let(:checkout) do
     instance_double(

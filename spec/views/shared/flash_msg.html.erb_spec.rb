@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 # rubocop: disable Rails/I18nLocaleTexts
-RSpec.describe 'shared/_flash_msg.html.erb' do
+RSpec.describe 'shared/_flash_msg' do
   context 'with an alert flash' do
     before do
       flash[:alert] = 'This is an alert!'

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'fines/_pay_all_button.html.erb' do
+RSpec.describe 'fines/_pay_all_button' do
   subject(:output) { Capybara.string(rendered) }
 
   let(:patron) { instance_double(Patron, barcode: '1', fines: fines, can_pay_fines?: true) }

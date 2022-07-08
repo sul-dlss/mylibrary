@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'checkouts/index.html.erb' do
+RSpec.describe 'checkouts/index' do
   let(:patron) { instance_double(Patron, group?: false, remaining_checkouts: nil) }
 
   before do

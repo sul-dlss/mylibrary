@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'sessions/index.html.erb' do
+RSpec.describe 'sessions/index' do
   subject(:page) { Capybara.string(rendered) }
 
   before do

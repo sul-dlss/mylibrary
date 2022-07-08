@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'requests/_request.html.erb' do
+RSpec.describe 'requests/_request' do
   let(:request_attributes) { {} }
   let(:mock_request) do
     instance_double(
