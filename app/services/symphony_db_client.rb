@@ -12,8 +12,8 @@ end
 # Oracle client to query Symphony database
 class SymphonyDbClient
   CHECKOUTS_QUERY =
-    'select catalog_key, call_sequence, copy_number, charge_number from charge' \
-    ' where user_key = :user_key and usergroup_key >=0'
+    'select catalog_key, call_sequence, copy_number, charge_number from charge ' \
+    'where user_key = :user_key and usergroup_key >=0'
   REQUESTS_QUERY =
     'select key from hold where user_key = :user_key and usergroup_key >=0'
   FINES_QUERY =

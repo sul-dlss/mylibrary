@@ -17,7 +17,7 @@ RSpec.describe 'checkouts/_renew_all_button.html.erb' do
   it 'renders a button' do
     render
 
-    expect(output).to have_css('a.btn', text: 'Renew 1 eligible item')
+    expect(output).to have_link 'Renew 1 eligible item'
   end
 
   context 'when the patron is e.g. blocked and unable to renew material' do
