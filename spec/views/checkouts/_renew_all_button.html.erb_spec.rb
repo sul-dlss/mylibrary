@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'checkouts/_renew_all_button.html.erb' do
+RSpec.describe 'checkouts/_renew_all_button' do
   subject(:output) { Capybara.string(rendered) }
 
   let(:patron) { instance_double(Patron, checkouts: checkouts, can_renew?: true) }

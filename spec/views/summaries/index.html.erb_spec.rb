@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'summaries/index.html.erb' do
+RSpec.describe 'summaries/index' do
   let(:patron_options) { {} }
   let(:patron) do
     instance_double(

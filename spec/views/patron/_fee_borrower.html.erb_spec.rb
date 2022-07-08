@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'patron/_fee_borrower.html.erb' do
+RSpec.describe 'patron/_fee_borrower' do
   let(:patron_options) { {} }
   let(:patron) do
     instance_double(
