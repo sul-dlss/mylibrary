@@ -7,6 +7,8 @@ symws:
   public_clientID:
 sw:
   url: https://searchworks.stanford.edu/view/
+folio:
+  url: <%= ENV.fetch('OKAPI_URL') %>
 EMAIL_TO: yolo@example.com
 HOSTNAME: foo.example.com
 ACCESS_SERVICES_EMAIL: greencirc@stanford.edu
