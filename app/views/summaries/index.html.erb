@@ -9,6 +9,11 @@
   <%= render patron_or_group %>
 </div>
 
+<details class="alert alert-info">
+  <summary>FOLIO data</summary>
+  <%= debug patron_or_group %>
+</details>
+
 <%= render 'summary', patron: patron_or_group %>
 
 <div class="page-section">
