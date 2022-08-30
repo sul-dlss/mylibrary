@@ -2,7 +2,7 @@
 
 # Class to model Patron information
 class Patron
-  attr_reader :record, :payment_in_process
+  attr_reader :user_info, :payment_in_process
 
   CHARGE_LIMIT_THRESHOLD = 25_000
 
@@ -21,17 +21,18 @@ class Patron
     'MXFEE-NO25' => 'Fee borrower'
   }.freeze
 
-  def initialize(record, payment_in_process = {})
-    @record = record
+  def initialize(user_info, patron_info, payment_in_process = {})
+    @user_info = user_info
+    @patron_info = patron_info
     @payment_in_process = payment_in_process
   end
 
   def key
-    record['key']
+    user_info['id']
   end
 
   def barcode
-    record['fields']['barcode']
+    user_info['barcode']
   end
 
   def university_id
@@ -39,18 +40,11 @@ class Patron
   end
 
   def status
-    if expired?
-      'Expired'
-    elsif proxy_borrower?
-      # proxy borrowers inherit from the group
-      group.status
-    else
-      PATRON_STANDING.fetch(standing, '')
-    end
+    user_info['active'] ? 'OK' : 'Blocked'
   end
 
   def standing
-    fields.dig('standing', 'key')
+    'OK'
   end
 
   def barred?
@@ -78,22 +72,15 @@ class Patron
   end
 
   def expired_date
-    Time.zone.parse(fields['privilegeExpiresDate']) if fields['privilegeExpiresDate']
+    Time.zone.parse(user_info['expirationDate']) if user_info['expirationDate']
   end
 
   def email
-    email_resource = fields['address1'].find do |address|
-      address['fields']['code']['key'] == 'EMAIL'
-    end
-    email_resource && email_resource['fields']['data']
+    user_info.dig('personal', 'email')
   end
 
   def patron_type
-    if user_profile.present?
-      user_profile
-    elsif proxy_borrower?
-      'Research group proxy'
-    end
+    nil
   end
 
   def fee_borrower?
@@ -101,11 +88,11 @@ class Patron
   end
 
   def first_name
-    fields['firstName']
+    user_info.dig('personal', 'firstName')
   end
 
   def last_name
-    fields['lastName']
+    user_info.dig('personal', 'lastName')
   end
 
   def display_name
@@ -115,28 +102,26 @@ class Patron
   end
 
   def borrow_limit
-    return unless profile['chargeLimit']
-    return if profile['chargeLimit'].to_i >= CHARGE_LIMIT_THRESHOLD
-
-    profile['chargeLimit'].to_i
+    nil
   end
 
   def remaining_checkouts
-    return unless  borrow_limit
+    return unless borrow_limit
 
     borrow_limit - checkouts.length
   end
 
   def proxy_borrower?
-    fields.dig('groupSettings', 'fields', 'responsibility', 'key') == 'PROXY'
+    false
   end
 
   def sponsor?
-    fields.dig('groupSettings', 'fields', 'responsibility', 'key') == 'SPONSOR'
+    false
   end
 
   def checkouts
-    @checkouts ||= fields['circRecordList'].map { |checkout| Checkout.new(checkout) }
+    @checkouts ||= []
+    # @checkouts ||= fields['circuser_infoList'].map { |checkout| Checkout.new(checkout) }
   end
 
   def fines
@@ -144,7 +129,8 @@ class Patron
   end
 
   def all_fines
-    @all_fines ||= fields['blockList'].map { |fine| Fine.new(fine) }
+    @all_fines ||= []
+    # @all_fines ||= fields['blockList'].map { |fine| Fine.new(fine) }
   end
 
   ##
@@ -156,45 +142,46 @@ class Patron
   end
 
   def requests
-    @requests ||= symphony_requests + borrow_direct_requests
+    @requests ||= folio_requests + borrow_direct_requests
   end
 
   def group
-    @group ||= Group.new(record)
+    @group ||= nil
+    # @group ||= Group.new(user_info)
   end
 
   def group?
-    group.member_list.any?
+    group && group.member_list.any?
   end
 
   def group_checkouts
-    return checkouts.select { |checkout| group_circrecord_keys.include?(checkout.key) } if sponsor?
+    return checkouts.select { |checkout| group_circuser_info_keys.include?(checkout.key) } if sponsor?
 
     checkouts
   end
 
-  def group_circrecord_keys
-    @group_circrecord_keys ||= SymphonyDbClient.new.group_circrecord_keys(key)
+  def group_circuser_info_keys
+    @group_circuser_info_keys ||= SymphonyDbClient.new.group_circuser_info_keys(key)
   end
 
   def group_requests
-    return requests.select { |request| group_holdrecord_keys.include?(request.key) } if sponsor?
+    return requests.select { |request| group_holduser_info_keys.include?(request.key) } if sponsor?
 
     requests
   end
 
-  def group_holdrecord_keys
-    @group_holdrecord_keys ||= SymphonyDbClient.new.group_holdrecord_keys(key)
+  def group_holduser_info_keys
+    @group_holduser_info_keys ||= SymphonyDbClient.new.group_holduser_info_keys(key)
   end
 
   def group_fines
-    return fines.select { |fine| group_billrecord_keys.include?(fine.key) } if sponsor?
+    return fines.select { |fine| group_billuser_info_keys.include?(fine.key) } if sponsor?
 
     fines
   end
 
-  def group_billrecord_keys
-    @group_billrecord_keys ||= SymphonyDbClient.new.group_billrecord_keys(key)
+  def group_billuser_info_keys
+    @group_billuser_info_keys ||= SymphonyDbClient.new.group_billuser_info_keys(key)
   end
 
   def to_partial_path
@@ -242,30 +229,13 @@ class Patron
     end
   end
 
-  def symphony_requests
-    fields['holdRecordList'].map { |request| Request.new(request) }
-  end
-
-  def fields
-    record['fields']
-  end
-
-  def profile
-    fields['profile']['fields'] || {}
-  end
-
-  def profile_key
-    fields.dig('profile', 'key')
-  end
-
-  def user_profile
-    USER_PROFILE.fetch(profile_key, '')
+  def folio_requests
+    []
+    # fields['holduser_infoList'].map { |request| Request.new(request) }
   end
 
   def affiliations
-    fields['customInformation'].select { |ci| ci.dig('fields', 'code', 'key') =~ /AFFIL\d/ }.map do |info|
-      info.dig('fields', 'data')
-    end.compact
+    []
   end
 
   def proxy_borrower_name
