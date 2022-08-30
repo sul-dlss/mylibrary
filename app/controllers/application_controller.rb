@@ -17,7 +17,11 @@ class ApplicationController < ActionController::Base
   def patron
     return unless current_user?
 
-    @patron ||= Patron.new(patron_info_response, payment_in_process_cookie)
+    @patron ||= Patron.new(
+      folio_client.user_info(current_user.patron_key),
+      folio_client.patron_info(current_user.patron_key),
+      payment_in_process_cookie
+    )
   end
 
   def patron_or_group
@@ -38,7 +42,7 @@ class ApplicationController < ActionController::Base
     # - you do not have an active session (root_path; otherwise you would never be able to log in again..)
     return if request.path == unavailable_path || request.path == root_path
 
-    redirect_to unavailable_path unless symphony_client.ping
+    redirect_to unavailable_path unless folio_client.ping
   end
 
   ##
@@ -48,12 +52,8 @@ class ApplicationController < ActionController::Base
     @payment_in_process_cookie ||= JSON.parse(cookies[:payment_in_process] || {}.to_json).with_indifferent_access
   end
 
-  def symphony_client
-    @symphony_client ||= SymphonyClient.new
-  end
-
-  def patron_info_response
-    symphony_client.patron_info(current_user.patron_key, item_details: item_details)
+  def folio_client
+    @folio_client ||= FolioClient.new
   end
 
   def authenticate_user!
