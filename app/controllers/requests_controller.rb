@@ -50,7 +50,7 @@ class RequestsController < ApplicationController
   #
   # DELETE /requests/:id
   def destroy
-    @response = symphony_client.cancel_hold(*cancel_hold_params)
+    @response = folio_client.cancel_hold(*cancel_hold_params)
 
     case @response.status
     when 200
@@ -76,7 +76,7 @@ class RequestsController < ApplicationController
   private
 
   def handle_pickup_change_request
-    change_pickup_response = symphony_client.change_pickup_library(*change_pickup_params)
+    change_pickup_response = folio_client.change_pickup_library(*change_pickup_params)
     case change_pickup_response.status
     when 200
       flash[:success].push(t('mylibrary.request.update_pickup.success_html', title: params['title']))
@@ -87,7 +87,7 @@ class RequestsController < ApplicationController
   end
 
   def handle_not_needed_after_request
-    not_needed_after_response = symphony_client.not_needed_after(*not_needed_after_params)
+    not_needed_after_response = folio_client.not_needed_after(*not_needed_after_params)
     case not_needed_after_response.status
     when 200
       flash[:success].push(t('mylibrary.request.update_not_needed_after.success_html', title: params['title']))

@@ -106,7 +106,7 @@ class PaymentsController < ApplicationController
   end
 
   def payments
-    symphony_legacy_client.payments(symphony_client.session_token, patron)
+    symphony_legacy_client.payments(folio_client.session_token, patron)
   end
 
   def create_payment_params
