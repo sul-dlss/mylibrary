@@ -38,7 +38,7 @@ class FolioClient
   end
 
   def login(library_id, pin)
-    user_response = get_json('/users', params: { query: "barcode==\"#{escape(library_id)}\"" })
+    user_response = get_json('/users', params: { query: CqlQuery.new(barcode: library_id).to_query })
     user = user_response.dig('users', 0)
     return unless user
 
@@ -52,7 +52,7 @@ class FolioClient
   end
 
   def login_by_sunetid(sunetid)
-    response = get_json('/users', params: { query: "username==\"#{escape(sunetid)}\"" })
+    response = get_json('/users', params: { query: CqlQuery.new(username: sunetid).to_query })
     response.dig('users', 0)
   end
 
@@ -75,10 +75,6 @@ class FolioClient
   end
 
   private
-
-  def escape(str, characters_to_escape: ['"', '*', '?', '^'], escape_character: '\\')
-    str.gsub(Regexp.union(characters_to_escape)) { |x| [escape_character, x].join }
-  end
 
   def parse(response)
     return nil if response.body.empty?
