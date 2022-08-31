@@ -59,7 +59,7 @@ module ApplicationHelper
   end
 
   def library_name(code)
-    Mylibrary::Application.config.library_map[code] || code
+    ServicePoint.find_by_id(code)&.name || code
   end
 
   def library_email(code)
