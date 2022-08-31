@@ -2,7 +2,7 @@
 
 # :nodoc:
 class ApplicationController < ActionController::Base
-  helper_method :current_user, :current_user?, :patron, :patron_or_group, :symphony_client
+  helper_method :current_user, :current_user?, :patron, :patron_or_group
   before_action :set_internal_pages_flash_message, :check_unavailable
 
   def current_user
