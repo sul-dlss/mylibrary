@@ -27,7 +27,7 @@ class FolioClient
   # Return the FOLIO user_id given a sunetid
   # See https://s3.amazonaws.com/foliodocs/api/mod-users/p/users.html#users__userid__get
   def lookup_user_id(sunetid)
-    result = json_response('/users', params: { query: "username==\"#{sunetid}\"" })
+    result = json_response('/users', params: { query: CqlQuery.new(username: sunetid).to_query })
     result.dig('users', 0, 'id')
   end
 
@@ -72,7 +72,7 @@ class FolioClient
     parse_json(get(path, **kwargs))
   end
 
-  # @param [HTTP::Response] response
+  # @param [Faraday::Response] response
   # @raises [StandardError] if the response was not a 200
   # @return [Hash] the parsed JSON data structure
   def parse_json(response)
