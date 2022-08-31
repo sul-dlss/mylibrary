@@ -17,7 +17,7 @@ class PaymentsController < ApplicationController
       host: Settings.symphony.host,
       path: '/secureacceptance/payment_form.php',
       query: create_payment_params.to_query
-    ).to_s
+    ).to_s, allow_other_host: true
   end
 
   # Render a list of the payment histroy for the patron
