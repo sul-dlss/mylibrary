@@ -230,8 +230,7 @@ class Patron
   end
 
   def folio_requests
-    []
-    # fields['holduser_infoList'].map { |request| Request.new(request) }
+    @patron_info['holds'].map { |request| Request.new(request) }
   end
 
   def affiliations
