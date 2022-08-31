@@ -2,8 +2,6 @@
 
 # Model for requests in Symphony
 class Request
-  include BibRecord
-
   # A sufficiently large time used to sort nil values last
   # TODO: Update before 2099
   END_OF_DAYS = Time.zone.parse('2099-01-01')
@@ -21,43 +19,43 @@ class Request
   end
 
   def key
-    record['key']
+    record['requestId']
   end
 
   def patron_key
-    fields['patron']['key']
+    nil
   end
 
   def resource
-    record['resource']
+    nil
   end
 
   def status
-    fields['status']
+    record['status']
   end
 
   def ready_for_pickup?
-    status == 'BEING_HELD' || cdl_next_up?
+    status == 'Open - Awaiting pickup' || cdl_next_up?
   end
 
   def queue_position
-    fields['queuePosition']
+    record['queuePosition']
   end
 
   def queue_length
-    fields['queueLength']
+    '?'
   end
 
   def expiration_date
-    Time.zone.parse(fields['expirationDate']) if fields['expirationDate']
+    Time.zone.parse(record['expirationDate']) if record['expirationDate']
   end
 
   def placed_date
-    Time.zone.parse(fields['placedDate']) if fields['placedDate']
+    Time.zone.parse(record['requestDate']) if record['requestDate']
   end
 
   def fill_by_date
-    Time.zone.parse(fields['fillByDate']) if fields['fillByDate']
+    Time.zone.parse(record['fillByDate']) if record['fillByDate']
   end
 
   def waitlist_position
@@ -67,11 +65,13 @@ class Request
   end
 
   def active?
-    %w[PLACED BEING_HELD].include?(status)
+    status.start_with?('Open')
   end
 
   def item_call_key
-    fields.dig('item', 'fields', 'call', 'key')
+    # holdings record id? we don't have it in the patron API response
+    # but it is in the requests API response
+    nil
   end
 
   ##
@@ -87,11 +87,11 @@ class Request
   def pickup_library
     return 'CDL' if cdl?
 
-    fields['pickupLibrary']['key']
+    record['pickupLocationId']
   end
 
   def placed_library
-    fields['placedLibrary']['key']
+    nil
   end
 
   def library
@@ -190,17 +190,34 @@ class Request
   end
 
   def comment
-    fields['comment'].to_s
+    ''
+  end
+
+  # TODO: store an Item object in the request and fetch these record from it
+  def title
+    @record.dig('item', 'title')
+  end
+
+  def author
+    @record.dig('item', 'author')
+  end
+
+  def shelf_key
+    ''
+  end
+
+  def call_number
+    ''
+  end
+
+  def catkey
+    ''
   end
 
   private
 
-  def fields
-    record['fields']
-  end
-
   def library_key
-    item&.dig('library', 'key') || bib['callList']&.first&.dig('fields', 'library', 'key')
+    nil
   end
 
   def from_ilb?
@@ -212,6 +229,6 @@ class Request
   end
 
   def item_type
-    fields.dig('item', 'fields', 'itemType', 'key')
+    nil
   end
 end
