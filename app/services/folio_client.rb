@@ -31,7 +31,7 @@ class FolioClient
   end
 
   def login(library_id, pin)
-    user_response = get_json('/users', params: { query: "barcode==\"#{escape(library_id)}\"" })
+    user_response = get_json('/users', params: { query: CqlQuery.new(barcode: library_id).to_query })
     user = user_response.dig('users', 0)
     return unless user
 
