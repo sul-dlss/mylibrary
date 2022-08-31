@@ -57,11 +57,11 @@ class FolioClient
   end
 
   def user_info(user_id)
-    get_json("/users/#{user_id}")
+    get_json("/users/#{CGI.escape(user_id)}")
   end
 
   def patron_info(patron_key, loans: true, charges: true, holds: true)
-    get_json("/patron/account/#{patron_key}", params: {
+    get_json("/patron/account/#{CGI.escape(patron_key)}", params: {
       includeLoans: loans,
       includeCharges: charges,
       includeHolds: holds
