@@ -49,6 +49,18 @@ class FolioClient
     response.dig('users', 0)
   end
 
+  def user_info(user_id)
+    get_json("/users/#{CGI.escape(user_id)}")
+  end
+
+  def patron_info(patron_key, loans: true, charges: true, holds: true)
+    get_json("/patron/account/#{CGI.escape(patron_key)}", params: {
+      includeLoans: loans,
+      includeCharges: charges,
+      includeHolds: holds
+    })
+  end
+
   def ping
     session_token.present?
   rescue HTTP::Error
