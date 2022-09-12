@@ -26,13 +26,13 @@ RSpec.describe 'requests/edit' do
     let(:request_attributes) { { fill_by_date: Time.zone.parse('2019-01-01') } }
 
     it 'has a date selector to update the fill_by_date' do
-      expect(rendered).to have_css('input[type="date"][name="not_needed_after"]')
+      expect(rendered).to have_field('not_needed_after', type: 'date')
     end
   end
 
   context 'when the request has no fill_by_date' do
     it 'does not have a date selector to update the fill_by_date' do
-      expect(rendered).not_to have_css('input[type="date"][name="not_needed_after"]')
+      expect(rendered).not_to have_field('not_needed_after', type: 'date')
     end
   end
 end
