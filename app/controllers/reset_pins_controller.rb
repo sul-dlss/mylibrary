@@ -19,7 +19,7 @@ class ResetPinsController < ApplicationController
       params['library_id'],
       change_pin_with_token_unencoded_url
     )
-    flash[:success] = t 'mylibrary.reset_pin.success_html', library_id: params['library_id']
+    flash.now[:success] = t 'mylibrary.reset_pin.success_html', library_id: params['library_id']
     render action: :index
   end
 

@@ -196,7 +196,7 @@ RSpec.describe Patron do
       expect(patron.status).to eq 'Contact us'
     end
 
-    it 'shows more status information if Symphony standing is BARRED' do
+    xit 'shows more status information if Symphony standing is BARRED' do
       # some wording about needing to contact access services staff
     end
 
