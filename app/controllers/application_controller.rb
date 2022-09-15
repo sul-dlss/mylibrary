@@ -18,8 +18,7 @@ class ApplicationController < ActionController::Base
     return unless current_user?
 
     @patron ||= Patron.new(
-      folio_client.user_info(current_user.patron_key),
-      folio_client.patron_info(current_user.patron_key),
+      folio_graphql_client.patron_info(current_user.patron_key),
       payment_in_process_cookie
     )
   end
@@ -54,6 +53,10 @@ class ApplicationController < ActionController::Base
 
   def folio_client
     @folio_client ||= FolioClient.new
+  end
+
+  def folio_graphql_client
+    @folio_graphql_client ||= FolioGraphqlClient.new
   end
 
   def authenticate_user!

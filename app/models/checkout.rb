@@ -21,7 +21,7 @@ class Checkout
   end
 
   def key
-    record['key']
+    record['id']
   end
 
   def status
@@ -40,11 +40,13 @@ class Checkout
   end
 
   def checkout_date
-    Time.zone.parse(fields['checkOutDate'])
+    Time.zone.parse(record['loanDate'])
   end
 
+
   def recalled_date
-    Time.zone.parse(fields['recalledDate']) if fields['recalledDate']
+    nil
+    # Time.zone.parse(fields['recalledDate']) if fields['recalledDate']
   end
 
   def recalled?
@@ -52,7 +54,8 @@ class Checkout
   end
 
   def claims_returned_date
-    Time.zone.parse(fields['claimsReturnedDate']) if fields['claimsReturnedDate']
+    nil
+    # Time.zone.parse(fields['claimsReturnedDate']) if fields['claimsReturnedDate']
   end
 
   def claimed_returned?
@@ -60,7 +63,8 @@ class Checkout
   end
 
   def renewal_date
-    Time.zone.parse(fields['renewalDate']) if fields['renewalDate']
+    nil
+    # Time.zone.parse(fields['renewalDate']) if fields['renewalDate']
   end
 
   # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity,Metrics/MethodLength
@@ -84,7 +88,8 @@ class Checkout
   # rubocop:enable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity,Metrics/MethodLength
 
   def item_category_non_renewable?
-    item.dig('itemCategory5', 'key') == 'NORENEW'
+    nil
+    # item.dig('itemCategory5', 'key') == 'NORENEW'
   end
 
   def renewable?
@@ -100,19 +105,22 @@ class Checkout
   ##
   # The period before the due date in which the item can be renewed
   def renew_from_period
-    fields.dig('circulationRule', 'fields', 'renewFromPeriod').to_i
+    nil
+    # fields.dig('circulationRule', 'fields', 'renewFromPeriod').to_i
   end
 
   def patron_key
-    fields['patron']['key']
+    nil
+    # fields['patron']['key']
   end
 
   def overdue?
-    fields['overdue']
+    record['overdue']
   end
 
   def accrued
-    fields.dig('estimatedOverdueAmount', 'amount').to_d
+    0.0
+    # fields.dig('estimatedOverdueAmount', 'amount').to_d
   end
 
   def days_remaining
@@ -191,41 +199,49 @@ class Checkout
   end
 
   def loan_period_type
-    fields.dig('circulationRule', 'fields', 'loanPeriod', 'fields', 'periodType', 'key')
+    nil
+    # fields.dig('circulationRule', 'fields', 'loanPeriod', 'fields', 'periodType', 'key')
   end
 
   def circulation_rule
-    fields.dig('circulationRule', 'key')
+    nil
+    # fields.dig('circulationRule', 'key')
   end
 
   def reserve_item?
-    circulation_rule&.end_with?('-RES')
+    nil
+    # circulation_rule&.end_with?('-RES')
   end
 
   def renewal_count
-    fields['renewalCount'] || 0
+    0
+    # fields['renewalCount'] || 0
   end
 
   # nil means "unlimited" for unseenRenewalsRemaining
   def unseen_renewals_remaining
-    fields['unseenRenewalsRemaining'] || Float::INFINITY
+    Float::INFINITY
+    # fields['unseenRenewalsRemaining'] || Float::INFINITY
   end
 
   # nil means "unlimited" for seenRenewalsRemaining
   def seen_renewals_remaining
-    fields['seenRenewalsRemaining'] || Float::INFINITY
+    Float::INFINITY
+    # fields['seenRenewalsRemaining'] || Float::INFINITY
   end
 
   def original_due_date
-    fields['dueDate'] && Time.zone.parse(fields['dueDate'])
+    record['dueDate'] && Time.zone.parse(record['dueDate'])
   end
 
   def recall_due_date
-    fields['recallDueDate'] && Time.zone.parse(fields['recallDueDate'])
+    nil
+    # fields['recallDueDate'] && Time.zone.parse(fields['recallDueDate'])
   end
 
   def library_key
-    fields&.dig('library', 'key')
+    nil
+    # fields&.dig('library', 'key')
   end
 
   def from_ilb?
@@ -237,6 +253,7 @@ class Checkout
   end
 
   def item_type
-    fields.dig('item', 'fields', 'itemType', 'key')
+    nil
+    # fields.dig('item', 'fields', 'itemType', 'key')
   end
 end

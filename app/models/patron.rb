@@ -2,7 +2,7 @@
 
 # Class to model Patron information
 class Patron
-  attr_reader :user_info, :payment_in_process
+  attr_reader :patron_info, :payment_in_process
 
   CHARGE_LIMIT_THRESHOLD = 25_000
 
@@ -21,10 +21,13 @@ class Patron
     'MXFEE-NO25' => 'Fee borrower'
   }.freeze
 
-  def initialize(user_info, patron_info, payment_in_process = {})
-    @user_info = user_info
+  def initialize(patron_info, payment_in_process = {})
     @patron_info = patron_info
     @payment_in_process = payment_in_process
+  end
+
+  def user_info
+    patron_info['user']
   end
 
   def key
@@ -120,8 +123,7 @@ class Patron
   end
 
   def checkouts
-    @checkouts ||= []
-    # @checkouts ||= fields['circuser_infoList'].map { |checkout| Checkout.new(checkout) }
+    @checkouts ||= patron_info['loans'].map { |checkout| Checkout.new(checkout) }
   end
 
   def fines
