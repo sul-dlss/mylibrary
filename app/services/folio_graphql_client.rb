@@ -67,12 +67,91 @@ class FolioGraphqlClient
             item {
               instanceId
               title
+              itemId
+      
+              item {
+                circulationNotes {
+                  id
+                  noteType
+                  note
+                  source {
+                    personal {
+                      lastName
+                    }
+                    id
+                  }
+                  date
+                  staffOnly
+                }
+                effectiveShelvingOrder
+                effectiveCallNumberComponents {
+                  callNumber
+                }
+              }
+              author
+              instance {
+                hrid
+              }
+              isbn
             }
+            requestId
+            status
+            expirationDate
+            pickupLocationId
+            pickupLocation {
+              id
+            }
+            queuePosition
+            cancellationReasonId
+            canceledByUserId
+            cancellationAdditionalInformation
+            canceledDate
+            patronComments
           }
           charges {
             item {
               instanceId
               itemId
+              item {
+                effectiveShelvingOrder
+                effectiveCallNumberComponents {
+                  callNumber
+                }
+                permanentLocation {
+                  name
+                }
+              }
+              title
+              author
+              isbn
+              instance {
+                id
+              }
+            }
+            chargeAmount {
+              amount
+            }
+            accrualDate
+            description
+            state
+            reason
+            feeFineId
+            feeFine {
+              id
+              automatic
+              feeFineType
+              defaultAmount
+              chargeNoticeId
+              actionNoticeId
+              ownerId
+              metadata {
+                createdDate
+                createdByUserId
+                createdByUsername
+                updatedDate
+                updatedByUserId
+                updatedByUsername
+              }
             }
           }
           loans {
@@ -80,11 +159,35 @@ class FolioGraphqlClient
             item {
               title
               author
+              instanceId
+              itemId
+              isbn
+              instance {
+                indexTitle
+              }
+              item {
+                id
+                status {
+                  date
+                  name
+                }
+                effectiveShelvingOrder
+                effectiveCallNumberComponents {
+                  callNumber
+                }
+              }
             }
             loanDate
             dueDate
             overdue
           }
+          totalCharges {
+            isoCurrencyCode
+            amount
+          }
+          totalChargesCount
+          totalLoans
+          totalHolds
         }
       }",
       variables: { patronId: patron_uuid }

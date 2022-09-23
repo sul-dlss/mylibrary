@@ -1,8 +1,8 @@
 # frozen_string_literal: true
 
-# Model for the Checkouts page
+# ? FOLIO: Checkout = "Loan" in Folio - consider renaming for clarity
 class Checkout
-  include BibRecord
+  include FolioRecord
 
   attr_reader :record
 
@@ -25,7 +25,7 @@ class Checkout
   end
 
   def status
-    fields['status']
+    item['status']
   end
 
   def due_date
@@ -43,10 +43,11 @@ class Checkout
     Time.zone.parse(record['loanDate'])
   end
 
+  #### ? FOLIO: all data about recall, renewal, dates and reasons are unclear what fields we should use
+
 
   def recalled_date
     nil
-    # Time.zone.parse(fields['recalledDate']) if fields['recalledDate']
   end
 
   def recalled?
@@ -55,7 +56,6 @@ class Checkout
 
   def claims_returned_date
     nil
-    # Time.zone.parse(fields['claimsReturnedDate']) if fields['claimsReturnedDate']
   end
 
   def claimed_returned?
@@ -64,7 +64,6 @@ class Checkout
 
   def renewal_date
     nil
-    # Time.zone.parse(fields['renewalDate']) if fields['renewalDate']
   end
 
   # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity,Metrics/MethodLength
@@ -99,7 +98,8 @@ class Checkout
   ##
   # The date in which the item can be renewed (i.e too soon to renew)
   def renewable_at
-    due_date.to_date - renew_from_period.days if due_date && renew_from_period.positive?
+    Time.zone.now.to_date
+    # due_date.to_date - renew_from_period.days if due_date && renew_from_period.positive?
   end
 
   ##
@@ -120,7 +120,6 @@ class Checkout
 
   def accrued
     0.0
-    # fields.dig('estimatedOverdueAmount', 'amount').to_d
   end
 
   def days_remaining
@@ -194,9 +193,9 @@ class Checkout
 
   private
 
-  def fields
-    record['fields']
-  end
+  # def fields
+  #   record['fields']
+  # end
 
   def loan_period_type
     nil

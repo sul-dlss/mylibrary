@@ -1,12 +1,14 @@
 # frozen_string_literal: true
 
-# Model for requests in Symphony
+# ? FOLIO: Request = "Hold" in Folio - consider renaming for clarity
 class Request
+  include FolioRecord
+
+  attr_reader :record
+
   # A sufficiently large time used to sort nil values last
   # TODO: Update before 2099
   END_OF_DAYS = Time.zone.parse('2099-01-01')
-
-  attr_reader :record
 
   def initialize(record)
     @record = record
@@ -19,7 +21,8 @@ class Request
   end
 
   def key
-    record['requestId']
+    # 'string'
+    record.dig('item', 'itemId')
   end
 
   def patron_key
@@ -69,8 +72,6 @@ class Request
   end
 
   def item_call_key
-    # holdings record id? we don't have it in the patron API response
-    # but it is in the requests API response
     nil
   end
 
@@ -190,27 +191,6 @@ class Request
   end
 
   def comment
-    ''
-  end
-
-  # TODO: store an Item object in the request and fetch these record from it
-  def title
-    @record.dig('item', 'title')
-  end
-
-  def author
-    @record.dig('item', 'author')
-  end
-
-  def shelf_key
-    ''
-  end
-
-  def call_number
-    ''
-  end
-
-  def catkey
     ''
   end
 
