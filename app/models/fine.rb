@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 
-# Model for the Fine page
+# ? FOLIO: Fine = "FeeFine" in Folio - consider renaming for clarity
 class Fine
-  include BibRecord
+  include FolioRecord
 
   attr_reader :record
 
+  # ? FOLIO: need to recalibrate these statuses
   FINE_STATUS = {
     'OVERDUE' => 'Overdue item',
     'RECALLOVD' => 'Overdue recall',
@@ -40,19 +41,23 @@ class Fine
   end
 
   def key
-    record['key']
+    # ? FOLIO
+    'string'
   end
 
   def sequence
+    # ? FOLIO
     key&.split(':')&.last&.to_i
   end
 
   def patron_key
-    fields['patron']['key']
+    nil
+    # ? FOLIO: don't think we need this as we now get it in the parent query
   end
 
   def status
-    fields.dig('block', 'key')
+    # ? FOLIO: is this the right field?
+    record['state']
   end
 
   def nice_status
@@ -60,32 +65,32 @@ class Fine
   end
 
   def library
-    fields['library']['key']
+    # ? FOLIO: is this the right field? See bib_record
+    home_location
   end
 
   def bill_date
-    Time.zone.parse(fields['billDate']) if fields['billDate']
+    # ? FOLIO: is this the right field?
+    Time.zone.parse(record['accrualDate']) if record['accrualDate']
   end
 
   def owed
-    fields['owed']['amount'].to_d
+    # ? FOLIO: is this the right field?
+    record.dig('chargeAmount', 'amount')&.to_d
   end
 
   def fee
-    fields.dig('amount', 'amount')&.to_d
+    # ? FOLIO: is this the right field?
+    record.dig('chargeAmount', 'amount')&.to_d
   end
 
   def bib?
+    # ? FOLIO: do we need this? See bib_record
     bib.present?
   end
 
-  def to_partial_path
+  def to_partial_path 
     'fines/fine'
   end
 
-  private
-
-  def fields
-    record['fields']
-  end
 end

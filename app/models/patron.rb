@@ -127,12 +127,13 @@ class Patron
   end
 
   def fines
-    all_fines.reject { |fine| payment_sequence.include?(fine.sequence) }
+    all_fines
+    # all_fines.reject { |fine| payment_sequence.include?(fine.sequence) }
   end
 
   def all_fines
-    @all_fines ||= []
-    # @all_fines ||= fields['blockList'].map { |fine| Fine.new(fine) }
+    # @all_fines ||= []
+    @all_fines ||= patron_info['charges'].map { |fine| Fine.new(fine) }
   end
 
   ##
