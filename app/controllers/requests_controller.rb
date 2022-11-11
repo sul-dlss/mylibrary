@@ -54,10 +54,10 @@ class RequestsController < ApplicationController
 
     case @response.status
     when 200
-      flash.now[:success] = t 'mylibrary.request.cancel.success_html', title: params['title']
+      flash[:success] = t 'mylibrary.request.cancel.success_html', title: params['title']
     else
       Rails.logger.error(@response.body)
-      flash.now[:error] = t 'mylibrary.request.cancel.error_html', title: params['title']
+      flash[:error] = t 'mylibrary.request.cancel.error_html', title: params['title']
     end
 
     redirect_to requests_path(group: params[:group])

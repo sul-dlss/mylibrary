@@ -68,7 +68,7 @@ class SessionsController < ApplicationController
     return unless Settings.home_page_flash_message_html
 
     # rubocop:disable Rails/OutputSafety
-    flash.now[:success] = Settings.home_page_flash_message_html.html_safe
+    flash[:success] = Settings.home_page_flash_message_html.html_safe
     # rubocop:enable Rails/OutputSafety
   end
 end
