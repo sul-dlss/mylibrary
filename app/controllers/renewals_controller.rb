@@ -16,9 +16,9 @@ class RenewalsController < ApplicationController
 
     case @response.status
     when 200
-      flash[:success] = t 'mylibrary.renew_item.success_html', title: params['title']
+      flash.now[:success] = t 'mylibrary.renew_item.success_html', title: params['title']
     else
-      flash[:error] = t 'mylibrary.renew_item.error_html', title: params['title']
+      flash.now[:error] = t 'mylibrary.renew_item.error_html', title: params['title']
     end
 
     redirect_to checkouts_path(group: params[:group])
@@ -46,7 +46,7 @@ class RenewalsController < ApplicationController
   def bulk_renewal_flash(response, type:)
     return unless response[type].any?
 
-    flash[type] = I18n.t(
+    flash.now[type] = I18n.t(
       "mylibrary.renew_all_items.#{type}_html",
       count: response[type].length,
       items: tag.ul(

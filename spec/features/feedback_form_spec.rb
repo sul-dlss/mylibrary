@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Feedback form', type: :feature do
+RSpec.describe 'Feedback form' do
   context 'when not logged in' do
     it 'reCAPTCHA challenge is present' do
       visit feedback_path

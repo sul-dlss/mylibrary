@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Reset Pin', type: :feature do
+RSpec.describe 'Reset Pin' do
   context 'when logged in' do
     before do
       login_as(username: 'SUPER2', patron_key: '521182')

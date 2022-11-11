@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Request Page', type: :feature do
+RSpec.describe 'Request Page' do
   before do
     login_as(username: 'SUPER2', patron_key: '521182')
   end

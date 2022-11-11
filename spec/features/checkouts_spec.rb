@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Checkout Page', type: :feature do
+RSpec.describe 'Checkout Page' do
   before do
     login_as(username: 'SUPER1', patron_key: '521181')
   end

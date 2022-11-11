@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe RenewalsController, type: :controller do
+RSpec.describe RenewalsController do
   let(:api_response) { instance_double('Response', status: 200, content_type: :json) }
   let(:mock_client) do
     instance_double(SymphonyClient, renew_item: api_response, ping: true)

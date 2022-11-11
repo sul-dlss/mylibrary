@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe ContactFormsController, type: :controller do
+RSpec.describe ContactFormsController do
   let(:mock_client) do
     instance_double(
       SymphonyClient,
