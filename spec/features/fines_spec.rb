@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Fines Page', type: :feature do
+RSpec.describe 'Fines Page' do
   let(:user_with_payments) { '521181' }
   let(:user_without_fines) { '521206' }
 

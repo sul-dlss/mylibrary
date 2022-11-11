@@ -11,19 +11,6 @@ class PaymentsController < ApplicationController
   # forgery protection can use to validate the request
   skip_forgery_protection only: %i[accept cancel]
 
-  def create
-    set_payment_cookie
-    redirect_to URI::HTTPS.build(
-      host: Settings.symphony.host,
-      path: '/secureacceptance/payment_form.php',
-      query: create_payment_params.to_query
-    ).to_s, allow_other_host: true
-  end
-
-  # Render a list of the payment histroy for the patron
-  #
-  # GET /payments
-  # GET /payments.json
   def index
     @payments = Array.wrap(payments)
                      .map { |payment| Payment.new(payment) }
@@ -33,6 +20,19 @@ class PaymentsController < ApplicationController
       format.html { render }
       format.json { render json: payments_json_response }
     end
+  end
+
+  # Render a list of the payment histroy for the patron
+  #
+  # GET /payments
+  # GET /payments.json
+  def create
+    set_payment_cookie
+    redirect_to URI::HTTPS.build(
+      host: Settings.symphony.host,
+      path: '/secureacceptance/payment_form.php',
+      query: create_payment_params.to_query
+    ).to_s, allow_other_host: true
   end
 
   # The payment was accepted by CyberSource, but it may take a few moments

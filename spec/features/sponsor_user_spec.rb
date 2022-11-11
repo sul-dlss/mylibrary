@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Sponsor User', type: :feature do
+RSpec.describe 'Sponsor User' do
   before do
     login_as(username: 'FACULTY2', patron_key: '521187')
   end

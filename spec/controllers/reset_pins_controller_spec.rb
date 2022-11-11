@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe ResetPinsController, type: :controller do
+RSpec.describe ResetPinsController do
   let(:mock_client) { instance_double(SymphonyClient, reset_pin: {}, ping: true) }
 
   before do

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Contact form', type: :feature do
+RSpec.describe 'Contact form' do
   context 'with user logged in' do
     before do
       login_as(username: 'SUPER1', patron_key: '521181')

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Summaries Page', type: :feature do
+RSpec.describe 'Summaries Page' do
   before do
     login_as(username: 'SUPER1', patron_key: '521181')
     visit summaries_url

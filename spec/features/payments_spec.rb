@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Payments History', type: :feature do
+RSpec.describe 'Payments History' do
   let(:user_with_payments) { '521181' }
   let(:user_with_single_payment) { '521182' }
   let(:user_with_no_payments) { '521206' }

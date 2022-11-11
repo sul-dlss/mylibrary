@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Renew item', type: :feature, js: true do
+RSpec.describe 'Renew item', js: true do
   before do
     login_as(username: 'SUPER1', patron_key: '521181')
   end

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Navigation', type: :feature do
+RSpec.describe 'Navigation' do
   let(:mock_client) do
     instance_double(
       SymphonyClient,

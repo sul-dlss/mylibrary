@@ -68,6 +68,9 @@ Metrics/PerceivedComplexity:
   Exclude:
     - 'app/controllers/feedback_forms_controller.rb'
 
+Rails/ActionControllerFlashBeforeRender:
+  Enabled: false
+
 RSpec/ExampleLength:
   Exclude:
     - 'spec/features/**/*'
@@ -83,6 +86,7 @@ RSpec/NestedGroups:
 RSpec/DescribeClass:
   Exclude:
     - 'spec/views/**/*'
+    - 'spec/features/**/*'
 
 RSpec/VerifiedDoubleReference:
   Enabled: false

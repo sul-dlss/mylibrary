@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Internal flash messages', type: :feature do
+RSpec.describe 'Internal flash messages' do
   let(:user) { '521181' }
 
   before do

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'Proxy User', type: :feature do
+RSpec.describe 'Proxy User' do
   before do
     login_as(username: 'PROXY21', patron_key: '521197')
   end
