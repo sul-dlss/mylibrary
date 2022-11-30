@@ -23,7 +23,7 @@
   <div class="collapse w-100" id="collapseDetails-<%= borrow_direct_request.key.parameterize %>">
     <dl class="row mb-0">
       <dt class="col-3 offset-1 col-md-2 offset-md-2">Requested:</dt>
-      <dd class="col-8"><%= l(borrow_direct_request.date_submitted, format: :short) %></dd>
+      <dd class="col-8"><%= l(borrow_direct_request.date_submitted, format: :short) if borrow_direct_request.date_submitted %></dd>
       <dt class="col-3 offset-1 col-md-2 offset-md-2">Source:</dt>
       <dd class="col-8">BorrowDirect</dd>
     </dl>

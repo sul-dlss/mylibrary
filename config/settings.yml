@@ -27,6 +27,9 @@ symphony:
   host:
   override: PASSWORD
 
+borrow_direct_reshare:
+  enabled: false
+
 BORROW_DIRECT_CODE: BORROW_DIRECT
 ILL_CODE: ILL
 
