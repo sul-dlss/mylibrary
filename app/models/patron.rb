@@ -34,6 +34,10 @@ class Patron
     record['fields']['barcode']
   end
 
+  def university_id
+    record.dig('fields', 'alternateID')
+  end
+
   def status
     if expired?
       'Expired'
@@ -231,7 +235,11 @@ class Patron
   def borrow_direct_requests
     return [] if proxy_borrower? # Proxies can't submit borrow direct requests, so don't check.
 
-    BorrowDirectRequests.new(self).requests
+    if Settings.borrow_direct_reshare.enabled
+      BorrowDirectReshareRequests.new(self).requests
+    else
+      BorrowDirectRequests.new(self).requests
+    end
   end
 
   def symphony_requests
