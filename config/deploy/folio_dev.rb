@@ -2,7 +2,7 @@
 
 set :rails_env, 'production'
 
-server 'mylibrary-dev.stanford.edu', user: 'mylibrary', roles: %w[web db app]
+server 'mylibrary-folio-dev.stanford.edu', user: 'mylibrary', roles: %w[web db app]
 
 set :bundle_without, %w[deployment test].join(' ')
 
