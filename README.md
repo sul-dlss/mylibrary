@@ -9,8 +9,8 @@ and other features supported by Symphony Web Services API and other supported AP
 interactions with library access services.
 
 ## Requirements
-1. Ruby (2.6.3 or greater)
-2. Rails (5.2.3 or greater)
+1. Ruby (3.1 or greater)
+2. Bundler
 3. Connection to Symphony Web Services (hosted on symws-prod.stanford.edu and symws-dev.stanford.edu)
 
 ## Installation
@@ -26,7 +26,7 @@ Change directories into the app and install dependencies
 
 Start the development server
 
-    $ rails s
+    $ bin/dev
 
 ### OCI8 gem
 

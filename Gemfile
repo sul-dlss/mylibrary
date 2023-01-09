@@ -15,9 +15,6 @@ gem 'sqlite3', '~> 1.4'
 # Use Puma as the app server
 gem 'puma', '~> 5.0'
 
-# Use SCSS for stylesheets
-gem 'sassc-rails'
-
 # Turbolinks makes navigating your web application faster. Read more: https://github.com/turbolinks/turbolinks
 gem 'turbolinks', '~> 5'
 
@@ -50,8 +47,6 @@ gem 'okcomputer'
 
 gem 'jquery-rails'
 
-gem 'bootstrap', '~> 4.3'
-
 gem 'warden'
 
 gem 'nokogiri'
@@ -78,7 +73,6 @@ group :development, :test do
   gem 'rubocop-performance'
   gem 'rubocop-rails'
   gem 'rubocop-rspec'
-  gem 'scss_lint', require: false
   gem 'simplecov', require: false
   gem 'sinatra', require: false # used for faking the symphony api for integration tests
   gem 'warden-rspec-rails'
@@ -105,3 +99,5 @@ group :deployment do
   gem 'capistrano-rails'
   gem 'dlss-capistrano'
 end
+
+gem 'cssbundling-rails', '~> 1.1'
