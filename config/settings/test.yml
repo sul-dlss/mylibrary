@@ -1,5 +1,4 @@
 symws:
-  url: https://example.com/symws
   headers:
       x-sirs-clientID: SymWSTestClient
   login_params:

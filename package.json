@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "bootstrap": "^4.6.2",
+    "sass": "^1.57.1"
+  },
+  "scripts": {
+    "build:css": "sass ./app/assets/stylesheets/application.sass.scss:./app/assets/builds/application.css ./app/assets/stylesheets/nojs.scss:./app/assets/builds/nojs.css --no-source-map --load-path=node_modules"
+  }
+}

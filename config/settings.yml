@@ -2,7 +2,7 @@ GOOGLE_ANALYTICS_ID:
 borrow_direct:
   api_key: ''
 symws:
-  url:
+  url: https://example.com/symws
   headers: {}
   login_params: {}
   public_clientID:
