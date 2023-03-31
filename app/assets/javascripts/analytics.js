@@ -1,190 +1,164 @@
-GoogleAnalytics = (function() {
-  function GoogleAnalytics() {}
+// gtag intial setup
+window.dataLayer = window.dataLayer || [];
+function gtag(){dataLayer.push(arguments);}
+gtag('js', new Date());
 
-  GoogleAnalytics.load = function() {
-    GoogleAnalytics.analyticsId = GoogleAnalytics.getAnalyticsId();
-    (function(i, s, o, g, r, a, m) {
-      i['GoogleAnalyticsObject'] = r;
-      i[r] = i[r] || function() {
-        (i[r].q = i[r].q || []).push(arguments);
-      };
+// Send event in required GA4 format to Google
+function sendAnalyticsEvent({ action, category, label, value }) {
+  window.gtag && window.gtag('event', action, {
+    event_category: category,
+    event_label: label,
+    event_value: value
+  });  
+}
 
-      i[r].l = 1 * new Date;
+document.addEventListener('turbolinks:load', function() {
+  // gtag set property and config
+  const config = {}
+  // To turn off analytics debug mode, exclude the parameter altogether (cannot just set to false)
+  //See https://support.google.com/analytics/answer/7201382?hl=en#zippy=%2Cgoogle-tag-websites
+  if (document.head.querySelector("meta[name=analytics_debug]").getAttribute('value') === "true") {
+    config.debug_mode = true;
+  }  
+  gtag('config', 'G-XBQ5PKMBD4', config);
 
-      a = s.createElement(o);
-      m = s.getElementsByTagName(o)[0];
+  document.querySelectorAll('.btn-renewable-submit').forEach(function(el) {
+    el.addEventListener('click', function(e) {
+      sendAnalyticsEvent({
+        category: 'Renew',
+        action: 'renew-single'
+      })
+    })
+  })
 
-      a.async = 1;
-      a.src = g;
-      m.parentNode.insertBefore(a, m);
-    })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
-    ga('create', GoogleAnalytics.analyticsId, 'auto');
-    ga('set', 'anonymizeIp', true);
-  };
+  document.querySelectorAll('.btn-request-cancel').forEach(function(el) {
+    el.addEventListener('click', function(e) {
+      sendAnalyticsEvent({
+        category: 'Request',
+        action: 'cancel-single'
+      })
+    })
+  })
 
-  GoogleAnalytics.trackPageview = function(url) {
-    if (!GoogleAnalytics.isLocalRequest()) {
-      return ga('send', {
-          hitType: 'pageview',
-          page: GoogleAnalytics.getPath()
-        }
-      );
-    }
-  };
+  document.querySelectorAll('[href="/renewals/all_eligible"]').forEach(function(el) {
+    el.addEventListener('click', function(e) {
+      sendAnalyticsEvent({
+        category: 'Renew',
+        action: 'renew-all'
+      })
+    })
+  })
 
-  GoogleAnalytics.isLocalRequest = function() {
-    return GoogleAnalytics.documentDomainIncludes('local');
-  };
-
-  GoogleAnalytics.documentDomainIncludes = function(str) {
-    return document.domain.indexOf(str) !== -1;
-  };
-
-  GoogleAnalytics.getAnalyticsId = function() {
-    return $('[data-analytics-id]').data('analytics-id');
-  };
-
-  // Remove the protocol and the host and only return the path with any params
-  GoogleAnalytics.getPath = function() {
-    return location.href
-             .replace(location.protocol + '//' + location.host, '');
-  };
-
-  return GoogleAnalytics;
-
-})();
-
-$(document).on('turbolinks:load', function(){
-  GoogleAnalytics.load();
-  if (GoogleAnalytics.analyticsId){
-    GoogleAnalytics.trackPageview();
-  }
-
-  $('.btn-renewable-submit').on('click', function(e) {
-    ga('send', 'event', {
-      eventCategory: 'Renew',
-      eventAction: 'renew-single',
-      transport: 'beacon'
-    });
+  document.querySelectorAll('[data-target^="#collapseDetails"]').forEach(function(el) {
+    el.addEventListener('click', function(e) {
+      sendAnalyticsEvent({
+        category: 'Toggle Details',
+        action: e.currentTarget.classList.contains('collapsed') ? 'open' : 'close'
+      })
+    })
   });
 
-  $('.btn-request-cancel').on('click', function(e) {
-    ga('send', 'event', {
-      eventCategory: 'Request',
-      eventAction: 'cancel-single',
-      transport: 'beacon'
-    });
+  document.querySelectorAll('[href*="searchworks"]').forEach(function(el) {
+    el.addEventListener('click', function(e) {
+      sendAnalyticsEvent({
+        category: 'View in SearchWorks',
+        action: 'outbound click' 
+      })
+    })
   });
 
-  $('[href="/renewals/all_eligible"]').on('click', function(e) {
-    ga('send', 'event', {
-      eventCategory: 'Renew',
-      eventAction: 'renew-all',
-      transport: 'beacon'
-    });
+  document.querySelectorAll('[data-sort]').forEach(function(el) {
+    el.addEventListener('click', function(e) {
+      sendAnalyticsEvent({
+        category: 'Sort',
+        action: e.currentTarget.innerText
+      })
+    })
   });
 
-  $('[data-target^="#collapseDetails"]').on('click', function(e) {
-    var collapsed = $(e.currentTarget).hasClass('collapsed');
-    ga('send', 'event', {
-      eventCategory: 'Toggle Details',
-      eventAction: collapsed ? 'open' : 'close',
-      transport: 'beacon'
-    });
+  document.querySelectorAll('[data-cdl-waitlist] a').forEach(function(el) {
+    el.addEventListener('click', function(e) {
+      sendAnalyticsEvent({
+        category: 'CDL Waitlist Check',
+        action: 'outbound click' 
+      })
+    })
   });
 
-  $('[href^="https://searchworks.stanford.edu"]').on('click', function(e) {
-    ga('send', 'event', {
-      eventCategory: 'View in SearchWorks',
-      transport: 'beacon'
-    });
-  });
-
-  $('[data-sort]').on('click', function(e) {
-    ga('send', 'event', {
-      eventCategory: 'Sort',
-      eventAction: e.currentTarget.innerText,
-      transport: 'beacon'
-    });
-  });
-
-  $('[data-cdl-waitlist] a').on('click', function(e) {
-    ga('send', 'event', {
-      eventCategory: 'CDL Waitlist Check',
-      transport: 'beacon'
-    });
-  });
-
-  $('a.view-cdl-request').on('click', function(e) {
-    ga('send', 'event', {
-      eventCategory: 'Open CDL in viewer',
-      transport: 'beacon'
-    });
+  document.querySelectorAll('a.view-cdl-request').forEach(function(el) {
+    el.addEventListener('click', function(e) {
+      sendAnalyticsEvent({
+        category: 'Open CDL in viewer'
+      })
+    })
   });
 
   function contactFormSubmission(e) {
     var contactFormTo = $(e.currentTarget).closest('form').find('[data-contact-form-to-value]').text();
-    ga('send', 'event', {
-      eventCategory: 'Contact form',
-      eventAction: contactFormTo,
-      transport: 'beacon'
-    });
+    sendAnalyticsEvent({
+      category: 'Contact form',
+      action: contactFormTo
+    })
   }
 
   function changeRequestSubmission(e) {
-    var changeForm = $(e.currentTarget).closest('form');
-    var originalDate = changeForm.find('#current_fill_by_date').val();
-    var notNeededAfter = changeForm.find('#not_needed_after').val();
+    var originalDate = document.getElementById('#current_fill_by_date')?.value;
+    var notNeededAfter = document.getElementById('#not_needed_after')?.value;
 
     var action = [];
-    if (changeForm.find('#pickup_library').val().length > 0) {
+    if (document.getElementById('#pickup_library').options.length > 0) {
       action.push('library');
     }
-    if (originalDate !== notNeededAfter) {
+    if (originalDate && notNeededAfter && originalDate !== notNeededAfter) {
       action.push('date');
     }
-    if (changeForm.find('#cancel').prop('checked')) {
+    if (document.getElementById('#cancel')?.checked) {
       action.push('cancel');
     }
-    ga('send', 'event', {
-      eventCategory: 'Change Request',
-      eventAction: action.join(' '),
-      transport: 'beacon'
-    });
+
+    sendAnalyticsEvent({
+      category: 'Change Request',
+      action: action.join(' ')
+    })
   }
 
-  $('form.contact-form button[type="submit"]').on('click', contactFormSubmission);
-  $('.request-edit form button[type="submit"]').on('click', changeRequestSubmission);
-
-  $('[data-pay-button]').on('click', function(e) {
-    ga('send', 'event', {
-      eventCategory: 'Pay fine',
-      eventAction: 'click to pay',
-      transport: 'beacon'
-    });
+  document.querySelectorAll('[data-pay-button]').forEach(function(el) {
+    el.addEventListener('click', function(e) {
+      sendAnalyticsEvent({
+        category: 'Pay fine',
+        action: 'click to pay'
+      })
+    })
   });
 
-  $('body .alert-success:contains("Payment may take up to 5 minutes to appear in your payment history")').each(function(i, val) {
-    ga('send', 'event', {
-      eventCategory: 'Pay fine',
-      eventAction: 'success',
-      transport: 'beacon'
-    });
+  document.querySelectorAll('.alert-success').forEach(function(el) {
+    if (el.innerText.includes('Payment may take up to 5 minutes to appear in your payment history')) {
+      sendAnalyticsEvent({
+        category: 'Pay fine',
+        action: 'success'
+      })
+    }
   });
 
-  $('body .alert-danger:contains("Payment canceled")').each(function(i, val) {
-    ga('send', 'event', {
-      eventCategory: 'Pay fine',
-      eventAction: 'canceled',
-      transport: 'beacon'
-    });
+  document.querySelectorAll('.alert-danger').forEach(function(el) {
+    if (el.innerText.includes('Payment canceled')) {
+      sendAnalyticsEvent({
+        category: 'Pay fine',
+        action: 'canceled'
+      })
+    }
   });
 
-
-  // Things that may happen in a modal
+  // Bootstrap 3 and 4 event detection depends on Jquery
+  // Bootstrap 5 allows for native .addEventListener detection, but only if Jquery is not present at all
+  // See https://getbootstrap.com/docs/5.0/getting-started/javascript/ heading "Jquery events"
+  // Once this application is on Bootstrap 5, and Jquery is removed, we can change this Bootstrap event detection to pure JS
   $('#mylibrary-modal').on('shown.bs.modal', function(e) {
-    $('form.contact-form button[type="submit"]').on('click', contactFormSubmission);
-    $('.request-edit form button[type="submit"]').on('click', changeRequestSubmission);
+    document.querySelectorAll('form.contact-form button[type="submit"]').forEach(function(el) {
+      el.addEventListener('click', contactFormSubmission)
+    });
+    document.querySelectorAll('.request-edit form button[type="submit"]').forEach(function(el) {
+      el.addEventListener('click', changeRequestSubmission)
+    });
   });
-
 });
