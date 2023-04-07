@@ -1,4 +1,3 @@
-GOOGLE_ANALYTICS_ID:
 borrow_direct:
   api_key: ''
 symws:
@@ -41,3 +40,5 @@ embed:
 
 purl:
   url: https://purl.stanford.edu
+
+analytics_debug: true
