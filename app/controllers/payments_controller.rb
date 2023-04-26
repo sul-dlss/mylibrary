@@ -26,11 +26,7 @@ class PaymentsController < ApplicationController
   # GET /payments.json
   def create
     set_payment_cookie
-    redirect_to URI::HTTPS.build(
-      host: Settings.symphony.host,
-      path: '/secureacceptance/payment_form.php',
-      query: create_payment_params.to_query
-    ).to_s, allow_other_host: true
+    redirect_to(controller: 'cybersource', action: 'create', params: create_payment_params.to_h)
   end
 
   # The payment was accepted by CyberSource, but it may take a few moments
@@ -44,6 +40,7 @@ class PaymentsController < ApplicationController
   # POST /payments/accept
   def accept
     alter_payment_cookie
+    folio_account_payment
     redirect_to fines_path, flash: {
       success: (t 'mylibrary.fine_payment.accept_html', amount: params[:req_amount])
     }
@@ -58,6 +55,19 @@ class PaymentsController < ApplicationController
   end
 
   private
+
+  def folio_account_payment
+    # TODO: make a bulk account payment, the req_ params are those sent back from cybersource:
+    #   folio-post /accounts-bulk/pay
+    #     { "items": folio_account_ids, -- this will probably need top be parsed using an IFS from params[:req_items]
+    #       "amount": params[:req_amount],
+    #       "userName": params[:req_user],
+    #       "servicePointId": params[:req_servicepoint],
+    #       "notifyPatron": "true",
+    #       "paymentMethod": "Credit card" }
+    #   Persist the respose to a database table
+    {}
+  end
 
   # Formatted for use by the ajax_in_place_update library
   def payments_json_response
@@ -101,6 +111,6 @@ class PaymentsController < ApplicationController
   end
 
   def create_payment_params
-    params.permit(%I[reason billseq amount session_id user group])
+    params.permit(%I[reason billseq amount session_id user group key])
   end
 end

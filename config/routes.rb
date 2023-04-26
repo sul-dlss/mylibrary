@@ -33,9 +33,11 @@ Rails.application.routes.draw do
   get '/change_pin/:token', to: 'reset_pins#change_form', as: :change_pin_with_token
   post '/change_pin', to: 'reset_pins#change'
 
-  resources :payments, only: %I[create]
+  resources :payments, only: %I[index create]
   post '/payments/accept', to: 'payments#accept'
   post '/payments/cancel', to: 'payments#cancel'
+
+  get '/cybersource', to: 'cybersource#create'
 
   get '/unavailable', to: 'services#unavailable'
 

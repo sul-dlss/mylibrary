@@ -59,6 +59,10 @@ gem 'recaptcha'
 
 gem 'global_alerts'
 
+gem 'repost'
+
+gem 'ruby-hmac'
+
 group :production do
   gem 'mysql2'
   gem 'newrelic_rpm'
