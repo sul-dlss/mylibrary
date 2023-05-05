@@ -38,10 +38,7 @@ class FolioClient
   # @param [String] item_id the UUID of the FOLIO item
   def renew_item(user_id, item_id)
     response = post("/patron/account/#{user_id}/item/#{item_id}/renew")
-    return if response.status.success?
-
-    raise "Renew request for user_id: #{user_id}, item_id: #{item_id} was not successful. " \
-          "status: #{response.status.code}, #{response.body}"
+    check_response(response, title: 'Renew', context: { user_id: user_id, item_id: item_id })
   end
 
   # Cancel a hold request
@@ -50,13 +47,18 @@ class FolioClient
   # @param [String] hold_id the UUID of the FOLIO hold
   def cancel_hold_request(user_id, hold_id)
     response = post("/patron/account/#{user_id}/hold/#{hold_id}/cancel")
-    return if response.status.success?
-
-    raise "Cancel request for user_id: #{user_id}, hold_id: #{hold_id} was not successful. " \
-          "status: #{response.status.code}, #{response.body}"
+    check_response(response, title: 'Cancel', context: { user_id: user_id, hold_id: hold_id })
   end
 
   private
+
+  def check_response(response, title:, context:)
+    return if response.status.success?
+
+    context_string = context.map { |k, v| "#{k}: #{v}" }.join(', ')
+    raise "#{title} request for #{context_string} was not successful. " \
+          "status: #{response.status.code}, #{response.body}"
+  end
 
   def get(path, **kwargs)
     authenticated_request(path, method: :get, **kwargs)
