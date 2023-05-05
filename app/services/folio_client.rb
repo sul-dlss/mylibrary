@@ -44,6 +44,18 @@ class FolioClient
           "status: #{response.status.code}, #{response.body}"
   end
 
+  # Cancel a hold request
+  # See https://s3.amazonaws.com/foliodocs/api/mod-patron/p/patron.html#patron_account__id__hold__holdid__cancel_post
+  # @param [String] user_id the UUID of the user in FOLIO
+  # @param [String] hold_id the UUID of the FOLIO hold
+  def cancel_hold_request(user_id, hold_id)
+    response = post("/patron/account/#{user_id}/hold/#{hold_id}/cancel")
+    return if response.status.success?
+
+    raise "Cancel request for user_id: #{user_id}, hold_id: #{hold_id} was not successful. " \
+          "status: #{response.status.code}, #{response.body}"
+  end
+
   private
 
   def get(path, **kwargs)
