@@ -3,7 +3,7 @@
 require 'http'
 
 # Calls FOLIO REST endpoints
-class FolioClient
+class FolioClient # rubocop:disable Metrics/ClassLength
   DEFAULT_HEADERS = {
     accept: 'application/json, text/plain',
     content_type: 'application/json'
@@ -77,6 +77,32 @@ class FolioClient
     check_response(response, title: 'Change pickup expiration',
                              context: { hold_id: hold_id,
                                         expiration: expiration })
+  end
+
+  # Validate a pin for a user
+  # https://s3.amazonaws.com/foliodocs/api/mod-users/p/patronpin.html#patron_pin_verify_post
+  # @param [String] user_id the UUID of the user in FOLIO
+  # @param [String] pin
+  # @return [Boolean] true when successful
+  def validate_patron_pin(user_id, pin)
+    response = post('/patron-pin/verify', json: { id: user_id, pin: pin })
+    case response.status
+    when 200
+      true
+    when 422
+      false
+    else
+      check_response(response, title: 'Validate pin', context: { user_id: user_id, pin: pin })
+    end
+  end
+
+  # Set a pin for a user
+  # https://s3.amazonaws.com/foliodocs/api/mod-users/p/patronpin.html#patron_pin_post
+  # @param [String] user_id the UUID of the user in FOLIO
+  # @param [String] pin
+  def assign_pin(user_id, pin)
+    response = post('/patron-pin', json: { id: user_id, pin: pin })
+    check_response(response, title: 'Assign pin', context: { user_id: user_id, pin: pin })
   end
 
   private
