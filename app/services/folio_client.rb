@@ -53,11 +53,11 @@ class FolioClient
   private
 
   def check_response(response, title:, context:)
-    return if response.status.success?
+    return if response.success?
 
     context_string = context.map { |k, v| "#{k}: #{v}" }.join(', ')
     raise "#{title} request for #{context_string} was not successful. " \
-          "status: #{response.status.code}, #{response.body}"
+          "status: #{response.status}, #{response.body}"
   end
 
   def get(path, **kwargs)
@@ -76,7 +76,7 @@ class FolioClient
   # @raises [StandardError] if the response was not a 200
   # @return [Hash] the parsed JSON data structure
   def parse_json(response)
-    raise response unless response.status.ok?
+    raise response unless response.status == 200
     return nil if response.body.empty?
 
     JSON.parse(response.body)
@@ -85,20 +85,29 @@ class FolioClient
   def session_token
     @session_token ||= begin
       response = request('/authn/login', json: { username: @username, password: @password }, method: :post)
-      raise response.body unless response.status.created?
+      raise response.body unless response.status == 201
 
       response['x-okapi-token']
     end
   end
 
-  def authenticated_request(path, headers: {}, **other)
-    request(path, headers: headers.merge('x-okapi-token': session_token), **other)
+  def authenticated_request(path, method:, params: nil, headers: {}, json: nil)
+    request(path, method: method, params: params, headers: headers.merge('x-okapi-token': session_token), json: json)
   end
 
-  def request(path, headers: {}, method: :get, **other)
-    HTTP
-      .headers(default_headers.merge(headers))
-      .request(method, base_url + path, **other)
+  def request(path, method:, headers: nil, params: nil, json: nil)
+    connection.send(method, path, params, headers) do |req|
+      req.body = json.to_json if json
+    end
+  end
+
+  def connection
+    @connection ||= Faraday.new(base_url) do |builder|
+      builder.request :retry, max: 4, interval: 1, backoff_factor: 2
+      default_headers.each do |k, v|
+        builder.headers[k] = v
+      end
+    end
   end
 
   def default_headers

@@ -41,7 +41,9 @@ gem 'honeybadger'
 
 gem 'config'
 
-gem 'http'
+gem 'faraday' # Used by FolioClient
+gem 'faraday-retry'
+gem 'http' # Used by SymphonyClient
 
 gem 'okcomputer'
 
