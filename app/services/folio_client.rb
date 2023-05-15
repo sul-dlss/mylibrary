@@ -43,11 +43,21 @@ class FolioClient
 
   # Cancel a hold request
   # See https://s3.amazonaws.com/foliodocs/api/mod-patron/p/patron.html#patron_account__id__hold__holdid__cancel_post
-  # @param [String] user_id the UUID of the user in FOLIO
+  # @example client.cancel_hold_request('562a5cb0-e998-4ea2-80aa-34ac2b536238',
+  #                                     '39a4ebd1-0137-45ff-a6a2-c256de260840',
+  #                                     '123d9cba-85a8-42e0-b130-c82e504c64d6')
+  # @param [String] user_id the UUID of the FOLIO user
   # @param [String] hold_id the UUID of the FOLIO hold
-  def cancel_hold_request(user_id, hold_id)
-    response = post("/patron/account/#{user_id}/hold/#{hold_id}/cancel")
-    check_response(response, title: 'Cancel', context: { user_id: user_id, hold_id: hold_id })
+  # @param [String] pickup_location_id the UUID of the pickup location
+  def cancel_hold_request(user_id, hold_id, pickup_location_id)
+    response = post("/patron/account/#{user_id}/hold/#{hold_id}/cancel",
+                    json: {
+                      requestDate: Time.now.utc.iso8601,
+                      pickupLocationId: pickup_location_id
+                    })
+
+    check_response(response, title: 'Cancel request',
+                             context: { user_id: user_id, hold_id: hold_id, pickup_location_id: pickup_location_id })
   end
 
   private
