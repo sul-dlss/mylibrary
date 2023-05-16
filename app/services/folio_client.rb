@@ -48,16 +48,21 @@ class FolioClient
   #                                     '123d9cba-85a8-42e0-b130-c82e504c64d6')
   # @param [String] user_id the UUID of the FOLIO user
   # @param [String] hold_id the UUID of the FOLIO hold
-  # @param [String] pickup_location_id the UUID of the pickup location
-  def cancel_hold_request(user_id, hold_id, pickup_location_id)
-    response = post("/patron/account/#{user_id}/hold/#{hold_id}/cancel",
-                    json: {
-                      requestDate: Time.now.utc.iso8601,
-                      pickupLocationId: pickup_location_id
-                    })
+  # @param [String] cancellation_reason_id the uuid of the cancellation reason
+  #                   see https://okapi-test.stanford.edu/cancellation-reason-storage/cancellation-reasons?limit=10000&query=cql.allRecords%3D1%20sortby%20name
+  #                       https://s3.amazonaws.com/foliodocs/api/mod-circulation-storage/p/cancellation-reason.html#cancellation_reason_storage_cancellation_reasons_get
+  def cancel_hold_request(user_id:, hold_id:, cancellation_reason_id: '45d231db-3244-4ca8-a36c-9cbe3385c367')
+    request_data = json_response("/circulation/requests/#{hold_id}")
+    request_data.merge!('cancellationAdditionalInformation' => 'Cancelled by mylibrary',
+                        'cancellationReasonId' => cancellation_reason_id,
+                        'cancelledByUserId' => user_id,
+                        'cancelledDate' => Time.now.utc.iso8601,
+                        'status' => 'Closed - Cancelled')
+    response = put("/circulation/requests/#{hold_id}", json: request_data)
 
     check_response(response, title: 'Cancel request',
-                             context: { user_id: user_id, hold_id: hold_id, pickup_location_id: pickup_location_id })
+                             context: { user_id: user_id, hold_id: hold_id,
+                                        cancellation_reason_id: cancellation_reason_id })
   end
 
   private
@@ -76,6 +81,10 @@ class FolioClient
 
   def post(path, **kwargs)
     authenticated_request(path, method: :post, **kwargs)
+  end
+
+  def put(path, **kwargs)
+    authenticated_request(path, method: :put, **kwargs)
   end
 
   def json_response(path, **kwargs)
