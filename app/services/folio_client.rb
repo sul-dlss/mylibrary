@@ -50,6 +50,21 @@ class FolioClient
     check_response(response, title: 'Cancel', context: { user_id: user_id, hold_id: hold_id })
   end
 
+  # Change hold request date
+  # @example client.change_pickup_location(hold_id: '4a64eccd-3e44-4bb0-a0f7-9b4c487abf61',
+  #                                        pickup_location_id: 'bd5fd8d9-72f3-4532-b68c-4db88063d16b')
+  # @param [String] hold_id the UUID of the FOLIO hold
+  # @param [String] pickup_location_id the uuid of the new location
+  def change_pickup_location(hold_id:, pickup_location_id:)
+    request_data = json_response("/circulation/requests/#{hold_id}")
+    request_data['pickupServicePointId'] = 'bd5fd8d9-72f3-4532-b68c-4db88063d16b'
+    response = put("/circulation/requests/#{hold_id}", json: request_data)
+
+    check_response(response, title: 'Change pickup location',
+                             context: { hold_id: hold_id,
+                                        pickup_location_id: pickup_location_id })
+  end
+
   private
 
   def check_response(response, title:, context:)
@@ -66,6 +81,10 @@ class FolioClient
 
   def post(path, **kwargs)
     authenticated_request(path, method: :post, **kwargs)
+  end
+
+  def put(path, **kwargs)
+    authenticated_request(path, method: :put, **kwargs)
   end
 
   def json_response(path, **kwargs)
