@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Fine do
+RSpec.describe Symphony::Fine do
   subject do
     described_class.new({
       key: '1:1',

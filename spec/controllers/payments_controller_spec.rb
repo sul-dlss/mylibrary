@@ -6,13 +6,7 @@ RSpec.describe PaymentsController do
   let(:user) { { username: 'somesunetid', patron_key: '123' } }
 
   describe '#index' do
-    let(:mock_patron) { instance_double(Patron, group?: false, barcode: '1234') }
-    let(:mock_legacy_client) do
-      instance_double(
-        SymphonyLegacyClient,
-        payments: mock_legacy_client_response
-      )
-    end
+    let(:mock_patron) { instance_double(Symphony::Patron, group?: false, barcode: '1234') }
     let(:mock_legacy_client_response) do
       [
         { 'billNumber' => '1', 'feePaymentInfo' => { 'paymentDate' => '2019-01-01' } },
@@ -20,12 +14,17 @@ RSpec.describe PaymentsController do
         { 'billNumber' => '3', 'feePaymentInfo' => { 'paymentDate' => '2019-02-01' } }
       ]
     end
+    let(:payments) do
+      Array.wrap(mock_legacy_client_response).map do |x|
+        Symphony::Payment.new(x)
+      end
+    end
 
     before do
       allow(controller).to receive(:patron).and_return(mock_patron)
-      allow(controller).to receive(:symphony_client)
-        .and_return(instance_double(SymphonyClient, session_token: '1a2b3c4d5e6f7g8h9i0j', ping: true))
-      allow(SymphonyLegacyClient).to receive(:new).and_return(mock_legacy_client)
+      allow(controller).to receive(:ils_client)
+        .and_return(instance_double(SymphonyClient, session_token: '1a2b3c4d5e6f7g8h9i0j', ping: true,
+                                                    payments: payments))
     end
 
     context 'when an unathenticated user' do
@@ -41,7 +40,7 @@ RSpec.describe PaymentsController do
         it 'shows a list of payments from the payments array' do
           get(:index)
 
-          expect(assigns(:payments)).to all(be_a Payment)
+          expect(assigns(:payments)).to all(be_a Symphony::Payment)
         end
 
         it 'shows the correct number of payments in the list' do

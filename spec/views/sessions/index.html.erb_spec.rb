@@ -6,7 +6,7 @@ RSpec.describe 'sessions/index' do
   subject(:page) { Capybara.string(rendered) }
 
   before do
-    assign(:symphony_ok, true)
+    assign(:ils_ok, true)
   end
 
   it 'renders login buttons' do
@@ -19,7 +19,7 @@ RSpec.describe 'sessions/index' do
 
   context 'when symphony is down' do
     before do
-      assign(:symphony_ok, false)
+      assign(:ils_ok, false)
     end
 
     it 'renders a maintenance message' do

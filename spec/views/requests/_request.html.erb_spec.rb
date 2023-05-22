@@ -6,7 +6,7 @@ RSpec.describe 'requests/_request' do
   let(:request_attributes) { {} }
   let(:mock_request) do
     instance_double(
-      Request,
+      Symphony::Request,
       author: 'Some Author',
       call_number: '',
       catkey: '12345',
@@ -26,7 +26,7 @@ RSpec.describe 'requests/_request' do
     )
   end
 
-  let(:patron) { instance_double(Patron, can_modify_requests?: false) }
+  let(:patron) { instance_double(Symphony::Patron, can_modify_requests?: false) }
 
   before do
     without_partial_double_verification do

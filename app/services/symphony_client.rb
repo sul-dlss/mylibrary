@@ -187,6 +187,10 @@ class SymphonyClient
     })
   end
 
+  def payments(patron)
+    Array.wrap(symphony_legacy_client.payments(session_token, patron)).map { |payment| Symphony::Payment.new(payment) }
+  end
+
   private
 
   def renew_item_request(resource, item_key, headers: {})
@@ -219,6 +223,13 @@ class SymphonyClient
 
   def base_url
     Settings.symws.url
+  end
+
+  # The regular SymphonyClient does not provide payment history
+  # so we have to use a legacy client to access that data.
+  # We should avoid using this when possible.
+  def symphony_legacy_client
+    @symphony_legacy_client ||= SymphonyLegacyClient.new
   end
 
   def default_headers

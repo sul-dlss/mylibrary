@@ -3,10 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe 'summaries/_summary' do
-  let(:fines) { [instance_double(Fine, owed: 3, status: 'A', sequence: '1')] }
+  let(:fines) { [instance_double(Symphony::Fine, owed: 3, status: 'A', sequence: '1')] }
   let(:patron) do
-    instance_double(Patron, barcode: '1', fines: fines, can_pay_fines?: true, requests: [], checkouts: [],
-                            remaining_checkouts: nil)
+    instance_double(Symphony::Patron, barcode: '1', fines: fines, can_pay_fines?: true, requests: [], checkouts: [],
+                                      remaining_checkouts: nil)
   end
 
   before do
@@ -26,8 +26,8 @@ RSpec.describe 'summaries/_summary' do
 
   context 'when the patron has no fines' do
     let(:patron) do
-      instance_double(Patron, barcode: '1', fines: [], can_pay_fines?: true, requests: [], checkouts: [],
-                              remaining_checkouts: nil)
+      instance_double(Symphony::Patron, barcode: '1', fines: [], can_pay_fines?: true, requests: [], checkouts: [],
+                                        remaining_checkouts: nil)
     end
 
     it 'does not show the shared computer payment alert' do

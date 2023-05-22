@@ -6,7 +6,7 @@ RSpec.describe 'patron/_patron' do
   let(:patron_options) { {} }
   let(:patron) do
     instance_double(
-      Patron,
+      Symphony::Patron,
       first_name: 'Jane',
       last_name: 'Stanford',
       patron_type: nil,

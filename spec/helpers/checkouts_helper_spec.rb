@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe CheckoutsHelper do
   describe '#list_group_item_status_for_checkout' do
     context 'with a recalled item' do
-      let(:checkout) { instance_double(Checkout, recalled?: true) }
+      let(:checkout) { instance_double(Symphony::Checkout, recalled?: true) }
 
       it 'is *-danger' do
         expect(helper.list_group_item_status_for_checkout(checkout)).to eq 'list-group-item-danger'
@@ -13,7 +13,7 @@ RSpec.describe CheckoutsHelper do
     end
 
     context 'with an overdue item' do
-      let(:checkout) { instance_double(Checkout, recalled?: false, overdue?: true) }
+      let(:checkout) { instance_double(Symphony::Checkout, recalled?: false, overdue?: true) }
 
       it 'is *-warning' do
         expect(helper.list_group_item_status_for_checkout(checkout)).to eq 'list-group-item-warning'
@@ -23,7 +23,7 @@ RSpec.describe CheckoutsHelper do
 
   describe '#time_remaining_for_checkout' do
     context 'when the checkout is a short term loan' do
-      let(:checkout) { instance_double(Checkout, short_term_loan?: true, due_date: 42.minutes.from_now) }
+      let(:checkout) { instance_double(Symphony::Checkout, short_term_loan?: true, due_date: 42.minutes.from_now) }
 
       it 'returns the distance of time in words' do
         expect(helper.time_remaining_for_checkout(checkout)).to eq '42 minutes'
@@ -31,7 +31,7 @@ RSpec.describe CheckoutsHelper do
     end
 
     context 'when the checkout is not a short term loan' do
-      let(:checkout) { instance_double(Checkout, short_term_loan?: false, days_remaining: 42) }
+      let(:checkout) { instance_double(Symphony::Checkout, short_term_loan?: false, days_remaining: 42) }
 
       it 'pluralizes the number of days remaining' do
         expect(helper.time_remaining_for_checkout(checkout)).to eq '42 days'
@@ -42,7 +42,7 @@ RSpec.describe CheckoutsHelper do
   describe '#render_checkout_status' do
     let(:checkout) do
       instance_double(
-        Checkout,
+        Symphony::Checkout,
         recalled?: false,
         overdue?: false,
         lost?: false,

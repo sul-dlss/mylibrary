@@ -3,17 +3,17 @@
 require 'rails_helper'
 
 RSpec.describe FinesController do
-  let(:mock_patron) { instance_double(Patron, group?: false, barcode: '1234') }
+  let(:mock_patron) { instance_double(Symphony::Patron, group?: false, barcode: '1234') }
 
   let(:fines) do
     [
-      instance_double(Fine, key: '1', sequence: '1', owed: '12', status: 'BADCHECK')
+      instance_double(Symphony::Fine, key: '1', sequence: '1', owed: '12', status: 'BADCHECK')
     ]
   end
 
   before do
     allow(controller).to receive(:patron).and_return(mock_patron)
-    allow(controller).to receive(:symphony_client)
+    allow(controller).to receive(:ils_client)
       .and_return(instance_double(SymphonyClient, session_token: '1a2b3c4d5e6f7g8h9i0j', ping: true))
   end
 
@@ -30,7 +30,7 @@ RSpec.describe FinesController do
 
     let(:checkouts) do
       [
-        instance_double(Checkout, key: '2', sort_key: Time.zone.now)
+        instance_double(Symphony::Checkout, key: '2', sort_key: Time.zone.now)
       ]
     end
 
@@ -64,13 +64,13 @@ RSpec.describe FinesController do
 
     let(:checkouts) do
       [
-        instance_double(Checkout, key: '2', sort_key: Time.zone.now)
+        instance_double(Symphony::Checkout, key: '2', sort_key: Time.zone.now)
       ]
     end
 
     before do
       allow(mock_patron).to receive(:group).and_return(
-        instance_double(Group, fines: fines, checkouts: checkouts)
+        instance_double(Symphony::Group, fines: fines, checkouts: checkouts)
       )
       warden.set_user(user)
     end

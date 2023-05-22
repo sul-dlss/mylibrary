@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe 'checkouts/index' do
-  let(:patron) { instance_double(Patron, group?: false, remaining_checkouts: nil) }
+  let(:patron) { instance_double(Symphony::Patron, group?: false, remaining_checkouts: nil) }
 
   before do
     stub_template 'shared/_navigation.html.erb' => 'Navigation'

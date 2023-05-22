@@ -7,7 +7,7 @@
         <%= hidden_field_tag :billseq, fines.map(&:sequence).values_at(0, -1).join('-') %>
         <%= hidden_field_tag :amount, format('%.2f', fines.sum(&:owed)) %>
         <%= hidden_field_tag :session_id, SecureRandom.hex %>
-        <%= hidden_field_tag :group, patron_or_group.is_a?(Group) ? 'G' : '' %>
+        <%= hidden_field_tag :group, patron_or_group.is_a?(Symphony::Group) ? 'G' : '' %>
         <%= hidden_field_tag :user, patron_or_group.barcode %>
         <%= button_tag class: 'btn btn-md btn-info', type: 'submit', data: { 'pay-button' => true } do %>
           <%= sul_icon :'sharp-payment-24px' %>

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Patron do
+RSpec.describe Symphony::Patron do
   subject(:patron) do
     described_class.new(
       {
@@ -435,13 +435,13 @@ RSpec.describe Patron do
 
     describe '#checkouts' do
       it 'returns a list of checkouts for the patron' do
-        expect(patron.checkouts).to include a_kind_of(Checkout).and(have_attributes(key: 1))
+        expect(patron.checkouts).to include a_kind_of(Symphony::Checkout).and(have_attributes(key: 1))
       end
     end
 
     describe '#group_checkouts' do
       it 'returns a list of group checkouts for the patron' do
-        expect(patron.group_checkouts).to include a_kind_of(Checkout).and(have_attributes(key: 1))
+        expect(patron.group_checkouts).to include a_kind_of(Symphony::Checkout).and(have_attributes(key: 1))
       end
     end
   end
@@ -453,13 +453,13 @@ RSpec.describe Patron do
 
     describe '#fines' do
       it 'returns a list of fines for the patron' do
-        expect(patron.fines).to include a_kind_of(Fine).and(have_attributes(key: '1'))
+        expect(patron.fines).to include a_kind_of(Symphony::Fine).and(have_attributes(key: '1'))
       end
     end
 
     describe '#group_fines' do
       it 'returns a list of group fines for the patron' do
-        expect(patron.group_fines).to include a_kind_of(Fine).and(have_attributes(key: '1'))
+        expect(patron.group_fines).to include a_kind_of(Symphony::Fine).and(have_attributes(key: '1'))
       end
     end
 
@@ -505,7 +505,7 @@ RSpec.describe Patron do
 
     describe '#requests' do
       it 'returns a list of requests for the patron' do
-        expect(patron.requests).to include a_kind_of(Request).and(have_attributes(key: 1))
+        expect(patron.requests).to include a_kind_of(Symphony::Request).and(have_attributes(key: 1))
       end
 
       it 'includes requests that come from the BorrowDirectRequests class' do
@@ -515,7 +515,7 @@ RSpec.describe Patron do
 
     describe '#group_requests' do
       it 'returns a list of group requests for the patron' do
-        expect(patron.group_requests).to include a_kind_of(Request).and(have_attributes(key: 1))
+        expect(patron.group_requests).to include a_kind_of(Symphony::Request).and(have_attributes(key: 1))
       end
 
       it 'includes group requests that come from the BorrowDirectRequests class' do

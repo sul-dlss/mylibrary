@@ -15,7 +15,7 @@ class ResetPinsController < ApplicationController
   #
   # POST /reset_pin
   def reset
-    @response = symphony_client.reset_pin(
+    @response = ils_client.reset_pin(
       params['library_id'],
       change_pin_with_token_unencoded_url
     )
@@ -34,7 +34,7 @@ class ResetPinsController < ApplicationController
   #
   # POST /change_pin
   def change
-    @response = symphony_client.change_pin(*change_pin_with_token_params)
+    @response = ils_client.change_pin(*change_pin_with_token_params)
 
     case @response.status
     when 200

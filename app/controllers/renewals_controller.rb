@@ -12,7 +12,7 @@ class RenewalsController < ApplicationController
   #
   # POST /renewals
   def create
-    @response = symphony_client.renew_item(*renew_item_params)
+    @response = ils_client.renew_item(*renew_item_params)
 
     case @response.status
     when 200
@@ -29,7 +29,7 @@ class RenewalsController < ApplicationController
   # POST /renewals/all_eligible
   def all_eligible
     eligible_renewals = patron_or_group.checkouts.select(&:renewable?)
-    response = symphony_client.renew_items(eligible_renewals)
+    response = ils_client.renew_items(eligible_renewals)
 
     bulk_renewal_flash(response, type: :success)
     bulk_renewal_flash(response, type: :error)

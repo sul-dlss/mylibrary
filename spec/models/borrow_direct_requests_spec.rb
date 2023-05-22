@@ -3,9 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe BorrowDirectRequests do
-  subject(:bd_requests) { described_class.new(patron) }
+  subject(:bd_requests) { described_class.new(patron_barcode) }
 
-  let(:patron) { instance_double(Patron, barcode: '123456') }
+  let(:patron_barcode) { '123456' }
   let(:in_process_request) do
     instance_double(
       BorrowDirect::RequestQuery::Item,
@@ -23,7 +23,7 @@ RSpec.describe BorrowDirectRequests do
 
   context 'when successful' do
     before do
-      allow(BorrowDirect::RequestQuery).to receive(:new).with(patron.barcode).and_return(mock_requests)
+      allow(BorrowDirect::RequestQuery).to receive(:new).with(patron_barcode).and_return(mock_requests)
     end
 
     it 'only return requests with active statuses' do
@@ -33,7 +33,7 @@ RSpec.describe BorrowDirectRequests do
 
   context 'when borrow direct returns an error' do
     before do
-      allow(BorrowDirect::RequestQuery).to receive(:new).with(patron.barcode).and_raise(
+      allow(BorrowDirect::RequestQuery).to receive(:new).with(patron_barcode).and_raise(
         BorrowDirect::Error, 'Item not Found'
       )
     end
@@ -78,7 +78,9 @@ RSpec.describe BorrowDirectRequests do
       end
 
       context 'when date' do
-        it { expect(request.sort_key(:date)).to eq "#{Request::END_OF_DAYS.strftime('%FT%T')}---BD Request Title" }
+        it {
+          expect(request.sort_key(:date)).to eq "#{Symphony::Request::END_OF_DAYS.strftime('%FT%T')}---BD Request Title"
+        }
       end
 
       context 'when any other sort value' do

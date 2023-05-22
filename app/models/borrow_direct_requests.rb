@@ -4,10 +4,10 @@
 # Wrap the BorrowDirect::RequestQuery in a class that we
 # can inject our patron barcode from (and do error handling)
 class BorrowDirectRequests
-  attr_reader :patron
+  attr_reader :patron_barcode
 
-  def initialize(patron)
-    @patron = patron
+  def initialize(patron_barcode)
+    @patron_barcode = patron_barcode
   end
 
   def requests
@@ -19,7 +19,7 @@ class BorrowDirectRequests
   private
 
   def request_client
-    @request_client ||= BorrowDirect::RequestQuery.new(patron.barcode)
+    @request_client ||= BorrowDirect::RequestQuery.new(patron_barcode)
   end
 
   ##
@@ -45,7 +45,7 @@ class BorrowDirectRequests
       when :title
         title
       when :date
-        [::Request::END_OF_DAYS.strftime('%FT%T'), title].join('---')
+        [::Symphony::Request::END_OF_DAYS.strftime('%FT%T'), title].join('---')
       else
         ''
       end

@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Payment do
+RSpec.describe Symphony::Payment do
   subject(:payment) { described_class.new(record.with_indifferent_access) }
 
   let(:record) do

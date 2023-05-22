@@ -5,8 +5,8 @@ require 'rails_helper'
 RSpec.describe 'checkouts/_renew_all_button' do
   subject(:output) { Capybara.string(rendered) }
 
-  let(:patron) { instance_double(Patron, checkouts: checkouts, can_renew?: true) }
-  let(:checkouts) { [instance_double(Checkout, renewable?: true)] }
+  let(:patron) { instance_double(Symphony::Patron, checkouts: checkouts, can_renew?: true) }
+  let(:checkouts) { [instance_double(Symphony::Checkout, renewable?: true)] }
 
   before do
     without_partial_double_verification do

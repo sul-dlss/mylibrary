@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
 class BorrowDirectReshareRequests
-  attr_reader :patron
+  attr_reader :patron_university_id
 
-  def initialize(patron)
-    @patron = patron
+  def initialize(patron_university_id)
+    @patron_university_id = patron_university_id
   end
 
   def requests
@@ -12,15 +12,15 @@ class BorrowDirectReshareRequests
     # and that each ReShare request object's patron_id matches
     # the logged in patron's university_id.
     reshare_requests.select(&:active?)
-                    .select { |request| request.patron_id == patron.university_id }
+                    .select { |request| request.patron_id == patron_university_id }
   end
 
   private
 
   def reshare_requests
-    return [] unless patron.university_id
+    return [] unless patron_university_id
 
-    request_client.requests(patron.university_id).map do |request|
+    request_client.requests(patron_university_id).map do |request|
       ReshareRequest.new(request)
     end
   end
@@ -103,7 +103,7 @@ class BorrowDirectReshareRequests
       when :title
         title
       when :date
-        [::Request::END_OF_DAYS.strftime('%FT%T'), title].join('---')
+        [::Symphony::Request::END_OF_DAYS.strftime('%FT%T'), title].join('---')
       else
         ''
       end

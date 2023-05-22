@@ -220,8 +220,8 @@ RSpec.describe SymphonyClient do
 
     let(:checkouts) do
       [
-        instance_double(Checkout, resource: 'item', item_key: '123', title: 'A'),
-        instance_double(Checkout, resource: 'item', item_key: 'invalid', title: 'B')
+        instance_double(Symphony::Checkout, resource: 'item', item_key: '123', title: 'A'),
+        instance_double(Symphony::Checkout, resource: 'item', item_key: 'invalid', title: 'B')
       ]
     end
 

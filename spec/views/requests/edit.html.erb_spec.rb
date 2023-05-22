@@ -6,7 +6,7 @@ RSpec.describe 'requests/edit' do
   let(:request_attributes) { {} }
   let(:mock_request) do
     instance_double(
-      Request,
+      Symphony::Request,
       title: 'Request Title',
       key: 'abc123',
       resource: nil,
