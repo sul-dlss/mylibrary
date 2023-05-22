@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
   #
   # GET /
   def index
-    @symphony_ok = symphony_client.ping
+    @ils_ok = ils_client.ping
 
     redirect_to summaries_url if current_user?
   end

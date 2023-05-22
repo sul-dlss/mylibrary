@@ -1,5 +1,10 @@
 borrow_direct:
   api_key: ''
+
+ils:
+  client: SymphonyClient
+  patron_model: Symphony::Patron
+
 symws:
   url: https://example.com/symws
   headers: {}

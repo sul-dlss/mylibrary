@@ -5,6 +5,9 @@ class ApplicationController < ActionController::Base
   helper_method :current_user, :current_user?, :patron, :patron_or_group
   before_action :set_internal_pages_flash_message, :check_unavailable
 
+  class_attribute :ils_client_class, default: Settings.ils.client.constantize
+  class_attribute :ils_patron_model_class, default: Settings.ils.patron_model.constantize
+
   def current_user
     session_data = request.env['warden'].user
     session_data && User.new(session_data)
@@ -17,7 +20,7 @@ class ApplicationController < ActionController::Base
   def patron
     return unless current_user?
 
-    @patron ||= Patron.new(patron_info_response, payment_in_process_cookie)
+    @patron ||= ils_patron_model_class.new(patron_info_response, payment_in_process_cookie)
   end
 
   def patron_or_group
@@ -38,7 +41,7 @@ class ApplicationController < ActionController::Base
     # - you do not have an active session (root_path; otherwise you would never be able to log in again..)
     return if request.path == unavailable_path || request.path == root_path
 
-    redirect_to unavailable_path unless symphony_client.ping
+    redirect_to unavailable_path unless ils_client.ping
   end
 
   ##
@@ -48,12 +51,12 @@ class ApplicationController < ActionController::Base
     @payment_in_process_cookie ||= JSON.parse(cookies[:payment_in_process] || {}.to_json).with_indifferent_access
   end
 
-  def symphony_client
-    @symphony_client ||= SymphonyClient.new
+  def patron_info_response
+    ils_client.patron_info(current_user.patron_key, item_details: item_details)
   end
 
-  def patron_info_response
-    symphony_client.patron_info(current_user.patron_key, item_details: item_details)
+  def ils_client
+    @ils_client ||= ils_client_class.new
   end
 
   def authenticate_user!
