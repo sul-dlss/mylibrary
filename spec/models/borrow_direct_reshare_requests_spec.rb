@@ -3,9 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe BorrowDirectReshareRequests do
-  subject(:bd_requests) { described_class.new(patron) }
+  subject(:bd_requests) { described_class.new(patron_university_id) }
 
-  let(:patron) { instance_double(Symphony::Patron, barcode: '123456', university_id: '12345678') }
+  let(:patron_university_id) { '12345678' }
 
   let(:in_process_request) do
     { 'id' => '11111111',
@@ -27,7 +27,7 @@ RSpec.describe BorrowDirectReshareRequests do
 
   context 'when successful' do
     before do
-      allow(request_client).to receive(:requests).with(patron.university_id)
+      allow(request_client).to receive(:requests).with(patron_university_id)
                                                  .and_return([in_process_request, completed_request])
     end
 
@@ -42,7 +42,7 @@ RSpec.describe BorrowDirectReshareRequests do
     end
 
     before do
-      allow(request_client).to receive(:requests).with(patron.university_id)
+      allow(request_client).to receive(:requests).with(patron_university_id)
                                                  .and_return([request_with_wrong_patron])
     end
 
@@ -52,7 +52,7 @@ RSpec.describe BorrowDirectReshareRequests do
   end
 
   context 'when the patron does not have a university_id' do
-    let(:patron) { instance_double(Symphony::Patron, barcode: '123456', university_id: nil) }
+    let(:patron_university_id) { nil }
 
     it 'returns an empty array' do
       expect(bd_requests.requests).to eq([])
