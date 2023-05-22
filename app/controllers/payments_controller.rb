@@ -12,9 +12,7 @@ class PaymentsController < ApplicationController
   skip_forgery_protection only: %i[accept cancel]
 
   def index
-    @payments = Array.wrap(payments)
-                     .map { |payment| Payment.new(payment) }
-                     .sort_by { |payment| payment.sort_key(:payment_date) }
+    @payments = payments.sort_by { |payment| payment.sort_key(:payment_date) }
 
     respond_to do |format|
       format.html { render }
@@ -98,15 +96,8 @@ class PaymentsController < ApplicationController
     }
   end
 
-  # The regular SymphonyClient does not provide payment history
-  # so we have to use a legacy client to access that data.
-  # We should avoid using this when possible.
-  def symphony_legacy_client
-    @symphony_legacy_client ||= SymphonyLegacyClient.new
-  end
-
   def payments
-    symphony_legacy_client.payments(symphony_client.session_token, patron)
+    ils_client.payments(patron)
   end
 
   def create_payment_params
