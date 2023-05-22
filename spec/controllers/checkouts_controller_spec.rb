@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe CheckoutsController do
-  let(:mock_patron) { instance_double(Patron) }
+  let(:mock_patron) { instance_double(Symphony::Patron) }
 
   let(:mock_client) { instance_double(SymphonyClient, ping: true) }
   let(:requests) { [] }
@@ -27,7 +27,7 @@ RSpec.describe CheckoutsController do
 
     let(:checkouts) do
       [
-        instance_double(Checkout, key: '1', sort_key: nil)
+        instance_double(Symphony::Checkout, key: '1', sort_key: nil)
       ]
     end
 
@@ -49,7 +49,7 @@ RSpec.describe CheckoutsController do
     context 'with requests' do
       let(:requests) do
         [
-          instance_double(Request, key: '1', sort_key: nil, cdl_checkedout?: false)
+          instance_double(Symphony::Request, key: '1', sort_key: nil, cdl_checkedout?: false)
         ]
       end
 
@@ -68,12 +68,12 @@ RSpec.describe CheckoutsController do
 
     let(:checkouts) do
       [
-        instance_double(Checkout, key: '2', sort_key: nil)
+        instance_double(Symphony::Checkout, key: '2', sort_key: nil)
       ]
     end
 
     before do
-      allow(mock_patron).to receive(:group).and_return(instance_double(Group, checkouts: checkouts, requests: requests))
+      allow(mock_patron).to receive(:group).and_return(instance_double(Symphony::Group, checkouts: checkouts, requests: requests))
       warden.set_user(user)
     end
 

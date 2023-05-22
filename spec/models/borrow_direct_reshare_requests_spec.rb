@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe BorrowDirectReshareRequests do
   subject(:bd_requests) { described_class.new(patron) }
 
-  let(:patron) { instance_double(Patron, barcode: '123456', university_id: '12345678') }
+  let(:patron) { instance_double(Symphony::Patron, barcode: '123456', university_id: '12345678') }
 
   let(:in_process_request) do
     { 'id' => '11111111',
@@ -52,7 +52,7 @@ RSpec.describe BorrowDirectReshareRequests do
   end
 
   context 'when the patron does not have a university_id' do
-    let(:patron) { instance_double(Patron, barcode: '123456', university_id: nil) }
+    let(:patron) { instance_double(Symphony::Patron, barcode: '123456', university_id: nil) }
 
     it 'returns an empty array' do
       expect(bd_requests.requests).to eq([])
@@ -134,7 +134,7 @@ RSpec.describe BorrowDirectReshareRequests do
       end
 
       context 'when date' do
-        it { expect(request.sort_key(:date)).to eq "#{Request::END_OF_DAYS.strftime('%FT%T')}---A title" }
+        it { expect(request.sort_key(:date)).to eq "#{Symphony::Request::END_OF_DAYS.strftime('%FT%T')}---A title" }
       end
 
       context 'when any other sort value' do

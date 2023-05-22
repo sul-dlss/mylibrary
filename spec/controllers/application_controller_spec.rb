@@ -43,7 +43,7 @@ RSpec.describe ApplicationController do
 
   describe '#patron' do
     context 'with a logged in user' do
-      let(:patron) { Patron.new('fields' => { 'address1' => [], 'standing' => { 'key' => '' } }) }
+      let(:patron) { Symphony::Patron.new('fields' => { 'address1' => [], 'standing' => { 'key' => '' } }) }
 
       before do
         allow(mock_client).to receive(:patron_info).with('123', item_details: {}).and_return(patron)
@@ -51,7 +51,7 @@ RSpec.describe ApplicationController do
       end
 
       it 'is a new instance of the Patron class' do
-        expect(controller.patron).to be_an_instance_of Patron
+        expect(controller.patron).to be_an_instance_of Symphony::Patron
       end
     end
 
@@ -77,7 +77,7 @@ RSpec.describe ApplicationController do
   end
 
   describe '#patron_or_group' do
-    let(:patron) { Patron.new('fields' => { 'address1' => [], 'standing' => { 'key' => '' } }) }
+    let(:patron) { Symphony::Patron.new('fields' => { 'address1' => [], 'standing' => { 'key' => '' } }) }
 
     before do
       allow(mock_client).to receive(:patron_info).with('123', item_details: {}).and_return(patron)
@@ -85,12 +85,12 @@ RSpec.describe ApplicationController do
     end
 
     it 'returns the patron' do
-      expect(controller.patron_or_group).to be_an_instance_of Patron
+      expect(controller.patron_or_group).to be_an_instance_of Symphony::Patron
     end
 
     it 'returns the group' do
       controller.params[:group] = true
-      expect(controller.patron_or_group).to be_an_instance_of Group
+      expect(controller.patron_or_group).to be_an_instance_of Symphony::Group
     end
   end
 end

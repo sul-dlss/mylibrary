@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Group do
+RSpec.describe Symphony::Group do
   subject(:group) do
     described_class.new(
       {
@@ -42,7 +42,7 @@ RSpec.describe Group do
 
   describe '#member_list' do
     it 'is an array of patrons' do
-      expect(group.member_list).to all(be_a(Patron))
+      expect(group.member_list).to all(be_a(Symphony::Patron))
     end
 
     it 'has a patron with a key' do
@@ -115,7 +115,7 @@ RSpec.describe Group do
     end
 
     it 'returns the group sponsor' do
-      expect(group.sponsor).to be_an_instance_of(Patron).and(have_attributes(key: '2'))
+      expect(group.sponsor).to be_an_instance_of(Symphony::Patron).and(have_attributes(key: '2'))
     end
   end
 
@@ -185,7 +185,7 @@ RSpec.describe Group do
     end
 
     it 'has checkouts' do
-      expect(group.checkouts).to all(be_a(Checkout))
+      expect(group.checkouts).to all(be_a(Symphony::Checkout))
     end
   end
 
@@ -200,7 +200,7 @@ RSpec.describe Group do
     end
 
     it 'has fines' do
-      expect(group.fines).to all(be_a(Fine))
+      expect(group.fines).to all(be_a(Symphony::Fine))
     end
   end
 
@@ -223,7 +223,7 @@ RSpec.describe Group do
     end
 
     it 'has requests from symphony' do
-      expect(group.requests.first).to be_a(Request)
+      expect(group.requests.first).to be_a(Symphony::Request)
     end
 
     it 'has requests from BorrowDirect' do

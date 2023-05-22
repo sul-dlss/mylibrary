@@ -4,13 +4,13 @@ require 'rails_helper'
 
 RSpec.describe 'fines/index' do
   let(:fine) do
-    instance_double(Fine, owed: 3, status: 'A', sequence: '1', nice_status: 'Damaged', bib?: false, key: 'abc',
+    instance_double(Symphony::Fine, owed: 3, status: 'A', sequence: '1', nice_status: 'Damaged', bib?: false, key: 'abc',
                           bill_date: Date.new, fee: 5, library: 'Best Lib', barcode: '12345')
   end
   let(:fines) { [fine] }
   let(:checkouts) { [] }
   let(:patron) do
-    instance_double(Patron, barcode: '1', fines: fines, can_pay_fines?: true, requests: [], checkouts: checkouts,
+    instance_double(Symphony::Patron, barcode: '1', fines: fines, can_pay_fines?: true, requests: [], checkouts: checkouts,
                             remaining_checkouts: nil, barred?: false, status: 'OK', group?: false)
   end
 
@@ -35,7 +35,7 @@ RSpec.describe 'fines/index' do
   context 'when the patron has no fines' do
     let(:patron) do
       # create a patron with empty array for fines
-      instance_double(Patron, barcode: '1', fines: [], can_pay_fines?: true, requests: [], checkouts: [],
+      instance_double(Symphony::Patron, barcode: '1', fines: [], can_pay_fines?: true, requests: [], checkouts: [],
                               remaining_checkouts: nil, barred?: false, status: 'OK', group?: false)
     end
 

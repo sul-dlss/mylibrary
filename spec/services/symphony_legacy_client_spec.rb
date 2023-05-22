@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe SymphonyLegacyClient do
   let(:client) { subject }
 
-  let(:mock_patron) { instance_double(Patron, barcode: '1234567890') }
+  let(:mock_patron) { instance_double(Symphony::Patron, barcode: '1234567890') }
 
   let(:mock_legacy_client_response) do
     '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>

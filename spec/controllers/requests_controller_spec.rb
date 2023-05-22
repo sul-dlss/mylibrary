@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe RequestsController do
-  let(:mock_patron) { instance_double(Patron, requests: requests) }
+  let(:mock_patron) { instance_double(Symphony::Patron, requests: requests) }
   let(:requests) { [] }
 
   let(:mock_client) { instance_double(SymphonyClient, ping: true) }
@@ -26,7 +26,7 @@ RSpec.describe RequestsController do
 
     let(:requests) do
       [
-        instance_double(Request, key: '1', sort_key: nil, cdl_checkedout?: false)
+        instance_double(Symphony::Request, key: '1', sort_key: nil, cdl_checkedout?: false)
       ]
     end
 
@@ -50,8 +50,8 @@ RSpec.describe RequestsController do
     describe 'cdl and non cdl requests' do
       let(:requests) do
         [
-          instance_double(Request, key: '1', sort_key: nil, cdl_checkedout?: false),
-          instance_double(Request, key: '1', sort_key: nil, cdl_checkedout?: true)
+          instance_double(Symphony::Request, key: '1', sort_key: nil, cdl_checkedout?: false),
+          instance_double(Symphony::Request, key: '1', sort_key: nil, cdl_checkedout?: true)
         ]
       end
 
@@ -65,7 +65,7 @@ RSpec.describe RequestsController do
     describe 'BorrowDirect requests' do
       let(:requests) do
         [
-          instance_double(Request, key: '1', sort_key: nil, cdl_checkedout?: false),
+          instance_double(Symphony::Request, key: '1', sort_key: nil, cdl_checkedout?: false),
           instance_double(BorrowDirectRequests::Request, key: 'sta-1', sort_key: nil, cdl_checkedout?: false)
         ]
       end
@@ -81,7 +81,7 @@ RSpec.describe RequestsController do
       let(:api_response) { instance_double('Response', status: 200, content_type: :json) }
 
       let(:requests) do
-        [instance_double(Request, key: '123')]
+        [instance_double(Symphony::Request, key: '123')]
       end
 
       let(:mock_client) { instance_double(SymphonyClient, ping: true) }
@@ -158,7 +158,7 @@ RSpec.describe RequestsController do
       let(:mock_client) { instance_double(SymphonyClient, cancel_hold: api_response, ping: true) }
 
       let(:requests) do
-        [instance_double(Request, key: '123')]
+        [instance_double(Symphony::Request, key: '123')]
       end
 
       before do
@@ -226,7 +226,7 @@ RSpec.describe RequestsController do
 
     let(:requests) do
       [
-        instance_double(Request, key: '1', sort_key: nil, cdl_checkedout?: false)
+        instance_double(Symphony::Request, key: '1', sort_key: nil, cdl_checkedout?: false)
       ]
     end
 
@@ -251,7 +251,7 @@ RSpec.describe RequestsController do
 
     let(:requests) do
       [
-        instance_double(Request, key: '1', sort_key: nil, cdl_waitlist_position: nil)
+        instance_double(Symphony::Request, key: '1', sort_key: nil, cdl_waitlist_position: nil)
       ]
     end
 

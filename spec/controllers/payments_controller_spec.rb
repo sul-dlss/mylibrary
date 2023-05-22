@@ -6,7 +6,7 @@ RSpec.describe PaymentsController do
   let(:user) { { username: 'somesunetid', patron_key: '123' } }
 
   describe '#index' do
-    let(:mock_patron) { instance_double(Patron, group?: false, barcode: '1234') }
+    let(:mock_patron) { instance_double(Symphony::Patron, group?: false, barcode: '1234') }
     let(:mock_legacy_client) do
       instance_double(
         SymphonyLegacyClient,
@@ -41,7 +41,7 @@ RSpec.describe PaymentsController do
         it 'shows a list of payments from the payments array' do
           get(:index)
 
-          expect(assigns(:payments)).to all(be_a Payment)
+          expect(assigns(:payments)).to all(be_a Symphony::Payment)
         end
 
         it 'shows the correct number of payments in the list' do

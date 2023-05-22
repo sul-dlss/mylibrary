@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Request do
+RSpec.describe Symphony::Request do
   subject do
     described_class.new({
       key: '1',
@@ -193,8 +193,8 @@ RSpec.describe Request do
     end
 
     it 'cdl_waitlist_position' do
-      allow(CatalogInfo).to receive(:find).and_return(
-        instance_double(CatalogInfo, hold_records: waitlist_hold_records)
+      allow(Symphony::CatalogInfo).to receive(:find).and_return(
+        instance_double(Symphony::CatalogInfo, hold_records: waitlist_hold_records)
       )
       expect(request.cdl_waitlist_position).to eq '1 of 5'
     end

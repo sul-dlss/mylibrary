@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe Checkout do
+RSpec.describe Symphony::Checkout do
   subject do
     described_class.new({
       key: '1',

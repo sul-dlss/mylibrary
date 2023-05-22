@@ -11,8 +11,8 @@ RSpec.describe RenewalsController do
     { username: 'somesunetid', patron_key: '123' }
   end
 
-  let(:mock_patron) { instance_double(Patron, checkouts: checkouts) }
-  let(:checkouts) { [instance_double(Checkout, item_key: '123', item_category_non_renewable?: false)] }
+  let(:mock_patron) { instance_double(Symphony::Patron, checkouts: checkouts) }
+  let(:checkouts) { [instance_double(Symphony::Checkout, item_key: '123', item_category_non_renewable?: false)] }
 
   before do
     warden.set_user(user)
@@ -78,7 +78,7 @@ RSpec.describe RenewalsController do
     end
 
     context 'when the requested item is not eligible even though symphony does not stop us' do
-      let(:checkouts) { [instance_double(Checkout, item_key: '123', item_category_non_renewable?: true)] }
+      let(:checkouts) { [instance_double(Symphony::Checkout, item_key: '123', item_category_non_renewable?: true)] }
 
       it 'does not renew the item and sets flash messages' do
         post :create, params: { resource: 'abc', item_key: '123' }
@@ -93,12 +93,12 @@ RSpec.describe RenewalsController do
       instance_double(SymphonyClient, renew_items: api_response, ping: true)
     end
     let(:api_response) { { success: [checkouts[0]], error: [checkouts[1]] } }
-    let(:mock_patron) { instance_double(Patron, checkouts: checkouts) }
+    let(:mock_patron) { instance_double(Symphony::Patron, checkouts: checkouts) }
     let(:checkouts) do
       [
-        instance_double(Checkout, key: '1', renewable?: true, item_key: '123', title: 'ABC', resource: 'item'),
-        instance_double(Checkout, key: '2', renewable?: true, item_key: '456', title: 'XYZ', resource: 'item'),
-        instance_double(Checkout, key: '3', renewable?: false, item_key: '789', title: 'Not', resource: 'item')
+        instance_double(Symphony::Checkout, key: '1', renewable?: true, item_key: '123', title: 'ABC', resource: 'item'),
+        instance_double(Symphony::Checkout, key: '2', renewable?: true, item_key: '456', title: 'XYZ', resource: 'item'),
+        instance_double(Symphony::Checkout, key: '3', renewable?: false, item_key: '789', title: 'Not', resource: 'item')
       ]
     end
 
