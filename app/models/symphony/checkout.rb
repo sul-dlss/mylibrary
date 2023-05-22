@@ -149,17 +149,17 @@ module Symphony
     # rubocop:disable Metrics/MethodLength
     def sort_key(key)
       sort_key = case key
-                when :status
-                  [status_sort_key, title, author, shelf_key]
-                when :due_date
-                  [due_date_sort_value, title, author, shelf_key]
-                when :title
-                  [title, author, shelf_key]
-                when :author
-                  [author, title, shelf_key]
-                when :call_number
-                  [shelf_key]
-                end
+                 when :status
+                   [status_sort_key, title, author, shelf_key]
+                 when :due_date
+                   [due_date_sort_value, title, author, shelf_key]
+                 when :title
+                   [title, author, shelf_key]
+                 when :author
+                   [author, title, shelf_key]
+                 when :call_number
+                   [shelf_key]
+                 end
 
       sort_key.join('---')
     end

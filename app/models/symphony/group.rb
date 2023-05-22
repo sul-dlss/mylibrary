@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Symphony
   # Class to model Research group information
   class Group < Patron

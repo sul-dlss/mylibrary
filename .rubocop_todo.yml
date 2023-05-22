@@ -9,13 +9,13 @@
 # Offense count: 1
 Lint/NoReturnInBeginEndBlocks:
   Exclude:
-    - 'app/models/request.rb'
+    - 'app/models/symphony/request.rb'
 
 # Offense count: 1
 # This cop supports unsafe autocorrection (--autocorrect-all).
 Performance/MapCompact:
   Exclude:
-    - 'app/models/patron.rb'
+    - 'app/models/symphony/patron.rb'
 
 # Offense count: 1
 # This cop supports unsafe autocorrection (--autocorrect-all).

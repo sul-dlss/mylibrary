@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Symphony
   # Model for requests in Symphony
   class Request
@@ -113,17 +114,17 @@ module Symphony
     # rubocop:disable Metrics/MethodLength
     def sort_key(key)
       sort_key = case key
-                when :library
-                  [pickup_library, title, author, shelf_key]
-                when :date
-                  [*date_sort_key, title, author, shelf_key]
-                when :title
-                  [title, author, shelf_key]
-                when :author
-                  [author, title, shelf_key]
-                when :call_number
-                  [shelf_key]
-                end
+                 when :library
+                   [pickup_library, title, author, shelf_key]
+                 when :date
+                   [*date_sort_key, title, author, shelf_key]
+                 when :title
+                   [title, author, shelf_key]
+                 when :author
+                   [author, title, shelf_key]
+                 when :call_number
+                   [shelf_key]
+                 end
 
       sort_key.join('---')
     end

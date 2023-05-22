@@ -78,7 +78,9 @@ RSpec.describe BorrowDirectRequests do
       end
 
       context 'when date' do
-        it { expect(request.sort_key(:date)).to eq "#{Symphony::Request::END_OF_DAYS.strftime('%FT%T')}---BD Request Title" }
+        it {
+          expect(request.sort_key(:date)).to eq "#{Symphony::Request::END_OF_DAYS.strftime('%FT%T')}---BD Request Title"
+        }
       end
 
       context 'when any other sort value' do

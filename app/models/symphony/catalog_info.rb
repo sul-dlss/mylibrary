@@ -20,9 +20,11 @@ module Symphony
     end
 
     def hold_records
-      Array.wrap(fields.dig('bib', 'fields', 'holdRecordList')&.map { |record| Symphony::Request.new(record) }&.select do |record|
-        callkey == record.item_call_key && record.active?
-      end)
+      Array.wrap(fields.dig('bib', 'fields', 'holdRecordList')&.map do |record|
+                   Symphony::Request.new(record)
+                 end&.select do |record|
+                   callkey == record.item_call_key && record.active?
+                 end)
     end
   end
 end

@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Symphony
   # Model for the Fine page
   class Fine

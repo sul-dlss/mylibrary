@@ -48,10 +48,10 @@ Metrics/BlockLength:
 
 Metrics/ClassLength:
   Exclude:
-    - 'app/models/checkout.rb'
-    - 'app/models/patron.rb'
-    - 'app/models/payment.rb'
-    - 'app/models/request.rb'
+    - 'app/models/symphony/checkout.rb'
+    - 'app/models/symphony/patron.rb'
+    - 'app/models/symphony/payment.rb'
+    - 'app/models/symphony/request.rb'
     - 'app/services/symphony_client.rb'
     - 'config/application.rb'
 

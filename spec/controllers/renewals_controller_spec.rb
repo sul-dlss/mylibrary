@@ -96,9 +96,12 @@ RSpec.describe RenewalsController do
     let(:mock_patron) { instance_double(Symphony::Patron, checkouts: checkouts) }
     let(:checkouts) do
       [
-        instance_double(Symphony::Checkout, key: '1', renewable?: true, item_key: '123', title: 'ABC', resource: 'item'),
-        instance_double(Symphony::Checkout, key: '2', renewable?: true, item_key: '456', title: 'XYZ', resource: 'item'),
-        instance_double(Symphony::Checkout, key: '3', renewable?: false, item_key: '789', title: 'Not', resource: 'item')
+        instance_double(Symphony::Checkout, key: '1', renewable?: true, item_key: '123', title: 'ABC',
+                                            resource: 'item'),
+        instance_double(Symphony::Checkout, key: '2', renewable?: true, item_key: '456', title: 'XYZ',
+                                            resource: 'item'),
+        instance_double(Symphony::Checkout, key: '3', renewable?: false, item_key: '789', title: 'Not',
+                                            resource: 'item')
       ]
     end
 

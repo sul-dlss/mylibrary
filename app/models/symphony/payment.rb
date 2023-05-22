@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 module Symphony
   # Model for a Payment on the Fine page
   class Payment
@@ -97,15 +98,15 @@ module Symphony
     # rubocop:disable Metrics/MethodLength
     def sort_key(key)
       sort_key = case key
-                when :payment_date
-                  [payment_sort_key, item_title, nice_bill_description]
-                when :item_title
-                  [item_title, payment_sort_key, nice_bill_description]
-                when :bill_amount
-                  [bill_amount, payment_sort_key, item_title, nice_bill_description]
-                when :bill_description
-                  [nice_bill_description, payment_sort_key, item_title]
-                end
+                 when :payment_date
+                   [payment_sort_key, item_title, nice_bill_description]
+                 when :item_title
+                   [item_title, payment_sort_key, nice_bill_description]
+                 when :bill_amount
+                   [bill_amount, payment_sort_key, item_title, nice_bill_description]
+                 when :bill_description
+                   [nice_bill_description, payment_sort_key, item_title]
+                 end
 
       sort_key.join('---')
     end

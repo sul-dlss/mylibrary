@@ -14,11 +14,17 @@ RSpec.describe PaymentsController do
         { 'billNumber' => '3', 'feePaymentInfo' => { 'paymentDate' => '2019-02-01' } }
       ]
     end
+    let(:payments) do
+      Array.wrap(mock_legacy_client_response).map do |x|
+        Symphony::Payment.new(x)
+      end
+    end
 
     before do
       allow(controller).to receive(:patron).and_return(mock_patron)
       allow(controller).to receive(:ils_client)
-        .and_return(instance_double(SymphonyClient, session_token: '1a2b3c4d5e6f7g8h9i0j', ping: true, payments: Array.wrap(mock_legacy_client_response).map { |x| Symphony::Payment.new(x) }))
+        .and_return(instance_double(SymphonyClient, session_token: '1a2b3c4d5e6f7g8h9i0j', ping: true,
+                                                    payments: payments))
     end
 
     context 'when an unathenticated user' do
