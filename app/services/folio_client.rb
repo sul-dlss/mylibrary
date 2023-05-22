@@ -56,7 +56,13 @@ class FolioClient
   end
 
   # rubocop:disable Lint/UnusedMethodArgument
+  # FOLIO graphql call, compare to #patron_account
   def patron_info(patron_key, item_details: {})
+    folio_graphql_client.patron_info(patron_key)
+  end
+
+  # FOLIO API call
+  def patron_account(patron_key, item_details: {})
     get_json("/patron/account/#{CGI.escape(patron_key)}", params: {
       includeLoans: true,
       includeCharges: true,
@@ -143,6 +149,10 @@ class FolioClient
 
   def get_json(path, **kwargs)
     parse_json(get(path, **kwargs))
+  end
+
+  def folio_graphql_client
+    @folio_graphql_client ||= FolioGraphqlClient.new
   end
 
   # @param [Faraday::Response] response
