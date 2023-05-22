@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 # :nodoc:
-class SymphonyLogSubscriber < ActiveSupport::LogSubscriber
+class IlsLogSubscriber < ActiveSupport::LogSubscriber
   def start_request(event)
     return unless logger.debug?
 
@@ -19,4 +19,5 @@ class SymphonyLogSubscriber < ActiveSupport::LogSubscriber
   end
 end
 
-SymphonyLogSubscriber.attach_to :symphony
+IlsLogSubscriber.attach_to :symphony
+IlsLogSubscriber.attach_to :folio

@@ -1,3 +1,5 @@
+debug: false
+
 borrow_direct:
   api_key: ''
 
@@ -10,6 +12,10 @@ symws:
   headers: {}
   login_params: {}
   public_clientID:
+folio:
+  url: <%= ENV['OKAPI_URL'] %>
+folio_graphql:
+  url: <%= ENV['FOLIO_GRAPHQL_URL'] %>
 sw:
   url: https://searchworks.stanford.edu/view/
 EMAIL_TO: yolo@example.com

@@ -6,10 +6,10 @@ Warden::Strategies.add(:shibboleth) do
   end
 
   def authenticate!
-    response = SymphonyClient.new.login_by_sunetid(uid)
+    response = ApplicationController.ils_client_class.new.login_by_sunetid(uid)
 
-    if response && response['key']
-      u = { username: uid, patron_key: response['key'], shibboleth: true }
+    if response&.key?('key') || response&.key?('id')
+      u = { username: uid, patron_key: response['key'] || response['id'], shibboleth: true }
       success!(u)
     else
       fail!('Could not log in')
@@ -29,10 +29,10 @@ Warden::Strategies.add(:development_shibboleth_stub) do
   end
 
   def authenticate!
-    response = SymphonyClient.new.login_by_sunetid(uid)
+    response = ApplicationController.ils_client_class.new.login_by_sunetid(uid)
 
-    if response && response['key']
-      u = { username: uid, patron_key: response['key'] }
+    if response&.key?('key') || response&.key?('id')
+      u = { username: uid, patron_key: response['key'] || response['id'] }
       success!(u)
     else
       fail!('Could not log in')

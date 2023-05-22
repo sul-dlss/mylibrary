@@ -10,6 +10,7 @@
 Lint/NoReturnInBeginEndBlocks:
   Exclude:
     - 'app/models/symphony/request.rb'
+    - 'app/models/folio/request.rb'
 
 # Offense count: 1
 # This cop supports unsafe autocorrection (--autocorrect-all).
