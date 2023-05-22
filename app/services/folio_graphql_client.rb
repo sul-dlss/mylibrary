@@ -192,6 +192,8 @@ class FolioGraphqlClient
       }",
       variables: { patronId: patron_uuid }
     })
+    raise data['errors'].pluck('message').join("\n") if data.key?('errors')
+
     data.dig('data', 'patron')
   end
 
@@ -217,6 +219,7 @@ class FolioGraphqlClient
   end
 
   def default_headers
-    DEFAULT_HEADERS.merge({ 'User-Agent': 'FolioGraphqlClient', 'okapi_username' => @username, 'okapi_password' => @password })
+    DEFAULT_HEADERS.merge({ 'User-Agent': 'FolioGraphqlClient', 'okapi_username' => @username,
+                            'okapi_password' => @password })
   end
 end
