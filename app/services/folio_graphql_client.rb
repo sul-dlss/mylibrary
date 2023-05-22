@@ -68,7 +68,7 @@ class FolioGraphqlClient
               instanceId
               title
               itemId
-      
+
               item {
                 circulationNotes {
                   id
@@ -217,6 +217,6 @@ class FolioGraphqlClient
   end
 
   def default_headers
-    DEFAULT_HEADERS.merge({ 'User-Agent': 'FolioGraphqlClient' })
+    DEFAULT_HEADERS.merge({ 'User-Agent': 'FolioGraphqlClient', okapi_username: @username, okapi_password: @password })
   end
 end
