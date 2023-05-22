@@ -154,7 +154,7 @@ class Patron
   end
 
   def group?
-    group && group.member_list.any?
+    group&.member_list&.any?
   end
 
   def group_checkouts

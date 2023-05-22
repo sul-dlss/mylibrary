@@ -45,8 +45,8 @@ class FolioGraphqlClient
     parse(post(path, **kwargs))
   end
 
-  def patron_info(patron_uuid, loans: true, charges: true, holds: true)
-    data = post_json("/", json: {
+  def patron_info(patron_uuid)
+    data = post_json('/', json: {
       query: "query Query($patronId: UUID!) {
         patron(id: $patronId) {
           user {

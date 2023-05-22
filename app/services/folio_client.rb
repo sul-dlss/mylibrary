@@ -11,6 +11,7 @@ class FolioClient
 
   attr_reader :base_url
 
+  # rubocop:disable Metrics/MethodLength
   def initialize(url: Settings.folio.url, username: nil, password: nil, tenant: 'sul')
     uri = URI.parse(url)
 
@@ -29,6 +30,7 @@ class FolioClient
 
     @tenant = tenant
   end
+  # rubocop:enable Metrics/MethodLength
 
   def login(library_id, pin)
     user_response = get_json('/users', params: { query: CqlQuery.new(barcode: library_id).to_query })

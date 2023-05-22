@@ -42,7 +42,6 @@ module FolioRecord
 
   def current_location
     item.dig('effectiveLocation', 'name')
-
   end
 
   def lost?
@@ -57,7 +56,6 @@ module FolioRecord
 
   # ? FOLIO: not sure the word 'bib' is accurate anymore here / maybe confusing
   def bib
-    record.dig('item')
+    record.dig['item']
   end
-
 end

@@ -89,8 +89,7 @@ class Fine
     bib.present?
   end
 
-  def to_partial_path 
+  def to_partial_path
     'fines/fine'
   end
-
 end

@@ -59,7 +59,7 @@ module ApplicationHelper
   end
 
   def library_name(code)
-    ServicePoint.find_by_id(code)&.name || code
+    ServicePoint.find_by(id: code)&.name || code
   end
 
   def library_email(code)

@@ -4,9 +4,11 @@ class ServicePoint
   class << self
     include Enumerable
 
+    # rubocop:disable Style/OpenStructUse
     def all
-      @all ||= JSON.parse(File.read(Rails.root.join('config/service-points.json')), object_class: OpenStruct).index_by(&:id)
+      @all ||= JSON.parse(Rails.root.join('config/service-points.json').read, object_class: OpenStruct).index_by(&:id)
     end
+    # rubocop:enable Style/OpenStructUse
 
     def each(&block)
       return to_enum(__method__) unless block
@@ -14,7 +16,7 @@ class ServicePoint
       all.values.each(&block)
     end
 
-    def find_by_id(id)
+    def find_by(id:)
       all[id]
     end
   end

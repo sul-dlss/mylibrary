@@ -53,6 +53,8 @@ Metrics/ClassLength:
     - 'app/models/payment.rb'
     - 'app/models/request.rb'
     - 'app/services/symphony_client.rb'
+    - 'app/services/folio_client.rb'
+    - 'app/services/folio_graphql_client.rb'
     - 'config/application.rb'
 
 Metrics/ModuleLength:
@@ -64,6 +66,7 @@ Metrics/MethodLength:
     - 'app/controllers/contact_forms_controller.rb'
     - 'app/controllers/feedback_forms_controller.rb'
     - 'app/mailers/feedback_mailer.rb'
+    - 'app/services/folio_graphql_client.rb'
 
 Metrics/PerceivedComplexity:
   Exclude:

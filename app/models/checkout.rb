@@ -45,7 +45,6 @@ class Checkout
 
   #### ? FOLIO: all data about recall, renewal, dates and reasons are unclear what fields we should use
 
-
   def recalled_date
     nil
   end
