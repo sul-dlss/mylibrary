@@ -3,7 +3,7 @@
 require 'http'
 
 # Calls FOLIO REST endpoints
-class FolioClient # rubocop:disable Metrics/ClassLength
+class FolioClient
   DEFAULT_HEADERS = {
     accept: 'application/json, text/plain',
     content_type: 'application/json'
