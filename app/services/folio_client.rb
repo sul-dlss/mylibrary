@@ -35,13 +35,8 @@ class FolioClient # rubocop:disable Metrics/ClassLength
   def login(library_id, pin)
     user_response = get_json('/users', params: { query: CqlQuery.new(barcode: library_id).to_query })
     user = user_response.dig('users', 0)
-    return unless user
 
-    id = user['id']
-
-    pid_response = get_json('/patron-pin/verify', method: :post, json: { id: id, pin: pin })
-
-    return unless pid_response.success?
+    return unless user && validate_patron_pin(user['id'], pin)
 
     user
   end
