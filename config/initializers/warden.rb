@@ -52,10 +52,10 @@ Warden::Strategies.add(:library_id) do
   end
 
   def authenticate!
-    response = SymphonyClient.new.login(params['library_id'], params['pin'])
+    response = ApplicationController.ils_client_class.new.login(params['library_id'], params['pin'])
 
-    if response['patronKey']
-      u = { username: params['library_id'], patron_key: response['patronKey'] }
+    if response&.key?('patronKey') || response&.key?('id')
+      u = { username: params['library_id'], patron_key: response['patronKey'] || response['id'] }
       success!(u)
     else
       fail!('Could not log in')
