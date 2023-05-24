@@ -60,6 +60,7 @@ class FolioGraphqlClient
               preferredFirstName
             }
             expirationDate
+            externalSystemId
           }
           id
           holds {
