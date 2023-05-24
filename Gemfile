@@ -62,6 +62,9 @@ gem 'global_alerts'
 group :production do
   gem 'mysql2'
   gem 'newrelic_rpm'
+end
+
+group :symphony do
   gem 'ruby-oci8'
 end
 

@@ -26,7 +26,7 @@ pipeline {
           rvm use 3.0.3@mylibrary --create
           gem install bundler
 
-          bundle install --without production
+          bundle install --without  "production symphony"
 
           # Deploy it
           bundle exec cap $DEPLOY_ENVIRONMENT deploy
@@ -70,7 +70,7 @@ pipeline {
           rvm use 3.0.3@mylibrary --create
           gem install bundler
 
-          bundle install --without production
+          bundle install --without  "production symphony"
 
           # Deploy it
           bundle exec cap $DEPLOY_ENVIRONMENT deploy
@@ -114,7 +114,7 @@ pipeline {
           rvm use 3.0.3@mylibrary --create
           gem install bundler
 
-          bundle install --without production
+          bundle install --without "production symphony"
 
           # Deploy it
           bundle exec cap $DEPLOY_ENVIRONMENT deploy
@@ -159,7 +159,7 @@ pipeline {
           rvm use 3.0.3@mylibrary --create
           gem install bundler
 
-          bundle install --without production
+          bundle install --without "production symphony"
 
           # Deploy it
           bundle exec cap $DEPLOY_ENVIRONMENT deploy
