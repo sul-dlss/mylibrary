@@ -227,9 +227,9 @@ module Folio
       return [] if proxy_borrower? # Proxies can't submit borrow direct requests, so don't check.
 
       if Settings.borrow_direct_reshare.enabled
-        BorrowDirectReshareRequests.new(self).requests
+        BorrowDirectReshareRequests.new(university_id).requests
       else
-        BorrowDirectRequests.new(self).requests
+        BorrowDirectRequests.new(barcode).requests
       end
     end
 
