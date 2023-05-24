@@ -19,7 +19,7 @@ jobs:
       with:
         ruby-version: ${{ matrix.ruby }}
     - name: Configure bundler
-      run: bundle config set --local without 'production'
+      run: bundle config set --local without 'production symphony'
     - name: Install ruby dependencies
       run: bundle install
     - name: Install javascript dependencies
