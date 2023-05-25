@@ -150,8 +150,7 @@ module Folio
     end
 
     def group
-      @group ||= nil
-      # @group ||= Group.new(user_info)
+      @group ||= Folio::Group.new(user_info)
     end
 
     def group?
