@@ -40,7 +40,7 @@ module Folio
     end
 
     def university_id
-      record.dig('fields', 'alternateID')
+      user_info['externalSystemId']
     end
 
     def status
