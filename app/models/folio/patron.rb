@@ -7,21 +7,6 @@ module Folio
 
     CHARGE_LIMIT_THRESHOLD = 25_000
 
-    PATRON_STANDING = {
-      'BARRED' => 'Contact us',
-      'COLLECTION' => 'Blocked',
-      'BLOCKED' => 'Blocked',
-      'DELINQUENT' => 'OK',
-      'OK' => 'OK'
-    }.freeze
-
-    USER_PROFILE = {
-      'MXFEE' => 'Fee borrower',
-      'MXFEE-BUS' => 'Fee borrower',
-      'MXFEE-LAW' => 'Fee borrower',
-      'MXFEE-NO25' => 'Fee borrower'
-    }.freeze
-
     def initialize(patron_info, payment_in_process = {})
       @patron_info = patron_info
       @payment_in_process = payment_in_process
@@ -44,28 +29,41 @@ module Folio
     end
 
     def status
-      user_info['active'] ? 'OK' : 'Blocked'
+      if proxy_borrower?
+        # proxy borrowers inherit from the group
+        group&.status
+      else
+        standing
+      end
     end
 
     def standing
-      'OK'
+      if blocked?
+        'Blocked'
+      elsif barred?
+        'Contact us'
+      elsif active?
+        'OK'
+      else
+        'Expired'
+      end
     end
 
     def barred?
       # proxy borrowers inherit from the group
       if proxy_borrower?
-        group.standing == 'BARRED'
+        group.barred?
       else
-        standing == 'BARRED'
+        user_info['manualBlocks'].any?
       end
     end
 
     def blocked?
       # proxy borrowers inherit from the group
       if proxy_borrower?
-        group.standing == 'BLOCKED'
+        group.blocked?
       else
-        standing == 'BLOCKED'
+        user_info['blocks'].any?
       end
     end
 
@@ -73,6 +71,10 @@ module Folio
       return false unless expired_date
 
       expired_date.past?
+    end
+
+    def active?
+      user_info['active']
     end
 
     def expired_date
@@ -84,6 +86,11 @@ module Folio
     end
 
     def patron_type
+      patron_group = user_info.dig('patronGroup', 'desc')
+
+      return 'Fee borrower' if patron_group.match?(/Fee borrower/i)
+
+      # suppress the display of any other patron groups
       nil
     end
 
@@ -150,8 +157,7 @@ module Folio
     end
 
     def group
-      @group ||= nil
-      # @group ||= Group.new(user_info)
+      @group ||= Folio::Group.new(user_info)
     end
 
     def group?
