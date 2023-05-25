@@ -7,13 +7,6 @@ module Folio
 
     CHARGE_LIMIT_THRESHOLD = 25_000
 
-    USER_PROFILE = {
-      'MXFEE' => 'Fee borrower',
-      'MXFEE-BUS' => 'Fee borrower',
-      'MXFEE-LAW' => 'Fee borrower',
-      'MXFEE-NO25' => 'Fee borrower'
-    }.freeze
-
     def initialize(patron_info, payment_in_process = {})
       @patron_info = patron_info
       @payment_in_process = payment_in_process
@@ -93,6 +86,11 @@ module Folio
     end
 
     def patron_type
+      patron_group = user_info.dig('patronGroup', 'desc')
+
+      return 'Fee borrower' if patron_group.match?(/Fee borrower/i)
+
+      # suppress the display of any other patron groups
       nil
     end
 

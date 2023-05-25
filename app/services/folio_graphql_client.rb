@@ -61,6 +61,10 @@ class FolioGraphqlClient
             }
             expirationDate
             externalSystemId
+            patronGroup {
+              group
+              desc
+            }
             blocks {
               message
             }
