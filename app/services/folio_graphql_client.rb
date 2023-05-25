@@ -61,6 +61,12 @@ class FolioGraphqlClient
             }
             expirationDate
             externalSystemId
+            blocks {
+              message
+            }
+            manualBlocks {
+              desc
+            }
           }
           id
           holds {
