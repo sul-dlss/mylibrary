@@ -119,34 +119,24 @@ class FolioGraphqlClient
             canceledDate
             patronComments
           }
-          charges {
+          accounts {
             item {
-              instanceId
-              itemId
-              item {
-                effectiveShelvingOrder
-                effectiveCallNumberComponents {
-                  callNumber
-                }
-                permanentLocation {
-                  name
-                }
-              }
-              title
-              author
-              isbn
               instance {
                 id
               }
+              id
+              effectiveShelvingOrder
+              effectiveCallNumberComponents {
+                callNumber
+              }
+              permanentLocation {
+                name
+              }
             }
-            chargeAmount {
-              amount
-            }
-            accrualDate
-            description
-            state
-            reason
+            amount
+            dateCreated
             feeFineId
+            feeFineType
             feeFine {
               id
               automatic
@@ -163,6 +153,12 @@ class FolioGraphqlClient
                 updatedByUserId
                 updatedByUsername
               }
+            }
+            metadata {
+              createdDate
+            }
+            paymentStatus {
+              name
             }
           }
           loans {

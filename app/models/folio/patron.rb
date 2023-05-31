@@ -141,7 +141,7 @@ module Folio
 
     def all_fines
       # @all_fines ||= []
-      @all_fines ||= patron_info['charges'].map { |fine| Fine.new(fine) }
+      @all_fines ||= patron_info['accounts'].map { |fine| Fine.new(fine) }
     end
 
     ##
