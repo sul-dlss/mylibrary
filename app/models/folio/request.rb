@@ -22,16 +22,16 @@ module Folio
     end
 
     def key
-      # 'string'
-      record.dig('item', 'itemId')
+      record['requestId']
     end
 
     def patron_key
+      # TODO
       nil
     end
 
     def resource
-      nil
+      key
     end
 
     def status
@@ -39,7 +39,7 @@ module Folio
     end
 
     def ready_for_pickup?
-      status == 'Open - Awaiting pickup' || cdl_next_up?
+      status == 'Open___Awaiting_pickup' || cdl_next_up?
     end
 
     def queue_position
@@ -47,6 +47,7 @@ module Folio
     end
 
     def queue_length
+      # TODO
       '?'
     end
 
@@ -73,7 +74,7 @@ module Folio
     end
 
     def item_call_key
-      nil
+      record.dig('item', 'item', 'effectiveCallNumberComponents', 'callNumber')
     end
 
     ##
@@ -89,11 +90,12 @@ module Folio
     def pickup_library
       return 'CDL' if cdl?
 
-      record['pickupLocationId']
+      record.dig('pickupLocation', 'code')
     end
 
+    # this is only used in JSON responses; maybe we can remove it?
     def placed_library
-      nil
+      library_key
     end
 
     def library
@@ -192,24 +194,27 @@ module Folio
     end
 
     def comment
-      ''
+      record['patronComments'] || ''
     end
 
     private
 
     def library_key
-      nil
+      record.dig('item', 'item', 'effectiveLocation', 'library', 'code')
     end
 
     def from_ilb?
-      item_type&.starts_with? 'ILB'
+      # TODO
+      nil
     end
 
     def from_borrow_direct?
-      item_type == 'BORROWDIR'
+      # TODO
+      nil
     end
 
     def item_type
+      # TODO
       nil
     end
   end
