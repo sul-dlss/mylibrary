@@ -7,7 +7,8 @@ module Folio
 
       # rubocop:disable Style/OpenStructUse
       def all
-        @all ||= JSON.parse(Rails.root.join('config/service-points.json').read, object_class: OpenStruct).index_by(&:id)
+        @all ||= JSON.parse(Rails.root.join('config/service-points.json').read,
+                            object_class: OpenStruct).index_by(&:code)
       end
       # rubocop:enable Style/OpenStructUse
 
