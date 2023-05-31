@@ -7,7 +7,7 @@ module Folio
 
     attr_reader :record
 
-    SHORT_TERM_LOAN_PERIODS = %w[HOURLY].freeze
+    SHORT_TERM_LOAN_PERIODS = %w[Hours Minutes].freeze
 
     def initialize(record, cdl: false)
       @record = record
@@ -26,11 +26,11 @@ module Folio
     end
 
     def status
-      item['status']
+      record.dig('details', 'status', 'name')
     end
 
     def due_date
-      recall_due_date || original_due_date
+      Time.zone.parse(record['dueDate'])
     end
 
     def days_overdue
@@ -44,25 +44,25 @@ module Folio
       Time.zone.parse(record['loanDate'])
     end
 
-    #### ? FOLIO: all data about recall, renewal, dates and reasons are unclear what fields we should use
-
     def recalled_date
+      # TODO: unclear if FOLIO keeps this information
       nil
     end
 
     def recalled?
-      recalled_date.present?
+      record.dig('details', 'dueDateChangedByRecall') || record.dig('details', 'dueDateChangedByHold')
     end
 
     def claims_returned_date
-      nil
+      claimed_returned? && Time.zone.parse(record.dig('item', 'item', 'status', 'date'))
     end
 
     def claimed_returned?
-      claims_returned_date.present?
+      record.dig('item', 'item', 'status', 'name') == 'Claimed returned'
     end
 
     def renewal_date
+      # TODO: unclear if FOLIO keeps this information
       nil
     end
 
@@ -87,8 +87,7 @@ module Folio
     # rubocop:enable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity,Metrics/MethodLength
 
     def item_category_non_renewable?
-      nil
-      # item.dig('itemCategory5', 'key') == 'NORENEW'
+      record.dig('details', 'loanPolicy', 'renewable') == false
     end
 
     def renewable?
@@ -110,8 +109,7 @@ module Folio
     end
 
     def patron_key
-      nil
-      # fields['patron']['key']
+      record.dig('details', 'proxyUserId') || record.dig('details', 'userId')
     end
 
     def overdue?
@@ -119,7 +117,7 @@ module Folio
     end
 
     def accrued
-      0.0
+      record.dig('details', 'feesAndFines', 'amountRemainingToPay') || 0.0
     end
 
     def days_remaining
@@ -191,15 +189,18 @@ module Folio
     end
     # rubocop:enable Metrics/MethodLength
 
+    def lost?
+      record.dig('details', 'declaredLostDate')
+    end
+
+    def barcode
+      record.dig('item', 'item', 'barcode')
+    end
+
     private
 
-    # def fields
-    #   record['fields']
-    # end
-
     def loan_period_type
-      nil
-      # fields.dig('circulationRule', 'fields', 'loanPeriod', 'fields', 'periodType', 'key')
+      record.dig('details', 'loanPolicy', 'loansPolicy', 'period', 'intervalId')
     end
 
     def circulation_rule
@@ -213,8 +214,7 @@ module Folio
     end
 
     def renewal_count
-      0
-      # fields['renewalCount'] || 0
+      record.dig('details', 'renewalCount') || 0
     end
 
     # nil means "unlimited" for unseenRenewalsRemaining
@@ -227,15 +227,6 @@ module Folio
     def seen_renewals_remaining
       Float::INFINITY
       # fields['seenRenewalsRemaining'] || Float::INFINITY
-    end
-
-    def original_due_date
-      record['dueDate'] && Time.zone.parse(record['dueDate'])
-    end
-
-    def recall_due_date
-      nil
-      # fields['recallDueDate'] && Time.zone.parse(fields['recallDueDate'])
     end
 
     def library_key

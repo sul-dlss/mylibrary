@@ -177,6 +177,7 @@ class FolioGraphqlClient
                 indexTitle
               }
               item {
+                barcode
                 id
                 status {
                   date
@@ -191,6 +192,25 @@ class FolioGraphqlClient
             loanDate
             dueDate
             overdue
+            details {
+              renewalCount
+              dueDateChangedByRecall
+              dueDateChangedByHold
+              proxyUserId
+              userId
+              status {
+                name
+              }
+              loanPolicy {
+                name
+                renewable
+                loansPolicy {
+                  period {
+                    intervalId
+                  }
+                }
+              }
+            }
           }
           totalCharges {
             isoCurrencyCode
