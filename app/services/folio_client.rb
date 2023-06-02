@@ -95,7 +95,12 @@ class FolioClient
   # @param [String] user_id the UUID of the user in FOLIO
   # @param [String] hold_id the UUID of the FOLIO hold
   def cancel_hold_request(user_id, hold_id)
-    response = post("/patron/account/#{user_id}/hold/#{hold_id}/cancel")
+    request_data = patron_account(user_id)['holds'].find { |h| h['requestId'] == hold_id }
+    request_data.merge!('cancellationAdditionalInformation' => 'Canceled by mylibrary',
+                        'canceledByUserId' => user_id,
+                        'canceledDate' => Time.now.utc.iso8601,
+                        'status' => 'Closed - Cancelled')
+    response = post("/patron/account/#{user_id}/hold/#{hold_id}/cancel", json: request_data)
     check_response(response, title: 'Cancel', context: { user_id: user_id, hold_id: hold_id })
   end
 
