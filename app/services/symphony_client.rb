@@ -155,7 +155,7 @@ class SymphonyClient
     end
   end
 
-  def cancel_hold(resource, item_key)
+  def cancel_hold(resource, item_key, _patron_key = nil)
     authenticated_request('/circulation/holdRecord/cancelHold', method: :post, json: {
       holdRecord: {
         resource: resource,

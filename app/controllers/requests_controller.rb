@@ -50,7 +50,7 @@ class RequestsController < ApplicationController
   #
   # DELETE /requests/:id
   def destroy
-    @response = ils_client.cancel_hold(*cancel_hold_params)
+    @response = ils_client.cancel_hold(*cancel_hold_params, patron_or_group.key)
 
     case @response.status
     when 200

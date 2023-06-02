@@ -82,6 +82,14 @@ class FolioClient
     check_response(response, title: 'Renew', context: { user_id: user_id, item_id: item_id })
   end
 
+  # API compatibility shim with SymphonyClient
+  # @param [String] resource the UUID of the hold in FOLIO
+  # @param [String] _item_key the UUID of the FOLIO item; this was required by Symphony.
+  # @param [String] patron_key the UUID of the user in FOLIO
+  def cancel_hold(resource, _item_key, patron_key)
+    cancel_hold_request(patron_key, resource)
+  end
+
   # Cancel a hold request
   # See https://s3.amazonaws.com/foliodocs/api/mod-patron/p/patron.html#patron_account__id__hold__holdid__cancel_post
   # @param [String] user_id the UUID of the user in FOLIO
