@@ -95,6 +95,10 @@ class FolioClient
   # @param [String] user_id the UUID of the user in FOLIO
   # @param [String] hold_id the UUID of the FOLIO hold
   def cancel_hold_request(user_id, hold_id)
+    # You would think FOLIO could look up this information and merge it itself, but no. You'd
+    # also think you could get the /circulation/requests/{id} endpoint data and use that,
+    # but the API schema is slightly different and OKAPI complains... so we have to look it
+    # up in the patron account data instead.
     request_data = patron_account(user_id)['holds'].find { |h| h['requestId'] == hold_id }
     request_data.merge!('cancellationAdditionalInformation' => 'Canceled by mylibrary',
                         'canceledByUserId' => user_id,
