@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe RequestsController do
-  let(:mock_patron) { instance_double(Symphony::Patron, requests: requests) }
+  let(:mock_patron) { instance_double(Symphony::Patron, requests: requests, key: '123') }
   let(:requests) { [] }
 
   let(:mock_client) { instance_double(SymphonyClient, ping: true) }

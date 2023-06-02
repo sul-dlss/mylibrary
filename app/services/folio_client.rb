@@ -82,13 +82,32 @@ class FolioClient
     check_response(response, title: 'Renew', context: { user_id: user_id, item_id: item_id })
   end
 
+  # API compatibility shim with SymphonyClient
+  # @param [String] resource the UUID of the hold in FOLIO
+  # @param [String] _item_key the UUID of the FOLIO item; this was required by Symphony.
+  # @param [String] patron_key the UUID of the user in FOLIO
+  def cancel_hold(resource, _item_key, patron_key)
+    cancel_hold_request(patron_key, resource)
+  end
+
   # Cancel a hold request
   # See https://s3.amazonaws.com/foliodocs/api/mod-patron/p/patron.html#patron_account__id__hold__holdid__cancel_post
   # @param [String] user_id the UUID of the user in FOLIO
   # @param [String] hold_id the UUID of the FOLIO hold
   def cancel_hold_request(user_id, hold_id)
-    response = post("/patron/account/#{user_id}/hold/#{hold_id}/cancel")
+    # You would think FOLIO could look up this information and merge it itself, but no. You'd
+    # also think you could get the /circulation/requests/{id} endpoint data and use that,
+    # but the API schema is slightly different and OKAPI complains... so we have to look it
+    # up in the patron account data instead.
+    request_data = patron_account(user_id)['holds'].find { |h| h['requestId'] == hold_id }
+    request_data.merge!('cancellationAdditionalInformation' => 'Canceled by mylibrary',
+                        'canceledByUserId' => user_id,
+                        'canceledDate' => Time.now.utc.iso8601,
+                        'status' => 'Closed - Cancelled')
+    response = post("/patron/account/#{user_id}/hold/#{hold_id}/cancel", json: request_data)
     check_response(response, title: 'Cancel', context: { user_id: user_id, hold_id: hold_id })
+
+    response
   end
 
   # Change hold request date
