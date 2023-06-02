@@ -98,6 +98,11 @@ class FolioGraphqlClient
                 effectiveCallNumberComponents {
                   callNumber
                 }
+                effectiveLocation {
+                  library {
+                    code
+                  }
+                }
               }
               author
               instance {
@@ -110,7 +115,7 @@ class FolioGraphqlClient
             expirationDate
             pickupLocationId
             pickupLocation {
-              id
+              code
             }
             queuePosition
             cancellationReasonId
