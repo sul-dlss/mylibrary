@@ -102,6 +102,8 @@ class FolioClient
                         'status' => 'Closed - Cancelled')
     response = post("/patron/account/#{user_id}/hold/#{hold_id}/cancel", json: request_data)
     check_response(response, title: 'Cancel', context: { user_id: user_id, hold_id: hold_id })
+
+    response
   end
 
   # Change hold request date
