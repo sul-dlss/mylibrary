@@ -12,10 +12,10 @@ class RenewalsController < ApplicationController
   #
   # POST /renewals
   def create
-    @response = ils_client.renew_item(*renew_item_params)
+    @response = ils_client.renew_item(*renew_item_params, patron_or_group.key)
 
     case @response.status
-    when 200
+    when 200, 201
       flash[:success] = t 'mylibrary.renew_item.success_html', title: params['title']
     else
       flash[:error] = t 'mylibrary.renew_item.error_html', title: params['title']

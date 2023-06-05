@@ -129,7 +129,7 @@ class SymphonyClient
     )
   end
 
-  def renew_item(resource, item_key)
+  def renew_item(resource, item_key, _patron_key = nil)
     response = renew_item_request(resource, item_key)
     error_prompt = response_prompt(response)
 

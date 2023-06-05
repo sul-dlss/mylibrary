@@ -72,14 +72,37 @@ class FolioClient
     false
   end
 
+  # API compatibility shim with SymphonyClient
+  # @param [String] resource the UUID of the FOLIO instance record; this was required by Symphony
+  # @param [String] item_key the UUID of the FOLIO item
+  # @param [String] patron_key the UUID of the user in FOLIO
+  def renew_item(_resource, item_key, patron_key)
+    renew_item_request(patron_key, item_key)
+  end
+
+  def renew_items(checkouts)
+    checkouts.each_with_object(success: [], error: []) do |checkout, status|
+      response = renew_item(checkout.resource, checkout.item_key, checkout.patron_key)
+
+      case response.status
+      when 200
+        status[:success] << checkout
+      else
+        status[:error] << checkout
+      end
+    end
+  end
+
   # Renew a loan for an item
-  # See https://s3.amazonaws.com/foliodocs/api/mod-patron/p/patron.html#patron_account__id__item__itemid__renew_post
+  # See https://github.com/folio-org/mod-circulation/blob/master/ramls/renew-by-id-request.json
   # @example client.renew_item('cc3d8728-a6b9-45c4-ad0c-432873c3ae47', '123d9cba-85a8-42e0-b130-c82e504c64d6')
   # @param [String] user_id the UUID of the user in FOLIO
   # @param [String] item_id the UUID of the FOLIO item
-  def renew_item(user_id, item_id)
-    response = post("/patron/account/#{user_id}/item/#{item_id}/renew")
+  def renew_item_request(user_id, item_id)
+    response = post('/circulation/renew-by-id', json: { itemId: item_id, userId: user_id })
     check_response(response, title: 'Renew', context: { user_id: user_id, item_id: item_id })
+
+    response
   end
 
   # API compatibility shim with SymphonyClient
