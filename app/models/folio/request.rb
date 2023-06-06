@@ -26,8 +26,7 @@ module Folio
     end
 
     def patron_key
-      # TODO
-      nil
+      record.dig('details', 'userId')
     end
 
     def resource

@@ -28,12 +28,12 @@ module Folio
     end
 
     def resource
-      nil
-      # ? FOLIO: not sure what this represents
+      # ? FOLIO: This was required for Symphony renew_item requests.
+      #     Setting this to the instanceId for now.
+      bib['instanceId']
     end
 
     def item_key
-      # ? FOLIO
       bib['itemId']
     end
 

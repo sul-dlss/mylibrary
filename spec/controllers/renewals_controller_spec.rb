@@ -11,7 +11,7 @@ RSpec.describe RenewalsController do
     { username: 'somesunetid', patron_key: '123' }
   end
 
-  let(:mock_patron) { instance_double(Symphony::Patron, checkouts: checkouts) }
+  let(:mock_patron) { instance_double(Symphony::Patron, checkouts: checkouts, key: '123') }
   let(:checkouts) { [instance_double(Symphony::Checkout, item_key: '123', item_category_non_renewable?: false)] }
 
   before do
