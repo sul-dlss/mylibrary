@@ -14,7 +14,7 @@ RSpec.describe LibraryLocation do
   describe '#pickup_libraries' do
     it 'provides default pickup libraries' do
       expect(described_class.new('STACKS').pickup_libraries).to include(
-        'ART', 'BUSINESS', 'EARTH-SCI', 'EAST-ASIA', 'EDUCATION', 'ENG', 'GREEN',
+        'ART', 'BUSINESS', 'EARTH-SCI', 'EAST-ASIA', 'ENG', 'GREEN',
         'HOPKINS', 'LAW', 'MUSIC', 'RWC', 'SAL', 'SCIENCE'
       )
     end
@@ -26,8 +26,8 @@ RSpec.describe LibraryLocation do
     end
 
     it 'provides library specific pickup libraries' do
-      expect(described_class.new('RUMSEYMAP').pickup_libraries).to include(
-        'RUMSEYMAP'
+      expect(described_class.new('LAW').pickup_libraries).to include(
+        'LAW'
       )
     end
   end
