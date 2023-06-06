@@ -94,32 +94,58 @@ module Mylibrary
     }
 
     config.pickup_libraries = [
+      'ART',
       'BUSINESS',
+      'EARTH-SCI',
       'EAST-ASIA',
+      'ENG',
       'GREEN',
       'HOPKINS',
-      'LAW'
+      'LAW',
+      'MUSIC',
+      'RWC',
+      'SAL',
+      'SCIENCE'
     ]
 
     config.library_specific_pickup_libraries = {
-      'RUMSEYMAP' => ['SPEC-COLL'],
-      'SPEC-COLL' => ['SPEC-COLL']
+      'LAW' => ['LAW']
     }
 
     config.location_specific_pickup_libraries = {
+      'ARTLCKL' => ['ART'],
+      'ARTLCKL-R' => ['ART'],
+      'ARTLCKM' => ['ART'],
+      'ARTLCKM-R' => ['ART'],
+      'ARTLCKO' => ['ART'],
+      'ARTLCKO-R' => ['ART'],
+      'ARTLCKS' => ['ART'],
+      'ARTLCKS-R' => ['ART'],
+      'PAGE-AR' => ['ART', 'SPEC-COLL'],
+      'PAGE-AS' => ['ARS'],
+      'PAGE-BI' => ['BIOLOGY'],
+      'PAGE-BU' => ['BUSINESS'],
+      'PAGE-CH' => ['CHEMCHMENG'],
       'PAGE-EA' => ['EAST-ASIA'],
       'HY-PAGE-EA' => ['EAST-ASIA'],
       'L-PAGE-EA'  => ['EAST-ASIA'],
       'ND-PAGE-EA' => ['EAST-ASIA'],
-      'ARTLCKL' => ['SPEC-COLL'],
-      'ARTLCKL-R' => ['SPEC-COLL'],
-      'ARTLCKM' => ['SPEC-COLL'],
-      'ARTLCKM-R' => ['SPEC-COLL'],
-      'ARTLCKO' => ['SPEC-COLL'],
-      'ARTLCKO-R' => ['SPEC-COLL'],
-      'ARTLCKS' => ['SPEC-COLL'],
-      'ARTLCKS-R' => ['SPEC-COLL'],
+      'PAGE-ED' => ['SPEC-COLL'],
+      'PAGE-EN' => ['ENG'],
+      'PAGE-ES' => ['EARTH-SCI'],
       'PAGE-GR' => ['GREEN'],
+      'PAGE-HA' => ['HV-ARCHIVE'],
+      'PAGE-HP' => ['GREEN', 'HOPKINS'],
+      'PAGE-IRON' => ['BUSINESS'],
+      'PAGE-LP' => ['MUSIC', 'MEDIA-MTXT'],
+      'PAGE-LW' => ['LAW'],
+      'PAGE-MA' => ['MATH-CS'],
+      'PAGE-MD' => ['MUSIC', 'MEDIA-MTXT'],
+      'PAGE-MP' => ['EARTH-SCI'],
+      'PAGE-MM' => ['MEDIA-MTXT'],
+      'PAGE-MU' => ['MUSIC'],
+      'PAGE-RM' => ['RUMSEYMAP'],
+      'PAGE-SI' => ['SCIENCE'],
       'PAGE-SP' => ['SPEC-COLL']
     }
   end
