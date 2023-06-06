@@ -43,6 +43,9 @@ Rails.application.configure do
 
   config.action_mailer.perform_caching = false
 
+  # Make sure URL helpers in emails work
+  config.action_mailer.default_url_options = { host: 'mylibrary-dev.stanford.edu' }
+
   # Print deprecation notices to the Rails logger.
   config.active_support.deprecation = :log
 

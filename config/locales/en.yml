@@ -62,9 +62,13 @@ en:
       deny_access: An unexpected error has occurred
     change_pin:
       success_html: <span class="font-weight-bold">Success!</span> Your new PIN is ready to use.
-      error_html: <span class="font-weight-bold">Sorry!</span> That reset PIN link has expired or has already been used. Enter your library ID to request a new link.
+      invalid_token_html: <span class="font-weight-bold">Sorry!</span> That reset PIN link is invalid or expired. Enter your library ID to request a new link.
     reset_pin:
       success_html: <span class="font-weight-bold">Check your email!</span> A PIN reset link has been sent to the address associated with library ID %{library_id}
+      user_not_found_html: <span class="font-weight-bold">Sorry!</span> We couldn't find an account matching that library ID.
+    reset_pins_mailer:
+      reset_pin:
+        subject: Stanford Libraries PIN reset
     contact_form:
       success: Thank you! Library staff will be in touch with you soon.
     contact_mailer:
