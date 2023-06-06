@@ -230,7 +230,10 @@ class FolioGraphqlClient
   end
 
   def ping
-    session_token.present?
+    # Every GraphQL server supports the trivial query that asks for the "type name" of the top-level query
+    # You can run a health check as a GET against an URL like this
+    # See https://www.apollographql.com/docs/apollo-server/monitoring/health-checks/
+    request('/graphql?query=%7B__typename%7D')
   rescue HTTP::Error
     false
   end
