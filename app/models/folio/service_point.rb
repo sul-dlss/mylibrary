@@ -21,6 +21,10 @@ module Folio
       def find_by(id:)
         all[id]
       end
+
+      def uuid_by_code(code)
+        all[code]&.id
+      end
     end
   end
 end

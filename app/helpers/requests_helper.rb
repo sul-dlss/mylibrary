@@ -5,11 +5,19 @@ module RequestsHelper
   ##
   # Generates the options needed to change a request's location
   def request_location_options(request)
+    return folio_pickup_points(request) if Settings.ils.client == 'FolioClient'
+
     options_for_select(
       LibraryLocation.new(request.home_location)
         .additional_pickup_libraries(request.pickup_library).index_by do |code|
           Mylibrary::Application.config.library_map[code]
         end
+    )
+  end
+
+  def folio_pickup_points(_request)
+    options_for_select(
+      Folio::ServicePoint.all.filter_map { |sp| [sp[1].discoveryDisplayName, sp[1].id] if sp[1].pickupLocation }
     )
   end
 

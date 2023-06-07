@@ -110,20 +110,25 @@ class FolioClient
     response
   end
 
-  # Change hold request date
-  # @example client.change_pickup_location(hold_id: '4a64eccd-3e44-4bb0-a0f7-9b4c487abf61',
-  #                                        pickup_location_id: 'bd5fd8d9-72f3-4532-b68c-4db88063d16b')
+  # Change pickup location
+  # @example client.change_pickup_point(id: '4a64eccd-3e44-4bb0-a0f7-9b4c487abf61',
+  #                                        pickup_point: 'bd5fd8d9-72f3-4532-b68c-4db88063d16b')
   # @param [String] hold_id the UUID of the FOLIO hold
   # @param [String] pickup_location_id the uuid of the new location
-  def change_pickup_location(hold_id:, pickup_location_id:)
-    request_data = get_json("/circulation/requests/#{hold_id}")
-    request_data['pickupServicePointId'] = 'bd5fd8d9-72f3-4532-b68c-4db88063d16b'
-    response = put("/circulation/requests/#{hold_id}", json: request_data)
+  # TODO: we aren't using the resource parameter, but for now it's required by the SymphonyClient interface
+  # rubocop:disable Lint/UnusedMethodArgument
+  def change_pickup_point(id:, resource:, pickup_point:)
+    request_data = get_json("/circulation/requests/#{id}")
+    request_data['pickupServicePointId'] = pickup_point
+    response = put("/circulation/requests/#{id}", json: request_data)
 
     check_response(response, title: 'Change pickup location',
-                             context: { hold_id: hold_id,
-                                        pickup_location_id: pickup_location_id })
+                             context: { id: id,
+                                        pickup_point: pickup_point })
+
+    response
   end
+  # rubocop:enable Lint/UnusedMethodArgument
 
   # @example client.change_pickup_expiration(hold_id: '4a64eccd-3e44-4bb0-a0f7-9b4c487abf61',
   #                                        expiration: Date.parse('2023-05-18'))
