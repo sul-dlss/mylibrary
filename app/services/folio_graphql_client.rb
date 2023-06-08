@@ -207,6 +207,7 @@ class FolioGraphqlClient
                 renewable
                 renewalsPolicy {
                   numberAllowed
+                  unlimited
                 }
                 loansPolicy {
                   period {
