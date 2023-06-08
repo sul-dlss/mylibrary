@@ -217,16 +217,16 @@ module Folio
       record.dig('details', 'renewalCount') || 0
     end
 
-    # nil means "unlimited" for unseenRenewalsRemaining
     def unseen_renewals_remaining
-      Float::INFINITY
-      # fields['unseenRenewalsRemaining'] || Float::INFINITY
+      unseen_renewals_allowed - renewal_count
     end
 
-    # nil means "unlimited" for seenRenewalsRemaining
+    def unseen_renewals_allowed
+      record.dig('details', 'loanPolicy', 'renewalsPolicy', 'numberAllowed') || Float::INFINITY
+    end
+
     def seen_renewals_remaining
       Float::INFINITY
-      # fields['seenRenewalsRemaining'] || Float::INFINITY
     end
 
     def library_key

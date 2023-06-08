@@ -205,6 +205,9 @@ class FolioGraphqlClient
               loanPolicy {
                 name
                 renewable
+                renewalsPolicy {
+                  numberAllowed
+                }
                 loansPolicy {
                   period {
                     intervalId
