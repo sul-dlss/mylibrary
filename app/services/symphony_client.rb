@@ -2,6 +2,8 @@
 
 # HTTP client wrapper for making requests to Symws
 class SymphonyClient
+  class IlsError < StandardError; end
+
   DEFAULT_HEADERS = {
     accept: 'application/json',
     content_type: 'application/json'
@@ -116,17 +118,19 @@ class SymphonyClient
       login: library_id,
       resetPinUrl: reset_path
     })
+    raise IlsError, response.body unless response.status == 200
 
     JSON.parse(response.body)
   end
 
   def change_pin(token, pin)
-    request(
+    response = request(
       '/user/patron/changeMyPin',
       method: :post,
       json: { resetPinToken: token, newPin: pin },
       headers: { 'x-sirs-clientID': Settings.symws.public_clientID }
     )
+    raise IlsError, response.body unless response.status == 200
   end
 
   def renew_item(resource, item_key, _patron_key = nil)

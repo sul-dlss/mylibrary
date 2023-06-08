@@ -5,6 +5,7 @@ class ResetPinsController < ApplicationController
   before_action :logout_user!
   rescue_from ActiveRecord::RecordNotFound, with: :user_not_found
   rescue_from ActiveSupport::MessageEncryptor::InvalidMessage, with: :invalid_token
+  rescue_from FolioClient::IlsError, SymphonyClient::IlsError, with: :request_failed
 
   # Renders the first step for resetting the PIN
   #
@@ -17,9 +18,9 @@ class ResetPinsController < ApplicationController
   #
   # POST /reset_pin
   def reset
-    @response = ils_client.reset_pin(reset_pin_params, change_pin_with_token_unencoded_url)
+    ils_client.reset_pin(reset_pin_params, change_pin_with_token_unencoded_url)
     flash[:success] = t 'mylibrary.reset_pin.success_html', library_id: params['library_id']
-    render action: :index
+    redirect_to login_path
   end
 
   # Renders the third step for resetting a PIN, where we prompt the user
@@ -33,16 +34,9 @@ class ResetPinsController < ApplicationController
   #
   # POST /change_pin
   def change
-    @response = ils_client.change_pin(*change_pin_with_token_params)
-
-    case @response.status
-    when 200
-      flash[:success] = t 'mylibrary.change_pin.success_html'
-      redirect_to login_path
-    else
-      flash[:error] = t 'mylibrary.change_pin.invalid_token_html'
-      redirect_to reset_pin_path
-    end
+    ils_client.change_pin(*change_pin_with_token_params)
+    flash[:success] = t 'mylibrary.change_pin.success_html'
+    redirect_to login_path
   end
 
   private
@@ -62,6 +56,11 @@ class ResetPinsController < ApplicationController
 
   def invalid_token
     flash[:error] = t 'mylibrary.change_pin.invalid_token_html'
+    redirect_to reset_pin_path
+  end
+
+  def request_failed
+    flash[:error] = t 'mylibrary.reset_pin.request_failed_html'
     redirect_to reset_pin_path
   end
 

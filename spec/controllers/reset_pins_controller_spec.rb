@@ -42,8 +42,7 @@ RSpec.describe ResetPinsController do
     end
 
     context 'when everything is good' do
-      let(:response) { instance_double('Response', status: 200, content_type: :json) }
-      let(:mock_client) { instance_double(SymphonyClient, change_pin: response, ping: true) }
+      let(:mock_client) { instance_double(SymphonyClient, change_pin: {}, ping: true) }
 
       it 'changes the pin and sets flash messages' do
         post :change, params: { token: 'abc', pin: '123' }
@@ -57,8 +56,9 @@ RSpec.describe ResetPinsController do
     end
 
     context 'when the response is not 200' do
-      let(:response) { instance_double('Response', status: 401, content_type: :json) }
-      let(:mock_client) { instance_double(SymphonyClient, change_pin: response, ping: true) }
+      before do
+        allow(mock_client).to receive(:change_pin).and_raise(SymphonyClient::IlsError)
+      end
 
       it 'does not change the pin and sets flash messages' do
         post :change, params: { token: 'abc', pin: '123' }

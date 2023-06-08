@@ -4,6 +4,8 @@ require 'http'
 
 # Calls FOLIO REST endpoints
 class FolioClient
+  class IlsError < StandardError; end
+
   DEFAULT_HEADERS = {
     accept: 'application/json, text/plain',
     content_type: 'application/json'
@@ -213,8 +215,8 @@ class FolioClient
     return if response.success?
 
     context_string = context.map { |k, v| "#{k}: #{v}" }.join(', ')
-    raise "#{title} request for #{context_string} was not successful. " \
-          "status: #{response.status}, #{response.body}"
+    raise IlsError, "#{title} request for #{context_string} was not successful. " \
+                    "status: #{response.status}, #{response.body}"
   end
 
   def get(path, **kwargs)
@@ -238,10 +240,10 @@ class FolioClient
   end
 
   # @param [Faraday::Response] response
-  # @raises [StandardError] if the response was not a 200
+  # @raises [IlsError] if the response was not successful
   # @return [Hash] the parsed JSON data structure
   def parse_json(response)
-    raise response.body unless response.success?
+    raise IlsError, response.body unless response.success?
     return nil if response.body.empty?
 
     JSON.parse(response.body)
@@ -254,7 +256,7 @@ class FolioClient
   def session_token
     @session_token ||= begin
       response = request('/authn/login', json: { username: @username, password: @password }, method: :post)
-      raise response.body unless response.status == 201
+      raise IlsError, response.body unless response.status == 201
 
       response['x-okapi-token']
     end
