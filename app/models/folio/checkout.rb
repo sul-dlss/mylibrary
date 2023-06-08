@@ -222,7 +222,7 @@ module Folio
     end
 
     def unseen_renewals_allowed
-      record.dig('details', 'loanPolicy', 'renewalsPolicy', 'numberAllowed') || Float::INFINITY
+      record.dig('details', 'loanPolicy', 'renewalsPolicy', 'numberAllowed') || 0
     end
 
     def seen_renewals_remaining
