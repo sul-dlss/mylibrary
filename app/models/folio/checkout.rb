@@ -217,7 +217,10 @@ module Folio
       record.dig('details', 'renewalCount') || 0
     end
 
+    # Unseen renewals are initiated by the patron online
     def unseen_renewals_remaining
+      return Float::INFINITY if unlimited_renewals?
+
       unseen_renewals_allowed - renewal_count
     end
 
@@ -225,6 +228,11 @@ module Folio
       record.dig('details', 'loanPolicy', 'renewalsPolicy', 'numberAllowed') || 0
     end
 
+    def unlimited_renewals?
+      record.dig('details', 'loanPolicy', 'renewalsPolicy', 'unlimited') || false
+    end
+
+    # Seen renewals are initiated by the patron in person with library staff
     def seen_renewals_remaining
       Float::INFINITY
     end
