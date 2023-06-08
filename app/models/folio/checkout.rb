@@ -72,7 +72,7 @@ module Folio
       return 'No. Another user is waiting for this item.' if recalled?
       return 'No. Claim review is in process.' if claimed_returned?
 
-      if unseen_renewals_remaining.zero?
+      unless unseen_renewals_remaining.positive?
         return 'No online renewals left; you may renew this item in person.' if renewal_count.positive?
 
         return 'No online renewals for this item.'
