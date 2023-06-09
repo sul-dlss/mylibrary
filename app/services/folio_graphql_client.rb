@@ -188,6 +188,11 @@ class FolioGraphqlClient
                 effectiveCallNumberComponents {
                   callNumber
                 }
+                effectiveLocation {
+                  library {
+                    code
+                  }
+                }
               }
             }
             loanDate

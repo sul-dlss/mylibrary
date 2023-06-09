@@ -238,8 +238,7 @@ module Folio
     end
 
     def library_key
-      nil
-      # fields&.dig('library', 'key')
+      record.dig('item', 'item', 'effectiveLocation', 'library', 'code')
     end
 
     def from_ilb?
