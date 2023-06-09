@@ -37,12 +37,14 @@ module Folio
       bib['itemId']
     end
 
+    # returns the equivalent Symphony location code
     def home_location
-      item.dig('permanentLocation', 'name')
+      Folio::LocationsMap.for(item.dig('permanentLocation', 'code'))&.last
     end
 
+    # returns the equivalent Symphony location code
     def current_location
-      item.dig('effectiveLocation', 'name')
+      Folio::LocationsMap.for(item.dig('effectiveLocation', 'code'))&.last
     end
 
     def lost?
