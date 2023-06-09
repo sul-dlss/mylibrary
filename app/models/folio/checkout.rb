@@ -209,8 +209,7 @@ module Folio
     end
 
     def reserve_item?
-      nil
-      # circulation_rule&.end_with?('-RES')
+      /reserves?/i.match?(record.dig('details', 'loanPolicy', 'description'))
     end
 
     def renewal_count
