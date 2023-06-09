@@ -3,7 +3,6 @@
 # Controller for reseting a Barcode+PIN user's PIN
 class ResetPinsController < ApplicationController
   before_action :logout_user!
-  rescue_from ActiveRecord::RecordNotFound, with: :user_not_found
   rescue_from ActiveSupport::MessageEncryptor::InvalidMessage, with: :invalid_token
   rescue_from FolioClient::IlsError, SymphonyClient::IlsError, with: :request_failed
 
@@ -12,15 +11,20 @@ class ResetPinsController < ApplicationController
   # GET /reset_pin
   def index; end
 
-  # Trigger a reset request for the PIN; this will
-  # send the patron an email (using their email address on file)
-  # with a link back to our change form and a token for completing the reset
+  # Trigger a reset request for the PIN; this will send the patron an email
+  # (using their email address on file) with a link back to our change form and
+  # a token for completing the reset
+  #
+  # Ignore errors indicating the patron wasn't found in the ILS; we don't want
+  # to leak information about presence/validity of library IDs
   #
   # POST /reset_pin
   def reset
-    ils_client.reset_pin(reset_pin_params, change_pin_with_token_unencoded_url)
-    flash[:success] = t 'mylibrary.reset_pin.success_html', library_id: params['library_id']
-    redirect_to login_path
+    suppress ActiveRecord::RecordNotFound do
+      ils_client.reset_pin(reset_pin_params, change_pin_with_token_unencoded_url)
+      flash[:success] = t 'mylibrary.reset_pin.success_html', library_id: params['library_id']
+      redirect_to login_path
+    end
   end
 
   # Renders the third step for resetting a PIN, where we prompt the user
@@ -47,11 +51,6 @@ class ResetPinsController < ApplicationController
 
   def change_pin_with_token_params
     params.require(%I[token pin])
-  end
-
-  def user_not_found
-    flash[:error] = t 'mylibrary.reset_pin.user_not_found_html'
-    redirect_to reset_pin_path
   end
 
   def invalid_token
