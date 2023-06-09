@@ -237,8 +237,9 @@ module Folio
       Float::INFINITY
     end
 
+    # returns the equivalent Symphony library code
     def library_key
-      record.dig('item', 'item', 'effectiveLocation', 'library', 'code')
+      Folio::LocationsMap.for(record.dig('item', 'item', 'effectiveLocation', 'code'))&.first
     end
 
     def from_ilb?

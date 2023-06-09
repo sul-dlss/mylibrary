@@ -35,9 +35,9 @@ module Folio
       record['feeFineType']
     end
 
+    # returns the equivalent Symphony library code
     def library
-      # ? FOLIO: is this the right field? See bib_record
-      home_location
+      Folio::LocationsMap.for(record.dig('item', 'item', 'effectiveLocation', 'code'))&.first
     end
 
     def bill_date

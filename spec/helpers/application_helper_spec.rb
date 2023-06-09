@@ -95,10 +95,6 @@ RSpec.describe ApplicationHelper do
     it 'falls back on the code' do
       expect(helper.library_name('NOSUCHLIBRARY')).to eq 'NOSUCHLIBRARY'
     end
-
-    it 'translates a FOLIO library code to a human-readable name' do
-      expect(helper.library_name('HILA')).to eq 'Hoover Institution Library & Archives'
-    end
   end
 
   describe '#pickup_location_name' do
