@@ -213,6 +213,7 @@ class FolioGraphqlClient
               }
               loanPolicy {
                 name
+                description
                 renewable
                 renewalsPolicy {
                   numberAllowed
