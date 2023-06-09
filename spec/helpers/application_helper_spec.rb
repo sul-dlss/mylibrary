@@ -95,6 +95,24 @@ RSpec.describe ApplicationHelper do
     it 'falls back on the code' do
       expect(helper.library_name('NOSUCHLIBRARY')).to eq 'NOSUCHLIBRARY'
     end
+
+    it 'translates a FOLIO library code to a human-readable name' do
+      expect(helper.library_name('HILA')).to eq 'Hoover Institution Library & Archives'
+    end
+  end
+
+  describe '#pickup_location_name' do
+    it 'translates the code to a human-readable name' do
+      expect(helper.pickup_location_name('GREEN')).to eq 'Green Library'
+    end
+
+    it 'falls back on the code' do
+      expect(helper.pickup_location_name('NOSUCHLIBRARY')).to eq 'NOSUCHLIBRARY'
+    end
+
+    it 'translates a FOLIO service point code to a human-readable name' do
+      expect(helper.pickup_location_name('cd2')).to eq 'Circulation Desk -- Back Entrance'
+    end
   end
 
   describe '#library_email' do

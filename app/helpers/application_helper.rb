@@ -59,7 +59,17 @@ module ApplicationHelper
   end
 
   def library_name(code)
-    Mylibrary::Application.config.library_map[code] || Folio::ServicePoint.find_by(id: code)&.name || code
+    Mylibrary::Application.config.library_map[code] ||
+      Folio::Library.find_by(id: code)&.name ||
+      code
+  end
+
+  # FOLIO distinguishes between service points and libraries (that can share codes)
+  #   so we need a separate method for correct code to name lookup
+  def pickup_location_name(code)
+    Mylibrary::Application.config.library_map[code] ||
+      Folio::ServicePoint.find_by(id: code)&.discoveryDisplayName ||
+      code
   end
 
   def library_email(code)
