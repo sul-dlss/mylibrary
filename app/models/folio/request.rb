@@ -46,8 +46,7 @@ module Folio
     end
 
     def queue_length
-      # TODO
-      '?'
+      record['queueTotalLength']
     end
 
     def expiration_date

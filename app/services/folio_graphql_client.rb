@@ -117,6 +117,7 @@ class FolioGraphqlClient
             pickupLocation {
               code
             }
+            queueTotalLength
             queuePosition
             cancellationReasonId
             canceledByUserId
