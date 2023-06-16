@@ -22,9 +22,10 @@ class ResetPinsController < ApplicationController
   def reset
     suppress ActiveRecord::RecordNotFound do
       ils_client.reset_pin(reset_pin_params, change_pin_with_token_unencoded_url)
-      flash[:success] = t 'mylibrary.reset_pin.success_html', library_id: params['library_id']
-      redirect_to login_path
     end
+
+    flash[:success] = t 'mylibrary.reset_pin.success_html', library_id: params['library_id']
+    redirect_to login_path
   end
 
   # Renders the third step for resetting a PIN, where we prompt the user
