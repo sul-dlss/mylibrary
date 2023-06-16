@@ -50,7 +50,8 @@ module Folio
     end
 
     def expiration_date
-      Time.zone.parse(record['expirationDate']) if record['expirationDate']
+      Time.zone.parse(record.dig('details', 'holdShelfExpirationDate')) if record.dig('details',
+                                                                                      'holdShelfExpirationDate')
     end
 
     def placed_date
@@ -58,7 +59,7 @@ module Folio
     end
 
     def fill_by_date
-      Time.zone.parse(record['fillByDate']) if record['fillByDate']
+      Time.zone.parse(record['expirationDate']) if record['expirationDate']
     end
 
     def waitlist_position
