@@ -381,6 +381,7 @@ GEM
       net-ssh (>= 2.8.0)
     thor (1.2.2)
     tilt (2.2.0)
+    timecop (0.9.6)
     timeout (0.3.2)
     turbolinks (5.2.1)
       turbolinks-source (~> 5.2)
@@ -457,6 +458,7 @@ DEPENDENCIES
   sinatra
   sprockets-rails
   sqlite3 (~> 1.4)
+  timecop
   turbolinks (~> 5)
   tzinfo-data
   warden
