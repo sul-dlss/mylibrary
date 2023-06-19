@@ -113,6 +113,9 @@ class FolioGraphqlClient
             requestId
             status
             expirationDate
+            details {
+              holdShelfExpirationDate
+            }
             pickupLocationId
             pickupLocation {
               code
