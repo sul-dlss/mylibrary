@@ -196,6 +196,9 @@ class FolioClient
   # @param [String] new_pin the new PIN to assign
   def change_pin(token, new_pin)
     patron_key = crypt.decrypt_and_verify(token)
+    # expired tokens evaluate to nil; we want to raise an error instead
+    raise ActiveSupport::MessageEncryptor::InvalidMessage unless patron_key
+
     response = post('/patron-pin', json: { id: patron_key, pin: new_pin })
     check_response(response, title: 'Assign pin', context: { user_id: patron_key, pin: new_pin })
   end
