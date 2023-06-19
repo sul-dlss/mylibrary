@@ -62,8 +62,22 @@ class FolioGraphqlClient
             expirationDate
             externalSystemId
             patronGroup {
-              group
               desc
+              group
+              limits {
+                conditionId
+                id
+                patronGroupId
+                value
+                condition {
+                  blockBorrowing
+                  blockRenewals
+                  blockRequests
+                  message
+                  name
+                  valueType
+                }
+              }
             }
             blocks {
               message

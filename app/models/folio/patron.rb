@@ -113,7 +113,10 @@ module Folio
     end
 
     def borrow_limit
-      nil
+      borrow_limit = user_info.dig('patronGroup', 'limits').find do |limit|
+        limit['condition']['name'] == 'Maximum number of items charged out'
+      end
+      borrow_limit&.dig('value')
     end
 
     def remaining_checkouts
