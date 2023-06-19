@@ -53,3 +53,5 @@ purl:
   url: https://purl.stanford.edu
 
 analytics_debug: true
+
+mailer_host: 'localhost'
