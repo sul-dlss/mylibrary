@@ -234,12 +234,32 @@ class FolioGraphqlClient
                 description
                 renewable
                 renewalsPolicy {
+                  alternateFixedDueDateSchedule {
+                    schedules {
+                      due
+                      from
+                      to
+                    }
+                  }
                   numberAllowed
+                  period {
+                    intervalId
+                    duration
+                  }
+                  renewFromId
                   unlimited
                 }
                 loansPolicy {
+                  fixedDueDateSchedule {
+                    schedules {
+                      due
+                      from
+                      to
+                    }
+                  }
                   period {
                     intervalId
+                    duration
                   }
                 }
               }

@@ -7,6 +7,8 @@ module Folio
 
     attr_reader :record
 
+    delegate :too_soon_to_renew?, to: :loan_policy
+
     SHORT_TERM_LOAN_PERIODS = %w[Hours Minutes].freeze
 
     def initialize(record, cdl: false)
@@ -82,7 +84,7 @@ module Folio
       return 'Renew Reserve items in person.' if reserve_item?
       return 'No. Another user is waiting for this item.' if item_category_non_renewable?
 
-      'Too soon to renew.' unless renewable_at&.past?
+      'Too soon to renew.' if too_soon_to_renew?
     end
     # rubocop:enable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity,Metrics/MethodLength
 
@@ -94,18 +96,8 @@ module Folio
       non_renewable_reason.blank?
     end
 
-    ##
-    # The date in which the item can be renewed (i.e too soon to renew)
-    def renewable_at
-      Time.zone.now.to_date
-      # due_date.to_date - renew_from_period.days if due_date && renew_from_period.positive?
-    end
-
-    ##
-    # The period before the due date in which the item can be renewed
-    def renew_from_period
-      nil
-      # fields.dig('circulationRule', 'fields', 'renewFromPeriod').to_i
+    def loan_policy
+      Folio::LoanPolicy.new(loan_policy: record.dig('details', 'loanPolicy'), due_date: due_date)
     end
 
     def patron_key
