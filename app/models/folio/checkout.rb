@@ -198,11 +198,6 @@ module Folio
                                              renewal_count: renewal_count)
     end
 
-    def circulation_rule
-      nil
-      # fields.dig('circulationRule', 'key')
-    end
-
     def reserve_item?
       /reserves?/i.match?(record.dig('details', 'loanPolicy', 'description'))
     end
