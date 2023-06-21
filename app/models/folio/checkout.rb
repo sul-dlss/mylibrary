@@ -14,6 +14,7 @@ module Folio
              to: :loan_policy,
              private: true
 
+    BORROW_DIRECT_LOCATION_CODE = 'SUL-BORROW-DIRECT'
     SHORT_TERM_LOAN_PERIODS = %w[Hours Minutes].freeze
 
     def initialize(record, cdl: false)
@@ -221,7 +222,7 @@ module Folio
     end
 
     def from_borrow_direct?
-      item_type == 'BORROWDIR'
+      record.dig('item', 'item', 'effectiveLocation', 'code') == BORROW_DIRECT_LOCATION_CODE
     end
 
     def item_type
