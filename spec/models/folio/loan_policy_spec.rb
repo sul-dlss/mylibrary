@@ -4,18 +4,38 @@ require 'rails_helper'
 
 RSpec.describe Folio::LoanPolicy do
   subject(:folio_loan_policy) do
-    described_class.new(loan_policy: loan_policy, due_date: due_date)
+    described_class.new(loan_policy: loan_policy, due_date: due_date, renewal_count: renewal_count)
   end
 
-  before do
-    Timecop.freeze(Time.zone.local(2023, 6, 20, 7, 24, 2))
+  let(:due_date) { nil }
+  let(:renewal_count) { nil }
+
+  describe '#loan_policy_interval' do
+    let(:loan_policy) do
+      { 'loansPolicy' =>
+        { 'period' => { 'intervalId' => 'Weeks', 'duration' => 20 } } }
+    end
+
+    it { expect(folio_loan_policy.loan_policy_interval).to eq 'Weeks' }
   end
 
-  after do
-    Timecop.return
+  describe '#renewable?' do
+    let(:loan_policy) do
+      { 'renewable' => true }
+    end
+
+    it { expect(folio_loan_policy.renewable?).to be true }
   end
 
   describe '#too_soon_to_renew?' do
+    before do
+      Timecop.freeze(Time.zone.local(2023, 6, 20, 7, 24, 2))
+    end
+
+    after do
+      Timecop.return
+    end
+
     describe 'schedule loan policy' do
       let(:loan_policy) do
         { 'loansPolicy' =>
@@ -144,6 +164,35 @@ RSpec.describe Folio::LoanPolicy do
       context 'when renewal would extend the due date' do
         it { expect(folio_loan_policy.too_soon_to_renew?).to be false }
       end
+    end
+  end
+
+  describe '#unseen_renewals_remaining' do
+    context 'when renewals are unlimited' do
+      let(:loan_policy) do
+        { 'renewalsPolicy' => { 'unlimited' => true } }
+      end
+
+      it { expect(folio_loan_policy.unseen_renewals_remaining).to eq Float::INFINITY }
+    end
+
+    context 'when renewals are limited' do
+      let(:loan_policy) do
+        { 'renewalsPolicy' =>
+          { 'unlimited' => false,
+            'numberAllowed' => 5 } }
+      end
+      let(:renewal_count) { 3 }
+
+      it { expect(folio_loan_policy.unseen_renewals_remaining).to eq 2 }
+    end
+  end
+
+  describe '#seen_renewals_remaining' do
+    let(:loan_policy) { nil }
+
+    it 'always returns Float::INFINITY because Folio does not support this concept' do
+      expect(folio_loan_policy.seen_renewals_remaining).to eq Float::INFINITY
     end
   end
 end
