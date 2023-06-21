@@ -49,4 +49,43 @@ RSpec.describe Folio::Checkout do
   it 'has a key' do
     expect(checkout.key).to eq '6f951192-b633-40a0-8112-73a191b55a8a'
   end
+
+  describe '#library' do
+    context 'when record is from borrow direct' do
+      let(:record) do
+        { 'id' => '6f951192-b633-40a0-8112-73a191b55a8a',
+          'item' =>
+            { 'item' =>
+             { 'effectiveLocation' => { 'code' => 'SUL-BORROW-DIRECT' } } } }
+      end
+
+      it { expect(checkout.library).to eq 'BORROW_DIRECT' }
+    end
+
+    context 'when record is from ILL', skip: 'how to identify ILL not from BorrowDirect is TBD in FOLIO' do
+      it { expect(checkout.library).to eq 'Interlibrary borrowing' }
+    end
+
+    context 'when record is from Green Library' do
+      let(:record) do
+        { 'id' => '6f951192-b633-40a0-8112-73a191b55a8a',
+          'item' =>
+            { 'item' =>
+             { 'effectiveLocation' => { 'code' => 'GRE-STACKS' } } } }
+      end
+
+      it { expect(checkout.library).to eq 'GREEN' }
+    end
+
+    context 'when record location requires a fallback display value' do
+      let(:record) do
+        { 'id' => '6f951192-b633-40a0-8112-73a191b55a8a',
+          'item' =>
+            { 'item' =>
+             { 'effectiveLocation' => { 'code' => 'SOME-CODE' } } } }
+      end
+
+      it { expect(checkout.library).to eq 'Stanford Libraries' }
+    end
+  end
 end
