@@ -2,16 +2,37 @@
 
 module Folio
   class LoanPolicy
-    attr_reader :loan_policy, :due_date
+    attr_reader :loan_policy, :due_date, :renewal_count
 
-    def initialize(loan_policy:, due_date:)
+    def initialize(loan_policy:, due_date:, renewal_count:)
       @loan_policy = loan_policy
       @due_date = due_date
+      @renewal_count = renewal_count
+    end
+
+    def loan_policy_interval
+      loan_policy.dig('loansPolicy', 'period', 'intervalId')
+    end
+
+    def renewable?
+      loan_policy['renewable']
     end
 
     # Renewing would not extend the due date
     def too_soon_to_renew?
       due_date_after_renewal <= due_date
+    end
+
+    # Unseen renewals are initiated by the patron online
+    def unseen_renewals_remaining
+      return Float::INFINITY if unlimited_renewals?
+
+      unseen_renewals_allowed - renewal_count
+    end
+
+    # Seen renewals are initiated by the patron in person with library staff
+    def seen_renewals_remaining
+      Float::INFINITY
     end
 
     private
@@ -93,12 +114,16 @@ module Folio
       loan_policy.dig('renewalsPolicy', 'period', 'duration')
     end
 
-    def loan_policy_interval
-      loan_policy.dig('loansPolicy', 'period', 'intervalId')
-    end
-
     def loan_policy_duration
       loan_policy.dig('loansPolicy', 'period', 'duration')
+    end
+
+    def unlimited_renewals?
+      loan_policy.dig('renewalsPolicy', 'unlimited') || false
+    end
+
+    def unseen_renewals_allowed
+      loan_policy.dig('renewalsPolicy', 'numberAllowed') || 0
     end
   end
 end

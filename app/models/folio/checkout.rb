@@ -7,7 +7,12 @@ module Folio
 
     attr_reader :record
 
-    delegate :too_soon_to_renew?, to: :loan_policy
+    delegate :loan_policy_interval,
+             :too_soon_to_renew?,
+             :unseen_renewals_remaining,
+             :seen_renewals_remaining,
+             to: :loan_policy,
+             private: true
 
     SHORT_TERM_LOAN_PERIODS = %w[Hours Minutes].freeze
 
@@ -89,15 +94,11 @@ module Folio
     # rubocop:enable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity,Metrics/MethodLength
 
     def item_category_non_renewable?
-      record.dig('details', 'loanPolicy', 'renewable') == false
+      !loan_policy.renewable?
     end
 
     def renewable?
       non_renewable_reason.blank?
-    end
-
-    def loan_policy
-      Folio::LoanPolicy.new(loan_policy: record.dig('details', 'loanPolicy'), due_date: due_date)
     end
 
     def patron_key
@@ -135,7 +136,7 @@ module Folio
     end
 
     def short_term_loan?
-      SHORT_TERM_LOAN_PERIODS.include?(loan_period_type) || @cdl
+      SHORT_TERM_LOAN_PERIODS.include?(loan_policy_interval) || @cdl
     end
 
     def to_partial_path
@@ -191,8 +192,10 @@ module Folio
 
     private
 
-    def loan_period_type
-      record.dig('details', 'loanPolicy', 'loansPolicy', 'period', 'intervalId')
+    def loan_policy
+      @loan_policy ||= Folio::LoanPolicy.new(loan_policy: record.dig('details', 'loanPolicy'),
+                                             due_date: due_date,
+                                             renewal_count: renewal_count)
     end
 
     def circulation_rule
@@ -206,26 +209,6 @@ module Folio
 
     def renewal_count
       record.dig('details', 'renewalCount') || 0
-    end
-
-    # Unseen renewals are initiated by the patron online
-    def unseen_renewals_remaining
-      return Float::INFINITY if unlimited_renewals?
-
-      unseen_renewals_allowed - renewal_count
-    end
-
-    def unseen_renewals_allowed
-      record.dig('details', 'loanPolicy', 'renewalsPolicy', 'numberAllowed') || 0
-    end
-
-    def unlimited_renewals?
-      record.dig('details', 'loanPolicy', 'renewalsPolicy', 'unlimited') || false
-    end
-
-    # Seen renewals are initiated by the patron in person with library staff
-    def seen_renewals_remaining
-      Float::INFINITY
     end
 
     # returns the equivalent Symphony library code
