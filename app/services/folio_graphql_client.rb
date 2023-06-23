@@ -113,6 +113,7 @@ class FolioGraphqlClient
                   callNumber
                 }
                 effectiveLocation {
+                  code
                   library {
                     code
                   }
