@@ -133,6 +133,7 @@ module Mylibrary
       'PAGE-ED' => ['SPEC-COLL'],
       'PAGE-EN' => ['ENG'],
       'PAGE-ES' => ['EARTH-SCI'],
+      'PAGE-FC' => ['ART', 'MUSIC', 'SPEC-COLL'],
       'PAGE-GR' => ['GREEN'],
       'PAGE-HA' => ['HV-ARCHIVE'],
       'PAGE-HP' => ['GREEN', 'HOPKINS'],
