@@ -17,7 +17,7 @@ module Folio
     end
 
     def key
-      patron_info['id']
+      user_info['id']
     end
 
     def barcode
