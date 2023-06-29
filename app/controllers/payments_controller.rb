@@ -39,6 +39,7 @@ class PaymentsController < ApplicationController
   #
   # POST /payments/accept
   def accept
+    Rails.logger.info('PAYMENT ACCEPTED')
     alter_payment_cookie
     folio_account_payment
     redirect_to fines_path, flash: {
@@ -54,14 +55,14 @@ class PaymentsController < ApplicationController
     redirect_to fines_path, flash: { error: (t 'mylibrary.fine_payment.cancel_html') }
   end
 
-  private
-
   def folio_account_payment
+    Rails.logger.info("FOLIO_ACCOUNT_PAYMENT_PARAMS:#{account_payload}")
     client = FolioClient.new
-    puts "FOLIO_ACCOUNT_PAYMENT_PARAMS:#{account_payload}"
     response = client.post('/accounts-bulk/pay', account_payload.to_json)
-    puts "#HERE: #{response}"
+    Rails.logger.info("#FOLIO_RESPONSE: #{response}")
   end
+
+  private
 
   def account_payload
     {
