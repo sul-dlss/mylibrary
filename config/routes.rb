@@ -37,6 +37,7 @@ Rails.application.routes.draw do
   post '/payments/accept', to: 'payments#accept'
   post '/payments/cancel', to: 'payments#cancel'
 
+  post '/cybersource', to: 'cybersource#create'
   get '/cybersource', to: 'cybersource#create'
 
   get '/unavailable', to: 'services#unavailable'

@@ -144,6 +144,7 @@ class FolioGraphqlClient
             patronComments
           }
           accounts {
+            id
             item {
               instance {
                 id

@@ -1,0 +1,46 @@
+debug: true
+ils:
+  client: FolioClient
+  patron_model: Folio::Patron
+
+GOOGLE_ANALYTICS_ID: 'UA-7219229-36'
+borrow_direct:
+  api_key: 3x1mhu9gsZkoTtARqYLmF6n+OUyDWcZ79EFuNdJYBE5L4ZtdEuw=
+borrow_direct_reshare:
+  enabled: true
+  url: 'https://stanford-okapi.reshare.indexdata.com'
+  username: 'rsserviceaccount'
+  password: 'GqrDb1BIvIqW'
+  tenant: 'stanford'
+sw:
+  url: https://searchworks-morison.stanford.edu/view/
+
+RECAPTCHA:
+  SITE_KEY: 6LcPNLAUAAAAAIkbXhui2fAzWokcvcg-k4R-E4ac
+  SECRET_KEY: 6LcPNLAUAAAAADSJx38y1JsEzRod_UXyH007vJDy
+EMAIL_TO: mylibrary-feedback@lists.stanford.edu
+HOSTNAME: mylibrary-folio-dev.stanford.edu
+
+cdl:
+  url: https://requests-folio-dev.stanford.edu
+
+embed:
+  url: https://embed.stanford.edu
+
+purl:
+  url: https://purl.stanford.edu
+
+mailer_host: 'mylibrary-folio-dev.stanford.edu'
+
+folio:
+  url: https://libsys_admin:FolioZ713@okapi-test.stanford.edu
+  service_point_id: a5dbb3dc-84f8-4eb3-8bfe-c61f74a9e92d
+
+folio_graphql:
+  url: http://libsys_admin:FolioZ713@localhost:4000
+
+cybersource:
+  payment_url: https://testsecureacceptance.cybersource.com/pay
+  profile_id: my-library-test
+  access_key: 427aee6d2a873c00a2eabdec2d07505b
+  secret_key: dd2ccbac4d9541f6aeecfb9df97596e96e6788d24a3043f48695e39ef0a54a5b00a512c96c4f4767ad17187c2fb7ae8d4ade700a98ea486d801a9a1ab1bc04714078df6b6277471d8be3b70682d86b07cae10761f2e14c4188a0fcc7737463e687230493925a46db97e8196ec33358a316d22882f13c4cdc9a548b4e9af82786

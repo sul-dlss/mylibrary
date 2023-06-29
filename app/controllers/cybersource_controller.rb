@@ -54,12 +54,11 @@ class CybersourceController < ApplicationController
   end
 
   def reference_number
-    # { reference_number: "#{params[:key]}-#{params[:billseq]}" }
-    { reference_number: "#{params[:key]}-#{params[:billseq]}" }
+    { reference_number: params[:userId] }
   end
 
   def merchant_defined_data1
-    { merchant_defined_data1: "#{params[:user]}-#{params[:group]}" }
+    { merchant_defined_data1: params[:billseq] }
   end
 
   def merchant_defined_data2

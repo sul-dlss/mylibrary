@@ -138,13 +138,16 @@ module Folio
     end
 
     def fines
-      all_fines
+      all_fines.reject{|fine| fine.nil?}
       # all_fines.reject { |fine| payment_sequence.include?(fine.sequence) }
     end
 
     def all_fines
       # @all_fines ||= []
-      @all_fines ||= patron_info['accounts'].map { |fine| Fine.new(fine) }
+      @all_fines ||= patron_info['accounts'].map do |fine|
+        _fine = Fine.new(fine)
+        _fine if _fine.status == 'Outstanding'
+      end
     end
 
     ##

@@ -57,16 +57,21 @@ class PaymentsController < ApplicationController
   private
 
   def folio_account_payment
-    # TODO: make a bulk account payment, the req_ params are those sent back from cybersource:
-    #   folio-post /accounts-bulk/pay
-    #     { "items": folio_account_ids, -- this will probably need top be parsed using an IFS from params[:req_items]
-    #       "amount": params[:req_amount],
-    #       "userName": params[:req_user],
-    #       "servicePointId": params[:req_servicepoint],
-    #       "notifyPatron": "true",
-    #       "paymentMethod": "Credit card" }
-    #   Persist the respose to a database table
-    {}
+    client = FolioClient.new
+    puts "FOLIO_ACCOUNT_PAYMENT_PARAMS:#{account_payload}"
+    response = client.post('/accounts-bulk/pay', account_payload.to_json)
+    puts "#HERE: #{response}"
+  end
+
+  def account_payload
+    {
+      accountIds: params[:req_merchant_defined_data1],
+      paymentMethod: 'Credit card',
+      amount: params[:req_amount],
+      userName: params[:req_user],
+      servicePointId: Settings.folio.service_point_id,
+      notifyPatron: true
+    }
   end
 
   # Formatted for use by the ajax_in_place_update library

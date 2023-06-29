@@ -19,8 +19,7 @@ module Folio
     end
 
     def sequence
-      # ? FOLIO
-      nil
+      record['id']
     end
 
     def patron_key
@@ -50,7 +49,7 @@ module Folio
     end
 
     def owed
-      record['remaining']&.to_d || fee
+      fee
     end
 
     def fee
