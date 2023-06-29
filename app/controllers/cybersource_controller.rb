@@ -6,6 +6,8 @@ class CybersourceController < ApplicationController
   def create
     params.merge!(Hash[*cybersource_params.map(&:to_a).flatten])
     apply_security_signature
+    Rails.logger.info("RE-POSTING TO CYBERSOURCE: #{params}")
+    Rails.logger.info("PAYMENT_URL:#{Settings.cybersource.payment_url}")
     repost(Settings.cybersource.payment_url, params: post_params)
   end
 
