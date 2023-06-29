@@ -43,7 +43,7 @@ class PaymentsController < ApplicationController
     alter_payment_cookie
     folio_account_payment
     redirect_to fines_path, flash: {
-      success: (t 'mylibrary.fine_payment.accept_html', amount: params[:req_amount])
+      success: (t 'mylibrary.fine_payment.accept_html', amount: params[ :req_amount])
     }
   end
 
