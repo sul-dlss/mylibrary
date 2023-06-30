@@ -50,4 +50,12 @@ RSpec.describe 'requests/_request' do
       expect(rendered).not_to have_link('View in SearchWorks')
     end
   end
+
+  context 'when the request was made by a proxy' do
+    xit 'displays proxy requester name' do
+      expect(rendered).to have_text(
+        'Piper Proxy'
+      )
+    end
+  end
 end

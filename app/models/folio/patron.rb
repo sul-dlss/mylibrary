@@ -12,6 +12,12 @@ module Folio
       @payment_in_process = payment_in_process
     end
 
+    # pass a FOLIO user uuid and get back a Patron object
+    def self.find(key)
+      patron_info = FolioClient.new.patron_info(key)
+      new(patron_info)
+    end
+
     def user_info
       patron_info['user'] || {}
     end
@@ -86,9 +92,11 @@ module Folio
     end
 
     def patron_type
-      patron_group = user_info.dig('patronGroup', 'desc')
+      # FOLIO's patronGroup refers to the patron type, e.g. Undergraduate, Graduate, Faculty, etc.
+      # this type of group is unrelated to our proxy/sponsor "research groups" in the model Folio::Group
+      patron_type = user_info.dig('patronGroup', 'desc')
 
-      return 'Fee borrower' if patron_group.match?(/Fee borrower/i)
+      return 'Fee borrower' if patron_type.match?(/Fee borrower/i)
 
       # suppress the display of any other patron groups
       nil
@@ -107,8 +115,6 @@ module Folio
     end
 
     def display_name
-      return proxy_borrower_name if proxy_borrower_name.present?
-
       "#{first_name} #{last_name}"
     end
 
@@ -125,16 +131,9 @@ module Folio
       borrow_limit - checkouts.length
     end
 
-    def proxy_borrower?
-      false
-    end
-
-    def sponsor?
-      false
-    end
-
-    def checkouts
-      @checkouts ||= patron_info['loans'].map { |checkout| Checkout.new(checkout) }
+    def all_fines
+      # @all_fines ||= []
+      @all_fines ||= patron_info['accounts'].map { |fine| Fine.new(fine) }
     end
 
     def fines
@@ -142,12 +141,13 @@ module Folio
       # all_fines.reject { |fine| payment_sequence.include?(fine.sequence) }
     end
 
-    def all_fines
-      # @all_fines ||= []
-      @all_fines ||= patron_info['accounts'].map { |fine| Fine.new(fine) }
+    # TODO: figure this out for FOLIO
+    def group_fines
+      # return fines.select { |fine| group_billuser_info_keys.include?(fine.key) } if sponsor?
+      # fines
+      []
     end
 
-    ##
     # Creates a range of integers based of a payment sequence string
     def payment_sequence
       return Range.new(0, 0) unless payment_in_process[:billseq] && payment_in_process[:pending]
@@ -155,46 +155,44 @@ module Folio
       Range.new(*payment_in_process[:billseq].split('-').map(&:to_i))
     end
 
-    def requests
-      @requests ||= folio_requests + borrow_direct_requests
+    def proxy_borrower?
+      user_info['proxiesFor']&.any?
+    end
+
+    def sponsor?
+      user_info['proxiesOf']&.any?
     end
 
     def group
-      @group ||= Folio::Group.new(user_info)
+      @group ||= Folio::Group.new(patron_info)
     end
 
     def group?
       group&.member_list&.any?
     end
 
+    def all_checkouts
+      @all_checkouts ||= patron_info['loans']&.map { |checkout| Checkout.new(checkout) }
+    end
+
+    # Self checkouts
+    def checkouts
+      all_checkouts.reject(&:proxy_checkout?) || []
+    end
+
+    # Checkouts from the proxy group
     def group_checkouts
-      return checkouts.select { |checkout| group_circuser_info_keys.include?(checkout.key) } if sponsor?
-
-      checkouts
+      all_checkouts.select(&:proxy_checkout?)
     end
 
-    def group_circuser_info_keys
-      @group_circuser_info_keys ||= SymphonyDbClient.new.group_circuser_info_keys(key)
+    # Self requests
+    def requests
+      @requests ||= folio_requests.reject(&:proxy_request?) + borrow_direct_requests
     end
 
+    # Requests from the proxy group
     def group_requests
-      return requests.select { |request| group_holduser_info_keys.include?(request.key) } if sponsor?
-
-      requests
-    end
-
-    def group_holduser_info_keys
-      @group_holduser_info_keys ||= SymphonyDbClient.new.group_holduser_info_keys(key)
-    end
-
-    def group_fines
-      return fines.select { |fine| group_billuser_info_keys.include?(fine.key) } if sponsor?
-
-      fines
-    end
-
-    def group_billuser_info_keys
-      @group_billuser_info_keys ||= SymphonyDbClient.new.group_billuser_info_keys(key)
+      return folio_requests.select(&:proxy_request?) if sponsor?
     end
 
     def to_partial_path
@@ -242,18 +240,13 @@ module Folio
       end
     end
 
+    # this is all requests including self and group/proxy
     def folio_requests
       @patron_info['holds'].map { |request| Request.new(request) }
     end
 
     def affiliations
       []
-    end
-
-    def proxy_borrower_name
-      return unless proxy_borrower? && first_name.match?(/(\A\w+\s)\(P=([a-zA-Z]+)\)\z/)
-
-      first_name.gsub(/(\A\w+\s)\(P=([a-zA-Z]+)\)\z/, '\2')
     end
   end
 end

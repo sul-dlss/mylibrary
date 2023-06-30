@@ -59,6 +59,19 @@ class FolioGraphqlClient
               firstName
               preferredFirstName
             }
+            proxiesFor {
+              userId
+            }
+            proxiesOf {
+              proxyUserId
+              proxyUser {
+                barcode
+                personal {
+                  firstName
+                  lastName
+                }
+              }
+            }
             expirationDate
             externalSystemId
             patronGroup {
@@ -130,6 +143,12 @@ class FolioGraphqlClient
             expirationDate
             details {
               holdShelfExpirationDate
+              proxyUserId
+              proxy {
+                firstName
+                lastName
+                barcode
+              }
             }
             pickupLocationId
             pickupLocation {

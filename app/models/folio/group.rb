@@ -8,15 +8,24 @@ module Folio
     end
 
     def sponsor
-      nil
+      @sponsor ||= if sponsor?
+                     self
+                   else
+                     # if you are a proxy, make a second call to get the sponsor
+                     # for now, we only support one sponsor per proxy
+                     sponsor_id = user_info.dig('proxiesFor', 0, 'userId')
+                     Folio::Patron.find(sponsor_id)
+                   end
     end
 
     def barred?
-      members.any?(&:barred?)
+      # TODO: decide how this should work in FOLIO
+      false
     end
 
     def blocked?
-      members.any?(&:blocked?)
+      # TODO: decide how this should work in FOLIO
+      false
     end
 
     def status
@@ -34,24 +43,29 @@ module Folio
     end
 
     def checkouts
-      @checkouts ||= member_list.flat_map(&:group_checkouts)
+      sponsor.group_checkouts || []
     end
 
     def fines
-      @fines ||= member_list.flat_map(&:group_fines)
+      sponsor.group_fines
     end
 
     def requests
-      @requests ||= member_list.flat_map(&:group_requests)
+      sponsor.group_requests
     end
 
     def member_list
-      @member_list ||= members.reject { |patron| patron.key == key }
+      @member_list ||= if sponsor?
+                         user_info['proxiesOf']
+                       elsif proxy_borrower?
+                         sponsor.group.member_list
+                       end
     end
 
     def member_list_names
       @member_list_names ||= member_list.each_with_object({}) do |member, hash|
-        hash[member.key] = member.display_name
+        hash[member['proxyUserId']] =
+          "#{member.dig('proxyUser', 'personal', 'firstName')} #{member.dig('proxyUser', 'personal', 'lastName')}"
       end
     end
 
@@ -61,12 +75,6 @@ module Folio
 
     def to_partial_path
       'group/group'
-    end
-
-    private
-
-    def members
-      @members ||= []
     end
   end
 end

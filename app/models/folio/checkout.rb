@@ -106,6 +106,11 @@ module Folio
       record.dig('details', 'proxyUserId') || record.dig('details', 'userId')
     end
 
+    # @return [Boolean] Returns true if the proxyUserId exists
+    def proxy_checkout?
+      record.dig('details', 'proxyUserId').present?
+    end
+
     def overdue?
       record['overdue']
     end
