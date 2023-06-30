@@ -40,6 +40,7 @@ symphony:
 borrow_direct_reshare:
   enabled: false
 
+# TODO: delete these after we move to FOLIO and get these codes directly from effectiveLocation
 BORROW_DIRECT_CODE: BORROW_DIRECT
 ILL_CODE: ILL
 
