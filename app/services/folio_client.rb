@@ -177,7 +177,7 @@ class FolioClient
     when 422
       false
     else
-      check_response(response, title: 'Validate pin', context: { user_id: user_id, pin: pin })
+      check_response(response, title: 'Validate pin', context: { user_id: user_id })
     end
   end
 
@@ -200,7 +200,7 @@ class FolioClient
     raise ActiveSupport::MessageEncryptor::InvalidMessage unless patron_key
 
     response = post('/patron-pin', json: { id: patron_key, pin: new_pin })
-    check_response(response, title: 'Assign pin', context: { user_id: patron_key, pin: new_pin })
+    check_response(response, title: 'Assign pin', context: { user_id: patron_key })
   end
 
   # Look up a patron by barcode and return a Patron object
