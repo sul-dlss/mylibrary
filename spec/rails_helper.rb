@@ -11,6 +11,7 @@ require 'capybara/rails'
 require 'capybara/rspec'
 
 require 'selenium-webdriver'
+require 'factory_bot'
 
 Capybara.javascript_driver = :selenium_chrome_headless
 
@@ -73,4 +74,6 @@ RSpec.configure do |config|
   config.after do
     Warden.test_reset!
   end
+
+  config.include FactoryBot::Syntax::Methods
 end

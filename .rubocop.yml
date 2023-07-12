@@ -3,6 +3,7 @@ require:
   - rubocop-performance
   - rubocop-rails
   - rubocop-rspec
+  - rubocop-factory_bot
 
 inherit_from: .rubocop_todo.yml
 
@@ -106,3 +107,9 @@ Style/WordArray:
   Exclude:
     - 'config/application.rb'
     - 'config/environments/test.rb'
+    
+FactoryBot/ConsistentParenthesesStyle:
+  Enabled: true
+  
+FactoryBot/SyntaxMethods:
+  Enabled: true
