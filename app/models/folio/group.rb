@@ -18,15 +18,9 @@ module Folio
                    end
     end
 
-    def barred?
-      # TODO: decide how this should work in FOLIO
-      false
-    end
+    delegate :barred?, to: :sponsor
 
-    def blocked?
-      # TODO: decide how this should work in FOLIO
-      false
-    end
+    delegate :blocked?, to: :sponsor
 
     def status
       standing
