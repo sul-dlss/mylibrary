@@ -1,50 +1,59 @@
-<li class="list-group-item">
-  <div class="row d-flex flex-wrap position-relative">
-    <div class="d-flex flex-row flex-grow-1 justify-content-start w-100 row col-md-12 col-lg-6">
-      <div class="col-4 col-md-4 order-md-first bill_description" data-sort-bill_description="<%= h payment.sort_key(:bill_description) %>" >
-        <%= payment.nice_bill_description %>
-      </div>
+<% @payments.each do | fine | %>
+  <% if !fine.nil?  %>
+  <li class="list-group-item">
+    <div class="row d-flex flex-wrap position-relative">
+      <div class="d-flex flex-row flex-grow-1 justify-content-start w-100 row col-md-12 col-lg-6">
+        <div class="col-4 col-md-4 order-md-first bill_description" >
+          <%= fine.nice_status %>
+        </div>
 
-      <div class="col-3 col-md-4 order-first order-sm-first bill_amount" data-sort-bill_amount="<%= h payment.sort_key(:bill_amount) %>">
-        <%= number_to_currency(payment.bill_amount) %>
-      </div>
+        <div class="col-3 col-md-4 order-first order-sm-first bill_amount">
+          <%= number_to_currency(fine.fee) %>
+        </div>
 
-      <div class="col-5 col-md-4 text-right text-md-left payment_date" data-sort-payment_date="<%= h payment.sort_key(:payment_date) %>" >
-        <%= l(payment.payment_date, format: :short) %>
+        <%# This should be PAYMENT DATE %>
+        <div class="col-5 col-md-4 text-right text-md-left payment_date">
+          <%= l(fine.bill_date, format: :short) %>
+        </div>
+      </div>
+      <div class="d-flex flex-grow-1 flex-column flex-md-row w-75 row col-md-12 col-lg-6 item_title">
+        <h3 class="col-md-10 clamp-3 record-title list-item-title"><%= fine.library %></h3>
+      </div>
+      <div>
+        <button class="btn collapsed stretched-link position-static" type="button" data-toggle="collapse" data-target="#collapseDetails-<%= fine.key.parameterize %>" aria-expanded="false" aria-controls="collapseDetails-<%= fine.key.parameterize %>">
+          <span class="expand-icon"><%= sul_icon :'sharp-add-24px' %><span class="sr-only">Expand</span></span>
+          <span class="collapse-icon"><%= sul_icon :'sharp-remove-24px' %><span class="sr-only">Collapse</span></span>
+        </button>
       </div>
     </div>
-    <div class="d-flex flex-grow-1 flex-column flex-md-row w-75 row col-md-12 col-lg-6 item_title" data-sort-item_title="<%= h payment.sort_key(:item_title) %>">
-      <h3 class="col-md-10 clamp-3 record-title list-item-title"><%= payment.item_title %></h3>
+    <div class="collapse" id="collapseDetails-<%= fine.key.parameterize %>">
+      <dl class="row justify-content-center">
+        <%# <dt class="col-3 offset-1 col-md-2 offset-md-2">Resolution:</dt> %>
+        <%# <dd class="col-8"><%= fine.resolution </dd> %>
+
+        <dt class="col-3 offset-1 col-md-2 offset-md-2">Billed:</dt>
+        <dd class="col-8"><%= l(fine.bill_date, format: :short) %></dd>
+
+        <%# <dt class="col-3 offset-1 col-md-2 offset-md-2">Resolved:</dt> %>
+        <%# <dd class="col-8"><%= l(fine.fine_date, format: :short) </dd> %>
+
+        <dt class="col-3 offset-1 col-md-2 offset-md-2">Amount billed:</dt>
+        <dd class="col-8"><%= number_to_currency(fine.fee) %></dd>
+        <dt class="col-3 offset-1 col-md-2 offset-md-2">Amount paid:</dt>
+        <% if fine.paid_fully? %>
+            <dd class="col-8"><%= number_to_currency(fine.fee) %></dd>
+        <% else %>
+            <dd class="col-8">$0.00</dd>
+        <% end %>
+        <dt class="col-3 offset-1 col-md-2 offset-md-2">Source:</dt>
+        <% if fine.library %>
+            <dd class="col-8"><%= library_name(fine.library) %></dd>
+        <% else %>
+            <dd class="col-8">Circulation &amp; Privileges</dd>
+        <% end %>
+
+      </dl>
     </div>
-    <div>
-      <button class="btn collapsed stretched-link position-static" type="button" data-toggle="collapse" data-target="#collapseDetails-<%= payment.key.parameterize %>" aria-expanded="false" aria-controls="collapseDetails-<%= payment.key.parameterize %>">
-        <span class="expand-icon"><%= sul_icon :'sharp-add-24px' %><span class="sr-only">Expand</span></span>
-        <span class="collapse-icon"><%= sul_icon :'sharp-remove-24px' %><span class="sr-only">Collapse</span></span>
-      </button>
-    </div>
-  </div>
-  <div class="collapse" id="collapseDetails-<%= payment.key.parameterize %>">
-    <dl class="row justify-content-center">
-      <dt class="col-3 offset-1 col-md-2 offset-md-2">Resolution:</dt>
-      <dd class="col-8"><%= payment.resolution %></dd>
-      <dt class="col-3 offset-1 col-md-2 offset-md-2">Billed:</dt>
-      <dd class="col-8"><%= l(payment.bill_date, format: :short) %></dd>
-      <dt class="col-3 offset-1 col-md-2 offset-md-2">Resolved:</dt>
-      <dd class="col-8"><%= l(payment.payment_date, format: :short) %></dd>
-      <dt class="col-3 offset-1 col-md-2 offset-md-2">Amount billed:</dt>
-      <dd class="col-8"><%= number_to_currency(payment.bill_amount) %></dd>
-      <dt class="col-3 offset-1 col-md-2 offset-md-2">Amount paid:</dt>
-      <% if payment.paid_fee? %>
-          <dd class="col-8"><%= number_to_currency(payment.payment_amount) %></dd>
-      <% else %>
-          <dd class="col-8">$0.00</dd>
-      <% end %>
-      <dt class="col-3 offset-1 col-md-2 offset-md-2">Source:</dt>
-      <% if payment.item_library %>
-          <dd class="col-8"><%= library_name(payment.item_library) %></dd>
-      <% else %>
-          <dd class="col-8">Circulation &amp; Privileges</dd>
-      <% end %>
-    </dl>
-  </div>
-</li>
+  </li>
+  <% end %>
+<% end %>
