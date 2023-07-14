@@ -225,7 +225,7 @@ module Folio
     private
 
     def academic_staff_or_fellow?
-      return unless profile_key == 'CNAC'
+      return false unless profile_key == 'CNAC'
 
       allowed_affiliations = ['affiliate:fellow', 'staff:academic', 'staff:otherteaching']
 
