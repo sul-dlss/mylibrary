@@ -62,7 +62,6 @@ module Mylibrary
       'ARS' => 'Archive of Recorded Sound',
       'ART' => 'Art & Architecture Library (Bowes)',
       'BIOLOGY' => 'Biology Library (Falconer)',
-      'BORROW_DIRECT' => 'BorrowDirect',
       'BUSINESS' => 'Business Library',
       'CDL' => 'Digital lending',
       'CHEMCHMENG' => 'Chemistry & ChemEng Library (Swain)',
@@ -90,6 +89,10 @@ module Mylibrary
       'SCIENCE' => 'Science Library (Li and Ma)',
       'SPEC-COLL' => 'Special Collections',
       'SPEC-DESK' => 'Special Collections',
+      # TODO: remove this first entry BORROW_DIRECT after migrating off of Symphony.
+      # SUL-BORROW-DIRECT is the new FOLIO code.
+      'BORROW_DIRECT' => 'BorrowDirect',
+      'SUL-BORROW-DIRECT' => 'BorrowDirect',
       'TANNER' => 'Philosophy Library (Tanner)'
     }
 

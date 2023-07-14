@@ -212,9 +212,12 @@ module Folio
       nil
     end
 
+    def location_code
+      record.dig('item', 'item', 'effectiveLocation', 'code')
+    end
+
     def from_borrow_direct?
-      # TODO
-      nil
+      location_code == 'SUL-BORROW-DIRECT'
     end
 
     def item_type
