@@ -26,7 +26,12 @@ module Folio
     end
 
     def patron_key
-      record.dig('details', 'userId')
+      record.dig('details', 'proxyUserId') || record.dig('details', 'requesterId')
+    end
+
+    def proxy_request?
+      # return true if proxyUserId exists
+      record.dig('details', 'proxyUserId').present?
     end
 
     def resource
