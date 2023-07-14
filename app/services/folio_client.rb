@@ -212,6 +212,23 @@ class FolioClient
     Folio::Patron.new({ 'user' => user })
   end
 
+  def accounts_pay(params)
+    account_ids = params[:req_merchant_defined_data1].split('|')
+
+    payload =
+    {
+      accountIds: account_ids,
+      paymentMethod: 'Credit card',
+      amount: params[:req_amount],
+      userName: 'libsys_admin',
+      servicePointId: Settings.folio.service_point_id,
+      notifyPatron: true
+    }
+
+    response = post('/accounts-bulk/pay', json: payload)
+    check_response(response, title: 'Bulk pay')
+  end
+
   private
 
   def check_response(response, title:, context:)
@@ -259,7 +276,7 @@ class FolioClient
   def session_token
     @session_token ||= begin
       response = request('/authn/login', json: { username: @username, password: @password }, method: :post)
-      raise IlsError, response.body unless response.status == 201
+      raise IlsError, response.body unless [200, 201].include?(response.status)
 
       response['x-okapi-token']
     end
