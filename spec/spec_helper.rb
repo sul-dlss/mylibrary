@@ -100,17 +100,6 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 
-  # config.before do
-  #   stub_request(:post, "http://example.com/authn/login")
-  #     .with(
-  #       body: "{\"username\":null,\"password\":null}",
-  #       headers: {
-  #         'Content-Type'=>'application/json',
-  #         'User-Agent'=>'FolioApiClient',
-  #         'X-Okapi-Tenant'=>'sul'
-  #       }
-  #     ).to_return(status: 200, body: '', headers: {})
-  # end
   # Mock all requests to symphony for feature tests
 
   config.before type: :feature do
