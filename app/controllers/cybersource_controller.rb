@@ -6,17 +6,14 @@ class CybersourceController < ApplicationController
   def create
     params.merge!(Hash[*cybersource_params.map(&:to_a).flatten])
     apply_security_signature
-    Rails.logger.info("RE-POSTING TO CYBERSOURCE: #{params}")
-    Rails.logger.info("PAYMENT_URL:#{Settings.cybersource.payment_url}")
     repost(Settings.cybersource.payment_url, params: post_params)
   end
 
   private
 
   def cybersource_params
-    [access_key, profile_id, signed_field_names, locale, transaction_type,
-     currency, transaction_uuid, reference_number, merchant_defined_data1,
-     merchant_defined_data2, unsigned_field_names]
+    [access_key, currency, locale, merchant_defined_data1, merchant_defined_data2, profile_id,
+     reference_number, transaction_type, transaction_uuid, signed_field_names, unsigned_field_names]
   end
 
   def apply_security_signature
@@ -56,7 +53,7 @@ class CybersourceController < ApplicationController
   end
 
   def reference_number
-    { reference_number: params[:userId] }
+    { reference_number: params[:key] }
   end
 
   def merchant_defined_data1
@@ -64,7 +61,7 @@ class CybersourceController < ApplicationController
   end
 
   def merchant_defined_data2
-    { merchant_defined_data2: params[:session_id] }
+    { merchant_defined_data2: params[:key] }
   end
 
   def unsigned_field_names
