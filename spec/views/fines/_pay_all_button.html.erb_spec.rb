@@ -5,8 +5,8 @@ require 'rails_helper'
 RSpec.describe 'fines/_pay_all_button' do
   subject(:output) { Capybara.string(rendered) }
 
-  let(:patron) { instance_double(Symphony::Patron, barcode: '1', fines: fines, can_pay_fines?: true) }
-  let(:fines) { [instance_double(Symphony::Fine, owed: 3, status: 'A', sequence: '1')] }
+  let(:patron) { instance_double(Folio::Patron, key: 'abcd-1234-efg-56', barcode: '1', fines: fines, can_pay_fines?: true) }
+  let(:fines) { [instance_double(Folio::Fine, owed: 3, status: 'A', sequence: '1')] }
 
   before do
     without_partial_double_verification do
