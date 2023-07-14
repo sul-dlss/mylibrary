@@ -29,8 +29,8 @@ module Folio
       record.dig('details', 'proxyUserId') || record.dig('details', 'requesterId')
     end
 
+    # @return [Boolean] Returns true if the proxyUserId exists
     def proxy_request?
-      # return true if proxyUserId exists
       record.dig('details', 'proxyUserId').present?
     end
 
@@ -43,7 +43,7 @@ module Folio
     end
 
     def ready_for_pickup?
-      status == 'Open___Awaiting_pickup' || cdl_next_up?
+      status == 'Open___Awaiting_pickup'
     end
 
     def queue_position
@@ -155,50 +155,21 @@ module Folio
       end
     end
 
+    # TODO: after FOLIO launch revisit CDL logic. Currently we've disabled it.
     def cdl?
-      cdl[0] == 'CDL'
-    end
-
-    def cdl_druid
-      cdl[1]
-    end
-
-    def cdl_circ_record_key
-      cdl[2].presence
-    end
-
-    def cdl_circ_record_checkout_date
-      return if cdl[3].blank?
-
-      Time.zone.at(cdl[3].to_i)
-    end
-
-    def cdl_next_up?
-      cdl[4] == 'NEXT_UP'
-    end
-
-    def cdl_checkedout?
-      circ_record.present? if cdl[4] == 'ACTIVE'
-    end
-
-    def cdl_expiration_date
-      return unless cdl_circ_record_checkout_date
-
-      cdl_circ_record_checkout_date + 30.minutes
+      false
     end
 
     def cdl_loan_period
-      return unless cdl?
-
-      (item.dig('itemCategory3', 'key')&.scan(/^CDL-(\d+)H$/)&.flatten&.first&.to_i || 2).hours
+      nil
     end
 
-    def cdl
-      comment.split(';')
+    def cdl_checkedout?
+      false
     end
 
-    def comment
-      record['patronComments'] || ''
+    def cdl_expiration_date
+      nil
     end
 
     private
