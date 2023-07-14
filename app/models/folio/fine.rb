@@ -27,7 +27,11 @@ module Folio
     end
 
     def status
-      record.dig('paymentStatus', 'name')
+      record && record.dig('paymentStatus', 'name')
+    end
+
+    def paid_fully?
+      status == 'Paid fully'
     end
 
     def nice_status

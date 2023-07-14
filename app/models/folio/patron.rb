@@ -3,7 +3,7 @@
 module Folio
   # Class to model Patron information
   class Patron
-    attr_reader :patron_info, :payment_in_process
+    attr_reader :patron_info, :payment_in_process, :current_user
 
     CHARGE_LIMIT_THRESHOLD = 25_000
 
@@ -14,6 +14,10 @@ module Folio
 
     def user_info
       patron_info['user'] || {}
+    end
+
+    def username
+      patron_info['username']
     end
 
     def key
@@ -150,13 +154,24 @@ module Folio
       end
     end
 
+    def accounts
+      patron_info['accounts']
+    end
+
+    def payments
+      @all_payments ||= accounts.map do |fine|
+        _fine = Fine.new(fine)
+        _fine if _fine.status == 'Paid fully'
+      end
+    end
+
     ##
     # Creates a range of integers based of a payment sequence string
-    def payment_sequence
-      return Range.new(0, 0) unless payment_in_process[:billseq] && payment_in_process[:pending]
+    # def payment_sequence
+    #   return Range.new(0, 0) unless payment_in_process[:billseq] && payment_in_process[:pending]
 
-      Range.new(*payment_in_process[:billseq].split('-').map(&:to_i))
-    end
+    #   Range.new(*payment_in_process[:billseq].split('-').map(&:to_i))
+    # end
 
     def requests
       @requests ||= folio_requests + borrow_direct_requests
