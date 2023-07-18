@@ -14,7 +14,6 @@ module Folio
              to: :loan_policy,
              private: true
 
-    BORROW_DIRECT_LOCATION_CODE = 'SUL-BORROW-DIRECT'
     SHORT_TERM_LOAN_PERIODS = %w[Hours Minutes].freeze
 
     def initialize(record, cdl: false)
@@ -214,15 +213,20 @@ module Folio
 
     # returns the equivalent Symphony library code
     def library_key
-      Folio::LocationsMap.for(record.dig('item', 'item', 'effectiveLocation', 'code'))&.first
+      Folio::LocationsMap.for(location_code)&.first
     end
 
+    # TODO: SUL-ILB-REPLACE-ME is a placeholder for whatever the new FOLIO code will be
     def from_ilb?
-      item_type&.starts_with? 'ILB'
+      location_code == 'SUL-ILB-REPLACE-ME'
     end
 
     def from_borrow_direct?
-      record.dig('item', 'item', 'effectiveLocation', 'code') == BORROW_DIRECT_LOCATION_CODE
+      location_code == 'SUL-BORROW-DIRECT'
+    end
+
+    def location_code
+      record.dig('item', 'item', 'effectiveLocation', 'code')
     end
 
     def item_type

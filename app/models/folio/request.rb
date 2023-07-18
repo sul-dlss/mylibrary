@@ -178,17 +178,17 @@ module Folio
       record.dig('item', 'item', 'effectiveLocation', 'library', 'code')
     end
 
+    # TODO: SUL-ILB-REPLACE-ME is a placeholder for whatever the new FOLIO code will be
     def from_ilb?
-      # TODO
-      nil
-    end
-
-    def location_code
-      record.dig('item', 'item', 'effectiveLocation', 'code')
+      location_code == 'SUL-ILB-REPLACE-ME'
     end
 
     def from_borrow_direct?
       location_code == 'SUL-BORROW-DIRECT'
+    end
+
+    def location_code
+      record.dig('item', 'item', 'effectiveLocation', 'code')
     end
 
     def item_type
