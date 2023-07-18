@@ -228,10 +228,5 @@ module Folio
     def location_code
       record.dig('item', 'item', 'effectiveLocation', 'code')
     end
-
-    def item_type
-      nil
-      # fields.dig('item', 'fields', 'itemType', 'key')
-    end
   end
 end
