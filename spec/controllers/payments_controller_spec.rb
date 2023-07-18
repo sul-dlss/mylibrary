@@ -3,52 +3,51 @@
 require 'rails_helper'
 
 RSpec.describe PaymentsController do
-
   describe '#index' do
     let(:mock_fine) do
       [
         {
-          "id"=>"1",
-          "item"=>nil,
-          "amount"=>75,
-          "dateCreated"=>nil,
-          "feeFineId"=>"116f8665-4ba5-4c14-8c0e-36c41e961381",
-          "feeFineType"=>"lost item",
-          "paymentStatus"=>{
-            "name"=>"Paid fully"
+          'id' => '1',
+          'item' => nil,
+          'amount' => 75,
+          'dateCreated' => nil,
+          'feeFineId' => '116f8665-4ba5-4c14-8c0e-36c41e961381',
+          'feeFineType' => 'lost item',
+          'paymentStatus' => {
+            'name' => 'Paid fully'
           }
         },
         {
-          "id"=>"2",
-          "item"=>nil,
-          "amount"=>15,
-          "dateCreated"=>nil,
-          "feeFineId"=>"2769c09d-c2e8-4a40-9601-48f95a14a395",
-          "feeFineType"=>"damage to material",
-          "paymentStatus"=>{
-            "name"=>"Paid fully"
+          'id' => '2',
+          'item' => nil,
+          'amount' => 15,
+          'dateCreated' => nil,
+          'feeFineId' => '2769c09d-c2e8-4a40-9601-48f95a14a395',
+          'feeFineType' => 'damage to material',
+          'paymentStatus' => {
+            'name' => 'Paid fully'
           }
         },
         {
-          "id"=>"3",
-          "item"=>nil,
-          "amount"=>10,
-          "dateCreated"=>nil,
-          "feeFineId"=>"116f8665-4ba5-4c14-8c0e-36c41e961381",
-          "feeFineType"=>"lost item",
-          "paymentStatus"=>{
-            "name"=>"Waived fully"
+          'id' => '3',
+          'item' => nil,
+          'amount' => 10,
+          'dateCreated' => nil,
+          'feeFineId' => '116f8665-4ba5-4c14-8c0e-36c41e961381',
+          'feeFineType' => 'lost item',
+          'paymentStatus' => {
+            'name' => 'Waived fully'
           }
         },
         {
-          "id"=>"4",
-          "item"=>nil,
-          "amount"=>2,
-          "dateCreated"=>nil,
-          "feeFineId"=>"d90d6659-2ed4-41ba-a23e-8e29e9d632e7",
-          "feeFineType"=>"short term fine",
-          "paymentStatus"=>{
-            "name"=>"Outstanding"
+          'id' => '4',
+          'item' => nil,
+          'amount' => 2,
+          'dateCreated' => nil,
+          'feeFineId' => 'd90d6659-2ed4-41ba-a23e-8e29e9d632e7',
+          'feeFineType' => 'short term fine',
+          'paymentStatus' => {
+            'name' => 'Outstanding'
           }
         }
       ]
@@ -80,7 +79,7 @@ RSpec.describe PaymentsController do
         it 'shows a list of payments from the payments array' do
           get(:index)
 
-          expect(assigns(:payments).first).to be_a_kind_of Folio::Fine
+          expect(assigns(:payments).first).to be_a Folio::Fine
         end
 
         it 'shows the correct number of payments in the list' do
@@ -92,7 +91,7 @@ RSpec.describe PaymentsController do
         it 'shows the payments sorted appropriately (bills w/o a payment date at the top the reverse date sort)' do
           get(:index)
 
-          payments = assigns(:payments).reject{ |p| p.nil? }
+          payments = assigns(:payments).compact
           expect(payments.map(&:sequence)).to eq(%w[1 2])
         end
       end
@@ -150,16 +149,18 @@ RSpec.describe PaymentsController do
           session_id: 'session_this_is_the_one'
         }.to_json
 
-        stub_request(:post, "http://example.com/authn/login")
+        stub_request(:post, 'http://example.com/authn/login')
           .with(
-            body: "{\"username\":null,\"password\":null}",
+            body: '{"username":null,"password":null}',
             headers: {
-              'Accept'=>'application/json, text/plain',
-              'X-Okapi-Tenant'=>'sul'
+              'Accept' => 'application/json, text/plain',
+              'X-Okapi-Tenant' => 'sul'
             }
           ).to_return(status: 201)
 
-        post :accept, params: { req_amount: '10.00', req_merchant_defined_data1: 'abc|123', req_merchant_defined_data2: 'session_this_is_the_one' }
+        post :accept,
+             params: { req_amount: '10.00', req_merchant_defined_data1: 'abc|123',
+                       req_merchant_defined_data2: 'session_this_is_the_one' }
       end
 
       xit 'sets pending in the new cookie' do

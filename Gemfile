@@ -76,6 +76,7 @@ group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'capybara'
   gem 'debug', platforms: %i[mri mingw x64_mingw]
+  gem 'factory_bot_rails'
   gem 'rails-controller-testing'
   gem 'rspec-rails'
   gem 'rubocop'
@@ -84,6 +85,7 @@ group :development, :test do
   gem 'rubocop-rspec'
   gem 'simplecov', require: false
   gem 'sinatra', require: false # used for faking the symphony api for integration tests
+  gem 'timecop'
   gem 'warden-rspec-rails'
   gem 'webdrivers'
   gem 'webmock'
