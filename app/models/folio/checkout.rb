@@ -216,8 +216,9 @@ module Folio
       Folio::LocationsMap.for(location_code)&.first
     end
 
+    # TODO: SUL-ILB-REPLACE-ME is a placeholder for whatever the new FOLIO code will be
     def from_ilb?
-      item_type&.starts_with? 'ILB'
+      location_code == 'SUL-ILB-REPLACE-ME'
     end
 
     def from_borrow_direct?

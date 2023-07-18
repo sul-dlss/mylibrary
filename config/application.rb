@@ -74,7 +74,10 @@ module Mylibrary
       'HOOVER' => 'Hoover Library',
       'HOPKINS' => 'Marine Biology Library (Miller)',
       'HV-ARCHIVE' => 'Hoover Archives',
+      # TODO: remove this first entry ILL after migrating off of Symphony.
+      # SUL-ILB-REPLACE-ME is a placeholder for whatever the new FOLIO code will be.
       'ILL' => 'Interlibrary borrowing',
+      'SUL-ILB-REPLACE-ME' => 'Interlibrary borrowing',
       'LANE-MED' => 'Medical Library (Lane)',
       'LATHROP' => 'Lathrop Library',
       'LAW' => 'Law Library (Crown)',
