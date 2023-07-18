@@ -4,8 +4,6 @@ require 'http'
 
 # Calls FOLIO REST endpoints
 class FolioClient
-  class IlsError < StandardError; end
-
   DEFAULT_HEADERS = {
     accept: 'application/json, text/plain',
     content_type: 'application/json'
@@ -177,39 +175,34 @@ class FolioClient
     when 422
       false
     else
-      check_response(response, title: 'Validate pin', context: { user_id: user_id })
+      check_response(response, title: 'Validate pin', context: { user_id: user_id, pin: pin })
     end
   end
 
-  # Send a patron a PIN reset email
-  # @param [string] library_id the patron's library ID
-  # TODO: reset_path is unused here; we only need it for SymphonyClient#reset_pin
-  def reset_pin(library_id, _reset_path)
-    patron = find_patron_by_barcode(library_id)
-    token = generate_pin_reset_token!(patron)
-    ResetPinsMailer.with(patron: patron, token: token).reset_pin.deliver_now
-  end
-
-  # Assign a patron a new PIN using a token that identifies them
+  # Set a pin for a user
   # https://s3.amazonaws.com/foliodocs/api/mod-users/p/patronpin.html#patron_pin_post
-  # @param [String] token the reset token
-  # @param [String] new_pin the new PIN to assign
-  def change_pin(token, new_pin)
-    patron_key = crypt.decrypt_and_verify(token)
-    # expired tokens evaluate to nil; we want to raise an error instead
-    raise ActiveSupport::MessageEncryptor::InvalidMessage unless patron_key
-
-    response = post('/patron-pin', json: { id: patron_key, pin: new_pin })
-    check_response(response, title: 'Assign pin', context: { user_id: patron_key })
+  # @param [String] user_id the UUID of the user in FOLIO
+  # @param [String] pin
+  def assign_pin(user_id, pin)
+    response = post('/patron-pin', json: { id: user_id, pin: pin })
+    check_response(response, title: 'Assign pin', context: { user_id: user_id, pin: pin })
   end
 
-  # Look up a patron by barcode and return a Patron object
-  def find_patron_by_barcode(barcode)
-    response = get_json('/users', params: { query: CqlQuery.new(barcode: barcode).to_query })
-    user = response.dig('users', 0)
-    raise ActiveRecord::RecordNotFound, "User with barcode #{barcode} not found" unless user
+  def accounts_pay(params)
+    account_ids = params[:req_merchant_defined_data1].split('|')
 
-    Folio::Patron.new({ 'user' => user })
+    payload =
+    {
+      accountIds: account_ids,
+      paymentMethod: 'Credit card',
+      amount: params[:req_amount],
+      userName: 'libsys_admin',
+      servicePointId: Settings.folio.service_point_id,
+      notifyPatron: true
+    }
+
+    response = post('/accounts-bulk/pay', json: payload)
+    check_response(response, title: 'Bulk pay')
   end
 
   private
@@ -218,8 +211,8 @@ class FolioClient
     return if response.success?
 
     context_string = context.map { |k, v| "#{k}: #{v}" }.join(', ')
-    raise IlsError, "#{title} request for #{context_string} was not successful. " \
-                    "status: #{response.status}, #{response.body}"
+    raise "#{title} request for #{context_string} was not successful. " \
+          "status: #{response.status}, #{response.body}"
   end
 
   def get(path, **kwargs)
@@ -243,10 +236,10 @@ class FolioClient
   end
 
   # @param [Faraday::Response] response
-  # @raises [IlsError] if the response was not successful
+  # @raises [StandardError] if the response was not a 200
   # @return [Hash] the parsed JSON data structure
   def parse_json(response)
-    raise IlsError, response.body unless response.success?
+    raise response.body unless response.success?
     return nil if response.body.empty?
 
     JSON.parse(response.body)
@@ -259,7 +252,7 @@ class FolioClient
   def session_token
     @session_token ||= begin
       response = request('/authn/login', json: { username: @username, password: @password }, method: :post)
-      raise IlsError, response.body unless response.status == 201
+      raise response.body unless [200, 201].include?(response.status)
 
       response['x-okapi-token']
     end
@@ -286,19 +279,5 @@ class FolioClient
 
   def default_headers
     DEFAULT_HEADERS.merge({ 'X-Okapi-Tenant': @tenant, 'User-Agent': 'FolioApiClient' })
-  end
-
-  # Encryptor/decryptor for the token used in the PIN reset process
-  def crypt
-    @crypt ||= begin
-      keygen = ActiveSupport::KeyGenerator.new(Rails.application.secret_key_base)
-      key = keygen.generate_key('patron pin reset token', ActiveSupport::MessageEncryptor.key_len)
-      ActiveSupport::MessageEncryptor.new(key)
-    end
-  end
-
-  # Generate a PIN reset token for the patron
-  def generate_pin_reset_token!(patron)
-    crypt.encrypt_and_sign(patron.key, expires_in: 20.minutes)
   end
 end

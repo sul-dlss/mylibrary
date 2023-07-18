@@ -11,9 +11,9 @@ RSpec.describe 'fines/index' do
   let(:fines) { [fine] }
   let(:checkouts) { [] }
   let(:patron) do
-    instance_double(Symphony::Patron, barcode: '1', fines: fines, can_pay_fines?: true, requests: [],
-                                      checkouts: checkouts, remaining_checkouts: nil, barred?: false,
-                                      status: 'OK', group?: false)
+    instance_double(Symphony::Patron, key: 'abc-1234-def-56', barcode: '1', fines: fines, can_pay_fines?: true,
+                                      requests: [], checkouts: checkouts, remaining_checkouts: nil,
+                                      barred?: false, status: 'OK', group?: false)
   end
 
   before do

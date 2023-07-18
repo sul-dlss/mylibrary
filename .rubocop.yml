@@ -3,7 +3,6 @@ require:
   - rubocop-performance
   - rubocop-rails
   - rubocop-rspec
-  - rubocop-factory_bot
 
 inherit_from: .rubocop_todo.yml
 
@@ -32,6 +31,7 @@ Layout/LineLength:
 Metrics/AbcSize:
   Exclude:
     - 'app/controllers/contact_forms_controller.rb'
+    - 'app/controllers/cybersource_controller.rb'
     - 'app/controllers/feedback_forms_controller.rb'
     - 'app/controllers/renewals_controller.rb'
     - 'app/controllers/requests_controller.rb'
@@ -107,9 +107,3 @@ Style/WordArray:
   Exclude:
     - 'config/application.rb'
     - 'config/environments/test.rb'
-    
-FactoryBot/ConsistentParenthesesStyle:
-  Enabled: true
-  
-FactoryBot/SyntaxMethods:
-  Enabled: true

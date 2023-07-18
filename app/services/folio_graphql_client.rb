@@ -59,38 +59,11 @@ class FolioGraphqlClient
               firstName
               preferredFirstName
             }
-            proxiesFor {
-              userId
-            }
-            proxiesOf {
-              proxyUserId
-              proxyUser {
-                barcode
-                personal {
-                  firstName
-                  lastName
-                }
-              }
-            }
             expirationDate
             externalSystemId
             patronGroup {
-              desc
               group
-              limits {
-                conditionId
-                id
-                patronGroupId
-                value
-                condition {
-                  blockBorrowing
-                  blockRenewals
-                  blockRequests
-                  message
-                  name
-                  valueType
-                }
-              }
+              desc
             }
             blocks {
               message
@@ -126,7 +99,6 @@ class FolioGraphqlClient
                   callNumber
                 }
                 effectiveLocation {
-                  code
                   library {
                     code
                   }
@@ -141,15 +113,6 @@ class FolioGraphqlClient
             requestId
             status
             expirationDate
-            details {
-              holdShelfExpirationDate
-              proxyUserId
-              proxy {
-                firstName
-                lastName
-                barcode
-              }
-            }
             pickupLocationId
             pickupLocation {
               code
@@ -163,6 +126,7 @@ class FolioGraphqlClient
             patronComments
           }
           accounts {
+            id
             item {
               instance {
                 id
@@ -254,32 +218,12 @@ class FolioGraphqlClient
                 description
                 renewable
                 renewalsPolicy {
-                  alternateFixedDueDateSchedule {
-                    schedules {
-                      due
-                      from
-                      to
-                    }
-                  }
                   numberAllowed
-                  period {
-                    intervalId
-                    duration
-                  }
-                  renewFromId
                   unlimited
                 }
                 loansPolicy {
-                  fixedDueDateSchedule {
-                    schedules {
-                      due
-                      from
-                      to
-                    }
-                  }
                   period {
                     intervalId
-                    duration
                   }
                 }
               }
