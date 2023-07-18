@@ -283,6 +283,9 @@ class FolioGraphqlClient
                   }
                 }
               }
+              feesAndFines {
+                amountRemainingToPay
+              }
             }
           }
           totalCharges {
