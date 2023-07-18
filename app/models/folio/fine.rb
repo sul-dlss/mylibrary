@@ -7,15 +7,12 @@ module Folio
 
     attr_reader :record
 
-    # ? FOLIO: need to recalibrate these statuses
-    FINE_STATUS = {}.freeze
-
     def initialize(record)
       @record = record
     end
 
     def key
-      record['feeFineId']
+      record['id']
     end
 
     def sequence
@@ -32,25 +29,21 @@ module Folio
     end
 
     def nice_status
-      record['feeFineType']
+      record.dig('feeFine', 'feeFineType')
     end
 
-    # returns the equivalent Symphony library code
     def library
-      Folio::LocationsMap.for(record.dig('item', 'item', 'effectiveLocation', 'code'))&.first
+      record.dig('item', 'effectiveLocation', 'library', 'name')
     end
 
     def bill_date
-      if record['dateCreated'] || record.dig(
-        'metadata', 'createdDate'
-      )
-        Time.zone.parse(record['dateCreated'] || record.dig('metadata',
-                                                            'createdDate'))
-      end
+      return if record['actions'].none?
+
+      Time.zone.parse(record.dig('actions', 0, 'dateAction'))
     end
 
     def owed
-      record['remaining']&.to_d || fee
+      record['remaining']&.to_d
     end
 
     def fee
@@ -59,6 +52,18 @@ module Folio
 
     def bib?
       record['item'].present?
+    end
+
+    def author
+      record.dig('item', 'instance', 'contributors')&.pluck('name')&.join(', ')
+    end
+
+    def title
+      record.dig('item', 'instance', 'title')
+    end
+
+    def call_number
+      record.dig('item', 'holdingsRecord', 'callNumber')
     end
 
     def to_partial_path
