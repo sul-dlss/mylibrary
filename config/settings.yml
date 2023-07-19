@@ -56,3 +56,8 @@ purl:
 analytics_debug: true
 
 mailer_host: 'localhost'
+
+cybersource:
+  access_key: ~
+  secret_key: ~
+  payment_url: https://testsecureacceptance.cybersource.com/pay
