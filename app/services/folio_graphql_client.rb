@@ -163,45 +163,38 @@ class FolioGraphqlClient
             patronComments
           }
           accounts {
-            item {
-              instance {
-                id
-              }
-              id
-              effectiveShelvingOrder
-              effectiveCallNumberComponents {
-                callNumber
-              }
-              permanentLocation {
-                name
-              }
-            }
+            id
+            userId
+            remaining
             amount
-            dateCreated
-            feeFineId
-            feeFineType
             feeFine {
-              id
-              automatic
               feeFineType
-              defaultAmount
-              chargeNoticeId
-              actionNoticeId
-              ownerId
-              metadata {
-                createdDate
-                createdByUserId
-                createdByUsername
-                updatedDate
-                updatedByUserId
-                updatedByUsername
-              }
             }
-            metadata {
-              createdDate
+            actions {
+              amountAction
+              balance
+              id
+              dateAction
             }
             paymentStatus {
               name
+            }
+            item {
+              id
+              effectiveLocation {
+                library {
+                  name
+                }
+              }
+              instance {
+                title
+                contributors {
+                  name
+                }
+              }
+              holdingsRecord {
+                callNumber
+              }
             }
           }
           loans {
