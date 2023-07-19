@@ -61,3 +61,4 @@ cybersource:
   access_key: ~
   secret_key: ~
   payment_url: https://testsecureacceptance.cybersource.com/pay
+  profile_id: wfgsulair
