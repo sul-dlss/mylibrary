@@ -131,21 +131,24 @@ module Folio
       borrow_limit - checkouts.length
     end
 
-    def all_fines
-      # @all_fines ||= []
-      @all_fines ||= patron_info['accounts'].map { |fine| Fine.new(fine) }
+    def all_accounts
+      @all_accounts ||= patron_info['accounts'].map { |account| Account.new(account) }
     end
 
     def fines
-      all_fines
-      # all_fines.reject { |fine| payment_sequence.include?(fine.sequence) }
+      all_accounts.reject(&:closed?).reject(&:proxy_account?)
     end
 
-    # TODO: figure this out for FOLIO
+    def payments
+      all_accounts.select(&:closed?).reject(&:proxy_account?)
+    end
+
     def group_fines
-      # return fines.select { |fine| group_billuser_info_keys.include?(fine.key) } if sponsor?
-      # fines
-      []
+      all_accounts.reject(&:closed?).select(&:proxy_account?)
+    end
+
+    def group_payments
+      all_accounts.select(&:closed?).select(&:proxy_account?)
     end
 
     # Creates a range of integers based of a payment sequence string

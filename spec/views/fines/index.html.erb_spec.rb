@@ -52,7 +52,7 @@ RSpec.describe 'fines/index' do
 
   context 'with a FOLIO Fine' do
     let(:fine) do
-      instance_double(Folio::Fine,
+      instance_double(Folio::Account,
                       owed: 3,
                       status: 'A',
                       sequence: '1',
