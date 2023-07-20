@@ -223,6 +223,12 @@ module Symphony
       true
     end
 
+    def payments
+      Array.wrap(symphony_legacy_client.payments(client.session_token, self)).map do |payment|
+        Symphony::Payment.new(payment)
+      end
+    end
+
     private
 
     def academic_staff_or_fellow?
@@ -273,6 +279,17 @@ module Symphony
       return unless proxy_borrower? && first_name.match?(/(\A\w+\s)\(P=([a-zA-Z]+)\)\z/)
 
       first_name.gsub(/(\A\w+\s)\(P=([a-zA-Z]+)\)\z/, '\2')
+    end
+
+    def client
+      @client ||= SymphonyClient.new
+    end
+
+    # The regular SymphonyClient does not provide payment history
+    # so we have to use a legacy client to access that data.
+    # We should avoid using this when possible.
+    def symphony_legacy_client
+      @symphony_legacy_client ||= SymphonyLegacyClient.new
     end
   end
 end

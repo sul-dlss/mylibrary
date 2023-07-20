@@ -167,14 +167,15 @@ class FolioGraphqlClient
             userId
             remaining
             amount
+            status {
+              name
+            }
             feeFine {
               feeFineType
             }
             actions {
-              amountAction
-              balance
-              id
               dateAction
+              typeAction
             }
             paymentStatus {
               name

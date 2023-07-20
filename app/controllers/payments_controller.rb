@@ -97,7 +97,7 @@ class PaymentsController < ApplicationController
   end
 
   def payments
-    ils_client.payments(patron)
+    patron_or_group.payments
   end
 
   def create_payment_params
