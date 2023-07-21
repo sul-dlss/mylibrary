@@ -146,7 +146,7 @@ module Mylibrary
       'PAGE-IRON' => ['BUSINESS'],
       'PAGE-LP' => ['MUSIC', 'MEDIA-MTXT'],
       'PAGE-LW' => ['LAW'],
-      'PAGE-MA' => ['MATH-CS'],
+      'PAGE-MA' => ['GREEN', 'HOPKINS'],
       'PAGE-MD' => ['MUSIC', 'MEDIA-MTXT'],
       'PAGE-MP' => ['EARTH-SCI'],
       'PAGE-MM' => ['MEDIA-MTXT'],
