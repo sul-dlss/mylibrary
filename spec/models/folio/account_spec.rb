@@ -86,16 +86,13 @@ RSpec.describe Folio::Account do
       it { expect(patron_key).to eq 'd7b67ab1-a3f2-45a9-87cc-d867bca8315f' }
     end
 
-    # TODO: in https://github.com/sul-dlss/mylibrary/issues/873
-    # context 'when the fine is a proxy fine' do
-    #   let(:record) do
-    #     { 'details' =>
-    #       { 'proxyUserId' => 'bdfa62a1-758c-4389-ae81-8ddb37860f9b',
-    #         'proxy' => { 'firstName' => 'Piper', 'lastName' => 'Proxy', 'barcode' => 'Proxy1' } } }
-    #   end
+    context 'when the fine is from a proxy checkout' do
+      before do
+        fine['loan'] = { 'proxyUserId' => 'bdfa62a1-758c-4389-ae81-8ddb37860f9b' }
+      end
 
-    #   it { expect(fine.patron_key).to eq 'bdfa62a1-758c-4389-ae81-8ddb37860f9b' }
-    # end
+      it { expect(patron_key).to eq 'bdfa62a1-758c-4389-ae81-8ddb37860f9b' }
+    end
   end
 
   context 'when the account is paid' do

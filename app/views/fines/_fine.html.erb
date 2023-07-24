@@ -24,9 +24,10 @@
   </div>
   <div class="collapse w-100" id="collapseDetails-<%= fine.key.parameterize %>">
     <dl class="row mb-0">
-      <% if params[:group] %>
+      <%# Specify the borrower's name if patron is a sponsor. It could be either self or proxy in this list %>
+      <% if patron.sponsor? %>
         <dt class="col-3 offset-1 col-md-2 offset-md-2">Borrower:</dt>
-        <dd class="col-8"><%= patron.group.member_name(fine.patron_key) %></dd>
+        <dd class="col-8"><%= patron.group.member_name(fine.patron_key) || patron.display_name %></dd>
       <% end %>
       <dt class="col-3 offset-1 col-md-2 offset-md-2">Billed:</dt>
       <dd class="col-8"><%= l(fine.bill_date, format: :short) %></dd>

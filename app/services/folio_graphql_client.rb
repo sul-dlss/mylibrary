@@ -167,6 +167,10 @@ class FolioGraphqlClient
             userId
             remaining
             amount
+            loanId
+            loan {
+              proxyUserId
+            }
             status {
               name
             }
