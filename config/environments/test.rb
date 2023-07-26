@@ -62,4 +62,11 @@ Rails.application.configure do
 
   # Annotate rendered view with file names.
   # config.action_view.annotate_rendered_view_with_filenames = true
+
+  # Chrome (including headless) blocks cookies with SameSite=None (which we set
+  # for incoming POSTs from Cybersource) unless the cookie is also Secure;
+  # we can't do that because the test server doesn't use HTTPS. Instead, we
+  # set it to Lax.
+  # See: https://developers.google.com/search/blog/2020/01/get-ready-for-new-samesitenone-secure#chrome-enforcement-starting-in-february-2020
+  config.action_dispatch.cookies_same_site_protection = :lax
 end
