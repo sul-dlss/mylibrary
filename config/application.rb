@@ -27,6 +27,10 @@ module Mylibrary
       manager.default_strategies :shibboleth
     end
 
+    # Set SameSite protection to none so that we can receive POST requests
+    # from Cybersource that include our authentication cookie
+    config.action_dispatch.cookies_same_site_protection = :none
+
     config.library_contact = {
       'ARS' => 'soundarchive@stanford.edu',
       'ART' => 'artlibrary@stanford.edu',
