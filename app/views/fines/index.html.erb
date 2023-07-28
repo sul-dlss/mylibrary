@@ -63,20 +63,3 @@
   <h2>History</h2>
   <%= link_to 'Show history', payments_path, class: 'btn btn-info', remote: true, data: { type: :json } %>
 </div>
-
-<div class="page-section">
-  <h2>Policies &amp; information</h2>
-
-  <ul class="list-unstyled">
-    <li>
-      <%= link_to 'https://library.stanford.edu/using/borrow-renew-return/fines-and-fees', target: '_blank' do %>
-        <%= sul_icon :'sharp-open_in_new-24px' %> Fines and fees
-      <% end %>
-    </li>
-    <li>
-      <%= link_to 'https://library.stanford.edu/using/borrow-renew-return/pay-or-contest-fine', target: '_blank' do %>
-        <%= sul_icon :'sharp-open_in_new-24px' %> Pay or contest a fine
-      <% end %>
-    </li>
-  </ul>
-</div>
