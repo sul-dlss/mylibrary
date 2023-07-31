@@ -72,4 +72,11 @@ Rails.application.configure do
 
   # Uncomment if you wish to allow Action Cable access from any origin.
   # config.action_cable.disable_request_forgery_protection = true
+
+  # Chrome (including headless) blocks cookies with SameSite=None (which we set
+  # for incoming POSTs from Cybersource) unless the cookie is also Secure;
+  # we can't do that because the test server doesn't use HTTPS. Instead, we
+  # set it to Lax.
+  # See: https://developers.google.com/search/blog/2020/01/get-ready-for-new-samesitenone-secure#chrome-enforcement-starting-in-february-2020
+  config.action_dispatch.cookies_same_site_protection = :lax
 end
