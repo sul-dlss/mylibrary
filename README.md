@@ -5,7 +5,7 @@
 
 MyLibrary is a patron facing application that displays library account information,
 renews materials, cancels hold requests, makes payments of library fees and fines (via a hosted payment gateway),
-and other features enhancing library user experience and interactions with library access services.
+and other features enhancing library user experience.
 
 ## Requirements
 1. Ruby (3.1 or greater)
