@@ -21,8 +21,7 @@ RSpec.describe 'Reset Pin' do
       allow(ApplicationController).to receive(:ils_client_class).and_return(SymphonyClient)
       allow(Settings.ils).to receive(:patron_model).and_return('Symphony::Patron')
       allow(SymphonyClient).to receive(:new).and_return(mock_client)
-      allow(mock_client).to receive(:reset_pin).and_return(nil)
-      allow(mock_client).to receive(:change_pin).and_return(nil)
+      allow(mock_client).to receive_messages(reset_pin: nil, change_pin: nil)
     end
 
     it 'allows user to reset pin' do
@@ -73,8 +72,7 @@ RSpec.describe 'Reset Pin' do
       allow(ApplicationController).to receive(:ils_client_class).and_return(FolioClient)
       allow(Settings.ils).to receive(:patron_model).and_return('Folio::Patron')
       allow(FolioClient).to receive(:new).and_return(mock_client)
-      allow(mock_client).to receive(:reset_pin).and_return(nil)
-      allow(mock_client).to receive(:change_pin).and_return(nil)
+      allow(mock_client).to receive_messages(reset_pin: nil, change_pin: nil)
     end
 
     it 'allows user to reset pin' do

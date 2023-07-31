@@ -83,8 +83,7 @@ RSpec.describe 'requests/_request' do
 
     before do
       without_partial_double_verification do
-        allow(view).to receive(:params).and_return({ group: true }) # Set params[:group] to true
-        allow(view).to receive(:patron).and_return(patron)
+        allow(view).to receive_messages(params: { group: true }, patron: patron) # Set params[:group] to true
       end
       render partial: 'requests/request', locals: { request: mock_request, group: true }
     end

@@ -21,9 +21,10 @@ RSpec.describe PaymentsController do
     end
 
     before do
-      allow(controller).to receive(:patron).and_return(mock_patron)
-      allow(controller).to receive(:ils_client)
-        .and_return(instance_double(SymphonyClient, session_token: '1a2b3c4d5e6f7g8h9i0j', ping: true))
+      allow(controller).to receive_messages(patron: mock_patron,
+                                            ils_client: instance_double(
+                                              SymphonyClient, session_token: '1a2b3c4d5e6f7g8h9i0j', ping: true
+                                            ))
     end
 
     context 'when an unathenticated user' do

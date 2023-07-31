@@ -210,8 +210,7 @@ RSpec.describe Symphony::Request do
     end
 
     it 'is cdl_checkedout? if circ record exists' do
-      allow(request).to receive(:cdl).and_return([0, 0, 0, 0, 'ACTIVE'])
-      allow(request).to receive(:circ_record).and_return({ abc: 123 })
+      allow(request).to receive_messages(cdl: [0, 0, 0, 0, 'ACTIVE'], circ_record: { abc: 123 })
       expect(request.cdl_checkedout?).to be true
     end
 

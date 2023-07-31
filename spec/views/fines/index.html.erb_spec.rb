@@ -22,8 +22,7 @@ RSpec.describe 'fines/index' do
       assign(:checkouts, checkouts)
       allow(fine).to receive(:to_partial_path).and_return('fines/fine')
       without_partial_double_verification do
-        allow(view).to receive(:patron_or_group).and_return(patron)
-        allow(view).to receive(:patron).and_return(patron)
+        allow(view).to receive_messages(patron_or_group: patron, patron: patron)
       end
     end
 
@@ -93,8 +92,7 @@ RSpec.describe 'fines/index' do
       assign(:checkouts, checkouts)
       allow(fine).to receive(:to_partial_path).and_return('fines/fine')
       without_partial_double_verification do
-        allow(view).to receive(:patron_or_group).and_return(patron)
-        allow(view).to receive(:patron).and_return(patron)
+        allow(view).to receive_messages(patron_or_group: patron, patron: patron)
       end
     end
 
