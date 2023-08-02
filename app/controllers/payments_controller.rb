@@ -1,18 +1,24 @@
 # frozen_string_literal: true
 
-# Controller for handling CyberSource responses from payments.
-#
-# They send the user back with a POST request that contains
-# information about the payment made (or canceled)
+# Controller for handling payment of fines.
 class PaymentsController < ApplicationController
   before_action :authenticate_user!
-  # CyberSource is posting back to our controller, so we don't
+
+  # Cybersource is POSTing back to our controller, so we don't
   # get an authenticity token that the cross-site request
   # forgery protection can use to validate the request
   skip_forgery_protection only: %i[accept cancel]
 
+  rescue_from Cybersource::Security::InvalidSignature,
+              Cybersource::PaymentResponse::PaymentFailed, with: :payment_failed
+  rescue_from FolioClient::IlsError, SymphonyClient::IlsError, with: :ils_request_failed
+
+  # Render the payment history page
+  #
+  # GET /payments
+  # GET /payments.json
   def index
-    @payments = payments.sort_by { |payment| payment.sort_key(:payment_date) }
+    @payments = patron_or_group.payments.sort_by { |payment| payment.sort_key(:payment_date) }
 
     respond_to do |format|
       format.html { render }
@@ -20,36 +26,31 @@ class PaymentsController < ApplicationController
     end
   end
 
-  # Render a list of the payment histroy for the patron
+  # Send the user to Cybersource to make a payment via an interstitial form
   #
-  # GET /payments
-  # GET /payments.json
+  # POST /payments
   def create
     set_payment_cookie
-    redirect_to URI::HTTPS.build(
-      host: Settings.symphony.host,
-      path: '/secureacceptance/payment_form.php',
-      query: create_payment_params.to_query
-    ).to_s, allow_other_host: true
+    @params = cybersource_request
+
+    render 'cybersource_form', layout: false
   end
 
-  # The payment was accepted by CyberSource, but it may take a few moments
-  # to reconcile the payment and have up-to-date information appear in
-  # the Symphony API response.
-  #
-  # We include a `payment_pending` parameter to suppress some information
-  # in the hope that, by the time the user refreshes the page, everything
-  # will be consistent again.
+  # The payment was accepted by Cybersource, so update the fines in the ILS
   #
   # POST /payments/accept
   def accept
     alter_payment_cookie
+    ils_client.pay_fines(user: cybersource_response.user,
+                         amount: cybersource_response.amount,
+                         session_id: cybersource_response.session_id)
+
     redirect_to fines_path, flash: {
-      success: (t 'mylibrary.fine_payment.accept_html', amount: params[:req_amount])
+      success: (t 'mylibrary.fine_payment.accept_html', amount: cybersource_response.amount)
     }
   end
 
-  # The user canceled the payment in CyberSource
+  # The user canceled the payment in Cybersource
   #
   # POST /payments/cancel
   def cancel
@@ -88,7 +89,7 @@ class PaymentsController < ApplicationController
   # then set the payment as "pending"
   def alter_payment_cookie
     new_cookie = payment_in_process_cookie.dup
-    new_cookie[:pending] = true if new_cookie[:session_id] == params[:req_merchant_defined_data2]
+    new_cookie[:pending] = true if new_cookie[:session_id] == cybersource_response.session_id
     cookies[:payment_in_process] = {
       value: new_cookie.to_json,
       httponly: true,
@@ -96,11 +97,23 @@ class PaymentsController < ApplicationController
     }
   end
 
-  def payments
-    patron_or_group.payments
-  end
-
   def create_payment_params
     params.permit(%I[reason billseq amount session_id user group])
+  end
+
+  def cybersource_request
+    Cybersource::PaymentRequest.new(**params.permit(:user, :amount, :session_id).to_h.symbolize_keys).sign!
+  end
+
+  def cybersource_response
+    Cybersource::PaymentResponse.new(params.permit!.to_h).validate!
+  end
+
+  def payment_failed
+    redirect_to fines_path, flash: { error: (t 'mylibrary.fine_payment.payment_failed_html') }
+  end
+
+  def ils_request_failed
+    redirect_to fines_path, flash: { error: (t 'mylibrary.fine_payment.request_failed_html') }
   end
 end
