@@ -1,17 +1,18 @@
 <% fines = patron_or_group.fines %>
-<% if fines.sum(&:owed).positive? %>
+<% amount = fines.sum(&:owed) %>
+<% if amount.positive? %>
   <div>
     <% if patron_or_group.can_pay_fines? %>
       <%= form_tag payments_path, method: :post do %>
         <%= hidden_field_tag :reason, fines.map(&:status).join(',') %>
         <%= hidden_field_tag :billseq, fines.map(&:sequence).values_at(0, -1).join('-') %>
-        <%= hidden_field_tag :amount, format('%.2f', fines.sum(&:owed)) %>
+        <%= hidden_field_tag :amount, format('%.2f', amount) %>
         <%= hidden_field_tag :session_id, SecureRandom.hex %>
         <%= hidden_field_tag :group, patron_or_group.is_a?(Symphony::Group) ? 'G' : '' %>
         <%= hidden_field_tag :user, patron_or_group.barcode %>
         <%= button_tag class: 'btn btn-md btn-info', type: 'submit', data: { 'pay-button' => true } do %>
           <%= sul_icon :'sharp-payment-24px' %>
-          <span>Pay <%= number_to_currency(patron_or_group.fines.sum(&:owed)) %> now</span>
+          <span>Pay <%= number_to_currency(amount) %> now</span>
         <% end %>
       <% end %>
     <% else %>
