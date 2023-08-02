@@ -79,11 +79,11 @@ group :development, :test do
   gem 'rubocop-performance'
   gem 'rubocop-rails'
   gem 'rubocop-rspec'
+  gem 'selenium-webdriver'
   gem 'simplecov', require: false
   gem 'sinatra', require: false # used for faking the symphony api for integration tests
   gem 'timecop'
   gem 'warden-rspec-rails'
-  gem 'webdrivers'
   gem 'webmock'
 end
 
