@@ -212,6 +212,11 @@ class FolioClient
     Folio::Patron.new({ 'user' => user })
   end
 
+  # TODO: https://github.com/sul-dlss/mylibrary/issues/889
+  def pay_fines(_user:, _amount:, _session_id:)
+    pass
+  end
+
   private
 
   def check_response(response, title:, context:)
