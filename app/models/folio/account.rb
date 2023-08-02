@@ -27,7 +27,7 @@ module Folio
     end
 
     def patron_key
-      record['userId']
+      record.dig('loan', 'proxyUserId') || record['userId']
     end
 
     def status
@@ -82,11 +82,6 @@ module Folio
 
     def barcode
       record.dig('item', 'barcode')
-    end
-
-    # TODO: check if the account is for a proxy
-    def proxy_account?
-      false
     end
 
     def to_partial_path

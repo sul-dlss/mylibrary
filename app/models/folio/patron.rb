@@ -136,19 +136,21 @@ module Folio
     end
 
     def fines
-      all_accounts.reject(&:closed?).reject(&:proxy_account?)
+      all_accounts.reject(&:closed?)
     end
 
     def payments
-      all_accounts.select(&:closed?).reject(&:proxy_account?)
+      all_accounts.select(&:closed?)
     end
 
+    # TODO: delete after FOLIO launch. All group fines are now affiliated with a single Sponsor patron.
     def group_fines
-      all_accounts.reject(&:closed?).select(&:proxy_account?)
+      []
     end
 
+    # TODO: delete after FOLIO launch. All group payments are now affiliated with a single Sponsor patron.
     def group_payments
-      all_accounts.select(&:closed?).select(&:proxy_account?)
+      []
     end
 
     # Creates a range of integers based of a payment sequence string

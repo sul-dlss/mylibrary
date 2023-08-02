@@ -9,7 +9,7 @@ module Folio
 
     def sponsor
       @sponsor ||= if sponsor?
-                     self
+                     Folio::Patron.new(patron_info)
                    else
                      # if you are a proxy, make a second call to get the sponsor
                      # for now, we only support one sponsor per proxy
@@ -64,7 +64,7 @@ module Folio
     end
 
     def member_name(key)
-      member_list_names.fetch(key, '')
+      member_list_names.fetch(key, nil)
     end
 
     def to_partial_path
