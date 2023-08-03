@@ -2,6 +2,7 @@
 
 module Cybersource
   # Response sent back by Cybersource after the external checkout is complete
+  # See the PDF linked in the README for more information on the fields
   class PaymentResponse
     class PaymentFailed < StandardError; end
 
