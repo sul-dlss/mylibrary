@@ -6,10 +6,13 @@ module Cybersource
   class PaymentResponse
     class PaymentFailed < StandardError; end
 
+    # Cybersource can change the fields it sends back at any time. It will
+    # always sign some fields, but may elect to sign all of them, in which
+    # case unsigned_field_names will be nil.
     def initialize(fields)
       @fields = fields
       @signed_fields = fields['signed_field_names'].split(',')
-      @unsigned_fields = fields['unsigned_field_names'].split(',')
+      @unsigned_fields = fields['unsigned_field_names']&.split(',') || []
     end
 
     def to_h
