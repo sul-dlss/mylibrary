@@ -191,6 +191,24 @@ class SymphonyClient
     })
   end
 
+  # Once Cybersource indicates payment was successful, call a script on the
+  # Symphony server that will update the fines as paid
+  def pay_fines(user:, amount:, session_id:)
+    # Mimic the data that Cybersource used to POST back to Symphony directly
+    params = {
+      req_merchant_defined_data1: user,
+      req_amount: amount,
+      req_reference_number: session_id,
+      req_bill_to_email: '',
+      decision: 'ACCEPT'
+    }
+
+    response = HTTP.use(instrumentation: instrumentation)
+                   .request(:post, "#{cgi_bin_url}/transactionPost.pl", form: params)
+
+    raise IlsError, response.body unless response.status == 200
+  end
+
   private
 
   def renew_item_request(resource, item_key, headers: {})
@@ -216,7 +234,7 @@ class SymphonyClient
 
   def request(path, headers: {}, method: :get, **other)
     HTTP
-      .use(instrumentation: { instrumenter: ActiveSupport::Notifications.instrumenter, namespace: 'symphony' })
+      .use(instrumentation: instrumentation)
       .headers(default_headers.merge(headers))
       .request(method, base_url + path, **other)
   end
@@ -225,7 +243,15 @@ class SymphonyClient
     Settings.symws.url
   end
 
+  def cgi_bin_url
+    "https://#{Settings.symphony.host}/cgi-bin"
+  end
+
   def default_headers
     DEFAULT_HEADERS.merge(Settings.symws.headers || {})
+  end
+
+  def instrumentation
+    { instrumenter: ActiveSupport::Notifications.instrumenter, namespace: 'symphony' }
   end
 end

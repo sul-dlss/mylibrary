@@ -4,114 +4,113 @@ require 'rails_helper'
 
 RSpec.describe PaymentsController do
   let(:user) { { username: 'somesunetid', patron_key: '123' } }
+  let(:mock_patron) { instance_double(Symphony::Patron, group?: false, barcode: '1234', payments: payments) }
+  let(:mock_client) do
+    instance_double(SymphonyClient, session_token: '1a2b3c4d5e6f7g8h9i0j', ping: true, pay_fines: nil)
+  end
+  let(:mock_legacy_client_response) do
+    [
+      { 'billNumber' => '1', 'feePaymentInfo' => { 'paymentDate' => '2019-01-01' } },
+      { 'billNumber' => '2' },
+      { 'billNumber' => '3', 'feePaymentInfo' => { 'paymentDate' => '2019-02-01' } }
+    ]
+  end
+  let(:payments) do
+    Array.wrap(mock_legacy_client_response).map do |x|
+      Symphony::Payment.new(x)
+    end
+  end
+
+  before do
+    allow(controller).to receive_messages(patron: mock_patron, ils_client: mock_client)
+    warden.set_user(user)
+  end
 
   describe '#index' do
-    let(:mock_patron) { instance_double(Symphony::Patron, group?: false, barcode: '1234', payments: payments) }
-    let(:mock_legacy_client_response) do
-      [
-        { 'billNumber' => '1', 'feePaymentInfo' => { 'paymentDate' => '2019-01-01' } },
-        { 'billNumber' => '2' },
-        { 'billNumber' => '3', 'feePaymentInfo' => { 'paymentDate' => '2019-02-01' } }
-      ]
-    end
-    let(:payments) do
-      Array.wrap(mock_legacy_client_response).map do |x|
-        Symphony::Payment.new(x)
+    context 'when a user has multiple payments' do
+      before do
+        get(:index)
+      end
+
+      it 'shows a list of payments from the payments array' do
+        expect(assigns(:payments)).to all(be_a Symphony::Payment)
+      end
+
+      it 'shows the correct number of payments in the list' do
+        expect(assigns(:payments).length).to eq 3
+      end
+
+      it 'shows the payments sorted appropriately (bills w/o a payment date at the top the reverse date sort)' do
+        expect(assigns(:payments).map(&:key)).to eq(%w[2 3 1])
       end
     end
 
-    before do
-      allow(controller).to receive_messages(patron: mock_patron,
-                                            ils_client: instance_double(
-                                              SymphonyClient, session_token: '1a2b3c4d5e6f7g8h9i0j', ping: true
-                                            ))
-    end
-
-    context 'when an unathenticated user' do
-      it 'redirects to the home page' do
-        expect(get(:index)).to redirect_to root_url
-      end
-    end
-
-    context 'with an authenticated user' do
-      before { warden.set_user(user) }
-
-      context 'when a user has multiple payments' do
-        it 'shows a list of payments from the payments array' do
-          get(:index)
-
-          expect(assigns(:payments)).to all(be_a Symphony::Payment)
-        end
-
-        it 'shows the correct number of payments in the list' do
-          get(:index)
-
-          expect(assigns(:payments).length).to eq 3
-        end
-
-        it 'shows the payments sorted appropriately (bills w/o a payment date at the top the reverse date sort)' do
-          get(:index)
-
-          expect(assigns(:payments).map(&:key)).to eq(%w[2 3 1])
-        end
+    context 'when a user has only one payment' do
+      let(:mock_legacy_client_response) do
+        { 'billNumber' => '1' }
       end
 
-      context 'when a user has only one payment' do
-        let(:mock_legacy_client_response) do
-          { 'billNumber' => '1' }
-        end
-
-        it 'wraps a single payment in an array' do
-          get(:index)
-
-          expect(assigns(:payments).first.key).to eq '1'
-        end
+      it 'wraps a single payment in an array' do
+        get(:index)
+        expect(assigns(:payments).first.key).to eq '1'
       end
     end
   end
 
   describe '#create' do
-    let(:mock_client) { instance_double(SymphonyClient, ping: true) }
-
     before do
-      allow(SymphonyClient).to receive(:new).and_return(mock_client)
-      warden.set_user(user)
+      post :create, params: { user: 'u', billseq: 'b', session_id: 's', group: 'g', amount: 'a' }
     end
 
-    it 'redirects to payment system' do
-      post :create
-      expect(controller).to redirect_to 'https://example.com/secureacceptance/payment_form.php?'
+    it 'renders a form to send to cybersource' do
+      expect(response).to render_template('cybersource_form')
     end
 
     it 'creates a cookie with needed information' do
-      post :create, params: { billseq: 'b', session_id: 's', group: 'g' }
       expect(JSON.parse(response.cookies['payment_in_process'])).to include(
         'billseq' => 'b',
         'session_id' => 's',
         'group' => 'g'
       )
     end
-
-    it 'passes through parameters' do
-      post :create, params: { reason: 'r', billseq: 'b', amount: 'a', session_id: 's', user: 'u', group: 'g' }
-      expect(controller).to redirect_to 'https://example.com/secureacceptance/payment_form.php?amount=a&billseq=b&group=g&reason=r&session_id=s&user=u'
-    end
   end
 
-  context 'when a user makes a payment' do
-    context 'when session_id matches cookie' do
-      let(:mock_client) { instance_double(SymphonyClient, ping: true) }
+  describe '#accept' do
+    let(:cybersource_response) do
+      instance_double(Cybersource::PaymentResponse, user: '123', amount: '10.00',
+                                                    session_id: 'session_this_is_the_one',
+                                                    valid?: true, payment_success?: true)
+    end
 
+    before do
+      allow(controller).to receive(:cybersource_response).and_return(cybersource_response)
+    end
+
+    it 'updates the payment in the ILS' do
+      post :accept
+      expect(mock_client).to have_received(:pay_fines)
+        .with(user: '123', amount: '10.00', session_id: 'session_this_is_the_one')
+    end
+
+    it 'redirects to fines page' do
+      post :accept
+      expect(controller).to redirect_to(fines_path)
+    end
+
+    it 'flashes a success message' do
+      post :accept
+      expect(flash[:success]).to include('Success!').and include('$10.00 paid.')
+    end
+
+    context 'when session_id matches cookie' do
       before do
-        allow(SymphonyClient).to receive(:new).and_return(mock_client)
-        warden.set_user(user)
         request.cookies['payment_in_process'] = {
           session_id: 'session_this_is_the_one'
         }.to_json
-        post :accept, params: { req_amount: '10.00', req_merchant_defined_data2: 'session_this_is_the_one' }
       end
 
       it 'sets pending in the new cookie' do
+        post :accept
         expect(JSON.parse(response.cookies['payment_in_process'])).to include(
           'pending' => true,
           'session_id' => 'session_this_is_the_one'
@@ -119,33 +118,31 @@ RSpec.describe PaymentsController do
       end
     end
 
-    context 'when indifferent of the cookie' do
-      let(:mock_client) { instance_double(SymphonyClient, ping: true) }
-
+    context 'when the params sent back from cybersource do not pass validation' do
       before do
-        allow(SymphonyClient).to receive(:new).and_return(mock_client)
-        warden.set_user(user)
-        post :accept, params: { req_amount: '10.00' }
+        allow(controller).to receive(:cybersource_response).and_raise(Cybersource::Security::InvalidSignature)
       end
 
-      it 'redirects to fines' do
-        expect(controller).to redirect_to(fines_path)
+      it 'flashes an error message' do
+        post :accept
+        expect(flash[:error]).to include('Payment failed.')
+      end
+    end
+
+    context 'when cybersource rejected the payment' do
+      before do
+        allow(controller).to receive(:cybersource_response).and_raise(Cybersource::PaymentResponse::PaymentFailed)
       end
 
-      it 'flashes a success message' do
-        expect(flash[:success]).to eq '<span class="font-weight-bold">Success!</span> $10.00 paid. ' \
-                                      'A receipt has been sent to the email address associated with your account. ' \
-                                      'Payment may take up to 5 minutes to appear in your payment history.'
+      it 'flashes an error message' do
+        post :accept
+        expect(flash[:error]).to include('Payment failed.')
       end
     end
   end
 
-  context 'when a user cancels a payment' do
-    let(:mock_client) { instance_double(SymphonyClient, ping: true) }
-
+  describe '#cancel' do
     before do
-      allow(SymphonyClient).to receive(:new).and_return(mock_client)
-      warden.set_user(user)
       post :cancel
       request.cookies['payment_in_process'] = true
     end
@@ -158,9 +155,8 @@ RSpec.describe PaymentsController do
       expect(response.cookies['payment_in_process']).to be_nil
     end
 
-    it 'flashes an error message' do
-      expect(flash[:error]).to eq '<span class="font-weight-bold">Payment canceled.</span> No payment was made ' \
-                                  '&mdash; your payable balance remains unchanged.'
+    it 'flashes a cancellation message' do
+      expect(flash[:error]).to include 'Payment canceled.'
     end
   end
 end

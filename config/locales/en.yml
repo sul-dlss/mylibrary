@@ -80,6 +80,8 @@ en:
     fine_payment:
       accept_html: <span class="font-weight-bold">Success!</span> $%{amount} paid. A receipt has been sent to the email address associated with your account. Payment may take up to 5 minutes to appear in your payment history.
       cancel_html: <span class="font-weight-bold">Payment canceled.</span> No payment was made &mdash; your payable balance remains unchanged.
+      request_failed_html: <span class="font-weight-bold">Sorry!</span> Something went wrong, possibly due to a connection failure. Please <a href="mailto:sul-privileges@stanford.edu">contact us</a> for help resolving your fines.
+      payment_failed_html: <span class="font-weight-bold">Sorry!</span> Payment failed. Please <a href="mailto:sul-privileges@stanford.edu">contact us</a> for help resolving your fines.
     sessions:
       login_by_library_id:
         alert: Unable to authenticate.

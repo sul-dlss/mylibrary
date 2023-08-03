@@ -1,4 +1,5 @@
 # MyLibrary
+
 [![Build Status](https://github.com/sul-dlss/mylibrary/workflows/CI/badge.svg?branch=main)](https://github.com/sul-dlss/mylibrary/actions?query=workflow%3ACI+branch%3Amain)
 [![Code Climate](https://codeclimate.com/github/sul-dlss/mylibrary/badges/gpa.svg)](https://codeclimate.com/github/sul-dlss/mylibrary)
 [![Test Coverage](https://api.codeclimate.com/v1/badges/a8f1c5dab3a53ffba586/test_coverage)](https://codeclimate.com/github/sul-dlss/mylibrary/test_coverage)
@@ -8,6 +9,7 @@ renews materials, cancels hold requests, makes payments of library fees and fine
 and other features enhancing library user experience.
 
 ## Requirements
+
 1. Ruby (3.1 or greater)
 2. Bundler
 3. Connection to Symphony Web Services (hosted on symws-prod.stanford.edu and symws-dev.stanford.edu)
@@ -91,12 +93,17 @@ the API does not provide all the information we need, so we use several other me
 Note, too, that the API does not allow us to paginate within a list of checkouts/requests/fines, as they are retrieved as
 part of the patron information request.
 
-## A note about payments to CyberSource
-So... MyLibrary will make post requests to a CyberSource payment form. If successful this form will return us some information back. That information will be used in conjunction with a cookie set in PaymentsController to filter Patron fines. Those fines will be filtered for that current user's in browser session for 10 minutes. We are assuming a few things:
- - That Symphony will resolve these transactions in at least 10 minutes
- - That the user won't be switching browsers and expect their payments to be filtered to in flight payments
+## A note about payments to Cybersource
+Cybersource (a company owned by VISA) is our external payment processor for paying library fines. We currently support only one type of transaction: paying all of a user's payable fines together at once.
 
-We recognize that this is not optimal, but can't determine a better way forward at the moment with CyberSource constraints.
+When the user clicks the "pay all" button, we redirect their request to Cybersource via an interstitial form, which generates a POST request containing the data that sets up the checkout form along with a security signature. When the user completes their payment, Cybersource will POST some information back to us, including some of the information we originally sent which identifies the user and how much they paid. We pass this information to the ILS client to actually do the work of marking the fines as having been paid.
+
+In Symphony, the ILS may take some time to actually reflect the payment, so we use a strategy involving setting a cookie based on the user's browser session to filter out fines that have been paid but not yet reflected in the ILS. Otherwise, the user might think that their payment didn't go through, because the fines are still showing. Those fines will be filtered (not shown on the fines page) for that current user's in browser session for 10 minutes. We are assuming a few things:
+
+- That Symphony will resolve these transactions in at least 10 minutes
+- That the user won't be switching browsers and expect their payments to be filtered to in flight payments
+
+In FOLIO, the API request to mark a fine as paid is synchronous, so we don't need to worry about this.
 
 ## Testing
 
@@ -120,4 +127,5 @@ server run:
     $ cap dev deploy
 
 ## Feedback
+
 You can provide feedback on MyLibrary through the "Feedback" link on the homepage. The [feedback queue](https://jirasul.stanford.edu/jira/projects/MYLIBACCNT) is managed in SUL JIRA.
