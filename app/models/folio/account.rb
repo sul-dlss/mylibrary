@@ -22,8 +22,10 @@ module Folio
       record['id']
     end
 
+    # TODO: remove; unused after migration off of Symphony
+    # Also update the pay all button template not to render it
     def sequence
-      key
+      nil
     end
 
     def patron_key
