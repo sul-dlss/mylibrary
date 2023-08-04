@@ -2,6 +2,7 @@
 
 module Cybersource
   # Methods for encoding and decoding transaction data
+  # See the PDF linked in the README for more information
   class Security
     class InvalidSignature < StandardError; end
 

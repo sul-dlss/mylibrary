@@ -153,11 +153,9 @@ module Folio
       []
     end
 
-    # Creates a range of integers based of a payment sequence string
+    # TODO: delete after FOLIO launch. No longer needed since we don't set a cookie for in-flight payments.
     def payment_sequence
-      return Range.new(0, 0) unless payment_in_process[:billseq] && payment_in_process[:pending]
-
-      Range.new(*payment_in_process[:billseq].split('-').map(&:to_i))
+      nil
     end
 
     def proxy_borrower?

@@ -47,6 +47,7 @@ class ApplicationController < ActionController::Base
   ##
   # Used in conjuction with Patron to determine if fines should be filtered by
   # in flight payment sequence
+  # TODO: remove payment cookie methods when migration off of Symphony is complete
   def payment_in_process_cookie
     @payment_in_process_cookie ||= JSON.parse(cookies[:payment_in_process] || {}.to_json).with_indifferent_access
   end

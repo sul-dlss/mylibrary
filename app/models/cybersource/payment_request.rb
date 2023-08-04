@@ -2,6 +2,7 @@
 
 module Cybersource
   # Request sent to Cybersource to initiate an external checkout
+  # See the PDF linked in the README for more information on the fields
   class PaymentRequest
     include Enumerable
 

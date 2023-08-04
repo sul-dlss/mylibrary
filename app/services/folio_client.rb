@@ -185,7 +185,7 @@ class FolioClient
   # @param [string] library_id the patron's library ID
   # TODO: reset_path is unused here; we only need it for SymphonyClient#reset_pin
   def reset_pin(library_id, _reset_path)
-    patron = find_patron_by_barcode(library_id)
+    patron = find_patron_by_barcode(library_id, patron_info: false)
     token = generate_pin_reset_token!(patron)
     ResetPinsMailer.with(patron: patron, token: token).reset_pin.deliver_now
   end
@@ -204,18 +204,34 @@ class FolioClient
   end
 
   # Look up a patron by barcode and return a Patron object
-  def find_patron_by_barcode(barcode)
+  # If 'patron_info' is false, don't run the full patron info GraphQL query
+  def find_patron_by_barcode(barcode, patron_info: true)
     response = get_json('/users', params: { query: CqlQuery.new(barcode: barcode).to_query })
     user = response.dig('users', 0)
     raise ActiveRecord::RecordNotFound, "User with barcode #{barcode} not found" unless user
 
-    Folio::Patron.new({ 'user' => user })
+    patron_info ? Folio::Patron.find(user['id']) : Folio::Patron.new({ 'user' => user })
   end
 
-  # TODO: https://github.com/sul-dlss/mylibrary/issues/889
-  def pay_fines(_user:, _amount:, _session_id:)
-    pass
+  # Mark all of a user's fines (accounts) as having been paid
+  # The payment will show as being made from the 'Online' service point
+  # rubocop:disable Metrics/MethodLength
+  def pay_fines(user:, amount:, session_id:)
+    patron = find_patron_by_barcode(user)
+    payload = {
+      accountIds: patron.fines.map(&:key),
+      paymentMethod: 'Credit card',
+      amount: amount,
+      userName: 'libsys_admin',
+      transactionInfo: session_id,
+      servicePointId: Settings.folio.online_service_point_id,
+      notifyPatron: true
+    }
+
+    response = post('/accounts-bulk/pay', json: payload)
+    check_response(response, title: 'Pay fines', context: payload)
   end
+  # rubocop:enable Metrics/MethodLength
 
   private
 
