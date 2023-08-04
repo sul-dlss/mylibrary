@@ -2,7 +2,7 @@
 
 OkComputer.mount_at = false
 
-if Settings.ils.client == 'SymphonyClient'
+if Settings.ils.client == 'SymphonyClient' && !Settings.folio_migration
   # OKComputer check that checks if we have a connection to symws
   class SymphonyClientCheck < OkComputer::Check
     def check
