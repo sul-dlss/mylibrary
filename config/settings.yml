@@ -1,4 +1,5 @@
 debug: false
+folio_migration: false
 
 borrow_direct:
   api_key: ''
