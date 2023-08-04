@@ -100,11 +100,11 @@ RSpec.describe RequestsController do
         end
       end
 
-      context 'when pickup_library param is sent' do
+      context 'when service_point param is sent' do
         let(:mock_client) { instance_double(SymphonyClient, change_pickup_library: api_response, ping: true) }
 
         it 'updates the pickup library and sets the flash message' do
-          patch :update, params: { resource: 'abc', id: '123', pickup_library: 'Other library' }
+          patch :update, params: { resource: 'abc', id: '123', service_point: 'Other library' }
 
           expect(flash[:success].first).to match(/Success!.*pickup location was updated/)
         end
@@ -132,7 +132,7 @@ RSpec.describe RequestsController do
         let(:mock_client) { instance_double(SymphonyClient, change_pickup_library: api_response, ping: true) }
 
         it 'renews the item and redirects to checkouts_path' do
-          patch :update, params: { resource: 'abc', id: '123', pickup_library: 'Other library', group: true }
+          patch :update, params: { resource: 'abc', id: '123', service_point: 'Other library', group: true }
 
           expect(response).to redirect_to requests_path(group: true)
         end

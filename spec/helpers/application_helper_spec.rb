@@ -103,11 +103,12 @@ RSpec.describe ApplicationHelper do
     end
 
     it 'falls back on the code' do
+      allow(Folio::ServicePoint).to receive(:name_by_code).and_return(nil)
       expect(helper.pickup_location_name('NOSUCHLIBRARY')).to eq 'NOSUCHLIBRARY'
     end
 
     it 'translates a FOLIO service point code to a human-readable name' do
-      expect(helper.pickup_location_name('cd2')).to eq 'Circulation Desk -- Back Entrance'
+      expect(helper.pickup_location_name('EAST-ASIA')).to eq 'East Asia Library'
     end
   end
 

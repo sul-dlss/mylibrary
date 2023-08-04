@@ -91,10 +91,20 @@ module Folio
       "#{queue_position - cdl_queue_length} of #{queue_length - cdl_queue_length}"
     end
 
+    # TODO: After FOLIO launch change this method name to reflect FOLIO service point terminology
+    # and possibly simplify / directly use the service point id rather than routing through the code
     def pickup_library
       return 'CDL' if cdl?
 
       record.dig('pickupLocation', 'code')
+    end
+
+    def service_point_id
+      record['pickupLocationId']
+    end
+
+    def restricted_pickup_service_points
+      record.dig('item', 'item', 'effectiveLocation', 'details', 'pageServicePoints')
     end
 
     # this is only used in JSON responses; maybe we can remove it?

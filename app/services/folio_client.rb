@@ -58,6 +58,8 @@ class FolioClient
     folio_graphql_client.patron_info(patron_key)
   end
 
+  delegate :service_points, to: :folio_graphql_client
+
   # FOLIO API call
   def patron_account(patron_key, item_details: {})
     get_json("/patron/account/#{CGI.escape(patron_key)}", params: {
@@ -135,19 +137,21 @@ class FolioClient
     response
   end
 
-  # Change hold request date
-  # @example client.change_pickup_location(hold_id: '4a64eccd-3e44-4bb0-a0f7-9b4c487abf61',
+  # TODO: after FOLIO launch rename this method to reflect service point terminology (maybe change_pickup_service_point)
+  #
+  # Change hold request service point
+  # @example client.change_pickup_library(hold_id: '4a64eccd-3e44-4bb0-a0f7-9b4c487abf61',
   #                                        pickup_location_id: 'bd5fd8d9-72f3-4532-b68c-4db88063d16b')
-  # @param [String] hold_id the UUID of the FOLIO hold
-  # @param [String] pickup_location_id the uuid of the new location
-  def change_pickup_location(hold_id:, pickup_location_id:)
-    request_data = get_json("/circulation/requests/#{hold_id}")
-    request_data['pickupServicePointId'] = 'bd5fd8d9-72f3-4532-b68c-4db88063d16b'
-    response = put("/circulation/requests/#{hold_id}", json: request_data)
-
+  # @param [String] id the UUID of the FOLIO hold
+  # @param [String] service_point the UUID of the new service point
+  def change_pickup_library(id, service_point)
+    request_data = get_json("/circulation/requests/#{id}")
+    request_data['pickupServicePointId'] = service_point
+    response = put("/circulation/requests/#{id}", json: request_data)
     check_response(response, title: 'Change pickup location',
-                             context: { hold_id: hold_id,
-                                        pickup_location_id: pickup_location_id })
+                             context: { id: id,
+                                        service_point: service_point })
+    response
   end
 
   # @example client.change_pickup_expiration(hold_id: '4a64eccd-3e44-4bb0-a0f7-9b4c487abf61',

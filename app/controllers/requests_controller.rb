@@ -39,7 +39,7 @@ class RequestsController < ApplicationController
     flash[:success] = []
     flash[:error] = []
 
-    handle_pickup_change_request if params['pickup_library'].present?
+    handle_pickup_change_request if params['service_point'].present?
     handle_not_needed_after_request if params['not_needed_after'].present? &&
                                        params['not_needed_after'] != params['current_fill_by_date']
 
@@ -78,7 +78,9 @@ class RequestsController < ApplicationController
   def handle_pickup_change_request
     change_pickup_response = ils_client.change_pickup_library(*change_pickup_params)
     case change_pickup_response.status
-    when 200
+    # The FOLIO API returns 204
+    # TODO: after FOLIO launch remove the 200 case which was the Symphony response
+    when 200, 204
       flash[:success].push(t('mylibrary.request.update_pickup.success_html', title: params['title']))
     else
       Rails.logger.error(change_pickup_response.body)
@@ -102,7 +104,12 @@ class RequestsController < ApplicationController
   end
 
   def change_pickup_params
-    params.require(%I[resource id pickup_library])
+    # TODO: after Folio launch remove conditional wrapper and delete the else (Symphony) part
+    if ils_client.is_a?(FolioClient)
+      params.require(%I[id service_point])
+    else
+      params.require(%I[resource id service_point])
+    end
   end
 
   def not_needed_after_params

@@ -168,7 +168,7 @@ class SymphonyClient
     })
   end
 
-  def change_pickup_library(resource, item_key, pickup_library)
+  def change_pickup_library(resource, item_key, service_point)
     authenticated_request('/circulation/holdRecord/changePickupLibrary', method: :post, json: {
       holdRecord: {
         resource: resource,
@@ -176,7 +176,7 @@ class SymphonyClient
       },
       pickupLibrary: {
         resource: '/policy/library',
-        key: pickup_library
+        key: service_point
       }
     })
   end

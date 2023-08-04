@@ -45,6 +45,26 @@ class FolioGraphqlClient
     parse(post(path, **kwargs))
   end
 
+  def service_points
+    data = post_json('/', json: {
+      query: "query ServicePoints {
+        servicePoints {
+          discoveryDisplayName
+          id
+          code
+          pickupLocation
+          details {
+            isDefaultForCampus
+            isDefaultPickup
+          }
+        }
+      }"
+    })
+    raise data['errors'].pluck('message').join("\n") if data.key?('errors')
+
+    data.dig('data', 'servicePoints')
+  end
+
   def patron_info(patron_uuid)
     data = post_json('/', json: {
       query: "query Query($patronId: UUID!) {
@@ -129,6 +149,14 @@ class FolioGraphqlClient
                   code
                   library {
                     code
+                  }
+                  details {
+                    pageServicePoints {
+                      code
+                      id
+                      discoveryDisplayName
+                      pickupLocation
+                    }
                   }
                 }
               }
