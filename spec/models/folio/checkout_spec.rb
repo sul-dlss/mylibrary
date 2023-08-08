@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require 'models/concerns/folio/folio_record'
 
 RSpec.describe Folio::Checkout do
   subject(:checkout) do
@@ -45,6 +46,8 @@ RSpec.describe Folio::Checkout do
            'renewalsPolicy' => { 'numberAllowed' => 2, 'unlimited' => false },
            'loansPolicy' => { 'period' => nil } } } }
   end
+
+  it_behaves_like 'folio_record'
 
   it 'has a key' do
     expect(checkout.key).to eq '6f951192-b633-40a0-8112-73a191b55a8a'

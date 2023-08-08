@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require 'models/concerns/folio/folio_record'
 
 RSpec.describe Folio::Request do
   subject(:request) do
@@ -49,6 +50,8 @@ RSpec.describe Folio::Request do
       'patronComments' => nil
     }
   end
+
+  it_behaves_like 'folio_record'
 
   describe '#key' do
     subject(:key) { request.key }
