@@ -233,6 +233,11 @@ class FolioGraphqlClient
                 permanentLocation {
                   code
                 }
+                holdingsRecord {
+                  effectiveLocation {
+                    code
+                  }
+                }
               }
             }
             loanDate
