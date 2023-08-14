@@ -101,7 +101,7 @@ RSpec.describe RequestsController do
       end
 
       context 'when pickup_library param is sent' do
-        let(:mock_client) { instance_double(SymphonyClient, change_pickup_library: api_response, ping: true) }
+        let(:mock_client) { instance_double(SymphonyClient, change_pickup_point: api_response, ping: true) }
 
         it 'updates the pickup library and sets the flash message' do
           patch :update, params: { resource: 'abc', id: '123', pickup_library: 'Other library' }
@@ -129,7 +129,7 @@ RSpec.describe RequestsController do
       end
 
       context 'with a group request' do
-        let(:mock_client) { instance_double(SymphonyClient, change_pickup_library: api_response, ping: true) }
+        let(:mock_client) { instance_double(SymphonyClient, change_pickup_point: api_response, ping: true) }
 
         it 'renews the item and redirects to checkouts_path' do
           patch :update, params: { resource: 'abc', id: '123', pickup_library: 'Other library', group: true }

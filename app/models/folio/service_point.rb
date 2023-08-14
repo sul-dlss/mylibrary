@@ -12,6 +12,10 @@ module Folio
       def mapping_file
         MAPPING_FILE
       end
+
+      def uuid_by_code(code)
+        all[code]&.id
+      end
     end
   end
 end

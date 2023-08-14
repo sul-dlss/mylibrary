@@ -76,9 +76,9 @@ class RequestsController < ApplicationController
   private
 
   def handle_pickup_change_request
-    change_pickup_response = ils_client.change_pickup_library(*change_pickup_params)
+    change_pickup_response = ils_client.change_pickup_point(**change_pickup_params)
     case change_pickup_response.status
-    when 200
+    when 200, 204
       flash[:success].push(t('mylibrary.request.update_pickup.success_html', title: params['title']))
     else
       Rails.logger.error(change_pickup_response.body)
@@ -102,7 +102,11 @@ class RequestsController < ApplicationController
   end
 
   def change_pickup_params
-    params.require(%I[resource id pickup_library])
+    {
+      id: params.require(:id),
+      resource: params.require(:resource),
+      pickup_point: params.require(:pickup_library)
+    }
   end
 
   def not_needed_after_params
