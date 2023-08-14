@@ -88,7 +88,7 @@ class BorrowDirectReshareRequests
       @request_json.fetch('patronIdentifier', nil)
     end
 
-    def pickup_library; end
+    def service_point; end
 
     def ready_for_pickup?
       false

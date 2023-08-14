@@ -10,8 +10,8 @@
     <%= hidden_field_tag :group, params[:group] if params[:group] %>
     <%= hidden_field_tag :current_fill_by_date, @request&.fill_by_date&.strftime('%Y-%m-%d') %>
     <div class="form-group">
-      <%= label_tag :pickup_library, 'Pickup library' %>
-      <%= select_tag :pickup_library, request_location_options(@request), include_blank: pickup_location_name(@request.pickup_library), class: 'form-control' %>
+      <%= label_tag :service_point, 'Pickup point' %>
+      <%= select_tag :service_point, request_location_options(@request), class: 'form-control' %>
     </div>
     <% if @request.fill_by_date %>
       <div class="form-group">

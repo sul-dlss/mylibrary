@@ -118,8 +118,8 @@ RSpec.describe BorrowDirectReshareRequests do
       expect(request.patron_id).to eq '12345678'
     end
 
-    it 'always returns nil for pickup_library' do
-      expect(request.pickup_library).to be_nil
+    it 'always returns nil for service_point' do
+      expect(request.service_point).to be_nil
     end
 
     it { expect(request).not_to be_ready_for_pickup }

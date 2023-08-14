@@ -65,12 +65,13 @@ module ApplicationHelper
     Mylibrary::Application.config.library_map[code] || code
   end
 
-  # FOLIO distinguishes between service points and libraries (that can share codes)
-  #   so we need a separate method for correct code to name lookup
+  # TODO: After FOLIO launch remove the conditional wrapper and rename to reflect service point terminology
   def pickup_location_name(code)
-    Mylibrary::Application.config.library_map[code] ||
-      Folio::ServicePoint.find_by(id: code)&.discoveryDisplayName ||
-      code
+    if Settings.ils.client == 'FolioClient'
+      Folio::ServicePoint.name_by_code(code) || code
+    else
+      Mylibrary::Application.config.library_map[code] || code
+    end
   end
 
   def library_email(code)

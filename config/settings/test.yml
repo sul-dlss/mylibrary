@@ -6,3 +6,8 @@ symws:
     password: 'some_password'
 symphony:
   host: example.com
+
+folio:
+  url: 'https://user:password@okapi.stanford.edu'
+folio_graphql:
+  url: 'http://user:password@localhost:4000'

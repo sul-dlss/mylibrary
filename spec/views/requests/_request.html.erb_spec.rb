@@ -34,6 +34,8 @@ RSpec.describe 'requests/_request' do
         allow(view).to receive(:patron).and_return(patron)
       end
 
+      allow(Mylibrary::Application.config.library_map).to receive(:[]).with('SAL3').and_return('SAL3 Library')
+      allow(Mylibrary::Application.config.library_map).to receive(:[]).with('XYZ').and_return('XYZ Library')
       render partial: 'requests/request', locals: { request: mock_request }
     end
 
@@ -78,13 +80,14 @@ RSpec.describe 'requests/_request' do
       )
     end
 
-    let(:patron) { instance_double(Folio::Patron, can_modify_requests?: false, group: group_instance) }
+    let(:patron) { instance_double(Folio::Patron, can_modify_requests?: true, group: group_instance) }
     let(:group_instance) { instance_double(Folio::Group, member_name: 'Piper Proxy') }
 
     before do
       without_partial_double_verification do
         allow(view).to receive_messages(params: { group: true }, patron: patron) # Set params[:group] to true
       end
+      allow(Folio::ServicePoint).to receive(:name_by_code).with('XYZ').and_return('XYZ Library')
       render partial: 'requests/request', locals: { request: mock_request, group: true }
     end
 
