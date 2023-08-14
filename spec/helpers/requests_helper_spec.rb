@@ -91,7 +91,7 @@ RSpec.describe RequestsHelper do
         end
       end
 
-      context 'with a non-default origin pickup service point' do
+      context 'with a non-default origin pickup service point that is pickup_location=true' do
         let(:request) do
           instance_double(Folio::Request, pickup_library: 'ARS',
                                           service_point_id: 'faa81922-3da8-4086-a7fa-977d7d3e7977')
@@ -120,6 +120,38 @@ RSpec.describe RequestsHelper do
           options = helper.request_location_options(request)
           expect(options).to have_selector("option[selected='selected'][value='faa81922-3da8-4086-a7fa-977d7d3e7977']",
                                            text: 'Archive of Recorded Sound')
+        end
+      end
+
+      context 'with a non-default origin pickup service point that is pickup_location=false' do
+        let(:request) do
+          instance_double(Folio::Request, pickup_library: 'CLASSICS',
+                                          service_point_id: '8bb5d494-263f-42f0-9a9f-70451530d8a3')
+        end
+
+        before do
+          allow(Folio::ServicePoint).to receive_messages(
+            find_by_id: instance_double(Folio::ServicePoint,
+                                        code: 'CLASSICS',
+                                        id: '8bb5d494-263f-42f0-9a9f-70451530d8a3',
+                                        is_default_for_campus: nil,
+                                        is_default_pickup: false,
+                                        name: 'Classics Library',
+                                        pickup_location: false)
+          )
+          allow(request).to receive(:restricted_pickup_service_points).and_return(nil)
+          allow(request).to receive(:is_a?).with(Folio::Request).and_return(true)
+        end
+
+        it 'does not add the origin service point to the default options list' do
+          options = helper.request_location_options(request)
+          expect(options).not_to have_selector("option[value='8bb5d494-263f-42f0-9a9f-70451530d8a3']",
+                                               text: 'Classics Library')
+        end
+
+        it 'keeps the original default options list' do
+          options = helper.request_location_options(request)
+          expect(options).to have_css 'option', count: 2
         end
       end
     end
