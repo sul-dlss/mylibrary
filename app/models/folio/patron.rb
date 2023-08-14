@@ -195,7 +195,7 @@ module Folio
 
     # Requests from the proxy group
     def group_requests
-      return folio_requests.select(&:proxy_request?) if sponsor?
+      folio_requests.select(&:proxy_request?) if sponsor?
     end
 
     def to_partial_path
