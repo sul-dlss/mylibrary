@@ -46,12 +46,6 @@ borrow_direct_reshare:
 BORROW_DIRECT_CODE: BORROW_DIRECT
 ILL_CODE: ILL
 
-cdl:
-  url: http://requests.example.com
-
-embed:
-  url: https://embed.stanford.edu
-
 purl:
   url: https://purl.stanford.edu
 

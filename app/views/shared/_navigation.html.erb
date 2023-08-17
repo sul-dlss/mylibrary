@@ -11,7 +11,6 @@
         <% end %>
       <% end %>
     </li>
-    <% cdl_checkedout_count = patron_or_group.requests.select(&:cdl_checkedout?).length %>
     <li class="nav-item">
       <%= link_to checkouts_path(group: params[:group]), class: "nav-link #{active_page_class('checkouts')}", aria: {current: controller_name == 'checkouts' ? 'page' : false } do %>
         <%= sul_icon :'sharp-playlist_add_check-24px', classes: 'lg' %>
@@ -23,7 +22,7 @@
         <% elsif overdue_count.positive? %>
           <span class="info text-overdue"><%= sul_icon :'sharp-warning-24px' %> <%= overdue_count %> overdue</span>
         <% else %>
-          <span class="info"><%= patron_or_group.checkouts.length + cdl_checkedout_count %></span>
+          <span class="info"><%= patron_or_group.checkouts.length %></span>
         <% end %>
       <% end %>
     </li>
@@ -35,7 +34,7 @@
         <% if pickup_count.positive? %>
           <span class="info text-ready"><%= sul_icon :'sharp-check_circle-24px' %> <%= pickup_count %> ready</span>
         <% else %>
-          <span class="info"><%= patron_or_group.requests.length - cdl_checkedout_count %></span>
+          <span class="info"><%= patron_or_group.requests.length %></span>
         <% end %>
       <% end %>
     </li>

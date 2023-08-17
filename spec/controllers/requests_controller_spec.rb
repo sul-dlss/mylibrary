@@ -26,7 +26,7 @@ RSpec.describe RequestsController do
 
     let(:requests) do
       [
-        instance_double(Symphony::Request, key: '1', sort_key: nil, cdl_checkedout?: false)
+        instance_double(Symphony::Request, key: '1', sort_key: nil)
       ]
     end
 
@@ -47,26 +47,11 @@ RSpec.describe RequestsController do
       expect(assigns(:requests)).to eq requests
     end
 
-    describe 'cdl and non cdl requests' do
-      let(:requests) do
-        [
-          instance_double(Symphony::Request, key: '1', sort_key: nil, cdl_checkedout?: false),
-          instance_double(Symphony::Request, key: '1', sort_key: nil, cdl_checkedout?: true)
-        ]
-      end
-
-      it 'filters out cdl requets' do
-        get(:index)
-
-        expect(assigns(:requests).length).to eq 1
-      end
-    end
-
     describe 'BorrowDirect requests' do
       let(:requests) do
         [
-          instance_double(Symphony::Request, key: '1', sort_key: nil, cdl_checkedout?: false),
-          instance_double(BorrowDirectRequests::Request, key: 'sta-1', sort_key: nil, cdl_checkedout?: false)
+          instance_double(Symphony::Request, key: '1', sort_key: nil),
+          instance_double(BorrowDirectRequests::Request, key: 'sta-1', sort_key: nil)
         ]
       end
 
@@ -226,7 +211,7 @@ RSpec.describe RequestsController do
 
     let(:requests) do
       [
-        instance_double(Symphony::Request, key: '1', sort_key: nil, cdl_checkedout?: false)
+        instance_double(Symphony::Request, key: '1', sort_key: nil)
       ]
     end
 
@@ -241,31 +226,6 @@ RSpec.describe RequestsController do
       get(:index, params: { group: true })
 
       expect(assigns(:requests)).to eq requests
-    end
-  end
-
-  describe '#cdl_waitlist_position' do
-    let(:user) do
-      { username: 'somesunetid', patron_key: '123' }
-    end
-
-    let(:requests) do
-      [
-        instance_double(Symphony::Request, key: '1', sort_key: nil, cdl_waitlist_position: nil)
-      ]
-    end
-
-    let(:mock_client) { instance_double(SymphonyClient, ping: true) }
-
-    before do
-      allow(SymphonyClient).to receive(:new).and_return(mock_client)
-      warden.set_user(user)
-    end
-
-    it 'calls cdl_waitlist_position from the request' do
-      get(:cdl_waitlist_position, params: { format: 'js', id: '1' }, xhr: true)
-
-      expect(assigns(:request).key).to eq requests[0].key
     end
   end
 end

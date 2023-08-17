@@ -65,10 +65,6 @@ class BorrowDirectReshareRequests
       ACTIVE_REQUEST_STATUSES.include?(request_status)
     end
 
-    def cdl_checkedout?
-      false
-    end
-
     def date_submitted
       Date.parse(@request_json.fetch('dateCreated', nil))
     rescue TypeError, Date::Error => e

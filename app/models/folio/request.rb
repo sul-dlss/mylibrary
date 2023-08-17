@@ -16,8 +16,6 @@ module Folio
     end
 
     def to_partial_path
-      return 'checkouts/cdl_checkout' if cdl_checkedout?
-
       'requests/request'
     end
 
@@ -81,21 +79,9 @@ module Folio
       record.dig('item', 'item', 'effectiveCallNumberComponents', 'callNumber')
     end
 
-    ##
-    # Expensive calculation of CDL waitlist
-    def cdl_waitlist_position
-      return 'Next up ' if cdl_next_up?
-
-      catalog_info = CatalogInfo.find(barcode)
-      cdl_queue_length = catalog_info.hold_records.count(&:cdl_checkedout?)
-      "#{queue_position - cdl_queue_length} of #{queue_length - cdl_queue_length}"
-    end
-
     # TODO: After FOLIO launch change this method name to reflect FOLIO service point terminology
     # and possibly simplify / directly use the service point id rather than routing through the code
     def pickup_library
-      return 'CDL' if cdl?
-
       record.dig('pickupLocation', 'code')
     end
 
@@ -117,8 +103,6 @@ module Folio
         Settings.BORROW_DIRECT_CODE
       elsif from_ill?
         Settings.ILL_CODE
-      elsif cdl?
-        'CDL'
       else
         library_key
       end
@@ -152,34 +136,6 @@ module Folio
         (expiration_date || END_OF_DAYS).strftime('%FT%T'),
         (fill_by_date || END_OF_DAYS).strftime('%FT%T')
       ]
-    end
-
-    def circ_record
-      return unless cdl? && cdl_circ_record_key
-
-      @circ_record ||= begin
-        record = Checkout.find(cdl_circ_record_key, cdl: true)
-        return unless record.checkout_date == cdl_circ_record_checkout_date
-
-        record
-      end
-    end
-
-    # TODO: after FOLIO launch revisit CDL logic. Currently we've disabled it.
-    def cdl?
-      false
-    end
-
-    def cdl_loan_period
-      nil
-    end
-
-    def cdl_checkedout?
-      false
-    end
-
-    def cdl_expiration_date
-      nil
     end
 
     private

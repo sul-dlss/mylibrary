@@ -23,7 +23,7 @@ module Folio
         library_code = row[1]
         library_code = LANE_MAPPING.fetch(library_code, library_code)
 
-        # SAL3's CDL/ONORDER/INPROCESS locations are all mapped so SAL3-STACKS
+        # SAL3's ONORDER/INPROCESS locations are all mapped so SAL3-STACKS
         next if row[2] == 'SAL3-STACKS' && row[0] != 'STACKS'
 
         hash[row[2]] ||= [library_code, row[0]]

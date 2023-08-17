@@ -11,7 +11,7 @@ RSpec.describe 'Checkout Page' do
     visit checkouts_path
 
     expect(page).to have_css('ul.checkouts', count: 1)
-    expect(page).to have_css('ul.checkouts li', count: 13)
+    expect(page).to have_css('ul.checkouts li', count: 12)
 
     within(first('ul.checkouts li')) do
       expect(page).to have_css('.status', text: 'Overdue')
@@ -21,16 +21,6 @@ RSpec.describe 'Checkout Page' do
 
     within('ul.checkouts li:nth-child(5)') do
       expect(page).to have_css('.status', text: 'Overdue $30.00')
-    end
-  end
-
-  context 'with a cdl checkout' do
-    it do
-      visit checkouts_path
-      within(first('ul.checkouts')) do
-        expect(page).to have_css 'li.cdl-checkout', count: 1
-        expect(page).to have_link 'Open viewer'
-      end
     end
   end
 
@@ -105,7 +95,7 @@ RSpec.describe 'Checkout Page' do
       expect(page).to have_css('.active[data-sort="title"]', count: 2, visible: :all)
 
       within(first('ul.checkouts li')) do
-        expect(page).to have_css('.title', text: /Interferência do Kimbundu/)
+        expect(page).to have_css('.title', text: /Japanese animation/)
       end
     end
   end
