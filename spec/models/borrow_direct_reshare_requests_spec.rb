@@ -76,8 +76,6 @@ RSpec.describe BorrowDirectReshareRequests do
       it { expect(request).not_to be_active }
     end
 
-    it { expect(request).not_to be_cdl_checkedout }
-
     it 'returns the dateCreated as the date_submitted' do
       expect(request.date_submitted.to_s).to eq '2022-12-05'
     end

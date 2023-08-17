@@ -64,9 +64,5 @@ class BorrowDirectRequests
     def to_partial_path
       'requests/borrow_direct_request'
     end
-
-    def cdl_checkedout?
-      false
-    end
   end
 end

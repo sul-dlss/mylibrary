@@ -11,20 +11,12 @@ RSpec.describe 'Request Page' do
     visit requests_path
 
     expect(page).to have_css('ul.ready-requests', count: 1)
-    expect(page).to have_css('ul.ready-requests li', count: 3)
+    expect(page).to have_css('ul.ready-requests li', count: 2)
 
     within(first('ul.ready-requests li')) do
       expect(page).to have_css('.library', text: 'Green Library')
       expect(page).to have_css('.title', text: /Rothko : the color field paintings/)
       expect(page).to have_css('.call_number', text: 'ND237 .R725 A4 2017 F')
-    end
-  end
-
-  it 'has special behavior for next-up CDL requests' do
-    visit requests_path
-    within('ul.ready-requests li:last-child') do
-      expect(page).to have_link 'Open viewer'
-      expect(page).to have_link 'Cancel this request'
     end
   end
 

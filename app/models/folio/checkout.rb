@@ -16,9 +16,8 @@ module Folio
 
     SHORT_TERM_LOAN_PERIODS = %w[Hours Minutes].freeze
 
-    def initialize(record, cdl: false)
+    def initialize(record)
       @record = record
-      @cdl = cdl
     end
 
     def self.find(key, **args)
@@ -141,7 +140,7 @@ module Folio
     end
 
     def short_term_loan?
-      SHORT_TERM_LOAN_PERIODS.include?(loan_policy_interval) || @cdl
+      SHORT_TERM_LOAN_PERIODS.include?(loan_policy_interval)
     end
 
     def to_partial_path

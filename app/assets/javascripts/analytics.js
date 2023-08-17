@@ -76,23 +76,6 @@ document.addEventListener('turbolinks:load', function() {
     })
   });
 
-  document.querySelectorAll('[data-cdl-waitlist] a').forEach(function(el) {
-    el.addEventListener('click', function(e) {
-      sendAnalyticsEvent({
-        category: 'CDL Waitlist Check',
-        action: 'outbound click' 
-      })
-    })
-  });
-
-  document.querySelectorAll('a.view-cdl-request').forEach(function(el) {
-    el.addEventListener('click', function(e) {
-      sendAnalyticsEvent({
-        category: 'Open CDL in viewer'
-      })
-    })
-  });
-
   function contactFormSubmission(e) {
     var contactFormTo = $(e.currentTarget).closest('form').find('[data-contact-form-to-value]').text();
     sendAnalyticsEvent({

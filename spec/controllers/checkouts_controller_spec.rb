@@ -49,7 +49,7 @@ RSpec.describe CheckoutsController do
     context 'with requests' do
       let(:requests) do
         [
-          instance_double(Symphony::Request, key: '1', sort_key: nil, cdl_checkedout?: false)
+          instance_double(Symphony::Request, key: '1', sort_key: nil)
         ]
       end
 

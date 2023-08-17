@@ -12,7 +12,6 @@ class RequestsController < ApplicationController
   # GET /requests.json
   def index
     @requests = patron_or_group.requests
-                               .reject(&:cdl_checkedout?)
                                .sort_by { |request| request.sort_key(:date) }
   end
 
@@ -61,16 +60,6 @@ class RequestsController < ApplicationController
     end
 
     redirect_to requests_path(group: params[:group])
-  end
-
-  def cdl_waitlist_position
-    @request = patron_or_group.requests.find { |r| r.key == params['id'] }
-
-    respond_to do |format|
-      format.js do
-        @cdl_waitlist_position = @request.cdl_waitlist_position
-      end
-    end
   end
 
   private

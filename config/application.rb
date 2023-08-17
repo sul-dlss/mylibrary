@@ -67,7 +67,6 @@ module Mylibrary
       'ART' => 'Art & Architecture Library (Bowes)',
       'BIOLOGY' => 'Biology Library (Falconer)',
       'BUSINESS' => 'Business Library',
-      'CDL' => 'Digital lending',
       'CHEMCHMENG' => 'Chemistry & ChemEng Library (Swain)',
       'CLASSICS' => 'Classics Library',
       'EARTH-SCI' => 'Earth Sciences Library (Branner)',

@@ -9,9 +9,8 @@ module Symphony
 
     SHORT_TERM_LOAN_PERIODS = %w[HOURLY].freeze
 
-    def initialize(record, cdl: false)
+    def initialize(record)
       @record = record
-      @cdl = cdl
     end
 
     def self.find(key, **args)
@@ -139,7 +138,7 @@ module Symphony
     end
 
     def short_term_loan?
-      SHORT_TERM_LOAN_PERIODS.include?(loan_period_type) || @cdl
+      SHORT_TERM_LOAN_PERIODS.include?(loan_period_type)
     end
 
     def to_partial_path

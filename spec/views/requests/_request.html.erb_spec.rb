@@ -21,8 +21,6 @@ RSpec.describe 'requests/_request' do
         sort_key: '1',
         title: 'A Book',
         waitlist_position: nil,
-        cdl_loan_period: nil,
-        cdl?: false,
         **request_attributes
       )
     end
@@ -73,8 +71,6 @@ RSpec.describe 'requests/_request' do
         sort_key: '1',
         title: 'A Book',
         waitlist_position: nil,
-        cdl_loan_period: nil,
-        cdl?: false,
         patron_key: 'patronkey123',
         **request_attributes
       )
