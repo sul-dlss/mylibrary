@@ -64,10 +64,6 @@ group :production do
   gem 'newrelic_rpm'
 end
 
-group :symphony do
-  gem 'ruby-oci8'
-end
-
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem 'capybara'
