@@ -1,16 +1,30 @@
 # frozen_string_literal: true
 
 OkComputer.mount_at = false
+OkComputer.check_in_parallel = true
 
-if Settings.ils.client == 'SymphonyClient' && !Settings.folio_migration
-  # OKComputer check that checks if we have a connection to symws
-  class SymphonyClientCheck < OkComputer::Check
-    def check
-      ping = SymphonyClient.new.ping
-
-      mark_failure unless ping
+class OkapiCheck < OkComputer::Check
+  def check
+    if FolioClient.new.ping
+      mark_message 'Connected to OKAPI'
+    else
+      mark_failure
+      mark_message 'Unable to connect to OKAPI'
     end
   end
-
-  OkComputer::Registry.register 'symphony_web_services', SymphonyClientCheck.new
 end
+
+class GraphqlCheck < OkComputer::Check
+  def check
+    if FolioGraphqlClient.new.ping
+      mark_message 'Connected to Folio GraphQL'
+    else
+      mark_failure
+      mark_message 'Unable to connect to Folio GraphQL'
+    end
+  end
+end
+
+OkComputer::Registry.register('okapi', OkapiCheck.new) if Settings.folio.url
+OkComputer::Registry.register('graphql', GraphqlCheck.new) if Settings.folio_graphql.url
+OkComputer.make_optional %w[okapi graphql]
