@@ -29,11 +29,6 @@ Start the development server
 
     $ bin/dev
 
-### OCI8 gem
-
-In order to connect to the oracle database (to retrieve sponsor checkouts + requests for their research group),
-you need to have the Oracle database drivers available. Full [installation instructions](https://www.rubydoc.info/github/kubo/ruby-oci8/file/docs/install-instant-client.md) are available upstream.
-
 ## Configuring
 
 The MyLibrary app will be configuired to connect to various backend web services, particularly Symphony Web Services and
