@@ -41,7 +41,7 @@ class SymphonyClient
 
       JSON.parse(response.body)['sessionToken']
     rescue JSON::ParserError
-      Honeybadger.notify('Unable to connect to Symphony Web Services.')
+      Honeybadger.notify('Unable to connect to Symphony Web Services.') unless Settings.folio_migration
       nil
     end
   end
