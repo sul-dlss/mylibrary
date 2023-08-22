@@ -11,24 +11,24 @@ RSpec.describe 'Proxy User' do
     visit summaries_path
 
     expect(page).to have_css('.nav-tabs .nav-link', count: 2)
-    expect(page).to have_css('.nav-tabs .nav-link.active', text: 'Proxy FirstProxyLN')
+    expect(page).to have_css('.nav-tabs .nav-link.active', text: 'Self')
 
-    click_link 'Other proxies'
-    expect(page).to have_css('.nav-tabs .nav-link.active', text: 'Other proxies')
+    click_link 'Proxy group'
+    expect(page).to have_css('.nav-tabs .nav-link.active', text: 'Proxy group')
     expect(page).to have_text('The research group has unpaid fines that may affect the status of all proxies')
 
-    click_link 'Proxy FirstProxyLN'
-    expect(page).to have_css('.nav-tabs .nav-link.active', text: 'Proxy FirstProxyLN')
+    click_link 'Self'
+    expect(page).to have_css('.nav-tabs .nav-link.active', text: 'Self')
   end
 
   it 'toggles between proxy user and group checkouts' do
     visit checkouts_path
 
-    expect(page).to have_css('.nav-tabs .nav-link.active', text: 'Proxy FirstProxyLN (3)')
-    expect(page).to have_css('.nav-tabs .nav-link', text: 'Other proxies (4)')
+    expect(page).to have_css('.nav-tabs .nav-link.active', text: 'Self (3)')
+    expect(page).to have_css('.nav-tabs .nav-link', text: 'Proxy group (4)')
     expect(page).to have_text('Programming cultures : art and architecture in the age of software')
 
-    click_link 'Other proxies'
+    click_link 'Proxy group'
     expect(page).to have_text('Making plans : how to engage with landscape, design, and the urban environment')
     expect(page).not_to have_text('Programming cultures : art and architecture in the age of software')
     expect(page).to have_text('SecondproxyLN')
@@ -37,12 +37,12 @@ RSpec.describe 'Proxy User' do
   it 'toggles between proxy user and group requests' do
     visit requests_path
 
-    expect(page).to have_css('.nav-tabs .nav-link.active', text: 'Proxy FirstProxyLN (1)')
-    expect(page).to have_css('.nav-tabs .nav-link', text: 'Other proxies (1)')
+    expect(page).to have_css('.nav-tabs .nav-link.active', text: 'Self (1)')
+    expect(page).to have_css('.nav-tabs .nav-link', text: 'Proxy group (1)')
     expect(page).to have_text('The blockchain and the new architecture of trust')
     expect(page).not_to have_text('Borrower:')
 
-    click_link 'Other proxies'
+    click_link 'Proxy group'
     expect(page).to have_text('San Filippo di Fragalà')
     expect(page).not_to have_text('The blockchain and the new architecture of trust')
     expect(page).to have_text('SecondproxyLN')
@@ -50,12 +50,12 @@ RSpec.describe 'Proxy User' do
 
   it 'toggles between proxy user and group fines' do
     visit fines_path
-    expect(page).to have_css('.nav-tabs .nav-link.active', text: 'Proxy FirstProxyLN ($330.00)')
-    expect(page).to have_css('.nav-tabs .nav-link', text: 'Other proxies ($10.00)')
+    expect(page).to have_css('.nav-tabs .nav-link.active', text: 'Self ($330.00)')
+    expect(page).to have_css('.nav-tabs .nav-link', text: 'Proxy group ($10.00)')
     expect(page).to have_text('Aspects of grammatical architecture')
     expect(page).not_to have_text('Borrower:')
 
-    click_link 'Other proxies'
+    click_link 'Proxy group'
     expect(page).not_to have_css('.fines')
     expect(page).not_to have_text('Aspects of grammatical architecture')
     expect(page).not_to have_text('SecondproxyLN')
@@ -75,21 +75,21 @@ RSpec.describe 'Proxy User' do
 
     it 'show the sponsor checkouts on behalf of the group' do
       visit checkouts_path
-      click_link 'Other proxies'
+      click_link 'Proxy group'
       expect(page).to have_text('The architecture of nothingness')
       expect(page).not_to have_text('Soft living architecture')
     end
 
     it 'shows the sponsor requests on behalf of the group' do
       visit requests_path
-      click_link 'Other proxies'
+      click_link 'Proxy group'
       expect(page).to have_text('Architecture, festival and the city')
       expect(page).not_to have_text('theorizing the practice of architecture')
     end
 
     it 'does not show the sponsor fines on behalf of the group' do
       visit fines_path
-      click_link 'Other proxies'
+      click_link 'Proxy group'
       expect(page).not_to have_text('Frontier women and their art')
     end
   end

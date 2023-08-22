@@ -13,8 +13,8 @@ RSpec.describe 'Sponsor User' do
     expect(page).to have_css('.nav-tabs .nav-link', count: 2)
     expect(page).to have_css('.nav-tabs .nav-link.active', text: 'Self')
 
-    click_link 'Proxies'
-    expect(page).to have_css('.nav-tabs .nav-link.active', text: 'Proxies')
+    click_link 'Proxy group'
+    expect(page).to have_css('.nav-tabs .nav-link.active', text: 'Proxy group')
 
     click_link 'Self'
     expect(page).to have_css('.nav-tabs .nav-link.active', text: 'Self')
@@ -25,7 +25,7 @@ RSpec.describe 'Sponsor User' do
 
     expect(page).to have_button 'Pay $13.00 now'
 
-    click_link 'Proxies'
+    click_link 'Proxy group'
     expect(page).to have_text('Fines can be paid in My Library Account only by the borrower who accrued them')
     expect(page).not_to have_link 'Pay $340.00 now'
   end
