@@ -212,20 +212,20 @@ RSpec.describe 'Navigation' do
     it 'preserves the group parameter across navigation' do
       visit summaries_path
 
-      click_link 'Other proxies'
-      expect(page).to have_css('.nav-link.active', text: 'Other proxies')
+      click_link 'Proxy group'
+      expect(page).to have_css('.nav-link.active', text: 'Proxy group')
 
       click_link 'Requests'
-      expect(page).to have_css('.nav-link.active', text: 'Other proxies')
+      expect(page).to have_css('.nav-link.active', text: 'Proxy group')
 
       click_link 'Checkouts'
-      expect(page).to have_css('.nav-link.active', text: 'Other proxies')
+      expect(page).to have_css('.nav-link.active', text: 'Proxy group')
 
       click_link 'Fines'
-      expect(page).to have_css('.nav-link.active', text: 'Other proxies')
+      expect(page).to have_css('.nav-link.active', text: 'Proxy group')
 
       click_link 'Summary'
-      expect(page).to have_css('.nav-link.active', text: 'Other proxies')
+      expect(page).to have_css('.nav-link.active', text: 'Proxy group')
     end
 
     it 'has aria-current and nav labels' do
