@@ -185,15 +185,6 @@ class FolioClient
     end
   end
 
-  # Send a patron a PIN reset email
-  # @param [string] library_id the patron's library ID
-  # TODO: reset_path is unused here; we only need it for SymphonyClient#reset_pin
-  def reset_pin(library_id, _reset_path)
-    patron = find_patron_by_barcode(library_id, patron_info: false)
-    token = generate_pin_reset_token!(patron)
-    ResetPinsMailer.with(patron: patron, token: token).reset_pin.deliver_now
-  end
-
   # Assign a patron a new PIN using a token that identifies them
   # https://s3.amazonaws.com/foliodocs/api/mod-users/p/patronpin.html#patron_pin_post
   # @param [String] token the reset token
@@ -320,10 +311,5 @@ class FolioClient
       key = keygen.generate_key('patron pin reset token', ActiveSupport::MessageEncryptor.key_len)
       ActiveSupport::MessageEncryptor.new(key)
     end
-  end
-
-  # Generate a PIN reset token for the patron
-  def generate_pin_reset_token!(patron)
-    crypt.encrypt_and_sign(patron.key, expires_in: 20.minutes)
   end
 end

@@ -223,6 +223,11 @@ module Folio
       true
     end
 
+    # Generate a PIN reset token for the patron
+    def pin_reset_token
+      crypt.encrypt_and_sign(key, expires_in: 20.minutes)
+    end
+
     private
 
     def academic_staff_or_fellow?
@@ -250,6 +255,15 @@ module Folio
 
     def affiliations
       []
+    end
+
+    # Encryptor/decryptor for the token used in the PIN reset process
+    def crypt
+      @crypt ||= begin
+        keygen = ActiveSupport::KeyGenerator.new(Rails.application.secret_key_base)
+        key = keygen.generate_key('patron pin reset token', ActiveSupport::MessageEncryptor.key_len)
+        ActiveSupport::MessageEncryptor.new(key)
+      end
     end
   end
 end

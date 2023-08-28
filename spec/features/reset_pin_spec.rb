@@ -14,65 +14,18 @@ RSpec.describe 'Reset Pin' do
     end
   end
 
-  context 'when using Symphony' do
-    let(:mock_client) { instance_double(SymphonyClient, ping: true) }
-
-    before do
-      allow(ApplicationController).to receive(:ils_client_class).and_return(SymphonyClient)
-      allow(Settings.ils).to receive(:patron_model).and_return('Symphony::Patron')
-      allow(SymphonyClient).to receive(:new).and_return(mock_client)
-      allow(mock_client).to receive_messages(reset_pin: nil, change_pin: nil)
-    end
-
-    it 'allows user to reset pin' do
-      visit reset_pin_path
-      fill_in('library_id', with: '123456')
-      click_button 'Reset/Request PIN'
-      expect(page).to have_css '.flash_messages', text: 'Check your email!'
-    end
-
-    it 'a user can change their pin' do
-      visit change_pin_with_token_path('foo')
-      fill_in('pin', with: '123456')
-      click_button 'Change PIN'
-      expect(page).to have_css '.flash_messages', text: 'Success!'
-    end
-
-    context 'when asking the ILS to send the email fails' do
-      before do
-        allow(mock_client).to receive(:reset_pin).and_raise(SymphonyClient::IlsError)
-      end
-
-      it 'shows the user an error' do
-        visit reset_pin_path
-        fill_in('library_id', with: '123456')
-        click_button 'Reset/Request PIN'
-        expect(page).to have_css '.flash_messages', text: 'Something went wrong'
-      end
-    end
-
-    context 'when asking the ILS to change the PIN fails' do
-      before do
-        allow(mock_client).to receive(:change_pin).and_raise(SymphonyClient::IlsError)
-      end
-
-      it 'shows the user an error' do
-        visit change_pin_with_token_path('foo')
-        fill_in('pin', with: '123456')
-        click_button 'Change PIN'
-        expect(page).to have_css '.flash_messages', text: 'Something went wrong'
-      end
-    end
-  end
-
   context 'when using FOLIO' do
     let(:mock_client) { instance_double(FolioClient, ping: true) }
+    let(:patron) do
+      instance_double(Folio::Patron, email: 'jdoe@stanford.edu', display_name: 'J Doe', barcode: '123',
+                                     pin_reset_token: 'foo')
+    end
 
     before do
       allow(ApplicationController).to receive(:ils_client_class).and_return(FolioClient)
       allow(Settings.ils).to receive(:patron_model).and_return('Folio::Patron')
       allow(FolioClient).to receive(:new).and_return(mock_client)
-      allow(mock_client).to receive_messages(reset_pin: nil, change_pin: nil)
+      allow(mock_client).to receive_messages(find_patron_by_barcode: patron, change_pin: nil)
     end
 
     it 'allows user to reset pin' do
@@ -83,7 +36,7 @@ RSpec.describe 'Reset Pin' do
     end
 
     it 'a user can change their pin' do
-      visit change_pin_with_token_path('foo')
+      visit change_pin_with_token_path(token: 'foo')
       fill_in('pin', with: '123456')
       click_button 'Change PIN'
       expect(page).to have_css '.flash_messages', text: 'Success!'
@@ -95,7 +48,7 @@ RSpec.describe 'Reset Pin' do
       end
 
       it 'shows the user an error' do
-        visit change_pin_with_token_path('not_a_real_token')
+        visit change_pin_with_token_path(token: 'not_a_real_token')
         fill_in('pin', with: 'newpin')
         click_button 'Change PIN'
         expect(page).to have_css '.flash_messages', text: 'invalid or expired'
@@ -108,7 +61,7 @@ RSpec.describe 'Reset Pin' do
       end
 
       it 'shows the user an error' do
-        visit change_pin_with_token_path('foo')
+        visit change_pin_with_token_path(token: 'foo')
         fill_in('pin', with: 'newpin')
         click_button 'Change PIN'
         expect(page).to have_css '.flash_messages', text: 'Something went wrong'
@@ -118,12 +71,12 @@ RSpec.describe 'Reset Pin' do
 
   describe 'show/hide password', js: true do
     it 'by default the field is a password type' do
-      visit change_pin_with_token_path('foo')
+      visit change_pin_with_token_path(token: 'foo')
       expect(page).to have_css '[type="password"]'
     end
 
     it 'can be shown by clicking show/hide button' do
-      visit change_pin_with_token_path('foo')
+      visit change_pin_with_token_path(token: 'foo')
       within '#main form' do
         first('[data-visibility]').click
         expect(page).to have_css '[type="text"]'

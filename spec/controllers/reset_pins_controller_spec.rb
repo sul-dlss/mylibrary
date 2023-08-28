@@ -3,10 +3,15 @@
 require 'rails_helper'
 
 RSpec.describe ResetPinsController do
-  let(:mock_client) { instance_double(SymphonyClient, reset_pin: {}, ping: true) }
+  let(:mock_client) { instance_double(FolioClient, find_patron_by_barcode: patron, ping: true) }
+  let(:patron) do
+    instance_double(Folio::Patron, display_name: 'Patron', barcode: 'PATRON', email: 'patron@example.com',
+                                   pin_reset_token: 'abcdef')
+  end
 
   before do
-    allow(SymphonyClient).to receive(:new).and_return(mock_client)
+    allow(ApplicationController).to receive(:ils_client_class).and_return(FolioClient)
+    allow(FolioClient).to receive(:new).and_return(mock_client)
   end
 
   context 'with an authenticated request' do
@@ -29,8 +34,13 @@ RSpec.describe ResetPinsController do
 
   context 'with unauthenticated requests' do
     describe '#reset' do
-      it 'resets the pin and sets flash messages' do
+      it 'sends the reset pin email' do
+        expect { post :reset, params: { library_id: '123456' } }.to change { ActionMailer::Base.deliveries.count }.by(1)
+      end
+
+      it 'sets flash messages' do
         post :reset, params: { library_id: '123456' }
+
         expect(flash[:success]).to match(/associated with library ID 123456/)
       end
     end
@@ -42,7 +52,7 @@ RSpec.describe ResetPinsController do
     end
 
     context 'when everything is good' do
-      let(:mock_client) { instance_double(SymphonyClient, change_pin: {}, ping: true) }
+      let(:mock_client) { instance_double(FolioClient, change_pin: {}, ping: true) }
 
       it 'changes the pin and sets flash messages' do
         post :change, params: { token: 'abc', pin: '123' }
@@ -57,7 +67,7 @@ RSpec.describe ResetPinsController do
 
     context 'when the response is not 200' do
       before do
-        allow(mock_client).to receive(:change_pin).and_raise(SymphonyClient::IlsError)
+        allow(mock_client).to receive(:change_pin).and_raise(FolioClient::IlsError)
       end
 
       it 'does not change the pin and sets flash messages' do

@@ -7,7 +7,7 @@ class ResetPinsMailer < ApplicationMailer
   # Send an email with a link to change a patron's PIN
   def reset_pin
     @patron = params[:patron]
-    @url = change_pin_with_token_url(params[:token])
+    @url = change_pin_with_token_url(token: @patron.pin_reset_token)
 
     mail(
       to: email_address_with_name(@patron.email, @patron.display_name),
