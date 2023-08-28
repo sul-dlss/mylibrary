@@ -4,7 +4,7 @@
 class ResetPinsController < ApplicationController
   before_action :logout_user!
   rescue_from ActiveSupport::MessageEncryptor::InvalidMessage, with: :invalid_token
-  rescue_from FolioClient::IlsError, SymphonyClient::IlsError, with: :request_failed
+  rescue_from FolioClient::IlsError, with: :request_failed
 
   # Renders the first step for resetting the PIN
   #
@@ -21,7 +21,9 @@ class ResetPinsController < ApplicationController
   # POST /reset_pin
   def reset
     suppress ActiveRecord::RecordNotFound do
-      ils_client.reset_pin(reset_pin_params, change_pin_with_token_unencoded_url)
+      patron = FolioClient.new.find_patron_by_barcode(library_id_param, patron_info: false)
+
+      ResetPinsMailer.with(patron: patron).reset_pin.deliver_now
     end
 
     flash[:success] = t 'mylibrary.reset_pin.success_html', library_id: params['library_id']
@@ -46,7 +48,7 @@ class ResetPinsController < ApplicationController
 
   private
 
-  def reset_pin_params
+  def library_id_param
     params.require(:library_id)
   end
 
@@ -62,14 +64,5 @@ class ResetPinsController < ApplicationController
   def request_failed
     flash[:error] = t 'mylibrary.reset_pin.request_failed_html'
     redirect_to reset_pin_path
-  end
-
-  ##
-  # Hacky workaround Rails routing helpers to have the <> not encoded
-  # Symphony looks for the string <RESET_PIN_TOKEN> and injects the actual token
-  # in a URL crafted in the email sent to the user.
-  # TODO: remove this once we move to FOLIO
-  def change_pin_with_token_unencoded_url
-    change_pin_with_token_url('foo').gsub('foo', '<RESET_PIN_TOKEN>')
   end
 end
