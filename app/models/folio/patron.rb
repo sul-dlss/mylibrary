@@ -22,8 +22,10 @@ module Folio
       patron_info['user'] || {}
     end
 
+    # The patron key can be in one of two places; either on the user data (if it's from the FOLIO API)
+    # or at the top level (if it's from the GraphQL API)
     def key
-      patron_info['id']
+      patron_info['id'] || user_info['id']
     end
 
     def barcode
