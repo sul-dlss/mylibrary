@@ -10,6 +10,24 @@ RSpec.describe Folio::Patron do
     build(:proxy_patron, custom_properties: {})
   end
 
+  describe '#key' do
+    context 'with a Patron from the FOLIO APIs' do
+      subject(:patron) { described_class.new({ 'user' => { 'id' => 'xyz' } }) }
+
+      it 'returns the user id' do
+        expect(patron.key).to eq 'xyz'
+      end
+    end
+
+    context 'with a Patron from the Graphql API' do
+      subject(:patron) { described_class.new({ 'id' => 'xyz' }) }
+
+      it 'returns the user id' do
+        expect(patron.key).to eq 'xyz'
+      end
+    end
+  end
+
   context 'when the patron is a Sponsor' do
     describe '#checkouts' do
       subject(:checkouts) { sponsor.checkouts }
