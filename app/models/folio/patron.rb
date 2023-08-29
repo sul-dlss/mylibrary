@@ -98,7 +98,7 @@ module Folio
       # this type of group is unrelated to our proxy/sponsor "research groups" in the model Folio::Group
       patron_type = user_info.dig('patronGroup', 'desc')
 
-      return 'Fee borrower' if patron_type.match?(/Fee borrower/i)
+      return 'Fee borrower' if patron_type&.match?(/Fee borrower/i)
 
       # suppress the display of any other patron groups
       nil
