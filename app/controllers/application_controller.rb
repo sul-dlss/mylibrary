@@ -49,7 +49,7 @@ class ApplicationController < ActionController::Base
     return if request.path == root_path || current_user&.patron_key.blank? || symphony?
 
     # Symphony used numeric patron keys; FOLIO uses UUIDs
-    return if current_user&.patron_key&.match?(/\A[+-]?\d+\Z/)
+    return unless current_user&.patron_key&.match?(/\A[+-]?\d+\Z/)
 
     request.env['warden'].logout
     redirect_to root_url
