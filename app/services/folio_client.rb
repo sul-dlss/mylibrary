@@ -124,6 +124,10 @@ class FolioClient
     # We formerly used the mod-patron API to cancel hold requests, but it is
     # unable to cancel title level hold requests.
     request_data = get_json("/circulation/requests/#{hold_id}")
+
+    # Ensure this is the user's request before trying to cancel it
+    request_data = {} unless request_data['requesterId'] == user_id
+
     request_data.merge!('cancellationAdditionalInformation' => 'Canceled by mylibrary',
                         'cancelledByUserId' => user_id,
                         'cancelledDate' => Time.now.utc.iso8601,
