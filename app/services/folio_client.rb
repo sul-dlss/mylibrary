@@ -118,20 +118,17 @@ class FolioClient
   end
 
   # Cancel a hold request
-  # See https://s3.amazonaws.com/foliodocs/api/mod-patron/p/patron.html#patron_account__id__hold__holdid__cancel_post
   # @param [String] user_id the UUID of the user in FOLIO
   # @param [String] hold_id the UUID of the FOLIO hold
   def cancel_hold_request(user_id, hold_id)
-    # You would think FOLIO could look up this information and merge it itself, but no. You'd
-    # also think you could get the /circulation/requests/{id} endpoint data and use that,
-    # but the API schema is slightly different and OKAPI complains... so we have to look it
-    # up in the patron account data instead.
-    request_data = patron_account(user_id)['holds'].find { |h| h['requestId'] == hold_id }
+    # We formerly used the mod-patron API to cancel hold requests, but it is
+    # unable to cancel title level hold requests.
+    request_data = get_json("/circulation/requests/#{hold_id}")
     request_data.merge!('cancellationAdditionalInformation' => 'Canceled by mylibrary',
-                        'canceledByUserId' => user_id,
-                        'canceledDate' => Time.now.utc.iso8601,
+                        'cancelledByUserId' => user_id,
+                        'cancelledDate' => Time.now.utc.iso8601,
                         'status' => 'Closed - Cancelled')
-    response = post("/patron/account/#{user_id}/hold/#{hold_id}/cancel", json: request_data)
+    response = put("/circulation/requests/#{hold_id}", json: request_data)
     check_response(response, title: 'Cancel', context: { user_id: user_id, hold_id: hold_id })
 
     response
