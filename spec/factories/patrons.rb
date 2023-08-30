@@ -433,4 +433,83 @@ FactoryBot.define do
 
     initialize_with { new(patron_info) }
   end
+
+  factory :groupless_patron, class: 'Folio::Patron' do
+    transient do
+      custom_properties { {} } # Properties you can override in the test cases
+    end
+
+    patron_info do
+      { 'user' =>
+        { 'username' => 'Groupless1',
+          'barcode' => 'Groupless1',
+          'active' => true,
+          'personal' =>
+          { 'email' => 'dlss-access-team@stanford.edu',
+            'lastName' => 'Groupy',
+            'firstName' => 'Granger',
+            'preferredFirstName' => nil },
+          'proxiesFor' => [],
+          'proxiesOf' => [],
+          'expirationDate' => nil,
+          'externalSystemId' => nil,
+          'patronGroup' => nil,
+          'blocks' => [],
+          'manualBlocks' => [] },
+        'id' => 'bdfa62a1-758c-4389-ae81-8ddb37860f9b',
+        'holds' => [],
+        'accounts' => [],
+        'loans' => [],
+        'totalCharges' => { 'isoCurrencyCode' => 'USD', 'amount' => 0 },
+        'totalChargesCount' => 0,
+        'totalLoans' => 0,
+        'totalHolds' => 0 }.merge(custom_properties)
+    end
+
+    initialize_with { new(patron_info) }
+  end
+
+  factory :fee_borrower, class: 'Folio::Patron' do
+    transient do
+      custom_properties { {} } # Properties you can override in the test cases
+    end
+
+    patron_info do
+      { 'user' =>
+        { 'username' => 'Fee1',
+          'barcode' => 'Fee1',
+          'active' => true,
+          'personal' =>
+          { 'email' => 'dlss-access-team@stanford.edu',
+            'lastName' => 'Freddie',
+            'firstName' => 'Feelings',
+            'preferredFirstName' => nil },
+          'proxiesFor' => [],
+          'proxiesOf' => [],
+          'expirationDate' => nil,
+          'externalSystemId' => nil,
+          'patronGroup' => {
+            'desc' => 'Fee borrower',
+            'limits' =>
+            [{
+              'value' => 50,
+              'condition' => {
+                'name' => 'Maximum number of items charged out'
+              }
+            }]
+          },
+          'blocks' => [],
+          'manualBlocks' => [] },
+        'id' => 'bdfa62a1-758c-4389-ae81-8ddb37860f9b',
+        'holds' => [],
+        'accounts' => [],
+        'loans' => [],
+        'totalCharges' => { 'isoCurrencyCode' => 'USD', 'amount' => 0 },
+        'totalChargesCount' => 0,
+        'totalLoans' => 0,
+        'totalHolds' => 0 }.merge(custom_properties)
+    end
+
+    initialize_with { new(patron_info) }
+  end
 end
