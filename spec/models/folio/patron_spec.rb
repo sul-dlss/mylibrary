@@ -9,6 +9,12 @@ RSpec.describe Folio::Patron do
   let(:proxy) do
     build(:proxy_patron, custom_properties: {})
   end
+  let(:groupless_patron) do
+    build(:groupless_patron, custom_properties: {})
+  end
+  let(:fee_borrower) do
+    build(:fee_borrower, custom_properties: {})
+  end
 
   describe '#key' do
     context 'with a Patron from the FOLIO APIs' do
@@ -25,6 +31,34 @@ RSpec.describe Folio::Patron do
       it 'returns the user id' do
         expect(patron.key).to eq 'xyz'
       end
+    end
+  end
+
+  describe '#patron_type' do
+    it 'returns nil if the patronGroup exists but is not Fee borrower' do
+      expect(sponsor.patron_type).to be_nil
+    end
+
+    it 'returns nil if there is no patronGroup' do
+      expect(groupless_patron.borrow_limit).to be_nil
+    end
+
+    it 'returns Fee borrower if the patronGroup is Fee borrower' do
+      expect(fee_borrower.patron_type).to eq 'Fee borrower'
+    end
+  end
+
+  describe '#borrow_limit' do
+    it 'returns nil when the patronGroup has no maximum condition' do
+      expect(sponsor.borrow_limit).to be_nil
+    end
+
+    it 'returns nil if there is no patronGroup' do
+      expect(groupless_patron.borrow_limit).to be_nil
+    end
+
+    it 'returns the maximum number of items charged out when the patronGroup has a maximum condition' do
+      expect(fee_borrower.borrow_limit).to eq 50
     end
   end
 
