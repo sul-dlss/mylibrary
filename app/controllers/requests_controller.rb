@@ -52,7 +52,9 @@ class RequestsController < ApplicationController
     @response = ils_client.cancel_hold(*cancel_hold_params, patron_or_group.key)
 
     case @response.status
-    when 200
+    # The FOLIO API returns 204
+    # TODO: after FOLIO launch remove the 200 case which was the Symphony response
+    when 200, 204
       flash[:success] = t 'mylibrary.request.cancel.success_html', title: params['title']
     else
       Rails.logger.error(@response.body)
