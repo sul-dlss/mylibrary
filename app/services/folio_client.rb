@@ -104,7 +104,11 @@ class FolioClient
   # @param [String] item_id the UUID of the FOLIO item
   def renew_item_request(user_id, item_id)
     response = post('/circulation/renew-by-id', json: { itemId: item_id, userId: user_id })
-    check_response(response, title: 'Renew', context: { user_id: user_id, item_id: item_id })
+    begin
+      check_response(response, title: 'Renew', context: { user_id: user_id, item_id: item_id })
+    rescue FolioClient::IlsError => e
+      Honeybadger.notify(e)
+    end
 
     response
   end
