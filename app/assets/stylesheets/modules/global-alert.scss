@@ -1,7 +1,16 @@
- $global-alert-color: rgb(204, 0, 0);
+$global-alert-color: rgb(204, 0, 0);
+$su-bg-digital-green: rgb(0 133 102);
 
 .global-alert {
-  border: 1px solid $global-alert-color;
   margin: 10px auto;
-  padding: 10px;
+  padding: 15px;
+
+  color: white;
+  background: $su-bg-digital-green;
+  border-radius: 8px;
+  font-size: 1.215em;
+
+  p:last-child {
+    margin-bottom: 0;
+  }
 }
