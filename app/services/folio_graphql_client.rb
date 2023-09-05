@@ -330,7 +330,10 @@ class FolioGraphqlClient
       }",
       variables: { patronId: patron_uuid }
     })
-    raise data['errors'].pluck('message').join("\n") if data.key?('errors')
+
+    if data.key?('errors')
+      Honeybadger.notify(data['errors'].pluck('message').join("\n"), context: { patron_uuid: patron_uuid })
+    end
 
     data.dig('data', 'patron')
   end
