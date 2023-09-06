@@ -50,10 +50,10 @@ module Folio
         'Blocked'
       elsif barred?
         'Contact us'
-      elsif active?
-        'OK'
-      else
+      elsif expired?
         'Expired'
+      else
+        'OK'
       end
     end
 
@@ -75,14 +75,11 @@ module Folio
       end
     end
 
+    # From https://docs.folio.org/docs/users/: Inactive status indicates that the expiration date
+    # on the user’s record has passed and the user is no longer affiliated, employed, or enrolled.
+    # There are cases where a user record is inactive/expired and expirationDate is nil.
     def expired?
-      return false unless expired_date
-
-      expired_date.past?
-    end
-
-    def active?
-      user_info['active']
+      !user_info['active']
     end
 
     def expired_date

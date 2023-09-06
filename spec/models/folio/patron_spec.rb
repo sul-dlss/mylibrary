@@ -62,6 +62,56 @@ RSpec.describe Folio::Patron do
     end
   end
 
+  describe '#can_renew?' do
+    subject(:patron) do
+      described_class.new({ 'user' => { 'active' => active?, 'manualBlocks' => manual_blocks, 'blocks' => blocks } })
+    end
+
+    let(:active?) { true }
+    let(:manual_blocks) { [] }
+    let(:blocks) { [] }
+
+    context 'when the patron account is in good standing' do
+      it { expect(patron.can_renew?).to be true }
+    end
+
+    context 'when the patron account is expired' do
+      let(:active?) { false }
+
+      it { expect(patron.can_renew?).to be false }
+    end
+
+    context 'when the patron account is barred' do
+      let(:manual_blocks) { [{ type: 'barred' }] }
+
+      it { expect(patron.can_renew?).to be false }
+    end
+
+    context 'when the patron account is blocked' do
+      let(:blocks) { [{ type: 'blocked' }] }
+
+      it { expect(patron.can_renew?).to be false }
+    end
+  end
+
+  describe '#expired?' do
+    subject(:patron) do
+      described_class.new({ 'user' => { 'active' => active?, 'manualBlocks' => [], 'blocks' => [] } })
+    end
+
+    context 'when the patron account is active' do
+      let(:active?) { true }
+
+      it { expect(patron.expired?).to be false }
+    end
+
+    context 'when the patron account is inactive' do
+      let(:active?) { false }
+
+      it { expect(patron.expired?).to be true }
+    end
+  end
+
   context 'when the patron is a Sponsor' do
     describe '#checkouts' do
       subject(:checkouts) { sponsor.checkouts }
