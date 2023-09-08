@@ -15,6 +15,7 @@ module Folio
              private: true
 
     SHORT_TERM_LOAN_PERIODS = %w[Hours Minutes].freeze
+    FOLIO_LOST_STATUSES = ['Aged to lost', 'Declared lost'].freeze
 
     def initialize(record)
       @record = record
@@ -187,7 +188,7 @@ module Folio
     # rubocop:enable Metrics/MethodLength
 
     def lost?
-      record.dig('details', 'declaredLostDate')
+      FOLIO_LOST_STATUSES.include?(record.dig('item', 'item', 'status', 'name'))
     end
 
     def barcode
