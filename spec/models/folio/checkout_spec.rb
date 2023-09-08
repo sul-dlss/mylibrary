@@ -135,4 +135,25 @@ RSpec.describe Folio::Checkout do
       it { expect(checkout).not_to be_from_ill }
     end
   end
+
+  describe 'lost?' do
+    let(:record) do
+      { 'id' => 'dbc35cdf-0fbb-5fbe-8988-b4fa628365c7',
+        'item' =>
+          { 'item' =>
+            { 'status' => { 'name' => status } } } }
+    end
+
+    context 'when the checked out item has a lost status' do
+      let(:status) { 'Aged to lost' }
+
+      it { expect(checkout.lost?).to be true }
+    end
+
+    context 'when the checked out item does not have a lost status' do
+      let(:status) { 'Checked out' }
+
+      it { expect(checkout.lost?).to be false }
+    end
+  end
 end
