@@ -44,7 +44,7 @@ RSpec.describe 'Checkout Page' do
   end
 
   context 'when data is hidden behind a toggle' do
-    it 'shows the renew data when the list item is expanded', js: true do
+    it 'shows the renew data when the list item is expanded', :js do
       visit checkouts_path
 
       within('ul.checkouts li:nth-child(4)') do
@@ -53,7 +53,7 @@ RSpec.describe 'Checkout Page' do
       end
     end
 
-    it 'shows other data when the list item is expanded', js: true do
+    it 'shows other data when the list item is expanded', :js do
       visit checkouts_path
 
       within(first('ul.checkouts li')) do
@@ -84,7 +84,7 @@ RSpec.describe 'Checkout Page' do
     end
   end
 
-  it 'is sortable', js: true do
+  it 'is sortable', :js do
     visit checkouts_path
 
     within '#checkouts' do

@@ -35,7 +35,7 @@ RSpec.describe 'Fines Page' do
       end
     end
 
-    it 'has content behind a toggle', js: true do
+    it 'has content behind a toggle', :js do
       visit fines_path
 
       within('ul.fines') do

@@ -13,6 +13,7 @@ RSpec.describe Folio::ServicePoint do
     )
   end
 
+  # rubocop: disable Rails/RedundantActiveRecordAllMethod
   describe '.all' do
     it 'returns an array of service points' do
       expect(described_class.all.first).to be_a described_class
@@ -22,6 +23,7 @@ RSpec.describe Folio::ServicePoint do
       expect(described_class.all.size).to eq(4)
     end
   end
+  # rubocop: enable Rails/RedundantActiveRecordAllMethod
 
   describe '.default_service_points' do
     it 'returns only the default service points' do

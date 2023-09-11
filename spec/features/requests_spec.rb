@@ -42,7 +42,7 @@ RSpec.describe 'Request Page' do
     end
   end
 
-  it 'hides some data behind a toggle', js: true do
+  it 'hides some data behind a toggle', :js do
     visit requests_path
 
     within(first('ul.ready-requests li')) do
@@ -62,7 +62,7 @@ RSpec.describe 'Request Page' do
     expect(page).to have_css 'div.alert-success', text: 'Success!', count: 2
   end
 
-  it 'is sortable', js: true do
+  it 'is sortable', :js do
     visit requests_path
 
     within '#requests' do

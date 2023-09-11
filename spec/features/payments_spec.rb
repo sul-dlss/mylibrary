@@ -16,7 +16,7 @@ RSpec.describe 'Payments History' do
       login_as(username: 'NOTHING', patron_key: user_with_no_payments)
     end
 
-    it 'does not load table', js: true do
+    it 'does not load table', :js do
       visit fines_path
       click_on 'Show history'
 
@@ -29,7 +29,7 @@ RSpec.describe 'Payments History' do
       login_as(username: 'SUPER2', patron_key: user_with_single_payment)
     end
 
-    it 'renders a list item for a single payment', js: true do
+    it 'renders a list item for a single payment', :js do
       visit fines_path
       click_on 'Show history'
 
@@ -40,7 +40,7 @@ RSpec.describe 'Payments History' do
       end
     end
 
-    it 'has content behind a payments toggle', js: true do
+    it 'has content behind a payments toggle', :js do
       visit fines_path
       click_on 'Show history'
 
@@ -63,7 +63,7 @@ RSpec.describe 'Payments History' do
       expect(page).to have_css('h2', text: 'History')
     end
 
-    it 'renders a list item for every payment', js: true do
+    it 'renders a list item for every payment', :js do
       visit fines_path
       click_on 'Show history'
 
@@ -74,7 +74,7 @@ RSpec.describe 'Payments History' do
       end
     end
 
-    it 'has content behind a payments toggle', js: true do
+    it 'has content behind a payments toggle', :js do
       visit fines_path
       click_on 'Show history'
 
@@ -89,7 +89,7 @@ RSpec.describe 'Payments History' do
       end
     end
 
-    it 'is sortable', js: true do
+    it 'is sortable', :js do
       visit fines_path
       click_on 'Show history'
 
