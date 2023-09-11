@@ -9,7 +9,7 @@ RSpec.describe 'Contact form' do
       visit root_path
     end
 
-    describe 'hidden', js: true do
+    describe 'hidden', :js do
       it 'form should be hidden' do
         expect(page).not_to have_css('#mylibrary-modal', visible: :visible)
       end
@@ -21,7 +21,7 @@ RSpec.describe 'Contact form' do
       expect(page).to have_css 'dd', text: 'Earth Sciences Library (Branner) (brannerlibrary@stanford.edu)'
     end
 
-    describe 'visible', js: true do
+    describe 'visible', :js do
       before do
         click_link 'Circulation & Privileges'
       end
@@ -59,7 +59,7 @@ RSpec.describe 'Contact form' do
       visit root_path
     end
 
-    describe 'hidden', js: true do
+    describe 'hidden', :js do
       it 'form should be absent' do
         expect(page).not_to have_css('.contact-form')
       end

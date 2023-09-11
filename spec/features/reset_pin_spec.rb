@@ -69,7 +69,7 @@ RSpec.describe 'Reset Pin' do
     end
   end
 
-  describe 'show/hide password', js: true do
+  describe 'show/hide password', :js do
     it 'by default the field is a password type' do
       visit change_pin_with_token_path(token: 'foo')
       expect(page).to have_css '[type="password"]'

@@ -10,7 +10,7 @@ RSpec.describe 'Feedback form' do
     end
   end
 
-  context 'with js', js: true do
+  context 'with js', :js do
     before do
       login_as(username: 'SUPER1', patron_key: '521181')
       visit root_path
