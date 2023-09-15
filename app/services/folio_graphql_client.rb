@@ -29,6 +29,11 @@ class FolioGraphqlClient
     @tenant = tenant
   end
 
+  # Overridden so that we don't display password
+  def inspect
+    "#<#{self.class.name}:#{object_id}  @base_url=\"#{base_url}\">"
+  end
+
   def get(path, **kwargs)
     request(path, method: :get, **kwargs)
   end

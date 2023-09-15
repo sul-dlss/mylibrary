@@ -34,6 +34,11 @@ class FolioClient
   end
   # rubocop:enable Metrics/MethodLength
 
+  # Overridden so that we don't display password
+  def inspect
+    "#<#{self.class.name}:#{object_id}  @base_url=\"#{base_url}\">"
+  end
+
   def login(library_id, pin)
     user_response = get_json('/users', params: { query: CqlQuery.new(barcode: library_id).to_query })
     user = user_response.dig('users', 0)
