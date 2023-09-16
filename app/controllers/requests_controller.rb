@@ -82,7 +82,9 @@ class RequestsController < ApplicationController
   def handle_not_needed_after_request
     not_needed_after_response = ils_client.not_needed_after(*not_needed_after_params)
     case not_needed_after_response.status
-    when 200
+    # The FOLIO API returns 204
+    # TODO: after FOLIO launch remove the 200 case which was the Symphony response
+    when 200, 204
       flash[:success].push(t('mylibrary.request.update_not_needed_after.success_html', title: params['title']))
     else
       Rails.logger.error(not_needed_after_response.body)
