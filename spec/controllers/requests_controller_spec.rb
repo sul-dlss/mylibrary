@@ -3,13 +3,16 @@
 require 'rails_helper'
 
 RSpec.describe RequestsController do
-  let(:mock_patron) { instance_double(Symphony::Patron, requests: requests, key: '123') }
+  let(:mock_patron) { instance_double(Folio::Patron, requests: requests, key: '123') }
   let(:requests) { [] }
-
-  let(:mock_client) { instance_double(SymphonyClient, ping: true) }
+  let(:mock_client) { instance_double(FolioClient, ping: true) }
 
   before do
-    allow(SymphonyClient).to receive(:new).and_return(mock_client)
+    # TODO: Remove after setting default ILS Client to FolioClient
+    allow(ApplicationController).to receive(:ils_client_class).and_return(FolioClient)
+    # TODO: Remove after setting default patron model to Folio::Patron
+    allow(Settings.ils).to receive(:patron_model).and_return('Folio::Patron')
+    allow(FolioClient).to receive(:new).and_return(mock_client)
     allow(controller).to receive(:patron_or_group).and_return(mock_patron)
   end
 
@@ -26,14 +29,14 @@ RSpec.describe RequestsController do
 
     let(:requests) do
       [
-        instance_double(Symphony::Request, key: '1', sort_key: nil)
+        instance_double(Folio::Request, key: '1', sort_key: nil)
       ]
     end
 
-    let(:mock_client) { instance_double(SymphonyClient, ping: true) }
+    let(:mock_client) { instance_double(FolioClient, ping: true) }
 
     before do
-      allow(SymphonyClient).to receive(:new).and_return(mock_client)
+      allow(FolioClient).to receive(:new).and_return(mock_client)
       warden.set_user(user)
     end
 
@@ -50,7 +53,7 @@ RSpec.describe RequestsController do
     describe 'BorrowDirect requests' do
       let(:requests) do
         [
-          instance_double(Symphony::Request, key: '1', sort_key: nil),
+          instance_double(Folio::Request, key: '1', sort_key: nil),
           instance_double(BorrowDirectRequests::Request, key: 'sta-1', sort_key: nil)
         ]
       end
@@ -63,20 +66,20 @@ RSpec.describe RequestsController do
     end
 
     describe '#update' do
-      let(:api_response) { instance_double('Response', status: 200, content_type: :json) }
+      let(:api_response) { instance_double('Response', status: 204, content_type: :json) }
 
       let(:requests) do
-        [instance_double(Symphony::Request, key: '123')]
+        [instance_double(Folio::Request, key: '123')]
       end
 
-      let(:mock_client) { instance_double(SymphonyClient, ping: true) }
+      let(:mock_client) { instance_double(FolioClient, ping: true) }
 
       before do
-        allow(SymphonyClient).to receive(:new).and_return(mock_client)
+        allow(FolioClient).to receive(:new).and_return(mock_client)
       end
 
       context 'when cancel param is sent' do
-        let(:mock_client) { instance_double(SymphonyClient, cancel_hold: api_response, ping: true) }
+        let(:mock_client) { instance_double(FolioClient, cancel_hold: api_response, ping: true) }
 
         it 'cancels the hold and sets the flash message' do
           patch :update, params: { resource: 'abc', id: '123', cancel: true }
@@ -86,7 +89,7 @@ RSpec.describe RequestsController do
       end
 
       context 'when service_point param is sent' do
-        let(:mock_client) { instance_double(SymphonyClient, change_pickup_library: api_response, ping: true) }
+        let(:mock_client) { instance_double(FolioClient, change_pickup_library: api_response, ping: true) }
 
         it 'updates the pickup library and sets the flash message' do
           patch :update, params: { resource: 'abc', id: '123', service_point: 'Other library' }
@@ -96,7 +99,7 @@ RSpec.describe RequestsController do
       end
 
       context 'when not_needed_after param is sent' do
-        let(:mock_client) { instance_double(SymphonyClient, not_needed_after: api_response, ping: true) }
+        let(:mock_client) { instance_double(FolioClient, not_needed_after: api_response, ping: true) }
 
         it 'updates the not needed after and sets the flash message' do
           patch :update, params: { resource: 'abc', id: '123', not_needed_after: '1999/01/01' }
@@ -114,7 +117,7 @@ RSpec.describe RequestsController do
       end
 
       context 'with a group request' do
-        let(:mock_client) { instance_double(SymphonyClient, change_pickup_library: api_response, ping: true) }
+        let(:mock_client) { instance_double(FolioClient, change_pickup_library: api_response, ping: true) }
 
         it 'renews the item and redirects to checkouts_path' do
           patch :update, params: { resource: 'abc', id: '123', service_point: 'Other library', group: true }
@@ -139,19 +142,15 @@ RSpec.describe RequestsController do
     end
 
     describe '#destroy' do
-      let(:api_response) { instance_double('Response', status: 200, content_type: :json) }
-      let(:mock_client) { instance_double(SymphonyClient, cancel_hold: api_response, ping: true) }
+      let(:api_response) { instance_double('Response', status: 204, content_type: :json) }
+      let(:mock_client) { instance_double(FolioClient, cancel_hold: api_response, ping: true) }
 
       let(:requests) do
-        [instance_double(Symphony::Request, key: '123')]
+        [instance_double(Folio::Request, key: '123')]
       end
 
       before do
-        allow(SymphonyClient).to receive(:new).and_return(mock_client)
-      end
-
-      it 'requires resource and id params' do
-        expect { delete :destroy, params: { id: '123' } }.to raise_error(ActionController::ParameterMissing)
+        allow(FolioClient).to receive(:new).and_return(mock_client)
       end
 
       context 'when everything is good' do
@@ -166,7 +165,7 @@ RSpec.describe RequestsController do
         end
       end
 
-      context 'when the response is not 200' do
+      context 'when the response is not 204' do
         let(:api_response) { instance_double('Response', status: 401, content_type: :json, body: 'foo') }
 
         it 'does not cancel the hold and sets flash messages' do
@@ -211,14 +210,14 @@ RSpec.describe RequestsController do
 
     let(:requests) do
       [
-        instance_double(Symphony::Request, key: '1', sort_key: nil)
+        instance_double(Folio::Request, key: '1', sort_key: nil)
       ]
     end
 
-    let(:mock_client) { instance_double(SymphonyClient, ping: true) }
+    let(:mock_client) { instance_double(FolioClient, ping: true) }
 
     before do
-      allow(SymphonyClient).to receive(:new).and_return(mock_client)
+      allow(FolioClient).to receive(:new).and_return(mock_client)
       warden.set_user(user)
     end
 

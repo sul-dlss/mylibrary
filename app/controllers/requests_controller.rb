@@ -53,7 +53,7 @@ class RequestsController < ApplicationController
 
     case @response.status
     # The FOLIO API returns 204
-    # TODO: after FOLIO launch remove the 200 case which was the Symphony response
+    # TODO: after updating feature tests for FOLIO remove the 200 case which was the Symphony response
     when 200, 204
       flash[:success] = t 'mylibrary.request.cancel.success_html', title: params['title']
     else
@@ -70,7 +70,7 @@ class RequestsController < ApplicationController
     change_pickup_response = ils_client.change_pickup_library(*change_pickup_params)
     case change_pickup_response.status
     # The FOLIO API returns 204
-    # TODO: after FOLIO launch remove the 200 case which was the Symphony response
+    # TODO: after updating feature tests for FOLIO remove the 200 case which was the Symphony response
     when 200, 204
       flash[:success].push(t('mylibrary.request.update_pickup.success_html', title: params['title']))
     else
@@ -82,7 +82,9 @@ class RequestsController < ApplicationController
   def handle_not_needed_after_request
     not_needed_after_response = ils_client.not_needed_after(*not_needed_after_params)
     case not_needed_after_response.status
-    when 200
+    # The FOLIO API returns 204
+    # TODO: after updating feature tests for FOLIO remove the 200 case which was the Symphony response
+    when 200, 204
       flash[:success].push(t('mylibrary.request.update_not_needed_after.success_html', title: params['title']))
     else
       Rails.logger.error(not_needed_after_response.body)
@@ -90,20 +92,18 @@ class RequestsController < ApplicationController
     end
   end
 
+  # TODO: after updating feature tests for FOLIO remove id parameter (not needed by FOLIO)
   def cancel_hold_params
     params.require(%I[resource id])
   end
 
   def change_pickup_params
-    # TODO: after Folio launch remove conditional wrapper and delete the else (Symphony) part
-    if ils_client.is_a?(FolioClient)
-      params.require(%I[id service_point])
-    else
-      params.require(%I[resource id service_point])
-    end
+    # TODO: after updating feature tests for FOLIO remove id parameter (not needed by FOLIO)
+    params.require(%I[resource id service_point])
   end
 
   def not_needed_after_params
+    # TODO: after updating feature tests for FOLIO remove id parameter (not needed by FOLIO)
     params.require(%I[resource id not_needed_after])
   end
 
