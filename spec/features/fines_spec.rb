@@ -3,25 +3,29 @@
 require 'rails_helper'
 
 RSpec.describe 'Fines Page' do
-  let(:user_with_payments) { '521181' }
-  let(:user_without_fines) { '521206' }
+  let(:mock_client) { instance_double(FolioClient, ping: true) }
+  let(:patron_info) do
+    build(:patron_with_fines).patron_info
+  end
 
   before do
-    login_as(username: 'SUPER1', patron_key: user_with_payments)
+    allow(FolioClient).to receive(:new) { mock_client }
+    allow(mock_client).to receive_messages(patron_info: patron_info)
+    login_as(username: 'stub_user', patron_key: '50e8400-e29b-41d4-a716-446655440000')
   end
 
   context 'with fines' do
     it 'totals all the fines into the header' do
       visit fines_path
 
-      expect(page).to have_css('h2', text: 'Payable: $7.00')
+      expect(page).to have_css('h2', text: 'Payable: $325.00')
     end
 
     it 'totals all the accruing fines' do
       visit fines_path
 
-      expect(page).to have_css('h2', text: 'Accruing: $72.00')
-      expect(page).to have_content 'Fines are accruing on 4 overdue items'
+      expect(page).to have_css('h2', text: 'Accruing: $25.00')
+      expect(page).to have_content 'Fines are accruing on 1 overdue item'
     end
 
     it 'renders a list item for every fine' do
@@ -29,8 +33,8 @@ RSpec.describe 'Fines Page' do
 
       within('ul.fines') do
         expect(page).to have_css('li', count: 1)
-        expect(page).to have_css('li h3', text: 'Research handbook on the law of virtual and augmented reality')
-        expect(page).to have_css('li .status', text: 'Damaged item')
+        expect(page).to have_css('li h3', text: 'Memes and the future of pop culture / by Marcel Danesi')
+        expect(page).to have_css('li .status', text: 'Damaged material')
         expect(page).to have_css('li a', text: 'Contact library')
       end
     end
@@ -51,8 +55,8 @@ RSpec.describe 'Fines Page' do
   end
 
   context 'with no fines' do
-    before do
-      login_as(username: 'NOTHING', patron_key: user_without_fines)
+    let(:patron_info) do
+      build(:sponsor_patron).patron_info
     end
 
     it 'does not render table headers' do

@@ -3,18 +3,18 @@
 require 'rails_helper'
 
 RSpec.describe FinesController do
-  let(:mock_patron) { instance_double(Symphony::Patron, group?: false, barcode: '1234') }
+  let(:mock_patron) { instance_double(Folio::Patron, group?: false, barcode: '1234') }
 
   let(:fines) do
     [
-      instance_double(Symphony::Fine, key: '1', sequence: '1', owed: '12', status: 'BADCHECK')
+      instance_double(Folio::Account, key: '1', sequence: '1', owed: '12', status: 'BADCHECK')
     ]
   end
 
   before do
     allow(controller).to receive_messages(patron: mock_patron,
                                           ils_client: instance_double(
-                                            SymphonyClient, session_token: '1a2b3c4d5e6f7g8h9i0j', ping: true
+                                            FolioClient, session_token: '1a2b3c4d5e6f7g8h9i0j', ping: true
                                           ))
   end
 
@@ -26,12 +26,12 @@ RSpec.describe FinesController do
 
   context 'with an authenticated request' do
     let(:user) do
-      { username: 'somesunetid', patron_key: '123' }
+      { username: 'somesunetid', patron_key: '50e8400-e29b-41d4-a716-446655440000' }
     end
 
     let(:checkouts) do
       [
-        instance_double(Symphony::Checkout, key: '2', sort_key: Time.zone.now)
+        instance_double(Folio::Checkout, key: '2', sort_key: Time.zone.now)
       ]
     end
 
@@ -59,18 +59,18 @@ RSpec.describe FinesController do
 
   context 'with an authenticated request for group fines' do
     let(:user) do
-      { username: 'somesunetid', patron_key: '123' }
+      { username: 'somesunetid', patron_key: '50e8400-e29b-41d4-a716-446655440000' }
     end
 
     let(:checkouts) do
       [
-        instance_double(Symphony::Checkout, key: '2', sort_key: Time.zone.now)
+        instance_double(Folio::Checkout, key: '2', sort_key: Time.zone.now)
       ]
     end
 
     before do
       allow(mock_patron).to receive(:group).and_return(
-        instance_double(Symphony::Group, fines: fines, checkouts: checkouts)
+        instance_double(Folio::Group, fines: fines, checkouts: checkouts)
       )
       warden.set_user(user)
     end

@@ -118,18 +118,10 @@ class FolioClient
     response
   end
 
-  # API compatibility shim with SymphonyClient
-  # @param [String] resource the UUID of the FOLIO hold
-  # @param [String] _item_key this was the item key in Symphony
-  # @param [String] patron_key the UUID of the user in FOLIO
-  def cancel_hold(resource, _item_key, patron_key)
-    cancel_hold_request(patron_key, resource)
-  end
-
   # Cancel a hold request
-  # @param [String] user_id the UUID of the user in FOLIO
   # @param [String] hold_id the UUID of the FOLIO hold
-  def cancel_hold_request(user_id, hold_id)
+  # @param [String] user_id the UUID of the user in FOLIO
+  def cancel_hold_request(hold_id, user_id)
     # We formerly used the mod-patron API to cancel hold requests, but it is
     # unable to cancel title level hold requests.
     request_data = get_json("/circulation/requests/#{hold_id}")
@@ -147,25 +139,10 @@ class FolioClient
     response
   end
 
-  # TODO: after FOLIO launch rename this method to reflect service point terminology (maybe change_pickup_service_point)
-  #
-  # Change hold request service point
-  # @example client.change_pickup_library(hold_id: '4a64eccd-3e44-4bb0-a0f7-9b4c487abf61',
-  #                                        pickup_location_id: 'bd5fd8d9-72f3-4532-b68c-4db88063d16b')
   # @param [String] hold_id the UUID of the FOLIO hold
   # @param [String] service_point the UUID of the new service point
-  def change_pickup_library(hold_id, service_point)
+  def change_pickup_service_point(hold_id, service_point)
     update_request(hold_id, { 'pickupServicePointId' => service_point })
-  end
-
-  # TODO: after updating feature tests for FOLIO remove this shim and use #change_pickup_expiration directly
-  #
-  # API compatibility shim with SymphonyClient
-  # @param [String] resource the UUID of the FOLIO hold
-  # @param [String] _item_key this was the item key in Symphony
-  # @param [Date] not_needed_after date of the hold request
-  def not_needed_after(resource, _item_key, not_needed_after)
-    change_pickup_expiration(resource, not_needed_after)
   end
 
   # @example client.change_pickup_expiration(hold_id: '4a64eccd-3e44-4bb0-a0f7-9b4c487abf61',

@@ -103,6 +103,8 @@ RSpec.configure do |config|
   # Mock all requests to symphony for feature tests
   config.before type: :feature do
     stub_request(:any, %r{example.com/symws}).to_rack(FakeSymphony)
+    # stub_request(:any, /okapi\.stanford\.edu/).to_rack(FakeFolio)
+    # stub_request(:any, /graphql\.stanford\.edu:4000/).to_rack(FakeGraphql)
     stub_request(:any, /rc\.relais-host\.com/).to_return(status: 200)
     stub_request(:any, 'https://github.com/sul-dlss/global-alerts/raw/main/sul.yaml').to_return(status: 200)
   end

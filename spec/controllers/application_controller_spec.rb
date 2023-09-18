@@ -3,14 +3,14 @@
 require 'rails_helper'
 
 RSpec.describe ApplicationController do
-  let(:mock_client) { instance_double(SymphonyClient) }
+  let(:mock_client) { instance_double(FolioClient) }
 
   let(:user) do
-    { username: 'somesunetid', patron_key: '123' }
+    { username: 'somesunetid', patron_key: '50e8400-e29b-41d4-a716-446655440000' }
   end
 
   before do
-    allow(SymphonyClient).to receive(:new).and_return(mock_client)
+    allow(FolioClient).to receive(:new).and_return(mock_client)
   end
 
   describe '#current_user' do
@@ -19,7 +19,8 @@ RSpec.describe ApplicationController do
     end
 
     it 'returns the warden user' do
-      expect(controller.current_user).to have_attributes username: 'somesunetid', patron_key: '123'
+      expect(controller.current_user).to have_attributes username: 'somesunetid',
+                                                         patron_key: '50e8400-e29b-41d4-a716-446655440000'
     end
   end
 
@@ -43,15 +44,16 @@ RSpec.describe ApplicationController do
 
   describe '#patron' do
     context 'with a logged in user' do
-      let(:patron) { Symphony::Patron.new('fields' => { 'address1' => [], 'standing' => { 'key' => '' } }) }
+      let(:patron) { Folio::Patron.new('fields' => { 'address1' => [], 'standing' => { 'key' => '' } }) }
 
       before do
-        allow(mock_client).to receive(:patron_info).with('123', item_details: {}).and_return(patron)
+        allow(mock_client).to receive(:patron_info).with('50e8400-e29b-41d4-a716-446655440000',
+                                                         item_details: {}).and_return(patron)
         warden.set_user(user)
       end
 
       it 'is a new instance of the Patron class' do
-        expect(controller.patron).to be_an_instance_of Symphony::Patron
+        expect(controller.patron).to be_an_instance_of Folio::Patron
       end
     end
 
@@ -65,7 +67,8 @@ RSpec.describe ApplicationController do
         allow(controller).to receive(:item_details).and_return(some: :value)
 
         controller.patron
-        expect(mock_client).to have_received(:patron_info).with('123', item_details: { some: :value })
+        expect(mock_client).to have_received(:patron_info).with('50e8400-e29b-41d4-a716-446655440000',
+                                                                item_details: { some: :value })
       end
     end
 
@@ -77,20 +80,21 @@ RSpec.describe ApplicationController do
   end
 
   describe '#patron_or_group' do
-    let(:patron) { Symphony::Patron.new('fields' => { 'address1' => [], 'standing' => { 'key' => '' } }) }
+    let(:patron) { Folio::Patron.new('fields' => { 'address1' => [], 'standing' => { 'key' => '' } }) }
 
     before do
-      allow(mock_client).to receive(:patron_info).with('123', item_details: {}).and_return(patron)
+      allow(mock_client).to receive(:patron_info).with('50e8400-e29b-41d4-a716-446655440000',
+                                                       item_details: {}).and_return(patron)
       warden.set_user(user)
     end
 
     it 'returns the patron' do
-      expect(controller.patron_or_group).to be_an_instance_of Symphony::Patron
+      expect(controller.patron_or_group).to be_an_instance_of Folio::Patron
     end
 
     it 'returns the group' do
       controller.params[:group] = true
-      expect(controller.patron_or_group).to be_an_instance_of Symphony::Group
+      expect(controller.patron_or_group).to be_an_instance_of Folio::Group
     end
   end
 end

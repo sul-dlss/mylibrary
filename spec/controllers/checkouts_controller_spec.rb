@@ -3,13 +3,13 @@
 require 'rails_helper'
 
 RSpec.describe CheckoutsController do
-  let(:mock_patron) { instance_double(Symphony::Patron) }
+  let(:mock_patron) { instance_double(Folio::Patron) }
 
-  let(:mock_client) { instance_double(SymphonyClient, ping: true) }
+  let(:mock_client) { instance_double(FolioClient, ping: true) }
   let(:requests) { [] }
 
   before do
-    allow(SymphonyClient).to receive(:new).and_return(mock_client)
+    allow(FolioClient).to receive(:new).and_return(mock_client)
     allow(controller).to receive(:patron).and_return(mock_patron)
     allow(mock_patron).to receive(:requests).and_return(requests)
   end
@@ -22,12 +22,12 @@ RSpec.describe CheckoutsController do
 
   context 'with an authenticated request' do
     let(:user) do
-      { username: 'somesunetid', patron_key: '123' }
+      { username: 'somesunetid', patron_key: '50e8400-e29b-41d4-a716-446655440000' }
     end
 
     let(:checkouts) do
       [
-        instance_double(Symphony::Checkout, key: '1', sort_key: nil)
+        instance_double(Folio::Checkout, key: '1', sort_key: nil)
       ]
     end
 
@@ -49,7 +49,7 @@ RSpec.describe CheckoutsController do
     context 'with requests' do
       let(:requests) do
         [
-          instance_double(Symphony::Request, key: '1', sort_key: nil)
+          instance_double(Folio::Request, key: '1', sort_key: nil)
         ]
       end
 
@@ -63,18 +63,18 @@ RSpec.describe CheckoutsController do
 
   context 'with an authenticated request for group checkouts' do
     let(:user) do
-      { username: 'somesunetid', patron_key: '123' }
+      { username: 'somesunetid', patron_key: '50e8400-e29b-41d4-a716-446655440000' }
     end
 
     let(:checkouts) do
       [
-        instance_double(Symphony::Checkout, key: '2', sort_key: nil)
+        instance_double(Folio::Checkout, key: '2', sort_key: nil)
       ]
     end
 
     before do
-      allow(mock_patron).to receive(:group).and_return(instance_double(Symphony::Group, checkouts: checkouts,
-                                                                                        requests: requests))
+      allow(mock_patron).to receive(:group).and_return(instance_double(Folio::Group, checkouts: checkouts,
+                                                                                     requests: requests))
       warden.set_user(user)
     end
 

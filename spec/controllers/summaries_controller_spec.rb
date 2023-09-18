@@ -3,14 +3,14 @@
 require 'rails_helper'
 
 RSpec.describe SummariesController do
-  let(:mock_client) { instance_double(SymphonyClient, ping: true) }
+  let(:mock_client) { instance_double(FolioClient, ping: true) }
 
   let(:user) do
-    { username: 'somesunetid', patron_key: '123' }
+    { username: 'somesunetid', patron_key: '50e8400-e29b-41d4-a716-446655440000' }
   end
 
   before do
-    allow(SymphonyClient).to receive(:new).and_return(mock_client)
+    allow(FolioClient).to receive(:new).and_return(mock_client)
   end
 
   context 'with an unauthenticated request' do
@@ -29,7 +29,8 @@ RSpec.describe SummariesController do
     end
 
     before do
-      allow(mock_client).to receive(:patron_info).with('123', item_details: {}).and_return(mock_response)
+      allow(mock_client).to receive(:patron_info).with('50e8400-e29b-41d4-a716-446655440000',
+                                                       item_details: {}).and_return(mock_response)
       warden.set_user(user)
     end
 
@@ -38,7 +39,7 @@ RSpec.describe SummariesController do
     end
   end
 
-  context 'when there is no response from symphony' do
+  context 'when there is no response from Folio' do
     before do
       allow(mock_client).to receive(:ping).and_return(false)
     end

@@ -3,20 +3,20 @@
 require 'rails_helper'
 
 RSpec.describe RenewalsController do
-  let(:api_response) { instance_double('Response', status: 200, content_type: :json) }
+  let(:api_response) { instance_double('Response', status: 201, content_type: :json) }
   let(:mock_client) do
-    instance_double(SymphonyClient, renew_item: api_response, ping: true)
+    instance_double(FolioClient, renew_item: api_response, ping: true)
   end
   let(:user) do
-    { username: 'somesunetid', patron_key: '123' }
+    { username: 'somesunetid', patron_key: '50e8400-e29b-41d4-a716-446655440000' }
   end
 
-  let(:mock_patron) { instance_double(Symphony::Patron, checkouts: checkouts, key: '123') }
-  let(:checkouts) { [instance_double(Symphony::Checkout, item_key: '123', item_category_non_renewable?: false)] }
+  let(:mock_patron) { instance_double(Folio::Patron, checkouts: checkouts, key: '50e8400-e29b-41d4-a716-446655440000') }
+  let(:checkouts) { [instance_double(Folio::Checkout, item_key: '123', item_category_non_renewable?: false)] }
 
   before do
     warden.set_user(user)
-    allow(SymphonyClient).to receive(:new).and_return(mock_client)
+    allow(FolioClient).to receive(:new).and_return(mock_client)
     allow(controller).to receive(:patron_or_group).and_return(mock_patron)
   end
 
@@ -39,7 +39,7 @@ RSpec.describe RenewalsController do
       end
     end
 
-    context 'when the response is not 200' do
+    context 'when the response is not 201' do
       let(:api_response) { instance_double('Response', status: 401, content_type: :json) }
 
       it 'does not renew the item and sets flash messages' do
@@ -77,8 +77,8 @@ RSpec.describe RenewalsController do
       end
     end
 
-    context 'when the requested item is not eligible even though symphony does not stop us' do
-      let(:checkouts) { [instance_double(Symphony::Checkout, item_key: '123', item_category_non_renewable?: true)] }
+    context 'when the requested item is not eligible even though Folio does not stop us' do
+      let(:checkouts) { [instance_double(Folio::Checkout, item_key: '123', item_category_non_renewable?: true)] }
 
       it 'does not renew the item and sets flash messages' do
         post :create, params: { resource: 'abc', item_key: '123' }
@@ -90,22 +90,22 @@ RSpec.describe RenewalsController do
 
   describe '#all_eligible' do
     let(:mock_client) do
-      instance_double(SymphonyClient, renew_items: api_response, ping: true)
+      instance_double(FolioClient, renew_items: api_response, ping: true)
     end
     let(:api_response) { { success: [checkouts[0]], error: [checkouts[1]] } }
-    let(:mock_patron) { instance_double(Symphony::Patron, checkouts: checkouts) }
+    let(:mock_patron) { instance_double(Folio::Patron, checkouts: checkouts) }
     let(:checkouts) do
       [
-        instance_double(Symphony::Checkout, key: '1', renewable?: true, item_key: '123', title: 'ABC',
-                                            resource: 'item'),
-        instance_double(Symphony::Checkout, key: '2', renewable?: true, item_key: '456', title: 'XYZ',
-                                            resource: 'item'),
-        instance_double(Symphony::Checkout, key: '3', renewable?: false, item_key: '789', title: 'Not',
-                                            resource: 'item')
+        instance_double(Folio::Checkout, key: '1', renewable?: true, item_key: '123', title: 'ABC',
+                                         resource: 'item'),
+        instance_double(Folio::Checkout, key: '2', renewable?: true, item_key: '456', title: 'XYZ',
+                                         resource: 'item'),
+        instance_double(Folio::Checkout, key: '3', renewable?: false, item_key: '789', title: 'Not',
+                                         resource: 'item')
       ]
     end
 
-    it 'sends renewal requests to symphony for eligible items' do
+    it 'sends renewal requests to Folio for eligible items' do
       post :all_eligible
 
       expect(mock_client).to have_received(:renew_items).with([

@@ -30,8 +30,6 @@ class PaymentsController < ApplicationController
   #
   # POST /payments
   def create
-    # TODO: remove payment cookie methods when migration off of Symphony is complete
-    set_payment_cookie if ils_client.is_a? SymphonyClient
     @params = cybersource_request
 
     render 'cybersource_form', layout: false
@@ -41,8 +39,6 @@ class PaymentsController < ApplicationController
   #
   # POST /payments/accept
   def accept
-    # TODO: remove payment cookie methods when migration off of Symphony is complete
-    alter_payment_cookie if ils_client.is_a? SymphonyClient
     ils_client.pay_fines(user: cybersource_response.user,
                          amount: cybersource_response.amount,
                          session_id: cybersource_response.session_id)
@@ -56,8 +52,6 @@ class PaymentsController < ApplicationController
   #
   # POST /payments/cancel
   def cancel
-    # TODO: remove payment cookie methods when migration off of Symphony is complete
-    cookies.delete :payment_in_process if ils_client.is_a? SymphonyClient
     redirect_to fines_path, flash: { error: (t 'mylibrary.fine_payment.cancel_html') }
   end
 
@@ -69,36 +63,6 @@ class PaymentsController < ApplicationController
       key: 'payments',
       type: 'async',
       html: render_to_string(formats: [:html], layout: false)
-    }
-  end
-
-  ##
-  # Sets a cookie with information from the payment so that we can understand
-  # that there is a payment in flight
-  # TODO: remove payment cookie methods when migration off of Symphony is complete
-  def set_payment_cookie
-    cookies[:payment_in_process] = {
-      value: {
-        billseq: create_payment_params[:billseq],
-        session_id: create_payment_params[:session_id],
-        group: create_payment_params[:group]
-      }.to_json,
-      httponly: true,
-      expires: 10.minutes
-    }
-  end
-
-  ##
-  # On return from cybersource check the session_id to see if it checks out and
-  # then set the payment as "pending"
-  # TODO: remove payment cookie methods when migration off of Symphony is complete
-  def alter_payment_cookie
-    new_cookie = payment_in_process_cookie.dup
-    new_cookie[:pending] = true if new_cookie[:session_id] == cybersource_response.session_id
-    cookies[:payment_in_process] = {
-      value: new_cookie.to_json,
-      httponly: true,
-      expires: 10.minutes
     }
   end
 

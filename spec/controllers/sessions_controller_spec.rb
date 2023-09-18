@@ -3,15 +3,15 @@
 require 'rails_helper'
 
 RSpec.describe SessionsController do
-  let(:mock_client) { instance_double(SymphonyClient, ping: true) }
+  let(:mock_client) { instance_double(FolioClient, ping: true) }
 
   before do
-    allow(SymphonyClient).to receive(:new).and_return(mock_client)
+    allow(FolioClient).to receive(:new).and_return(mock_client)
   end
 
   context 'with an authenticated request' do
     let(:user) do
-      { username: 'somesunetid', patron_key: 123 }
+      { username: 'somesunetid', patron_key: '50e8400-e29b-41d4-a716-446655440000' }
     end
 
     before do
@@ -64,18 +64,18 @@ RSpec.describe SessionsController do
       expect(get(:index)).to render_template 'index'
     end
 
-    it 'pings symphony to make sure it is up' do
+    it 'pings Folio to make sure it is up' do
       get(:index)
 
       expect(assigns(:ils_ok)).to be true
     end
 
-    context 'when symphony is down' do
+    context 'when Folio is down' do
       before do
         allow(mock_client).to receive(:ping).and_return(false)
       end
 
-      it 'assigns false to symphony_ok' do
+      it 'assigns false to Folio_ok' do
         get(:index)
 
         expect(assigns(:ils_ok)).to be false
@@ -122,13 +122,14 @@ RSpec.describe SessionsController do
     context 'with a valid login' do
       before do
         request.env['uid'] = 'test123'
-        allow(mock_client).to receive(:login_by_sunetid).with('test123').and_return('key' => 1)
+        allow(mock_client).to receive(:login_by_sunetid).with('test123')
+                                                        .and_return('key' => '50e8400-e29b-41d4-a716-446655440000')
       end
 
       it 'logs in the user' do
         get(:login_by_sunetid)
 
-        expect(warden.user).to include username: 'test123', patron_key: 1
+        expect(warden.user).to include username: 'test123', patron_key: '50e8400-e29b-41d4-a716-446655440000'
       end
 
       it 'redirects the user to the summary page' do
