@@ -67,28 +67,24 @@ class RequestsController < ApplicationController
   private
 
   def handle_pickup_change_request
-    change_pickup_response = ils_client.change_pickup_library(*change_pickup_params)
-    case change_pickup_response.status
-    # The FOLIO API returns 204
-    # TODO: after FOLIO launch remove the 200 case which was the Symphony response
-    when 200, 204
-      flash[:success].push(t('mylibrary.request.update_pickup.success_html', title: params['title']))
-    else
-      Rails.logger.error(change_pickup_response.body)
-      flash[:error].push(t('mylibrary.request.update_pickup.error_html', title: params['title']))
-    end
+    response_flash_message(response: ils_client.change_pickup_library(*change_pickup_params),
+                           translation_key: 'update_pickup')
   end
 
   def handle_not_needed_after_request
-    not_needed_after_response = ils_client.not_needed_after(*not_needed_after_params)
-    case not_needed_after_response.status
+    response_flash_message(response: ils_client.not_needed_after(*not_needed_after_params),
+                           translation_key: 'update_not_needed_after')
+  end
+
+  def response_flash_message(response:, translation_key:)
+    case response.status
     # The FOLIO API returns 204
-    # TODO: after FOLIO launch remove the 200 case which was the Symphony response
+    # TODO: after updating feature tests for FOLIO remove the 200 case which was the Symphony response
     when 200, 204
-      flash[:success].push(t('mylibrary.request.update_not_needed_after.success_html', title: params['title']))
+      flash[:success].push(t("mylibrary.request.#{translation_key}.success_html", title: params['title']))
     else
-      Rails.logger.error(not_needed_after_response.body)
-      flash[:error].push(t('mylibrary.request.update_not_needed_after.error_html', title: params['title']))
+      Rails.logger.error(response.body)
+      flash[:error].push(t("mylibrary.request.#{translation_key}.success_html", title: params['title']))
     end
   end
 
