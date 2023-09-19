@@ -154,28 +154,26 @@ class FolioClient
   #                                        pickup_location_id: 'bd5fd8d9-72f3-4532-b68c-4db88063d16b')
   # @param [String] id the UUID of the FOLIO hold
   # @param [String] service_point the UUID of the new service point
-  def change_pickup_library(id, service_point)
-    request_data = get_json("/circulation/requests/#{id}")
-    request_data['pickupServicePointId'] = service_point
-    response = put("/circulation/requests/#{id}", json: request_data)
-    check_response(response, title: 'Change pickup location',
-                             context: { id: id,
-                                        service_point: service_point })
-    response
+  def change_pickup_library(hold_id, service_point)
+    update_request(hold_id, { 'pickupServicePointId' => service_point })
+  end
+
+  # TODO: after updating feature tests for FOLIO remove this shim and use #change_pickup_expiration directly
+  #
+  # API compatibility shim with SymphonyClient
+  # @param [String] resource the UUID of the hold in FOLIO
+  # @param [String] _item_key the UUID of the FOLIO item; this was required by Symphony.
+  # @param [String] patron_key the UUID of the user in FOLIO
+  def not_needed_after(resource, _item_key, not_needed_after)
+    change_pickup_expiration(resource, not_needed_after)
   end
 
   # @example client.change_pickup_expiration(hold_id: '4a64eccd-3e44-4bb0-a0f7-9b4c487abf61',
   #                                        expiration: Date.parse('2023-05-18'))
   # @param [String] hold_id the UUID of the FOLIO hold
   # @param [Date] expiration the hold request
-  def change_pickup_expiration(hold_id:, expiration:)
-    request_data = get_json("/circulation/requests/#{hold_id}")
-    request_data['requestExpirationDate'] = expiration.to_time.utc.iso8601
-    response = put("/circulation/requests/#{hold_id}", json: request_data)
-
-    check_response(response, title: 'Change pickup expiration',
-                             context: { hold_id: hold_id,
-                                        expiration: expiration })
+  def change_pickup_expiration(hold_id, expiration)
+    update_request(hold_id, { 'requestExpirationDate' => expiration.to_time.utc.iso8601 })
   end
 
   # Validate a pin for a user
@@ -239,6 +237,17 @@ class FolioClient
   # rubocop:enable Metrics/MethodLength
 
   private
+
+  def update_request(hold_id, request_data_updates)
+    request_data = get_json("/circulation/requests/#{hold_id}")
+
+    request_data.merge!(request_data_updates)
+    response = put("/circulation/requests/#{hold_id}", json: request_data)
+    check_response(response, title: 'Update request',
+                             context: { hold_id: hold_id }.merge(request_data_updates))
+
+    response
+  end
 
   def check_response(response, title:, context:)
     return if response.success?
