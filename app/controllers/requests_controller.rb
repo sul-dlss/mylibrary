@@ -95,7 +95,7 @@ class RequestsController < ApplicationController
   def change_pickup_params
     # TODO: after Folio launch remove conditional wrapper and delete the else (Symphony) part
     if ils_client.is_a?(FolioClient)
-      params.require(%I[id service_point])
+      params.require(%I[resource service_point])
     else
       params.require(%I[resource id service_point])
     end
