@@ -162,7 +162,7 @@ class FolioClient
   #
   # API compatibility shim with SymphonyClient
   # @param [String] resource the UUID of the FOLIO hold
-  # @param [String] _item_key the UUID of the FOLIO hold; this was the item key in Symphony
+  # @param [String] _item_key this was the item key in Symphony
   # @param [Date] not_needed_after date of the hold request
   def not_needed_after(resource, _item_key, not_needed_after)
     change_pickup_expiration(resource, not_needed_after)
