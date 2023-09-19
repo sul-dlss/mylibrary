@@ -120,7 +120,7 @@ class FolioClient
 
   # API compatibility shim with SymphonyClient
   # @param [String] resource the UUID of the FOLIO hold
-  # @param [String] _item_key the UUID of the FOLIO hold; this was the item key in Symphony
+  # @param [String] _item_key this was the item key in Symphony
   # @param [String] patron_key the UUID of the user in FOLIO
   def cancel_hold(resource, _item_key, patron_key)
     cancel_hold_request(patron_key, resource)
