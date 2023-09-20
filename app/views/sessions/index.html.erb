@@ -10,6 +10,15 @@
 
     <div class="page-section col-12 col-sm-6">
       <h2><%= proxy_login_header %></h2>
+      <div class="local-alert">
+        <p>
+          <strong>Stanford Libraries upgraded its system on August 27.</strong>
+          <br>
+          Account holders with a login PIN must request a new PIN.
+          <br>
+          Select "Request a PIN" below.
+        </p>
+      </div>
       <%= link_to 'Log in with PIN', login_url, class: 'btn btn-secondary' %>
       <%= link_to 'Request a PIN', reset_pin_path, class: 'btn btn-link' %>
     </div>
