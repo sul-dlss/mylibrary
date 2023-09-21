@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe ContactFormsController do
   let(:mock_client) do
     instance_double(
-      SymphonyClient,
+      FolioClient,
       patron_info: { 'fields' => { 'address1' => [], 'standing' => { 'key' => '' } } },
       ping: true
     )
@@ -15,7 +15,7 @@ RSpec.describe ContactFormsController do
   end
 
   before do
-    allow(SymphonyClient).to receive(:new).and_return(mock_client)
+    allow(FolioClient).to receive(:new).and_return(mock_client)
     login_as(username: 'stub_user')
     warden.set_user(user)
     headers = { HTTP_REFERER: root_path }
