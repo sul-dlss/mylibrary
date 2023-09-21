@@ -150,12 +150,14 @@ class FolioClient
   # TODO: after FOLIO launch rename this method to reflect service point terminology (maybe change_pickup_service_point)
   #
   # Change hold request service point
-  # @example client.change_pickup_library(hold_id: '4a64eccd-3e44-4bb0-a0f7-9b4c487abf61',
+  # @example client.change_pickup_library(resource: '4a64eccd-3e44-4bb0-a0f7-9b4c487abf61',
+  #                                        _item_key: '4a64eccd-3e44-4bb0-a0f7-9b4c487abf61',
   #                                        pickup_location_id: 'bd5fd8d9-72f3-4532-b68c-4db88063d16b')
-  # @param [String] hold_id the UUID of the FOLIO hold
+  # @param [String] resource the UUID of the FOLIO hold
+  # @param [String] _item_key this was the item key in Symphony
   # @param [String] service_point the UUID of the new service point
-  def change_pickup_library(hold_id, service_point)
-    update_request(hold_id, { 'pickupServicePointId' => service_point })
+  def change_pickup_library(resource, _item_key, service_point)
+    update_request(resource, { 'pickupServicePointId' => service_point })
   end
 
   # TODO: after updating feature tests for FOLIO remove this shim and use #change_pickup_expiration directly
