@@ -1,7 +1,13 @@
- $global-alert-color: rgb(204, 0, 0);
-
 .global-alert {
-  border: 1px solid $global-alert-color;
-  margin: 10px auto;
-  padding: 10px;
+  border: 1px solid $su-digital-red-dark;
+  margin-bottom: 10px;
+  padding: 5px 10px 5px 10px;
+  border-radius: 0.25rem;
+  color: $su-digital-red-dark;
+  p:last-child { margin-bottom: 0; }
+}
+
+.local-alert {
+  @extend .global-alert;
+  width: fit-content;
 }
