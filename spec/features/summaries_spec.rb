@@ -1,189 +1,118 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require 'active_support'
+require 'active_support/testing/time_helpers'
 
 RSpec.describe 'Summaries Page' do
+  include ActiveSupport::Testing::TimeHelpers
+
+  let(:mock_client) { instance_double(FolioClient, ping: true) }
+
+  let(:patron_info) do
+    build(:undergraduate_patron).patron_info
+  end
+
+  let(:sponsor) do
+    {}
+  end
+
   before do
-    login_as(username: 'SUPER1', patron_key: '521181')
-    visit summaries_url
+    # NOTE: tests that rely on LoanPolicy#due_date_after_renewal have to
+    #       take place when Time.now is included in the fixture's
+    #       loan policy schedule date range.
+    travel_to Time.zone.parse('2023-06-13T07:00:00.000+00:00')
+    allow(FolioClient).to receive(:new) { mock_client }
+    allow(mock_client).to receive_messages(patron_info: patron_info)
+    allow(mock_client).to receive(:patron_info).with('ec52d62d-9f0e-4ea5-856f-a1accb0121d1').and_return(sponsor)
+    login_as(username: 'stub_user', patron_key: 'd7b67ab1-a3f2-45a9-87cc-d867bca8315f')
+
+    visit summaries_path
   end
 
   it 'has a logout button' do
-    expect(page).to have_link 'SUPER1: logout'
+    expect(page).to have_link 'stub_user: logout'
   end
 
   it 'has patron data' do
-    expect(page).to have_css('h2', text: 'Undergrad Superuser')
-    expect(page).to have_css('dd.patron-status', text: 'OK')
+    expect(page).to have_css('h2', text: 'Ursula Undergrad')
+    expect(page).to have_css('dd.patron-status', text: 'Blocked')
     expect(page).to have_css('dd.email', text: 'superuser1@stanford.edu')
     expect(page).not_to have_css('dd.expired-date')
     expect(page).not_to have_css('dd.patron-type')
   end
 
   it 'has summary data' do
-    expect(page).to have_css('h3', text: 'Checkouts: 13')
-    expect(page).to have_css('div', text: '1 recalled')
-    expect(page).to have_css('div', text: '5 overdue')
+    expect(page).to have_css('h3', text: 'Checkouts: 1')
     expect(page).to have_css('h3', text: 'Requests: 3')
-    expect(page).to have_css('div', text: '2 ready for pickup')
-    expect(page).to have_css('h3', text: 'Fines & fees payable: $7.00')
-    expect(page).to have_css('div', text: '$72.00 accruing on overdue items')
+    expect(page).to have_css('h3', text: 'Fines & fees payable: $200.00')
+    expect(page).to have_css('div', text: '$200.00 accruing on overdue items')
+  end
+
+  context 'with overdue items' do
+    let(:patron_info) do
+      build(:patron_with_overdue_items).patron_info
+    end
+
+    it 'has summary data' do
+      expect(page).to have_css('div', text: '1 overdue')
+    end
+  end
+
+  context 'with requests ready for pickup' do
+    let(:patron_info) do
+      build(:sponsor_patron).patron_info
+    end
+
+    it 'has summary data' do
+      expect(page).to have_css('div', text: '2 ready for pickup')
+    end
+  end
+
+  context 'with recalled items' do
+    let(:patron_info) do
+      build(:patron_with_recalls).patron_info
+    end
+
+    it 'has summary data' do
+      expect(page).to have_css('div', text: '1 recalled')
+    end
   end
 
   context 'with a proxy borrower' do
-    before do
-      login_as(username: 'PROXY21', patron_key: '521197')
-      visit summaries_url
+    let(:patron_info) do
+      build(:proxy_patron).patron_info
+    end
+
+    let(:sponsor) do
+      build(:sponsor_patron).patron_info
     end
 
     it 'has patron data' do
-      expect(page).to have_css('h2', text: 'Second (P=FirstProxyLN) Faculty Group')
-      expect(page).to have_css('dd.patron-status', text: 'Blocked')
-      expect(page).to have_css('dd.email', text: 'faculty2@stanford.edu')
-      expect(page).to have_css('dd.expired-date', text: 'February 1, 2999')
+      expect(page).to have_css('h2', text: 'Piper Proxy')
+      expect(page).to have_css('dd.patron-status', text: 'OK')
+      expect(page).to have_css('dd.email', text: 'proxy_patron@stanford.edu')
     end
   end
 
-  context 'with mock data' do
-    let(:mock_client) do
-      instance_double(
-        SymphonyClient,
-        patron_info: {
-          'fields' => fields
-        }.with_indifferent_access,
-        ping: true
-      )
-    end
-
-    let(:fields) do
+  context 'with an inactive patron' do
+    subject(:patron_info) do
       {
-        address1: [],
-        standing: { key: '' },
-        profile: { key: '' },
-        circRecordList: [],
-        blockList: [],
-        holdRecordList: []
+        'user' => { 'active' => false, 'expirationDate' => '2023-06-16T19:00:24.000+00:00', 'manualBlocks' => [],
+                    'blocks' => [] }, 'loans' => [], 'holds' => [], 'accounts' => []
       }
     end
 
-    before do
-      allow(SymphonyClient).to receive(:new) { mock_client }
-      login_as(username: 'stub_user')
-    end
-
-    context 'with a patron in good standing' do
-      before do
-        fields[:standing] = { key: 'OK' }
-        fields[:circRecordList] = [{ fields: {} }, { fields: {} }]
-        fields[:holdRecordList] = [{ fields: {} }]
-      end
-
-      it 'shows the patron status and various counts' do
-        visit summaries_path
-
-        expect(page).to have_css('h3', text: 'Checkouts: 2')
-        expect(page).to have_css('h3', text: 'Requests: 1')
-        expect(page).to have_css('h3', text: 'Fines & fees payable: $0.00')
-      end
-    end
-
-    context 'with a recall' do
-      before do
-        fields[:circRecordList] = [
-          { fields: { recalledDate: '2019-01-01' } },
-          { fields: { recalledDate: '2018-02-02' } },
-          { fields: { overdue: true } }
-        ]
-      end
-
-      it 'shows number of recalled items' do
-        visit summaries_path
-
-        expect(page).to have_css('div', text: '2 recalled')
-      end
-    end
-
-    context 'with overdue books' do
-      before do
-        fields[:circRecordList] = [
-          { fields: { overdue: true } },
-          { fields: { overdue: true } },
-          { fields: { overdue: true } }
-        ]
-      end
-
-      it 'shows number of overdue items' do
-        visit summaries_path
-
-        expect(page).to have_css('div', text: '3 overdue')
-      end
-    end
-
-    context 'with requests that are ready for pickup' do
-      before do
-        fields[:holdRecordList] = [
-          { fields: { status: 'BEING_HELD' } },
-          { fields: { status: 'BEING_HELD' } },
-          { fields: { status: 'BEING_HELD' } }
-        ]
-      end
-
-      it 'shows number of overdue items' do
-        visit summaries_path
-
-        expect(page).to have_css('div', text: '3 ready')
-      end
-    end
-
-    context 'with fines' do
-      before do
-        fields[:blockList] = [
-          { fields: { owed: { amount: 50 } } },
-          { fields: { owed: { amount: 30 } } },
-          { fields: { owed: { amount: 20 } } }
-        ]
-      end
-
-      it 'shows the total fines' do
-        visit summaries_path
-
-        expect(page).to have_css('h3', text: 'Fines & fees payable: $100.00')
-      end
-    end
-
-    context 'with accruing overdue fines' do
-      before do
-        fields[:circRecordList] = [
-          { fields: { estimatedOverdueAmount: { amount: 50 } } },
-          { fields: { estimatedOverdueAmount: { amount: 30 } } },
-          { fields: { estimatedOverdueAmount: { amount: 20 } } }
-        ]
-      end
-
-      it 'shows number of overdue items' do
-        visit summaries_path
-
-        expect(page).to have_css('div', text: '$100.00 accruing on overdue items')
-      end
+    it 'has patron data' do
+      expect(page).to have_css('dd.patron-status', text: 'Expired')
+      expect(page).to have_css('dd.expired-date', text: 'June 16, 2023')
     end
   end
 
   context 'with no data returned' do
-    let(:mock_client) do
-      instance_double(
-        SymphonyClient,
-        ping: false
-      )
-    end
-
-    before do
-      allow(SymphonyClient).to receive(:new) { mock_client }
-      login_as(username: 'stub_user')
-    end
+    let(:mock_client) { instance_double(FolioClient, ping: false) }
 
     it 'redircts to the system unavailable page' do
-      visit summaries_path
-
       expect(page).to have_css('div', text: 'Temporarily unavailable')
     end
   end

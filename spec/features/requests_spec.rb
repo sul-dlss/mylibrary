@@ -3,8 +3,28 @@
 require 'rails_helper'
 
 RSpec.describe 'Request Page' do
+  let(:mock_client) { instance_double(FolioClient, ping: true) }
+  let(:patron_info) do
+    build(:sponsor_patron).patron_info
+  end
+
+  let(:service_points) do
+    build(:service_points)
+  end
+
+  let(:api_response) { instance_double('Response', status: 204, content_type: :json) }
+
   before do
-    login_as(username: 'SUPER2', patron_key: '521182')
+    allow(FolioClient).to receive(:new).and_return(mock_client)
+    allow(mock_client).to receive_messages(patron_info: patron_info,
+                                           cancel_hold: api_response,
+                                           change_pickup_library: api_response,
+                                           not_needed_after: api_response)
+    allow(Folio::ServicePoint).to receive_messages(
+      all: service_points
+    )
+
+    login_as(username: 'stub_user', patron_key: '513a9054-5897-11ee-8c99-0242ac120002')
   end
 
   it 'has ready for pickup request data' do
@@ -33,12 +53,12 @@ RSpec.describe 'Request Page' do
     visit requests_path
 
     expect(page).to have_css('ul.requested-requests', count: 1)
-    expect(page).to have_css('ul.requested-requests li', count: 3)
+    expect(page).to have_css('ul.requested-requests li', count: 2)
 
     within(first('ul.requested-requests li')) do
-      expect(page).to have_css('.library', text: 'Art & Architecture Library')
-      expect(page).to have_css('.title', text: 'Colour and light in ancient and medieval art')
-      expect(page).to have_css('.call_number', text: 'N5315 .C65 2018')
+      expect(page).to have_css('.library', text: 'Classics')
+      expect(page).to have_css('.title', text: 'A history of Persia')
+      expect(page).to have_css('.call_number', text: 'DS298 .W3 2023')
     end
   end
 
@@ -55,8 +75,8 @@ RSpec.describe 'Request Page' do
   end
 
   it 'is editable' do
-    visit edit_request_path('1675117')
-    select('East Asia Library', from: 'service_point')
+    visit edit_request_path('7fa87cfe-df57-4dc7-953b-a5a44ff37d91')
+    select('Engineering Library (Terman)', from: 'service_point')
     fill_in('not_needed_after', with: '1999/01/01')
     click_button 'Change'
     expect(page).to have_css 'div.alert-success', text: 'Success!', count: 2
@@ -73,14 +93,23 @@ RSpec.describe 'Request Page' do
       expect(page).to have_css('.active[data-sort="title"]', count: 2, visible: :all)
 
       within(first('ul.requested-requests li')) do
-        expect(page).to have_css('.title', text: /Colour and light/)
+        expect(page).to have_css('.title', text: /A history of Persia/)
       end
     end
   end
 
   context 'with no requests' do
+    let(:patron_info) do
+      {
+        'user' => { 'active' => true, 'manualBlocks' => [], 'blocks' => [] },
+        'loans' => [],
+        'holds' => [],
+        'accounts' => []
+      }
+    end
+
     before do
-      login_as(username: 'NOTHING', patron_key: '521206')
+      login_as(username: 'stub_user', patron_key: '513a9054-5897-11ee-8c99-0242ac120002')
     end
 
     it 'does not render table headers' do

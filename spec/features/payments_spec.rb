@@ -3,79 +3,38 @@
 require 'rails_helper'
 
 RSpec.describe 'Payments History' do
-  let(:user_with_payments) { '521181' }
-  let(:user_with_single_payment) { '521182' }
-  let(:user_with_no_payments) { '521206' }
+  let(:mock_client) { instance_double(FolioClient, ping: true) }
+
+  let(:patron_info) do
+    build(:undergraduate_patron).patron_info
+  end
 
   before do
-    login_as(username: 'SUPER1', patron_key: user_with_payments)
+    allow(FolioClient).to receive(:new) { mock_client }
+    allow(mock_client).to receive_messages(patron_info: patron_info)
+    login_as(username: 'stub_user', patron_key: '513a9054-5897-11ee-8c99-0242ac120002')
+
+    visit fines_path
   end
 
-  context 'with no payments' do
-    before do
-      login_as(username: 'NOTHING', patron_key: user_with_no_payments)
-    end
-
-    it 'does not load table', :js do
-      visit fines_path
-      click_on 'Show history'
-
-      expect(page).to have_css('span', text: 'There is no history on this account')
-    end
-  end
-
-  context 'with a single payment' do
-    before do
-      login_as(username: 'SUPER2', patron_key: user_with_single_payment)
-    end
-
-    it 'renders a list item for a single payment', :js do
-      visit fines_path
-      click_on 'Show history'
-
-      within('ul.payments') do
-        expect(page).to have_css('li', count: 1)
-        expect(page).to have_css('li h3', text: 'No item associated with this payment')
-        expect(page).to have_css('li .bill_description', text: 'Privileges fee')
-      end
-    end
-
-    it 'has content behind a payments toggle', :js do
-      visit fines_path
-      click_on 'Show history'
-
-      within('ul.payments') do
-        within(first('li')) do
-          expect(page).not_to have_css('dl', visible: :visible)
-          expect(page).not_to have_css('dt', text: 'Resolution', visible: :visible)
-          click_button 'Expand'
-          expect(page).to have_css('dl', visible: :visible)
-          expect(page).to have_css('dt', text: 'Resolution', visible: :visible)
-        end
-      end
-    end
-  end
-
-  context 'with multiple payments' do
+  context 'with payments' do
     it 'has a header for payment history' do
-      visit fines_path
-
       expect(page).to have_css('h2', text: 'History')
     end
 
     it 'renders a list item for every payment', :js do
-      visit fines_path
       click_on 'Show history'
 
       within('ul.payments') do
-        expect(page).to have_css('li', count: 2)
-        expect(page).to have_css('li h3', text: 'California : a history')
-        expect(page).to have_css('li .bill_description', text: 'Overdue item')
+        expect(page).to have_css('li', count: 10)
+        expect(page).to have_css('li h3',
+                                 text: 'Aspects of twentieth century art : Picasso - Important paintings, ' \
+                                       'watercolours, and new linocuts.')
+        expect(page).to have_css('li .bill_description', text: 'Lost item fee')
       end
     end
 
     it 'has content behind a payments toggle', :js do
-      visit fines_path
       click_on 'Show history'
 
       within('ul.payments') do
@@ -90,7 +49,6 @@ RSpec.describe 'Payments History' do
     end
 
     it 'is sortable', :js do
-      visit fines_path
       click_on 'Show history'
 
       within '#payments' do
@@ -101,9 +59,26 @@ RSpec.describe 'Payments History' do
         expect(page).to have_css('.active[data-sort="bill_description"]', count: 2, visible: :all)
 
         within(first('ul.payments li')) do
-          expect(page).to have_css('.bill_description', text: /Overdue item/)
+          expect(page).to have_css('.bill_description', text: 'Damaged material')
         end
       end
+    end
+  end
+
+  context 'with no payments' do
+    let(:patron_info) do
+      {
+        'user' => { 'active' => true, 'manualBlocks' => [], 'blocks' => [] },
+        'loans' => [],
+        'holds' => [],
+        'accounts' => []
+      }
+    end
+
+    it 'does not load table', :js do
+      click_on 'Show history'
+
+      expect(page).to have_css('span', text: 'There is no history on this account')
     end
   end
 end
