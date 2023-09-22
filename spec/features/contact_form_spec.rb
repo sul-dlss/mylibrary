@@ -3,9 +3,26 @@
 require 'rails_helper'
 
 RSpec.describe 'Contact form' do
+  let(:mock_client) { instance_double(FolioClient, ping: true) }
+
+  let(:patron_info) do
+    {
+      'user' => { 'active' => true, 'manualBlocks' => [], 'blocks' => [] },
+      'loans' => [],
+      'holds' => [],
+      'accounts' => []
+    }
+  end
+
+  before do
+    allow(FolioClient).to receive(:new).and_return(mock_client)
+    allow(mock_client).to receive_messages(patron_info: patron_info)
+  end
+
   context 'with user logged in' do
     before do
-      login_as(username: 'SUPER1', patron_key: '521181')
+      login_as(username: 'stub_user', patron_key: '513a9054-5897-11ee-8c99-0242ac120002')
+
       visit root_path
     end
 
@@ -77,12 +94,12 @@ RSpec.describe 'Contact form' do
   end
 
   describe 'form header' do
-    before { login_as(username: 'SUPER1', patron_key: '521181') }
+    before { login_as(username: 'stub_user', patron_key: '513a9054-5897-11ee-8c99-0242ac120002') }
 
     context 'when the standard Circ & Privs link' do
       before { visit contact_path }
 
-      it 'is "Contact Circuation & Privileges"' do
+      it 'is "Contact Circulation & Privileges"' do
         expect(page).to have_css('h2', text: 'Contact Circulation & Privileges')
       end
     end

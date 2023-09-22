@@ -3,10 +3,20 @@
 require 'rails_helper'
 
 RSpec.describe 'Internal flash messages' do
-  let(:user) { '521181' }
+  let(:mock_client) { instance_double(FolioClient, ping: true) }
+  let(:patron_info) do
+    {
+      'user' => { 'active' => true, 'manualBlocks' => [], 'blocks' => [] },
+      'loans' => [],
+      'holds' => [],
+      'accounts' => []
+    }
+  end
 
   before do
-    login_as(username: 'SUPER1', patron_key: user)
+    allow(FolioClient).to receive(:new).and_return(mock_client)
+    allow(mock_client).to receive_messages(patron_info: patron_info)
+    login_as(username: 'stub_user', patron_key: '513a9054-5897-11ee-8c99-0242ac120002')
   end
 
   context 'when message is set' do

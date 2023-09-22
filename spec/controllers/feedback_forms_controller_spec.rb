@@ -3,10 +3,10 @@
 require 'rails_helper'
 
 RSpec.describe FeedbackFormsController do
-  let(:mock_client) { instance_double(SymphonyClient, ping: true) }
+  let(:mock_client) { instance_double(FolioClient, ping: true) }
 
   before do
-    allow(SymphonyClient).to receive(:new).and_return(mock_client)
+    allow(FolioClient).to receive(:new).and_return(mock_client)
   end
 
   context 'when the current user is anonymous' do

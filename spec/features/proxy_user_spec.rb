@@ -1,10 +1,36 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require 'active_support'
+require 'active_support/testing/time_helpers'
 
 RSpec.describe 'Proxy User' do
+  include ActiveSupport::Testing::TimeHelpers
+
+  let(:mock_client) { instance_double(FolioClient, ping: true) }
+
+  let(:service_points) do
+    build(:service_points)
+  end
+
+  let(:patron_info) do
+    build(:proxy_patron).patron_info
+  end
+
+  let(:sponsor) do
+    build(:sponsor_patron).patron_info
+  end
+
   before do
-    login_as(username: 'PROXY21', patron_key: '521197')
+    # NOTE: tests that rely on LoanPolicy#due_date_after_renewal have to
+    #       take place when Time.now is included in the fixture's
+    #       loan policy schedule date range.
+    travel_to Time.zone.parse('2023-06-13T07:00:00.000+00:00')
+    allow(FolioClient).to receive(:new) { mock_client }
+    allow(mock_client).to receive_messages(patron_info: patron_info)
+    allow(mock_client).to receive(:patron_info).with('ec52d62d-9f0e-4ea5-856f-a1accb0121d1').and_return(sponsor)
+    allow(Folio::ServicePoint).to receive_messages(all: service_points)
+    login_as(username: 'stub_user', patron_key: 'bdfa62a1-758c-4389-ae81-8ddb37860f9b')
   end
 
   it 'has a tab to switch between user and group' do
@@ -15,7 +41,6 @@ RSpec.describe 'Proxy User' do
 
     click_link 'Proxy group'
     expect(page).to have_css('.nav-tabs .nav-link.active', text: 'Proxy group')
-    expect(page).to have_text('The research group has unpaid fines that may affect the status of all proxies')
 
     click_link 'Self'
     expect(page).to have_css('.nav-tabs .nav-link.active', text: 'Self')
@@ -24,14 +49,14 @@ RSpec.describe 'Proxy User' do
   it 'toggles between proxy user and group checkouts' do
     visit checkouts_path
 
-    expect(page).to have_css('.nav-tabs .nav-link.active', text: 'Self (3)')
-    expect(page).to have_css('.nav-tabs .nav-link', text: 'Proxy group (4)')
-    expect(page).to have_text('Programming cultures : art and architecture in the age of software')
+    expect(page).to have_css('.nav-tabs .nav-link.active', text: 'Self (1)')
+    expect(page).to have_css('.nav-tabs .nav-link', text: 'Proxy group (2)')
+    expect(page).to have_text('Sci-fi architecture.')
 
     click_link 'Proxy group'
-    expect(page).to have_text('Making plans : how to engage with landscape, design, and the urban environment')
-    expect(page).not_to have_text('Programming cultures : art and architecture in the age of software')
-    expect(page).to have_text('SecondproxyLN')
+    expect(page).to have_text('Music, sound, language, theater')
+    expect(page).not_to have_text('Sci-fi architecture.')
+    expect(page).to have_text('Piper Proxy')
   end
 
   it 'toggles between proxy user and group requests' do
@@ -39,58 +64,24 @@ RSpec.describe 'Proxy User' do
 
     expect(page).to have_css('.nav-tabs .nav-link.active', text: 'Self (1)')
     expect(page).to have_css('.nav-tabs .nav-link', text: 'Proxy group (1)')
-    expect(page).to have_text('The blockchain and the new architecture of trust')
+    expect(page).to have_text('A history of Persia')
     expect(page).not_to have_text('Borrower:')
 
     click_link 'Proxy group'
-    expect(page).to have_text('San Filippo di Fragalà')
-    expect(page).not_to have_text('The blockchain and the new architecture of trust')
-    expect(page).to have_text('SecondproxyLN')
+    expect(page).to have_text('Fiction!')
+    expect(page).not_to have_text('A history of Persia')
+    expect(page).to have_text('Piper Proxy')
   end
 
   it 'toggles between proxy user and group fines' do
     visit fines_path
-    expect(page).to have_css('.nav-tabs .nav-link.active', text: 'Self ($330.00)')
-    expect(page).to have_css('.nav-tabs .nav-link', text: 'Proxy group ($10.00)')
-    expect(page).to have_text('Aspects of grammatical architecture')
-    expect(page).not_to have_text('Borrower:')
+
+    expect(page).to have_css('.nav-tabs .nav-link.active', text: 'Self ($200.00)')
+    expect(page).to have_css('.nav-tabs .nav-link', text: 'Proxy group ($0.00)')
+    expect(page).to have_text('(RE)DISCOVERING THE OLMEC - NATIONAL GEOGRAPHIC SOCIETY-SMITHSONIAN INSTITUTION')
 
     click_link 'Proxy group'
     expect(page).not_to have_css('.fines')
-    expect(page).not_to have_text('Aspects of grammatical architecture')
-    expect(page).not_to have_text('SecondproxyLN')
-  end
-
-  context 'with sponsor activity on behalf of the group' do
-    let(:symphony_db_client) do
-      instance_double(SymphonyDbClient,
-                      group_circrecord_keys: ['12838155:2:1:1'],
-                      group_holdrecord_keys: ['1675130'],
-                      group_billrecord_keys: ['521187:3'])
-    end
-
-    before do
-      allow(SymphonyDbClient).to receive(:new).and_return(symphony_db_client)
-    end
-
-    it 'show the sponsor checkouts on behalf of the group' do
-      visit checkouts_path
-      click_link 'Proxy group'
-      expect(page).to have_text('The architecture of nothingness')
-      expect(page).not_to have_text('Soft living architecture')
-    end
-
-    it 'shows the sponsor requests on behalf of the group' do
-      visit requests_path
-      click_link 'Proxy group'
-      expect(page).to have_text('Architecture, festival and the city')
-      expect(page).not_to have_text('theorizing the practice of architecture')
-    end
-
-    it 'does not show the sponsor fines on behalf of the group' do
-      visit fines_path
-      click_link 'Proxy group'
-      expect(page).not_to have_text('Frontier women and their art')
-    end
+    expect(page).not_to have_text('(RE)DISCOVERING THE OLMEC - NATIONAL GEOGRAPHIC SOCIETY-SMITHSONIAN INSTITUTION')
   end
 end

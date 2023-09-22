@@ -5,8 +5,8 @@ borrow_direct:
   api_key: ''
 
 ils:
-  client: SymphonyClient
-  patron_model: Symphony::Patron
+  client: FolioClient
+  patron_model: Folio::Patron
 
 symws:
   url: https://example.com/symws

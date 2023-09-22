@@ -1,39 +1,57 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require 'active_support'
+require 'active_support/testing/time_helpers'
 
 RSpec.describe 'Checkout Page' do
+  include ActiveSupport::Testing::TimeHelpers
+
+  let(:mock_client) { instance_double(FolioClient, ping: true) }
+
+  let(:patron_info) do
+    build(:sponsor_patron).patron_info
+  end
+
   before do
-    login_as(username: 'SUPER1', patron_key: '521181')
+    # NOTE: tests that rely on LoanPolicy#due_date_after_renewal have to
+    #       take place when Time.now is included in the fixture's
+    #       loan policy schedule date range.
+    travel_to Time.zone.parse('2023-06-13T07:00:00.000+00:00')
+    allow(FolioClient).to receive(:new) { mock_client }
+    allow(mock_client).to receive_messages(patron_info: patron_info)
+    login_as(username: 'stub_user', patron_key: '513a9054-5897-11ee-8c99-0242ac120002')
   end
 
   it 'has checkout data' do
     visit checkouts_path
 
     expect(page).to have_css('ul.checkouts', count: 1)
-    expect(page).to have_css('ul.checkouts li', count: 12)
+    expect(page).to have_css('ul.checkouts li', count: 1)
 
     within(first('ul.checkouts li')) do
-      expect(page).to have_css('.status', text: 'Overdue')
-      expect(page).to have_css('.title', text: /On video games/)
-      expect(page).to have_css('.call_number', text: 'GV1469.34 .S52 M874 2018')
-    end
-
-    within('ul.checkouts li:nth-child(5)') do
-      expect(page).to have_css('.status', text: 'Overdue $30.00')
+      expect(page).to have_css('.status', text: 'OK')
+      expect(page).to have_css('.title', text: /Blue-collar Broadway/)
+      expect(page).to have_css('.call_number', text: 'PN2277 .N7 W48 2015')
     end
   end
 
-  it 'has recall data' do
-    visit checkouts_path
+  context 'when a patron has recalls' do
+    let(:patron_info) do
+      build(:patron_with_recalls).patron_info
+    end
 
-    expect(page).to have_css('ul.recalled-checkouts', count: 1)
-    expect(page).to have_css('ul.recalled-checkouts li', count: 1)
+    it 'has recall data' do
+      visit checkouts_path
 
-    within(first('ul.recalled-checkouts li')) do
-      expect(page).to have_css('.status', text: 'Recalled')
-      expect(page).to have_css('.title', text: /Pikachu's global adventure/)
-      expect(page).to have_css('.call_number', text: 'GV1469.35 .P63 P54 2004')
+      expect(page).to have_css('ul.recalled-checkouts', count: 1)
+      expect(page).to have_css('ul.recalled-checkouts li', count: 1)
+
+      within(first('ul.recalled-checkouts li')) do
+        expect(page).to have_css('.status', text: 'Recalled')
+        expect(page).to have_css('.title', text: /Sci-fi architecture./)
+        expect(page).to have_css('.call_number', text: 'NA1 .A16')
+      end
     end
   end
 
@@ -44,10 +62,14 @@ RSpec.describe 'Checkout Page' do
   end
 
   context 'when data is hidden behind a toggle' do
+    let(:patron_info) do
+      build(:patron_with_overdue_items).patron_info
+    end
+
     it 'shows the renew data when the list item is expanded', :js do
       visit checkouts_path
 
-      within('ul.checkouts li:nth-child(4)') do
+      within('ul.checkouts li:nth-child(1)') do
         click_button 'Expand'
         expect(page).to have_css('dt', text: 'Can I renew?', visible: :visible)
       end
@@ -65,10 +87,10 @@ RSpec.describe 'Checkout Page' do
         expect(page).to have_css('dt', text: 'Days overdue:', visible: :visible)
         expect(page).to have_css('dd', text: /^\d+$/, visible: :visible)
         expect(page).to have_css('dt', text: 'Barcode:', visible: :visible)
-        expect(page).to have_css('dd', text: '36105229207159', visible: :visible)
+        expect(page).to have_css('dd', text: '36105021987123', visible: :visible)
       end
 
-      within('ul.checkouts li:nth-child(5)') do
+      within('ul.checkouts li:nth-child(1)') do
         click_button 'Expand'
         expect(page).to have_css('dt', text: 'Fines accrued:', visible: :visible)
         expect(page).to have_css('dd', text: '$30.00', visible: :visible)
@@ -95,14 +117,19 @@ RSpec.describe 'Checkout Page' do
       expect(page).to have_css('.active[data-sort="title"]', count: 2, visible: :all)
 
       within(first('ul.checkouts li')) do
-        expect(page).to have_css('.title', text: /Japanese animation/)
+        expect(page).to have_css('.title', text: /Blue-collar Broadway/)
       end
     end
   end
 
   context 'with a user who has no checkouts' do
-    before do
-      login_as(username: 'NOTHING', patron_key: '521206')
+    let(:patron_info) do
+      {
+        'user' => { 'active' => true, 'manualBlocks' => [], 'blocks' => [] },
+        'loans' => [],
+        'holds' => [],
+        'accounts' => []
+      }
     end
 
     it 'does not render table headers' do

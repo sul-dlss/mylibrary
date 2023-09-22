@@ -1,33 +1,34 @@
 # frozen_string_literal: true
 
 require 'rails_helper'
+require 'active_support'
+require 'active_support/testing/time_helpers'
 
 RSpec.describe 'Navigation' do
-  let(:mock_client) do
-    instance_double(
-      SymphonyClient,
-      patron_info: {
-        'fields' => fields
-      }.with_indifferent_access,
-      ping: true,
-      session_token: '1a2b3c4d5e6f8g9h0j'
-    )
-  end
+  include ActiveSupport::Testing::TimeHelpers
 
-  let(:fields) do
+  let(:mock_client) { instance_double(FolioClient, ping: true) }
+
+  let(:patron_info) do
     {
-      address1: [],
-      standing: { key: '' },
-      profile: { key: '' },
-      circRecordList: [],
-      blockList: [],
-      holdRecordList: []
+      'user' => { 'active' => active, 'manualBlocks' => manual_blocks, 'blocks' => blocks },
+      'loans' => [],
+      'holds' => [],
+      'accounts' => []
     }
   end
+  let(:active) { true }
+  let(:manual_blocks) { [] }
+  let(:blocks) { [] }
 
   before do
-    allow(SymphonyClient).to receive(:new) { mock_client }
-    login_as(username: 'stub_user')
+    # NOTE: tests that rely on LoanPolicy#due_date_after_renewal have to
+    #       take place when Time.now is included in the fixture's
+    #       loan policy schedule date range.
+    travel_to Time.zone.parse('2023-06-13T07:00:00.000+00:00')
+    allow(FolioClient).to receive(:new) { mock_client }
+    allow(mock_client).to receive_messages(patron_info: patron_info)
+    login_as(username: 'stub_user', patron_key: '513a9054-5897-11ee-8c99-0242ac120002')
   end
 
   it 'the root path navigates to the Summary page' do
@@ -93,120 +94,110 @@ RSpec.describe 'Navigation' do
   end
 
   context 'with a patron in good standing' do
-    before do
-      fields[:standing] = { key: 'OK' }
-      fields[:circRecordList] = [{ fields: {} }, { fields: {} }]
-      fields[:holdRecordList] = [{ fields: {} }]
-    end
-
     it 'shows the patron status and various counts' do
       visit summaries_path
 
       expect(page).to have_css('.nav-link.active', text: 'Summary OK')
-      expect(page).to have_css('.nav-link', text: 'Checkouts 2')
-      expect(page).to have_css('.nav-link', text: 'Requests 1')
+      expect(page).to have_css('.nav-link', text: 'Checkouts 0')
+      expect(page).to have_css('.nav-link', text: 'Requests 0')
       expect(page).to have_css('.nav-link', text: 'Fines $0.00')
     end
   end
 
-  context 'with a blocked patron' do
-    before do
-      fields[:standing] = { key: 'BARRED' }
-    end
+  context 'with a barred patron' do
+    let(:manual_blocks) { ['you are barred'] }
 
-    it 'shows the patron status and various counts' do
+    it 'shows the patron status' do
       visit summaries_path
 
       expect(page).to have_css('.nav-link.active', text: 'Summary Contact us')
     end
   end
 
+  context 'with a blocked patron' do
+    let(:blocks) { ['you are blocked'] }
+
+    it 'shows the patron status' do
+      visit summaries_path
+
+      expect(page).to have_css('.nav-link.active', text: 'Summary Blocked')
+    end
+  end
+
+  context 'with an inactive patron' do
+    let(:active) { false }
+
+    it 'shows the patron status' do
+      visit summaries_path
+
+      expect(page).to have_css('.nav-link.active', text: 'Summary Expired')
+    end
+  end
+
   context 'with a recall' do
-    before do
-      fields[:circRecordList] = [
-        { fields: { recalledDate: '2019-01-01' } },
-        { fields: { recalledDate: '2018-02-02' } },
-        { fields: { overdue: true } }
-      ]
+    let(:patron_info) do
+      build(:patron_with_recalls).patron_info
     end
 
     it 'shows number of recalled items' do
       visit summaries_path
 
-      expect(page).to have_css('.nav-link', text: 'Checkouts 2 recalls')
+      expect(page).to have_css('.nav-link', text: 'Checkouts 1 recall')
     end
   end
 
   context 'with overdue books' do
-    before do
-      fields[:circRecordList] = [
-        { fields: { overdue: true } },
-        { fields: { overdue: true } },
-        { fields: { overdue: true } }
-      ]
+    let(:patron_info) do
+      build(:patron_with_overdue_items).patron_info
     end
 
     it 'shows number of overdue items' do
       visit summaries_path
 
-      expect(page).to have_css('.nav-link', text: 'Checkouts 3 overdue')
+      expect(page).to have_css('.nav-link', text: 'Checkouts 1 overdue')
     end
   end
 
   context 'with requests that are ready for pickup' do
-    before do
-      fields[:holdRecordList] = [
-        { fields: { status: 'BEING_HELD' } },
-        { fields: { status: 'BEING_HELD' } },
-        { fields: { status: 'BEING_HELD' } }
-      ]
+    let(:patron_info) do
+      build(:sponsor_patron).patron_info
     end
 
-    it 'shows number of overdue items' do
+    it 'shows number of requests ready for pickup' do
       visit summaries_path
 
-      expect(page).to have_css('.nav-link', text: 'Requests 3 ready')
+      expect(page).to have_css('.nav-link', text: 'Requests 2 ready')
     end
   end
 
   context 'with fines' do
-    before do
-      fields[:blockList] = [
-        { fields: { owed: { amount: 50 } } },
-        { fields: { owed: { amount: 30 } } },
-        { fields: { owed: { amount: 20 } } }
-      ]
+    let(:patron_info) do
+      build(:patron_with_fines).patron_info
     end
 
     it 'shows the total fines' do
       visit summaries_path
 
-      expect(page).to have_css('.nav-link', text: 'Fines $100.00')
-    end
-  end
-
-  context 'with accruing overdue fines' do
-    before do
-      fields[:circRecordList] = [
-        { fields: { estimatedOverdueAmount: { amount: 50 } } },
-        { fields: { estimatedOverdueAmount: { amount: 30 } } },
-        { fields: { estimatedOverdueAmount: { amount: 20 } } }
-      ]
-    end
-
-    it 'shows number of overdue items' do
-      visit summaries_path
-
-      expect(page).to have_css('.nav-link', text: 'Fines $100.00')
+      expect(page).to have_css('.nav-link', text: 'Fines $325.00')
     end
   end
 
   context 'with a group' do
-    before do
-      # Un-stub the symphony client so we hit our fixture data endpoint
-      allow(SymphonyClient).to receive(:new).and_call_original
+    let(:service_points) do
+      build(:service_points)
+    end
 
-      login_as(username: 'PROXY21', patron_key: '521197')
+    let(:patron_info) do
+      build(:proxy_patron).patron_info
+    end
+
+    let(:sponsor) do
+      build(:sponsor_patron).patron_info
+    end
+
+    before do
+      allow(mock_client).to receive(:patron_info).with('ec52d62d-9f0e-4ea5-856f-a1accb0121d1').and_return(sponsor)
+      allow(Folio::ServicePoint).to receive_messages(all: service_points)
     end
 
     it 'preserves the group parameter across navigation' do

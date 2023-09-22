@@ -20,7 +20,7 @@ RSpec.describe ResetPinsController do
     end
 
     let(:user) do
-      { username: 'somesunetid', patron_key: '123' }
+      { username: 'somesunetid', patron_key: '513a9054-5897-11ee-8c99-0242ac120002' }
     end
 
     it 'index logs out and redirects to the logout url' do
