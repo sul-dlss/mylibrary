@@ -53,7 +53,7 @@ RSpec.describe 'Renew item', :js do
 
     visit checkouts_path
 
-    click_on 'Renew 1 eligible item'
+    click_link 'Renew 1 eligible item'
 
     expect(page).to have_css '.flash_messages', text: 'Success!'
   end
