@@ -86,8 +86,8 @@ RSpec.describe RequestsHelper do
 
         it 'pre-selects the origin service point of the request' do
           options = helper.request_location_options(request)
-          expect(options).to have_selector("option[selected='selected'][value='a5dbb3dc-84f8-4eb3-8bfe-c61f74a9e92d']",
-                                           text: 'Green Library')
+          expect(options).to have_css("option[selected='selected'][value='a5dbb3dc-84f8-4eb3-8bfe-c61f74a9e92d']",
+                                      text: 'Green Library')
         end
       end
 
@@ -118,8 +118,8 @@ RSpec.describe RequestsHelper do
 
         it 'pre-selects the origin service point of the request' do
           options = helper.request_location_options(request)
-          expect(options).to have_selector("option[selected='selected'][value='faa81922-3da8-4086-a7fa-977d7d3e7977']",
-                                           text: 'Archive of Recorded Sound')
+          expect(options).to have_css("option[selected='selected'][value='faa81922-3da8-4086-a7fa-977d7d3e7977']",
+                                      text: 'Archive of Recorded Sound')
         end
       end
 
@@ -145,8 +145,8 @@ RSpec.describe RequestsHelper do
 
         it 'does not add the origin service point to the default options list' do
           options = helper.request_location_options(request)
-          expect(options).not_to have_selector("option[value='8bb5d494-263f-42f0-9a9f-70451530d8a3']",
-                                               text: 'Classics Library')
+          expect(options).not_to have_css("option[value='8bb5d494-263f-42f0-9a9f-70451530d8a3']",
+                                          text: 'Classics Library')
         end
 
         it 'keeps the original default options list' do
