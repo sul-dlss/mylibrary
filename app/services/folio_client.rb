@@ -6,6 +6,23 @@ require 'http'
 class FolioClient
   class IlsError < StandardError; end
 
+  class IlsInvalidResponseError < IlsError
+    attr_reader :title, :context, :response
+
+    def initialize(title:, context:, response:)
+      @title = title
+      @context = context
+      @response = response
+      super('response from ILS was not successful')
+    end
+
+    delegate :status, :body, to: :response, prefix: true
+
+    def to_honeybadger_context
+      { title:, context:, response_status:, response_body: }
+    end
+  end
+
   DEFAULT_HEADERS = {
     accept: 'application/json, text/plain',
     content_type: 'application/json'
@@ -111,7 +128,7 @@ class FolioClient
     response = post('/circulation/renew-by-id', json: { itemId: item_id, userId: user_id })
     begin
       check_response(response, title: 'Renew', context: { user_id: user_id, item_id: item_id })
-    rescue FolioClient::IlsError => e
+    rescue FolioClient::IlsInvalidResponseError => e
       Honeybadger.notify(e)
     end
 
@@ -254,9 +271,7 @@ class FolioClient
   def check_response(response, title:, context:)
     return if response.success?
 
-    context_string = context.map { |k, v| "#{k}: #{v}" }.join(', ')
-    raise IlsError, "#{title} request for #{context_string} was not successful. " \
-                    "status: #{response.status}, #{response.body}"
+    raise IlsInvalidResponseError.new(title:, context:, response:)
   end
 
   def get(path, **kwargs)
