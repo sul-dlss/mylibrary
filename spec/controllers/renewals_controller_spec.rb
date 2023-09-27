@@ -100,7 +100,9 @@ RSpec.describe RenewalsController do
       [
         instance_double(Folio::Checkout, key: '1', renewable?: true, item_key: '123', title: 'ABC',
                                          resource: 'item'),
-        instance_double(Folio::Checkout, key: '2', renewable?: true, item_key: '456', title: 'XYZ',
+        instance_double(Folio::Checkout, key: '2', renewable?: true, item_key: '456',
+                                         title: 'Principles of optics : electromagnetic theory of ' \
+                                                'propagation, interference and diffraction of light',
                                          resource: 'item'),
         instance_double(Folio::Checkout, key: '3', renewable?: false, item_key: '789', title: 'Not',
                                          resource: 'item')
@@ -123,8 +125,8 @@ RSpec.describe RenewalsController do
         expect(flash[:success]).to include('Success!')
       end
 
-      it 'includes the titles of successful renewals' do
-        expect(Capybara.string(flash[:success])).to have_css('li', text: 'ABC')
+      it 'includes the number of renewed items' do
+        expect(flash[:success]).to include('1 item was renewed')
       end
     end
 
@@ -135,8 +137,9 @@ RSpec.describe RenewalsController do
         expect(flash[:error]).to include('Sorry!')
       end
 
-      it 'includes the titles of errored renewals' do
-        expect(Capybara.string(flash[:error])).to have_css('li', text: 'XYZ')
+      it 'includes the truncated titles of errored renewals' do
+        expect(Capybara.string(flash[:error])).to have_css('li',
+                                                           text: 'Principles of optics : electromagnetic theory of...')
       end
     end
 
