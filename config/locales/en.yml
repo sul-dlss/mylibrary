@@ -44,8 +44,8 @@ en:
       deny_access: An unexpected error has occurred
     renew_all_items:
       success_html:
-        one: <span class="font-weight-bold">Success!</span> 1 item was renewed. %{items}
-        other: <span class="font-weight-bold">Success!</span> %{count} items were renewed. %{items}
+        one: <span class="font-weight-bold">Success!</span> 1 item was renewed.
+        other: <span class="font-weight-bold">Success!</span> %{count} items were renewed.
       error_html:
         one: <span class="font-weight-bold">Sorry!</span> 1 item was not renewed, possibly due to a connection failure. Try again or contact us for help. %{items}
         other: <span class="font-weight-bold">Sorry!</span> %{count} items were not renewed, possibly due to a connection failure. Try again or contact us for help. %{items}
