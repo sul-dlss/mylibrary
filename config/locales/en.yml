@@ -53,10 +53,10 @@ en:
       cancel:
         success_html: <span class="font-weight-bold">Success!</span> "%{title}" was canceled.
         error_html: <span class="font-weight-bold">Sorry!</span> Something went wrong and "%{title}" was not canceled.
-      update_not_needed_after:
+      change_pickup_expiration:
         success_html: <span class="font-weight-bold">Success!</span> "%{title}" not needed after date was updated.
         error_html: <span class="font-weight-bold">Sorry!</span> Something went wrong and "%{title}" not needed after date was not updated.
-      update_pickup:
+      change_pickup_service_point:
         success_html: <span class="font-weight-bold">Success!</span> "%{title}" pickup location was updated.
         error_html: <span class="font-weight-bold">Sorry!</span> Something went wrong and "%{title}" pickup location was not updated.
       deny_access: An unexpected error has occurred
