@@ -462,37 +462,6 @@ RSpec.describe Symphony::Patron do
         expect(patron.group_fines).to include a_kind_of(Symphony::Fine).and(have_attributes(key: '1'))
       end
     end
-
-    context 'with a payment in process' do
-      subject(:patron_payment_in_process) do
-        described_class.new(
-          {
-            key: '1',
-            fields: fields
-          }.with_indifferent_access,
-          {
-            billseq: '3-5',
-            pending: true
-          }.with_indifferent_access
-        )
-      end
-
-      before do
-        fields[:blockList] = [{ key: '1:1', fields: {} }, { key: '2:4', fields: {} }]
-      end
-
-      describe '#fines' do
-        it 'only contains fines that are not in process' do
-          expect(patron_payment_in_process.fines).to have_attributes(length: 1)
-        end
-      end
-
-      describe '#all_fines' do
-        it 'contains all fines' do
-          expect(patron_payment_in_process.all_fines).to have_attributes(length: 2)
-        end
-      end
-    end
   end
 
   context 'with requests' do

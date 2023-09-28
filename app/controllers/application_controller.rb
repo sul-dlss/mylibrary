@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
   def patron
     return unless current_user?
 
-    @patron ||= ils_patron_model_class.new(patron_info_response, payment_in_process_cookie)
+    @patron ||= ils_patron_model_class.new(patron_info_response)
   end
 
   def patron_or_group
@@ -58,14 +58,6 @@ class ApplicationController < ActionController::Base
 
   def symphony?
     Settings.ils.client == 'SymphonyClient'
-  end
-
-  ##
-  # Used in conjuction with Patron to determine if fines should be filtered by
-  # in flight payment sequence
-  # TODO: remove payment cookie methods when migration off of Symphony is complete
-  def payment_in_process_cookie
-    @payment_in_process_cookie ||= JSON.parse(cookies[:payment_in_process] || {}.to_json).with_indifferent_access
   end
 
   def patron_info_response

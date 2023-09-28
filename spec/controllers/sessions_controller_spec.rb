@@ -34,12 +34,6 @@ RSpec.describe SessionsController do
       it 'redirects to the root' do
         expect(get(:destroy)).to redirect_to root_url
       end
-
-      it 'removes payment_in_process cookie' do
-        request.cookies['payment_in_process'] = true
-        get :destroy
-        expect(response.cookies['payment_in_process']).to be_nil
-      end
     end
   end
 
