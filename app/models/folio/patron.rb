@@ -3,13 +3,12 @@
 module Folio
   # Class to model Patron information
   class Patron
-    attr_reader :patron_info, :payment_in_process
+    attr_reader :patron_info
 
     CHARGE_LIMIT_THRESHOLD = 25_000
 
-    def initialize(patron_info, payment_in_process = {})
+    def initialize(patron_info)
       @patron_info = patron_info
-      @payment_in_process = payment_in_process
     end
 
     # pass a FOLIO user uuid and get back a Patron object
@@ -150,11 +149,6 @@ module Folio
     # TODO: delete after FOLIO launch. All group payments are now affiliated with a single Sponsor patron.
     def group_payments
       []
-    end
-
-    # TODO: delete after FOLIO launch. No longer needed since we don't set a cookie for in-flight payments.
-    def payment_sequence
-      nil
     end
 
     def proxy_borrower?

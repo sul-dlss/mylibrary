@@ -93,13 +93,6 @@ Cybersource (a company owned by VISA) is our external payment processor for payi
 
 We currently support only one type of transaction: paying all of a user's payable fines together at once. When the user clicks the "pay all" button, we redirect their request to Cybersource via an interstitial form, which generates a POST request containing the data that sets up the checkout form along with a security signature. When the user completes their payment, Cybersource will POST some information back to us, including some of the information we originally sent which identifies the user and how much they paid. We pass this information to the ILS client to actually do the work of marking the fines as having been paid.
 
-In Symphony, the ILS may take some time to actually reflect the payment, so we use a strategy involving setting a cookie based on the user's browser session to filter out fines that have been paid but not yet reflected in the ILS. Otherwise, the user might think that their payment didn't go through, because the fines are still showing. Those fines will be filtered (not shown on the fines page) for that current user's in browser session for 10 minutes. We are assuming a few things:
-
-- That Symphony will resolve these transactions in at least 10 minutes
-- That the user won't be switching browsers and expect their payments to be filtered to in flight payments
-
-In FOLIO, the API request to mark a fine as paid is synchronous, so we don't need to worry about this.
-
 ## Testing
 
 The test suite (with RuboCop style enforcement) will be run with the default rake task (also run on travis)
