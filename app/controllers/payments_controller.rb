@@ -39,9 +39,8 @@ class PaymentsController < ApplicationController
   #
   # POST /payments/accept
   def accept
-    ils_client.pay_fines(user: cybersource_response.user,
-                         amount: cybersource_response.amount,
-                         session_id: cybersource_response.session_id)
+    ils_client.pay_fines(user_id: cybersource_response.user_id,
+                         amount: cybersource_response.amount)
 
     redirect_to fines_path, flash: {
       success: (t 'mylibrary.fine_payment.accept_html', amount: cybersource_response.amount)
@@ -67,11 +66,11 @@ class PaymentsController < ApplicationController
   end
 
   def create_payment_params
-    params.permit(%I[reason billseq amount session_id user group])
+    params.permit(%I[user_id amount])
   end
 
   def cybersource_request
-    Cybersource::PaymentRequest.new(**params.permit(:user, :amount, :session_id).to_h.symbolize_keys).sign!
+    Cybersource::PaymentRequest.new(**create_payment_params.to_h.symbolize_keys).sign!
   end
 
   def cybersource_response

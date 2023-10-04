@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe PaymentsController do
   let(:user) { { username: 'somesunetid', patron_key: '513a9054-5897-11ee-8c99-0242ac120002' } }
-  let(:mock_patron) { instance_double(Folio::Patron, group?: false, barcode: '1234', payments: payments) }
+  let(:mock_patron) { instance_double(Folio::Patron, group?: false, key: user[:patron_key], payments: payments) }
   let(:mock_client) { instance_double(FolioClient, ping: true, pay_fines: nil) }
   let(:mock_graphql_client_response) do
     [
@@ -55,7 +55,7 @@ RSpec.describe PaymentsController do
 
   describe '#create' do
     before do
-      post :create, params: { user: 'u', session_id: 's', group: 'g', amount: 'a' }
+      post :create, params: { user_id: '513a9054-5897-11ee-8c99-0242ac120002', amount: '10.00' }
     end
 
     it 'renders a form to send to cybersource' do
@@ -65,9 +65,10 @@ RSpec.describe PaymentsController do
 
   describe '#accept' do
     let(:cybersource_response) do
-      instance_double(Cybersource::PaymentResponse, user: '123', amount: '10.00',
-                                                    session_id: 'session_this_is_the_one',
-                                                    valid?: true, payment_success?: true)
+      instance_double(Cybersource::PaymentResponse, user_id: '513a9054-5897-11ee-8c99-0242ac120002',
+                                                    amount: '10.00',
+                                                    valid?: true,
+                                                    payment_success?: true)
     end
 
     before do
@@ -77,7 +78,7 @@ RSpec.describe PaymentsController do
     it 'updates the payment in the ILS' do
       post :accept
       expect(mock_client).to have_received(:pay_fines)
-        .with(user: '123', amount: '10.00', session_id: 'session_this_is_the_one')
+        .with(user_id: '513a9054-5897-11ee-8c99-0242ac120002', amount: '10.00')
     end
 
     it 'redirects to fines page' do
