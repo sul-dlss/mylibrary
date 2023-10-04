@@ -1,11 +1,9 @@
-<% fines = patron_or_group.fines %>
-<% amount = fines.sum(&:owed) %>
+<% amount = patron_or_group.fines.sum(&:owed) %>
 <% if amount.positive? %>
   <div>
     <% if patron_or_group.can_pay_fines? %>
       <%= form_tag payments_path, method: :post do %>
-        <%= hidden_field_tag :reason, fines.map(&:status).join(',') %>
-        <%= hidden_field_tag :billseq, fines.map(&:sequence).values_at(0, -1).join('-') %>
+        <%= hidden_field_tag :user_id, patron_or_group.key %>
         <%= hidden_field_tag :amount, format('%.2f', amount) %>
         <%= button_tag class: 'btn btn-md btn-info', type: 'submit', data: { 'pay-button' => true } do %>
           <%= sul_icon :'sharp-payment-24px' %>
