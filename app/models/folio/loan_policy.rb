@@ -35,6 +35,10 @@ module Folio
       Float::INFINITY
     end
 
+    def description
+      loan_policy['description']
+    end
+
     private
 
     def due_date_after_renewal

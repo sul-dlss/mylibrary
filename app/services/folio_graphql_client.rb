@@ -170,6 +170,7 @@ class FolioGraphqlClient
             manualBlocks {
               desc
             }
+            patronGroupId
           }
           id
           holds {
@@ -304,6 +305,10 @@ class FolioGraphqlClient
                 effectiveCallNumberComponents {
                   callNumber
                 }
+                permanentLoanTypeId
+                temporaryLoanTypeId
+                materialTypeId
+                effectiveLocationId
                 effectiveLocation {
                   code
                   library {
@@ -331,40 +336,6 @@ class FolioGraphqlClient
               userId
               status {
                 name
-              }
-              loanPolicy {
-                name
-                description
-                renewable
-                renewalsPolicy {
-                  alternateFixedDueDateSchedule {
-                    schedules {
-                      due
-                      from
-                      to
-                    }
-                  }
-                  numberAllowed
-                  period {
-                    intervalId
-                    duration
-                  }
-                  renewFromId
-                  unlimited
-                }
-                loansPolicy {
-                  fixedDueDateSchedule {
-                    schedules {
-                      due
-                      from
-                      to
-                    }
-                  }
-                  period {
-                    intervalId
-                    duration
-                  }
-                }
               }
               feesAndFines {
                 amountRemainingToPay

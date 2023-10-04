@@ -216,6 +216,14 @@ class FolioClient
   end
   # rubocop:enable Metrics/MethodLength
 
+  def find_effective_loan_policy(item_type_id:, loan_type_id:, patron_type_id:, location_id:)
+    get_json('/circulation/rules/loan-policy',
+             params: { item_type_id: item_type_id,
+                       loan_type_id: loan_type_id,
+                       patron_type_id: patron_type_id,
+                       location_id: location_id }.as_json)
+  end
+
   private
 
   def update_request(request_id, request_data_updates)
