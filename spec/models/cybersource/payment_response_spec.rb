@@ -8,33 +8,27 @@ RSpec.describe Cybersource::PaymentResponse do
   let(:signature) do
     Cybersource::Security.generate_signature(
       {
-        req_merchant_defined_data1: '1234567890',
         req_amount: '100.00',
-        req_reference_number: '3672f43945ec20cf2966525aeb7691e4'
+        req_reference_number: '0340214b-5492-472d-b634-c5c115639465'
       }
     )
   end
   let(:decision) { 'ACCEPT' }
   let(:params) do
-    ActionController::Parameters.new(req_merchant_defined_data1: '1234567890',
-                                     req_amount: '100.00',
-                                     req_reference_number: '3672f43945ec20cf2966525aeb7691e4',
-                                     signed_field_names: 'req_merchant_defined_data1,req_amount,req_reference_number',
+    ActionController::Parameters.new(req_amount: '100.00',
+                                     req_reference_number: '0340214b-5492-472d-b634-c5c115639465',
+                                     signed_field_names: 'req_amount,req_reference_number',
                                      unsigned_field_names: '',
                                      signature: signature,
                                      decision: decision)
   end
 
-  it 'parses the user barcode from the merchant defined data' do
-    expect(cybersource_response.user).to eq('1234567890')
+  it 'parses the user id from the merchant defined data' do
+    expect(cybersource_response.user_id).to eq('0340214b-5492-472d-b634-c5c115639465')
   end
 
   it 'parses the amount of total charges' do
     expect(cybersource_response.amount).to eq('100.00')
-  end
-
-  it 'parses the session id from the transaction reference number' do
-    expect(cybersource_response.session_id).to eq('3672f43945ec20cf2966525aeb7691e4')
   end
 
   it 'validates that the transaction is signed and accepted' do

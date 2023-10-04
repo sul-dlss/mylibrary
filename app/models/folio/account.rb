@@ -22,12 +22,6 @@ module Folio
       record['id']
     end
 
-    # TODO: remove; unused after migration off of Symphony
-    # Also update the pay all button template not to render it
-    def sequence
-      nil
-    end
-
     def patron_key
       record.dig('loan', 'proxyUserId') || record['userId']
     end

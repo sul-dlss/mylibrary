@@ -221,14 +221,14 @@ class FolioClient
   # Mark all of a user's fines (accounts) as having been paid
   # The payment will show as being made from the 'Online' service point
   # rubocop:disable Metrics/MethodLength
-  def pay_fines(user:, amount:, session_id:)
-    patron = find_patron_by_barcode(user)
+  def pay_fines(user_id:, amount:)
+    patron = Patron.find(user_id)
     payload = {
       accountIds: patron.fines.map(&:key),
       paymentMethod: 'Credit card',
       amount: amount,
       userName: 'libsys_admin',
-      transactionInfo: session_id,
+      transactionInfo: user_id,
       servicePointId: Settings.folio.online_service_point_id,
       notifyPatron: true
     }

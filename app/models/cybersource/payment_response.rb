@@ -41,16 +41,12 @@ module Cybersource
       @signed_data = @signed_fields.index_with { |field| @fields[field] }
     end
 
-    def user
-      @fields['req_merchant_defined_data1']
+    def user_id
+      @fields['req_reference_number']
     end
 
     def amount
       @fields['req_amount']
-    end
-
-    def session_id
-      @fields['req_reference_number']
     end
   end
 end

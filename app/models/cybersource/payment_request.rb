@@ -6,17 +6,16 @@ module Cybersource
   class PaymentRequest
     include Enumerable
 
-    attr_reader :user, :amount, :session_id, :signature, :signed_date_time
+    attr_reader :user_id, :amount, :signature, :signed_date_time
 
     # Set of fields we use to generate the signature and that Cybersource verifies
     REQUEST_SIGNED_FIELDS = %i[access_key profile_id transaction_uuid signed_date_time
-                               locale transaction_type reference_number amount currency unsigned_field_names
-                               signed_field_names merchant_defined_data1].freeze
+                               locale transaction_type reference_number amount currency
+                               unsigned_field_names signed_field_names].freeze
 
-    def initialize(user:, amount:, session_id:)
-      @user = user
+    def initialize(user_id:, amount:)
+      @user_id = user_id
       @amount = amount
-      @session_id = session_id
       @signed_fields = REQUEST_SIGNED_FIELDS
       @unsigned_fields = []
       @signed_date_time, @signature = nil
@@ -81,14 +80,9 @@ module Cybersource
       @transaction_uuid ||= SecureRandom.uuid
     end
 
-    # Used to check if the user has a payment pending by comparing to a cookie
-    def reference_number
-      @session_id
-    end
-
     # Passed back to us by Cybersource and used to look up the user in the ILS
-    def merchant_defined_data1
-      @user
+    def reference_number
+      @user_id
     end
 
     # Matches us with configuration on the Cybersource side; differs for dev/test/prod

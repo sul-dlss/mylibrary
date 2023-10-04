@@ -3,11 +3,11 @@
 require 'rails_helper'
 
 RSpec.describe FinesController do
-  let(:mock_patron) { instance_double(Folio::Patron, group?: false, barcode: '1234') }
+  let(:mock_patron) { instance_double(Folio::Patron, group?: false, key: '513a9054-5897-11ee-8c99-0242ac120002') }
 
   let(:fines) do
     [
-      instance_double(Folio::Account, key: '1', sequence: '1', owed: '12', status: 'BADCHECK')
+      instance_double(Folio::Account, key: '1', owed: '12', status: 'BADCHECK')
     ]
   end
 
