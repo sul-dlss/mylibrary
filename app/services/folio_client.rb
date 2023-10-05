@@ -13,6 +13,8 @@ class FolioClient
 
   attr_reader :base_url
 
+  delegate :loan_policies, :service_points, to: :folio_graphql_client
+
   # rubocop:disable Metrics/MethodLength
   def initialize(url: Settings.folio.url, username: nil, password: nil, tenant: 'sul')
     uri = URI.parse(url)
@@ -62,8 +64,6 @@ class FolioClient
   def patron_info(patron_key, item_details: {})
     folio_graphql_client.patron_info(patron_key)
   end
-
-  delegate :service_points, to: :folio_graphql_client
 
   # FOLIO API call
   def patron_account(patron_key, item_details: {})
