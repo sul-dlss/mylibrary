@@ -32,10 +32,6 @@ module Folio
       record.dig('details', 'proxyUserId').present?
     end
 
-    def resource
-      key
-    end
-
     def status
       record['status']
     end

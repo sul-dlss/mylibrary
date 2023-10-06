@@ -75,37 +75,37 @@ RSpec.describe RequestsController do
       end
 
       context 'when cancel param is sent' do
-        let(:mock_client) { instance_double(FolioClient, cancel_hold: api_response, ping: true) }
+        let(:mock_client) { instance_double(FolioClient, cancel_request: api_response, ping: true) }
 
         it 'cancels the hold and sets the flash message' do
-          patch :update, params: { resource: '123', id: '123', cancel: true }
+          patch :update, params: { id: '123', cancel: true }
 
           expect(flash[:success]).to match(/Success!.*was canceled/)
         end
       end
 
       context 'when service_point param is sent' do
-        let(:mock_client) { instance_double(FolioClient, change_pickup_library: api_response, ping: true) }
+        let(:mock_client) { instance_double(FolioClient, change_pickup_service_point: api_response, ping: true) }
 
         it 'updates the pickup library and sets the flash message' do
-          patch :update, params: { resource: '123', id: '123', service_point: 'Other library' }
+          patch :update, params: { id: '123', service_point: 'Other library' }
 
           expect(flash[:success].first).to match(/Success!.*pickup location was updated/)
         end
       end
 
       context 'when not_needed_after param is sent' do
-        let(:mock_client) { instance_double(FolioClient, not_needed_after: api_response, ping: true) }
+        let(:mock_client) { instance_double(FolioClient, change_pickup_expiration: api_response, ping: true) }
 
         it 'updates the not needed after and sets the flash message' do
-          patch :update, params: { resource: '123', id: '123', not_needed_after: '1999/01/01' }
+          patch :update, params: { id: '123', not_needed_after: '1999/01/01' }
 
           expect(flash[:success].first).to match(/Success!.*not needed after date was updated/)
         end
 
         it 'does not update the not needed after if dates are not changed' do
           patch :update, params: {
-            resource: '123', id: '123', not_needed_after: '1999/01/01', current_fill_by_date: '1999/01/01'
+            id: '123', not_needed_after: '1999/01/01', current_fill_by_date: '1999/01/01'
           }
 
           expect(flash[:success]).to eq []
@@ -113,10 +113,10 @@ RSpec.describe RequestsController do
       end
 
       context 'with a group request' do
-        let(:mock_client) { instance_double(FolioClient, change_pickup_library: api_response, ping: true) }
+        let(:mock_client) { instance_double(FolioClient, change_pickup_service_point: api_response, ping: true) }
 
         it 'renews the item and redirects to requests_path' do
-          patch :update, params: { resource: '123', id: '123', service_point: 'Other library', group: true }
+          patch :update, params: { id: '123', service_point: 'Other library', group: true }
 
           expect(response).to redirect_to requests_path(group: true)
         end
@@ -124,13 +124,13 @@ RSpec.describe RequestsController do
 
       context "when the request key does not match any of the patron's requests" do
         it 'does not renew the item and sets flash messages' do
-          patch :update, params: { resource: 'some_other_request_key', id: 'some_other_request_key' }
+          patch :update, params: { id: 'some_other_request_key' }
 
           expect(flash[:error]).to match('An unexpected error has occurred')
         end
 
         it 'does not renew the item and redirects to requests_path' do
-          patch :update, params: { resource: 'some_other_request_key', id: 'some_other_request_key' }
+          patch :update, params: { id: 'some_other_request_key' }
 
           expect(response).to redirect_to requests_path
         end
@@ -139,7 +139,7 @@ RSpec.describe RequestsController do
 
     describe '#destroy' do
       let(:api_response) { instance_double('Response', status: 204, content_type: :json) }
-      let(:mock_client) { instance_double(FolioClient, cancel_hold: api_response, ping: true) }
+      let(:mock_client) { instance_double(FolioClient, cancel_request: api_response, ping: true) }
 
       let(:requests) do
         [instance_double(Folio::Request, key: '123')]
@@ -151,12 +151,12 @@ RSpec.describe RequestsController do
 
       context 'when everything is good' do
         it 'cancels the hold and sets flash messages' do
-          delete :destroy, params: { resource: '123', id: '123' }
+          delete :destroy, params: { id: '123' }
           expect(flash[:success]).to match(/Success!/)
         end
 
         it 'cancels the hold and redirects to requests_path' do
-          delete :destroy, params: { resource: '123', id: '123' }
+          delete :destroy, params: { id: '123' }
           expect(response).to redirect_to requests_path
         end
       end
@@ -165,12 +165,12 @@ RSpec.describe RequestsController do
         let(:api_response) { instance_double('Response', status: 401, content_type: :json, body: 'foo') }
 
         it 'does not cancel the hold and sets flash messages' do
-          delete :destroy, params: { resource: '123', id: '123' }
+          delete :destroy, params: { id: '123' }
           expect(flash[:error]).to match(/Sorry!/)
         end
 
         it 'does not cancel the hold and redirects to requests_path' do
-          delete :destroy, params: { resource: '123', id: '123' }
+          delete :destroy, params: { id: '123' }
           expect(response).to redirect_to requests_path
         end
       end
@@ -178,7 +178,7 @@ RSpec.describe RequestsController do
 
     context 'with a group request' do
       it 'renews the item and redirects to requests_path' do
-        delete :destroy, params: { resource: '123', id: '123', group: true }
+        delete :destroy, params: { id: '123', group: true }
 
         expect(response).to redirect_to requests_path(group: true)
       end
@@ -186,13 +186,13 @@ RSpec.describe RequestsController do
 
     context "when the request key does not match any of the patron's requests" do
       it 'does not renew the item and sets flash messages' do
-        delete :destroy, params: { resource: 'some_other_request_key', id: 'some_other_request_key' }
+        delete :destroy, params: { id: 'some_other_request_key' }
 
         expect(flash[:error]).to match('An unexpected error has occurred')
       end
 
       it 'does not renew the item and redirects to requests_path' do
-        delete :destroy, params: { resource: 'some_other_request_key', id: 'some_other_request_key' }
+        delete :destroy, params: { id: 'some_other_request_key' }
 
         expect(response).to redirect_to requests_path
       end

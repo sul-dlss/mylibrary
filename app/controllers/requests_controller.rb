@@ -6,7 +6,7 @@ class RequestsController < ApplicationController
   before_action :authorize_update!, except: :index
   rescue_from RequestException, with: :deny_access
 
-  # Renders user requests from Symphony and/or BorrowDirect
+  # Renders user requests from FOLIO and/or BorrowDirect
   #
   # GET /requests
   # GET /requests.json
@@ -28,7 +28,7 @@ class RequestsController < ApplicationController
     end
   end
 
-  # Handles form submission for changing or canceling requests/holds/etc in Symphony
+  # Handles form submission for changing or canceling requests/holds/etc in FOLIO
   #
   # PATCH /requests/:id
   # PUT /requests/:id
@@ -38,23 +38,21 @@ class RequestsController < ApplicationController
     flash[:success] = []
     flash[:error] = []
 
-    handle_pickup_change_request if params['service_point'].present?
-    handle_not_needed_after_request if params['not_needed_after'].present? &&
+    handle_change_pickup_service_point if params['service_point'].present?
+    handle_change_pickup_expiration if params['not_needed_after'].present? &&
                                        params['not_needed_after'] != params['current_fill_by_date']
 
     redirect_to requests_path(group: params[:group])
   end
 
-  # Handles form submission for canceling requests/holds/etc in Symphony
+  # Handles form submission for canceling requests/holds/etc in FOLIO
   #
   # DELETE /requests/:id
   def destroy
-    @response = ils_client.cancel_hold(*cancel_hold_params, patron_or_group.key)
+    @response = ils_client.cancel_request(*cancel_request_params, patron_or_group.key)
 
     case @response.status
-    # The FOLIO API returns 204
-    # TODO: after FOLIO launch remove the 200 case which was the Symphony response
-    when 200, 204
+    when 204
       flash[:success] = t 'mylibrary.request.cancel.success_html', title: params['title']
     else
       Rails.logger.error(@response.body)
@@ -66,21 +64,19 @@ class RequestsController < ApplicationController
 
   private
 
-  def handle_pickup_change_request
-    response_flash_message(response: ils_client.change_pickup_library(*change_pickup_params),
-                           translation_key: 'update_pickup')
+  def handle_change_pickup_service_point
+    response_flash_message(response: ils_client.change_pickup_service_point(*change_pickup_service_point_params),
+                           translation_key: 'change_pickup_service_point')
   end
 
-  def handle_not_needed_after_request
-    response_flash_message(response: ils_client.not_needed_after(*not_needed_after_params),
-                           translation_key: 'update_not_needed_after')
+  def handle_change_pickup_expiration
+    response_flash_message(response: ils_client.change_pickup_expiration(*change_pickup_expiration_params),
+                           translation_key: 'change_pickup_expiration')
   end
 
   def response_flash_message(response:, translation_key:)
     case response.status
-    # The FOLIO API returns 204
-    # TODO: after updating feature tests for FOLIO remove the 200 case which was the Symphony response
-    when 200, 204
+    when 204
       flash[:success].push(t("mylibrary.request.#{translation_key}.success_html", title: params['title']))
     else
       Rails.logger.error(response.body)
@@ -88,16 +84,16 @@ class RequestsController < ApplicationController
     end
   end
 
-  def cancel_hold_params
-    params.require(%I[resource id])
+  def cancel_request_params
+    params.require(%I[id])
   end
 
-  def change_pickup_params
-    params.require(%I[resource id service_point])
+  def change_pickup_service_point_params
+    params.require(%I[id service_point])
   end
 
-  def not_needed_after_params
-    params.require(%I[resource id not_needed_after])
+  def change_pickup_expiration_params
+    params.require(%I[id not_needed_after])
   end
 
   def item_details

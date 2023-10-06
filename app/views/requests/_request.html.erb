@@ -42,7 +42,6 @@
         <% if patron.can_modify_requests? %>
           <% if request.ready_for_pickup? %>
             <%= form_tag request_path(request.key), method: :delete do %>
-              <%= hidden_field_tag :resource, request.resource %>
               <%= hidden_field_tag :title, request.title %>
               <%= hidden_field_tag :group, params[:group] if params[:group] %>
               <%= button_tag class: 'btn btn-link btn-request-cancel btn-icon-prefix', type: 'submit' do %>
