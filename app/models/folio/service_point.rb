@@ -17,7 +17,7 @@ module Folio
 
     class << self
       def all
-        @all ||= FolioClient.new.service_points.map { |json| from_dynamic(json) }
+        @all ||= Folio::Types.get_type('service_points').map { |json| from_dynamic(json) }
       end
 
       def default_service_points

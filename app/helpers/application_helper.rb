@@ -58,8 +58,8 @@ module ApplicationHelper
     end
   end
 
-  # TODO: If we settle on FOLIO as the source for library names, we could start using
-  # Folio::Library.find_by(id: code)&.name. Until then we map the FOLIO code
+  # TODO: If we settle on FOLIO as the source for library names, we could implement
+  # Folio::Types.libraries.find_by(id: code)&.name. Until then we map the FOLIO code
   # to the Symphony code in FolioRecord so we can use the Symphony lookup.
   def library_name(code)
     Mylibrary::Application.config.library_map[code] || code

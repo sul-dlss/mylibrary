@@ -70,6 +70,53 @@ class FolioGraphqlClient
     data.dig('data', 'servicePoints')
   end
 
+  def loan_policies
+    data = post_json('/', json: {
+      query: "query LoanPolicies {
+        loanPolicies {
+          id
+          name
+          description
+          renewable
+          renewalsPolicy {
+            numberAllowed
+            alternateFixedDueDateSchedule {
+              schedules {
+                due
+                from
+                to
+              }
+            }
+            period {
+              duration
+              intervalId
+            }
+            renewFromId
+            unlimited
+          }
+          loanable
+          loansPolicy {
+            period {
+              duration
+              intervalId
+            }
+            fixedDueDateSchedule {
+              schedules {
+                due
+                from
+                to
+              }
+            }
+          }
+        }
+      }"
+    })
+
+    raise data['errors'].pluck('message').join("\n") if data.key?('errors')
+
+    data.dig('data', 'loanPolicies')
+  end
+
   def patron_info(patron_uuid)
     data = post_json('/', json: {
       query: "query Query($patronId: UUID!) {
