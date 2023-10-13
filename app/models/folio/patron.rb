@@ -36,12 +36,7 @@ module Folio
     end
 
     def status
-      if proxy_borrower?
-        # proxy borrowers inherit from the group
-        group&.status
-      else
-        standing
-      end
+      standing
     end
 
     def standing
@@ -57,21 +52,11 @@ module Folio
     end
 
     def barred?
-      # proxy borrowers inherit from the group
-      if proxy_borrower?
-        group.barred?
-      else
-        user_info['manualBlocks'].any?
-      end
+      user_info['manualBlocks'].any?
     end
 
     def blocked?
-      # proxy borrowers inherit from the group
-      if proxy_borrower?
-        group.blocked?
-      else
-        user_info['blocks'].any?
-      end
+      user_info['blocks'].any?
     end
 
     # From https://docs.folio.org/docs/users/: Inactive status indicates that the expiration date
