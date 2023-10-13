@@ -10,7 +10,7 @@ RSpec.describe 'Sponsor User' do
   let(:mock_client) { instance_double(FolioClient, ping: true) }
 
   let(:patron_info) do
-    build(:sponsor_patron).patron_info
+    build(:sponsor_patron, custom_properties: { 'loans' => [] }).patron_info
   end
 
   before do

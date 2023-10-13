@@ -254,30 +254,7 @@ FactoryBot.define do
              'dueDateChangedByHold' => nil,
              'proxyUserId' => 'bdfa62a1-758c-4389-ae81-8ddb37860f9b',
              'userId' => 'ec52d62d-9f0e-4ea5-856f-a1accb0121d1',
-             'status' => { 'name' => 'Open' },
-             'loanPolicy' =>
-             { 'name' => '1qtr-3renew-7daygrace',
-               'description' => 'Loan policy for monos owned by SUL, GSB and Law loaned to grad students',
-               'renewable' => true,
-               'renewalsPolicy' =>
-               { 'alternateFixedDueDateSchedule' => nil,
-                 'numberAllowed' => 3,
-                 'period' => nil,
-                 'renewFromId' => nil,
-                 'unlimited' => false },
-               'loansPolicy' =>
-               { 'fixedDueDateSchedule' =>
-                 { 'schedules' =>
-                   [{ 'due' => '2023-04-04T06:59:59.000+00:00',
-                      'from' => '1993-02-01T08:00:00.000+00:00',
-                      'to' => '2023-02-25T07:59:59.000+00:00' },
-                    { 'due' => '2023-06-27T06:59:59.000+00:00',
-                      'from' => '2023-02-25T08:00:00.000+00:00',
-                      'to' => '2023-05-13T06:59:59.000+00:00' },
-                    { 'due' => '2023-09-27T06:59:59.000+00:00',
-                      'from' => '2023-05-13T07:00:00.000+00:00',
-                      'to' => '2023-08-15T06:59:59.000+00:00' }] },
-                 'period' => nil } } } },
+             'status' => { 'name' => 'Open' } } },
          { 'id' => 'e8d0dd5c-2b69-420f-bd91-075eebbe8eba',
            'item' =>
            { 'title' =>
@@ -304,30 +281,7 @@ FactoryBot.define do
              'dueDateChangedByHold' => nil,
              'proxyUserId' => 'bdfa62a1-758c-4389-ae81-8ddb37860f9b',
              'userId' => 'ec52d62d-9f0e-4ea5-856f-a1accb0121d1',
-             'status' => { 'name' => 'Open' },
-             'loanPolicy' =>
-             { 'name' => '1qtr-3renew-7daygrace',
-               'description' => 'Loan policy for monos owned by SUL, GSB and Law loaned to grad students',
-               'renewable' => true,
-               'renewalsPolicy' =>
-               { 'alternateFixedDueDateSchedule' => nil,
-                 'numberAllowed' => 3,
-                 'period' => nil,
-                 'renewFromId' => nil,
-                 'unlimited' => false },
-               'loansPolicy' =>
-               { 'fixedDueDateSchedule' =>
-                 { 'schedules' =>
-                   [{ 'due' => '2023-04-04T06:59:59.000+00:00',
-                      'from' => '1993-02-01T08:00:00.000+00:00',
-                      'to' => '2023-02-25T07:59:59.000+00:00' },
-                    { 'due' => '2023-06-27T06:59:59.000+00:00',
-                      'from' => '2023-02-25T08:00:00.000+00:00',
-                      'to' => '2023-05-13T06:59:59.000+00:00' },
-                    { 'due' => '2023-09-27T06:59:59.000+00:00',
-                      'from' => '2023-05-13T07:00:00.000+00:00',
-                      'to' => '2023-08-15T06:59:59.000+00:00' }] },
-                 'period' => nil } } } },
+             'status' => { 'name' => 'Open' } } },
          { 'id' => '75d92250-2188-4b73-b2e5-aefae6d5e17f',
            'item' =>
            { 'title' =>
@@ -355,27 +309,7 @@ FactoryBot.define do
              'dueDateChangedByHold' => nil,
              'proxyUserId' => nil,
              'userId' => 'ec52d62d-9f0e-4ea5-856f-a1accb0121d1',
-             'status' => { 'name' => 'Open' },
-             'loanPolicy' =>
-             { 'name' => '1yearfixed-2renew-7daygrace',
-               'description' => 'Loan policy for monographs owned by SUL, GSB and Law loaned to faculty.',
-               'renewable' => true,
-               'renewalsPolicy' =>
-               { 'alternateFixedDueDateSchedule' => nil,
-                 'numberAllowed' => 2,
-                 'period' => nil,
-                 'renewFromId' => nil,
-                 'unlimited' => false },
-               'loansPolicy' =>
-               { 'fixedDueDateSchedule' =>
-                 { 'schedules' =>
-                   [{ 'due' => '2023-07-01T06:59:59.000+00:00',
-                      'from' => '1993-02-01T08:00:00.000+00:00',
-                      'to' => '2023-05-01T06:59:59.000+00:00' },
-                    { 'due' => '2024-07-02T06:59:59.000+00:00',
-                      'from' => '2023-05-01T07:00:00.000+00:00',
-                      'to' => '2024-05-01T06:59:59.000+00:00' }] },
-                 'period' => nil } } } }],
+             'status' => { 'name' => 'Open' } } }],
         'totalCharges' => { 'isoCurrencyCode' => 'USD', 'amount' => 0 },
         'totalChargesCount' => 0,
         'totalLoans' => 3,
@@ -518,30 +452,7 @@ FactoryBot.define do
              'dueDateChangedByHold' => nil,
              'proxyUserId' => nil,
              'userId' => 'bdfa62a1-758c-4389-ae81-8ddb37860f9b',
-             'status' => { 'name' => 'Open' },
-             'loanPolicy' =>
-             { 'name' => '1qtr-3renew-7daygrace',
-               'description' => 'Loan policy for monos owned by SUL, GSB and Law loaned to grad students',
-               'renewable' => true,
-               'renewalsPolicy' =>
-               { 'alternateFixedDueDateSchedule' => nil,
-                 'numberAllowed' => 3,
-                 'period' => nil,
-                 'renewFromId' => nil,
-                 'unlimited' => false },
-               'loansPolicy' =>
-               { 'fixedDueDateSchedule' =>
-                 { 'schedules' =>
-                   [{ 'due' => '2023-04-04T06:59:59.000+00:00',
-                      'from' => '1993-02-01T08:00:00.000+00:00',
-                      'to' => '2023-02-25T07:59:59.000+00:00' },
-                    { 'due' => '2023-06-27T06:59:59.000+00:00',
-                      'from' => '2023-02-25T08:00:00.000+00:00',
-                      'to' => '2023-05-13T06:59:59.000+00:00' },
-                    { 'due' => '2023-09-27T06:59:59.000+00:00',
-                      'from' => '2023-05-13T07:00:00.000+00:00',
-                      'to' => '2023-08-15T06:59:59.000+00:00' }] },
-                 'period' => nil } } } }],
+             'status' => { 'name' => 'Open' } } }],
         'totalCharges' => { 'isoCurrencyCode' => 'USD', 'amount' => 0 },
         'totalChargesCount' => 0,
         'totalLoans' => 1,
@@ -664,30 +575,7 @@ FactoryBot.define do
             'dueDateChangedByHold' => nil,
             'proxyUserId' => nil,
             'userId' => 'bdfa62a1-758c-4389-ae81-8ddb37860f9b',
-            'status' => { 'name' => 'Open' },
-            'loanPolicy' =>
-            { 'name' => '1qtr-3renew-7daygrace',
-              'description' => 'Loan policy for monos owned by SUL, GSB and Law loaned to grad students',
-              'renewable' => true,
-              'renewalsPolicy' =>
-              { 'alternateFixedDueDateSchedule' => nil,
-                'numberAllowed' => 3,
-                'period' => nil,
-                'renewFromId' => nil,
-                'unlimited' => false },
-              'loansPolicy' =>
-              { 'fixedDueDateSchedule' =>
-                { 'schedules' =>
-                  [{ 'due' => '2023-04-04T06:59:59.000+00:00',
-                     'from' => '1993-02-01T08:00:00.000+00:00',
-                     'to' => '2023-02-25T07:59:59.000+00:00' },
-                   { 'due' => '2023-06-27T06:59:59.000+00:00',
-                     'from' => '2023-02-25T08:00:00.000+00:00',
-                     'to' => '2023-05-13T06:59:59.000+00:00' },
-                   { 'due' => '2023-09-27T06:59:59.000+00:00',
-                     'from' => '2023-05-13T07:00:00.000+00:00',
-                     'to' => '2023-08-15T06:59:59.000+00:00' }] },
-                'period' => nil } } } }],
+            'status' => { 'name' => 'Open' } } }],
         'holds' => [],
         'accounts' => []
       }.merge(custom_properties)
@@ -729,30 +617,7 @@ FactoryBot.define do
             'dueDateChangedByHold' => nil,
             'proxyUserId' => nil,
             'userId' => 'bdfa62a1-758c-4389-ae81-8ddb37860f9b',
-            'status' => { 'name' => 'Open' },
-            'loanPolicy' =>
-            { 'name' => '1qtr-3renew-7daygrace',
-              'description' => 'Loan policy for monos owned by SUL, GSB and Law loaned to grad students',
-              'renewable' => true,
-              'renewalsPolicy' =>
-              { 'alternateFixedDueDateSchedule' => nil,
-                'numberAllowed' => 3,
-                'period' => nil,
-                'renewFromId' => nil,
-                'unlimited' => false },
-              'loansPolicy' =>
-              { 'fixedDueDateSchedule' =>
-                { 'schedules' =>
-                  [{ 'due' => '2023-04-04T06:59:59.000+00:00',
-                     'from' => '1993-02-01T08:00:00.000+00:00',
-                     'to' => '2023-02-25T07:59:59.000+00:00' },
-                   { 'due' => '2023-06-27T06:59:59.000+00:00',
-                     'from' => '2023-02-25T08:00:00.000+00:00',
-                     'to' => '2023-05-13T06:59:59.000+00:00' },
-                   { 'due' => '2023-09-27T06:59:59.000+00:00',
-                     'from' => '2023-05-13T07:00:00.000+00:00',
-                     'to' => '2023-08-15T06:59:59.000+00:00' }] },
-                'period' => nil } } } }],
+            'status' => { 'name' => 'Open' } } }],
         'holds' => [],
         'accounts' => []
       }.merge(custom_properties)
@@ -892,30 +757,7 @@ FactoryBot.define do
             'proxyUserId' => nil,
             'userId' => 'e705b594-1e94-4195-a4a3-fd50031cdacd',
             'status' => { 'name' => 'Open' },
-            'feesAndFines' => { 'amountRemainingToPay' => 25 },
-            'loanPolicy' =>
-            { 'name' => '1qtr-3renew-7daygrace',
-              'description' => 'Loan policy for monos owned by SUL, GSB and Law loaned to grad students',
-              'renewable' => true,
-              'renewalsPolicy' =>
-              { 'alternateFixedDueDateSchedule' => nil,
-                'numberAllowed' => 3,
-                'period' => nil,
-                'renewFromId' => nil,
-                'unlimited' => false },
-              'loansPolicy' =>
-              { 'fixedDueDateSchedule' =>
-                { 'schedules' =>
-                  [{ 'due' => '2023-04-04T06:59:59.000+00:00',
-                     'from' => '1993-02-01T08:00:00.000+00:00',
-                     'to' => '2023-02-25T07:59:59.000+00:00' },
-                   { 'due' => '2023-06-27T06:59:59.000+00:00',
-                     'from' => '2023-02-25T08:00:00.000+00:00',
-                     'to' => '2023-05-13T06:59:59.000+00:00' },
-                   { 'due' => '2023-09-27T06:59:59.000+00:00',
-                     'from' => '2023-05-13T07:00:00.000+00:00',
-                     'to' => '2023-08-15T06:59:59.000+00:00' }] },
-                'period' => nil } } } }],
+            'feesAndFines' => { 'amountRemainingToPay' => 25 } } }],
         'totalCharges' => { 'isoCurrencyCode' => 'USD', 'amount' => 300 },
         'totalChargesCount' => 1,
         'totalLoans' => 0,
@@ -1282,23 +1124,11 @@ FactoryBot.define do
              'proxyUserId' => nil,
              'userId' => 'd7b67ab1-a3f2-45a9-87cc-d867bca8315f',
              'status' => { 'name' => 'Open' },
-             'loanPolicy' =>
-             { 'name' => '8week-1renew-7daygrace',
-               'description' => 'Loan policy for BorrowDirect materials loaned to Stanford users',
-               'renewable' => true,
-               'renewalsPolicy' =>
-               { 'alternateFixedDueDateSchedule' => nil,
-                 'numberAllowed' => 1,
-                 'period' => nil,
-                 'renewFromId' => 'SYSTEM_DATE',
-                 'unlimited' => nil },
-               'loansPolicy' => { 'fixedDueDateSchedule' => nil,
-                                  'period' => { 'intervalId' => 'Weeks', 'duration' => 8 } } },
              'feesAndFines' => { 'amountRemainingToPay' => 200 } } }],
         'totalCharges' => { 'isoCurrencyCode' => 'USD', 'amount' => 200 },
         'totalChargesCount' => 1,
         'totalLoans' => 1,
-        'totalHolds' => 3 }
+        'totalHolds' => 3 }.merge(custom_properties)
     end
 
     initialize_with { new(patron_info) }

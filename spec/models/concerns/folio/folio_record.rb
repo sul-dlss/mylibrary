@@ -2,8 +2,8 @@
 
 require 'rails_helper'
 
-RSpec.shared_examples 'folio_record' do
-  let(:model) { described_class.new(record) }
+RSpec.shared_examples 'folio_record' do |args = []|
+  let(:model) { described_class.new(*args.dup.unshift(record)) }
 
   describe '#home_location' do
     context 'when the item has a permanent location' do

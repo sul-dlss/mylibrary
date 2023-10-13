@@ -28,7 +28,8 @@ RSpec.describe 'fines/index' do
       { 'id' => '31d15973-acb6-4a12-92c7-5e2d5f2470ed',
         'item' => { 'title' => 'Mental growth during the first three years' },
         'overdue' => true,
-        'details' => { 'feesAndFines' => { 'amountRemainingToPay' => 10 } } }
+        'details' => { 'feesAndFines' => { 'amountRemainingToPay' => 10 } } },
+      '3684a786-6671-4268-8ed0-9db82ebca60b'
     )]
   end
   let(:patron) do
