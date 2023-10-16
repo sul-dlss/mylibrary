@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe Folio::LoanPolicy do
   subject(:folio_loan_policy) do
-    described_class.new(loan_policy: loan_policy, due_date: due_date, renewal_count: renewal_count)
+    described_class.new(loan_policy:, due_date:, renewal_count:)
   end
 
   let(:due_date) { nil }

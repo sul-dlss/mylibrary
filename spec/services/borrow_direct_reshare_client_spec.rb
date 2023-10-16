@@ -1,7 +1,7 @@
 # frozen_string_literal: true
 
 RSpec.describe BorrowDirectReshareClient do
-  subject(:client) { described_class.new(url: url) }
+  subject(:client) { described_class.new(url:) }
 
   let(:url) { 'https://example.com' }
   let(:request_headers) do
@@ -47,7 +47,7 @@ RSpec.describe BorrowDirectReshareClient do
   describe '#get_json' do
     before do
       stub_request(:get, 'https://example.com/blah')
-        .to_return(body: body)
+        .to_return(body:)
     end
 
     let(:body) { '{"hello": "world"}' }
@@ -70,7 +70,7 @@ RSpec.describe BorrowDirectReshareClient do
       stub_request(:get, 'https://example.com/rs/patronrequests?filters=isRequester=true&' \
                          'match=patronIdentifier&perPage=100&sort=dateCreated%3Bdesc&term=12345678')
         .with(headers: request_headers)
-        .to_return(body: body)
+        .to_return(body:)
     end
 
     let(:body) do

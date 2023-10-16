@@ -162,7 +162,7 @@ class SymphonyClient
   def cancel_hold(resource, item_key, _patron_key = nil)
     authenticated_request('/circulation/holdRecord/cancelHold', method: :post, json: {
       holdRecord: {
-        resource: resource,
+        resource:,
         key: item_key
       }
     })
@@ -171,7 +171,7 @@ class SymphonyClient
   def change_pickup_library(resource, item_key, service_point)
     authenticated_request('/circulation/holdRecord/changePickupLibrary', method: :post, json: {
       holdRecord: {
-        resource: resource,
+        resource:,
         key: item_key
       },
       pickupLibrary: {
@@ -183,7 +183,7 @@ class SymphonyClient
 
   def not_needed_after(resource, item_key, not_needed_after)
     authenticated_request("/circulation/holdRecord/key/#{item_key}", method: :put, json: {
-      resource: resource,
+      resource:,
       key: item_key,
       fields: {
         fillByDate: not_needed_after
@@ -203,7 +203,7 @@ class SymphonyClient
       decision: 'ACCEPT'
     }
 
-    response = HTTP.use(instrumentation: instrumentation)
+    response = HTTP.use(instrumentation:)
                    .request(:post, "#{cgi_bin_url}/transactionPost.pl", form: params)
 
     raise IlsError, response.body unless response.status == 200
@@ -212,9 +212,9 @@ class SymphonyClient
   private
 
   def renew_item_request(resource, item_key, headers: {})
-    authenticated_request('/circulation/circRecord/renew', headers: headers, method: :post, json: {
+    authenticated_request('/circulation/circRecord/renew', headers:, method: :post, json: {
       item: {
-        resource: resource,
+        resource:,
         key: item_key
       }
     })
@@ -228,15 +228,15 @@ class SymphonyClient
     nil
   end
 
-  def authenticated_request(path, headers: {}, **other)
-    request(path, headers: headers.merge('x-sirs-sessionToken': session_token), **other)
+  def authenticated_request(path, headers: {}, **)
+    request(path, headers: headers.merge('x-sirs-sessionToken': session_token), **)
   end
 
-  def request(path, headers: {}, method: :get, **other)
+  def request(path, headers: {}, method: :get, **)
     HTTP
-      .use(instrumentation: instrumentation)
+      .use(instrumentation:)
       .headers(default_headers.merge(headers))
-      .request(method, base_url + path, **other)
+      .request(method, base_url + path, **)
   end
 
   def base_url

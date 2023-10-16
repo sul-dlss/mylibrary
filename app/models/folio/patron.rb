@@ -213,7 +213,7 @@ module Folio
 
       allowed_affiliations = ['affiliate:fellow', 'staff:academic', 'staff:otherteaching']
 
-      (affiliations & allowed_affiliations).any?
+      affiliations.intersect?(allowed_affiliations)
     end
 
     def borrow_direct_requests

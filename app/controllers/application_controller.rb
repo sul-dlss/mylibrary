@@ -61,7 +61,7 @@ class ApplicationController < ActionController::Base
   end
 
   def patron_info_response
-    ils_client.patron_info(current_user.patron_key, item_details: item_details)
+    ils_client.patron_info(current_user.patron_key, item_details:)
   end
 
   def ils_client

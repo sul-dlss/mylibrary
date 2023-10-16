@@ -19,7 +19,7 @@ RSpec.describe 'Sponsor User' do
     #       loan policy schedule date range.
     travel_to Time.zone.parse('2023-06-13T07:00:00.000+00:00')
     allow(FolioClient).to receive(:new) { mock_client }
-    allow(mock_client).to receive_messages(patron_info: patron_info)
+    allow(mock_client).to receive_messages(patron_info:)
     login_as(username: 'stub_user', patron_key: 'ec52d62d-9f0e-4ea5-856f-a1accb0121d1')
 
     visit summaries_path

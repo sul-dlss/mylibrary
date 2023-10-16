@@ -22,9 +22,9 @@ module Folio
       @patron_type_id = patron_type_id
     end
 
-    def self.find(key, **args)
+    def self.find(key, **)
       symphony_client = SymphonyClient.new
-      new(symphony_client.circ_record_info(key), **args)
+      new(symphony_client.circ_record_info(key), **)
     rescue HTTP::Error
       nil
     end
@@ -200,8 +200,8 @@ module Folio
 
     def loan_policy
       @loan_policy ||= Folio::LoanPolicy.new(loan_policy: effective_loan_policy,
-                                             due_date: due_date,
-                                             renewal_count: renewal_count)
+                                             due_date:,
+                                             renewal_count:)
     end
 
     def effective_loan_policy
@@ -214,10 +214,10 @@ module Folio
     def effective_loan_policy_id
       cache_key = ['effective_loan_policy_id', item_type_id, loan_type_id, patron_type_id, location_id].join(':')
       Rails.cache.fetch(cache_key, expires_in: 1.day) do
-        response = FolioClient.new.find_effective_loan_policy(item_type_id: item_type_id,
-                                                              loan_type_id: loan_type_id,
-                                                              patron_type_id: patron_type_id,
-                                                              location_id: location_id)
+        response = FolioClient.new.find_effective_loan_policy(item_type_id:,
+                                                              loan_type_id:,
+                                                              patron_type_id:,
+                                                              location_id:)
 
         response['loanPolicyId']
       end

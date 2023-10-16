@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe 'checkouts/_renew_all_button' do
   subject(:output) { Capybara.string(rendered) }
 
-  let(:patron) { instance_double(Symphony::Patron, checkouts: checkouts, can_renew?: true) }
+  let(:patron) { instance_double(Symphony::Patron, checkouts:, can_renew?: true) }
   let(:checkouts) { [instance_double(Symphony::Checkout, renewable?: true)] }
 
   before do

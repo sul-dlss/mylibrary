@@ -4,13 +4,13 @@ require 'rails_helper'
 
 RSpec.describe Folio::Types do
   describe '#sync!' do
-    subject(:instance) { described_class.new(cache_dir: Pathname.new(tmpdir), folio_client: folio_client) }
+    subject(:instance) { described_class.new(cache_dir: Pathname.new(tmpdir), folio_client:) }
 
     let(:tmpdir) { Dir.mktmpdir }
     let(:folio_client) do
       instance_double(
         FolioClient,
-        loan_policies: loan_policies,
+        loan_policies:,
         **fake_data
       )
     end

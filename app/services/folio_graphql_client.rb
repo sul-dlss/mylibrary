@@ -34,20 +34,20 @@ class FolioGraphqlClient
     "#<#{self.class.name}:#{object_id}  @base_url=\"#{base_url}\">"
   end
 
-  def get(path, **kwargs)
-    request(path, method: :get, **kwargs)
+  def get(path, **)
+    request(path, method: :get, **)
   end
 
-  def post(path, **kwargs)
-    request(path, method: :post, **kwargs)
+  def post(path, **)
+    request(path, method: :post, **)
   end
 
-  def get_json(path, **kwargs)
-    parse(get(path, **kwargs))
+  def get_json(path, **)
+    parse(get(path, **))
   end
 
-  def post_json(path, **kwargs)
-    parse(post(path, **kwargs))
+  def post_json(path, **)
+    parse(post(path, **))
   end
 
   def service_points
@@ -354,9 +354,7 @@ class FolioGraphqlClient
       variables: { patronId: patron_uuid }
     })
 
-    if data.key?('errors')
-      Honeybadger.notify(data['errors'].pluck('message').join("\n"), context: { patron_uuid: patron_uuid })
-    end
+    Honeybadger.notify(data['errors'].pluck('message').join("\n"), context: { patron_uuid: }) if data.key?('errors')
 
     data.dig('data', 'patron')
   end
@@ -378,11 +376,11 @@ class FolioGraphqlClient
     JSON.parse(response.body)
   end
 
-  def request(path, headers: {}, method: :get, **other)
+  def request(path, headers: {}, method: :get, **)
     HTTP
       .use(instrumentation: { instrumenter: ActiveSupport::Notifications.instrumenter, namespace: 'folio' })
       .headers(default_headers.merge(headers))
-      .request(method, base_url + path, **other)
+      .request(method, base_url + path, **)
   end
 
   def default_headers

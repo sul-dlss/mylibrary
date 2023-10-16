@@ -6,7 +6,7 @@ RSpec.describe Symphony::Request do
   subject do
     described_class.new({
       key: '1',
-      fields: fields
+      fields:
     }.with_indifferent_access)
   end
 

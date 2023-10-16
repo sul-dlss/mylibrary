@@ -27,7 +27,7 @@ RSpec.describe 'Proxy User' do
     #       loan policy schedule date range.
     travel_to Time.zone.parse('2023-06-13T07:00:00.000+00:00')
     allow(FolioClient).to receive(:new) { mock_client }
-    allow(mock_client).to receive_messages(patron_info: patron_info)
+    allow(mock_client).to receive_messages(patron_info:)
     allow(mock_client).to receive(:patron_info).with('ec52d62d-9f0e-4ea5-856f-a1accb0121d1').and_return(sponsor)
     allow(Folio::ServicePoint).to receive_messages(all: service_points)
     allow(Folio::LoanPolicy).to receive(:new).and_return(build(:grad_mono_loans))
