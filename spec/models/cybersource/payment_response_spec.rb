@@ -19,8 +19,8 @@ RSpec.describe Cybersource::PaymentResponse do
                                      req_reference_number: '0340214b-5492-472d-b634-c5c115639465',
                                      signed_field_names: 'req_amount,req_reference_number',
                                      unsigned_field_names: '',
-                                     signature: signature,
-                                     decision: decision)
+                                     signature:,
+                                     decision:)
   end
 
   it 'parses the user id from the merchant defined data' do

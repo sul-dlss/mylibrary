@@ -21,7 +21,7 @@ RSpec.describe 'Checkout Page' do
     #       loan policy schedule date range.
     travel_to Time.zone.parse('2023-06-13T07:00:00.000+00:00')
     allow(FolioClient).to receive(:new) { mock_client }
-    allow(mock_client).to receive_messages(patron_info: patron_info)
+    allow(mock_client).to receive_messages(patron_info:)
     allow(Folio::LoanPolicy).to receive(:new).and_return(loan_policy)
     login_as(username: 'stub_user', patron_key: '513a9054-5897-11ee-8c99-0242ac120002')
   end

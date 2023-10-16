@@ -30,7 +30,7 @@ RSpec.describe 'requests/_request' do
 
   before do
     without_partial_double_verification do
-      allow(view).to receive_messages(params: { group: true }, patron: patron) # Set params[:group] to true
+      allow(view).to receive_messages(params: { group: true }, patron:) # Set params[:group] to true
     end
     allow(Folio::ServicePoint).to receive(:name_by_code).with('XYZ').and_return('XYZ Library')
     render partial: 'requests/request', locals: { request: mock_request, group: true }

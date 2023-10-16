@@ -4,7 +4,7 @@ require 'rails_helper'
 
 RSpec.describe ResetPinsMailer do
   describe '#reset_pin' do
-    subject(:mail) { described_class.with(patron: patron).reset_pin }
+    subject(:mail) { described_class.with(patron:).reset_pin }
 
     let(:patron) do
       instance_double(Folio::Patron, email: 'jdoe@stanford.edu', display_name: 'J Doe', barcode: '123',
@@ -21,7 +21,7 @@ RSpec.describe ResetPinsMailer do
     end
 
     it 'includes a link to the change PIN form in the body' do
-      expect(mail.html_part.body).to have_link 'Change my PIN', href: change_pin_with_token_url(token: token)
+      expect(mail.html_part.body).to have_link 'Change my PIN', href: change_pin_with_token_url(token:)
     end
   end
 end

@@ -16,7 +16,7 @@ RSpec.describe 'Feedback form' do
 
   before do
     allow(FolioClient).to receive(:new).and_return(mock_client)
-    allow(mock_client).to receive_messages(patron_info: patron_info)
+    allow(mock_client).to receive_messages(patron_info:)
   end
 
   context 'when not logged in' do

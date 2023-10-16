@@ -30,7 +30,7 @@ RSpec.describe SummariesController do
     end
 
     before do
-      allow(mock_client).to receive_messages(patron_info: patron_info)
+      allow(mock_client).to receive_messages(patron_info:)
       warden.set_user(user)
     end
 

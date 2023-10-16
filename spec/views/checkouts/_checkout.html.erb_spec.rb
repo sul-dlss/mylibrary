@@ -43,7 +43,7 @@ RSpec.describe 'checkouts/_checkout' do
       allow(view).to receive(:patron).and_return(patron)
     end
 
-    render 'checkouts/checkout', checkout: checkout
+    render 'checkouts/checkout', checkout:
   end
 
   it 'links to the item in SearchWorks' do

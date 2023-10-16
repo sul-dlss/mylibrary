@@ -110,7 +110,7 @@ class FolioClient
   def renew_item_request(user_id, item_id)
     response = post('/circulation/renew-by-id', json: { itemId: item_id, userId: user_id })
     begin
-      check_response(response, title: 'Renew', context: { user_id: user_id, item_id: item_id })
+      check_response(response, title: 'Renew', context: { user_id:, item_id: })
     rescue FolioClient::IlsError => e
       Honeybadger.notify(e)
     end
@@ -134,7 +134,7 @@ class FolioClient
                         'cancelledDate' => Time.now.utc.iso8601,
                         'status' => 'Closed - Cancelled')
     response = put("/circulation/requests/#{request_id}", json: request_data)
-    check_response(response, title: 'Cancel', context: { user_id: user_id, request_id: request_id })
+    check_response(response, title: 'Cancel', context: { user_id:, request_id: })
 
     response
   end
@@ -162,14 +162,14 @@ class FolioClient
   # @param [String] pin
   # @return [Boolean] true when successful
   def validate_patron_pin(user_id, pin)
-    response = post('/patron-pin/verify', json: { id: user_id, pin: pin })
+    response = post('/patron-pin/verify', json: { id: user_id, pin: })
     case response.status
     when 200
       true
     when 422
       false
     else
-      check_response(response, title: 'Validate pin', context: { user_id: user_id })
+      check_response(response, title: 'Validate pin', context: { user_id: })
     end
   end
 
@@ -189,7 +189,7 @@ class FolioClient
   # Look up a patron by barcode and return a Patron object
   # If 'patron_info' is false, don't run the full patron info GraphQL query
   def find_patron_by_barcode(barcode, patron_info: true)
-    response = get_json('/users', params: { query: CqlQuery.new(barcode: barcode).to_query })
+    response = get_json('/users', params: { query: CqlQuery.new(barcode:).to_query })
     user = response.dig('users', 0)
     raise ActiveRecord::RecordNotFound, "User with barcode #{barcode} not found" unless user
 
@@ -204,7 +204,7 @@ class FolioClient
     payload = {
       accountIds: patron.fines.map(&:key),
       paymentMethod: 'Credit card',
-      amount: amount,
+      amount:,
       userName: 'libsys_admin',
       transactionInfo: user_id,
       servicePointId: Settings.folio.online_service_point_id,
@@ -218,10 +218,10 @@ class FolioClient
 
   def find_effective_loan_policy(item_type_id:, loan_type_id:, patron_type_id:, location_id:)
     get_json('/circulation/rules/loan-policy',
-             params: { item_type_id: item_type_id,
-                       loan_type_id: loan_type_id,
-                       patron_type_id: patron_type_id,
-                       location_id: location_id }.as_json)
+             params: { item_type_id:,
+                       loan_type_id:,
+                       patron_type_id:,
+                       location_id: }.as_json)
   end
 
   private
@@ -232,7 +232,7 @@ class FolioClient
     request_data.merge!(request_data_updates)
     response = put("/circulation/requests/#{request_id}", json: request_data)
     check_response(response, title: 'Update request',
-                             context: { request_id: request_id }.merge(request_data_updates))
+                             context: { request_id: }.merge(request_data_updates))
 
     response
   end
@@ -245,20 +245,20 @@ class FolioClient
                     "status: #{response.status}, #{response.body}"
   end
 
-  def get(path, **kwargs)
-    authenticated_request(path, method: :get, **kwargs)
+  def get(path, **)
+    authenticated_request(path, method: :get, **)
   end
 
-  def post(path, **kwargs)
-    authenticated_request(path, method: :post, **kwargs)
+  def post(path, **)
+    authenticated_request(path, method: :post, **)
   end
 
-  def put(path, **kwargs)
-    authenticated_request(path, method: :put, **kwargs)
+  def put(path, **)
+    authenticated_request(path, method: :put, **)
   end
 
-  def get_json(path, **kwargs)
-    parse_json(get(path, **kwargs))
+  def get_json(path, **)
+    parse_json(get(path, **))
   end
 
   def folio_graphql_client
@@ -289,7 +289,7 @@ class FolioClient
   end
 
   def authenticated_request(path, method:, params: nil, headers: {}, json: nil)
-    request(path, method: method, params: params, headers: headers.merge('x-okapi-token': session_token), json: json)
+    request(path, method:, params:, headers: headers.merge('x-okapi-token': session_token), json:)
   end
 
   def request(path, method:, headers: nil, params: nil, json: nil)

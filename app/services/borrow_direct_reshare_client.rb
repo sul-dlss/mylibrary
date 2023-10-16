@@ -21,12 +21,12 @@ class BorrowDirectReshareClient
     @tenant = tenant
   end
 
-  def get(path, **kwargs)
-    authenticated_request(path, method: :get, **kwargs)
+  def get(path, **)
+    authenticated_request(path, method: :get, **)
   end
 
-  def get_json(path, **kwargs)
-    parse(get(path, **kwargs))
+  def get_json(path, **)
+    parse(get(path, **))
   end
 
   def requests(university_id)
@@ -61,13 +61,13 @@ class BorrowDirectReshareClient
     end
   end
 
-  def authenticated_request(path, headers: {}, **other)
-    request(path, headers: headers.merge('x-okapi-token': session_token), **other)
+  def authenticated_request(path, headers: {}, **)
+    request(path, headers: headers.merge('x-okapi-token': session_token), **)
   end
 
-  def request(path, headers: {}, method: :get, **other)
+  def request(path, headers: {}, method: :get, **)
     HTTP.headers(default_headers.merge(headers))
-        .request(method, base_url + path, **other)
+        .request(method, base_url + path, **)
   end
 
   def default_headers

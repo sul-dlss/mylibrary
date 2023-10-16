@@ -36,7 +36,7 @@ RSpec.describe FinesController do
     end
 
     before do
-      allow(mock_patron).to receive_messages(fines: fines, checkouts: checkouts)
+      allow(mock_patron).to receive_messages(fines:, checkouts:)
       warden.set_user(user)
     end
 
@@ -70,7 +70,7 @@ RSpec.describe FinesController do
 
     before do
       allow(mock_patron).to receive(:group).and_return(
-        instance_double(Folio::Group, fines: fines, checkouts: checkouts)
+        instance_double(Folio::Group, fines:, checkouts:)
       )
       warden.set_user(user)
     end

@@ -26,7 +26,7 @@ RSpec.describe RequestsHelper do
 
     before do
       allow(Folio::ServicePoint).to receive_messages(
-        default_service_points: default_service_points
+        default_service_points:
       )
     end
 

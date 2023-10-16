@@ -73,8 +73,8 @@ RSpec.describe CheckoutsController do
     end
 
     before do
-      allow(mock_patron).to receive(:group).and_return(instance_double(Folio::Group, checkouts: checkouts,
-                                                                                     requests: requests))
+      allow(mock_patron).to receive(:group).and_return(instance_double(Folio::Group, checkouts:,
+                                                                                     requests:))
       warden.set_user(user)
     end
 

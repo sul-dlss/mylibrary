@@ -35,7 +35,7 @@ FactoryBot.define do
     end
 
     initialize_with do
-      new(loan_policy: loan_policy, due_date: Time.zone.parse(due_date), renewal_count: renewal_count)
+      new(loan_policy:, due_date: Time.zone.parse(due_date), renewal_count:)
     end
   end
 end

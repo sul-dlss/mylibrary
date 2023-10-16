@@ -16,7 +16,7 @@ RSpec.describe 'Request Page' do
 
   before do
     allow(FolioClient).to receive(:new).and_return(mock_client)
-    allow(mock_client).to receive_messages(patron_info: patron_info,
+    allow(mock_client).to receive_messages(patron_info:,
                                            cancel_request: api_response,
                                            change_pickup_service_point: api_response,
                                            change_pickup_expiration: api_response)

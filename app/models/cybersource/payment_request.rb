@@ -27,8 +27,8 @@ module Cybersource
     end
 
     # Support iterating keys and values for rendering as hidden form fields
-    def each(&block)
-      to_h.each(&block)
+    def each(&)
+      to_h.each(&)
     end
 
     # Generate a security signature for the data and add a timestamp
