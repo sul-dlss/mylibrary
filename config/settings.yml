@@ -46,6 +46,10 @@ borrow_direct_reshare:
 BORROW_DIRECT_CODE: BORROW_DIRECT
 ILL_CODE: ILL
 
+# Adding Illiad 
+sul_illiad: https://sul-illiad-test.stanford.edu/
+illiad_api_key: 'AbC123'
+
 purl:
   url: https://purl.stanford.edu
 

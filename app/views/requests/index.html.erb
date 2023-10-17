@@ -6,10 +6,11 @@
 <% end %>
 
 <% ready, requested = @requests.partition(&:ready_for_pickup?) %>
-<% if ready.any? %>
+<% illiad_ready, illiad_requested = @illiad_requests.partition(&:ready_for_pickup?) %>
+<% if ready.any? || illiad_ready.any? %>
   <div class="page-section">
     <div class="d-flex justify-content-between">
-      <h2>Ready for pickup: <%= ready.length %></h2>
+      <h2>Ready for pickup: <%= ready.length + illiad_ready.length%></h2>
     </div>
 
     <div class="d-none d-md-flex row font-weight-bold list-header">
@@ -25,6 +26,7 @@
     </div>
     <ul class="list ready-requests list-group">
       <%= render ready %>
+      <%= render illiad_ready %>
     </ul>
   </div>
 <% end %>
@@ -62,6 +64,23 @@
     </div>
     <ul class="list requested-requests list-group">
       <%= render requested %>
+    </ul>
+  <% end %>
+
+  <% if @illiad_requests.any? %>
+    <div class="d-none d-md-flex row font-weight-bold list-header">
+      <div class="row col-md-4">
+        <div class="col-md-12 col-lg-6" data-sort="library">Deliver to</div>
+        <div class="col-md-12 col-lg-6 active" data-sort="date">Not needed after</div>
+      </div>
+      <div class="col-md-5" data-sort="title">Title</div>
+      <div class="row col-md-3">
+        <div class="col-md-12 col-lg-6" data-sort="author">Author</div>
+        <div class="col-md-12 col-lg-6 call_number" data-sort="call_number">Call number</div>
+      </div>
+    </div>
+    <ul class="list requested-requests list-group">
+      <%= render @illiad_requests %>
     </ul>
   <% end %>
 </div>

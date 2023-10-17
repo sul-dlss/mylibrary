@@ -13,6 +13,8 @@ class RequestsController < ApplicationController
   def index
     @requests = patron_or_group.requests
                                .sort_by { |request| request.sort_key(:date) }
+    @illiad_requests = extract_illiad_requests
+                       .sort_by { |request| request.sort_key(:date) }
   end
 
   # Renders a form for editing a request/hold
@@ -110,5 +112,10 @@ class RequestsController < ApplicationController
     flash[:error] = t 'mylibrary.request.deny_access'
 
     redirect_to requests_path(group: params[:group])
+  end
+
+  # Get ILLIAD requests
+  def extract_illiad_requests
+    IlliadRequests.new(patron_or_group.user_info['username']).request!
   end
 end
