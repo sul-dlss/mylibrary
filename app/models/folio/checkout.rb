@@ -140,8 +140,7 @@ module Folio
       elsif from_ill?
         Settings.ILL_CODE
       else
-        # In some edge cases Symws returns an empty block for fields['library']
-        library_code || 'Stanford Libraries'
+        library_code
       end
     end
 

@@ -82,21 +82,10 @@ RSpec.describe Folio::Checkout do
         { 'id' => '6f951192-b633-40a0-8112-73a191b55a8a',
           'item' =>
             { 'item' =>
-             { 'effectiveLocation' => { 'code' => 'GRE-STACKS' } } } }
+             { 'effectiveLocation' => { 'code' => 'GRE-STACKS', 'library' => { 'code' => 'GREEN' } } } } }
       end
 
       it { expect(checkout.library).to eq 'GREEN' }
-    end
-
-    context 'when record location requires a fallback display value' do
-      let(:record) do
-        { 'id' => '6f951192-b633-40a0-8112-73a191b55a8a',
-          'item' =>
-            { 'item' =>
-             { 'effectiveLocation' => { 'code' => 'SOME-CODE' } } } }
-      end
-
-      it { expect(checkout.library).to eq 'Stanford Libraries' }
     end
   end
 
@@ -129,7 +118,7 @@ RSpec.describe Folio::Checkout do
         { 'id' => '6f951192-b633-40a0-8112-73a191b55a8a',
           'item' =>
             { 'item' =>
-             { 'effectiveLocation' => { 'code' => 'GRE-STACKS' } } } }
+             { 'effectiveLocation' => { 'code' => 'GRE-STACKS', 'library' => { 'code' => 'GREEN' } } } } }
       end
 
       it { expect(checkout).not_to be_from_ill }
