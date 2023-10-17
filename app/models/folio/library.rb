@@ -2,7 +2,6 @@
 
 module Folio
   Library = Data.define(:id, :name, :code) do
-
     def self.all
       @all ||= Folio::Types.get_type('libraries').map { |json| from_dynamic(json) }
     end

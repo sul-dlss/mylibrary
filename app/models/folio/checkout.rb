@@ -252,13 +252,6 @@ module Folio
       record.dig('details', 'renewalCount') || 0
     end
 
-    # returns the equivalent Symphony library code
-    # TODO: Can this just be:
-    #   record.dig('item', 'item', 'effectiveLocation', 'library', 'code')
-    def library_code
-      Folio::LocationsMap.for(location_code)&.first
-    end
-
     # TODO: SUL-ILB-REPLACE-ME is a placeholder for whatever the new FOLIO code will be
     def from_ilb?
       location_code == 'SUL-ILB-REPLACE-ME'
@@ -266,6 +259,10 @@ module Folio
 
     def from_borrow_direct?
       location_code == 'SUL-BORROW-DIRECT'
+    end
+
+    def library_code
+      record.dig('item', 'item', 'effectiveLocation', 'library', 'code')
     end
 
     def location_code
