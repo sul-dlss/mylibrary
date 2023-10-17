@@ -3,7 +3,7 @@
 module Folio
   class Types
     class << self
-      delegate :loan_policies, :get_type, to: :instance
+      delegate :libraries, :locations, :loan_policies, :get_type, to: :instance
     end
 
     def self.instance
@@ -29,6 +29,14 @@ module Folio
       @loan_policies ||= get_type('loan_policies').index_by { |p| p['id'] }
     end
 
+    def libraries
+      @libraries ||= LibrariesStore.new(get_type('libraries'))
+    end
+
+    def locations
+      @locations ||= LocationsStore.new(get_type('locations'))
+    end
+
     def get_type(type)
       raise "Unknown type #{type}" unless types_of_interest.include?(type.to_s)
 
@@ -40,6 +48,8 @@ module Folio
 
     def types_of_interest
       %w[
+        libraries
+        locations
         loan_policies
         service_points
       ]

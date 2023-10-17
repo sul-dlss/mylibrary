@@ -269,7 +269,7 @@ class FolioGraphqlClient
               id
               effectiveLocation {
                 library {
-                  name
+                  code
                 }
               }
               instance {
