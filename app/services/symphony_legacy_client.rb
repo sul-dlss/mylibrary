@@ -16,10 +16,10 @@ class SymphonyLegacyClient
 
   private
 
-  def request(path, method: :get, **other)
+  def request(path, method: :get, **)
     HTTP
       .use(instrumentation: { instrumenter: ActiveSupport::Notifications.instrumenter, namespace: 'symphony' })
-      .request(method, base_url + path, **other)
+      .request(method, base_url + path, **)
   end
 
   def base_url

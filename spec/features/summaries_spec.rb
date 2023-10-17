@@ -7,7 +7,7 @@ require 'active_support/testing/time_helpers'
 RSpec.describe 'Summaries Page' do
   include ActiveSupport::Testing::TimeHelpers
 
-  let(:mock_client) { instance_double(FolioClient, ping: true) }
+  let(:mock_client) { instance_double(FolioClient, ping: true, find_effective_loan_policy: {}) }
 
   let(:patron_info) do
     build(:undergraduate_patron).patron_info
@@ -23,7 +23,8 @@ RSpec.describe 'Summaries Page' do
     #       loan policy schedule date range.
     travel_to Time.zone.parse('2023-06-13T07:00:00.000+00:00')
     allow(FolioClient).to receive(:new) { mock_client }
-    allow(mock_client).to receive_messages(patron_info: patron_info)
+    allow(Folio::LoanPolicy).to receive(:new).and_return(build(:grad_mono_loans))
+    allow(mock_client).to receive_messages(patron_info:)
     allow(mock_client).to receive(:patron_info).with('ec52d62d-9f0e-4ea5-856f-a1accb0121d1').and_return(sponsor)
     login_as(username: 'stub_user', patron_key: 'd7b67ab1-a3f2-45a9-87cc-d867bca8315f')
 

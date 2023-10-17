@@ -5,7 +5,7 @@ module Folio
   class Checkout
     include Folio::FolioRecord
 
-    attr_reader :record
+    attr_reader :record, :patron_type_id
 
     delegate :loan_policy_interval,
              :too_soon_to_renew?,
@@ -17,13 +17,14 @@ module Folio
     SHORT_TERM_LOAN_PERIODS = %w[Hours Minutes].freeze
     FOLIO_LOST_STATUSES = ['Aged to lost', 'Declared lost'].freeze
 
-    def initialize(record)
+    def initialize(record, patron_type_id)
       @record = record
+      @patron_type_id = patron_type_id
     end
 
-    def self.find(key, **args)
+    def self.find(key, **)
       symphony_client = SymphonyClient.new
-      new(symphony_client.circ_record_info(key), **args)
+      new(symphony_client.circ_record_info(key), **)
     rescue HTTP::Error
       nil
     end
@@ -198,13 +199,45 @@ module Folio
     private
 
     def loan_policy
-      @loan_policy ||= Folio::LoanPolicy.new(loan_policy: record.dig('details', 'loanPolicy'),
-                                             due_date: due_date,
-                                             renewal_count: renewal_count)
+      @loan_policy ||= Folio::LoanPolicy.new(loan_policy: effective_loan_policy,
+                                             due_date:,
+                                             renewal_count:)
+    end
+
+    def effective_loan_policy
+      @effective_loan_policy ||= Folio::Types.loan_policies[effective_loan_policy_id]
+    end
+
+    # NOTE: We need to fetch the latest loan policy to evaluate renewability. The loan policy returned
+    # with the loan is the policy at the time of checkout and could have changed in ways that impact
+    # eligibility for renewal.
+    def effective_loan_policy_id
+      cache_key = ['effective_loan_policy_id', item_type_id, loan_type_id, patron_type_id, location_id].join(':')
+      Rails.cache.fetch(cache_key, expires_in: 1.day) do
+        response = FolioClient.new.find_effective_loan_policy(item_type_id:,
+                                                              loan_type_id:,
+                                                              patron_type_id:,
+                                                              location_id:)
+
+        response['loanPolicyId']
+      end
+    end
+
+    def location_id
+      record.dig('item', 'item', 'effectiveLocationId')
+    end
+
+    def loan_type_id
+      record.dig('item', 'item', 'temporaryLoanTypeId') ||
+        record.dig('item', 'item', 'permanentLoanTypeId')
+    end
+
+    def item_type_id
+      record.dig('item', 'item', 'materialTypeId')
     end
 
     def reserve_item?
-      /reserves?/i.match?(record.dig('details', 'loanPolicy', 'description'))
+      /reserves?/i.match?(loan_policy.description)
     end
 
     def renewal_count

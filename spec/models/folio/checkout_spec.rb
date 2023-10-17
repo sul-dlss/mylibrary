@@ -5,7 +5,7 @@ require 'models/concerns/folio/folio_record'
 
 RSpec.describe Folio::Checkout do
   subject(:checkout) do
-    described_class.new(record.with_indifferent_access)
+    described_class.new(record.with_indifferent_access, '3684a786-6671-4268-8ed0-9db82ebca60b')
   end
 
   let(:record) do
@@ -47,7 +47,7 @@ RSpec.describe Folio::Checkout do
            'loansPolicy' => { 'period' => nil } } } }
   end
 
-  it_behaves_like 'folio_record'
+  it_behaves_like 'folio_record', ['3684a786-6671-4268-8ed0-9db82ebca60b']
 
   it 'has a key' do
     expect(checkout.key).to eq '6f951192-b633-40a0-8112-73a191b55a8a'

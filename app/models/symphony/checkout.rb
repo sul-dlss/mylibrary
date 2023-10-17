@@ -13,9 +13,9 @@ module Symphony
       @record = record
     end
 
-    def self.find(key, **args)
+    def self.find(key, **)
       symphony_client = SymphonyClient.new
-      new(symphony_client.circ_record_info(key), **args)
+      new(symphony_client.circ_record_info(key), **)
     rescue HTTP::Error
       nil
     end

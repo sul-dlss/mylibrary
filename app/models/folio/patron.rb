@@ -36,12 +36,7 @@ module Folio
     end
 
     def status
-      if proxy_borrower?
-        # proxy borrowers inherit from the group
-        group&.status
-      else
-        standing
-      end
+      standing
     end
 
     def standing
@@ -57,21 +52,11 @@ module Folio
     end
 
     def barred?
-      # proxy borrowers inherit from the group
-      if proxy_borrower?
-        group.barred?
-      else
-        user_info['manualBlocks'].any?
-      end
+      user_info['manualBlocks'].any?
     end
 
     def blocked?
-      # proxy borrowers inherit from the group
-      if proxy_borrower?
-        group.blocked?
-      else
-        user_info['blocks'].any?
-      end
+      user_info['blocks'].any?
     end
 
     # From https://docs.folio.org/docs/users/: Inactive status indicates that the expiration date
@@ -168,7 +153,7 @@ module Folio
     end
 
     def all_checkouts
-      @all_checkouts ||= patron_info['loans']&.map { |checkout| Checkout.new(checkout) }
+      @all_checkouts ||= patron_info['loans']&.map { |checkout| Checkout.new(checkout, patron_type_id) }
     end
 
     # Self checkouts
@@ -228,7 +213,7 @@ module Folio
 
       allowed_affiliations = ['affiliate:fellow', 'staff:academic', 'staff:otherteaching']
 
-      (affiliations & allowed_affiliations).any?
+      affiliations.intersect?(allowed_affiliations)
     end
 
     def borrow_direct_requests
@@ -257,6 +242,12 @@ module Folio
         key = keygen.generate_key('patron pin reset token', ActiveSupport::MessageEncryptor.key_len)
         ActiveSupport::MessageEncryptor.new(key)
       end
+    end
+
+    def patron_type_id
+      # FOLIO's patronGroup refers to the patron type, e.g. Undergraduate, Graduate, Faculty, etc.
+      # this type of group is unrelated to our proxy/sponsor "research groups" in the model Folio::Group
+      user_info['patronGroupId']
     end
   end
 end

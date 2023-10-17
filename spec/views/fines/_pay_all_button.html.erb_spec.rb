@@ -6,7 +6,7 @@ RSpec.describe 'fines/_pay_all_button' do
   subject(:output) { Capybara.string(rendered) }
 
   let(:patron) do
-    instance_double(Folio::Patron, key: '513a9054-5897-11ee-8c99-0242ac120002', fines: fines, can_pay_fines?: true)
+    instance_double(Folio::Patron, key: '513a9054-5897-11ee-8c99-0242ac120002', fines:, can_pay_fines?: true)
   end
   let(:fines) { [instance_double(Folio::Account, owed: 3)] }
 

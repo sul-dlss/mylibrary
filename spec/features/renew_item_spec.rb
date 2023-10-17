@@ -7,7 +7,7 @@ require 'active_support/testing/time_helpers'
 RSpec.describe 'Renew item', :js do
   include ActiveSupport::Testing::TimeHelpers
 
-  let(:mock_client) { instance_double(FolioClient, ping: true) }
+  let(:mock_client) { instance_double(FolioClient, ping: true, find_effective_loan_policy: {}) }
   let(:patron_info) do
     build(:sponsor_patron).patron_info
   end
@@ -28,12 +28,15 @@ RSpec.describe 'Renew item', :js do
     #       loan policy schedule date range.
     travel_to Time.zone.parse('2023-06-13T07:00:00.000+00:00')
     allow(FolioClient).to receive(:new).and_return(mock_client)
-    allow(mock_client).to receive_messages(patron_info: patron_info,
+    allow(mock_client).to receive_messages(patron_info:,
                                            renew_item: api_response,
                                            renew_items: bulk_renew_response)
     allow(Folio::ServicePoint).to receive_messages(
       all: service_points
     )
+    allow(Folio::LoanPolicy).to receive(:new).and_return(build(:grad_mono_loans,
+                                                               due_date: '2021-01-09T07:59:59.000+00:00',
+                                                               renewal_count: 0))
 
     login_as(username: 'stub_user', patron_key: 'ec52d62d-9f0e-4ea5-856f-a1accb0121d1')
   end

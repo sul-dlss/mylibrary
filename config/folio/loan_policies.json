@@ -1,0 +1,908 @@
+[
+  {
+    "id": "07115e75-c4a9-4ef0-b013-dba184251041",
+    "name": "7day-norenew-1daygrace",
+    "description": "7-day loan (Art periodicals)",
+    "renewable": false,
+    "renewalsPolicy": null,
+    "loanable": true,
+    "loansPolicy": {
+      "period": {
+        "duration": 7,
+        "intervalId": "Days"
+      },
+      "fixedDueDateSchedule": null
+    }
+  },
+  {
+    "id": "0a8d7a5c-328f-4df5-a27c-81856d1ce2a5",
+    "name": "2hour-norenew-15mingrace",
+    "description": "2-hour reserves Green, GSB. Lane equipment & reserve book",
+    "renewable": false,
+    "renewalsPolicy": null,
+    "loanable": true,
+    "loansPolicy": {
+      "period": {
+        "duration": 2,
+        "intervalId": "Hours"
+      },
+      "fixedDueDateSchedule": null
+    }
+  },
+  {
+    "id": "0d26a888-afeb-458a-bcdb-68b2f542d598",
+    "name": "6month-norenew-7daygrace",
+    "description": "Loan policy for pseudopatrons including Stanford materials loaned to partner BD institutions",
+    "renewable": false,
+    "renewalsPolicy": null,
+    "loanable": true,
+    "loansPolicy": {
+      "period": {
+        "duration": 6,
+        "intervalId": "Months"
+      },
+      "fixedDueDateSchedule": null
+    }
+  },
+  {
+    "id": "26c44ee7-5a7d-4832-aa84-febe49a8d2f8",
+    "name": "14day-norenew-1daygrace",
+    "description": "Loan policy for periodicals ",
+    "renewable": false,
+    "renewalsPolicy": null,
+    "loanable": true,
+    "loansPolicy": {
+      "period": {
+        "duration": 14,
+        "intervalId": "Days"
+      },
+      "fixedDueDateSchedule": null
+    }
+  },
+  {
+    "id": "2aceed44-b986-4362-8d74-1d46e1377761",
+    "name": "14day-1renew-1daygrace",
+    "description": "Loan policy for periodicals ",
+    "renewable": true,
+    "renewalsPolicy": {
+      "numberAllowed": 1,
+      "alternateFixedDueDateSchedule": null,
+      "period": null,
+      "renewFromId": "CURRENT_DUE_DATE",
+      "unlimited": false
+    },
+    "loanable": true,
+    "loansPolicy": {
+      "period": {
+        "duration": 14,
+        "intervalId": "Days"
+      },
+      "fixedDueDateSchedule": null
+    }
+  },
+  {
+    "id": "2bc718ef-2440-4254-b8e0-3b0c6724fb61",
+    "name": "1day-norenew-15mingrace",
+    "description": "Loan policy for one-day reserves",
+    "renewable": false,
+    "renewalsPolicy": null,
+    "loanable": true,
+    "loansPolicy": {
+      "period": {
+        "duration": 24,
+        "intervalId": "Hours"
+      },
+      "fixedDueDateSchedule": null
+    }
+  },
+  {
+    "id": "32872e02-34b2-49b2-b0dd-d3684c5bf246",
+    "name": "7day-1renew-3daygrace",
+    "description": "Loan policy for Media items",
+    "renewable": true,
+    "renewalsPolicy": {
+      "numberAllowed": 1,
+      "alternateFixedDueDateSchedule": null,
+      "period": null,
+      "renewFromId": "CURRENT_DUE_DATE",
+      "unlimited": null
+    },
+    "loanable": true,
+    "loansPolicy": {
+      "period": {
+        "duration": 7,
+        "intervalId": "Days"
+      },
+      "fixedDueDateSchedule": null
+    }
+  },
+  {
+    "id": "34ea18bb-f71f-4f22-85b3-71b981d57db2",
+    "name": "No loan",
+    "description": null,
+    "renewable": false,
+    "renewalsPolicy": null,
+    "loanable": false,
+    "loansPolicy": null
+  },
+  {
+    "id": "3efe7693-3357-4f9b-999d-a271f86019b0",
+    "name": "28day-2renew-7daygrace",
+    "description": "Loan policy for Edu, Green, Lane and Law materials",
+    "renewable": true,
+    "renewalsPolicy": {
+      "numberAllowed": 2,
+      "alternateFixedDueDateSchedule": null,
+      "period": null,
+      "renewFromId": "CURRENT_DUE_DATE",
+      "unlimited": false
+    },
+    "loanable": true,
+    "loansPolicy": {
+      "period": {
+        "duration": 28,
+        "intervalId": "Days"
+      },
+      "fixedDueDateSchedule": null
+    }
+  },
+  {
+    "id": "43198de5-f56a-4a53-a0bd-5a324418967a",
+    "name": "One Hour",
+    "description": null,
+    "renewable": true,
+    "renewalsPolicy": {
+      "numberAllowed": 3,
+      "alternateFixedDueDateSchedule": null,
+      "period": null,
+      "renewFromId": "SYSTEM_DATE",
+      "unlimited": false
+    },
+    "loanable": true,
+    "loansPolicy": {
+      "period": {
+        "duration": 1,
+        "intervalId": "Hours"
+      },
+      "fixedDueDateSchedule": null
+    }
+  },
+  {
+    "id": "50838b19-a707-4277-a600-442453dac1cd",
+    "name": "1qtr-1renew-7daygrace",
+    "description": "Loan policy for new books for tanner",
+    "renewable": true,
+    "renewalsPolicy": {
+      "numberAllowed": 1,
+      "alternateFixedDueDateSchedule": null,
+      "period": null,
+      "renewFromId": null,
+      "unlimited": false
+    },
+    "loanable": true,
+    "loansPolicy": {
+      "period": null,
+      "fixedDueDateSchedule": {
+        "schedules": [
+          {
+            "due": "2023-04-04T06:59:59.000+00:00",
+            "from": "1993-02-01T08:00:00.000+00:00",
+            "to": "2023-02-25T07:59:59.000+00:00"
+          },
+          {
+            "due": "2023-06-27T06:59:59.000+00:00",
+            "from": "2023-02-25T08:00:00.000+00:00",
+            "to": "2023-05-13T06:59:59.000+00:00"
+          },
+          {
+            "due": "2023-09-27T06:59:59.000+00:00",
+            "from": "2023-05-13T07:00:00.000+00:00",
+            "to": "2023-08-15T06:59:59.000+00:00"
+          },
+          {
+            "due": "2024-01-09T07:59:59.000+00:00",
+            "from": "2023-08-15T07:00:00.000+00:00",
+            "to": "2023-11-28T07:59:59.000+00:00"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "5120d86d-fa88-437b-8db2-c5cd8cc82d89",
+    "name": "28day-norenew-7daygrace",
+    "description": "28-day equipment loan for eng",
+    "renewable": false,
+    "renewalsPolicy": null,
+    "loanable": true,
+    "loansPolicy": {
+      "period": {
+        "duration": 28,
+        "intervalId": "Days"
+      },
+      "fixedDueDateSchedule": null
+    }
+  },
+  {
+    "id": "5254c6cd-841b-43c8-86e2-15d76470de96",
+    "name": "3hour-norenew-15mingrace",
+    "description": "3-hour loan for course reserves and equipment",
+    "renewable": false,
+    "renewalsPolicy": null,
+    "loanable": true,
+    "loansPolicy": {
+      "period": {
+        "duration": 3,
+        "intervalId": "Hours"
+      },
+      "fixedDueDateSchedule": null
+    }
+  },
+  {
+    "id": "5866e82c-ab61-4628-85d4-ee1497b0d3c8",
+    "name": "7day-1renew-1daygrace",
+    "description": "Loan policy for Media items",
+    "renewable": true,
+    "renewalsPolicy": {
+      "numberAllowed": 1,
+      "alternateFixedDueDateSchedule": null,
+      "period": null,
+      "renewFromId": "CURRENT_DUE_DATE",
+      "unlimited": null
+    },
+    "loanable": true,
+    "loansPolicy": {
+      "period": {
+        "duration": 7,
+        "intervalId": "Days"
+      },
+      "fixedDueDateSchedule": null
+    }
+  },
+  {
+    "id": "626d02e2-95a7-4f07-afc0-b83afa48f29a",
+    "name": "12hour-norenew-15mingrace",
+    "description": "12 hour loans that are due before the library closes with no renewals; loan cannot carry over to opening on the following day. Used for equipment loans at Lane Library.",
+    "renewable": false,
+    "renewalsPolicy": null,
+    "loanable": true,
+    "loansPolicy": {
+      "period": {
+        "duration": 12,
+        "intervalId": "Hours"
+      },
+      "fixedDueDateSchedule": null
+    }
+  },
+  {
+    "id": "6fe9c4bd-5f5a-4749-bf89-2aade9a6b5dd",
+    "name": "2hour-1renew-15mingrace",
+    "description": "2-hour loan (e.g., Music permres, EAS expensive locked stacks)",
+    "renewable": true,
+    "renewalsPolicy": {
+      "numberAllowed": 1,
+      "alternateFixedDueDateSchedule": null,
+      "period": null,
+      "renewFromId": "CURRENT_DUE_DATE",
+      "unlimited": null
+    },
+    "loanable": true,
+    "loansPolicy": {
+      "period": {
+        "duration": 2,
+        "intervalId": "Hours"
+      },
+      "fixedDueDateSchedule": null
+    }
+  },
+  {
+    "id": "7101023e-5e1d-4ca0-bb16-a0585c53bcaf",
+    "name": "7day-2renew-3daygrace",
+    "description": "For items that circulate for 7 days  e.g., Lane - periodicals, EDU picture books",
+    "renewable": true,
+    "renewalsPolicy": {
+      "numberAllowed": 2,
+      "alternateFixedDueDateSchedule": null,
+      "period": null,
+      "renewFromId": "SYSTEM_DATE",
+      "unlimited": null
+    },
+    "loanable": true,
+    "loansPolicy": {
+      "period": {
+        "duration": 7,
+        "intervalId": "Days"
+      },
+      "fixedDueDateSchedule": null
+    }
+  },
+  {
+    "id": "747b81a3-8c5f-48d5-bb78-543cfb56538b",
+    "name": "7day-norenew-3daygrace",
+    "description": "Art Library REF and REF-FOLIO",
+    "renewable": false,
+    "renewalsPolicy": null,
+    "loanable": true,
+    "loansPolicy": {
+      "period": {
+        "duration": 7,
+        "intervalId": "Days"
+      },
+      "fixedDueDateSchedule": null
+    }
+  },
+  {
+    "id": "75bb62f2-def3-44e5-babf-26d9a994c5ca",
+    "name": "3day-norenew-15mingrace",
+    "description": "Loan policy for three-day reserves",
+    "renewable": false,
+    "renewalsPolicy": null,
+    "loanable": true,
+    "loansPolicy": {
+      "period": {
+        "duration": 72,
+        "intervalId": "Hours"
+      },
+      "fixedDueDateSchedule": null
+    }
+  },
+  {
+    "id": "770bc585-9902-47ef-8c42-46503644d9c6",
+    "name": "1day-1renew-1daygrace",
+    "description": "Loan policy for equipment",
+    "renewable": true,
+    "renewalsPolicy": {
+      "numberAllowed": 1,
+      "alternateFixedDueDateSchedule": null,
+      "period": null,
+      "renewFromId": "SYSTEM_DATE",
+      "unlimited": null
+    },
+    "loanable": true,
+    "loansPolicy": {
+      "period": {
+        "duration": 1,
+        "intervalId": "Days"
+      },
+      "fixedDueDateSchedule": null
+    }
+  },
+  {
+    "id": "7f292279-7184-4426-a93f-19a661334621",
+    "name": "14day-2renew-3daygrace",
+    "description": "Games - at th emoment for ENG",
+    "renewable": true,
+    "renewalsPolicy": {
+      "numberAllowed": 2,
+      "alternateFixedDueDateSchedule": null,
+      "period": null,
+      "renewFromId": "CURRENT_DUE_DATE",
+      "unlimited": false
+    },
+    "loanable": true,
+    "loansPolicy": {
+      "period": {
+        "duration": 14,
+        "intervalId": "Days"
+      },
+      "fixedDueDateSchedule": null
+    }
+  },
+  {
+    "id": "7ff30237-d14e-4998-833b-1bc009122b5f",
+    "name": "14day-1renew-7daygrace",
+    "description": "Loan policy for periodicals e.g., Tanner",
+    "renewable": true,
+    "renewalsPolicy": {
+      "numberAllowed": 1,
+      "alternateFixedDueDateSchedule": null,
+      "period": null,
+      "renewFromId": "CURRENT_DUE_DATE",
+      "unlimited": false
+    },
+    "loanable": true,
+    "loansPolicy": {
+      "period": {
+        "duration": 14,
+        "intervalId": "Days"
+      },
+      "fixedDueDateSchedule": null
+    }
+  },
+  {
+    "id": "80659254-cddb-4667-8bd1-c2d57bb92bb7",
+    "name": "14day-2renew-1daygrace",
+    "description": "Law Library Vrooman & Displays",
+    "renewable": true,
+    "renewalsPolicy": {
+      "numberAllowed": 2,
+      "alternateFixedDueDateSchedule": null,
+      "period": null,
+      "renewFromId": "CURRENT_DUE_DATE",
+      "unlimited": false
+    },
+    "loanable": true,
+    "loansPolicy": {
+      "period": {
+        "duration": 14,
+        "intervalId": "Days"
+      },
+      "fixedDueDateSchedule": null
+    }
+  },
+  {
+    "id": "80998a5c-10ae-4eac-82da-1e5aa5df4570",
+    "name": "1year-norenew-7daygrace",
+    "description": "Loan policy for SUL guest patron group.",
+    "renewable": false,
+    "renewalsPolicy": null,
+    "loanable": true,
+    "loansPolicy": {
+      "period": {
+        "duration": 365,
+        "intervalId": "Days"
+      },
+      "fixedDueDateSchedule": null
+    }
+  },
+  {
+    "id": "814a3bd6-2a06-437f-ae34-f7ed39cbfc92",
+    "name": "1day-4renew-15mingrace",
+    "description": "Loan policy for Art Library locked stacks materials.",
+    "renewable": true,
+    "renewalsPolicy": {
+      "numberAllowed": 4,
+      "alternateFixedDueDateSchedule": null,
+      "period": null,
+      "renewFromId": "SYSTEM_DATE",
+      "unlimited": null
+    },
+    "loanable": true,
+    "loansPolicy": {
+      "period": {
+        "duration": 1,
+        "intervalId": "Days"
+      },
+      "fixedDueDateSchedule": null
+    }
+  },
+  {
+    "id": "885a2bd0-35c7-497f-9dc6-462bebe837a3",
+    "name": "1qtr-3renew-7daygrace",
+    "description": "Loan policy for monos owned by SUL, GSB and Law loaned to grad students",
+    "renewable": true,
+    "renewalsPolicy": {
+      "numberAllowed": 3,
+      "alternateFixedDueDateSchedule": null,
+      "period": null,
+      "renewFromId": null,
+      "unlimited": false
+    },
+    "loanable": true,
+    "loansPolicy": {
+      "period": null,
+      "fixedDueDateSchedule": {
+        "schedules": [
+          {
+            "due": "2023-04-04T06:59:59.000+00:00",
+            "from": "1993-02-01T08:00:00.000+00:00",
+            "to": "2023-02-25T07:59:59.000+00:00"
+          },
+          {
+            "due": "2023-06-27T06:59:59.000+00:00",
+            "from": "2023-02-25T08:00:00.000+00:00",
+            "to": "2023-05-13T06:59:59.000+00:00"
+          },
+          {
+            "due": "2023-09-27T06:59:59.000+00:00",
+            "from": "2023-05-13T07:00:00.000+00:00",
+            "to": "2023-08-15T06:59:59.000+00:00"
+          },
+          {
+            "due": "2024-01-09T07:59:59.000+00:00",
+            "from": "2023-08-15T07:00:00.000+00:00",
+            "to": "2023-11-28T07:59:59.000+00:00"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "8ac31b64-03f9-4d0e-8136-6421066d6186",
+    "name": "4hour-norenew-1hourgrace",
+    "description": "Loan period for misc. items checked out at Law Library",
+    "renewable": false,
+    "renewalsPolicy": null,
+    "loanable": true,
+    "loansPolicy": {
+      "period": {
+        "duration": 4,
+        "intervalId": "Hours"
+      },
+      "fixedDueDateSchedule": null
+    }
+  },
+  {
+    "id": "8d678d1a-24ca-43bb-90df-40e4e57e0da9",
+    "name": "2hour-1renew-15mingrace-5item",
+    "description": "2-hour loan for Law issued alumni borrowers five item limit",
+    "renewable": true,
+    "renewalsPolicy": {
+      "numberAllowed": 1,
+      "alternateFixedDueDateSchedule": null,
+      "period": null,
+      "renewFromId": "SYSTEM_DATE",
+      "unlimited": null
+    },
+    "loanable": true,
+    "loansPolicy": {
+      "period": {
+        "duration": 2,
+        "intervalId": "Hours"
+      },
+      "fixedDueDateSchedule": null
+    }
+  },
+  {
+    "id": "8dfc8ff2-51f8-494f-ba8b-19c540ed2b9c",
+    "name": "8 hour - overnight - no renew ",
+    "description": "For business reserves so that no matter when checked out they are due back at the start of the next open day. ",
+    "renewable": false,
+    "renewalsPolicy": null,
+    "loanable": true,
+    "loansPolicy": {
+      "period": {
+        "duration": 8,
+        "intervalId": "Hours"
+      },
+      "fixedDueDateSchedule": null
+    }
+  },
+  {
+    "id": "a369ef4d-cec8-4348-bf36-acb16f72f67f",
+    "name": "24hour-norenew-15mingrace",
+    "description": "24 hour loan (often for equipment at GSB)",
+    "renewable": false,
+    "renewalsPolicy": null,
+    "loanable": true,
+    "loansPolicy": {
+      "period": {
+        "duration": 24,
+        "intervalId": "Hours"
+      },
+      "fixedDueDateSchedule": null
+    }
+  },
+  {
+    "id": "a8911fae-9a65-4890-bbf5-ebcd82a8d349",
+    "name": "28day-2renew-1daygrace-2item",
+    "description": "28-day course reserves loan for Lane with 2-item limit",
+    "renewable": true,
+    "renewalsPolicy": {
+      "numberAllowed": 2,
+      "alternateFixedDueDateSchedule": null,
+      "period": null,
+      "renewFromId": "SYSTEM_DATE",
+      "unlimited": null
+    },
+    "loanable": true,
+    "loansPolicy": {
+      "period": {
+        "duration": 28,
+        "intervalId": "Days"
+      },
+      "fixedDueDateSchedule": null
+    }
+  },
+  {
+    "id": "ab1b859d-c11a-4dbd-8e05-fbbd8eeac2b8",
+    "name": "14day-norenew-15mingrace",
+    "description": "Loan policy for 14-day reserves",
+    "renewable": false,
+    "renewalsPolicy": null,
+    "loanable": true,
+    "loansPolicy": {
+      "period": {
+        "duration": 14,
+        "intervalId": "Days"
+      },
+      "fixedDueDateSchedule": null
+    }
+  },
+  {
+    "id": "ad47ac4d-8305-4039-8ac4-93a69a789074",
+    "name": "1yearfixed-2renew-7daygrace",
+    "description": "Loan policy for monographs owned by SUL, GSB and Law loaned to faculty.",
+    "renewable": true,
+    "renewalsPolicy": {
+      "numberAllowed": 2,
+      "alternateFixedDueDateSchedule": null,
+      "period": null,
+      "renewFromId": null,
+      "unlimited": false
+    },
+    "loanable": true,
+    "loansPolicy": {
+      "period": null,
+      "fixedDueDateSchedule": {
+        "schedules": [
+          {
+            "due": "2023-07-01T06:59:59.000+00:00",
+            "from": "1993-02-01T08:00:00.000+00:00",
+            "to": "2023-05-01T06:59:59.000+00:00"
+          },
+          {
+            "due": "2024-07-02T06:59:59.000+00:00",
+            "from": "2023-05-01T07:00:00.000+00:00",
+            "to": "2024-05-01T06:59:59.000+00:00"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "b79e3dbf-b30a-420c-9e97-dcf92e937883",
+    "name": "16week-norenew-7daygrace",
+    "description": "Loan policy for BorrowDirect materials loaned to Stanford users",
+    "renewable": false,
+    "renewalsPolicy": null,
+    "loanable": true,
+    "loansPolicy": {
+      "period": {
+        "duration": 16,
+        "intervalId": "Weeks"
+      },
+      "fixedDueDateSchedule": null
+    }
+  },
+  {
+    "id": "b9de476a-fa5e-4635-959d-8a5bf0734be0",
+    "name": "7day-norenew-3daygrace-5item",
+    "description": "Loan policy for Art Library DVDs",
+    "renewable": false,
+    "renewalsPolicy": null,
+    "loanable": true,
+    "loansPolicy": {
+      "period": {
+        "duration": 7,
+        "intervalId": "Days"
+      },
+      "fixedDueDateSchedule": null
+    }
+  },
+  {
+    "id": "bc2065ce-7f8b-454b-ad5c-33a5e53a3de4",
+    "name": "20week-unlimitedrenew-1daygrace",
+    "description": "Loan policy for Stanford materials loaned to partner BD institutions",
+    "renewable": false,
+    "renewalsPolicy": null,
+    "loanable": true,
+    "loansPolicy": {
+      "period": {
+        "duration": 20,
+        "intervalId": "Weeks"
+      },
+      "fixedDueDateSchedule": null
+    }
+  },
+  {
+    "id": "c1d52eb9-b6c6-4dd6-8f05-aee10d8e6b42",
+    "name": "7day-2renew-1daygrace",
+    "description": "For some permanent reserves items at Law.",
+    "renewable": true,
+    "renewalsPolicy": {
+      "numberAllowed": 2,
+      "alternateFixedDueDateSchedule": null,
+      "period": null,
+      "renewFromId": "SYSTEM_DATE",
+      "unlimited": null
+    },
+    "loanable": true,
+    "loansPolicy": {
+      "period": {
+        "duration": 7,
+        "intervalId": "Days"
+      },
+      "fixedDueDateSchedule": null
+    }
+  },
+  {
+    "id": "c7777ca8-19e0-4277-b5c5-19b1e6cbfa49",
+    "name": "7day-1renew-3daygrace -5item",
+    "description": "Loan policy for Art Library Media items",
+    "renewable": true,
+    "renewalsPolicy": {
+      "numberAllowed": 1,
+      "alternateFixedDueDateSchedule": null,
+      "period": null,
+      "renewFromId": "CURRENT_DUE_DATE",
+      "unlimited": null
+    },
+    "loanable": true,
+    "loansPolicy": {
+      "period": {
+        "duration": 7,
+        "intervalId": "Days"
+      },
+      "fixedDueDateSchedule": null
+    }
+  },
+  {
+    "id": "cebde893-a306-4aad-8281-905d87843f68",
+    "name": "1sem-2renew-7daygrace",
+    "description": "Loan policy for RLCP grad students",
+    "renewable": true,
+    "renewalsPolicy": {
+      "numberAllowed": 2,
+      "alternateFixedDueDateSchedule": null,
+      "period": null,
+      "renewFromId": null,
+      "unlimited": false
+    },
+    "loanable": true,
+    "loansPolicy": {
+      "period": null,
+      "fixedDueDateSchedule": {
+        "schedules": [
+          {
+            "due": "2023-05-23T06:59:59.000+00:00",
+            "from": "1993-02-01T08:00:00.000+00:00",
+            "to": "2023-05-01T06:59:59.000+00:00"
+          },
+          {
+            "due": "2024-01-10T07:59:59.000+00:00",
+            "from": "2023-05-23T07:00:00.000+00:00",
+            "to": "2023-12-09T07:59:59.000+00:00"
+          }
+        ]
+      }
+    }
+  },
+  {
+    "id": "d7865885-da1e-446d-98e4-b6c06724d0a6",
+    "name": "2hour-norenew-1hourgrace",
+    "description": "Law Library Course Reserves and Perm. Reserves housed in self-checkout cabinets.",
+    "renewable": false,
+    "renewalsPolicy": null,
+    "loanable": true,
+    "loansPolicy": {
+      "period": {
+        "duration": 2,
+        "intervalId": "Hours"
+      },
+      "fixedDueDateSchedule": null
+    }
+  },
+  {
+    "id": "d820a2f3-66aa-4cae-ac58-d9aaeecdc014",
+    "name": "28day-2renew-1daygrace-5item",
+    "description": "Loans to Law alum with 5-item limit",
+    "renewable": true,
+    "renewalsPolicy": {
+      "numberAllowed": 2,
+      "alternateFixedDueDateSchedule": null,
+      "period": null,
+      "renewFromId": "SYSTEM_DATE",
+      "unlimited": null
+    },
+    "loanable": true,
+    "loansPolicy": {
+      "period": {
+        "duration": 28,
+        "intervalId": "Days"
+      },
+      "fixedDueDateSchedule": null
+    }
+  },
+  {
+    "id": "d86d2800-73e0-419f-8c7a-9a2aab213477",
+    "name": "2day-norenew-15mingrace",
+    "description": "Loan policy for two-day reserves",
+    "renewable": false,
+    "renewalsPolicy": null,
+    "loanable": true,
+    "loansPolicy": {
+      "period": {
+        "duration": 48,
+        "intervalId": "Hours"
+      },
+      "fixedDueDateSchedule": null
+    }
+  },
+  {
+    "id": "d9cd0bed-1b49-4b5e-a7bd-064b8d177231",
+    "name": "Example Loan Policy",
+    "description": "An example loan policy",
+    "renewable": true,
+    "renewalsPolicy": {
+      "numberAllowed": null,
+      "alternateFixedDueDateSchedule": null,
+      "period": {
+        "duration": 30,
+        "intervalId": "Days"
+      },
+      "renewFromId": "CURRENT_DUE_DATE",
+      "unlimited": true
+    },
+    "loanable": true,
+    "loansPolicy": {
+      "period": {
+        "duration": 60,
+        "intervalId": "Days"
+      },
+      "fixedDueDateSchedule": null
+    }
+  },
+  {
+    "id": "dc5e4415-2580-4b89-acd7-c4d8fda63b99",
+    "name": "4day-norenew-1daygrace",
+    "description": "Loan policy for Earth Sci locked stacks materials; business 4 day loan",
+    "renewable": false,
+    "renewalsPolicy": null,
+    "loanable": true,
+    "loansPolicy": {
+      "period": {
+        "duration": 4,
+        "intervalId": "Days"
+      },
+      "fixedDueDateSchedule": null
+    }
+  },
+  {
+    "id": "ef9de996-17db-4d7f-87bc-54970af6961d",
+    "name": "4hour-norenew-15mingrace",
+    "description": "4-hour loan for course reserves and equipment",
+    "renewable": false,
+    "renewalsPolicy": null,
+    "loanable": true,
+    "loansPolicy": {
+      "period": {
+        "duration": 4,
+        "intervalId": "Hours"
+      },
+      "fixedDueDateSchedule": null
+    }
+  },
+  {
+    "id": "fca138e9-40aa-4a72-b1d9-eb7c8ddf2662",
+    "name": "28day-2renew-7daygrace-25item",
+    "description": "Loan policy for fee borrowers with 25-item limit",
+    "renewable": true,
+    "renewalsPolicy": {
+      "numberAllowed": 2,
+      "alternateFixedDueDateSchedule": null,
+      "period": null,
+      "renewFromId": "CURRENT_DUE_DATE",
+      "unlimited": false
+    },
+    "loanable": true,
+    "loansPolicy": {
+      "period": {
+        "duration": 28,
+        "intervalId": "Days"
+      },
+      "fixedDueDateSchedule": null
+    }
+  },
+  {
+    "id": "fd81f05e-68e0-4165-8caa-0e2c30b2b415",
+    "name": "28day-1renew-7daygrace",
+    "description": "Loan policy for SAL3 journals",
+    "renewable": true,
+    "renewalsPolicy": {
+      "numberAllowed": 1,
+      "alternateFixedDueDateSchedule": null,
+      "period": null,
+      "renewFromId": "CURRENT_DUE_DATE",
+      "unlimited": false
+    },
+    "loanable": true,
+    "loansPolicy": {
+      "period": {
+        "duration": 28,
+        "intervalId": "Days"
+      },
+      "fixedDueDateSchedule": null
+    }
+  }
+]

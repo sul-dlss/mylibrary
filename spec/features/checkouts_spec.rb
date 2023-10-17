@@ -7,11 +7,13 @@ require 'active_support/testing/time_helpers'
 RSpec.describe 'Checkout Page' do
   include ActiveSupport::Testing::TimeHelpers
 
-  let(:mock_client) { instance_double(FolioClient, ping: true) }
+  let(:mock_client) { instance_double(FolioClient, ping: true, find_effective_loan_policy: {}) }
 
   let(:patron_info) do
     build(:sponsor_patron).patron_info
   end
+
+  let(:loan_policy) { build(:grad_mono_loans) }
 
   before do
     # NOTE: tests that rely on LoanPolicy#due_date_after_renewal have to
@@ -19,7 +21,8 @@ RSpec.describe 'Checkout Page' do
     #       loan policy schedule date range.
     travel_to Time.zone.parse('2023-06-13T07:00:00.000+00:00')
     allow(FolioClient).to receive(:new) { mock_client }
-    allow(mock_client).to receive_messages(patron_info: patron_info)
+    allow(mock_client).to receive_messages(patron_info:)
+    allow(Folio::LoanPolicy).to receive(:new).and_return(loan_policy)
     login_as(username: 'stub_user', patron_key: '513a9054-5897-11ee-8c99-0242ac120002')
   end
 
@@ -55,10 +58,18 @@ RSpec.describe 'Checkout Page' do
     end
   end
 
-  it 'has renewable status indicator' do
-    visit checkouts_path
+  context 'when the checkout is renewable' do
+    let(:loan_policy) do
+      build(:grad_mono_loans,
+            due_date: '2020-01-09T07:59:59.000+00:00',
+            renewal_count: 0)
+    end
 
-    expect(page).to have_css '.renewable-indicator .sul-icons'
+    it 'has renewable status indicator' do
+      visit checkouts_path
+
+      expect(page).to have_css '.renewable-indicator .sul-icons'
+    end
   end
 
   context 'when data is hidden behind a toggle' do
@@ -90,10 +101,12 @@ RSpec.describe 'Checkout Page' do
         expect(page).to have_css('dd', text: '36105021987123', visible: :visible)
       end
 
-      within('ul.checkouts li:nth-child(1)') do
-        click_button 'Expand'
-        expect(page).to have_css('dt', text: 'Fines accrued:', visible: :visible)
-        expect(page).to have_css('dd', text: '$30.00', visible: :visible)
+      using_wait_time(10) do
+        within('ul.checkouts li:nth-child(1)') do
+          click_button 'Expand'
+          expect(page).to have_css('dt', text: 'Fines accrued:', visible: :visible)
+          expect(page).to have_css('dd', text: '$30.00', visible: :visible)
+        end
       end
     end
   end

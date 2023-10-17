@@ -12,7 +12,7 @@ RSpec.describe RenewalsController do
   end
 
   let(:mock_patron) do
-    instance_double(Folio::Patron, checkouts: checkouts, key: '513a9054-5897-11ee-8c99-0242ac120002')
+    instance_double(Folio::Patron, checkouts:, key: '513a9054-5897-11ee-8c99-0242ac120002')
   end
   let(:checkouts) { [instance_double(Folio::Checkout, item_key: '123', item_category_non_renewable?: false)] }
 
@@ -95,7 +95,7 @@ RSpec.describe RenewalsController do
       instance_double(FolioClient, renew_items: api_response, ping: true)
     end
     let(:api_response) { { success: [checkouts[0]], error: [checkouts[1]] } }
-    let(:mock_patron) { instance_double(Folio::Patron, checkouts: checkouts) }
+    let(:mock_patron) { instance_double(Folio::Patron, checkouts:) }
     let(:checkouts) do
       [
         instance_double(Folio::Checkout, key: '1', renewable?: true, item_key: '123', title: 'ABC',

@@ -34,20 +34,20 @@ class FolioGraphqlClient
     "#<#{self.class.name}:#{object_id}  @base_url=\"#{base_url}\">"
   end
 
-  def get(path, **kwargs)
-    request(path, method: :get, **kwargs)
+  def get(path, **)
+    request(path, method: :get, **)
   end
 
-  def post(path, **kwargs)
-    request(path, method: :post, **kwargs)
+  def post(path, **)
+    request(path, method: :post, **)
   end
 
-  def get_json(path, **kwargs)
-    parse(get(path, **kwargs))
+  def get_json(path, **)
+    parse(get(path, **))
   end
 
-  def post_json(path, **kwargs)
-    parse(post(path, **kwargs))
+  def post_json(path, **)
+    parse(post(path, **))
   end
 
   def service_points
@@ -68,6 +68,53 @@ class FolioGraphqlClient
     raise data['errors'].pluck('message').join("\n") if data.key?('errors')
 
     data.dig('data', 'servicePoints')
+  end
+
+  def loan_policies
+    data = post_json('/', json: {
+      query: "query LoanPolicies {
+        loanPolicies {
+          id
+          name
+          description
+          renewable
+          renewalsPolicy {
+            numberAllowed
+            alternateFixedDueDateSchedule {
+              schedules {
+                due
+                from
+                to
+              }
+            }
+            period {
+              duration
+              intervalId
+            }
+            renewFromId
+            unlimited
+          }
+          loanable
+          loansPolicy {
+            period {
+              duration
+              intervalId
+            }
+            fixedDueDateSchedule {
+              schedules {
+                due
+                from
+                to
+              }
+            }
+          }
+        }
+      }"
+    })
+
+    raise data['errors'].pluck('message').join("\n") if data.key?('errors')
+
+    data.dig('data', 'loanPolicies')
   end
 
   def patron_info(patron_uuid)
@@ -123,6 +170,7 @@ class FolioGraphqlClient
             manualBlocks {
               desc
             }
+            patronGroupId
           }
           id
           holds {
@@ -257,6 +305,10 @@ class FolioGraphqlClient
                 effectiveCallNumberComponents {
                   callNumber
                 }
+                permanentLoanTypeId
+                temporaryLoanTypeId
+                materialTypeId
+                effectiveLocationId
                 effectiveLocation {
                   code
                   library {
@@ -285,40 +337,6 @@ class FolioGraphqlClient
               status {
                 name
               }
-              loanPolicy {
-                name
-                description
-                renewable
-                renewalsPolicy {
-                  alternateFixedDueDateSchedule {
-                    schedules {
-                      due
-                      from
-                      to
-                    }
-                  }
-                  numberAllowed
-                  period {
-                    intervalId
-                    duration
-                  }
-                  renewFromId
-                  unlimited
-                }
-                loansPolicy {
-                  fixedDueDateSchedule {
-                    schedules {
-                      due
-                      from
-                      to
-                    }
-                  }
-                  period {
-                    intervalId
-                    duration
-                  }
-                }
-              }
               feesAndFines {
                 amountRemainingToPay
               }
@@ -336,9 +354,7 @@ class FolioGraphqlClient
       variables: { patronId: patron_uuid }
     })
 
-    if data.key?('errors')
-      Honeybadger.notify(data['errors'].pluck('message').join("\n"), context: { patron_uuid: patron_uuid })
-    end
+    Honeybadger.notify(data['errors'].pluck('message').join("\n"), context: { patron_uuid: }) if data.key?('errors')
 
     data.dig('data', 'patron')
   end
@@ -360,11 +376,11 @@ class FolioGraphqlClient
     JSON.parse(response.body)
   end
 
-  def request(path, headers: {}, method: :get, **other)
+  def request(path, headers: {}, method: :get, **)
     HTTP
       .use(instrumentation: { instrumenter: ActiveSupport::Notifications.instrumenter, namespace: 'folio' })
       .headers(default_headers.merge(headers))
-      .request(method, base_url + path, **other)
+      .request(method, base_url + path, **)
   end
 
   def default_headers

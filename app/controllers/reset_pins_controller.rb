@@ -23,7 +23,7 @@ class ResetPinsController < ApplicationController
     suppress ActiveRecord::RecordNotFound do
       patron = FolioClient.new.find_patron_by_barcode(library_id_param, patron_info: false)
 
-      ResetPinsMailer.with(patron: patron).reset_pin.deliver_now
+      ResetPinsMailer.with(patron:).reset_pin.deliver_now
     end
 
     flash[:success] = t 'mylibrary.reset_pin.success_html', library_id: params['library_id']

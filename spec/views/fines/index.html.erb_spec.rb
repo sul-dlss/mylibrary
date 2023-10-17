@@ -28,13 +28,14 @@ RSpec.describe 'fines/index' do
       { 'id' => '31d15973-acb6-4a12-92c7-5e2d5f2470ed',
         'item' => { 'title' => 'Mental growth during the first three years' },
         'overdue' => true,
-        'details' => { 'feesAndFines' => { 'amountRemainingToPay' => 10 } } }
+        'details' => { 'feesAndFines' => { 'amountRemainingToPay' => 10 } } },
+      '3684a786-6671-4268-8ed0-9db82ebca60b'
     )]
   end
   let(:patron) do
     instance_double(Folio::Patron,
                     key: '1',
-                    fines: fines,
+                    fines:,
                     can_pay_fines?: true,
                     requests: [],
                     checkouts: [],
@@ -65,7 +66,7 @@ RSpec.describe 'fines/index' do
       assign(:fines, fines)
       assign(:checkouts, checkouts)
       without_partial_double_verification do
-        allow(view).to receive_messages(patron_or_group: patron, patron: patron)
+        allow(view).to receive_messages(patron_or_group: patron, patron:)
       end
       allow(fine).to receive(:to_partial_path).and_return('fines/fine')
     end
@@ -94,13 +95,13 @@ RSpec.describe 'fines/index' do
       assign(:checkouts, checkouts)
       assign(:patron_or_group, patron_or_group)
       # make the patron a group sponsor
-      allow(patron).to receive_messages(sponsor?: true, group: group)
+      allow(patron).to receive_messages(sponsor?: true, group:)
       # allow the is_a? check and return true for Folio::Patron
       allow(patron).to receive(:is_a?).and_return(false)
       allow(patron).to receive(:is_a?).with(Folio::Patron).and_return(true)
       allow(patron_or_group).to receive_messages(group?: true, proxy_borrower?: false)
       without_partial_double_verification do
-        allow(view).to receive_messages(patron: patron, patron_or_group: patron_or_group)
+        allow(view).to receive_messages(patron:, patron_or_group:)
       end
       allow(fine).to receive(:to_partial_path).and_return('fines/fine')
     end
