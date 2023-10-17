@@ -15,7 +15,7 @@ json.attributes do
   json.expiration_date request.expiration_date
   json.placed_date request.placed_date
   json.fill_by_date request.fill_by_date
-  json.pickup_library request.pickup_library
+  json.service_point_name request.service_point_name
   json.placed_library request.placed_library
   json.library request.library
 

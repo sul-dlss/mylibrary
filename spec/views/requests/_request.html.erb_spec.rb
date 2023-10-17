@@ -13,7 +13,7 @@ RSpec.describe 'requests/_request' do
       expiration_date: 1.day.from_now,
       from_ill?: false,
       key: 'abc123',
-      pickup_library: 'XYZ',
+      service_point_name: 'XYZ Library',
       placed_date: Time.zone.now,
       library: 'SAL3',
       ready_for_pickup?: false,
@@ -32,7 +32,6 @@ RSpec.describe 'requests/_request' do
     without_partial_double_verification do
       allow(view).to receive_messages(params: { group: true }, patron:) # Set params[:group] to true
     end
-    allow(Folio::ServicePoint).to receive(:name_by_code).with('XYZ').and_return('XYZ Library')
     render partial: 'requests/request', locals: { request: mock_request, group: true }
   end
 

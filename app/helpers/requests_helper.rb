@@ -5,19 +5,11 @@ module RequestsHelper
   ##
   # Generates the options needed to change a request's location
   def request_location_options(request)
-    # TODO: after FOLIO launch remove this conditional wrapper
-    if request.is_a?(Folio::Request)
-      return options_for_select(
-        service_points(request),
-        # the second param here pre-selects the current service point in the dropdown
-        selected: request.service_point_id
-      )
-    end
-
-    options_for_select(LibraryLocation.new(request.home_location)
-                             .additional_pickup_libraries(request.pickup_library).index_by do |code|
-                         Mylibrary::Application.config.library_map[code]
-                       end)
+    options_for_select(
+      service_points(request),
+      # the second param here pre-selects the current service point in the dropdown
+      selected: request.service_point_id
+    )
   end
 
   # Generates a list of service point options for a request.

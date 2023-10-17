@@ -6,12 +6,13 @@ RSpec.describe 'requests/edit' do
   let(:request_attributes) { {} }
   let(:mock_request) do
     instance_double(
-      Symphony::Request,
+      Folio::Request,
       title: 'Request Title',
       key: 'abc123',
       resource: nil,
       fill_by_date: nil,
-      pickup_library: 'GREEN',
+      service_point_id: 'a5dbb3dc-84f8-4eb3-8bfe-c61f74a9e92d',
+      restricted_pickup_service_points: [],
       home_location: 'SAL3',
       **request_attributes
     )
