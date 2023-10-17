@@ -77,7 +77,7 @@ class FolioClient
 
   def ping
     session_token.present?
-  rescue HTTP::Error
+  rescue HTTP::Error, FolioClient::IlsError
     false
   end
 
