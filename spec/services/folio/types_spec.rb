@@ -15,7 +15,9 @@ RSpec.describe Folio::Types do
       )
     end
     let(:fake_data) do
-      { service_points: ['service_point'] }
+      { service_points: ['service_point'],
+        libraries: ['library'],
+        locations: ['location'] }
     end
     let(:loan_policies) do
       [

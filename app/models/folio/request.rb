@@ -91,7 +91,15 @@ module Folio
 
     # this is only used in JSON responses; maybe we can remove it?
     def placed_library
-      library_key
+      library_code
+    end
+
+    def library_name
+      if from_borrow_direct? || from_ill?
+        Folio::Location.discovery_display_name_by_code(location_code)
+      else
+        Folio::Library.name_by_code(library_code)
+      end
     end
 
     def library
@@ -100,12 +108,12 @@ module Folio
       elsif from_ill?
         Settings.ILL_CODE
       else
-        library_key
+        library_code
       end
     end
 
     def from_ill?
-      (library_key == 'SUL') || from_borrow_direct? || from_ilb?
+      (library_code == 'SUL') || from_borrow_direct? || from_ilb?
     end
 
     # rubocop:disable Metrics/MethodLength
@@ -136,7 +144,7 @@ module Folio
 
     private
 
-    def library_key
+    def library_code
       record.dig('item', 'item', 'effectiveLocation', 'library', 'code')
     end
 

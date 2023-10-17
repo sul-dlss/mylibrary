@@ -126,6 +126,14 @@ module Folio
       (due_date.to_date - Time.zone.now.to_date).to_i
     end
 
+    def library_name
+      if from_borrow_direct? || from_ill?
+        Folio::Location.discovery_display_name_by_code(location_code)
+      else
+        Folio::Library.name_by_code(library_code)
+      end
+    end
+
     def library
       if from_borrow_direct?
         Settings.BORROW_DIRECT_CODE
@@ -133,12 +141,12 @@ module Folio
         Settings.ILL_CODE
       else
         # In some edge cases Symws returns an empty block for fields['library']
-        library_key || 'Stanford Libraries'
+        library_code || 'Stanford Libraries'
       end
     end
 
     def from_ill?
-      (library_key == 'SUL') || from_borrow_direct? || from_ilb?
+      (library_code == 'SUL') || from_borrow_direct? || from_ilb?
     end
 
     def short_term_loan?
@@ -245,7 +253,9 @@ module Folio
     end
 
     # returns the equivalent Symphony library code
-    def library_key
+    # TODO: Can this just be:
+    #   record.dig('item', 'item', 'effectiveLocation', 'library', 'code')
+    def library_code
       Folio::LocationsMap.for(location_code)&.first
     end
 

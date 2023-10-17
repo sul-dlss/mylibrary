@@ -2,8 +2,7 @@
 
 module Folio
   Location = Data.define(:id, :library, :library_id, :code, :discovery_display_name,
-    :name, :primary_service_point_id, :details) do
-
+                         :name, :primary_service_point_id, :details) do
     def self.all
       @all ||= Folio::Types.get_type('locations').map { |json| from_dynamic(json) }
     end

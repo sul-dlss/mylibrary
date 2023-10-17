@@ -40,8 +40,8 @@
           <dd class="col-8">$0.00</dd>
       <% end %>
       <dt class="col-3 offset-1 col-md-2 offset-md-2">Source:</dt>
-      <% if payment.item_library %>
-          <dd class="col-8"><%= library_name(payment.item_library) %></dd>
+      <% if payment.library_name %>
+          <dd class="col-8"><%= payment.library_name %></dd>
       <% else %>
           <dd class="col-8">Circulation &amp; Privileges</dd>
       <% end %>

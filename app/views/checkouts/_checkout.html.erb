@@ -76,7 +76,7 @@
         <dd class="col-8"><%= time_remaining_for_checkout(checkout) %></dd>
       <% end %>
       <dt class="col-3 offset-1 col-md-2 offset-md-2">Source:</dt>
-      <dd class="col-8"><%= library_name checkout.library %></dd>
+      <dd class="col-8"><%= checkout.library_name %></dd>
       <% if checkout.barcode %>
         <dt class="col-3 offset-1 col-md-2 offset-md-2">Barcode:</dt>
         <dd class="col-8"><%= checkout.barcode %></dd>

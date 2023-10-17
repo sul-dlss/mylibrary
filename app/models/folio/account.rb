@@ -34,6 +34,14 @@ module Folio
       record.dig('feeFine', 'feeFineType')
     end
 
+    def library_name
+      Folio::Library.name_by_code(library_code)
+    end
+
+    def library_code
+      record.dig('item', 'effectiveLocation', 'library', 'code')
+    end
+
     def library
       record.dig('item', 'effectiveLocation', 'library', 'name')
     end
