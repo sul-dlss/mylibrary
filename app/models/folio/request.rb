@@ -75,9 +75,13 @@ module Folio
       record.dig('item', 'item', 'effectiveCallNumberComponents', 'callNumber')
     end
 
-    # TODO: After FOLIO launch change this method name to reflect FOLIO service point terminology
-    # and possibly simplify / directly use the service point id rather than routing through the code
-    def pickup_library
+    # rubocop:disable Rails/DynamicFindBy
+    def service_point_name
+      Folio::ServicePoint.find_by_id(service_point_id)&.name || service_point_code
+    end
+    # rubocop:enable Rails/DynamicFindBy
+
+    def service_point_code
       record.dig('pickupLocation', 'code')
     end
 
@@ -112,7 +116,7 @@ module Folio
     def sort_key(key)
       sort_key = case key
                  when :library
-                   [pickup_library, title, author, shelf_key]
+                   [service_point_code, title, author, shelf_key]
                  when :date
                    [*date_sort_key, title, author, shelf_key]
                  when :title

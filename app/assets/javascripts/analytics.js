@@ -89,7 +89,7 @@ document.addEventListener('turbolinks:load', function() {
     var notNeededAfter = document.getElementById('#not_needed_after')?.value;
 
     var action = [];
-    if (document.getElementById('#pickup_library').options.length > 0) {
+    if (document.getElementById('#service_point').options.length > 0) {
       action.push('library');
     }
     if (originalDate && notNeededAfter && originalDate !== notNeededAfter) {

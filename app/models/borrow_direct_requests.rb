@@ -51,7 +51,9 @@ class BorrowDirectRequests
       end
     end
 
-    def pickup_library; end
+    def service_point_name; end
+
+    def service_point_code; end
 
     def expiration_date; end
 
