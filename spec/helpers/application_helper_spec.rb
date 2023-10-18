@@ -97,18 +97,6 @@ RSpec.describe ApplicationHelper do
     end
   end
 
-  describe '#pickup_location_name' do
-    it 'falls back on the code' do
-      allow(Folio::ServicePoint).to receive(:name_by_code).and_return(nil)
-      expect(helper.pickup_location_name('NOSUCHLIBRARY')).to eq 'NOSUCHLIBRARY'
-    end
-
-    it 'translates a FOLIO service point code to a human-readable name' do
-      allow(Folio::ServicePoint).to receive(:name_by_code).and_return('East Asia Library')
-      expect(helper.pickup_location_name('EAST-ASIA')).to eq 'East Asia Library'
-    end
-  end
-
   describe '#library_email' do
     it 'translates the code to a an email' do
       expect(helper.library_email('EARTH-SCI')).to eq 'brannerlibrary@stanford.edu'
