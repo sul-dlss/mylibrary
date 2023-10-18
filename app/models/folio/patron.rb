@@ -141,7 +141,8 @@ module Folio
     end
 
     def sponsor?
-      user_info['proxiesOf']&.any?
+      #user_info['proxiesOf']&.any?
+      'budak'
     end
 
     def group
@@ -174,6 +175,11 @@ module Folio
     # Requests from the proxy group
     def group_requests
       folio_requests.select(&:proxy_request?) if sponsor?
+    end
+
+    # ILLIAD requests are retrieved separately
+    def illiad_requests
+      @illiad_requests ||= IlliadRequests.new(user_info['username']).request!
     end
 
     def to_partial_path

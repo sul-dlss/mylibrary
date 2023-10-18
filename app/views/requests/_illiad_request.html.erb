@@ -5,12 +5,11 @@
         <% if illiad_request.ready_for_pickup? %>
           <span class="text-ready">
             <%= sul_icon 'sharp-check_circle-24px' %>
-            <span class="d-md-none">Pick up at </span><%= pickup_location_name(illiad_request.pickup_library) %>
+            <span class="d-md-none">Pick up at </span><%= library_name(illiad_request.pickup_library) %>
           </span>
         <% else %>
-          <span class="d-md-none">Deliver to </span><%= pickup_location_name(illiad_request.pickup_library) %>
+          <span class="d-md-none">Deliver to </span><%= library_name(illiad_request.pickup_library) %>
         <% end %>
-
       </div>
       <% if illiad_request.expiration_date %>
         <div class="w-50 col-md-12 col-lg-6 text-right text-md-left date" data-sort-date="<%= h illiad_request.sort_key(:date) %>">

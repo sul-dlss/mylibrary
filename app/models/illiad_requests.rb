@@ -43,16 +43,25 @@ class IlliadRequests
     def key
       @illiad_result['TransactionNumber'].to_s
     end
+    
+    def sort_key(key)
+      sort_key = case key
+                 when :library
+                  [pickup_library, title, author, call_number]
+                 when :date
+                  [*date_sort_key, title, author, call_number]
+                 when :title
+                  [title, author, call_number]
+                 when :author
+                  [author, title, call_number]
+                 when :call_number
+                  [call_number]
+                 end
+      sort_key.join('---')
+    end
 
-    def sort_key(sort)
-      case sort
-      when :title
-        title
-      when :date
-        [::Symphony::Request::END_OF_DAYS.strftime('%FT%T'), title].join('---')
-      else
-        ''
-      end
+    def date_sort_key
+      (expiration_date || END_OF_DAYS).strftime('%FT%T')
     end
 
     def title

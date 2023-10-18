@@ -30,11 +30,11 @@
       <%= link_to requests_path(group: params[:group]), class: "nav-link #{active_page_class('requests')}", aria: {current: controller_name == 'requests' ? 'page' : false } do %>
         <%= sul_icon :'sharp-access_time-24px', classes: 'lg' %>
         <span class="label">Requests</span>
-        <% pickup_count = patron_or_group.requests.select(&:ready_for_pickup?).length %>
+        <% pickup_count = patron_or_group.requests.select(&:ready_for_pickup?).length + patron.illiad_requests.select(&:ready_for_pickup?).length %>
         <% if pickup_count.positive? %>
           <span class="info text-ready"><%= sul_icon :'sharp-check_circle-24px' %> <%= pickup_count %> ready</span>
         <% else %>
-          <span class="info"><%= patron_or_group.requests.length %></span>
+          <span class="info"><%= patron_or_group.requests.length + patron.illiad_requests.length %></span>
         <% end %>
       <% end %>
     </li>
