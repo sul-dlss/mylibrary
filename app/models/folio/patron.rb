@@ -141,8 +141,7 @@ module Folio
     end
 
     def sponsor?
-      #user_info['proxiesOf']&.any?
-      'budak'
+      user_info['proxiesOf']&.any?
     end
 
     def group

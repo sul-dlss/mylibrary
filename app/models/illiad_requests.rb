@@ -7,8 +7,6 @@ class IlliadRequests
   def initialize(user_id)
     @user_id = user_id
   end
-  
-  # rubocop:enable Metrics/MethodLength
 
   def request!
     request_user_transactions.map do |illiad_result|
@@ -43,22 +41,24 @@ class IlliadRequests
     def key
       @illiad_result['TransactionNumber'].to_s
     end
-    
+
+    # rubocop:disable Metrics/MethodLength
     def sort_key(key)
       sort_key = case key
                  when :library
-                  [pickup_library, title, author, call_number]
+                   [pickup_library, title, author, call_number]
                  when :date
-                  [*date_sort_key, title, author, call_number]
+                   [*date_sort_key, title, author, call_number]
                  when :title
-                  [title, author, call_number]
+                   [title, author, call_number]
                  when :author
-                  [author, title, call_number]
+                   [author, title, call_number]
                  when :call_number
-                  [call_number]
+                   [call_number]
                  end
       sort_key.join('---')
     end
+    # rubocop:enable Metrics/MethodLength
 
     def date_sort_key
       (expiration_date || END_OF_DAYS).strftime('%FT%T')
