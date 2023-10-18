@@ -49,7 +49,7 @@ class IlliadRequests
     def sort_key(key)
       sort_key = case key
                  when :library
-                   [pickup_library, title, author, call_number]
+                   [library_code, title, author, call_number]
                  when :date
                    [*date_sort_key, title, author, call_number]
                  when :title
@@ -83,8 +83,8 @@ class IlliadRequests
       Time.zone.parse(@illiad_result['CreationDate'])
     end
 
-    def pickup_library
-      @illiad_result['ItemInfo4']
+    def library_name
+      'Interlibrary Loan'
     end
 
     def expiration_date
@@ -126,7 +126,7 @@ class IlliadRequests
     end
 
     def service_point_name
-      Mylibrary::Application.config.library_map[pickup_library] || pickup_library
+      Folio::Library.find_by_code(library_code)&.name
     end
 
     def waitlist_position; end
@@ -137,6 +137,12 @@ class IlliadRequests
 
     def manage_request_link
       "https://sulils.stanford.edu/illiad.dll?Action=10&Form=72&Value=#{key}"
+    end
+
+    private
+
+    def library_code
+      @illiad_result['ItemInfo4']
     end
   end
 end

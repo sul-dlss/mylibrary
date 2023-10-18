@@ -75,11 +75,9 @@ module Folio
       record.dig('item', 'item', 'effectiveCallNumberComponents', 'callNumber')
     end
 
-    # rubocop:disable Rails/DynamicFindBy
     def service_point_name
       Folio::ServicePoint.find_by_id(service_point_id)&.name || service_point_code
     end
-    # rubocop:enable Rails/DynamicFindBy
 
     def service_point_code
       record.dig('pickupLocation', 'code')
@@ -91,25 +89,6 @@ module Folio
 
     def restricted_pickup_service_points
       record.dig('item', 'item', 'effectiveLocation', 'details', 'pageServicePoints')
-    end
-
-    # this is only used in JSON responses; maybe we can remove it?
-    def placed_library
-      library_key
-    end
-
-    def library
-      if from_borrow_direct?
-        Settings.BORROW_DIRECT_CODE
-      elsif from_ill?
-        Settings.ILL_CODE
-      else
-        library_key
-      end
-    end
-
-    def from_ill?
-      (library_key == 'SUL') || from_borrow_direct? || from_ilb?
     end
 
     # rubocop:disable Metrics/MethodLength
@@ -139,24 +118,5 @@ module Folio
     end
 
     def manage_request_link; end
-
-    private
-
-    def library_key
-      record.dig('item', 'item', 'effectiveLocation', 'library', 'code')
-    end
-
-    # TODO: SUL-ILB-REPLACE-ME is a placeholder for whatever the new FOLIO code will be
-    def from_ilb?
-      location_code == 'SUL-ILB-REPLACE-ME'
-    end
-
-    def from_borrow_direct?
-      location_code == 'SUL-BORROW-DIRECT'
-    end
-
-    def location_code
-      record.dig('item', 'item', 'effectiveLocation', 'code')
-    end
   end
 end

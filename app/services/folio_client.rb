@@ -224,6 +224,14 @@ class FolioClient
                        location_id: }.as_json)
   end
 
+  def libraries
+    get_json('/location-units/libraries', params: { limit: 2_147_483_647 }).fetch('loclibs', [])
+  end
+
+  def locations
+    get_json('/locations', params: { limit: 2_147_483_647 }).fetch('locations', [])
+  end
+
   private
 
   def update_request(request_id, request_data_updates)

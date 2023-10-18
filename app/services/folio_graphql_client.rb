@@ -198,11 +198,11 @@ class FolioGraphqlClient
                 effectiveCallNumberComponents {
                   callNumber
                 }
+                permanentLocation {
+                  code
+                }
                 effectiveLocation {
                   code
-                  library {
-                    code
-                  }
                   details {
                     pageServicePoints {
                       code
@@ -210,6 +210,11 @@ class FolioGraphqlClient
                       discoveryDisplayName
                       pickupLocation
                     }
+                  }
+                }
+                holdingsRecord {
+                  effectiveLocation {
+                    code
                   }
                 }
               }
@@ -267,19 +272,26 @@ class FolioGraphqlClient
             }
             item {
               id
+              barcode
+              effectiveShelvingOrder
               effectiveLocation {
-                library {
-                  name
-                }
+                code
+              }
+              permanentLocation {
+                code
               }
               instance {
                 title
+                hrid
                 contributors {
                   name
                 }
               }
               holdingsRecord {
                 callNumber
+                effectiveLocation {
+                  code
+                }
               }
             }
           }
@@ -292,7 +304,7 @@ class FolioGraphqlClient
               itemId
               isbn
               instance {
-                indexTitle
+                hrid
               }
               item {
                 barcode
@@ -311,9 +323,6 @@ class FolioGraphqlClient
                 effectiveLocationId
                 effectiveLocation {
                   code
-                  library {
-                    code
-                  }
                 }
                 permanentLocation {
                   code

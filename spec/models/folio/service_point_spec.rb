@@ -43,11 +43,11 @@ RSpec.describe Folio::ServicePoint do
 
   describe '.find_by_id' do
     it 'returns the service point' do
-      expect(described_class.find_by_id('a5dbb3dc-84f8-4eb3-8bfe-c61f74a9e92d')).to be_a described_class # rubocop:disable Rails/DynamicFindBy
+      expect(described_class.find_by_id('a5dbb3dc-84f8-4eb3-8bfe-c61f74a9e92d')).to be_a described_class
     end
 
     it 'returns nil for an unknown id' do
-      expect(described_class.find_by_id('fake-123-345')).to be_nil # rubocop:disable Rails/DynamicFindBy
+      expect(described_class.find_by_id('fake-123-345')).to be_nil
     end
   end
 end

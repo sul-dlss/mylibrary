@@ -6,7 +6,7 @@ RSpec.describe 'checkouts/_checkout' do
   let(:checkout_attributes) { {} }
   let(:checkout) do
     instance_double(
-      Symphony::Checkout,
+      Folio::Checkout,
       accrued: nil,
       author: '',
       barcode: nil,
@@ -20,7 +20,7 @@ RSpec.describe 'checkouts/_checkout' do
       from_ill?: false,
       item_key: nil,
       key: 'abc123',
-      library: 'GREEN',
+      library_name: 'Green Library',
       lost?: false,
       overdue?: false,
       patron_key: 'xyz321',
@@ -36,7 +36,7 @@ RSpec.describe 'checkouts/_checkout' do
     )
   end
 
-  let(:patron) { instance_double(Symphony::Patron, can_renew?: false) }
+  let(:patron) { instance_double(Folio::Patron, can_renew?: false) }
 
   before do
     without_partial_double_verification do

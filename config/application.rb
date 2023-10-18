@@ -61,45 +61,5 @@ module Mylibrary
       'SPEC-DESK' => 'specialcollections@stanford.edu',
       'TANNER' => 'tanner-library@stanford.edu'
     }
-
-    config.library_map = {
-      'ARS' => 'Archive of Recorded Sound',
-      'ART' => 'Art & Architecture Library (Bowes)',
-      'BIOLOGY' => 'Biology Library (Falconer)',
-      'BUSINESS' => 'Business Library',
-      'CHEMCHMENG' => 'Chemistry & ChemEng Library (Swain)',
-      'CLASSICS' => 'Classics Library',
-      'EARTH-SCI' => 'Earth Sciences Library (Branner)',
-      'EAST-ASIA' => 'East Asia Library',
-      'EDUCATION' => 'Education Library (Cubberley)',
-      'ENG' => 'Engineering Library (Terman)',
-      'GREEN' => 'Green Library',
-      'HOOVER' => 'Hoover Library',
-      'HOPKINS' => 'Marine Biology Library (Miller)',
-      'HV-ARCHIVE' => 'Hoover Archives',
-      # TODO: remove this first entry ILL after migrating off of Symphony.
-      # SUL-ILB-REPLACE-ME is a placeholder for whatever the new FOLIO code will be.
-      'ILL' => 'Interlibrary borrowing',
-      'SUL-ILB-REPLACE-ME' => 'Interlibrary borrowing',
-      'LANE-MED' => 'Medical Library (Lane)',
-      'LATHROP' => 'Lathrop Library',
-      'LAW' => 'Law Library (Crown)',
-      'MATH-CS' => 'Math & Statistics Library',
-      'MEDIA-MTXT' => 'Media & Microtext Center',
-      'MUSIC' => 'Music Library',
-      'RUMSEYMAP' => 'David Rumsey Map Center',
-      'RWC' => 'Academy Hall (SRWC)',
-      'SAL' => 'SAL1&2 (on-campus shelving)',
-      'SAL3' => 'SAL3 (off-campus storage)',
-      'SAL-NEWARK' => 'SAL Newark (off-campus storage)',
-      'SCIENCE' => 'Science Library (Li and Ma)',
-      'SPEC-COLL' => 'Special Collections',
-      'SPEC-DESK' => 'Special Collections',
-      # TODO: remove this first entry BORROW_DIRECT after migrating off of Symphony.
-      # SUL-BORROW-DIRECT is the new FOLIO code.
-      'BORROW_DIRECT' => 'BorrowDirect',
-      'SUL-BORROW-DIRECT' => 'BorrowDirect',
-      'TANNER' => 'Philosophy Library (Tanner)'
-    }
   end
 end

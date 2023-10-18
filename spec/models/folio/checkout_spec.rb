@@ -49,91 +49,18 @@ RSpec.describe Folio::Checkout do
 
   it_behaves_like 'folio_record', ['3684a786-6671-4268-8ed0-9db82ebca60b']
 
+  # rubocop:disable RSpec/MultipleExpectations
+  it 'responds to delegated methods' do
+    expect(checkout).to respond_to(:library_name)
+    expect(checkout).to respond_to(:library_code)
+    expect(checkout).to respond_to(:from_ill?)
+    expect(checkout).to respond_to(:effective_location)
+    expect(checkout).to respond_to(:permanent_location)
+  end
+  # rubocop:enable RSpec/MultipleExpectations
+
   it 'has a key' do
     expect(checkout.key).to eq '6f951192-b633-40a0-8112-73a191b55a8a'
-  end
-
-  describe '#library' do
-    context 'when record is from borrow direct' do
-      let(:record) do
-        { 'id' => '6f951192-b633-40a0-8112-73a191b55a8a',
-          'item' =>
-            { 'item' =>
-             { 'effectiveLocation' => { 'code' => 'SUL-BORROW-DIRECT' } } } }
-      end
-
-      it { expect(checkout.library).to eq 'BORROW_DIRECT' }
-    end
-
-    context 'when record is from ILB' do
-      # TODO: SUL-ILB-REPLACE-ME is a placeholder for whatever the new FOLIO code will be
-      let(:record) do
-        { 'id' => '6f951192-b633-40a0-8112-73a191b55a8a',
-          'item' =>
-            { 'item' =>
-              { 'effectiveLocation' => { 'code' => 'SUL-ILB-REPLACE-ME' } } } }
-      end
-
-      it { expect(checkout.library).to eq 'ILL' }
-    end
-
-    context 'when record is from Green Library' do
-      let(:record) do
-        { 'id' => '6f951192-b633-40a0-8112-73a191b55a8a',
-          'item' =>
-            { 'item' =>
-             { 'effectiveLocation' => { 'code' => 'GRE-STACKS' } } } }
-      end
-
-      it { expect(checkout.library).to eq 'GREEN' }
-    end
-
-    context 'when record location requires a fallback display value' do
-      let(:record) do
-        { 'id' => '6f951192-b633-40a0-8112-73a191b55a8a',
-          'item' =>
-            { 'item' =>
-             { 'effectiveLocation' => { 'code' => 'SOME-CODE' } } } }
-      end
-
-      it { expect(checkout.library).to eq 'Stanford Libraries' }
-    end
-  end
-
-  describe '#from_ill?' do
-    context 'when record is from borrow direct' do
-      let(:record) do
-        { 'id' => '6f951192-b633-40a0-8112-73a191b55a8a',
-          'item' =>
-            { 'item' =>
-             { 'effectiveLocation' => { 'code' => 'SUL-BORROW-DIRECT' } } } }
-      end
-
-      it { expect(checkout).to be_from_ill }
-    end
-
-    context 'when record is from ILB' do
-      # TODO: SUL-ILB-REPLACE-ME is a placeholder for whatever the new FOLIO code will be
-      let(:record) do
-        { 'id' => '6f951192-b633-40a0-8112-73a191b55a8a',
-          'item' =>
-            { 'item' =>
-              { 'effectiveLocation' => { 'code' => 'SUL-ILB-REPLACE-ME' } } } }
-      end
-
-      it { expect(checkout).to be_from_ill }
-    end
-
-    context 'when record is from Green Library' do
-      let(:record) do
-        { 'id' => '6f951192-b633-40a0-8112-73a191b55a8a',
-          'item' =>
-            { 'item' =>
-             { 'effectiveLocation' => { 'code' => 'GRE-STACKS' } } } }
-      end
-
-      it { expect(checkout).not_to be_from_ill }
-    end
   end
 
   describe 'lost?' do

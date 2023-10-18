@@ -15,7 +15,7 @@ RSpec.describe 'requests/_request' do
       key: 'abc123',
       service_point_name: 'XYZ Library',
       placed_date: Time.zone.now,
-      library: 'SAL3',
+      library_name: 'SAL3 (off-campus storage)',
       ready_for_pickup?: false,
       sort_key: '1',
       title: 'A Book',

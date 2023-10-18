@@ -40,6 +40,8 @@ module Folio
 
     def types_of_interest
       %w[
+        libraries
+        locations
         loan_policies
         service_points
       ]
