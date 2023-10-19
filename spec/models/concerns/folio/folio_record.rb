@@ -5,17 +5,30 @@ require 'rails_helper'
 RSpec.shared_examples 'folio_record' do |args = []|
   let(:model) { described_class.new(*args.dup.unshift(record)) }
 
-  describe '#home_location' do
+  describe '#effective_location_code' do
+    let(:record) do
+      { 'id' => '6f951192-b633-40a0-8112-73a191b55a8a',
+        'item' =>
+          { 'item' =>
+          { 'effectiveLocation' => { 'code' => 'SUL-BORROW-DIRECT' } } } }
+    end
+
+    it 'returns the effective location code' do
+      expect(model.effective_location_code).to eq 'SUL-BORROW-DIRECT'
+    end
+  end
+
+  describe '#permanent_location_code' do
     context 'when the item has a permanent location' do
       let(:record) do
         { 'id' => '6f951192-b633-40a0-8112-73a191b55a8a',
           'item' =>
             { 'item' =>
-             { 'permanentLocation' => { 'code' => 'SUL-BORROW-DIRECT' } } } }
+             { 'permanentLocation' => { 'code' => 'MY-PERMANENT-LOCATION' } } } }
       end
 
-      it "returns the item's permanent location" do
-        expect(model.home_location).to eq 'BORROWDIR'
+      it 'returns the permanent location' do
+        expect(model.permanent_location_code).to eq 'MY-PERMANENT-LOCATION'
       end
     end
 
@@ -26,8 +39,8 @@ RSpec.shared_examples 'folio_record' do |args = []|
             { 'item' => { 'holdingsRecord' => { 'effectiveLocation' => { 'code' => 'SUL-BORROW-DIRECT' } } } } }
       end
 
-      it "returns the holdings record's effective location" do
-        expect(model.home_location).to eq 'BORROWDIR'
+      it 'falls back the holdings record effective location' do
+        expect(model.permanent_location_code).to eq 'SUL-BORROW-DIRECT'
       end
     end
   end

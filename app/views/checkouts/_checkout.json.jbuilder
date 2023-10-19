@@ -28,7 +28,8 @@ json.attributes do
   json.shelf_key checkout.shelf_key
   json.barcode checkout.barcode
   json.short_term_loan checkout.short_term_loan?
-  json.current_location checkout.current_location
+  json.effective_location_code checkout.effective_location_code
+  json.permanent_location_code checkout.permanent_location_code
   json.lost checkout.lost?
 
   json.symphony_api_response checkout.record if Rails.env.development?
