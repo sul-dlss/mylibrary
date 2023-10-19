@@ -13,10 +13,6 @@ class RequestsController < ApplicationController
   def index
     @requests = patron_or_group.requests
                                .sort_by { |request| request.sort_key(:date) }
-    # Illiad requests don't interact with groups
-    @illiad_requests = patron.illiad_requests
-                             .sort_by { |request| request.sort_key(:date) }
-    @combined_requests = @requests.concat(@illiad_requests).sort_by { |request| request.sort_key(:date) }
   end
 
   # Renders a form for editing a request/hold

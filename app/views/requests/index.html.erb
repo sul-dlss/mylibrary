@@ -5,7 +5,7 @@
   <%= render partial: 'shared/group_tabs', locals: { self_value: patron.requests.length + patron.illiad_requests.length, group_value: patron.group.requests.length } if patron_or_group.group? %>
 <% end %>
 
-<% ready, requested = @combined_requests.partition(&:ready_for_pickup?) %>
+<% ready, requested = @requests.partition(&:ready_for_pickup?) %>
 <% if ready.any? %>
   <div class="page-section">
     <div class="d-flex justify-content-between">
@@ -32,7 +32,7 @@
 <div  id="requests" class="page-section">
   <div class="d-flex justify-content-between">
     <h2>Requested: <%= requested.length %></h2>
-    <% if @combined_requests.any? %>
+    <% if @requests.any? %>
     <div class="dropdown">
       <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         Sort (<span data-sort-label>Not needed after</span>)
@@ -48,7 +48,7 @@
     </div>
     <% end %>
   </div>
-  <% if @combined_requests.any? %>
+  <% if @requests.any? %>
     <div class="d-none d-md-flex row font-weight-bold list-header">
       <div class="row col-md-4">
         <div class="col-md-12 col-lg-6" data-sort="library">Deliver to</div>

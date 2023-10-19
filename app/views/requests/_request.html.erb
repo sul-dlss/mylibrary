@@ -10,14 +10,13 @@
         <% else %>
           <span class="d-md-none">Deliver to </span><%= pickup_location_name(request.pickup_library) %>
         <% end %>
-
       </div>
       <% if request.expiration_date %>
         <div class="w-50 col-md-12 col-lg-6 text-right text-md-left date" data-sort-date="<%= h request.sort_key(:date) %>">
           <span class="d-inline d-md-none mr-2">by</span>
           <%= l(request.expiration_date, format: :short) %>
         </div>
-      <% elsif request.fill_by_date %>
+      <% elsif request.respond_to?(:fill_by_date) && request.fill_by_date %>
         <div class="w-50 col-md-12 col-lg-6 text-right text-md-left date" data-sort-date="<%= h request.sort_key(:date) %>">
         <span class="d-inline d-md-none mr-2">Exp.</span>
           <%= l(request.fill_by_date, format: :short) %>
@@ -40,17 +39,21 @@
     <div class="row mb-0">
       <div class="col-11 offset-1 col-md-10 offset-md-2">
         <% if patron.can_modify_requests? %>
-          <% if request.ready_for_pickup? %>
-            <%= form_tag request_path(request.key), method: :delete do %>
-              <%= hidden_field_tag :title, request.title %>
-              <%= hidden_field_tag :group, params[:group] if params[:group] %>
-              <%= button_tag class: 'btn btn-link btn-request-cancel btn-icon-prefix', type: 'submit' do %>
-                <%= sul_icon 'outline-cancel-24px' %> Cancel this request
-              <% end %>
-            <% end %>
+          <% if request.is_a?(IlliadRequests::Request) %>
+            <a href='https://sulils.stanford.edu'>Manage this request in your ILL account</a>
           <% else %>
-            <%= link_to edit_request_path(request.key, group: params[:group]), data: { 'mylibrary-modal' => 'trigger', 'convert-button' => true } do %>
-              <%= sul_icon 'outline-cancel-24px' %> Change or cancel this request
+            <% if request.ready_for_pickup? %>
+              <%= form_tag request_path(request.key), method: :delete do %>
+                <%= hidden_field_tag :title, request.title %>
+                <%= hidden_field_tag :group, params[:group] if params[:group] %>
+                <%= button_tag class: 'btn btn-link btn-request-cancel btn-icon-prefix', type: 'submit' do %>
+                  <%= sul_icon 'outline-cancel-24px' %> Cancel this request
+                <% end %>
+              <% end %>
+            <% else %>
+              <%= link_to edit_request_path(request.key, group: params[:group]), data: { 'mylibrary-modal' => 'trigger', 'convert-button' => true } do %>
+                <%= sul_icon 'outline-cancel-24px' %> Change or cancel this request
+              <% end %>
             <% end %>
           <% end %>
         <% end %>
@@ -65,10 +68,12 @@
         <dt class="col-3 offset-1 col-md-2 offset-md-2">Requested:</dt>
         <dd class="col-8"><%= l(request.placed_date, format: :short) %></dd>
       <% end %>
-      <dt class="col-3 offset-1 col-md-2 offset-md-2">Waitlist position:</dt>
-      <dd class="col-8"><%= request.waitlist_position %></dd>
+      <% if ! request.is_a?(IlliadRequests::Request) %>
+        <dt class="col-3 offset-1 col-md-2 offset-md-2">Waitlist position:</dt>
+        <dd class="col-8"><%= request.waitlist_position %></dd>
+      <% end %>
       <dt class="col-3 offset-1 col-md-2 offset-md-2">Source:</dt>
-      <dd class="col-8"><%= library_name request.library %></dd>
+      <dd class="col-8"><%= request.is_a?(IlliadRequests::Request) ? 'Interlibrary Loan' : library_name(request.library) %></dd>
     </dl>
 
     <%= detail_link_to_searchworks(request.catkey) unless request.from_ill? %>

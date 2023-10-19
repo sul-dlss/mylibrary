@@ -166,9 +166,9 @@ module Folio
       all_checkouts.select(&:proxy_checkout?)
     end
 
-    # Self requests
+    # Self requests: Combines data from FOLIO, borrow direct, and ILLIAD
     def requests
-      @requests ||= folio_requests.reject(&:proxy_request?) + borrow_direct_requests
+      @requests ||= folio_requests.reject(&:proxy_request?) + borrow_direct_requests + illiad_requests
     end
 
     # Requests from the proxy group

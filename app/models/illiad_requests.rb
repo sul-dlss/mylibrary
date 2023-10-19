@@ -96,8 +96,13 @@ class IlliadRequests
       ready_for_pickup_status.include?(@illiad_result['TransactionStatus'])
     end
 
+    def from_ill?
+      true
+    end
+
     def to_partial_path
-      'requests/illiad_request'
+      #'requests/illiad_request'
+      'requests/request'
     end
   end
 end
