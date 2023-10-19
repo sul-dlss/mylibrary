@@ -101,7 +101,6 @@ class IlliadRequests
     end
 
     def to_partial_path
-      #'requests/illiad_request'
       'requests/request'
     end
   end
