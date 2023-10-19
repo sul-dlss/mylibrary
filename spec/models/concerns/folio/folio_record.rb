@@ -39,7 +39,7 @@ RSpec.shared_examples 'folio_record' do |args = []|
             { 'item' => { 'holdingsRecord' => { 'effectiveLocation' => { 'code' => 'SUL-BORROW-DIRECT' } } } } }
       end
 
-      it 'falls back the holdings record effective location' do
+      it 'falls back to the holdings record effective location' do
         expect(model.permanent_location_code).to eq 'SUL-BORROW-DIRECT'
       end
     end
