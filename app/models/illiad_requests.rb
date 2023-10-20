@@ -64,7 +64,7 @@ class IlliadRequests
     # rubocop:enable Metrics/MethodLength
 
     def date_sort_key
-      (expiration_date || END_OF_DAYS).strftime('%FT%T')
+      (expiration_date || Folio::Request::END_OF_DAYS).strftime('%FT%T')
     end
 
     def title

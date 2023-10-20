@@ -35,44 +35,42 @@ RSpec.describe IlliadRequests do
         .to_return(status: 200, body: transaction_results, headers: {})
     end
 
-    let(:request_results) { ill_request.requests }
-
     it 'correctly returns request objects' do
-      expect(request_results.length).to be(2)
+      expect(ill_request.requests.length).to be(2)
     end
   end
 
   describe 'IlliadRequests::Request' do
-    let(:ill_hold_request) do
-      IlliadRequests::Request.new(JSON.parse(hold_recall_result))
+    context 'when the request is ILLIAD hold/recall' do
+      subject(:hold) { IlliadRequests::Request.new(JSON.parse(hold_recall_result)) }
+
+      it 'correctly identified hold recall result as not being type scan' do
+        expect(hold.scan_type?).to be(false)
+      end
+
+      it 'correctly retrieves title for non-scan transaction' do
+        expect(hold.title).to eq('Disney Motion Pictures')
+      end
+
+      it 'correctly retrieves author for non-scan transaction' do
+        expect(hold.author).to eq('Gilbert Roy')
+      end
     end
 
-    let(:ill_scan_request) do
-      IlliadRequests::Request.new(JSON.parse(scan_result))
-    end
+    context 'when the request is an ILLIAD scan request' do
+      subject(:scan) { IlliadRequests::Request.new(JSON.parse(scan_result)) }
 
-    it 'correctly identified hold recall result as not being type scan' do
-      expect(ill_hold_request.scan_type?).to be(false)
-    end
+      it 'correctly identified scan result as type scan' do
+        expect(scan.scan_type?).to be(true)
+      end
 
-    it 'correctly retrieves title for non-scan transaction' do
-      expect(ill_hold_request.title).to eq('Disney Motion Pictures')
-    end
+      it 'correctly retrieves title for scan transaction' do
+        expect(scan.title).to eq('String Beans')
+      end
 
-    it 'correctly retrieves author for non-scan transaction' do
-      expect(ill_hold_request.author).to eq('Gilbert Roy')
-    end
-
-    it 'correctly identified scan result as type scan' do
-      expect(ill_scan_request.scan_type?).to be(true)
-    end
-
-    it 'correctly retrieves title for scan transaction' do
-      expect(ill_scan_request.title).to eq('String Beans')
-    end
-
-    it 'correctly retrieves author for scan transaction' do
-      expect(ill_scan_request.author).to eq('Frederick Wright')
+      it 'correctly retrieves author for scan transaction' do
+        expect(scan.author).to eq('Frederick Wright')
+      end
     end
   end
 end
