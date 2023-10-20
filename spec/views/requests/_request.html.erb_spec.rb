@@ -21,6 +21,7 @@ RSpec.describe 'requests/_request' do
       title: 'A Book',
       waitlist_position: nil,
       patron_key: 'patronkey123',
+      manage_request_link: nil,
       **request_attributes
     )
   end
