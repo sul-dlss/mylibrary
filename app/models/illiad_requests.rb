@@ -93,7 +93,6 @@ class IlliadRequests
     def fill_by_date; end
 
     def ready_for_pickup?
-      # Are these the correct strings?
       ready_for_pickup_status = ['Media Microtext Checkout to Customer',
                                  'Special Collections Checked Out to Customer',
                                  'Customer Notified via E-Mail']
