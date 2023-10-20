@@ -6,7 +6,7 @@ class RequestsController < ApplicationController
   before_action :authorize_update!, except: :index
   rescue_from RequestException, with: :deny_access
 
-  # Renders user requests from FOLIO and/or BorrowDirect
+  # Renders user requests from FOLIO, BorrowDirect, and/or ILLIAD
   #
   # GET /requests
   # GET /requests.json

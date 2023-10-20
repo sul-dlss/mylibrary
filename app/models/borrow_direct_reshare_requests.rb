@@ -112,5 +112,7 @@ class BorrowDirectReshareRequests
     def to_partial_path
       'requests/borrow_direct_request'
     end
+
+    def manage_request_link; end
   end
 end
