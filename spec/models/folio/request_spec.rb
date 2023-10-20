@@ -155,4 +155,31 @@ RSpec.describe Folio::Request do
       it { expect(request).not_to be_from_ill }
     end
   end
+
+  describe 'service_point_name' do
+    let(:service_points) do
+      build(:service_points)
+    end
+
+    before do
+      allow(Folio::ServicePoint).to receive_messages(all: service_points)
+    end
+
+    context 'when the code maps to a service point' do
+      let(:record) do
+        { 'pickupLocationId' => 'a5dbb3dc-84f8-4eb3-8bfe-c61f74a9e92d',
+          'pickupLocation' => { 'code' => 'GREEN-LOAN' } }
+      end
+
+      it 'returns the service point name' do
+        expect(request.service_point_name).to eq 'Green Library'
+      end
+    end
+
+    context 'when the code does not map to a service point' do
+      it 'returns the code as a fallback' do
+        expect(request.service_point_name).to eq 'EARTH-SCI'
+      end
+    end
+  end
 end

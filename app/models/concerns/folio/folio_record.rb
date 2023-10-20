@@ -47,10 +47,6 @@ module Folio
       Folio::LocationsMap.for(item.dig('effectiveLocation', 'code'))&.last
     end
 
-    def lost?
-      current_location == 'LOST-ASSUM'
-    end
-
     private
 
     def item

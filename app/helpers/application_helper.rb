@@ -65,15 +65,6 @@ module ApplicationHelper
     Mylibrary::Application.config.library_map[code] || code
   end
 
-  # TODO: After FOLIO launch remove the conditional wrapper and rename to reflect service point terminology
-  def pickup_location_name(code)
-    if Settings.ils.client == 'FolioClient'
-      Folio::ServicePoint.name_by_code(code) || code
-    else
-      Mylibrary::Application.config.library_map[code] || code
-    end
-  end
-
   def library_email(code)
     Mylibrary::Application.config.library_contact[code] || Settings.ACCESS_SERVICES_EMAIL
   end
