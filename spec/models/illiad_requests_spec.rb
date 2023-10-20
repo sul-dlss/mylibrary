@@ -35,7 +35,7 @@ RSpec.describe IlliadRequests do
         .to_return(status: 200, body: transaction_results, headers: {})
     end
 
-    let(:request_results) { ill_request.request! }
+    let(:request_results) { ill_request.requests }
 
     it 'correctly returns request objects' do
       expect(request_results.length).to be(2)

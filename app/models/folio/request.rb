@@ -138,6 +138,8 @@ module Folio
       ]
     end
 
+    def manage_request_link; end
+
     private
 
     def library_key

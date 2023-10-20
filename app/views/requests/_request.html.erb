@@ -39,8 +39,8 @@
     <div class="row mb-0">
       <div class="col-11 offset-1 col-md-10 offset-md-2">
         <% if patron.can_modify_requests? %>
-          <% if request.is_a?(IlliadRequests::Request) %>
-            <a href='https://sulils.stanford.edu'>Manage this request in your ILL account</a>
+          <% if request.manage_request_link %>
+            <a class='illiad-link' href='<%= request.manage_request_link %>'>Manage this request in your ILL account</a>
           <% else %>
             <% if request.ready_for_pickup? %>
               <%= form_tag request_path(request.key), method: :delete do %>
@@ -68,7 +68,7 @@
         <dt class="col-3 offset-1 col-md-2 offset-md-2">Requested:</dt>
         <dd class="col-8"><%= l(request.placed_date, format: :short) %></dd>
       <% end %>
-      <% if ! request.is_a?(IlliadRequests::Request) %>
+      <% if request.waitlist_position %>
         <dt class="col-3 offset-1 col-md-2 offset-md-2">Waitlist position:</dt>
         <dd class="col-8"><%= request.waitlist_position %></dd>
       <% end %>

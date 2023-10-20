@@ -8,11 +8,12 @@ class IlliadRequests
     @user_id = user_id
   end
 
-  def request!
+  def requests
     request_user_transactions.map do |illiad_result|
       IlliadRequests::Request.new(illiad_result)
     end
-  rescue StandardError
+  rescue StandardError => e
+    Honeybadger.notify(e, error_message: "Unable to retrieve ILLIAD transactions with #{e}")
     []
   end
 
@@ -103,8 +104,18 @@ class IlliadRequests
       true
     end
 
+    def service_point_name
+      Mylibrary::Application.config.library_map[pickup_library] || pickup_library
+    end
+
+    def waitlist_position; end
+
     def to_partial_path
       'requests/request'
+    end
+
+    def manage_request_link
+      "https://sulils.stanford.edu/illiad.dll?Action=10&Form=72&Value=#{key}"
     end
   end
 end

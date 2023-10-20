@@ -178,7 +178,7 @@ module Folio
 
     # ILLIAD requests are retrieved separately
     def illiad_requests
-      @illiad_requests ||= IlliadRequests.new(user_info['username']).request!
+      @illiad_requests ||= IlliadRequests.new(user_info['username']).requests
     end
 
     def to_partial_path
