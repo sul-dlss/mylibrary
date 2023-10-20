@@ -12,6 +12,8 @@ class IlliadRequests
     request_user_transactions.map do |illiad_result|
       IlliadRequests::Request.new(illiad_result)
     end
+  rescue StandardError
+    []
   end
 
   private
@@ -87,6 +89,8 @@ class IlliadRequests
     def expiration_date
       scan_type? ? placed_date + 2.months : Time.zone.parse(@illiad_result['NotWantedAfter'])
     end
+
+    def fill_by_date; end
 
     def ready_for_pickup?
       # Are these the correct strings?

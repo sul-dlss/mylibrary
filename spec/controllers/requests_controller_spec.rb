@@ -61,6 +61,21 @@ RSpec.describe RequestsController do
       end
     end
 
+    describe 'Illiad requests' do
+      let(:requests) do
+        [
+          instance_double(Folio::Request, key: '1', sort_key: nil),
+          instance_double(IlliadRequests::Request, key: 'sta-1', sort_key: nil)
+        ]
+      end
+
+      it 'are returned along with normal requests' do
+        get(:index)
+
+        expect(assigns(:requests).length).to eq 2
+      end
+    end
+
     describe '#update' do
       let(:api_response) { instance_double('Response', status: 204, content_type: :json) }
 
