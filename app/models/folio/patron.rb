@@ -176,11 +176,6 @@ module Folio
       folio_requests.select(&:proxy_request?) if sponsor?
     end
 
-    # ILLIAD requests are retrieved separately
-    def illiad_requests
-      @illiad_requests ||= IlliadRequests.new(user_info['username']).requests
-    end
-
     def to_partial_path
       return 'patron/expired' if expired?
       return 'patron/fee_borrower' if fee_borrower?
@@ -238,6 +233,13 @@ module Folio
 
     def affiliations
       []
+    end
+
+    # ILLIAD requests are retrieved separately
+    def illiad_requests
+      return [] unless user_info['username']
+
+      IlliadRequests.new(user_info['username']).requests
     end
 
     # Encryptor/decryptor for the token used in the PIN reset process
