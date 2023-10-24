@@ -88,7 +88,28 @@ class IlliadRequests
     end
 
     def expiration_date
-      scan_type? ? placed_date + 2.months : Time.zone.parse(@illiad_result['NotWantedAfter'])
+      based_on_placed = placed_date + 2.months
+      # In some cases, even if the request is a hold/recall and not a scan,
+      # the 'NotWantedAfter' field may be blank. In that case, we will just
+      # use the date that is 2 months after the transaction creation date
+      scan_type? ? based_on_placed : (user_supplied_expiration_date || based_on_placed)
+    end
+
+    def user_supplied_expiration_date
+      return nil if @illiad_result['NotWantedAfter'].blank?
+
+      parse_expiration_date(@illiad_result['NotWantedAfter'])
+    end
+
+    def parse_expiration_date(illiad_date)
+      # Some dates will be in mm/dd/yyyy or m/d/yyyy format, and Time.zone.parse will throw an error
+      date_regex = %r{\d{1,2}/\d{1,2}/\d{4}}
+      date_to_parse = illiad_date.match?(date_regex) ? Date.strptime(illiad_date, '%m/%d/%Y').to_s : illiad_date
+      # We still want to return a date that provides a time portion/is consistent with the other results
+      Time.zone.parse(date_to_parse)
+    rescue ArgumentError => e
+      Honeybadger.notify(e, error_message: "Parsing #{illiad_date} for ILLIAD request expiration date returns #{e}")
+      nil
     end
 
     def fill_by_date; end

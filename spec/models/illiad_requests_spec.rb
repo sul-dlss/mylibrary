@@ -16,6 +16,14 @@ RSpec.describe IlliadRequests do
       "NotWantedAfter":"2024-10-11",
       "CallNumber":"ABC"}'
   end
+  let(:expiration_result) do
+    '{"CreationDate":"2022-05-11T10:49:41.783",
+      "NotWantedAfter":"07/15/2022s"}'
+  end
+  let(:expiration_empty_result) do
+    '{"CreationDate":"2022-05-11T10:49:41.783",
+      "NotWantedAfter":null}'
+  end
   let(:scan_result) do
     '{"TransactionNumber":12345,
       "Username":"sunet",
@@ -44,6 +52,9 @@ RSpec.describe IlliadRequests do
     context 'when the request is ILLIAD hold/recall' do
       subject(:hold) { IlliadRequests::Request.new(JSON.parse(hold_recall_result)) }
 
+      let(:expiration_hold) { IlliadRequests::Request.new(JSON.parse(expiration_result)) }
+      let(:expiration_empty_hold) { IlliadRequests::Request.new(JSON.parse(expiration_empty_result)) }
+
       it 'correctly identified hold recall result as not being type scan' do
         expect(hold.scan_type?).to be(false)
       end
@@ -54,6 +65,18 @@ RSpec.describe IlliadRequests do
 
       it 'correctly retrieves author for non-scan transaction' do
         expect(hold.author).to eq('Gilbert Roy')
+      end
+
+      it 'correctly calculates the expiration date' do
+        expect(hold.expiration_date.to_s).to eq('2024-10-11 00:00:00 -0700')
+      end
+
+      it 'handles ILLIAD expiration date of format mm/dd/yyyy' do
+        expect(expiration_hold.expiration_date.to_s).to eq('2022-07-15 00:00:00 -0700')
+      end
+
+      it 'handles an empty ILLIAD expiration date and returns a date two months after placed date' do
+        expect(expiration_empty_hold.expiration_date.to_s).to eq('2022-07-11 10:49:41 -0700')
       end
     end
 
@@ -70,6 +93,10 @@ RSpec.describe IlliadRequests do
 
       it 'correctly retrieves author for scan transaction' do
         expect(scan.author).to eq('Frederick Wright')
+      end
+
+      it 'returns a date two months after creation date for expiration' do
+        expect(scan.expiration_date).to eq(scan.placed_date + 2.months)
       end
     end
   end
