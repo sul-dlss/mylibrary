@@ -9,9 +9,7 @@ class IlliadRequests
   end
 
   def requests
-    request_user_transactions.map do |illiad_result|
-      IlliadRequests::Request.new(illiad_result)
-    end
+    request_user_transactions.map { |illiad_result| IlliadRequests::Request.new(illiad_result) }.reject(&:inactive?)
   rescue StandardError => e
     Honeybadger.notify(e, error_message: "Unable to retrieve ILLIAD transactions with #{e}")
     []
@@ -32,9 +30,23 @@ class IlliadRequests
   end
 
   class Request
+    INACTIVE_REQUEST_STATUSES = [
+      'Awaiting Renewal OK Processing', 'Awaiting Renewal Request Processing', 'Awaiting Return Label Printing',
+      'Borrow Direct Loan from an Ivy+ Library', 'Borrow Direct Lost', 'Borrow Direct Testing',
+      'Checked Out to Customer', 'Claims Returned', 'In Return Address Print Queue',
+      'In Transit from Customer', 'Loaned from UC Berkeley RLCP', 'Lost',
+      'Returned to Borrow Direct Ivy+ Library', 'Returned UC Berkeley RLCP', 'Cancelled by Customer',
+      'Cancelled by ILL Staff', 'Delivered to Web', 'Request Finished',
+      'Awaiting Denied Renewal Processing', 'In Transit to Pickup Location', 'Awaiting Doc Del Customer Contact'
+    ].freeze
+
     # illiad_result is a hash with the results from the Illiad Request
     def initialize(illiad_result)
       @illiad_result = illiad_result
+    end
+
+    def inactive?
+      INACTIVE_REQUEST_STATUSES.include? @illiad_result['TransactionStatus']
     end
 
     def scan_type?

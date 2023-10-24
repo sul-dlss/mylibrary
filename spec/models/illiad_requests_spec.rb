@@ -33,11 +33,16 @@ RSpec.describe IlliadRequests do
       "ItemInfo4":"GREEN",
       "CallNumber":"DEF"}'
   end
+  let(:inactive_result) do
+    '{"TransactionNumber":123,
+      "Username":"sunet",
+      "TransactionStatus":"Cancelled by Customer"}'
+  end
   let(:transaction_results) do
-    "[#{hold_recall_result},#{scan_result}]"
+    "[#{hold_recall_result},#{scan_result},#{inactive_result}]"
   end
 
-  context 'when successful, it correctly retrieves transaction requests' do
+  context 'when successful, it retrieves transaction requests and ignores inactive requests' do
     before do
       stub_request(:get, "#{Settings.sul_illiad}ILLiadWebPlatform/Transaction/UserRequests/#{patron_sunet_id}")
         .to_return(status: 200, body: transaction_results, headers: {})
