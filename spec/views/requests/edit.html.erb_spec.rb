@@ -13,7 +13,6 @@ RSpec.describe 'requests/edit' do
       fill_by_date: nil,
       service_point_id: 'a5dbb3dc-84f8-4eb3-8bfe-c61f74a9e92d',
       restricted_pickup_service_points: [],
-      home_location: 'SAL3',
       **request_attributes
     )
   end

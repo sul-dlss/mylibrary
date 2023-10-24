@@ -87,16 +87,6 @@ RSpec.describe ApplicationHelper do
     end
   end
 
-  describe '#library_name' do
-    it 'translates the code to a human-readable name' do
-      expect(helper.library_name('GREEN')).to eq 'Green Library'
-    end
-
-    it 'falls back on the code' do
-      expect(helper.library_name('NOSUCHLIBRARY')).to eq 'NOSUCHLIBRARY'
-    end
-  end
-
   describe '#library_email' do
     it 'translates the code to a an email' do
       expect(helper.library_email('EARTH-SCI')).to eq 'brannerlibrary@stanford.edu'

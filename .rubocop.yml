@@ -80,6 +80,9 @@ Metrics/PerceivedComplexity:
 Rails/ActionControllerFlashBeforeRender:
   Enabled: false
 
+Rails/DynamicFindBy:
+  Enabled: false
+
 RSpec/ExampleLength:
   Exclude:
     - 'spec/features/**/*'

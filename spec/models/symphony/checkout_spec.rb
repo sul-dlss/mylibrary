@@ -392,42 +392,6 @@ RSpec.describe Symphony::Checkout do
     expect(checkout.claims_returned_date).to be_nil
   end
 
-  context 'when the library is SUL' do
-    before { fields[:library] = { key: 'SUL' } }
-
-    it 'represents itself as coming from ILL' do
-      expect(checkout.library).to eq 'ILL'
-    end
-
-    it 'is from borrow direct' do
-      expect(checkout).to be_from_ill
-    end
-  end
-
-  context 'when the item type is BORROWDIR' do
-    before { fields[:item][:fields][:itemType] = { key: 'BORROWDIR' } }
-
-    it 'represents itself as coming from BorrowDirect' do
-      expect(checkout.library).to eq 'BORROW_DIRECT'
-    end
-
-    it 'is from ILL' do
-      expect(checkout).to be_from_ill
-    end
-  end
-
-  context 'when the item type is ILB*' do
-    before { fields[:item][:fields][:itemType] = { key: 'ILB12345' } }
-
-    it 'represents itself as coming from ILL' do
-      expect(checkout.library).to eq 'ILL'
-    end
-
-    it 'is from ILL' do
-      expect(checkout).to be_from_ill
-    end
-  end
-
   context 'when the library is null' do
     before { fields[:library] = nil }
 

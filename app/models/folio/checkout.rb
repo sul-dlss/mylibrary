@@ -126,21 +126,6 @@ module Folio
       (due_date.to_date - Time.zone.now.to_date).to_i
     end
 
-    def library
-      if from_borrow_direct?
-        Settings.BORROW_DIRECT_CODE
-      elsif from_ill?
-        Settings.ILL_CODE
-      else
-        # In some edge cases Symws returns an empty block for fields['library']
-        library_key || 'Stanford Libraries'
-      end
-    end
-
-    def from_ill?
-      (library_key == 'SUL') || from_borrow_direct? || from_ilb?
-    end
-
     def short_term_loan?
       SHORT_TERM_LOAN_PERIODS.include?(loan_policy_interval)
     end
@@ -242,24 +227,6 @@ module Folio
 
     def renewal_count
       record.dig('details', 'renewalCount') || 0
-    end
-
-    # returns the equivalent Symphony library code
-    def library_key
-      Folio::LocationsMap.for(location_code)&.first
-    end
-
-    # TODO: SUL-ILB-REPLACE-ME is a placeholder for whatever the new FOLIO code will be
-    def from_ilb?
-      location_code == 'SUL-ILB-REPLACE-ME'
-    end
-
-    def from_borrow_direct?
-      location_code == 'SUL-BORROW-DIRECT'
-    end
-
-    def location_code
-      record.dig('item', 'item', 'effectiveLocation', 'code')
     end
   end
 end

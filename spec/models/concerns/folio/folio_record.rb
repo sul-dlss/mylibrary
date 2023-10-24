@@ -5,30 +5,52 @@ require 'rails_helper'
 RSpec.shared_examples 'folio_record' do |args = []|
   let(:model) { described_class.new(*args.dup.unshift(record)) }
 
-  describe '#home_location' do
-    context 'when the item has a permanent location' do
-      let(:record) do
-        { 'id' => '6f951192-b633-40a0-8112-73a191b55a8a',
-          'item' =>
-            { 'item' =>
-             { 'permanentLocation' => { 'code' => 'SUL-BORROW-DIRECT' } } } }
-      end
+  let(:record) do
+    { 'id' => '6f951192-b633-40a0-8112-73a191b55a8a',
+      'item' =>
+       { 'title' =>
+         'The making of American liberal theology / Gary Dorrien.',
+         'author' => 'Dorrien, Gary J',
+         'instanceId' => '948b80ac-a7fa-5577-87b4-7494ee4c7482',
+         'itemId' => '6d9a4f99-d144-51cf-92d7-3edbfc588abe',
+         'instance' =>
+         { 'hrid' =>
+           'a1234565' },
+         'item' =>
+         { 'barcode' => '36105110374977',
+           'effectiveShelvingOrder' => 'ND237 R725 A4 2017 F',
+           'effectiveCallNumberComponents' => { 'callNumber' => 'ND237 .R725 A4 2017 F' } } } }
+  end
 
-      it "returns the item's permanent location" do
-        expect(model.home_location).to eq 'BORROWDIR'
-      end
-    end
+  describe '#catkey' do
+    it { expect(model.catkey).to eq 'a1234565' }
+  end
 
-    context 'when the item does not have a permanent location' do
-      let(:record) do
-        { 'id' => '6f951192-b633-40a0-8112-73a191b55a8a',
-          'item' =>
-            { 'item' => { 'holdingsRecord' => { 'effectiveLocation' => { 'code' => 'SUL-BORROW-DIRECT' } } } } }
-      end
+  describe '#title' do
+    it { expect(model.title).to eq 'The making of American liberal theology / Gary Dorrien.' }
+  end
 
-      it "returns the holdings record's effective location" do
-        expect(model.home_location).to eq 'BORROWDIR'
-      end
-    end
+  describe '#author' do
+    it { expect(model.author).to eq 'Dorrien, Gary J' }
+  end
+
+  describe '#call_number' do
+    it { expect(model.call_number).to eq 'ND237 .R725 A4 2017 F' }
+  end
+
+  describe '#shelf_key' do
+    it { expect(model.shelf_key).to eq 'ND237 R725 A4 2017 F' }
+  end
+
+  describe '#barcode' do
+    it { expect(model.barcode).to eq '36105110374977' }
+  end
+
+  describe '#resource' do
+    it { expect(model.resource).to eq '948b80ac-a7fa-5577-87b4-7494ee4c7482' }
+  end
+
+  describe '#item_key' do
+    it { expect(model.item_key).to eq '6d9a4f99-d144-51cf-92d7-3edbfc588abe' }
   end
 end

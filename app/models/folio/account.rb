@@ -7,9 +7,14 @@ module Folio
   # Accounts are analogous to Symphony::Fine when open; Symphony::Payment when closed
   # https://wiki.folio.org/pages/viewpage.action?pageId=73531762
   class Account
-    include Folio::FolioRecord
-
     attr_reader :record
+
+    delegate :library_name,
+             :library_code,
+             :from_ill?,
+             :effective_location,
+             :permanent_location,
+             to: :record_location
 
     # Statuses that indicate that the patron actually didn't pay anything
     UNPAID_STATUSES = ['Waived fully', 'Cancelled as error'].freeze
@@ -32,10 +37,6 @@ module Folio
 
     def nice_status
       record.dig('feeFine', 'feeFineType')
-    end
-
-    def library
-      record.dig('item', 'effectiveLocation', 'library', 'name')
     end
 
     # dateCreated on the account is often null, so we use the first action date
@@ -62,6 +63,14 @@ module Folio
 
     def bib?
       record['item'].present?
+    end
+
+    def catkey
+      record.dig('item', 'instance', 'hrid')
+    end
+
+    def shelf_key
+      record.dig('item', 'effectiveShelvingOrder')
     end
 
     def author
@@ -123,8 +132,13 @@ module Folio
     alias bill_description nice_status
     alias nice_bill_description nice_status
     alias item_title title
-    alias item_library library
     alias paid_fee? closed?
     alias bill_amount fee
+
+    private
+
+    def record_location
+      @record_location ||= Folio::RecordLocation.new(record['item'] || {})
+    end
   end
 end

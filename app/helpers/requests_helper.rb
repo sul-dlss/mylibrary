@@ -42,7 +42,7 @@ module RequestsHelper
     # start with the full list of defaults
     default_service_points = Folio::ServicePoint.default_service_points
     # Add the request's origin service point to the list
-    default_service_points << Folio::ServicePoint.find_by_id(request.service_point_id) # rubocop:disable Rails/DynamicFindBy
+    default_service_points << Folio::ServicePoint.find_by_id(request.service_point_id)
     # Remove duplicates and nils in case origin was already in the default list or doesn't exit
     # Filter out non-pickup locations
     # Map the service points to the [label, value] format for options_for_select

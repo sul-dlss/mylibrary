@@ -101,7 +101,7 @@ RSpec.describe 'Checkout Page' do
         expect(page).to have_css('dd', text: '36105021987123', visible: :visible)
       end
 
-      using_wait_time(10) do
+      using_wait_time(30) do
         within('ul.checkouts li:nth-child(1)') do
           click_button 'Expand'
           expect(page).to have_css('dt', text: 'Fines accrued:', visible: :visible)

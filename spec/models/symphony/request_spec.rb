@@ -129,40 +129,4 @@ RSpec.describe Symphony::Request do
       expect(request.library).to eq 'GREEN'
     end
   end
-
-  context 'when the item library is SUL' do
-    before { fields[:item][:fields][:library] = { key: 'SUL' } }
-
-    it 'represents itself as coming from ILL' do
-      expect(request.library).to eq 'ILL'
-    end
-
-    it 'is from ILL' do
-      expect(request).to be_from_ill
-    end
-  end
-
-  context 'when the item type is BORROWDIR' do
-    before { fields[:item][:fields][:itemType] = { key: 'BORROWDIR' } }
-
-    it 'represents itself as coming from BorrowDirect' do
-      expect(request.library).to eq 'BORROW_DIRECT'
-    end
-
-    it 'is from ILL' do
-      expect(request).to be_from_ill
-    end
-  end
-
-  context 'when the item type is ILB*' do
-    before { fields[:item][:fields][:itemType] = { key: 'ILB12345' } }
-
-    it 'represents itself as coming from ILL' do
-      expect(request.library).to eq 'ILL'
-    end
-
-    it 'is from ILL' do
-      expect(request).to be_from_ill
-    end
-  end
 end

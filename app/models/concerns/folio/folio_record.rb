@@ -3,8 +3,15 @@
 module Folio
   # Common accessors into record data
   module FolioRecord
+    delegate :library_name,
+             :library_code,
+             :from_ill?,
+             :effective_location,
+             :permanent_location,
+             to: :record_location
+
     def catkey
-      item.dig('instance', 'hrid')
+      bib.dig('instance', 'hrid')
     end
 
     def title
@@ -37,17 +44,11 @@ module Folio
       bib['itemId']
     end
 
-    # returns the equivalent Symphony location code
-    def home_location
-      Folio::LocationsMap.for(permanent_location_code)&.last
-    end
-
-    # returns the equivalent Symphony location code
-    def current_location
-      Folio::LocationsMap.for(item.dig('effectiveLocation', 'code'))&.last
-    end
-
     private
+
+    def record_location
+      @record_location ||= Folio::RecordLocation.new(item)
+    end
 
     def item
       record.dig('item', 'item') || {}
@@ -56,13 +57,6 @@ module Folio
     # ? FOLIO: not sure the word 'bib' is accurate anymore here / maybe confusing
     def bib
       record['item']
-    end
-
-    # Fall back to the holding record's effective location.
-    # We are no longer guaranteed an item-level permanent location.
-    def permanent_location_code
-      item.dig('permanentLocation', 'code') ||
-        item.dig('holdingsRecord', 'effectiveLocation', 'code')
     end
   end
 end

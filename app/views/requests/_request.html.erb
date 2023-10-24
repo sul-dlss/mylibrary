@@ -75,7 +75,7 @@
         <dd class="col-8"><%= request.waitlist_position %></dd>
       <% end %>
       <dt class="col-3 offset-1 col-md-2 offset-md-2">Source:</dt>
-      <dd class="col-8"><%= request.is_a?(IlliadRequests::Request) ? 'Interlibrary Loan' : library_name(request.library) %></dd>
+      <dd class="col-8"><%= request.library_name %></dd>
     </dl>
 
     <%= detail_link_to_searchworks(request.catkey) unless request.from_ill? %>

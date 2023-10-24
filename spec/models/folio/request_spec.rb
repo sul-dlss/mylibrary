@@ -53,6 +53,16 @@ RSpec.describe Folio::Request do
 
   it_behaves_like 'folio_record'
 
+  # rubocop:disable RSpec/MultipleExpectations
+  it 'responds to delegated methods' do
+    expect(request).to respond_to(:library_name)
+    expect(request).to respond_to(:library_code)
+    expect(request).to respond_to(:from_ill?)
+    expect(request).to respond_to(:effective_location)
+    expect(request).to respond_to(:permanent_location)
+  end
+  # rubocop:enable RSpec/MultipleExpectations
+
   describe '#key' do
     subject(:key) { request.key }
 
@@ -92,67 +102,6 @@ RSpec.describe Folio::Request do
       end
 
       it { expect(request).to be_proxy_request }
-    end
-  end
-
-  describe '#library' do
-    context 'when record is from borrow direct' do
-      let(:record) do
-        { 'id' => '6f951192-b633-40a0-8112-73a191b55a8a',
-          'item' =>
-            { 'item' =>
-             { 'effectiveLocation' => { 'code' => 'SUL-BORROW-DIRECT' } } } }
-      end
-
-      it { expect(request.library).to eq 'BORROW_DIRECT' }
-    end
-
-    context 'when record is from ILB' do
-      # TODO: SUL-ILB-REPLACE-ME is a placeholder for whatever the new FOLIO code will be
-      let(:record) do
-        { 'id' => '6f951192-b633-40a0-8112-73a191b55a8a',
-          'item' =>
-            { 'item' =>
-              { 'effectiveLocation' => { 'code' => 'SUL-ILB-REPLACE-ME' } } } }
-      end
-
-      it { expect(request.library).to eq 'ILL' }
-    end
-  end
-
-  describe '#from_ill?' do
-    context 'when record is from borrow direct' do
-      let(:record) do
-        { 'id' => '6f951192-b633-40a0-8112-73a191b55a8a',
-          'item' =>
-            { 'item' =>
-             { 'effectiveLocation' => { 'code' => 'SUL-BORROW-DIRECT' } } } }
-      end
-
-      it { expect(request).to be_from_ill }
-    end
-
-    context 'when record is from ILB' do
-      # TODO: SUL-ILB-REPLACE-ME is a placeholder for whatever the new FOLIO code will be
-      let(:record) do
-        { 'id' => '6f951192-b633-40a0-8112-73a191b55a8a',
-          'item' =>
-            { 'item' =>
-              { 'effectiveLocation' => { 'code' => 'SUL-ILB-REPLACE-ME' } } } }
-      end
-
-      it { expect(request).to be_from_ill }
-    end
-
-    context 'when record is from Green Library' do
-      let(:record) do
-        { 'id' => '6f951192-b633-40a0-8112-73a191b55a8a',
-          'item' =>
-            { 'item' =>
-             { 'effectiveLocation' => { 'code' => 'GRE-STACKS' } } } }
-      end
-
-      it { expect(request).not_to be_from_ill }
     end
   end
 
