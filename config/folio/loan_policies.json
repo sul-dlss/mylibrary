@@ -2,7 +2,7 @@
   {
     "id": "07115e75-c4a9-4ef0-b013-dba184251041",
     "name": "7day-norenew-1daygrace",
-    "description": "7-day loan (Art periodicals)",
+    "description": "7-day loan (Art periodicals and Business Permanent Reserves)",
     "renewable": false,
     "renewalsPolicy": null,
     "loanable": true,
