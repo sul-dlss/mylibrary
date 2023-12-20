@@ -1,7 +1,5 @@
 # frozen_string_literal: true
 
-require 'http'
-
 # Calls FOLIO REST endpoints
 class FolioClient
   class IlsError < StandardError; end
@@ -77,7 +75,7 @@ class FolioClient
 
   def ping
     session_token.present?
-  rescue HTTP::Error, FolioClient::IlsError
+  rescue Faraday::Error, FolioClient::IlsError
     false
   end
 
