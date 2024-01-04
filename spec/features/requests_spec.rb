@@ -66,9 +66,9 @@ RSpec.describe 'Request Page' do
     visit requests_path
 
     within(first('ul.ready-requests li')) do
-      expect(page).not_to have_css('dl', visible: :visible)
-      expect(page).not_to have_css('dt', text: 'Requested:', visible: :visible)
-      click_button 'Expand'
+      expect(page).to have_no_css('dl', visible: :visible)
+      expect(page).to have_no_css('dt', text: 'Requested:', visible: :visible)
+      click_on 'Expand'
       expect(page).to have_css('dl', visible: :visible)
       expect(page).to have_css('dt', text: 'Requested:', visible: :visible)
     end
@@ -78,7 +78,7 @@ RSpec.describe 'Request Page' do
     visit edit_request_path('7fa87cfe-df57-4dc7-953b-a5a44ff37d91')
     select('Engineering Library (Terman)', from: 'service_point')
     fill_in('not_needed_after', with: '1999/01/01')
-    click_button 'Change'
+    click_on 'Change'
     expect(page).to have_css 'div.alert-success', text: 'Success!', count: 2
   end
 
@@ -115,7 +115,7 @@ RSpec.describe 'Request Page' do
     it 'does not render table headers' do
       visit requests_path
 
-      expect(page).not_to have_css('.list-header')
+      expect(page).to have_no_css('.list-header')
     end
   end
 end

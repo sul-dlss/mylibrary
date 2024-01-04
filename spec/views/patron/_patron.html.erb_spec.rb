@@ -32,11 +32,11 @@ RSpec.describe 'patron/_patron' do
     context 'when the user does not have an expire_date' do
       let(:patron_options) { { expired_date: nil } }
 
-      it { expect(rendered).not_to have_css('dt', text: 'Privileges expire') }
+      it { expect(rendered).to have_no_css('dt', text: 'Privileges expire') }
     end
 
     context 'when the user is not a proxy borrower' do
-      it { expect(rendered).not_to have_css('dt', text: 'Privileges expire') }
+      it { expect(rendered).to have_no_css('dt', text: 'Privileges expire') }
     end
 
     context 'when the user is a proxy borrower' do

@@ -23,7 +23,7 @@ RSpec.describe 'Payments History' do
     end
 
     it 'renders a list item for every payment', :js do
-      click_link 'Show history'
+      click_on 'Show history'
 
       within('ul.payments') do
         expect(page).to have_css('li', count: 10)
@@ -35,13 +35,13 @@ RSpec.describe 'Payments History' do
     end
 
     it 'has content behind a payments toggle', :js do
-      click_link 'Show history'
+      click_on 'Show history'
 
       within('ul.payments') do
         within(first('li')) do
-          expect(page).not_to have_css('dl', visible: :visible)
-          expect(page).not_to have_css('dt', text: 'Resolution', visible: :visible)
-          click_button 'Expand'
+          expect(page).to have_no_css('dl', visible: :visible)
+          expect(page).to have_no_css('dt', text: 'Resolution', visible: :visible)
+          click_on 'Expand'
           expect(page).to have_css('dl', visible: :visible)
           expect(page).to have_css('dt', text: 'Resolution', visible: :visible)
         end
@@ -49,7 +49,7 @@ RSpec.describe 'Payments History' do
     end
 
     it 'is sortable', :js do
-      click_link 'Show history'
+      click_on 'Show history'
 
       within '#payments' do
         expect(page).to have_css('.dropdown-toggle', text: 'Sort (Date paid)')
@@ -76,7 +76,7 @@ RSpec.describe 'Payments History' do
     end
 
     it 'does not load table', :js do
-      click_link 'Show history'
+      click_on 'Show history'
 
       expect(page).to have_css('span', text: 'There is no history on this account')
     end

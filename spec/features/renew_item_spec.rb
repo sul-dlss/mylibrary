@@ -45,7 +45,7 @@ RSpec.describe 'Renew item', :js do
     visit checkouts_path
 
     within(first('ul.checkouts li')) do
-      click_button 'Expand'
+      click_on 'Expand'
       first('.btn-renewable-submit').click
     end
     expect(page).to have_css '.flash_messages', text: 'Success!'
@@ -56,7 +56,7 @@ RSpec.describe 'Renew item', :js do
 
     visit checkouts_path
 
-    click_link 'Renew 1 eligible item'
+    click_on 'Renew 1 eligible item'
 
     expect(page).to have_css '.flash_messages', text: 'Success!'
   end

@@ -59,7 +59,7 @@ RSpec.describe 'Navigation' do
   it 'allows the user to navigate to the checkouts page' do
     visit root_path
 
-    click_link 'Checkouts'
+    click_on 'Checkouts'
 
     expect(page).to have_css('h1', text: 'Checkouts')
   end
@@ -67,7 +67,7 @@ RSpec.describe 'Navigation' do
   it 'allows the user to navigate to the requests page' do
     visit root_path
 
-    click_link 'Requests'
+    click_on 'Requests'
 
     expect(page).to have_css('h1', text: 'Requests')
   end
@@ -75,7 +75,7 @@ RSpec.describe 'Navigation' do
   it 'allows the user to navigate to the fines page' do
     visit root_path
 
-    click_link 'Fines'
+    click_on 'Fines'
 
     expect(page).to have_css('h1', text: 'Fines')
   end
@@ -83,7 +83,7 @@ RSpec.describe 'Navigation' do
   it 'allows the user to navigate from a page back to the summary page' do
     visit fines_path
 
-    click_link 'Summary'
+    click_on 'Summary'
 
     expect(page).to have_css('h1', text: 'Summary')
   end
@@ -204,19 +204,19 @@ RSpec.describe 'Navigation' do
     it 'preserves the group parameter across navigation' do
       visit summaries_path
 
-      click_link 'Proxy group'
+      click_on 'Proxy group'
       expect(page).to have_css('.nav-link.active', text: 'Proxy group')
 
-      click_link 'Requests'
+      click_on 'Requests'
       expect(page).to have_css('.nav-link.active', text: 'Proxy group')
 
-      click_link 'Checkouts'
+      click_on 'Checkouts'
       expect(page).to have_css('.nav-link.active', text: 'Proxy group')
 
-      click_link 'Fines'
+      click_on 'Fines'
       expect(page).to have_css('.nav-link.active', text: 'Proxy group')
 
-      click_link 'Summary'
+      click_on 'Summary'
       expect(page).to have_css('.nav-link.active', text: 'Proxy group')
     end
 

@@ -81,7 +81,7 @@ RSpec.describe 'Checkout Page' do
       visit checkouts_path
 
       within('ul.checkouts li:nth-child(1)') do
-        click_button 'Expand'
+        click_on 'Expand'
         expect(page).to have_css('dt', text: 'Can I renew?', visible: :visible)
       end
     end
@@ -90,9 +90,9 @@ RSpec.describe 'Checkout Page' do
       visit checkouts_path
 
       within(first('ul.checkouts li')) do
-        expect(page).not_to have_css('dl', visible: :visible)
-        expect(page).not_to have_css('dt', text: 'Borrowed:', visible: :visible)
-        click_button 'Expand'
+        expect(page).to have_no_css('dl', visible: :visible)
+        expect(page).to have_no_css('dt', text: 'Borrowed:', visible: :visible)
+        click_on 'Expand'
         expect(page).to have_css('dl', visible: :visible)
         expect(page).to have_css('dt', text: 'Borrowed:', visible: :visible)
         expect(page).to have_css('dt', text: 'Days overdue:', visible: :visible)
@@ -103,7 +103,7 @@ RSpec.describe 'Checkout Page' do
 
       using_wait_time(30) do
         within('ul.checkouts li:nth-child(1)') do
-          click_button 'Expand'
+          click_on 'Expand'
           expect(page).to have_css('dt', text: 'Fines accrued:', visible: :visible)
           expect(page).to have_css('dd', text: '$30.00', visible: :visible)
         end
@@ -146,7 +146,7 @@ RSpec.describe 'Checkout Page' do
     end
 
     it 'does not render table headers' do
-      expect(page).not_to have_css('.list-header')
+      expect(page).to have_no_css('.list-header')
     end
   end
 end

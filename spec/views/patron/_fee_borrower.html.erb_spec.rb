@@ -35,7 +35,7 @@ RSpec.describe 'patron/_fee_borrower' do
     context 'when the patron does not have an expired_date' do
       let(:patron_options) { { expired_date: nil } }
 
-      it { expect(rendered).not_to have_css('dt', text: 'Privileges expire') }
+      it { expect(rendered).to have_no_css('dt', text: 'Privileges expire') }
     end
   end
 

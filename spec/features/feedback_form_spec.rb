@@ -35,18 +35,18 @@ RSpec.describe 'Feedback form' do
 
     it 'reCAPTCHA challenge is NOT present' do
       visit feedback_path
-      expect(page).not_to have_css '.mylibrary-captcha'
+      expect(page).to have_no_css '.mylibrary-captcha'
     end
 
     it 'feedback form should be shown filled out and submitted' do
-      click_link 'Feedback'
+      click_on 'Feedback'
       expect(page).to have_css('#feedback-form', visible: :visible)
       expect(page).to have_link 'Cancel'
       within 'form.feedback-form' do
         fill_in('message', with: 'This is only a test')
         fill_in('name', with: 'Ronald McDonald')
         fill_in('to', with: 'test@kittenz.eu')
-        click_button 'Send'
+        click_on 'Send'
       end
       expect(page).to have_css('div.alert-success', text: 'Thank you! Your feedback has been sent.')
     end

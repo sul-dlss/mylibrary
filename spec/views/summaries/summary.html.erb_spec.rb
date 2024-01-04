@@ -29,7 +29,7 @@ RSpec.describe 'summaries/_summary' do
     it 'does not show the shared computer payment alert' do
       render
 
-      expect(rendered).not_to have_text('Shared computer users: Due to computer security risks, you should not use a shared computer to make a fine payment.') # rubocop:disable Layout/LineLength
+      expect(rendered).to have_no_text('Shared computer users: Due to computer security risks, you should not use a shared computer to make a fine payment.') # rubocop:disable Layout/LineLength
     end
   end
 end

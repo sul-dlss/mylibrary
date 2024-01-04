@@ -120,8 +120,8 @@ RSpec.describe RequestsHelper do
 
       it 'does not add the origin service point to the default options list' do
         options = helper.request_location_options(request)
-        expect(options).not_to have_css("option[value='8bb5d494-263f-42f0-9a9f-70451530d8a3']",
-                                        text: 'Classics Library')
+        expect(options).to have_no_css("option[value='8bb5d494-263f-42f0-9a9f-70451530d8a3']",
+                                       text: 'Classics Library')
       end
 
       it 'keeps the original default options list' do

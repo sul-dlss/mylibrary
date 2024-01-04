@@ -43,9 +43,9 @@ RSpec.describe 'Fines Page' do
       visit fines_path
 
       within('ul.fines') do
-        expect(page).not_to have_css('dl', visible: :visible)
-        expect(page).not_to have_css('dt', text: 'Billed', visible: :visible)
-        click_button 'Expand'
+        expect(page).to have_no_css('dl', visible: :visible)
+        expect(page).to have_no_css('dt', text: 'Billed', visible: :visible)
+        click_on 'Expand'
         expect(page).to have_css('dl', visible: :visible)
         expect(page).to have_css('dt', text: 'Billed', visible: :visible)
         expect(page).to have_css('dt', text: 'Barcode', visible: :visible)
@@ -67,7 +67,7 @@ RSpec.describe 'Fines Page' do
     it 'does not render table headers' do
       visit fines_path
 
-      expect(page).not_to have_css('.list-header')
+      expect(page).to have_no_css('.list-header')
     end
   end
 end

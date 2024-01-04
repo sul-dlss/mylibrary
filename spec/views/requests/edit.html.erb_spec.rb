@@ -32,7 +32,7 @@ RSpec.describe 'requests/edit' do
 
   context 'when the request has no fill_by_date' do
     it 'does not have a date selector to update the fill_by_date' do
-      expect(rendered).not_to have_field('not_needed_after', type: 'date')
+      expect(rendered).to have_no_field('not_needed_after', type: 'date')
     end
   end
 end

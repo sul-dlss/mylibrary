@@ -57,7 +57,7 @@ RSpec.describe 'checkouts/_checkout' do
     let(:checkout_attributes) { { from_ill?: true } }
 
     it 'does not include a link to the item in SearchWorks' do
-      expect(rendered).not_to have_link('View in SearchWorks')
+      expect(rendered).to have_no_link('View in SearchWorks')
     end
   end
 end
