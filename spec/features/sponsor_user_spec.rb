@@ -29,19 +29,19 @@ RSpec.describe 'Sponsor User' do
     expect(page).to have_css('.nav-tabs .nav-link', count: 2)
     expect(page).to have_css('.nav-tabs .nav-link.active', text: 'Self')
 
-    click_link 'Proxy group'
+    click_on 'Proxy group'
     expect(page).to have_css('.nav-tabs .nav-link.active', text: 'Proxy group')
 
-    click_link 'Self'
+    click_on 'Self'
     expect(page).to have_css('.nav-tabs .nav-link.active', text: 'Self')
   end
 
   it 'shows the pay fine button on the self tab only' do
     expect(page).to have_button 'Pay $150.00 now'
 
-    click_link 'Proxy group'
+    click_on 'Proxy group'
     expect(page).to have_text('Fines incurred by proxy borrowers appear in the list of ' \
                               "fines under their sponsor's Self tab.")
-    expect(page).not_to have_link 'Pay $150.00 now'
+    expect(page).to have_no_link 'Pay $150.00 now'
   end
 end

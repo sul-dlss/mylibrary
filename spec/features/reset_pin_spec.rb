@@ -27,14 +27,14 @@ RSpec.describe 'Reset Pin' do
   it 'allows user to reset pin' do
     visit reset_pin_path
     fill_in('library_id', with: '123456')
-    click_button 'Reset/Request PIN'
+    click_on 'Reset/Request PIN'
     expect(page).to have_css '.flash_messages', text: 'Check your email!'
   end
 
   it 'a user can change their pin' do
     visit change_pin_with_token_path(token: 'foo')
     fill_in('pin', with: '123456')
-    click_button 'Change PIN'
+    click_on 'Change PIN'
     expect(page).to have_css '.flash_messages', text: 'Success!'
   end
 
@@ -46,7 +46,7 @@ RSpec.describe 'Reset Pin' do
     it 'shows the user an error' do
       visit change_pin_with_token_path(token: 'not_a_real_token')
       fill_in('pin', with: 'newpin')
-      click_button 'Change PIN'
+      click_on 'Change PIN'
       expect(page).to have_css '.flash_messages', text: 'invalid or expired'
     end
   end
@@ -59,7 +59,7 @@ RSpec.describe 'Reset Pin' do
     it 'shows the user an error' do
       visit change_pin_with_token_path(token: 'foo')
       fill_in('pin', with: 'newpin')
-      click_button 'Change PIN'
+      click_on 'Change PIN'
       expect(page).to have_css '.flash_messages', text: 'Something went wrong'
     end
   end

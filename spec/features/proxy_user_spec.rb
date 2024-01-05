@@ -40,10 +40,10 @@ RSpec.describe 'Proxy User' do
     expect(page).to have_css('.nav-tabs .nav-link', count: 2)
     expect(page).to have_css('.nav-tabs .nav-link.active', text: 'Self')
 
-    click_link 'Proxy group'
+    click_on 'Proxy group'
     expect(page).to have_css('.nav-tabs .nav-link.active', text: 'Proxy group')
 
-    click_link 'Self'
+    click_on 'Self'
     expect(page).to have_css('.nav-tabs .nav-link.active', text: 'Self')
   end
 
@@ -54,9 +54,9 @@ RSpec.describe 'Proxy User' do
     expect(page).to have_css('.nav-tabs .nav-link', text: 'Proxy group (2)')
     expect(page).to have_text('Sci-fi architecture.')
 
-    click_link 'Proxy group'
+    click_on 'Proxy group'
     expect(page).to have_text('Music, sound, language, theater')
-    expect(page).not_to have_text('Sci-fi architecture.')
+    expect(page).to have_no_text('Sci-fi architecture.')
     expect(page).to have_text('Piper Proxy')
   end
 
@@ -66,11 +66,11 @@ RSpec.describe 'Proxy User' do
     expect(page).to have_css('.nav-tabs .nav-link.active', text: 'Self (1)')
     expect(page).to have_css('.nav-tabs .nav-link', text: 'Proxy group (1)')
     expect(page).to have_text('A history of Persia')
-    expect(page).not_to have_text('Borrower:')
+    expect(page).to have_no_text('Borrower:')
 
-    click_link 'Proxy group'
+    click_on 'Proxy group'
     expect(page).to have_text('Fiction!')
-    expect(page).not_to have_text('A history of Persia')
+    expect(page).to have_no_text('A history of Persia')
     expect(page).to have_text('Piper Proxy')
   end
 
@@ -81,8 +81,8 @@ RSpec.describe 'Proxy User' do
     expect(page).to have_css('.nav-tabs .nav-link', text: 'Proxy group ($0.00)')
     expect(page).to have_text('(RE)DISCOVERING THE OLMEC - NATIONAL GEOGRAPHIC SOCIETY-SMITHSONIAN INSTITUTION')
 
-    click_link 'Proxy group'
-    expect(page).not_to have_css('.fines')
-    expect(page).not_to have_text('(RE)DISCOVERING THE OLMEC - NATIONAL GEOGRAPHIC SOCIETY-SMITHSONIAN INSTITUTION')
+    click_on 'Proxy group'
+    expect(page).to have_no_css('.fines')
+    expect(page).to have_no_text('(RE)DISCOVERING THE OLMEC - NATIONAL GEOGRAPHIC SOCIETY-SMITHSONIAN INSTITUTION')
   end
 end

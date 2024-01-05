@@ -28,7 +28,7 @@ RSpec.describe 'Contact form' do
 
     describe 'hidden', :js do
       it 'form should be hidden' do
-        expect(page).not_to have_css('#mylibrary-modal', visible: :visible)
+        expect(page).to have_no_css('#mylibrary-modal', visible: :visible)
       end
     end
 
@@ -40,7 +40,7 @@ RSpec.describe 'Contact form' do
 
     describe 'visible', :js do
       before do
-        click_link 'Circulation & Privileges'
+        click_on 'Circulation & Privileges'
       end
 
       it 'is shown' do
@@ -59,7 +59,7 @@ RSpec.describe 'Contact form' do
         before do
           within 'form.contact-form' do
             fill_in('message', with: 'This is only a test')
-            click_button 'Send'
+            click_on 'Send'
           end
         end
 
@@ -78,17 +78,17 @@ RSpec.describe 'Contact form' do
 
     describe 'hidden', :js do
       it 'form should be absent' do
-        expect(page).not_to have_css('.contact-form')
+        expect(page).to have_no_css('.contact-form')
       end
     end
 
     describe 'contact links in the header' do
       it 'does not show the modal form link' do
-        expect(page).not_to have_css('.navbar-link', text: 'Circulation & Privileges')
+        expect(page).to have_no_css('.navbar-link', text: 'Circulation & Privileges')
       end
 
       it 'does not show the telephone number' do
-        expect(page).not_to have_css('.navbar-link', text: '(650) 723-1493')
+        expect(page).to have_no_css('.navbar-link', text: '(650) 723-1493')
       end
     end
   end

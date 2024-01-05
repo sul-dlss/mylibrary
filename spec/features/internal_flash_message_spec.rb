@@ -34,7 +34,7 @@ RSpec.describe 'Internal flash messages' do
 
     it 'does not render flash for a non-configured controller' do
       visit requests_url
-      expect(page).not_to have_css('p', text: 'Test message')
+      expect(page).to have_no_css('p', text: 'Test message')
     end
   end
 
@@ -46,7 +46,7 @@ RSpec.describe 'Internal flash messages' do
 
     it 'does not render flash if set message is empty' do
       visit summaries_url
-      expect(page).not_to have_css('p', text: 'Test message')
+      expect(page).to have_no_css('p', text: 'Test message')
     end
   end
 end

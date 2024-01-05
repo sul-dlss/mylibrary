@@ -31,7 +31,7 @@ RSpec.describe 'sessions/index' do
     it 'suppresses the login buttons' do
       render
 
-      expect(page).not_to have_link('Log in with SUNet ID')
+      expect(page).to have_no_link('Log in with SUNet ID')
     end
   end
 end

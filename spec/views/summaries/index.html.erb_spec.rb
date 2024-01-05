@@ -49,7 +49,7 @@ RSpec.describe 'summaries/index' do
     it 'renders the status without a link' do
       render
 
-      expect(rendered).not_to have_link('OK')
+      expect(rendered).to have_no_link('OK')
     end
 
     it 'renders the patron status' do

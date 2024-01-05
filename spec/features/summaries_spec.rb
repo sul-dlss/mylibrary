@@ -39,8 +39,8 @@ RSpec.describe 'Summaries Page' do
     expect(page).to have_css('h2', text: 'Ursula Undergrad')
     expect(page).to have_css('dd.patron-status', text: 'Blocked')
     expect(page).to have_css('dd.email', text: 'superuser1@stanford.edu')
-    expect(page).not_to have_css('dd.expired-date')
-    expect(page).not_to have_css('dd.patron-type')
+    expect(page).to have_no_css('dd.expired-date')
+    expect(page).to have_no_css('dd.patron-type')
   end
 
   it 'has summary data' do
