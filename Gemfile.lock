@@ -450,7 +450,6 @@ DEPENDENCIES
   faraday-retry
   global_alerts
   honeybadger
-  http
   jbuilder (~> 2.7)
   jquery-rails
   listen (~> 3.3)

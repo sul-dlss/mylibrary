@@ -43,7 +43,6 @@ gem 'config'
 
 gem 'faraday' # Used by FolioClient
 gem 'faraday-retry'
-gem 'http' # Used by SymphonyClient
 
 gem 'okcomputer'
 

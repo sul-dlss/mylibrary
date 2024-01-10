@@ -35,10 +35,6 @@ internal_pages_flash_message_config: []
 
 GLOBAL_ALERT: <%= true %>
 
-symphony:
-  host:
-  override: PASSWORD
-
 borrow_direct_reshare:
   enabled: false
 

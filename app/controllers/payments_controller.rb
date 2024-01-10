@@ -11,7 +11,7 @@ class PaymentsController < ApplicationController
 
   rescue_from Cybersource::Security::InvalidSignature,
               Cybersource::PaymentResponse::PaymentFailed, with: :payment_failed
-  rescue_from FolioClient::IlsError, SymphonyClient::IlsError, with: :ils_request_failed
+  rescue_from FolioClient::IlsError, with: :ils_request_failed
 
   # Render the payment history page
   #
