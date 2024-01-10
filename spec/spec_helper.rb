@@ -100,9 +100,8 @@ RSpec.configure do |config|
   # as the one that triggered the failure.
   Kernel.srand config.seed
 
-  # Mock all requests to symphony for feature tests
+  # Mock all requests for feature tests
   config.before type: :feature do
-    stub_request(:any, %r{example.com/symws}).to_rack(FakeSymphony)
     stub_request(:any, /rc\.relais-host\.com/).to_return(status: 200)
     stub_request(:any, 'https://github.com/sul-dlss/global-alerts/raw/main/sul.yaml').to_return(status: 200)
     stub_request(:get, /#{Settings.sul_illiad}/)

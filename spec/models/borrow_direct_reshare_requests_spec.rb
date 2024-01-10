@@ -132,7 +132,7 @@ RSpec.describe BorrowDirectReshareRequests do
       end
 
       context 'when date' do
-        it { expect(request.sort_key(:date)).to eq "#{Symphony::Request::END_OF_DAYS.strftime('%FT%T')}---A title" }
+        it { expect(request.sort_key(:date)).to eq "#{Folio::Request::END_OF_DAYS.strftime('%FT%T')}---A title" }
       end
 
       context 'when any other sort value' do

@@ -99,7 +99,7 @@ class BorrowDirectReshareRequests
       when :title
         title
       when :date
-        [::Symphony::Request::END_OF_DAYS.strftime('%FT%T'), title].join('---')
+        [::Folio::Request::END_OF_DAYS.strftime('%FT%T'), title].join('---')
       else
         ''
       end
