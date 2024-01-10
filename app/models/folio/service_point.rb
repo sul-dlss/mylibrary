@@ -4,7 +4,7 @@ module Folio
   class ServicePoint
     attr_reader :id, :code, :name, :pickup_location, :is_default_pickup, :is_default_for_campus
 
-    # rubocop:disable Rubocop/Metrics/ParameterLists
+    # rubocop:disable Metrics/ParameterLists
     def initialize(id:, code:, name:, pickup_location:, is_default_pickup:, is_default_for_campus:)
       @id = id
       @code = code
@@ -13,7 +13,7 @@ module Folio
       @is_default_pickup = is_default_pickup
       @is_default_for_campus = is_default_for_campus
     end
-    # rubocop:enable Rubocop/Metrics/ParameterLists
+    # rubocop:enable Metrics/ParameterLists
 
     class << self
       def all
