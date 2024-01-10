@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe 'sessions/index' do
-  subject(:page) { Capybara.string(rendered) }
+  subject(:page) { Capybara.string rendered.to_s }
 
   before do
     assign(:ils_ok, true)
