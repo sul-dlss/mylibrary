@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe 'fines/_pay_all_button' do
-  subject(:output) { Capybara.string(rendered) }
+  subject(:output) { Capybara.string rendered.to_s }
 
   let(:patron) do
     instance_double(Folio::Patron, key: '513a9054-5897-11ee-8c99-0242ac120002', fines:, can_pay_fines?: true)

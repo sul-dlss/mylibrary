@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe 'checkouts/_renew_all_button' do
-  subject(:output) { Capybara.string(rendered) }
+  subject(:output) { Capybara.string rendered.to_s }
 
   let(:patron) { instance_double(Folio::Patron, checkouts:, can_renew?: true) }
   let(:checkouts) { [instance_double(Folio::Checkout, renewable?: true)] }
