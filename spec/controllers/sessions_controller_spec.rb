@@ -83,30 +83,31 @@ RSpec.describe SessionsController do
     end
   end
 
-  describe 'POST login_by_library_id' do
+  describe 'POST login_by_university_id' do
     context 'with a valid login' do
       before do
-        allow(mock_client).to receive(:login).with('abc', '123').and_return('patronKey' => 1)
+        allow(mock_client).to receive(:login).with('01234567', '123').and_return('patronKey' => 1)
       end
 
       it 'logs in the user' do
-        post(:login_by_library_id, params: { library_id: 'abc', pin: '123' })
+        post(:login_by_university_id, params: { university_id: '01234567', pin: '123' })
 
-        expect(warden.user).to have_attributes username: 'abc', patron_key: 1
+        expect(warden.user).to have_attributes username: '01234567', patron_key: 1
       end
 
       it 'redirects the user to the summary page' do
-        expect(post(:login_by_library_id, params: { library_id: 'abc', pin: '123' })).to redirect_to summaries_url
+        expect(post(:login_by_university_id, params: { university_id: '01234567', pin: '123' }))
+          .to redirect_to summaries_url
       end
     end
 
     context 'with an invalid login' do
       it 'redirects failed requests back to the login page' do
-        expect(post(:login_by_library_id)).to redirect_to login_url
+        expect(post(:login_by_university_id)).to redirect_to login_url
       end
 
       it 'sets an alert' do
-        get(:login_by_library_id)
+        get(:login_by_university_id)
         expect(flash[:alert]).to include('Unable to authenticate.')
       end
     end

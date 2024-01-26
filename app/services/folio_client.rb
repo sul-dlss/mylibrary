@@ -39,8 +39,8 @@ class FolioClient
     "#<#{self.class.name}:#{object_id}  @base_url=\"#{base_url}\">"
   end
 
-  def login(library_id, pin)
-    user_response = get_json('/users', params: { query: CqlQuery.new(barcode: library_id).to_query })
+  def login(university_id, pin)
+    user_response = get_json('/users', params: { query: CqlQuery.new(externalSystemId: university_id).to_query })
     user = user_response.dig('users', 0)
 
     return unless user && validate_patron_pin(user['id'], pin)
@@ -170,16 +170,6 @@ class FolioClient
 
     response = post('/patron-pin', json: { id: patron_key, pin: new_pin })
     check_response(response, title: 'Assign pin', context: { user_id: patron_key })
-  end
-
-  # Look up a patron by barcode and return a Patron object
-  # If 'patron_info' is false, don't run the full patron info GraphQL query
-  def find_patron_by_barcode(barcode, patron_info: true)
-    response = get_json('/users', params: { query: CqlQuery.new(barcode:).to_query })
-    user = response.dig('users', 0)
-    raise ActiveRecord::RecordNotFound, "User with barcode #{barcode} not found" unless user
-
-    patron_info ? Folio::Patron.find(user['id']) : Folio::Patron.new({ 'user' => user })
   end
 
   # Mark all of a user's fines (accounts) as having been paid

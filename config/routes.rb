@@ -20,7 +20,7 @@ Rails.application.routes.draw do
   get 'feedback' => 'feedback_forms#new'
 
   get '/sessions/login_by_sunetid', to: 'sessions#login_by_sunetid', as: :login_by_sunetid
-  post '/sessions/login_by_library_id', to: 'sessions#login_by_library_id', as: :login_by_library_id
+  post '/sessions/login_by_university_id', to: 'sessions#login_by_university_id', as: :login_by_university_id
   get '/login', to: 'sessions#form', as: :login
   get '/logout', to: 'sessions#destroy', as: :logout
 
