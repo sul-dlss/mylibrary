@@ -1,9 +1,9 @@
 <h1>Reset/Request PIN</h1>
 <%= form_tag reset_pin_url, method: :post do %>
   <div class="form-group">
-    <%= label_tag :library_id, 'Library ID' %>
-    <%= text_field_tag :library_id, nil, class: 'form-control', 'aria-describedby': 'libraryIdHelp', autofocus: true %>
-    <small id="libraryIdHelp" class="form-text text-muted">Last 10 digits above the barcode on your library card</small>
+    <%= label_tag :university_id, t('mylibrary.university_id.label') %>
+    <%= text_field_tag :university_id, nil, class: 'form-control', 'aria-describedby': 'university-id-help', autofocus: true %>
+    <small id="university-id-help" class="form-text text-muted"><%= t('mylibrary.university_id.help_text') %></small>
   </div>
 
   <%= submit_tag 'Reset/Request PIN', class: 'btn btn-primary' %>

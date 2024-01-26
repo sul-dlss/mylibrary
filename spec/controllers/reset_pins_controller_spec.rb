@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe ResetPinsController do
-  let(:mock_client) { instance_double(FolioClient, find_patron_by_barcode: patron, ping: true) }
+  let(:mock_client) { instance_double(FolioClient, find_patron_by_university_id: patron, ping: true) }
   let(:patron) do
     instance_double(Folio::Patron, display_name: 'Patron', barcode: 'PATRON', email: 'patron@example.com',
                                    pin_reset_token: 'abcdef')
@@ -35,13 +35,15 @@ RSpec.describe ResetPinsController do
   context 'with unauthenticated requests' do
     describe '#reset' do
       it 'sends the reset pin email' do
-        expect { post :reset, params: { library_id: '123456' } }.to change { ActionMailer::Base.deliveries.count }.by(1)
+        expect { post :reset, params: { university_id: '123456789' } }
+          .to change { ActionMailer::Base.deliveries.count }
+          .by(1)
       end
 
       it 'sets flash messages' do
-        post :reset, params: { library_id: '123456' }
+        post :reset, params: { university_id: '123456789' }
 
-        expect(flash[:success]).to match(/associated with library ID 123456/)
+        expect(flash[:success]).to match(/associated with University ID 123456789/)
       end
     end
   end

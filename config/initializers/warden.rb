@@ -46,16 +46,27 @@ Warden::Strategies.add(:development_shibboleth_stub) do
   end
 end
 
-Warden::Strategies.add(:library_id) do
+Warden::Strategies.add(:university_id) do
+  # Reviewing numbers input in the FOLIO "External System ID", it appears that
+  # we have user records with 8, 9 and 10 digits.
+  #
+  # * Core community users (who presumably would be accessing our applications
+  #   using auth and NOT inputting an ID) have 8 digits in the FOLIO External
+  #   System ID field
+  # * Courtesy card holders (the primary user group that we're trying to help
+  #   gain access in sul-requests & My Account) have either 9 or 10 digits in
+  #   FOLIO External System ID field.
   def valid?
-    params['library_id'].present? && params['pin'].present?
+    params['university_id'].present? &&
+      params['university_id'].match?(/\d{8,10}/) &&
+      params['pin'].present?
   end
 
   def authenticate!
-    response = ApplicationController.ils_client_class.new.login(params['library_id'], params['pin'])
+    response = ApplicationController.ils_client_class.new.login(params['university_id'], params['pin'])
 
     if response&.key?('patronKey') || response&.key?('id')
-      u = { username: params['library_id'], patron_key: response['patronKey'] || response['id'] }
+      u = { username: params['university_id'], patron_key: response['patronKey'] || response['id'] }
       success!(u)
     else
       fail!('Could not log in')
