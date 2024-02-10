@@ -12,7 +12,7 @@ class RenewalsController < ApplicationController
   #
   # POST /renewals
   def create
-    @response = ils_client.renew_item(*renew_item_params, patron_or_group.key)
+    @response = ils_client.renew_item_by_id(patron_or_group.key, *renew_item_params)
 
     case @response.status
     when 200, 201
@@ -60,7 +60,7 @@ class RenewalsController < ApplicationController
   end
 
   def renew_item_params
-    params.require(%I[resource item_key])
+    params.require(%I[item_key])
   end
 
   # Make sure the checkout belongs to the user trying to do the renewal, and
