@@ -18,8 +18,7 @@ RSpec.describe 'Renew item', :js do
 
   let(:api_response) { instance_double('Response', status: 201, content_type: :json) }
   let(:bulk_renew_response) do
-    { success: [instance_double(Folio::Checkout, key: '1', renewable?: true, item_key: '123', title: 'ABC',
-                                                 resource: 'item')] }
+    { success: [instance_double(Folio::Checkout, key: '1', renewable?: true, item_key: '123', title: 'ABC')] }
   end
 
   before do
