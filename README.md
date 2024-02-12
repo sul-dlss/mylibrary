@@ -31,9 +31,8 @@ Start the development server
 
 ## Configuring
 
-The MyLibrary app will be configuired to connect to various backend web services, particularly Symphony Web Services and
-ILLiad Web Services. This will likely happen on an environment to enviroment basis via `config/settings`, so that (e.g.) `development`
-mode will point to `symws-dev` and `sul-illiad-test` respectively.
+The MyLibrary app will be configuired to connect to various backend web services, particularly FOLIO and
+ILLiad Web Services. This will likely happen on an environment to enviroment basis via `config/settings`, so that (e.g.) `development` mode will point to `okapi-test` for FOLIO endpoints, `sul-folio-graphql-test` for our custom graphql interface to FOLIO, and `sul-illiad-test`.
 
 ### Web Services Connectivity
 
@@ -50,43 +49,18 @@ The application has two main modes of authentication:
 - login by library id + pin
 - login via shibboleth
 
-Both logins require access to the symphony web services (see above) to retrieve a patron key. Logging in via shibboleth requires a properly configured Shibboleth environment with access to Stanford's LDAP attributes. In development, the shibboleth login can be faked by setting the `uid` environment variable when starting the rails server, e.g.:
+Both logins require access to the FOLIO web services (see above) to retrieve a patron key. Logging in via shibboleth requires a properly configured Shibboleth environment with access to Stanford's LDAP attributes. In development, the shibboleth login can be faked by setting the `uid` environment variable when starting the rails server, e.g.:
 
 ```
 $ uid=someuser rails s
 ```
 
-Note, again, that the user must exist in symphony web services as well; this is only a bypass for the shibboleth authentication.
+Note, again, that the user must exist in FOLIO as well; this is only a bypass for the shibboleth authentication.
 
-### Fixture users
 
-Some integration tests use fixture users (stored in `spec/support/fixtures`) using some webmock magic to route
-API requests to the appropriate fixture (see `spec/support/fake_symphony.rb`). These fixtures can be created
-using the supplied rake task if you have the patron key:
+### FOLIO data
 
-```
-$ rake fixtures:create[521183]
-```
-
-Note: these fixture objects are a snapshot of Symphony data frozen in time, and almost certainly do not reflect
-the current data. This makes them useful for integration tests, but confusing to try to compare test output
-with what you may see if you poke around the application in development.
-
-Additional note: some fixture users have even been modified from their original form for ease of testing, perhaps
-in ways that would be impossible to achieve by manipulating data in Symphony (e.g. `521181` has some fines, but
-the patron standing is marked as 'OK' so we can reuse the patron for many different types of tests)
-
-### Symphony Web Services API
-
-This application uses the Symphony Web Services API to interact with the ILS. Documentation for this API is available
-in the SDK and from the web services host (at e.g. `https://example.com/symws/sdk.html`). However, at this time,
-the API does not provide all the information we need, so we use several other methods to get at patron information as well:
-
-- the legacy web services API (used for retrieving payment history)
-- direct Oracle Database access (used for differentiating the group sponsor's checkouts/requests/fines)
-
-Note, too, that the API does not allow us to paginate within a list of checkouts/requests/fines, as they are retrieved as
-part of the patron information request.
+This application interacts with the FOLIO ILS. Our `FolioClient` class hits the FOLIO Okapi API gateway located at `folio.url` in the settings file. `FolioClient` also delegates some requests to our `FolioGraphqlClient`, which hits a custom endpoint specified at `folio_graphql.url` in settings. Some data required for this application, such as patron info, is better served by our custom API than Okapi because we are able to design the responses. You can find our repository for the graphql API at [https://github.com/sul-dlss/folio-graphql](https://github.com/sul-dlss/folio-graphql).
 
 ## A note about payments to Cybersource
 Cybersource (a company owned by VISA) is our external payment processor for paying library fines. Cybersource offers several products; the one that we use is called "Secure Acceptance Hosted Checkout" because it is an externally-hosted system where the user goes to complete payment. The Cybersource website is frequently updated and links may break; the only reliable source of documentation about our particular product is the [Developer Guide PDF](https://developer.cybersource.com/library/documentation/dev_guides/Secure_Acceptance_Hosted_Checkout/Secure_Acceptance_Hosted_Checkout.pdf).
