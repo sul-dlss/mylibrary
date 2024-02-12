@@ -19,8 +19,8 @@ class SessionsController < ApplicationController
   # GET /login
   def form; end
 
-  # Handle login for Barcode + PIN users by authenticating them against Symphony
-  # using the Warden configuration.
+  # Handle login for Barcode + PIN users by authenticating them with the
+  # ILS using the Warden configuration.
   #
   # GET /sessions/login_by_library_id
   def login_by_library_id

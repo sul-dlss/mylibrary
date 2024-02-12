@@ -8,7 +8,7 @@ class BorrowDirectReshareRequests
   end
 
   def requests
-    # Ensure ReShare requests are active (not yet in Symphony)
+    # Ensure ReShare requests are active (not yet in the ILS)
     # and that each ReShare request object's patron_id matches
     # the logged in patron's university_id.
     reshare_requests.select(&:active?)
@@ -31,7 +31,7 @@ class BorrowDirectReshareRequests
 
   ##
   # Wrap the borrow direct reshare request item JSON in a class
-  # so we can give it a similar interface to Symphony Requests
+  # so we can give it a similar interface to ILS Requests
   class ReshareRequest
     def initialize(request_json = [])
       @request_json = request_json
