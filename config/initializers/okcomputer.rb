@@ -25,6 +25,6 @@ class GraphqlCheck < OkComputer::Check
   end
 end
 
-OkComputer::Registry.register('okapi', OkapiCheck.new) if Settings.folio.url
-OkComputer::Registry.register('graphql', GraphqlCheck.new) if Settings.folio_graphql.url
+OkComputer::Registry.register('okapi', OkapiCheck.new) if Settings.folio.okapi_url
+OkComputer::Registry.register('graphql', GraphqlCheck.new) if Settings.folio.graphql_url
 OkComputer.make_optional %w[okapi graphql]

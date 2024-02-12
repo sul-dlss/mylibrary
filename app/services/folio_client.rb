@@ -14,7 +14,7 @@ class FolioClient
   delegate :loan_policies, :service_points, to: :folio_graphql_client
 
   # rubocop:disable Metrics/MethodLength
-  def initialize(url: Settings.folio.url, username: nil, password: nil, tenant: 'sul')
+  def initialize(url: Settings.folio.okapi_url, username: nil, password: nil, tenant: 'sul')
     uri = URI.parse(url)
 
     @base_url = url
