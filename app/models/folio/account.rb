@@ -4,7 +4,6 @@ module Folio
   # Account is FOLIO's model for tracking a sequence of payments/events for a fee/fine
   # Each account has a sequence of actions, stored as FeeFineActions
   # The account payment status is the status of the last action
-  # Accounts are analogous to Symphony::Fine when open; Symphony::Payment when closed
   # https://wiki.folio.org/pages/viewpage.action?pageId=73531762
   class Account
     attr_reader :record
