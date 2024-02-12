@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe RenewalsController do
   let(:api_response) { instance_double('Response', status: 201, content_type: :json) }
   let(:mock_client) do
-    instance_double(FolioClient, renew_item: api_response, ping: true)
+    instance_double(FolioClient, renew_item_by_id: api_response, ping: true)
   end
   let(:user) do
     { username: 'somesunetid', patron_key: '513a9054-5897-11ee-8c99-0242ac120002' }

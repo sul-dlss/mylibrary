@@ -29,7 +29,7 @@ RSpec.describe 'Renew item', :js do
     travel_to Time.zone.parse('2023-06-13T07:00:00.000+00:00')
     allow(FolioClient).to receive(:new).and_return(mock_client)
     allow(mock_client).to receive_messages(patron_info:,
-                                           renew_item: api_response,
+                                           renew_item_by_id: api_response,
                                            renew_items: bulk_renew_response)
     allow(Folio::ServicePoint).to receive_messages(
       all: service_points
