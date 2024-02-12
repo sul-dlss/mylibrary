@@ -30,7 +30,7 @@ RSpec.describe 'Payments History' do
         expect(page).to have_css('li h3',
                                  text: 'Aspects of twentieth century art : Picasso - Important paintings, ' \
                                        'watercolours, and new linocuts.')
-        expect(page).to have_css('li .bill_description', text: 'Lost item fee')
+        expect(page).to have_css('li .nice_status', text: 'Lost item fee')
       end
     end
 
@@ -53,13 +53,13 @@ RSpec.describe 'Payments History' do
 
       within '#payments' do
         expect(page).to have_css('.dropdown-toggle', text: 'Sort (Date paid)')
-        find('[data-sort="bill_description"]').click
+        find('[data-sort="nice_status"]').click
 
         expect(page).to have_css('.dropdown-toggle', text: 'Sort (Reason)')
-        expect(page).to have_css('.active[data-sort="bill_description"]', count: 2, visible: :all)
+        expect(page).to have_css('.active[data-sort="nice_status"]', count: 2, visible: :all)
 
         within(first('ul.payments li')) do
-          expect(page).to have_css('.bill_description', text: 'Damaged material')
+          expect(page).to have_css('.nice_status', text: 'Damaged material')
         end
       end
     end

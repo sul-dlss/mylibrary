@@ -102,11 +102,11 @@ module Folio
       sort_key = case key
                  when :payment_date
                    [payment_sort_key, title, nice_status]
-                 when :item_title
+                 when :title
                    [title, payment_sort_key, nice_status]
-                 when :bill_amount
+                 when :fee
                    [fee, payment_sort_key, title, nice_status]
-                 when :bill_description
+                 when :nice_status
                    [nice_status, payment_sort_key, title]
                  end
 
@@ -125,15 +125,6 @@ module Folio
     def payment_amount
       UNPAID_STATUSES.include?(status) ? 0 : fee
     end
-
-    # Methods on Symphony::Payment
-    # TODO: remove these after migration and consolidate method names
-    alias resolution status
-    alias bill_description nice_status
-    alias nice_bill_description nice_status
-    alias item_title title
-    alias paid_fee? closed?
-    alias bill_amount fee
 
     private
 

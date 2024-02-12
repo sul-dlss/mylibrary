@@ -21,10 +21,10 @@ $(document).on('turbolinks:load ajax:loaded', function(){
 
   var paymentOptions = {
     valueNames: [
-      { name: 'bill_description', attr: 'data-sort-bill_description' },
-      { name: 'item_title', attr: 'data-sort-item_title' },
+      { name: 'nice_status', attr: 'data-sort-nice_status' },
+      { name: 'title', attr: 'data-sort-title' },
       { name: 'payment_date', attr: 'data-sort-payment_date' },
-      { name: 'bill_amount', attr: 'data-sort-bill_amount'},
+      { name: 'fee', attr: 'data-sort-fee'},
     ],
   };
 
