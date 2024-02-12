@@ -28,7 +28,6 @@ RSpec.describe 'checkouts/_checkout' do
       recalled_date: nil,
       renewable?: false,
       renewal_date: nil,
-      resource: nil,
       short_term_loan?: false,
       sort_key: nil,
       title: 'Checkout Title',

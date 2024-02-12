@@ -34,12 +34,6 @@ module Folio
       item['barcode']
     end
 
-    def resource
-      # ? FOLIO: This was required for Symphony renew_item requests.
-      #     Setting this to the instanceId for now.
-      bib['instanceId']
-    end
-
     def item_key
       bib['itemId']
     end

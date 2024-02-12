@@ -23,19 +23,19 @@ RSpec.describe RenewalsController do
   end
 
   describe '#create' do
-    it 'requires resource and item_key params' do
+    it 'requires item_key params' do
       expect { post :create, params: {} }.to raise_error(ActionController::ParameterMissing)
     end
 
     context 'when everything is good' do
       it 'renews the item and sets flash messages' do
-        post :create, params: { resource: 'abc', item_key: '123' }
+        post :create, params: { item_key: '123' }
 
         expect(flash[:success]).to match(/Success!/)
       end
 
       it 'renews the item and redirects to checkouts_path' do
-        post :create, params: { resource: 'abc', item_key: '123' }
+        post :create, params: { item_key: '123' }
 
         expect(response).to redirect_to checkouts_path
       end
@@ -45,13 +45,13 @@ RSpec.describe RenewalsController do
       let(:api_response) { instance_double('Response', status: 401, content_type: :json) }
 
       it 'does not renew the item and sets flash messages' do
-        post :create, params: { resource: 'abc', item_key: '123' }
+        post :create, params: { item_key: '123' }
 
         expect(flash[:error]).to match(/Sorry!/)
       end
 
       it 'does not renew the item and redirects to checkouts_path' do
-        post :create, params: { resource: 'abc', item_key: '123' }
+        post :create, params: { item_key: '123' }
 
         expect(response).to redirect_to checkouts_path
       end
@@ -59,7 +59,7 @@ RSpec.describe RenewalsController do
 
     context 'with a group request' do
       it 'renews the item and redirects to checkouts_path' do
-        post :create, params: { resource: 'abc', item_key: '123', group: true }
+        post :create, params: { item_key: '123', group: true }
 
         expect(response).to redirect_to checkouts_path(group: true)
       end
@@ -67,13 +67,13 @@ RSpec.describe RenewalsController do
 
     context 'when the requested item is not checked out to the patron' do
       it 'does not renew the item and sets flash messages' do
-        post :create, params: { resource: 'abc', item_key: 'some_made_up_item_key' }
+        post :create, params: { item_key: 'some_made_up_item_key' }
 
         expect(flash[:error]).to match('An unexpected error has occurred')
       end
 
       it 'does not renew the item and redirects to checkouts_path' do
-        post :create, params: { resource: 'abc', item_key: 'some_made_up_item_key' }
+        post :create, params: { item_key: 'some_made_up_item_key' }
 
         expect(response).to redirect_to checkouts_path
       end
@@ -83,7 +83,7 @@ RSpec.describe RenewalsController do
       let(:checkouts) { [instance_double(Folio::Checkout, item_key: '123', item_category_non_renewable?: true)] }
 
       it 'does not renew the item and sets flash messages' do
-        post :create, params: { resource: 'abc', item_key: '123' }
+        post :create, params: { item_key: '123' }
 
         expect(flash[:error]).to match('An unexpected error has occurred')
       end
@@ -98,14 +98,11 @@ RSpec.describe RenewalsController do
     let(:mock_patron) { instance_double(Folio::Patron, checkouts:) }
     let(:checkouts) do
       [
-        instance_double(Folio::Checkout, key: '1', renewable?: true, item_key: '123', title: 'ABC',
-                                         resource: 'item'),
+        instance_double(Folio::Checkout, key: '1', renewable?: true, item_key: '123', title: 'ABC'),
         instance_double(Folio::Checkout, key: '2', renewable?: true, item_key: '456',
                                          title: 'Principles of optics : electromagnetic theory of ' \
-                                                'propagation, interference and diffraction of light',
-                                         resource: 'item'),
-        instance_double(Folio::Checkout, key: '3', renewable?: false, item_key: '789', title: 'Not',
-                                         resource: 'item')
+                                                'propagation, interference and diffraction of light'),
+        instance_double(Folio::Checkout, key: '3', renewable?: false, item_key: '789', title: 'Not')
       ]
     end
 
