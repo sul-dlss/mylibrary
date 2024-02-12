@@ -22,13 +22,6 @@ module Folio
       @patron_type_id = patron_type_id
     end
 
-    def self.find(key, **)
-      symphony_client = SymphonyClient.new
-      new(symphony_client.circ_record_info(key), **)
-    rescue HTTP::Error
-      nil
-    end
-
     def key
       record['id']
     end
