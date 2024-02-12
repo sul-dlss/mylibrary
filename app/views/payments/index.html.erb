@@ -8,10 +8,10 @@
         </a>
 
         <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-          <li class="dropdown-item" data-sort="bill_description">Reason</li>
+          <li class="dropdown-item" data-sort="nice_status">Reason</li>
           <li class="dropdown-item active" data-sort="payment_date">Date paid</li>
-          <li class="dropdown-item" data-sort="item_title">Title</li>
-          <li class="dropdown-item" data-sort="bill_amount">Amount</li>
+          <li class="dropdown-item" data-sort="title">Title</li>
+          <li class="dropdown-item" data-sort="fee">Amount</li>
         </ul>
       </div>
     </div>
@@ -23,12 +23,12 @@
   <% if @payments.any? %>
     <div class="d-none d-md-flex row font-weight-bold list-header">
       <div class="row col-md-12 col-lg-6">
-        <div class="col-md-4" data-sort="bill_description">Reason</div>
-        <div class="col-md-4" data-sort="bill_amount">Amount</div>
+        <div class="col-md-4" data-sort="nice_status">Reason</div>
+        <div class="col-md-4" data-sort="fee">Amount</div>
         <div class="col-md-4 active" data-sort="payment_date">Paid on</div>
       </div>
       <div class="row col-md-12 col-lg-6">
-        <div class="col-md-7" data-sort="item_title">Title</div>
+        <div class="col-md-7" data-sort="title">Title</div>
       </div>
     </div>
 
