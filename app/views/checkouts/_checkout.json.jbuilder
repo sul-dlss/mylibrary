@@ -10,7 +10,6 @@ json.attributes do
   json.recalled? checkout.recalled?
   json.claims_returned_date checkout.claims_returned_date
   json.claimed_returned? checkout.claimed_returned?
-  json.renewal_date checkout.renewal_date
   json.renewable checkout.renewable?
   json.renewable_at checkout.renewable_at
   json.renew_from_period checkout.renew_from_period

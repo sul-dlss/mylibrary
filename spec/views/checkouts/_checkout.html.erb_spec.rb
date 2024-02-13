@@ -26,7 +26,6 @@ RSpec.describe 'checkouts/_checkout' do
       patron_key: 'xyz321',
       recalled?: false,
       renewable?: false,
-      renewal_date: nil,
       short_term_loan?: false,
       sort_key: nil,
       title: 'Checkout Title',
