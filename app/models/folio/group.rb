@@ -40,8 +40,10 @@ module Folio
       sponsor.group_checkouts || []
     end
 
+    # NOTE: Fines on items borrowed by a proxy/group are associated
+    # with the sponsor's individual account.
     def fines
-      sponsor.group_fines
+      []
     end
 
     def requests

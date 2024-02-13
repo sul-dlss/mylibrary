@@ -9,49 +9,28 @@
   <h2>Payable: <%= number_to_currency(@fines.sum(&:owed)) %></h2>
 
   <% if @fines.any? %>
-  <%# TODO: after FOLIO launch remove this condition %>
-  <% if params[:group] && patron.sponsor? %>
-  <div class="pb-3">
-      Fines can be paid in My Library Account only by the borrower who accrued them. <br />
-      To pay proxy fines using iJournal,
-      <%= link_to contact_path, data: { 'mylibrary-modal' => 'trigger' } do %>
-        contact Circulation & Privileges.
-      contact Circulation & Privileges.
-      <% end %>
-  </div>
-  <%# The user is a Proxy; the fine is not shown and must be paid in the Sponsor account %>
-  <% elsif params[:group] %>
-  <div class="pb-3">
-    <%= sul_icon :'sharp-error-24px', classes: 'text-recalled' %> The research group has unpaid fines that may affect
-    the status of all proxies.
-  </div>
-  <%# The user has fines on their personal account and can pay here %>
-  <% else %>
-  <div class="mb-3">
-    <%= render 'fines/shared_computer_alert' %>
-    <%= render 'fines/pay_all_button' %>
-  </div>
+    <div class="mb-3">
+      <%= render 'fines/shared_computer_alert' %>
+      <%= render 'fines/pay_all_button' %>
+    </div>
+
+    <div class="d-none d-md-flex row font-weight-bold list-header">
+      <div class="row col-md-4">
+        <div class="col-md-12 col-lg-6">Reason</div>
+        <div class="col-md-12 col-lg-6">Amount</div>
+      </div>
+      <div class="col-md-5">Title</div>
+      <div class="row col-md-3">
+        <div class="col-md-12 col-lg-6">Author</div>
+        <div class="col-md-12 col-lg-6 call_number">Call number</div>
+      </div>
+    </div>
+    <ul class="fines list-group">
+      <%= render @fines %>
+    </ul>
   <% end %>
 
-  <% unless params[:group] && !patron.sponsor? %>
-  <div class="d-none d-md-flex row font-weight-bold list-header">
-    <div class="row col-md-4">
-      <div class="col-md-12 col-lg-6">Reason</div>
-      <div class="col-md-12 col-lg-6">Amount</div>
-    </div>
-    <div class="col-md-5">Title</div>
-    <div class="row col-md-3">
-      <div class="col-md-12 col-lg-6">Author</div>
-      <div class="col-md-12 col-lg-6 call_number">Call number</div>
-    </div>
-  </div>
-  <ul class="fines list-group">
-    <%= render @fines %>
-  </ul>
-  <% end %>
-  <% end %>
-  <%# TODO: after FOLIO launch remove the Folio::Patron part of this condition %>
-  <% if patron.is_a?(Folio::Patron) && params[:group] && patron.sponsor? %>
+  <% if params[:group] && patron.sponsor? %>
     Fines incurred by proxy borrowers appear in the list of fines under their sponsor's Self tab.
   <% end %>
 </div>
