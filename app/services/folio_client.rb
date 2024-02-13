@@ -81,7 +81,7 @@ class FolioClient
 
   def renew_items(checkouts)
     checkouts.each_with_object(success: [], error: []) do |checkout, status|
-      response = renew_item_by_id(checkout.patron_key, checkout.item_key)
+      response = renew_item_by_id(checkout.patron_key, checkout.item_id)
 
       case response.status
       when 200

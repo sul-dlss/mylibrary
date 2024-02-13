@@ -60,13 +60,13 @@ class RenewalsController < ApplicationController
   end
 
   def renew_item_params
-    params.require(%I[item_key])
+    params.require(%I[item_id])
   end
 
   # Make sure the checkout belongs to the user trying to do the renewal
   # and make sure the item is renewable
   def authorize_update!
-    checkout = patron_or_group.checkouts.find { |request| request.item_key == params.require(:item_key) }
+    checkout = patron_or_group.checkouts.find { |request| request.item_id == params.require(:item_id) }
 
     raise CheckoutException, 'Error' if checkout.nil? || checkout.item_category_non_renewable?
   end
