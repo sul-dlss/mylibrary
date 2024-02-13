@@ -25,7 +25,6 @@ RSpec.describe 'checkouts/_checkout' do
       overdue?: false,
       patron_key: 'xyz321',
       recalled?: false,
-      recalled_date: nil,
       renewable?: false,
       renewal_date: nil,
       short_term_loan?: false,
