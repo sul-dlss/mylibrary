@@ -62,11 +62,6 @@ module Folio
       record.dig('item', 'item', 'status', 'name') == 'Claimed returned'
     end
 
-    def renewal_date
-      # TODO: unclear if FOLIO keeps this information
-      nil
-    end
-
     # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity,Metrics/MethodLength
     def non_renewable_reason
       return 'Item is assumed lost; you must pay the fee or return the item.' if lost?
