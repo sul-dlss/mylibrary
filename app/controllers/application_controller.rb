@@ -3,7 +3,7 @@
 # :nodoc:
 class ApplicationController < ActionController::Base
   helper_method :current_user, :current_user?, :patron, :patron_or_group
-  before_action :set_internal_pages_flash_message, :check_unavailable, :check_sym_patron_key
+  before_action :set_internal_pages_flash_message, :check_unavailable
 
   class_attribute :ils_client_class, default: Settings.ils.client.constantize
   class_attribute :ils_patron_model_class, default: Settings.ils.patron_model.constantize
@@ -42,22 +42,6 @@ class ApplicationController < ActionController::Base
     return if request.path == unavailable_path || request.path == root_path
 
     redirect_to unavailable_path unless ils_client.ping
-  end
-
-  # rubocop:disable Metrics/AbcSize, Metrics/CyclomaticComplexity
-  def check_sym_patron_key
-    return if request.path == root_path || current_user&.patron_key.blank? || symphony?
-
-    # Symphony used numeric patron keys; FOLIO uses UUIDs
-    return unless current_user&.patron_key&.match?(/\A[+-]?\d+\Z/)
-
-    request.env['warden'].logout
-    redirect_to root_url
-  end
-  # rubocop:enable Metrics/AbcSize, Metrics/CyclomaticComplexity
-
-  def symphony?
-    Settings.ils.client == 'SymphonyClient'
   end
 
   def patron_info_response
