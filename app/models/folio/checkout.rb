@@ -45,11 +45,6 @@ module Folio
       Time.zone.parse(record['loanDate'])
     end
 
-    def recalled_date
-      # TODO: unclear if FOLIO keeps this information
-      nil
-    end
-
     def recalled?
       record.dig('details', 'dueDateChangedByRecall') || record.dig('details', 'dueDateChangedByHold')
     end

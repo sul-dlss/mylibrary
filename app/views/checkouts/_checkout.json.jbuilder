@@ -7,7 +7,6 @@ json.attributes do
   json.due_date checkout.due_date
   json.days_overdue checkout.days_overdue
   json.checkout_date checkout.checkout_date
-  json.recalled_date checkout.recalled_date
   json.recalled? checkout.recalled?
   json.claims_returned_date checkout.claims_returned_date
   json.claimed_returned? checkout.claimed_returned?
