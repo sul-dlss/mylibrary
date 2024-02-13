@@ -18,7 +18,7 @@ RSpec.describe 'checkouts/_checkout' do
       days_remaining: 120,
       due_date: 120.days.from_now,
       from_ill?: false,
-      item_key: nil,
+      item_id: nil,
       key: 'abc123',
       library_name: 'Green Library',
       lost?: false,

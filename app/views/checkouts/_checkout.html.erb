@@ -31,7 +31,7 @@
       <div class="row">
         <div class="col-11 offset-1 col-md-10 offset-md-2">
           <%= form_tag renewals_path, method: :post do %>
-            <%= hidden_field_tag :item_key, checkout.item_key %>
+            <%= hidden_field_tag :item_id, checkout.item_id %>
             <%= hidden_field_tag :title, checkout.title %>
             <%= hidden_field_tag :group, params[:group] if params[:group] %>
             <%= button_tag class: 'btn btn-link btn-renewable-submit btn-icon-prefix', type: 'submit' do %>

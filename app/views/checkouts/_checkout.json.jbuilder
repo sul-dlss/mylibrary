@@ -15,7 +15,7 @@ json.attributes do
   json.renewable checkout.renewable?
   json.renewable_at checkout.renewable_at
   json.renew_from_period checkout.renew_from_period
-  json.item_key checkout.item_key
+  json.item_id checkout.item_id
   json.overdue checkout.overdue?
   json.accrued checkout.accrued
   json.days_remaining checkout.days_remaining

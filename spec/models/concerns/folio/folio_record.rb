@@ -46,7 +46,7 @@ RSpec.shared_examples 'folio_record' do |args = []|
     it { expect(model.barcode).to eq '36105110374977' }
   end
 
-  describe '#item_key' do
-    it { expect(model.item_key).to eq '6d9a4f99-d144-51cf-92d7-3edbfc588abe' }
+  describe '#item_id' do
+    it { expect(model.item_id).to eq '6d9a4f99-d144-51cf-92d7-3edbfc588abe' }
   end
 end

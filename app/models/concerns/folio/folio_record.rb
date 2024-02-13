@@ -34,7 +34,7 @@ module Folio
       item['barcode']
     end
 
-    def item_key
+    def item_id
       bib['itemId']
     end
 
