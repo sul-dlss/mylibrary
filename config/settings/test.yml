@@ -8,6 +8,5 @@ symphony:
   host: example.com
 
 folio:
-  url: 'https://user:password@okapi.stanford.edu'
-folio_graphql:
-  url: 'http://user:password@localhost:4000'
+  okapi_url: 'https://user:password@okapi.stanford.edu'
+  graphql_url: 'http://user:password@localhost:4000'

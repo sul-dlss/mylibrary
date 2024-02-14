@@ -10,7 +10,7 @@ class FolioGraphqlClient
 
   attr_reader :base_url
 
-  def initialize(url: Settings.folio_graphql.url, username: nil, password: nil, tenant: 'sul')
+  def initialize(url: Settings.folio.graphql_url, username: nil, password: nil, tenant: 'sul')
     uri = URI.parse(url)
 
     @base_url = url

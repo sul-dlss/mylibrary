@@ -14,10 +14,9 @@ symws:
   login_params: {}
   public_clientID:
 folio:
-  url: <%= ENV['OKAPI_URL'] %>
+  okapi_url: <%= ENV['OKAPI_URL'] %>
   online_service_point_id: 7c5abc9f-f3d7-4856-b8d7-6712462ca007
-folio_graphql:
-  url: <%= ENV['FOLIO_GRAPHQL_URL'] %>
+  graphql_url: <%= ENV['FOLIO_GRAPHQL_URL'] %>
 sw:
   url: https://searchworks.stanford.edu/view/
 EMAIL_TO: yolo@example.com
