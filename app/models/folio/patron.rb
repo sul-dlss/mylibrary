@@ -126,16 +126,6 @@ module Folio
       all_accounts.select(&:closed?)
     end
 
-    # TODO: delete after FOLIO launch. All group fines are now affiliated with a single Sponsor patron.
-    def group_fines
-      []
-    end
-
-    # TODO: delete after FOLIO launch. All group payments are now affiliated with a single Sponsor patron.
-    def group_payments
-      []
-    end
-
     def proxy_borrower?
       user_info['proxiesFor']&.any?
     end

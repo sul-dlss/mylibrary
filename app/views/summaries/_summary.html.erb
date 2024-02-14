@@ -29,29 +29,12 @@
 
 <div class="page-section">
   <h3><%= sul_icon :'sharp-attach_money-24px', classes: 'lg' %> Fines &amp; fees payable: <%= number_to_currency(patron.fines.sum(&:owed)) %></h3>
-  <%# TODO: after FOLIO launch remove this condition %>
-  <% if params[:group] && patron.fines.sum(&:owed).positive? %>
-    <% if patron.sponsor? %>
-      <div class="ml-4">
-          Fines can be paid in My Library Account only by the borrower who accrued them. <br />
-          To pay proxy fines using iJournal,
-          <%= link_to contact_path, data: { 'mylibrary-modal' => 'trigger' } do %>
-          contact Circulation & Privileges.
-          <% end %>
-      </div>
-    <% else %>
-      <div class="ml-4">
-        <%= sul_icon :'sharp-error-24px', classes: 'text-recalled' %> The research group has unpaid fines that may affect the status of all proxies.
-      </div>
-    <% end %>
-  <% else %>
-    <div class="mb-1">
-      <%= render 'fines/shared_computer_alert' %>
-      <%= render 'fines/pay_all_button' %>
-    </div>
-  <% end %>
-  <%# TODO: after FOLIO launch remove the Folio::Patron part of this condition %>
-  <% if patron.is_a?(Folio::Patron) && params[:group] && patron.sponsor?%>
+  <div class="mb-1">
+    <%= render 'fines/shared_computer_alert' %>
+    <%= render 'fines/pay_all_button' %>
+  </div>
+
+  <% if params[:group] && patron.sponsor?%>
     Fines incurred by proxy borrowers appear in the list of fines under their sponsor's Self tab.
   <% end %> 
 
