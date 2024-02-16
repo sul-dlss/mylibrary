@@ -1,12 +1,4 @@
 <h1>Reset/Request PIN</h1>
-<div class="local-alert">
-  <p>
-    <strong>Stanford Libraries upgraded its system on August 27.</strong>
-    <br>
-    Proxy, fee, or courtesy account holders with a login PIN must request a new PIN.
-    Enter your Library ID below and submit the request.
-  </p>
-</div>
 <%= form_tag reset_pin_url, method: :post do %>
   <div class="form-group">
     <%= label_tag :library_id, 'Library ID' %>
