@@ -40,6 +40,12 @@ class FolioClient
   end
 
   def login(university_id, pin)
+    user_response = get_json('/users', params: { query: CqlQuery.new(barcode: university_id).to_query })
+    if (user = user_response.dig('users', 0))
+      return unless validate_patron_pin(user['id'], pin)
+
+      return user
+    end
     user_response = get_json('/users', params: { query: CqlQuery.new(externalSystemId: university_id).to_query })
     user = user_response.dig('users', 0)
 
@@ -60,6 +66,11 @@ class FolioClient
   # Look up a patron by university_id and return a Patron object
   # If 'patron_info' is false, don't run the full patron info GraphQL query
   def find_patron_by_university_id(university_id, patron_info: true)
+    response = get_json('/users', params: { query: CqlQuery.new(barcode: university_id).to_query })
+    if (user = response.dig('users', 0))
+      return patron_info ? Folio::Patron.find(user['id']) : Folio::Patron.new({ 'user' => user })
+    end
+
     response = get_json('/users', params: { query: CqlQuery.new(externalSystemId: university_id).to_query })
 
     if (user = response.dig('users', 0))

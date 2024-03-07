@@ -39,8 +39,8 @@ en:
   hello: "Hello world"
   mylibrary:
     university_id:
-      label: 'University ID'
-      help_text: 'This is an 8- to 10-digit number that serves as a replacement for the Library ID that was previously utilized.'
+      label: 'Library ID'
+      help_text: 'Last 10 digits above the barcode on your library card'
     renew_item:
       success_html: <span class="font-weight-bold">Success!</span> "%{title}" was renewed.
       error_html: <span class="font-weight-bold">Sorry!</span> Something went wrong and "%{title}" was not renewed.
