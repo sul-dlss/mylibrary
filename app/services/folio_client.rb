@@ -40,6 +40,12 @@ class FolioClient
   end
 
   def login(university_id, pin)
+    user_response = get_json('/users', params: { query: CqlQuery.new(barcode: university_id).to_query })
+    if (user = user_response.dig('users', 0))
+      return unless validate_patron_pin(user['id'], pin)
+
+      return user
+    end
     user_response = get_json('/users', params: { query: CqlQuery.new(externalSystemId: university_id).to_query })
     user = user_response.dig('users', 0)
 
