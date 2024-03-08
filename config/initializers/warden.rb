@@ -56,9 +56,11 @@ Warden::Strategies.add(:university_id) do
   # * Courtesy card holders (the primary user group that we're trying to help
   #   gain access in sul-requests & My Account) have either 9 or 10 digits in
   #   FOLIO External System ID field.
+  #
+  # Until we're ready to completely roll out university ID login, we're also
+  # supporting the old library id (barcode) input.
   def valid?
     params['university_id'].present? &&
-      params['university_id'].match?(/\d{8,10}/) &&
       params['pin'].present?
   end
 

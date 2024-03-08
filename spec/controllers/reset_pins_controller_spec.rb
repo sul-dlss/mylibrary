@@ -43,7 +43,7 @@ RSpec.describe ResetPinsController do
       it 'sets flash messages' do
         post :reset, params: { university_id: '123456789' }
 
-        expect(flash[:success]).to match(/associated with University ID 123456789/)
+        expect(flash[:success]).to match(/associated with (University|Library) ID 123456789/)
       end
     end
   end
