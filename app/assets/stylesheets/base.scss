@@ -29,8 +29,7 @@ a:focus,
 a:active {
   @include link-styling;
 
-  &.btn-link,
-  &.nav-link {
+  &.btn-link {
     border-bottom: 1px solid transparent;
   }
 }
