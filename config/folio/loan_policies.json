@@ -45,6 +45,21 @@
     }
   },
   {
+    "id": "14c7a29b-9d4b-4f35-ba19-2719651b275a",
+    "name": "7day-norenew-15mingrace",
+    "description": "7 day reserves  Education reserves ",
+    "renewable": false,
+    "renewalsPolicy": null,
+    "loanable": true,
+    "loansPolicy": {
+      "period": {
+        "duration": 7,
+        "intervalId": "Days"
+      },
+      "fixedDueDateSchedule": null
+    }
+  },
+  {
     "id": "26c44ee7-5a7d-4832-aa84-febe49a8d2f8",
     "name": "14day-norenew-1daygrace",
     "description": "Loan policy for periodicals ",
