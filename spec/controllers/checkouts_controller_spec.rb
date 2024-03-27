@@ -22,7 +22,7 @@ RSpec.describe CheckoutsController do
 
   context 'with an authenticated request' do
     let(:user) do
-      { username: 'somesunetid', patron_key: '513a9054-5897-11ee-8c99-0242ac120002' }
+      User.new(username: 'somesunetid', patron_key: '513a9054-5897-11ee-8c99-0242ac120002')
     end
 
     let(:checkouts) do
@@ -63,7 +63,7 @@ RSpec.describe CheckoutsController do
 
   context 'with an authenticated request for group checkouts' do
     let(:user) do
-      { username: 'somesunetid', patron_key: '513a9054-5897-11ee-8c99-0242ac120002' }
+      User.new(username: 'somesunetid', patron_key: '513a9054-5897-11ee-8c99-0242ac120002')
     end
 
     let(:checkouts) do

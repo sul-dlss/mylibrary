@@ -11,7 +11,7 @@ RSpec.describe SessionsController do
 
   context 'with an authenticated request' do
     let(:user) do
-      { username: 'somesunetid', patron_key: '513a9054-5897-11ee-8c99-0242ac120002' }
+      User.new(username: 'somesunetid', patron_key: '513a9054-5897-11ee-8c99-0242ac120002')
     end
 
     before do
@@ -39,7 +39,7 @@ RSpec.describe SessionsController do
 
   context 'with a shibboleth authenticated request' do
     let(:user) do
-      { 'shibboleth' => true }
+      User.new(shibboleth: true)
     end
 
     before do
@@ -92,7 +92,7 @@ RSpec.describe SessionsController do
       it 'logs in the user' do
         post(:login_by_library_id, params: { library_id: 'abc', pin: '123' })
 
-        expect(warden.user).to include username: 'abc', patron_key: 1
+        expect(warden.user).to have_attributes username: 'abc', patron_key: 1
       end
 
       it 'redirects the user to the summary page' do
@@ -123,7 +123,7 @@ RSpec.describe SessionsController do
       it 'logs in the user' do
         get(:login_by_sunetid)
 
-        expect(warden.user).to include username: 'test123', patron_key: '513a9054-5897-11ee-8c99-0242ac120002'
+        expect(warden.user).to have_attributes username: 'test123', patron_key: '513a9054-5897-11ee-8c99-0242ac120002'
       end
 
       it 'redirects the user to the summary page' do

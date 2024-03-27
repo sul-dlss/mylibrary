@@ -21,7 +21,7 @@ RSpec.describe 'Contact form' do
 
   context 'with user logged in' do
     before do
-      login_as(username: 'stub_user', patron_key: '513a9054-5897-11ee-8c99-0242ac120002')
+      login_as(User.new(username: 'stub_user', patron_key: '513a9054-5897-11ee-8c99-0242ac120002'))
 
       visit root_path
     end
@@ -94,7 +94,7 @@ RSpec.describe 'Contact form' do
   end
 
   describe 'form header' do
-    before { login_as(username: 'stub_user', patron_key: '513a9054-5897-11ee-8c99-0242ac120002') }
+    before { login_as(User.new(username: 'stub_user', patron_key: '513a9054-5897-11ee-8c99-0242ac120002')) }
 
     context 'when the standard Circ & Privs link' do
       before { visit contact_path }

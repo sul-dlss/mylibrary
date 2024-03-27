@@ -6,7 +6,7 @@ RSpec.describe ApplicationController do
   let(:mock_client) { instance_double(FolioClient) }
 
   let(:user) do
-    { username: 'somesunetid', patron_key: '513a9054-5897-11ee-8c99-0242ac120002' }
+    User.new(username: 'somesunetid', patron_key: '513a9054-5897-11ee-8c99-0242ac120002')
   end
 
   before do

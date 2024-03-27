@@ -26,7 +26,7 @@ RSpec.describe 'Summaries Page' do
     allow(Folio::LoanPolicy).to receive(:new).and_return(build(:grad_mono_loans))
     allow(mock_client).to receive_messages(patron_info:)
     allow(mock_client).to receive(:patron_info).with('ec52d62d-9f0e-4ea5-856f-a1accb0121d1').and_return(sponsor)
-    login_as(username: 'stub_user', patron_key: 'd7b67ab1-a3f2-45a9-87cc-d867bca8315f')
+    login_as(User.new(username: 'stub_user', patron_key: 'd7b67ab1-a3f2-45a9-87cc-d867bca8315f'))
 
     visit summaries_path
   end
