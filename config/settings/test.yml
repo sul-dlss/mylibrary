@@ -1,12 +1,3 @@
-symws:
-  headers:
-      x-sirs-clientID: SymWSTestClient
-  login_params:
-    login: 'fake_user'
-    password: 'some_password'
-symphony:
-  host: example.com
-
 folio:
   okapi_url: 'https://user:password@okapi.stanford.edu'
   graphql_url: 'http://user:password@localhost:4000'
