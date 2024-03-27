@@ -22,8 +22,4 @@ class FinesController < ApplicationController
   def checkouts
     patron_or_group.checkouts.sort_by { |c| c.sort_key(:due_date) }
   end
-
-  def item_details
-    { blockList: true }
-  end
 end

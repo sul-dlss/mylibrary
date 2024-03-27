@@ -96,10 +96,6 @@ class RequestsController < ApplicationController
     params.require(%I[id not_needed_after])
   end
 
-  def item_details
-    { holdRecordList: true }
-  end
-
   def authorize_update!
     return if patron_or_group.requests.any? { |request| request.key == params[:id] }
 
