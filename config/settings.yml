@@ -3,10 +3,6 @@ debug: false
 borrow_direct:
   api_key: ''
 
-ils:
-  client: FolioClient
-  patron_model: Folio::Patron
-
 symws:
   url: https://example.com/symws
   headers: {}
@@ -36,7 +32,7 @@ GLOBAL_ALERT: <%= true %>
 borrow_direct_reshare:
   enabled: false
 
-# Adding Illiad 
+# Adding Illiad
 sul_illiad: https://sul-illiad-test.stanford.edu/
 illiad_api_key: 'AbC123'
 

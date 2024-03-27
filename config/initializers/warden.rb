@@ -6,7 +6,7 @@ Warden::Strategies.add(:shibboleth) do
   end
 
   def authenticate!
-    response = ApplicationController.ils_client_class.new.login_by_sunetid(uid)
+    response = FolioClient.new.login_by_sunetid(uid)
 
     if response&.key?('key') || response&.key?('id')
       u = { username: uid, patron_key: response['key'] || response['id'], shibboleth: true }
@@ -29,7 +29,7 @@ Warden::Strategies.add(:development_shibboleth_stub) do
   end
 
   def authenticate!
-    response = ApplicationController.ils_client_class.new.login_by_sunetid(uid)
+    response = FolioClient.new.login_by_sunetid(uid)
 
     if response&.key?('key') || response&.key?('id')
       u = { username: uid, patron_key: response['key'] || response['id'] }
@@ -52,7 +52,7 @@ Warden::Strategies.add(:library_id) do
   end
 
   def authenticate!
-    response = ApplicationController.ils_client_class.new.login(params['library_id'], params['pin'])
+    response = FolioClient.new.login(params['library_id'], params['pin'])
 
     if response&.key?('patronKey') || response&.key?('id')
       u = { username: params['library_id'], patron_key: response['patronKey'] || response['id'] }
