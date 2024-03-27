@@ -12,7 +12,7 @@ and other features enhancing library user experience.
 
 1. Ruby (3.1 or greater)
 2. Bundler
-3. Connection to Symphony Web Services (hosted on symws-prod.stanford.edu and symws-dev.stanford.edu)
+3. Connection to FOLIO + Folio GraphQL API
 
 ## Installation
 
