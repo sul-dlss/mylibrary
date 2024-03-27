@@ -31,9 +31,6 @@ borrow_direct_reshare:
 sul_illiad: https://sul-illiad-test.stanford.edu/
 illiad_api_key: 'AbC123'
 
-purl:
-  url: https://purl.stanford.edu
-
 analytics_debug: true
 
 mailer_host: 'localhost'
