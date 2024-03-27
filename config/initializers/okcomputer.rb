@@ -27,4 +27,4 @@ end
 
 OkComputer::Registry.register('okapi', OkapiCheck.new) if Settings.folio.okapi_url
 OkComputer::Registry.register('graphql', GraphqlCheck.new) if Settings.folio.graphql_url
-OkComputer.make_optional %w[okapi graphql]
+OkComputer.make_optional [('okapi' if Settings.folio.okapi_url), ('graphql' if Settings.folio.graphql_url)].compact
