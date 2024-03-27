@@ -15,7 +15,7 @@ RSpec.describe 'Reset Pin' do
 
   context 'when logged in' do
     before do
-      login_as(username: 'stub_user', patron_key: '50e8400-e29b-41d4-a716-446655440000')
+      login_as(User.new(username: 'stub_user', patron_key: '50e8400-e29b-41d4-a716-446655440000'))
     end
 
     it 'logs out user and redirects to root' do

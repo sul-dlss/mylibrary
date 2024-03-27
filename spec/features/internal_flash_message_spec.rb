@@ -16,7 +16,7 @@ RSpec.describe 'Internal flash messages' do
   before do
     allow(FolioClient).to receive(:new).and_return(mock_client)
     allow(mock_client).to receive_messages(patron_info:)
-    login_as(username: 'stub_user', patron_key: '513a9054-5897-11ee-8c99-0242ac120002')
+    login_as(User.new(username: 'stub_user', patron_key: '513a9054-5897-11ee-8c99-0242ac120002'))
   end
 
   context 'when message is set' do

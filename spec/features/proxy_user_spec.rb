@@ -31,7 +31,7 @@ RSpec.describe 'Proxy User' do
     allow(mock_client).to receive(:patron_info).with('ec52d62d-9f0e-4ea5-856f-a1accb0121d1').and_return(sponsor)
     allow(Folio::ServicePoint).to receive_messages(all: service_points)
     allow(Folio::LoanPolicy).to receive(:new).and_return(build(:grad_mono_loans))
-    login_as(username: 'stub_user', patron_key: 'bdfa62a1-758c-4389-ae81-8ddb37860f9b')
+    login_as(User.new(username: 'stub_user', patron_key: 'bdfa62a1-758c-4389-ae81-8ddb37860f9b'))
   end
 
   it 'has a tab to switch between user and group' do

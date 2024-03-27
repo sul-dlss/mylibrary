@@ -24,7 +24,7 @@ RSpec.describe 'Request Page' do
       all: service_points
     )
 
-    login_as(username: 'stub_user', patron_key: '513a9054-5897-11ee-8c99-0242ac120002')
+    login_as(User.new(username: 'stub_user', patron_key: '513a9054-5897-11ee-8c99-0242ac120002'))
   end
 
   it 'has ready for pickup request data' do
@@ -109,7 +109,7 @@ RSpec.describe 'Request Page' do
     end
 
     before do
-      login_as(username: 'stub_user', patron_key: '513a9054-5897-11ee-8c99-0242ac120002')
+      login_as(User.new(username: 'stub_user', patron_key: '513a9054-5897-11ee-8c99-0242ac120002'))
     end
 
     it 'does not render table headers' do

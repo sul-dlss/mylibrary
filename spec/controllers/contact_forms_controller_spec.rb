@@ -11,12 +11,12 @@ RSpec.describe ContactFormsController do
     )
   end
   let(:user) do
-    { username: 'somesunetid', 'patronKey' => '123' }
+    User.new(username: 'somesunetid', 'patronKey' => '123')
   end
 
   before do
     allow(FolioClient).to receive(:new).and_return(mock_client)
-    login_as(username: 'stub_user')
+    login_as(User.new(username: 'stub_user'))
     warden.set_user(user)
     headers = { HTTP_REFERER: root_path }
     request.headers.merge! headers

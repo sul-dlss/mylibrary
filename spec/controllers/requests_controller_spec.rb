@@ -21,7 +21,7 @@ RSpec.describe RequestsController do
 
   context 'with an authenticated request' do
     let(:user) do
-      { username: 'somesunetid', patron_key: '513a9054-5897-11ee-8c99-0242ac120002' }
+      User.new(username: 'somesunetid', patron_key: '513a9054-5897-11ee-8c99-0242ac120002')
     end
 
     let(:requests) do
@@ -201,7 +201,7 @@ RSpec.describe RequestsController do
 
   context 'with an authenticated request for group requests' do
     let(:user) do
-      { username: 'somesunetid', patron_key: '513a9054-5897-11ee-8c99-0242ac120002' }
+      User.new(username: 'somesunetid', patron_key: '513a9054-5897-11ee-8c99-0242ac120002')
     end
 
     let(:requests) do

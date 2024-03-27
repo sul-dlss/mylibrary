@@ -8,7 +8,7 @@ RSpec.describe RenewalsController do
     instance_double(FolioClient, renew_item_by_id: api_response, ping: true)
   end
   let(:user) do
-    { username: 'somesunetid', patron_key: '513a9054-5897-11ee-8c99-0242ac120002' }
+    User.new(username: 'somesunetid', patron_key: '513a9054-5897-11ee-8c99-0242ac120002')
   end
 
   let(:mock_patron) do

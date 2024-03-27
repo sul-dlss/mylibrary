@@ -9,8 +9,7 @@ class ApplicationController < ActionController::Base
   class_attribute :ils_patron_model_class, default: Settings.ils.patron_model.constantize
 
   def current_user
-    session_data = request.env['warden'].user
-    session_data && User.new(session_data)
+    request.env['warden'].user
   end
 
   def current_user?

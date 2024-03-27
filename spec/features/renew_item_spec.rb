@@ -37,7 +37,7 @@ RSpec.describe 'Renew item', :js do
                                                                due_date: '2021-01-09T07:59:59.000+00:00',
                                                                renewal_count: 0))
 
-    login_as(username: 'stub_user', patron_key: 'ec52d62d-9f0e-4ea5-856f-a1accb0121d1')
+    login_as(User.new(username: 'stub_user', patron_key: 'ec52d62d-9f0e-4ea5-856f-a1accb0121d1'))
   end
 
   it 'enabled through checkout page' do
