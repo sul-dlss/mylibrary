@@ -36,7 +36,7 @@ GLOBAL_ALERT: <%= true %>
 borrow_direct_reshare:
   enabled: false
 
-# Adding Illiad 
+# Adding Illiad
 sul_illiad: https://sul-illiad-test.stanford.edu/
 illiad_api_key: 'AbC123'
 

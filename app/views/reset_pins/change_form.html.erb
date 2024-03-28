@@ -12,7 +12,7 @@
   <div class="form-group">
     <%= label_tag :pin, 'New PIN' %>
     <div class="input-group" data-showpassword="pin">
-      <%= password_field_tag :pin, nil, class: 'form-control', 'aria-describedby': 'libraryIdHelp', autofocus: true, autocomplete: 'off' %>
+      <%= password_field_tag :pin, nil, class: 'form-control', 'aria-describedby': 'new-pin-help', autofocus: true, autocomplete: 'off' %>
       <div class="input-group-append">
         <button class="btn btn-link" data-visibility disabled>
           <%= sul_icon(:'sharp-visibility-24px') %>
@@ -22,7 +22,7 @@
         </button>
       </div>
     </div>
-    <small id="libraryIdHelp" class="form-text text-muted">Your new PIN</small>
+    <small id="new-pin-help" class="form-text text-muted">Your new PIN</small>
   </div>
   <%= submit_tag 'Change PIN', class: 'btn btn-primary' %>
   <%= link_to 'Cancel', root_url, class: 'btn btn-link' %>
