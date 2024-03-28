@@ -100,7 +100,7 @@ RSpec.describe 'Contact form' do
       before { visit contact_path }
 
       it 'is "Contact Circulation & Privileges"' do
-        expect(page).to have_css('h2', text: 'Contact Circulation & Privileges')
+        expect(page).to have_css('h1', text: 'Contact Circulation & Privileges')
       end
     end
 
@@ -108,7 +108,7 @@ RSpec.describe 'Contact form' do
       before { visit contact_path(library: 'LATHROP') }
 
       it 'is "Contact Library"' do
-        expect(page).to have_css('h2', text: 'Contact library')
+        expect(page).to have_css('h1', text: 'Contact library')
       end
     end
   end

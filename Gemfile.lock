@@ -80,6 +80,17 @@ GEM
     airbrussh (1.5.1)
       sshkit (>= 1.6.1, != 1.7.0)
     ast (2.4.2)
+    axe-core-api (4.8.2)
+      dumb_delegator
+      virtus
+    axe-core-rspec (4.8.2)
+      axe-core-api
+      dumb_delegator
+      virtus
+    axiom-types (0.1.1)
+      descendants_tracker (~> 0.0.4)
+      ice_nine (~> 0.11.0)
+      thread_safe (~> 0.3, >= 0.3.1)
     base64 (0.2.0)
     bigdecimal (3.1.7)
     bindex (0.8.1)
@@ -119,6 +130,8 @@ GEM
       rack-test (>= 0.6.3)
       regexp_parser (>= 1.5, < 3.0)
       xpath (~> 3.2)
+    coercible (1.0.0)
+      descendants_tracker (~> 0.0.1)
     concurrent-ruby (1.2.3)
     config (5.4.0)
       deep_merge (~> 1.2, >= 1.2.1)
@@ -134,6 +147,8 @@ GEM
       irb (~> 1.10)
       reline (>= 0.3.8)
     deep_merge (1.2.2)
+    descendants_tracker (0.0.4)
+      thread_safe (~> 0.3, >= 0.3.1)
     diff-lcs (1.5.1)
     dlss-capistrano (4.4.0)
       capistrano (~> 3.0)
@@ -143,6 +158,7 @@ GEM
     docile (1.4.0)
     domain_name (0.6.20240107)
     drb (2.2.1)
+    dumb_delegator (1.0.0)
     erubi (1.12.0)
     factory_bot (6.4.6)
       activesupport (>= 5.0.0)
@@ -178,6 +194,7 @@ GEM
     httpclient (2.8.3)
     i18n (1.14.4)
       concurrent-ruby (~> 1.0)
+    ice_nine (0.11.2)
     io-console (0.7.2)
     irb (1.12.0)
       rdoc
@@ -390,6 +407,7 @@ GEM
       net-ssh (>= 2.8.0)
     stringio (3.1.0)
     thor (1.3.1)
+    thread_safe (0.3.6)
     tilt (2.3.0)
     timecop (0.9.8)
     timeout (0.4.1)
@@ -400,6 +418,10 @@ GEM
       concurrent-ruby (~> 1.0)
     unicode-display_width (2.5.0)
     uri (0.13.0)
+    virtus (2.0.0)
+      axiom-types (~> 0.1)
+      coercible (~> 1.0)
+      descendants_tracker (~> 0.0, >= 0.0.3)
     warden (1.2.9)
       rack (>= 2.0.9)
     warden-rspec-rails (0.3.0)
@@ -426,6 +448,7 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
+  axe-core-rspec
   bootsnap (>= 1.1.0)
   borrow_direct
   capistrano (~> 3.0)

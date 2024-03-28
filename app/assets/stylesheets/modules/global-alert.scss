@@ -11,3 +11,7 @@
   @extend .global-alert;
   width: fit-content;
 }
+
+.alert-info a {
+  color: inherit;
+}

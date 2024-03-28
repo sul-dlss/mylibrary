@@ -1,7 +1,7 @@
 <div id="payments" class="page-section">
   <% if @payments.any? %>
     <div class="d-flex justify-content-between">
-      <h2>History</h2>
+      <h1 class="h2">History</h1>
       <div class="dropdown">
         <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Sort (<span data-sort-label>Date paid</span>)
@@ -16,7 +16,7 @@
       </div>
     </div>
   <% else %>
-    <h2>History</h2>
+    <h1 class="h2">History</h1>
     <span>There is no history on this account.</span>
   <% end %>
 

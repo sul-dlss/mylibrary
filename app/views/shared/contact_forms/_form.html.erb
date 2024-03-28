@@ -1,10 +1,10 @@
 <div class="modal-header">
-  <h2 id="contactForm" class="clamp-1">
+  <h1 id="contactForm" class="clamp-1 h2">
     Contact <%= params[:library] ? 'library' : 'Circulation & Privileges' %>
-  </h2>
+  </h1>
 </div>
 <div class="modal-body">
-  <%= form_tag contact_path, method: :post, class: 'contact-form', role: 'form' do %>
+  <%= form_tag contact_path, method: :post, class: 'contact-form' do %>
     <%= hidden_field_tag :contact_form_to, library_email(params[:library]) %>
     <dl class="row">
       <dt class="col-2">Source:</dt>
