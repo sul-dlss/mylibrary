@@ -3,7 +3,9 @@
 require 'rails_helper'
 
 RSpec.describe 'Reset Pin' do
-  let(:mock_client) { instance_double(FolioClient, find_patron_by_university_id: patron, ping: true, change_pin: nil) }
+  let(:mock_client) do
+    instance_double(FolioClient, find_patron_by_barcode_or_university_id: patron, ping: true, change_pin: nil)
+  end
   let(:patron) do
     instance_double(Folio::Patron, email: 'jdoe@stanford.edu', display_name: 'J Doe', barcode: '123',
                                    pin_reset_token: 'foo')

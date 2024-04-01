@@ -73,7 +73,7 @@ Warden::Strategies.add(:university_id) do
   end
 
   def authenticate!
-    response = FolioClient.new.login(params['university_id'], params['pin'])
+    response = FolioClient.new.login_by_barcode_or_university_id(params['university_id'], params['pin'])
 
     if response&.key?('patronKey') || response&.key?('id')
       u = { username: params['university_id'], patron_key: response['patronKey'] || response['id'] }

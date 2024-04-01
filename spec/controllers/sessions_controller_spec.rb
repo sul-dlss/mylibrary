@@ -86,7 +86,8 @@ RSpec.describe SessionsController do
   describe 'POST login_by_university_id' do
     context 'with a valid login' do
       before do
-        allow(mock_client).to receive(:login).with('01234567', '123').and_return('patronKey' => 1)
+        allow(mock_client).to receive(:login_by_barcode_or_university_id)
+          .with('01234567', '123').and_return('patronKey' => 1)
       end
 
       it 'logs in the user' do

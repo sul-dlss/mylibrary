@@ -21,7 +21,7 @@ class ResetPinsController < ApplicationController
   # POST /reset_pin
   def reset
     suppress ActiveRecord::RecordNotFound do
-      patron = FolioClient.new.find_patron_by_university_id(university_id_param, patron_info: false)
+      patron = FolioClient.new.find_patron_by_barcode_or_university_id(university_id_param, patron_info: false)
 
       ResetPinsMailer.with(patron:).reset_pin.deliver_now
     end
