@@ -44,7 +44,7 @@ class ApplicationController < ActionController::Base
   end
 
   def patron_info_response
-    ils_client.patron_info(current_user.patron_key, item_details:)
+    ils_client.patron_info(current_user.patron_key)
   end
 
   def ils_client
@@ -57,10 +57,6 @@ class ApplicationController < ActionController::Base
 
   def logout_user!
     redirect_to logout_path if current_user?
-  end
-
-  def item_details
-    {}
   end
 
   def set_internal_pages_flash_message

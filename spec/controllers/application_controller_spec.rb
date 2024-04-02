@@ -63,21 +63,6 @@ RSpec.describe ApplicationController do
       end
     end
 
-    context 'with some needed item details' do
-      before do
-        allow(mock_client).to receive(:patron_info)
-        warden.set_user(user)
-      end
-
-      it 'passes through the details' do
-        allow(controller).to receive(:item_details).and_return(some: :value)
-
-        controller.patron
-        expect(mock_client).to have_received(:patron_info).with('513a9054-5897-11ee-8c99-0242ac120002',
-                                                                item_details: { some: :value })
-      end
-    end
-
     context 'without a logged in user' do
       it 'is a new instance of the Patron class' do
         expect(controller.patron).to be_nil

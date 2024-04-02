@@ -57,21 +57,17 @@ class FolioClient
     get_json("/users/#{CGI.escape(user_id)}")
   end
 
-  # rubocop:disable Lint/UnusedMethodArgument
   # FOLIO graphql call, compare to #patron_account
-  def patron_info(patron_key, item_details: {})
-    folio_graphql_client.patron_info(patron_key)
-  end
+  delegate :patron_info, to: :folio_graphql_client
 
   # FOLIO API call
-  def patron_account(patron_key, item_details: {})
+  def patron_account(patron_key)
     get_json("/patron/account/#{CGI.escape(patron_key)}", params: {
       includeLoans: true,
       includeCharges: true,
       includeHolds: true
     })
   end
-  # rubocop:enable Lint/UnusedMethodArgument
 
   def ping
     session_token.present?
