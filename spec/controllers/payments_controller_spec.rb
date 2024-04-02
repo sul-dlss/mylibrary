@@ -3,8 +3,8 @@
 require 'rails_helper'
 
 RSpec.describe PaymentsController do
-  let(:user) { { username: 'somesunetid', patron_key: '513a9054-5897-11ee-8c99-0242ac120002' } }
-  let(:mock_patron) { instance_double(Folio::Patron, group?: false, key: user[:patron_key], payments:) }
+  let(:user) { User.new(username: 'somesunetid', patron_key: '513a9054-5897-11ee-8c99-0242ac120002') }
+  let(:mock_patron) { instance_double(Folio::Patron, group?: false, key: user.patron_key, payments:) }
   let(:mock_client) { instance_double(FolioClient, ping: true, pay_fines: nil) }
   let(:mock_graphql_client_response) do
     [

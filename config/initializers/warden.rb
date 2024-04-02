@@ -1,5 +1,13 @@
 # frozen_string_literal: true
 
+Warden::Manager.serialize_into_session do |user|
+  user&.as_json
+end
+
+Warden::Manager.serialize_from_session do |json|
+  User.new(json) if json
+end
+
 Warden::Strategies.add(:shibboleth) do
   def valid?
     uid.present?
@@ -10,7 +18,7 @@ Warden::Strategies.add(:shibboleth) do
 
     if response&.key?('key') || response&.key?('id')
       u = { username: uid, patron_key: response['key'] || response['id'], shibboleth: true }
-      success!(u)
+      success!(User.new(u))
     else
       fail!('Could not log in')
     end
@@ -33,7 +41,7 @@ Warden::Strategies.add(:development_shibboleth_stub) do
 
     if response&.key?('key') || response&.key?('id')
       u = { username: uid, patron_key: response['key'] || response['id'] }
-      success!(u)
+      success!(User.new(u))
     else
       fail!('Could not log in')
     end
@@ -56,7 +64,7 @@ Warden::Strategies.add(:library_id) do
 
     if response&.key?('patronKey') || response&.key?('id')
       u = { username: params['library_id'], patron_key: response['patronKey'] || response['id'] }
-      success!(u)
+      success!(User.new(u))
     else
       fail!('Could not log in')
     end
