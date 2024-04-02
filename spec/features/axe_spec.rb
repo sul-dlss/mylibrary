@@ -16,14 +16,10 @@ RSpec.describe 'Accessibility testing', :js do
     }
   end
 
-  let(:user) do
-    { username: 'somesunetid', 'patronKey' => '123' }
-  end
-
   before do
     allow(FolioClient).to receive(:new).and_return(mock_client)
     allow(mock_client).to receive_messages(patron_info:)
-    login_as(username: 'stub_user', patron_key: '513a9054-5897-11ee-8c99-0242ac120002')
+    login_as(User.new({ username: 'somesunetid', 'patronKey' => '123' }))
   end
 
   it 'validates the home page' do
