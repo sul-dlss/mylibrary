@@ -5,9 +5,6 @@ class ApplicationController < ActionController::Base
   helper_method :current_user, :current_user?, :patron, :patron_or_group
   before_action :set_internal_pages_flash_message, :check_unavailable
 
-  class_attribute :ils_client_class, default: Settings.ils.client.constantize
-  class_attribute :ils_patron_model_class, default: Settings.ils.patron_model.constantize
-
   def current_user
     request.env['warden'].user
   end
@@ -19,7 +16,7 @@ class ApplicationController < ActionController::Base
   def patron
     return unless current_user?
 
-    @patron ||= ils_patron_model_class.new(patron_info_response)
+    @patron ||= Folio::Patron.new(patron_info_response)
   end
 
   def patron_or_group
@@ -48,7 +45,7 @@ class ApplicationController < ActionController::Base
   end
 
   def ils_client
-    @ils_client ||= ils_client_class.new
+    @ils_client ||= FolioClient.new
   end
 
   def authenticate_user!

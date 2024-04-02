@@ -10,7 +10,6 @@ RSpec.describe ResetPinsController do
   end
 
   before do
-    allow(ApplicationController).to receive(:ils_client_class).and_return(FolioClient)
     allow(FolioClient).to receive(:new).and_return(mock_client)
   end
 
