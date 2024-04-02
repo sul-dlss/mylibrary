@@ -13,21 +13,21 @@ class SessionsController < ApplicationController
     redirect_to summaries_url if current_user?
   end
 
-  # Render a login form for Barcode + PIN users (Stanford single-sign-on are
+  # Render a login form for University ID + PIN users (Stanford single-sign-on are
   # authenticated using a different route)
   #
   # GET /login
   def form; end
 
-  # Handle login for Barcode + PIN users by authenticating them with the
+  # Handle login for University ID + PIN users by authenticating them with the
   # ILS using the Warden configuration.
   #
-  # GET /sessions/login_by_library_id
-  def login_by_library_id
-    if request.env['warden'].authenticate(:library_id)
+  # GET /sessions/login_by_university_id
+  def login_by_university_id
+    if request.env['warden'].authenticate(:university_id)
       redirect_to summaries_url
     else
-      redirect_to login_url, alert: t('mylibrary.sessions.login_by_library_id.alert')
+      redirect_to login_url, alert: t('mylibrary.sessions.login_by_university_id.alert')
     end
   end
 

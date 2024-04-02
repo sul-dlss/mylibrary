@@ -16,17 +16,19 @@ class ResetPinsController < ApplicationController
   # a token for completing the reset
   #
   # Ignore errors indicating the patron wasn't found in the ILS; we don't want
-  # to leak information about presence/validity of library IDs
+  # to leak information about presence/validity of university IDs
   #
   # POST /reset_pin
   def reset
     suppress ActiveRecord::RecordNotFound do
-      patron = FolioClient.new.find_patron_by_barcode(library_id_param, patron_info: false)
+      patron = FolioClient.new.find_patron_by_barcode_or_university_id(university_id_param, patron_info: false)
 
       ResetPinsMailer.with(patron:).reset_pin.deliver_now
     end
 
-    flash[:success] = t 'mylibrary.reset_pin.success_html', library_id: params['library_id']
+    flash[:success] = t('mylibrary.reset_pin.success_html',
+                        university_id: params['university_id'],
+                        university_id_label: t('mylibrary.university_id.label'))
     redirect_to login_path
   end
 
@@ -48,8 +50,8 @@ class ResetPinsController < ApplicationController
 
   private
 
-  def library_id_param
-    params.require(:library_id)
+  def university_id_param
+    params.require(:university_id)
   end
 
   def change_pin_with_token_params
