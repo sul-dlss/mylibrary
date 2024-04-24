@@ -12,7 +12,9 @@
   <div class="form-group">
     <%= label_tag :pin, 'New PIN' %>
     <div class="input-group" data-showpassword="pin">
-      <%= password_field_tag :pin, nil, class: 'form-control', 'aria-describedby': 'new-pin-help', autofocus: true, autocomplete: 'off' %>
+      <%= password_field_tag :pin, nil, class: 'form-control', 'aria-describedby':
+      'new-pin-help', autofocus: true, autocomplete: 'off', pattern:
+      '[a-zA-Z0-9]{6,25}' %>
       <div class="input-group-append">
         <button class="btn btn-link" data-visibility disabled>
           <%= sul_icon(:'sharp-visibility-24px') %>
