@@ -43,11 +43,13 @@ module Folio
 
     def due_date_after_renewal
       if schedule_policy
-        due_date_from_schedule
+        due_date_from_schedule || due_date
       elsif renewal_calculated_from_system_date?
         Time.zone.now + renewal_duration
       elsif renewal_calculated_from_due_date?
         due_date + renewal_duration
+      else
+        due_date
       end
     end
 
