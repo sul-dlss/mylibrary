@@ -809,6 +809,21 @@
     }
   },
   {
+    "id": "d2f28da3-4c0f-4780-8902-00d54f1be418",
+    "name": "8 hour - due at end of day - no renew ",
+    "description": "For business equipment so that no matter when checked out they are due back at the end of the current day",
+    "renewable": false,
+    "renewalsPolicy": null,
+    "loanable": true,
+    "loansPolicy": {
+      "period": {
+        "duration": 8,
+        "intervalId": "Hours"
+      },
+      "fixedDueDateSchedule": null
+    }
+  },
+  {
     "id": "d7865885-da1e-446d-98e4-b6c06724d0a6",
     "name": "2hour-norenew-1hourgrace",
     "description": "Law Library Course Reserves and Perm. Reserves housed in self-checkout cabinets.",
