@@ -12,6 +12,9 @@
         "intervalId": "Days"
       },
       "fixedDueDateSchedule": null
+    },
+    "requestManagement": {
+      "holds": null
     }
   },
   {
@@ -27,7 +30,8 @@
         "intervalId": "Hours"
       },
       "fixedDueDateSchedule": null
-    }
+    },
+    "requestManagement": null
   },
   {
     "id": "0d26a888-afeb-458a-bcdb-68b2f542d598",
@@ -42,6 +46,11 @@
         "intervalId": "Months"
       },
       "fixedDueDateSchedule": null
+    },
+    "requestManagement": {
+      "holds": {
+        "renewItemsWithRequest": null
+      }
     }
   },
   {
@@ -57,7 +66,8 @@
         "intervalId": "Days"
       },
       "fixedDueDateSchedule": null
-    }
+    },
+    "requestManagement": null
   },
   {
     "id": "26c44ee7-5a7d-4832-aa84-febe49a8d2f8",
@@ -72,6 +82,11 @@
         "intervalId": "Days"
       },
       "fixedDueDateSchedule": null
+    },
+    "requestManagement": {
+      "holds": {
+        "renewItemsWithRequest": null
+      }
     }
   },
   {
@@ -93,6 +108,11 @@
         "intervalId": "Days"
       },
       "fixedDueDateSchedule": null
+    },
+    "requestManagement": {
+      "holds": {
+        "renewItemsWithRequest": null
+      }
     }
   },
   {
@@ -108,7 +128,8 @@
         "intervalId": "Hours"
       },
       "fixedDueDateSchedule": null
-    }
+    },
+    "requestManagement": null
   },
   {
     "id": "32872e02-34b2-49b2-b0dd-d3684c5bf246",
@@ -129,6 +150,11 @@
         "intervalId": "Days"
       },
       "fixedDueDateSchedule": null
+    },
+    "requestManagement": {
+      "holds": {
+        "renewItemsWithRequest": null
+      }
     }
   },
   {
@@ -138,7 +164,8 @@
     "renewable": false,
     "renewalsPolicy": null,
     "loanable": false,
-    "loansPolicy": null
+    "loansPolicy": null,
+    "requestManagement": null
   },
   {
     "id": "3efe7693-3357-4f9b-999d-a271f86019b0",
@@ -159,6 +186,11 @@
         "intervalId": "Days"
       },
       "fixedDueDateSchedule": null
+    },
+    "requestManagement": {
+      "holds": {
+        "renewItemsWithRequest": null
+      }
     }
   },
   {
@@ -180,7 +212,8 @@
         "intervalId": "Hours"
       },
       "fixedDueDateSchedule": null
-    }
+    },
+    "requestManagement": null
   },
   {
     "id": "50838b19-a707-4277-a600-442453dac1cd",
@@ -236,6 +269,11 @@
           }
         ]
       }
+    },
+    "requestManagement": {
+      "holds": {
+        "renewItemsWithRequest": null
+      }
     }
   },
   {
@@ -251,6 +289,11 @@
         "intervalId": "Days"
       },
       "fixedDueDateSchedule": null
+    },
+    "requestManagement": {
+      "holds": {
+        "renewItemsWithRequest": null
+      }
     }
   },
   {
@@ -266,7 +309,8 @@
         "intervalId": "Hours"
       },
       "fixedDueDateSchedule": null
-    }
+    },
+    "requestManagement": null
   },
   {
     "id": "5866e82c-ab61-4628-85d4-ee1497b0d3c8",
@@ -287,6 +331,11 @@
         "intervalId": "Days"
       },
       "fixedDueDateSchedule": null
+    },
+    "requestManagement": {
+      "holds": {
+        "renewItemsWithRequest": null
+      }
     }
   },
   {
@@ -302,6 +351,9 @@
         "intervalId": "Hours"
       },
       "fixedDueDateSchedule": null
+    },
+    "requestManagement": {
+      "holds": null
     }
   },
   {
@@ -323,7 +375,8 @@
         "intervalId": "Hours"
       },
       "fixedDueDateSchedule": null
-    }
+    },
+    "requestManagement": null
   },
   {
     "id": "7101023e-5e1d-4ca0-bb16-a0585c53bcaf",
@@ -344,6 +397,9 @@
         "intervalId": "Days"
       },
       "fixedDueDateSchedule": null
+    },
+    "requestManagement": {
+      "holds": null
     }
   },
   {
@@ -359,6 +415,9 @@
         "intervalId": "Days"
       },
       "fixedDueDateSchedule": null
+    },
+    "requestManagement": {
+      "holds": null
     }
   },
   {
@@ -374,7 +433,8 @@
         "intervalId": "Hours"
       },
       "fixedDueDateSchedule": null
-    }
+    },
+    "requestManagement": null
   },
   {
     "id": "770bc585-9902-47ef-8c42-46503644d9c6",
@@ -395,7 +455,8 @@
         "intervalId": "Days"
       },
       "fixedDueDateSchedule": null
-    }
+    },
+    "requestManagement": null
   },
   {
     "id": "7f292279-7184-4426-a93f-19a661334621",
@@ -416,6 +477,9 @@
         "intervalId": "Days"
       },
       "fixedDueDateSchedule": null
+    },
+    "requestManagement": {
+      "holds": null
     }
   },
   {
@@ -437,6 +501,11 @@
         "intervalId": "Days"
       },
       "fixedDueDateSchedule": null
+    },
+    "requestManagement": {
+      "holds": {
+        "renewItemsWithRequest": null
+      }
     }
   },
   {
@@ -458,6 +527,9 @@
         "intervalId": "Days"
       },
       "fixedDueDateSchedule": null
+    },
+    "requestManagement": {
+      "holds": null
     }
   },
   {
@@ -473,6 +545,11 @@
         "intervalId": "Days"
       },
       "fixedDueDateSchedule": null
+    },
+    "requestManagement": {
+      "holds": {
+        "renewItemsWithRequest": null
+      }
     }
   },
   {
@@ -494,7 +571,8 @@
         "intervalId": "Days"
       },
       "fixedDueDateSchedule": null
-    }
+    },
+    "requestManagement": null
   },
   {
     "id": "885a2bd0-35c7-497f-9dc6-462bebe837a3",
@@ -550,6 +628,11 @@
           }
         ]
       }
+    },
+    "requestManagement": {
+      "holds": {
+        "renewItemsWithRequest": null
+      }
     }
   },
   {
@@ -565,7 +648,8 @@
         "intervalId": "Hours"
       },
       "fixedDueDateSchedule": null
-    }
+    },
+    "requestManagement": null
   },
   {
     "id": "8d678d1a-24ca-43bb-90df-40e4e57e0da9",
@@ -586,7 +670,8 @@
         "intervalId": "Hours"
       },
       "fixedDueDateSchedule": null
-    }
+    },
+    "requestManagement": null
   },
   {
     "id": "8dfc8ff2-51f8-494f-ba8b-19c540ed2b9c",
@@ -601,6 +686,9 @@
         "intervalId": "Hours"
       },
       "fixedDueDateSchedule": null
+    },
+    "requestManagement": {
+      "holds": null
     }
   },
   {
@@ -616,7 +704,8 @@
         "intervalId": "Hours"
       },
       "fixedDueDateSchedule": null
-    }
+    },
+    "requestManagement": null
   },
   {
     "id": "a8911fae-9a65-4890-bbf5-ebcd82a8d349",
@@ -637,6 +726,11 @@
         "intervalId": "Days"
       },
       "fixedDueDateSchedule": null
+    },
+    "requestManagement": {
+      "holds": {
+        "renewItemsWithRequest": null
+      }
     }
   },
   {
@@ -652,6 +746,9 @@
         "intervalId": "Days"
       },
       "fixedDueDateSchedule": null
+    },
+    "requestManagement": {
+      "holds": null
     }
   },
   {
@@ -688,6 +785,11 @@
           }
         ]
       }
+    },
+    "requestManagement": {
+      "holds": {
+        "renewItemsWithRequest": null
+      }
     }
   },
   {
@@ -703,7 +805,8 @@
         "intervalId": "Weeks"
       },
       "fixedDueDateSchedule": null
-    }
+    },
+    "requestManagement": null
   },
   {
     "id": "b9de476a-fa5e-4635-959d-8a5bf0734be0",
@@ -718,6 +821,9 @@
         "intervalId": "Days"
       },
       "fixedDueDateSchedule": null
+    },
+    "requestManagement": {
+      "holds": null
     }
   },
   {
@@ -733,6 +839,11 @@
         "intervalId": "Weeks"
       },
       "fixedDueDateSchedule": null
+    },
+    "requestManagement": {
+      "holds": {
+        "renewItemsWithRequest": null
+      }
     }
   },
   {
@@ -754,6 +865,9 @@
         "intervalId": "Days"
       },
       "fixedDueDateSchedule": null
+    },
+    "requestManagement": {
+      "holds": null
     }
   },
   {
@@ -775,6 +889,11 @@
         "intervalId": "Days"
       },
       "fixedDueDateSchedule": null
+    },
+    "requestManagement": {
+      "holds": {
+        "renewItemsWithRequest": null
+      }
     }
   },
   {
@@ -806,6 +925,11 @@
           }
         ]
       }
+    },
+    "requestManagement": {
+      "holds": {
+        "renewItemsWithRequest": null
+      }
     }
   },
   {
@@ -821,6 +945,9 @@
         "intervalId": "Hours"
       },
       "fixedDueDateSchedule": null
+    },
+    "requestManagement": {
+      "holds": null
     }
   },
   {
@@ -836,7 +963,8 @@
         "intervalId": "Hours"
       },
       "fixedDueDateSchedule": null
-    }
+    },
+    "requestManagement": null
   },
   {
     "id": "d820a2f3-66aa-4cae-ac58-d9aaeecdc014",
@@ -857,6 +985,11 @@
         "intervalId": "Days"
       },
       "fixedDueDateSchedule": null
+    },
+    "requestManagement": {
+      "holds": {
+        "renewItemsWithRequest": null
+      }
     }
   },
   {
@@ -872,7 +1005,8 @@
         "intervalId": "Hours"
       },
       "fixedDueDateSchedule": null
-    }
+    },
+    "requestManagement": null
   },
   {
     "id": "d9cd0bed-1b49-4b5e-a7bd-064b8d177231",
@@ -896,6 +1030,9 @@
         "intervalId": "Days"
       },
       "fixedDueDateSchedule": null
+    },
+    "requestManagement": {
+      "holds": null
     }
   },
   {
@@ -911,7 +1048,8 @@
         "intervalId": "Days"
       },
       "fixedDueDateSchedule": null
-    }
+    },
+    "requestManagement": null
   },
   {
     "id": "ef9de996-17db-4d7f-87bc-54970af6961d",
@@ -926,7 +1064,8 @@
         "intervalId": "Hours"
       },
       "fixedDueDateSchedule": null
-    }
+    },
+    "requestManagement": null
   },
   {
     "id": "fca138e9-40aa-4a72-b1d9-eb7c8ddf2662",
@@ -947,6 +1086,11 @@
         "intervalId": "Days"
       },
       "fixedDueDateSchedule": null
+    },
+    "requestManagement": {
+      "holds": {
+        "renewItemsWithRequest": null
+      }
     }
   },
   {
@@ -968,6 +1112,11 @@
         "intervalId": "Days"
       },
       "fixedDueDateSchedule": null
+    },
+    "requestManagement": {
+      "holds": {
+        "renewItemsWithRequest": null
+      }
     }
   }
 ]

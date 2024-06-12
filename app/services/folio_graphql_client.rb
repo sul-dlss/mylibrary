@@ -108,6 +108,11 @@ class FolioGraphqlClient
               }
             }
           }
+          requestManagement {
+            holds {
+              renewItemsWithRequest
+            }
+          }
         }
       }"
     })
@@ -332,6 +337,7 @@ class FolioGraphqlClient
                     code
                   }
                 }
+                queueTotalLength
               }
             }
             loanDate
