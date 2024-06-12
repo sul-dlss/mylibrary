@@ -9,6 +9,7 @@ module Folio
 
     delegate :loan_policy_interval,
              :too_soon_to_renew?,
+             :renewal_blocked_by_hold?,
              :unseen_renewals_remaining,
              :seen_renewals_remaining,
              to: :loan_policy,
@@ -60,7 +61,7 @@ module Folio
     # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity,Metrics/MethodLength
     def non_renewable_reason
       return 'Item is assumed lost; you must pay the fee or return the item.' if lost?
-      return 'No. Another user is waiting for this item.' if recalled?
+      return 'No. Another user is waiting for this item.' if recalled? || renewal_blocked_by_hold?
       return 'No. Claim review is in process.' if claimed_returned?
 
       unless unseen_renewals_remaining.positive?
@@ -169,7 +170,8 @@ module Folio
     def loan_policy
       @loan_policy ||= Folio::LoanPolicy.new(loan_policy: effective_loan_policy,
                                              due_date:,
-                                             renewal_count:)
+                                             renewal_count:,
+                                             hold_queue_length:)
     end
 
     def effective_loan_policy
@@ -210,6 +212,10 @@ module Folio
 
     def renewal_count
       record.dig('details', 'renewalCount') || 0
+    end
+
+    def hold_queue_length
+      record.dig('item', 'item', 'queueTotalLength') || 0
     end
   end
 end

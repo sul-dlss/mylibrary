@@ -5,6 +5,7 @@ FactoryBot.define do
     transient do
       due_date { '2024-01-09T07:59:59.000+00:00' }
       renewal_count { 3 }
+      hold_queue_length { 0 }
     end
 
     loan_policy do
@@ -31,11 +32,12 @@ FactoryBot.define do
                 'to' => '2023-08-15T06:59:59.000+00:00' },
               { 'due' => '2024-01-09T07:59:59.000+00:00',
                 'from' => '2023-08-15T07:00:00.000+00:00',
-                'to' => '2023-11-28T07:59:59.000+00:00' }] } } }
+                'to' => '2023-11-28T07:59:59.000+00:00' }] } },
+        'requestManagement' => { 'holds' => { 'renewItemsWithRequest' => false } } }
     end
 
     initialize_with do
-      new(loan_policy:, due_date: Time.zone.parse(due_date), renewal_count:)
+      new(loan_policy:, due_date: Time.zone.parse(due_date), renewal_count:, hold_queue_length:)
     end
   end
 end

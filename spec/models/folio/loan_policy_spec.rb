@@ -4,11 +4,12 @@ require 'rails_helper'
 
 RSpec.describe Folio::LoanPolicy do
   subject(:folio_loan_policy) do
-    described_class.new(loan_policy:, due_date:, renewal_count:)
+    described_class.new(loan_policy:, due_date:, renewal_count:, hold_queue_length:)
   end
 
   let(:due_date) { nil }
   let(:renewal_count) { nil }
+  let(:hold_queue_length) { nil }
 
   describe '#loan_policy_interval' do
     let(:loan_policy) do
@@ -193,6 +194,40 @@ RSpec.describe Folio::LoanPolicy do
 
     it 'always returns Float::INFINITY because Folio does not support this concept' do
       expect(folio_loan_policy.seen_renewals_remaining).to eq Float::INFINITY
+    end
+  end
+
+  describe '#renewal_blocked_by_hold?' do
+    let(:hold_queue_length) { 1 }
+
+    context 'when the loan policy allows renewals when there is a hold' do
+      let(:loan_policy) do
+        { 'requestManagement' =>
+          { 'holds' => { 'renewItemsWithRequest' => true } } }
+      end
+
+      it 'renewal is not blocked' do
+        expect(folio_loan_policy.renewal_blocked_by_hold?).to be false
+      end
+    end
+
+    context 'when the loan policy does not allow renewals when there is a hold' do
+      let(:loan_policy) do
+        { 'requestManagement' =>
+          { 'holds' => { 'renewItemsWithRequest' => false } } }
+      end
+
+      it 'renewal is blocked' do
+        expect(folio_loan_policy.renewal_blocked_by_hold?).to be true
+      end
+
+      context 'when there are no holds' do
+        let(:hold_queue_length) { 0 }
+
+        it 'renewal is not blocked' do
+          expect(folio_loan_policy.renewal_blocked_by_hold?).to be false
+        end
+      end
     end
   end
 end

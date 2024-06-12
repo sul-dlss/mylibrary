@@ -1,13 +1,14 @@
 # frozen_string_literal: true
 
 module Folio
-  class LoanPolicy
-    attr_reader :loan_policy, :due_date, :renewal_count
+  class LoanPolicy # rubocop:disable Metrics/ClassLength
+    attr_reader :loan_policy, :due_date, :renewal_count, :hold_queue_length
 
-    def initialize(loan_policy:, due_date:, renewal_count:)
+    def initialize(loan_policy:, due_date:, renewal_count:, hold_queue_length:)
       @loan_policy = loan_policy
       @due_date = due_date
       @renewal_count = renewal_count
+      @hold_queue_length = hold_queue_length
     end
 
     def loan_policy_interval
@@ -37,6 +38,10 @@ module Folio
 
     def description
       loan_policy['description']
+    end
+
+    def renewal_blocked_by_hold?
+      hold_queue_length.positive? && !renewals_allowed_with_open_holds?
     end
 
     private
@@ -130,6 +135,10 @@ module Folio
 
     def unseen_renewals_allowed
       loan_policy.dig('renewalsPolicy', 'numberAllowed') || 0
+    end
+
+    def renewals_allowed_with_open_holds?
+      loan_policy.dig('requestManagement', 'holds', 'renewItemsWithRequest') || false
     end
   end
 end
