@@ -99,5 +99,5 @@ end
 
 gem 'cssbundling-rails', '~> 1.1'
 gem 'jsbundling-rails', '~> 1.3'
-gem 'sprockets-rails'
+gem 'propshaft'
 gem 'turbo-rails', '~> 2.0'
