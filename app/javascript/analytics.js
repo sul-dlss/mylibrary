@@ -12,7 +12,7 @@ function sendAnalyticsEvent({ action, category, label, value }) {
   });  
 }
 
-document.addEventListener('turbolinks:load', function() {
+document.addEventListener('turbo:load', function() {
   // gtag set property and config
   const config = {}
   // To turn off analytics debug mode, exclude the parameter altogether (cannot just set to false)

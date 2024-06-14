@@ -1,4 +1,4 @@
-$(document).on('turbolinks:load', function(){
+$(document).on('turbo:load', function(){
   $(document.body).on('ajax:send', function(event) {
     var $target = $(event.target);
 

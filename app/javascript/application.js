@@ -3,7 +3,6 @@
 import './jquery-shim'
 
 import Rails from 'rails-ujs'
-import Turbolinks from 'turbolinks'
 
 import './ajax_in_place_updates'
 import './analytics'
@@ -16,4 +15,4 @@ import './showPassword'
 import './toggleClassWithExpand'
 
 Rails.start()
-Turbolinks.start()
+import "@hotwired/turbo-rails"

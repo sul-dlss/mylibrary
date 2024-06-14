@@ -1,4 +1,4 @@
-$(document).on('turbolinks:load', function(){
+$(document).on('turbo:load', function(){
   //Instantiates plugin for feedback form
   $("#feedback-form").contactForm();
   $("#contact-modal-window").contactForm();
