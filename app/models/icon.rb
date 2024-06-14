@@ -39,15 +39,13 @@ class Icon
   def file_source
     raise "Could not find #{path}" if file.blank?
 
-    file.source.force_encoding('UTF-8')
+    file.content.force_encoding('UTF-8')
   end
 
   private
 
   def file
-    # Rails.application.assets is `nil` in production mode (where compile assets is enabled).
-    # This workaround is based off of this comment: https://github.com/fphilipe/premailer-rails/issues/145#issuecomment-225992564
-    (Rails.application.assets || ::Sprockets::Railtie.build_environment(Rails.application)).find_asset(path)
+    Rails.application.assets.load_path.find(path)
   end
 
   def classes
