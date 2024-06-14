@@ -1,5 +1,5 @@
-// add a spinner to our navlinks when turbolinks:click is triggered
-$(document).on('turbolinks:click', function(event){
+// add a spinner to our navlinks when turbo:click is triggered
+$(document).on('turbo:click', function(event){
   var $target = $(event.target);
 
   if ($target.is('#mainnav .nav-link')) {
@@ -8,6 +8,6 @@ $(document).on('turbolinks:click', function(event){
 });
 
 // remove the spinner after the new page loads (or is being written to the cache)
-$(document).on('turbolinks:load turbolinks:before-cache', function(){
+$(document).on('turbo:load turbo:before-cache', function(){
   $('#mainnav .nav-spinner').remove();
 });

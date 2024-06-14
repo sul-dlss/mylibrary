@@ -1,12 +1,12 @@
 {
   "dependencies": {
+    "@hotwired/turbo-rails": "^8.0.4",
     "bootstrap": "^4.6.2",
     "esbuild": "^0.21.5",
     "jquery": "^3.7.1",
     "list.js": "1.5.0",
     "rails-ujs": "^5.2.8-1",
-    "sass": "^1.57.1",
-    "turbolinks": "^5.2.0"
+    "sass": "^1.57.1"
   },
   "scripts": {
     "build:css": "sass ./app/assets/stylesheets/application.sass.scss:./app/assets/builds/application.css ./app/assets/stylesheets/nojs.scss:./app/assets/builds/nojs.css --no-source-map --load-path=node_modules",

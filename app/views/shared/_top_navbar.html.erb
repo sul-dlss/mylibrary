@@ -7,7 +7,7 @@
 
     <ul class="navbar-nav ml-auto">
       <li class="nav-item">
-        <%= link_to "#{current_user.username}: logout", logout_url, class: 'nav-link', data: { turbolinks: false } if current_user? %>
+        <%= link_to "#{current_user.username}: logout", logout_url, class: 'nav-link', data: { turbo: false } if current_user? %>
       </li>
       <li class="nav-item">
         <%= link_to feedback_path, data: { toggle: 'collapse', target: '#feedback-form' }, class: 'nav-link' do %>

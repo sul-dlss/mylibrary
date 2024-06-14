@@ -54,6 +54,6 @@ Mylibrary.modal.receiveAjax = function (contents) {
   $(Mylibrary.modal.modalSelector).modal('show');
 };
 
-$(document).on('turbolinks:load', function(){
+$(document).on('turbo:load', function(){
   $('body').on('click', '[data-mylibrary-modal~=trigger]', Mylibrary.modal.modalAjaxClickLink);
 });
