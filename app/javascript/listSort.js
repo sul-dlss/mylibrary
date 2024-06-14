@@ -1,5 +1,6 @@
+import List from 'list.js'
+
 $(document).on('turbolinks:load ajax:loaded', function(){
-  // var listSort = new List('listSort', options);
   var checkoutOptions = {
       valueNames: [
         { name: 'status', attr: 'data-sort-status' },
