@@ -1,8 +1,19 @@
 <% if patron_or_group.checkouts.any?(&:renewable?) %>
   <% if patron_or_group.can_renew? %>
-    <%= link_to all_eligible_renewals_path(group: params[:group]), class: 'btn btn-info mb-1', method: :post do %>
-      <%= sul_icon :'renew' %> Renew <%= pluralize(patron_or_group.checkouts.count(&:renewable?), 'eligible item') %>
-    <% end %>
+    <div data-controller="loading-message" >
+      <%= link_to all_eligible_renewals_path(group: params[:group]),
+                                             class: 'btn btn-info mb-1',
+                                             data: { action: 'loading-message#show', loading_message_target: 'clickableElement' },
+                                             method: :post do %>
+        <span data-loading-message-target="initialMessage">
+          <%= sul_icon :'renew' %> Renew <%= pluralize(patron_or_group.checkouts.count(&:renewable?), 'eligible item') %>
+        </span>
+        <span class="d-none" data-loading-message-target="loadingMessage">
+          <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+          Renewing
+        </span>
+      <% end %>
+    <div> 
   <% else %>
     <button disabled class="btn btn-info mb-1"><%= sul_icon :'renew' %> Renewals blocked</button>
   <% end %>

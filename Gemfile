@@ -100,4 +100,5 @@ end
 gem 'cssbundling-rails', '~> 1.1'
 gem 'jsbundling-rails', '~> 1.3'
 gem 'propshaft'
+gem 'stimulus-rails'
 gem 'turbo-rails', '~> 2.0'
