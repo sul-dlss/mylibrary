@@ -1,8 +1,14 @@
 <% if patron_or_group.checkouts.any?(&:renewable?) %>
   <% if patron_or_group.can_renew? %>
-    <%= link_to all_eligible_renewals_path(group: params[:group]), class: 'btn btn-info mb-1', method: :post do %>
-      <%= sul_icon :'renew' %> Renew <%= pluralize(patron_or_group.checkouts.count(&:renewable?), 'eligible item') %>
-    <% end %>
+      <% renewable_count = patron_or_group.checkouts.count(&:renewable?) %>
+      <%= form_tag all_eligible_renewals_path, method: :post do %>
+        <%= hidden_field_tag :group, params[:group] if params[:group] %>
+        <%= button_tag class: 'btn btn-info mb-1',
+                        data: { turbo_submits_with: t('mylibrary.renew_all_items.in_progress_html', count: renewable_count) },
+                        type: 'submit' do %>
+          <%= sul_icon :'renew' %> Renew <%= pluralize(renewable_count, 'eligible item') %>
+        <% end %>
+      <% end %>
   <% else %>
     <button disabled class="btn btn-info mb-1"><%= sul_icon :'renew' %> Renewals blocked</button>
   <% end %>
