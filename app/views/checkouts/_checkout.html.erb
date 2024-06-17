@@ -34,7 +34,9 @@
             <%= hidden_field_tag :item_id, checkout.item_id %>
             <%= hidden_field_tag :title, checkout.title %>
             <%= hidden_field_tag :group, params[:group] if params[:group] %>
-            <%= button_tag class: 'btn btn-link btn-renewable-submit btn-icon-prefix', type: 'submit' do %>
+            <%= button_tag class: 'btn btn-link btn-renewable-submit btn-icon-prefix',
+                           data: { turbo_submits_with: t('mylibrary.renew_item.in_progress_html') },
+                           type: 'submit' do %>
               <%= sul_icon 'renew' %> Renew this item
             <% end %>
           <% end %>
