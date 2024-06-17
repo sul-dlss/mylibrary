@@ -66,9 +66,12 @@ group :development, :test do
   gem 'rails-controller-testing'
   gem 'rspec-rails'
   gem 'rubocop'
+  gem 'rubocop-capybara'
+  gem 'rubocop-factory_bot'
   gem 'rubocop-performance'
   gem 'rubocop-rails'
   gem 'rubocop-rspec'
+  gem 'rubocop-rspec_rails'
   gem 'selenium-webdriver'
   gem 'simplecov', require: false
   gem 'sinatra', require: false # used for faking the symphony api for integration tests
