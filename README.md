@@ -49,10 +49,10 @@ The application has two main modes of authentication:
 - login by library id + pin
 - login via shibboleth
 
-Both logins require access to the FOLIO web services (see above) to retrieve a patron key. Logging in via shibboleth requires a properly configured Shibboleth environment with access to Stanford's LDAP attributes. In development, the shibboleth login can be faked by setting the `uid` environment variable when starting the rails server, e.g.:
+Both logins require access to the FOLIO web services (see above) to retrieve a patron key. Logging in via shibboleth requires a properly configured Shibboleth environment with access to Stanford's LDAP attributes. In development, the shibboleth login can be faked by setting the `REMOTE_USER` environment variable when starting the rails server, e.g.:
 
 ```
-$ uid=someuser rails s
+$ REMOTE_USER=someuser bin/dev
 ```
 
 Note, again, that the user must exist in FOLIO as well; this is only a bypass for the shibboleth authentication.

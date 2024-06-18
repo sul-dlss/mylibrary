@@ -27,7 +27,7 @@ Warden::Strategies.add(:shibboleth) do
   private
 
   def uid
-    env['uid']
+    env['REMOTE_USER']
   end
 end
 
@@ -50,7 +50,7 @@ Warden::Strategies.add(:development_shibboleth_stub) do
   private
 
   def uid
-    ENV.fetch('uid', nil)
+    ENV.fetch('REMOTE_USER', nil)
   end
 end
 
