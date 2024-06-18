@@ -19,13 +19,20 @@ a[target="_blank"], p a, form a{
   border-bottom: 1px solid $bright-blue;
 }
 
-:disabled {
-  // scss-lint:disable ImportantRule
-  background-color: $sul-btn-disabled-color !important;
+.btn:not(.btn-link):disabled {
+  background-color: $sul-btn-disabled-color;
   color: $white;
   cursor: not-allowed;
   text-decoration: none;
-  // scss-lint:enable ImportantRule
+}
+
+.btn-link:disabled {
+  color: $sul-btn-link-disabled-color;
+  opacity: 1;
+
+  svg {
+    fill: $sul-btn-link-disabled-color;
+  }
 }
 
 a:hover,
