@@ -16,7 +16,7 @@ class ApplicationController < ActionController::Base
   def patron
     return unless current_user?
 
-    @patron ||= Folio::Patron.new(patron_info_response)
+    @patron ||= Folio::Patron.find(current_user.patron_key)
   end
 
   def patron_or_group
@@ -38,10 +38,6 @@ class ApplicationController < ActionController::Base
     return if request.path == unavailable_path || request.path == root_path
 
     redirect_to unavailable_path unless ils_client.ping
-  end
-
-  def patron_info_response
-    ils_client.patron_info(current_user.patron_key)
   end
 
   def ils_client
