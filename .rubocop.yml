@@ -90,6 +90,7 @@ RSpec/ExampleLength:
     - 'spec/controllers/**/*'
 
 RSpec/MultipleExpectations:
+  Max: 4
   Exclude:
     - 'spec/features/**/*'
 

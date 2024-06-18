@@ -16,6 +16,23 @@ RSpec.describe Folio::Patron do
     build(:fee_borrower, custom_properties: {})
   end
 
+  describe '.find' do
+    before do
+      allow(FolioClient).to receive(:new).and_return(folio_client)
+      allow(Honeybadger).to receive(:notify)
+    end
+
+    context 'when response is nil' do
+      let(:folio_client) { instance_double(FolioClient, patron_info: nil) }
+
+      it 'notifies honeybadger' do
+        patron = described_class.find('foo')
+        expect(patron.patron_info).to be_blank
+        expect(Honeybadger).to have_received(:notify)
+      end
+    end
+  end
+
   describe '#key' do
     context 'with a Patron from the FOLIO APIs' do
       subject(:patron) { described_class.new({ 'user' => { 'id' => 'xyz' } }) }
