@@ -27,7 +27,7 @@ Warden::Strategies.add(:shibboleth) do
   private
 
   def uid
-    env['REMOTE_USER']
+    env['uid']
   end
 end
 
