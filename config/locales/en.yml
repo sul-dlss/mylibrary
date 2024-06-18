@@ -48,8 +48,8 @@ en:
       deny_access: An unexpected error has occurred
     renew_all_items:
       in_progress_html:
-        one: <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Renewing 1 item 
-        other: <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Renewing all %{count} eligible items
+        one: <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Renewing 1 eligible item 
+        other: <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Renewing %{count} eligible items
       success_html:
         one: <span class="font-weight-bold">Success!</span> 1 item was renewed.
         other: <span class="font-weight-bold">Success!</span> %{count} items were renewed.
