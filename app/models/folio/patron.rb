@@ -14,7 +14,8 @@ module Folio
     # pass a FOLIO user uuid and get back a Patron object
     def self.find(key)
       patron_info = FolioClient.new.patron_info(key)
-      new(patron_info)
+      Honeybadger.notify('No patron info found', context: { key: }) unless patron_info
+      new(patron_info || {})
     end
 
     def user_info

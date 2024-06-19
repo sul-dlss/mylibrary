@@ -40,14 +40,12 @@ RSpec.describe FolioClient do
         .to_return(body: {}.to_json, status: 422)
     end
 
-    # rubocop:disable RSpec/MultipleExpectations
     it 'groups the successful and failed renewal responses' do
       expect(renew_items[:success].count).to eq 1
       expect(renew_items[:success].first.item_id).to eq '6d9a4f99-d144-51cf-92d7-3edbfc588abe'
       expect(renew_items[:error].count).to eq 1
       expect(renew_items[:error].first.item_id).to eq 'cc3d8728-a6b9-45c4-ad0c-432873c3ae47'
     end
-    # rubocop:enable RSpec/MultipleExpectations
   end
 
   describe '#renew_item_by_id' do
