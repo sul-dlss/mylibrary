@@ -50,6 +50,9 @@ $(document).on('turbo:load ajax:loaded', function(){
     var pluginName = 'listSort';
 
     function Plugin( element, options ) {
+        // Guard for cases where there is no list within the element to sort
+        if ($(element).children('ul.list-group').length === 0) return false;
+
         this.element = element;
         this.options = $.extend( {}, options) ;
 
