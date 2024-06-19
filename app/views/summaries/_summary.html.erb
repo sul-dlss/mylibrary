@@ -1,5 +1,5 @@
 <div class="page-section">
-  <h3><%= sul_icon :'sharp-playlist_add_check-24px', classes: 'lg' %> Checkouts: <%= patron.checkouts.length %><%= " (#{patron.remaining_checkouts} remaining)" if patron.remaining_checkouts %></h3>
+  <div class="h3"><%= sul_icon :'sharp-playlist_add_check-24px', classes: 'lg' %> Checkouts: <%= patron.checkouts.length %><%= " (#{patron.remaining_checkouts} remaining)" if patron.remaining_checkouts %></div>
 
   <div class="mb-1">
     <%= render 'checkouts/renew_all_button' %>
@@ -17,7 +17,7 @@
 </div>
 
 <div class="page-section">
-  <h3><%= sul_icon :'sharp-access_time-24px', classes: 'lg' %> Requests: <%= patron.requests.length %></h3>
+  <div class="h3"><%= sul_icon :'sharp-access_time-24px', classes: 'lg' %> Requests: <%= patron.requests.length %></div>
 
   <% count = patron.requests.select(&:ready_for_pickup?).length %>
   <% if count.positive? %>
@@ -28,7 +28,7 @@
 </div>
 
 <div class="page-section">
-  <h3><%= sul_icon :'sharp-attach_money-24px', classes: 'lg' %> Fines &amp; fees payable: <%= number_to_currency(patron.fines.sum(&:owed)) %></h3>
+  <div class="h3"><%= sul_icon :'sharp-attach_money-24px', classes: 'lg' %> Fines &amp; fees payable: <%= number_to_currency(patron.fines.sum(&:owed)) %></div>
   <div class="mb-1">
     <%= render 'fines/shared_computer_alert' %>
     <%= render 'fines/pay_all_button' %>

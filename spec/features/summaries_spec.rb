@@ -44,9 +44,9 @@ RSpec.describe 'Summaries Page' do
   end
 
   it 'has summary data' do
-    expect(page).to have_css('h3', text: 'Checkouts: 1')
-    expect(page).to have_css('h3', text: 'Requests: 3')
-    expect(page).to have_css('h3', text: 'Fines & fees payable: $200.00')
+    expect(page).to have_css('div', class: 'h3', text: 'Checkouts: 1')
+    expect(page).to have_css('div', class: 'h3', text: 'Requests: 3')
+    expect(page).to have_css('div', class: 'h3', text: 'Fines & fees payable: $200.00')
     expect(page).to have_css('div', text: '$200.00 accruing on overdue items')
   end
 
