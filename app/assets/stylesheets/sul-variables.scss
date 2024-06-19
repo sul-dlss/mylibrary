@@ -2,9 +2,6 @@
 $beige-5-percent: #fbfbf9;
 $black: #000;
 $blackish: #2e2d29;
-$blue: #00548f;
-$bright-blue: #006cb8;
-$bright-red: #b1040e;
 $cardinal-red: #8c1515;
 $cloud: #dad7cb;
 $cool-grey: #4d4f53;
@@ -34,15 +31,15 @@ $sul-bg-color: $beige-5-percent;
 $sul-btn-default-color: $cloud;
 $sul-btn-disabled-color: $cool-grey;
 $sul-btn-primary-color: $cardinal-red;
-$sul-btn-success-color: $bright-blue;
+$sul-btn-success-color: $su-digital-blue;
 $sul-btn-link-disabled-color: $blackish;
 $sul-footer-bg-color: $light-sandstone;
 $sul-h1-font-color: $blackish;
 $sul-h2-font-color: $stone;
 $sul-h3-font-color: $cool-grey;
 $sul-h4-font-color: $cool-grey;
-$sul-link-color: $bright-blue;
-$sul-link-color-border: $blue;
+$sul-link-color: $su-digital-blue;
+$sul-link-color-border: $su-digital-blue-dark;
 $sul-shadow-color: rgba(0, 0, 0, .2);
 $sul-text-color: $blackish;
 $sul-list-group-item-bg: $light-sandstone;
@@ -56,7 +53,7 @@ $nav-pills-link-active-color: $blackish;
 $nav-pills-link-active-bg: #d7d3c9;
 
 $color-ready: $mint;
-$color-recalled: $bright-red;
+$color-recalled: $su-digital-red;
 $color-overdue: $poppy;
 
 // Spacing

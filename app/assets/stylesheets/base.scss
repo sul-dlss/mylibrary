@@ -16,7 +16,7 @@ a {
 }
 
 a[target="_blank"], p a, form a{
-  border-bottom: 1px solid $bright-blue;
+  border-bottom: 1px solid $su-digital-blue;
 }
 
 .btn:not(.btn-link):disabled {
@@ -81,7 +81,7 @@ thead {
 }
 
 .turbo-progress-bar {
-  background: $blue;
+  background: $su-digital-blue-dark;
   display: block;
   height: 3px;
   left: 0;
