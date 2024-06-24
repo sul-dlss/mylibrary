@@ -48,6 +48,13 @@
     "details": null
   },
   {
+    "discoveryDisplayName": "Circulation Desk -- Hallway",
+    "id": "3a40852d-49fd-4df2-a1f9-6e2641a6e91f",
+    "code": "cd1",
+    "pickupLocation": true,
+    "details": null
+  },
+  {
     "discoveryDisplayName": "Earth Sciences Library (Branner)",
     "id": "4827ae1d-b8bf-4b90-9e09-d642557893ab",
     "code": "EARTH-SCI",
@@ -213,6 +220,13 @@
     "id": "bd5fd8d9-72f3-4532-b68c-4db88063d16b",
     "code": "EDUCATION",
     "pickupLocation": false,
+    "details": null
+  },
+  {
+    "discoveryDisplayName": "Circulation Desk -- Back Entrance",
+    "id": "c4c90014-c8c9-4ade-8f24-b5e313319f4b",
+    "code": "cd2",
+    "pickupLocation": true,
     "details": null
   },
   {
