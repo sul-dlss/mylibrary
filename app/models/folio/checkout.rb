@@ -175,7 +175,11 @@ module Folio
     end
 
     def effective_loan_policy
-      @effective_loan_policy ||= Folio::Types.loan_policies[effective_loan_policy_id]
+      @effective_loan_policy ||= Folio::Types.loan_policies.fetch(effective_loan_policy_id) do
+        Honeybadger.notify('Unable to find loan policy for checkout',
+                           context: { key:, effective_loan_policy_id: })
+        {}
+      end
     end
 
     # NOTE: We need to fetch the latest loan policy to evaluate renewability. The loan policy returned
