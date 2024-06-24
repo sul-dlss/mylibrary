@@ -11,6 +11,10 @@ module Folio
       @hold_queue_length = hold_queue_length
     end
 
+    def name
+      loan_policy['name']
+    end
+
     def loan_policy_interval
       loan_policy.dig('loansPolicy', 'period', 'intervalId')
     end
@@ -62,6 +66,8 @@ module Folio
       schedule = schedule_policy.find do |policy|
         Time.zone.now.between?(policy['from'], policy['to'])
       end
+
+      Honeybadger.notify('No schedule found for loan policy', context: { loan_policy_name: name }) unless schedule
 
       schedule['due'] if schedule
     end

@@ -181,13 +181,18 @@ module Folio
     # NOTE: We need to fetch the latest loan policy to evaluate renewability. The loan policy returned
     # with the loan is the policy at the time of checkout and could have changed in ways that impact
     # eligibility for renewal.
-    def effective_loan_policy_id
+    def effective_loan_policy_id # rubocop:disable Metrics/AbcSize,Metrics/MethodLength
       cache_key = ['effective_loan_policy_id', item_type_id, loan_type_id, patron_type_id, location_id].join(':')
       Rails.cache.fetch(cache_key, expires_in: 1.day) do
         response = FolioClient.new.find_effective_loan_policy(item_type_id:,
                                                               loan_type_id:,
                                                               patron_type_id:,
                                                               location_id:)
+
+        unless response['loanPolicyId']
+          Honeybadger.notify('Unable to find effective loan policy for checkout',
+                             context: { key:, cache_key:, response: })
+        end
 
         response['loanPolicyId']
       end
