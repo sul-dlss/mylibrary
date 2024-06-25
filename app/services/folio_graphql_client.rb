@@ -257,6 +257,7 @@ class FolioGraphqlClient
             id
             userId
             remaining
+            dateCreated
             amount
             loanId
             loan {
@@ -271,6 +272,9 @@ class FolioGraphqlClient
             actions {
               dateAction
               typeAction
+            }
+            metadata {
+              createdDate
             }
             paymentStatus {
               name

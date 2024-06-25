@@ -38,11 +38,13 @@ module Folio
       record.dig('feeFine', 'feeFineType')
     end
 
-    # dateCreated on the account is often null, so we use the first action date
+    # dateCreated on the account is often null, so we often fall back on the first action date
     def bill_date
-      return if record['actions'].none?
+      @bill_date ||= begin
+        value = record['dateCreated'] || record.dig('metadata', 'createdDate') || record.dig('actions', 0, 'dateAction')
 
-      Time.zone.parse(record.dig('actions', 0, 'dateAction'))
+        Time.zone.parse(value) if value
+      end
     end
 
     # dateUpdated on the account is often null, so we use the last action date if closed
