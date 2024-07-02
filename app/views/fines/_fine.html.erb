@@ -44,7 +44,7 @@
     </dl>
     <div class="row">
       <div class="col-11 offset-1 col-md-10 offset-md-2">
-        <%= link_to contact_path(library: fine.library_code), data: { 'mylibrary-modal' => 'trigger' } do %>
+        <%= link_to contact_path(library: fine.library_code, barcode: fine.barcode, status: fine.nice_status), data: { 'mylibrary-modal' => 'trigger' } do %>
           <%= sul_icon 'sharp-email-24px' %>
           Contact library
         <% end %>

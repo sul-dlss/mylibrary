@@ -6,6 +6,10 @@
 <div class="modal-body">
   <%= form_tag contact_path, method: :post, class: 'contact-form' do %>
     <%= hidden_field_tag :contact_form_to, library_email(params[:library]) %>
+    <% if params[:barcode] %>
+      <%= hidden_field_tag :barcode, params[:barcode] %>
+      <%= hidden_field_tag :status, params[:status] %>
+    <% end %>
     <dl class="row">
       <dt class="col-2">Source:</dt>
       <dd class="col-10 reporting-from-field"><%= request.referer %></dd>
