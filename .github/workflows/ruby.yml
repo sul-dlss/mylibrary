@@ -21,7 +21,9 @@ jobs:
     - name: Configure bundler
       run: bundle config set --local without 'production symphony'
     - name: Install ruby dependencies
-      run: bundle install
+      run: |
+        bundle config path vendor/bundle
+        bundle install
     - name: Install javascript dependencies
       run: yarn install
     - name: Run tests
