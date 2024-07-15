@@ -7,6 +7,8 @@ class ContactMailer < ApplicationMailer
     @email = params[:email] || 'User not logged in'
     @message = params[:message]
     @ip = ip
+    @barcode = params[:barcode]
+    @status = params[:status]
 
     mail(to: params[:contact_form_to],
          subject: t('mylibrary.contact_mailer.subject').to_s,

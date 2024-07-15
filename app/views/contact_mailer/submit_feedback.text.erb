@@ -5,3 +5,9 @@ Comment: <%= @message.html_safe unless @message.nil? %>
 Message sent from: 'My Library Account'
 Host: <%= Settings.HOSTNAME %>
 IP: <%= @ip %>
+
+<% if @barcode %>
+Item information:
+Barcode: <%= @barcode %>
+Status: <%= @status %>
+<% end %>
