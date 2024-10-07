@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe RenewalsController do
-  let(:api_response) { instance_double('Response', status: 201, content_type: :json) }
+  let(:api_response) { instance_double(Faraday::Response, status: 201) }
   let(:mock_client) do
     instance_double(FolioClient, renew_item_by_id: api_response, ping: true)
   end
@@ -42,7 +42,7 @@ RSpec.describe RenewalsController do
     end
 
     context 'when the response is not 201' do
-      let(:api_response) { instance_double('Response', status: 401, content_type: :json) }
+      let(:api_response) { instance_double(Faraday::Response, status: 401) }
 
       it 'does not renew the item and sets flash messages' do
         post :create, params: { item_id: '123' }

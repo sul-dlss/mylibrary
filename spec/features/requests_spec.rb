@@ -12,7 +12,7 @@ RSpec.describe 'Request Page' do
     build(:service_points)
   end
 
-  let(:api_response) { instance_double('Response', status: 204, content_type: :json) }
+  let(:api_response) { instance_double(Faraday::Response, status: 204) }
 
   before do
     allow(FolioClient).to receive(:new).and_return(mock_client)

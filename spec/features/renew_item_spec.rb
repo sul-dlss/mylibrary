@@ -16,7 +16,7 @@ RSpec.describe 'Renew item', :js do
     build(:service_points)
   end
 
-  let(:api_response) { instance_double('Response', status: 201, content_type: :json) }
+  let(:api_response) { instance_double(Faraday::Response, status: 201) }
   let(:bulk_renew_response) do
     { success: [instance_double(Folio::Checkout, key: '1', renewable?: true, item_id: '123', title: 'ABC')] }
   end
