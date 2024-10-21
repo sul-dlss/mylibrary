@@ -62,7 +62,7 @@ RSpec.describe RequestsController do
     end
 
     describe '#update' do
-      let(:api_response) { instance_double('Response', status: 204, content_type: :json) }
+      let(:api_response) { instance_double(Faraday::Response, status: 204) }
 
       let(:requests) do
         [instance_double(Folio::Request, key: '123')]
@@ -138,7 +138,7 @@ RSpec.describe RequestsController do
     end
 
     describe '#destroy' do
-      let(:api_response) { instance_double('Response', status: 204, content_type: :json) }
+      let(:api_response) { instance_double(Faraday::Response, status: 204) }
       let(:mock_client) { instance_double(FolioClient, cancel_request: api_response, ping: true) }
 
       let(:requests) do
@@ -162,7 +162,7 @@ RSpec.describe RequestsController do
       end
 
       context 'when the response is not 204' do
-        let(:api_response) { instance_double('Response', status: 401, content_type: :json, body: 'foo') }
+        let(:api_response) { instance_double(Faraday::Response, status: 401, body: 'foo') }
 
         it 'does not cancel the hold and sets flash messages' do
           delete :destroy, params: { id: '123' }
