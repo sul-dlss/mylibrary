@@ -14,7 +14,6 @@ class BorrowDirectReshareClient
                  username: Settings.borrow_direct_reshare.username,
                  password: Settings.borrow_direct_reshare.password,
                  tenant: Settings.borrow_direct_reshare.tenant)
-
     @base_url = url
     @username = username
     @password = password
