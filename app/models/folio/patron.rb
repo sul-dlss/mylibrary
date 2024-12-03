@@ -208,13 +208,14 @@ module Folio
     end
 
     def borrow_direct_requests
-      return [] if proxy_borrower? # Proxies can't submit borrow direct requests, so don't check.
+      []
+      # return [] if proxy_borrower? # Proxies can't submit borrow direct requests, so don't check.
 
-      if Settings.borrow_direct_reshare.enabled
-        BorrowDirectReshareRequests.new(university_id).requests
-      else
-        BorrowDirectRequests.new(barcode).requests
-      end
+      # if Settings.borrow_direct_reshare.enabled
+      #   BorrowDirectReshareRequests.new(university_id).requests
+      # else
+      #   BorrowDirectRequests.new(barcode).requests
+      # end
     end
 
     # this is all requests including self and group/proxy
