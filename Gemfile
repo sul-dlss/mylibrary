@@ -46,8 +46,6 @@ gem 'warden'
 
 gem 'nokogiri'
 
-gem 'borrow_direct'
-
 gem 'recaptcha'
 
 gem 'global_alerts'
