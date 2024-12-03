@@ -25,6 +25,21 @@ class GraphqlCheck < OkComputer::Check
   end
 end
 
+class BorrowDirectReshareCheck < OkComputer::Check
+  def check
+    if BorrowDirectReshareClient.new.ping
+      mark_message 'Connected to BorrowDirect Reshare'
+    else
+      mark_failure
+      mark_message 'Unable to connect to BorrowDirect Reshare'
+    end
+  end
+end
+
 OkComputer::Registry.register('okapi', OkapiCheck.new) if Settings.folio.okapi_url
 OkComputer::Registry.register('graphql', GraphqlCheck.new) if Settings.folio.graphql_url
-OkComputer.make_optional [('okapi' if Settings.folio.okapi_url), ('graphql' if Settings.folio.graphql_url)].compact
+OkComputer::Registry.register('reshare', BorrowDirectReshareCheck.new) if Settings.borrow_direct_reshare.enabled
+
+OkComputer.make_optional [('okapi' if Settings.folio.okapi_url),
+                          ('graphql' if Settings.folio.graphql_url),
+                          ('reshare' if Settings.borrow_direct_reshare.enabled)].compact
