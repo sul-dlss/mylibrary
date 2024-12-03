@@ -50,7 +50,7 @@ RSpec.describe RequestsController do
       let(:requests) do
         [
           instance_double(Folio::Request, key: '1', sort_key: nil),
-          instance_double(BorrowDirectRequests::Request, key: 'sta-1', sort_key: nil)
+          instance_double(BorrowDirectReshareRequests::ReshareRequest, key: 'sta-1', sort_key: nil)
         ]
       end
 
