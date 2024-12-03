@@ -23,6 +23,9 @@ class BorrowDirectReshareRequests
     request_client.requests(patron_university_id).map do |request|
       ReshareRequest.new(request)
     end
+  rescue BorrowDirectReshareClient::BorrowDirectError => e
+    Honeybadger.notify(e)
+    []
   end
 
   def request_client

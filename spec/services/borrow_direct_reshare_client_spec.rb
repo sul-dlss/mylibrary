@@ -63,6 +63,17 @@ RSpec.describe BorrowDirectReshareClient do
         expect(client.get_json('/blah')).to be_nil
       end
     end
+
+    describe 'when the response status is not okay' do
+      before do
+        stub_request(:get, 'https://example.com/blah')
+          .to_return(status: 403)
+      end
+
+      it 'raises an error' do
+        expect { client.get_json('/blah') }.to raise_error(BorrowDirectReshareClient::BorrowDirectError)
+      end
+    end
   end
 
   describe '#requests' do
