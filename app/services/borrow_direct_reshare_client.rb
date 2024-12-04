@@ -3,6 +3,8 @@
 require 'http'
 
 class BorrowDirectReshareClient
+  class BorrowDirectError < StandardError; end
+
   DEFAULT_HEADERS = {
     accept: 'application/json, text/plain',
     content_type: 'application/json'
@@ -25,7 +27,7 @@ class BorrowDirectReshareClient
   end
 
   def get_json(path, **)
-    parse(get(path, **))
+    parse(check_response(get(path, **)))
   end
 
   def requests(university_id)
@@ -45,8 +47,14 @@ class BorrowDirectReshareClient
 
   private
 
+  def check_response(response)
+    return response if [200, 201].include?(response.status)
+
+    raise BorrowDirectError, "Response status: #{response.status}; Response body: #{response.body}"
+  end
+
   def parse(response)
-    return nil if !response || response.body.empty?
+    return nil unless response.respond_to?(:body) && !response.body.empty?
 
     JSON.parse(response.body)
   rescue JSON::ParserError => e
@@ -56,7 +64,7 @@ class BorrowDirectReshareClient
   def session_token
     @session_token ||= begin
       response = request('/authn/login', json: { username: @username, password: @password }, method: :post)
-      response ? response['x-okapi-token'] : nil
+      check_response(response) ? response['x-okapi-token'] : nil
     end
   end
 
