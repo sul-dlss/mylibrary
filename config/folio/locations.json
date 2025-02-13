@@ -7079,6 +7079,28 @@
     }
   },
   {
+    "id": "7f826632-b15c-4937-be71-c63011865d25",
+    "name": "Green Gov Tech Processor",
+    "code": "GRE-GOV-TECH-PROCESSOR",
+    "discoveryDisplayName": "In process",
+    "isActive": true,
+    "institutionId": "8d433cdd-4e8f-4dc1-aa24-8a4ddb7dc929",
+    "campusId": "c365047a-51f2-45ce-8601-e421ca3615c5",
+    "libraryId": "f6b5519e-88d9-413e-924d-9ed96255f72e",
+    "details": {},
+    "primaryServicePoint": "a5dbb3dc-84f8-4eb3-8bfe-c61f74a9e92d",
+    "servicePointIds": [
+      "a5dbb3dc-84f8-4eb3-8bfe-c61f74a9e92d"
+    ],
+    "servicePoints": [],
+    "metadata": {
+      "createdDate": "2025-02-12T23:12:18.316+00:00",
+      "createdByUserId": "92c1aeb5-87f1-4be1-9f4d-0f90d1203dcc",
+      "updatedDate": "2025-02-12T23:12:18.316+00:00",
+      "updatedByUserId": "92c1aeb5-87f1-4be1-9f4d-0f90d1203dcc"
+    }
+  },
+  {
     "id": "7fd5f273-904c-4b11-ae1b-0fb74aca1188",
     "name": "Green SSRC",
     "code": "GRE-SSRC",
