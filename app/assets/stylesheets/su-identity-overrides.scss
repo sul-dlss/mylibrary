@@ -4,3 +4,23 @@
 #global-footer .container { // bootstrap container styles conflict w/ su-identity
   width: auto;
 }
+
+
+// These global-footer styles are temporary, until we switch to the component library.
+#global-footer {
+  margin-top: -220px;
+}
+
+@media screen and (min-width: 768px) {
+  #global-footer {
+    margin-top: -124px;
+    height: 150px;
+  }
+}
+
+@media screen and (min-width: 992px) {
+  #global-footer {
+    margin-top: -164px;
+    height: 164px;
+  }
+}
