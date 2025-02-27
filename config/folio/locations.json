@@ -9533,28 +9533,6 @@
     }
   },
   {
-    "id": "afd57c4b-ed4d-4f31-97e9-98bad8d432ef",
-    "name": "Lane Staff: Lib Lit",
-    "code": "LANE-LIBR",
-    "discoveryDisplayName": "Library Staff Collection (Lane Staff Use Only)",
-    "isActive": true,
-    "institutionId": "8d433cdd-4e8f-4dc1-aa24-8a4ddb7dc929",
-    "campusId": "40b76104-95ea-4360-a2be-5fd887222e2d",
-    "libraryId": "5b2c8449-eed6-4bd3-bcef-af1e5a225400",
-    "details": {},
-    "primaryServicePoint": "0483c7bd-8e95-4c7b-9704-484b01879b02",
-    "servicePointIds": [
-      "0483c7bd-8e95-4c7b-9704-484b01879b02"
-    ],
-    "servicePoints": [],
-    "metadata": {
-      "createdDate": "2023-08-10T17:46:29.731+00:00",
-      "createdByUserId": "58d0aaf6-dcda-4d5e-92da-012e6b7dd766",
-      "updatedDate": "2023-08-10T17:46:29.731+00:00",
-      "updatedByUserId": "58d0aaf6-dcda-4d5e-92da-012e6b7dd766"
-    }
-  },
-  {
     "id": "b0402b41-91a9-4ec3-8c91-47e725e7fdf5",
     "name": "SAL3 PAGE-LP",
     "code": "SAL3-PAGE-LP",
