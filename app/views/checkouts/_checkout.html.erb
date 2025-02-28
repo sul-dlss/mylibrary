@@ -21,7 +21,7 @@
       <div class="w-50 col-md-12 col-lg-6 clamp-1 author" data-sort-author="<%= h checkout.sort_key(:author) %>"><%= checkout.author %></div>
       <div class="w-50 col-md-12 col-lg-6 call_number" data-sort-call_number="<%= h checkout.sort_key(:call_number) %>"><%= checkout.call_number %></div>
     </div>
-    <button class="col-2 col-md order-2 order-md-3 btn collapsed stretched-link position-static" type="button" data-toggle="collapse" data-target="#collapseDetails-<%= checkout.key.parameterize %>" aria-expanded="false" aria-controls="collapseDetails-<%= checkout.key.parameterize %>">
+    <button class="col-2 col-md order-2 order-md-3 btn collapsed stretched-link position-static" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDetails-<%= checkout.key.parameterize %>" aria-expanded="false" aria-controls="collapseDetails-<%= checkout.key.parameterize %>">
       <span class="expand-icon"><%= sul_icon :'sharp-add-24px' %><span class="sr-only">Expand</span></span>
       <span class="collapse-icon"><%= sul_icon :'sharp-remove-24px' %><span class="sr-only">Collapse</span></span>
     </button>
