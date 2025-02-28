@@ -40,8 +40,6 @@ gem 'faraday-retry'
 
 gem 'okcomputer'
 
-gem 'jquery-rails'
-
 gem 'warden'
 
 gem 'nokogiri'
