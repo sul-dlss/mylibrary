@@ -5,7 +5,7 @@
       >Stanford University Libraries
     </a>
 
-    <ul class="navbar-nav ml-auto">
+    <ul class="navbar-nav ms-auto">
       <li class="nav-item">
         <%= link_to "#{current_user.username}: logout", logout_url, class: 'nav-link', data: { turbo: false } if current_user? %>
       </li>
