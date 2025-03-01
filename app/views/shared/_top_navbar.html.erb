@@ -10,7 +10,7 @@
         <%= link_to "#{current_user.username}: logout", logout_url, class: 'nav-link', data: { turbo: false } if current_user? %>
       </li>
       <li class="nav-item">
-        <%= link_to feedback_path, data: { toggle: 'collapse', target: '#feedback-form' }, class: 'nav-link' do %>
+        <%= link_to feedback_path, data: { 'bs-toggle': 'collapse', 'bs-target': '#feedback-form' }, class: 'nav-link' do %>
           Feedback
         <% end %>
       </li>
