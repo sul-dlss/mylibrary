@@ -26,7 +26,7 @@ Mylibrary.modal.modalAjaxClickLink = function(e) {
 Mylibrary.modal.onFailure = function(data) {
   var contents =  '<div class="modal-header">' +
             '<div class="modal-title">Network Error</div>' +
-            '<button type="button" class="mylibrary-modal-close close" data-dismiss="modal" aria-label="Close">' +
+            '<button type="button" class="mylibrary-modal-close close" data-bs-dismiss="modal" aria-label="Close">' +
             '  <span aria-hidden="true">&times;</span>' +
             '</button>';
   $(Mylibrary.modal.modalSelector).find('.modal-content').html(contents);
