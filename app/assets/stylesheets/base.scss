@@ -94,7 +94,7 @@ thead {
 
 .text-recalled,
 .patron-barred {
-  color: var(--bs-danger);
+  color: shade-color($danger, 48);
 
   svg {
     fill: $color-recalled;
@@ -103,7 +103,7 @@ thead {
 
 .text-overdue,
 .text-lost {
-  color: var(--bs-warning);
+  color: shade-color($warning, 48);
 
   svg {
     fill: $color-overdue;
