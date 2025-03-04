@@ -19,6 +19,10 @@ a[target="_blank"], p a, form a{
   border-bottom: 1px solid $su-digital-blue;
 }
 
+.btn, .btn-link {
+  text-decoration: none;
+}
+
 .btn:not(.btn-link):disabled {
   background-color: $sul-btn-disabled-color;
   color: $white;
