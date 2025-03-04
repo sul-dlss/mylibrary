@@ -13,12 +13,12 @@
       </div>
       <% if request.expiration_date %>
         <div class="w-50 col-md-12 col-lg-6 text-end text-md-start date" data-sort-date="<%= h request.sort_key(:date) %>">
-          <span class="d-inline d-md-none mr-2">by</span>
+          <span class="d-inline d-md-none me-2">by</span>
           <%= l(request.expiration_date, format: :short) %>
         </div>
       <% elsif request.fill_by_date %>
         <div class="w-50 col-md-12 col-lg-6 text-end text-md-start date" data-sort-date="<%= h request.sort_key(:date) %>">
-        <span class="d-inline d-md-none mr-2">Exp.</span>
+        <span class="d-inline d-md-none me-2">Exp.</span>
           <%= l(request.fill_by_date, format: :short) %>
         </div>
       <% end %>
