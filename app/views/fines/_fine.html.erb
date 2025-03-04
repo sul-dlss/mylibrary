@@ -18,8 +18,8 @@
       <div class="w-50 col-md-12 col-lg-6 call_number" data-shelfkey="<%= fine.shelf_key if fine.bib? %>"><%= fine.call_number if fine.bib? %></div>
     </div>
     <button class="col-2 col-md order-2 order-md-3 btn collapsed stretched-link position-static" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDetails-<%= fine.key.parameterize %>" aria-expanded="false" aria-controls="collapseDetails-<%= fine.key.parameterize %>">
-      <span class="expand-icon"><%= sul_icon :'sharp-add-24px' %><span class="sr-only">Expand</span></span>
-      <span class="collapse-icon"><%= sul_icon :'sharp-remove-24px' %><span class="sr-only">Collapse</span></span>
+      <span class="expand-icon"><%= sul_icon :'sharp-add-24px' %><span class="visually-hidden">Expand</span></span>
+      <span class="collapse-icon"><%= sul_icon :'sharp-remove-24px' %><span class="visually-hidden">Collapse</span></span>
     </button>
   </div>
   <div class="collapse w-100" id="collapseDetails-<%= fine.key.parameterize %>">
