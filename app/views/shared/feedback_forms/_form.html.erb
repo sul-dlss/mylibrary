@@ -13,19 +13,19 @@
         <%= hidden_field_tag :viewport %>
       </span>
       <div class="offset-md-2 col-md-7">
-        <div class="form-group row">
+        <div class="row mb-3">
           <%= label_tag(:message, 'Message', class:"col-md-3 col-form-label text-end") %>
           <div class="col-md-9">
             <%= text_area_tag :message, "", rows:"5", class:"form-control", required: true %>
           </div>
         </div>
-        <div class="form-group row">
+        <div class="row mb-3">
           <%= label_tag(:name, 'Your name', class:"col-md-3 col-form-label text-end") %>
           <div class="col-md-9">
             <%= text_field_tag :name, patron&.display_name, autocomplete: 'name', class:"form-control", required: true %>
           </div>
         </div>
-        <div class="form-group row">
+        <div class="row mb-3">
           <%= label_tag(:to, 'Your email', class:"col-md-3 col-form-label text-end") %>
           <div class="col-md-9">
             <%= email_field_tag :to, patron&.email, autocomplete: 'email', class:"form-control", required: true %>
@@ -33,7 +33,7 @@
         </div>
 
         <% unless current_user? %>
-          <div class="form-group row mylibrary-captcha">
+          <div class="row mb-3 mylibrary-captcha">
             <div class="col-md-9 offset-md-3">
               <%= recaptcha_tags %>
 
@@ -42,7 +42,7 @@
           </div>
         <% end %>
 
-        <div class="form-group row">
+        <div class="row mb-3">
           <div class="col-md-9 offset-md-3">
             <button type="submit" class="btn btn-primary">Send</button>
             <%= link_to "Cancel", :back, class:"cancel-link", data: {'bs-toggle':"collapse", 'bs-target':"#feedback-form"} %>
