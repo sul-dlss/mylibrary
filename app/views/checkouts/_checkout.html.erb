@@ -1,6 +1,6 @@
 <li class="list-group-item <%= list_group_item_status_for_checkout(checkout)%>">
   <div class="row d-flex flex-wrap position-relative justify-content-between">
-    <div class="d-flex flex-row flex-grow-1 justify-content-between align-items-baseline w-100 row col-md-4">
+    <div class="d-flex flex-row flex-grow-1 flex-basis-4 justify-content-between align-items-baseline w-100 row col-md-4">
       <div class="w-50 col-md-12 col-lg-6 status" data-sort-status="<%= h checkout.sort_key(:status) %>">
         <%= render_checkout_status(checkout) %>
       </div>

@@ -125,3 +125,10 @@ thead {
 [data-sort] {
   cursor: pointer;
 }
+
+// Bootstrap 4 applied `flex: 0 0 33.33333%` to col-md-4. Bootstrap 5 does not.
+// This util class is used to transition the responsive tables from BS4 -> BS5
+// with minimal markup changes.
+.flex-basis-4 {
+  flex-basis: 33%;
+}
