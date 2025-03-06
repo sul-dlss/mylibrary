@@ -41,7 +41,7 @@ class BorrowDirectReshareClient
 
   def ping
     session_token.present?
-  rescue HTTP::Error
+  rescue HTTP::Error, BorrowDirectError
     false
   end
 
