@@ -44,6 +44,7 @@ a:focus,
 a:active {
   @include link-styling;
 
+  &.btn-secondary,
   &.btn-link {
     border-bottom: 1px solid transparent;
   }
