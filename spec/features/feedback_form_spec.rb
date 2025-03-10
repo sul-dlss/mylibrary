@@ -35,6 +35,8 @@ RSpec.describe 'Feedback form' do
 
     it 'reCAPTCHA challenge is NOT present' do
       visit feedback_path
+
+      expect(page).to have_content('Feedback')
       expect(page).to have_no_css '.mylibrary-captcha'
     end
 

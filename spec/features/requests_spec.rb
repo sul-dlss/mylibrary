@@ -115,6 +115,7 @@ RSpec.describe 'Request Page' do
     it 'does not render table headers' do
       visit requests_path
 
+      expect(page).to have_content('Requested: 0')
       expect(page).to have_no_css('.list-header')
     end
   end
