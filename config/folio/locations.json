@@ -2388,6 +2388,28 @@
     }
   },
   {
+    "id": "25458af5-a928-426d-9453-caecf0c54408",
+    "name": "Science Exhibit",
+    "code": "SCI-EXHIBIT",
+    "discoveryDisplayName": "On exhibit",
+    "isActive": true,
+    "institutionId": "8d433cdd-4e8f-4dc1-aa24-8a4ddb7dc929",
+    "campusId": "c365047a-51f2-45ce-8601-e421ca3615c5",
+    "libraryId": "e8068690-b2c9-433b-83ac-3bdfd6427e1a",
+    "details": {},
+    "primaryServicePoint": "50ef1036-06d3-48ef-9048-26cabfccf630",
+    "servicePointIds": [
+      "50ef1036-06d3-48ef-9048-26cabfccf630"
+    ],
+    "servicePoints": [],
+    "metadata": {
+      "createdDate": "2025-03-12T21:16:57.434+00:00",
+      "createdByUserId": "92c1aeb5-87f1-4be1-9f4d-0f90d1203dcc",
+      "updatedDate": "2025-03-12T21:16:57.434+00:00",
+      "updatedByUserId": "92c1aeb5-87f1-4be1-9f4d-0f90d1203dcc"
+    }
+  },
+  {
     "id": "25b19d0e-ac10-44cf-a5be-d7c15b209200",
     "name": "Marine Bio Withdrawn Digital Substitute",
     "code": "MAR-WD-DIGITAL-SUB",
