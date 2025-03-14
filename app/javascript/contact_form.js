@@ -74,7 +74,7 @@ $(document).on('turbo:load', function(){
 
     function renderFlashMessages(response){
       $.each(response, function(i,val){
-        var flashHtml = "<div class='alert alert-" + val[0] + "'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>" + val[1] + "</div>";
+        var flashHtml = "<div class='alert alert-" + val[0] + "'><button type='button' class='btn-close' data-bs-dismiss='alert' aria-hidden='true'></button>" + val[1] + "</div>";
 
         // Show the flash message
         $('div.flash_messages').html(flashHtml);

@@ -4,6 +4,7 @@ import './jquery-shim'
 
 import Rails from 'rails-ujs'
 
+import * as bootstrap from "bootstrap"
 import './ajax_in_place_updates'
 import './analytics'
 import './contact_form'

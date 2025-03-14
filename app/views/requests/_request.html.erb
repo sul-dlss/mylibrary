@@ -1,6 +1,6 @@
 <li class="list-group-item">
-  <div class="row d-flex flex-wrap position-relative justify-content-between">
-    <div class="d-flex flex-row flex-grow-1 justify-content-between w-100 row col-md-4">
+  <div class="row flex-wrap position-relative justify-content-between">
+    <div class="flex-row flex-grow-1 flex-basis-4 justify-content-between w-100 row col-md-4">
       <div class="w-50 col-md-12 col-lg-6 library" data-sort-library="<%= h request.sort_key(:library) %>">
         <% if request.ready_for_pickup? %>
           <span class="text-ready">
@@ -12,13 +12,13 @@
         <% end %>
       </div>
       <% if request.expiration_date %>
-        <div class="w-50 col-md-12 col-lg-6 text-right text-md-left date" data-sort-date="<%= h request.sort_key(:date) %>">
-          <span class="d-inline d-md-none mr-2">by</span>
+        <div class="w-50 col-md-12 col-lg-6 text-end text-md-start date" data-sort-date="<%= h request.sort_key(:date) %>">
+          <span class="d-inline d-md-none me-2">by</span>
           <%= l(request.expiration_date, format: :short) %>
         </div>
       <% elsif request.fill_by_date %>
-        <div class="w-50 col-md-12 col-lg-6 text-right text-md-left date" data-sort-date="<%= h request.sort_key(:date) %>">
-        <span class="d-inline d-md-none mr-2">Exp.</span>
+        <div class="w-50 col-md-12 col-lg-6 text-end text-md-start date" data-sort-date="<%= h request.sort_key(:date) %>">
+        <span class="d-inline d-md-none me-2">Exp.</span>
           <%= l(request.fill_by_date, format: :short) %>
         </div>
       <% end %>
@@ -30,9 +30,9 @@
       <div class="w-50 col-md-12 col-lg-6 clamp-1 author" data-sort-author="<%= h request.sort_key(:author) %>"><%= request.author %></div>
       <div class="w-50 col-md-12 col-lg-6 call_number" data-sort-call_number="<%= h request.sort_key(:call_number) %>"><%= request.call_number %></div>
     </div>
-    <button class="col-2 col-md order-2 order-md-3 btn collapsed stretched-link position-static" type="button" data-toggle="collapse" data-target="#collapseDetails-<%= request.key.parameterize %>" aria-expanded="false" aria-controls="collapseDetails-<%= request.key.parameterize %>">
-      <span class="expand-icon"><%= sul_icon :'sharp-add-24px' %><span class="sr-only">Expand</span></span>
-      <span class="collapse-icon"><%= sul_icon :'sharp-remove-24px' %><span class="sr-only">Collapse</span></span>
+    <button class="col-2 col-md order-2 order-md-3 btn collapsed stretched-link position-static" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDetails-<%= request.key.parameterize %>" aria-expanded="false" aria-controls="collapseDetails-<%= request.key.parameterize %>">
+      <span class="expand-icon"><%= sul_icon :'sharp-add-24px' %><span class="visually-hidden">Expand</span></span>
+      <span class="collapse-icon"><%= sul_icon :'sharp-remove-24px' %><span class="visually-hidden">Collapse</span></span>
     </button>
   </div>
   <div class="collapse w-100" id="collapseDetails-<%= request.key.parameterize %>">
