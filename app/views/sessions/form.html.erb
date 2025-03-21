@@ -1,15 +1,15 @@
 <h1><%= proxy_login_header %></h1>
 <%= form_tag login_by_university_id_url, method: :post do %>
 
-  <div class="form-group">
+  <div class="mb-3">
     <%= label_tag :university_id, t('mylibrary.university_id.label') %>
-    <%= text_field_tag :university_id, nil, class: 'form-control col-8 col-sm-4', 'aria-describedby': 'university-id-help', autofocus: true %>
+    <%= text_field_tag :university_id, nil, class: 'form-control col-8 col-sm-4 w-auto', 'aria-describedby': 'university-id-help', autofocus: true %>
     <small id="university-id-help" class="form-text text-muted"><%= t('mylibrary.university_id.help_text') %></small>
   </div>
 
-  <div class="form-group">
+  <div class="mb-3">
     <%= label_tag :pin, 'PIN' %>
-    <%= password_field_tag :pin, nil, class: 'form-control col-8 col-sm-4' %>
+    <%= password_field_tag :pin, nil, class: 'form-control col-8 col-sm-4 w-auto' %>
     <div class="form-text">
       <%= link_to "Forgot your PIN? Don't have one yet?", reset_pin_path %>
     </div>
