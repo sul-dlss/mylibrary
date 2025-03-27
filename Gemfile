@@ -49,8 +49,8 @@ gem 'recaptcha'
 gem 'global_alerts'
 
 group :production do
-  gem 'mysql2'
   gem 'newrelic_rpm'
+  gem 'pg'
 end
 
 group :development, :test do
