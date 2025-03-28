@@ -23,7 +23,7 @@ pipeline {
           export DEPLOY=1
 
           # Load RVM
-          rvm use 3.2.2@mylibrary --create
+          rvm use 3.4.1@mylibrary --create
           gem install bundler
 
           bundle install --without  "production symphony"
@@ -67,7 +67,7 @@ pipeline {
           export DEPLOY=1
 
           # Load RVM
-          rvm use 3.2.2@mylibrary --create
+          rvm use 3.4.1@mylibrary --create
           gem install bundler
 
           bundle install --without  "production symphony"
@@ -111,7 +111,7 @@ pipeline {
           export DEPLOY=1
 
           # Load RVM
-          rvm use 3.2.2@mylibrary --create
+          rvm use 3.4.1@mylibrary --create
           gem install bundler
 
           bundle install --without "production symphony"
@@ -156,7 +156,7 @@ pipeline {
           export REVISION=$TAG_NAME
 
           # Load RVM
-          rvm use 3.2.2@mylibrary --create
+          rvm use 3.4.1@mylibrary --create
           gem install bundler
 
           bundle install --without "production symphony"
