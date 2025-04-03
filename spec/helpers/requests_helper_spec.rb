@@ -4,13 +4,7 @@ require 'rails_helper'
 
 RSpec.describe RequestsHelper do
   let(:default_service_points) do
-    build(:default_service_points)
-  end
-
-  before do
-    allow(Folio::ServicePoint).to receive_messages(
-      default_service_points:
-    )
+    Folio::ServicePoint.default_service_points
   end
 
   describe '#request_location_options' do
@@ -60,7 +54,7 @@ RSpec.describe RequestsHelper do
 
       it 'puts all the defaults into the options list' do
         options = helper.request_location_options(request)
-        expect(options).to have_css 'option', count: 2
+        expect(options).to have_css 'option', count: default_service_points.count
       end
 
       it 'pre-selects the origin service point of the request' do
@@ -90,7 +84,7 @@ RSpec.describe RequestsHelper do
 
       it 'adds the origin service point to the default options list if it is a pickup location' do
         options = helper.request_location_options(request)
-        expect(options).to have_css 'option', count: 3
+        expect(options).to have_css 'option', count: default_service_points.count + 1
       end
 
       it 'pre-selects the origin service point of the request' do
@@ -126,7 +120,7 @@ RSpec.describe RequestsHelper do
 
       it 'keeps the original default options list' do
         options = helper.request_location_options(request)
-        expect(options).to have_css 'option', count: 2
+        expect(options).to have_css 'option', count: default_service_points.count
       end
     end
   end
