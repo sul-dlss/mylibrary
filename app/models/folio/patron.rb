@@ -102,6 +102,10 @@ module Folio
       "#{first_name} #{last_name}"
     end
 
+    def patron_group_name
+      user_info.dig('patronGroup', 'desc')
+    end
+
     def borrow_limit
       borrow_limit = user_info.dig('patronGroup', 'limits')&.find do |limit|
         limit.dig('condition', 'name') == 'Maximum number of items charged out'

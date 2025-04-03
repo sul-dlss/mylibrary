@@ -15,6 +15,10 @@ module Folio
     end
     # rubocop:enable Metrics/ParameterLists
 
+    def ineligible_patron_groups
+      Settings.service_points[code]&.cant_pick_up || []
+    end
+
     class << self
       def all
         @all ||= Folio::Types.get_type('service_points').map { |json| from_dynamic(json) }

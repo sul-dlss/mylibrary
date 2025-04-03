@@ -16,7 +16,13 @@ RSpec.describe 'requests/edit' do
     )
   end
 
+  let(:patron_or_group) { instance_double(Folio::Patron, patron_group_name: nil) }
+
   before do
+    without_partial_double_verification do
+      allow(view).to receive_messages(patron_or_group:)
+    end
+
     assign(:request, mock_request)
     render
   end

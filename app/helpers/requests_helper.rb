@@ -4,9 +4,9 @@
 module RequestsHelper
   ##
   # Generates the options needed to change a request's location
-  def request_location_options(request)
+  def request_location_options(request, patron)
     options_for_select(
-      service_points(request),
+      service_points(request, patron),
       # the second param here pre-selects the current service point in the dropdown
       selected: request.service_point_id
     )
@@ -16,10 +16,10 @@ module RequestsHelper
   #
   # @param request [Request] The request object
   # @return [Array<Array<String, String>>] Array of service points in [label, value] format for options_for_select
-  def service_points(request)
-    return restricted_service_point_options(request) if request.restricted_pickup_service_points.present?
+  def service_points(request, patron)
+    return restricted_service_point_options(request, patron) if request.restricted_pickup_service_points.present?
 
-    service_point_options(request)
+    service_point_options(request, patron)
   end
 
   private
@@ -28,9 +28,11 @@ module RequestsHelper
   #
   # @param request [Request] The request object
   # @return [Array<Array<String, String>>] An array of service point options in [label, value] format
-  def restricted_service_point_options(request)
-    request.restricted_pickup_service_points.map do |item|
-      [item['discoveryDisplayName'], item['id']]
+  def restricted_service_point_options(request, patron)
+    request.restricted_pickup_service_points.filter_map do |service_point|
+      next if patron && (Settings.service_points[service_point['code']]&.cant_pick_up || [])&.include?(patron.patron_group_name) && service_point['id'] != request.service_point_id
+
+      [service_point['discoveryDisplayName'], service_point['id']]
     end
   end
 
@@ -38,7 +40,7 @@ module RequestsHelper
   #
   # @param request [Request] The request object
   # @return [Array<Array<String, String>>] An array of service point options in [label, value] format
-  def service_point_options(request)
+  def service_point_options(request, patron)
     # start with the full list of defaults
     default_service_points = Folio::ServicePoint.default_service_points
     # Add the request's origin service point to the list
@@ -47,6 +49,9 @@ module RequestsHelper
     # Filter out non-pickup locations
     # Map the service points to the [label, value] format for options_for_select
     default_service_points.compact.uniq(&:id).select { |item| item.pickup_location == true }
-                          .map { |item| [item.name, item.id] }
+                          .filter_map do |service_point|
+                            next if patron && service_point.ineligible_patron_groups.include?(patron.patron_group_name) && service_point.id != request.service_point_id
+                            [service_point.name, service_point.id]
+                          end
   end
 end

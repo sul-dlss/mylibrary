@@ -18,9 +18,7 @@ module Folio
                    end
     end
 
-    delegate :barred?, to: :sponsor
-
-    delegate :blocked?, to: :sponsor
+    delegate :barred?, :blocked?, :patron_group_name, to: :sponsor
 
     def status
       standing
