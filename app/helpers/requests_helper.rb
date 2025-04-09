@@ -30,9 +30,12 @@ module RequestsHelper
   # @return [Array<Array<String, String>>] An array of service point options in [label, value] format
   def restricted_service_point_options(request, patron)
     request.restricted_pickup_service_points.filter_map do |service_point|
-      next if patron && (Settings.service_points[service_point['code']]&.cant_pick_up || [])&.include?(patron.patron_group_name) && service_point['id'] != request.service_point_id
+      if service_point.patron_ineligible_for_pickup?(patron) &&
+         service_point.id != request.service_point_id # if the service point is already selected, don't take it away
+        next
+      end
 
-      [service_point['discoveryDisplayName'], service_point['id']]
+      [service_point.name, service_point.id]
     end
   end
 
@@ -48,9 +51,14 @@ module RequestsHelper
     # Remove duplicates and nils in case origin was already in the default list or doesn't exit
     # Filter out non-pickup locations
     # Map the service points to the [label, value] format for options_for_select
-    default_service_points.compact.uniq(&:id).select { |item| item.pickup_location == true }
+    default_service_points.compact.uniq(&:id).select { |service_point| service_point.pickup_location == true }
                           .filter_map do |service_point|
-                            next if patron && service_point.ineligible_patron_groups.include?(patron.patron_group_name) && service_point.id != request.service_point_id
+                            if service_point.patron_ineligible_for_pickup?(patron) &&
+                               # ... but if the service point is already selected, don't take it away
+                               service_point.id != request.service_point_id
+                              next
+                            end
+
                             [service_point.name, service_point.id]
                           end
   end

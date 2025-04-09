@@ -18,12 +18,12 @@ RSpec.describe RequestsHelper do
       end
 
       before do
-        allow(request).to receive(:restricted_pickup_service_points).and_return([{
-          'code' => 'ART',
-          'id' => '77cd12ac-2de8-4d13-99a0-f6b3b4f4bdca',
-          'discoveryDisplayName' => 'Art & Architecture (Bowes)',
-          'pickupLocation' => true
-        }])
+        allow(request).to receive(:restricted_pickup_service_points).and_return([Folio::ServicePoint.new(
+          code: 'ART',
+          id: '77cd12ac-2de8-4d13-99a0-f6b3b4f4bdca',
+          name: 'Art & Architecture (Bowes)',
+          pickup_location: true
+        )])
       end
 
       it 'only allows the restricted service point as an option' do
@@ -44,20 +44,39 @@ RSpec.describe RequestsHelper do
       end
 
       before do
-        allow(request).to receive(:restricted_pickup_service_points).and_return([{
-          'code' => 'LANE-DESK',
-          'discoveryDisplayName' => 'Lane Medical Library',
-          'pickupLocation' => true
-        }])
-      end
-
-      before do
+        allow(request).to receive(:restricted_pickup_service_points).and_return([Folio::ServicePoint.new(
+          id: '123',
+          code: 'LANE-DESK',
+          name: 'Lane Medical Library',
+          pickup_location: true
+        )])
         allow(patron).to receive(:patron_group_name).and_return('sul-purchased')
       end
 
       it 'does not include the restricted service point in the options list' do
         options = helper.request_location_options(request, patron)
         expect(options).to have_css 'option', count: 0
+      end
+    end
+
+    context 'with an otherwise ineligible patron with a request is already set to a restricted service point' do
+      let(:request) do
+        instance_double(Folio::Request, service_point_id: '123')
+      end
+
+      before do
+        allow(request).to receive(:restricted_pickup_service_points).and_return([Folio::ServicePoint.new(
+          id: '123',
+          code: 'LANE-DESK',
+          name: 'Lane Medical Library',
+          pickup_location: true
+        )])
+        allow(patron).to receive(:patron_group_name).and_return('sul-purchased')
+      end
+
+      it 'includes the restricted service point in the options list' do
+        options = helper.request_location_options(request, patron)
+        expect(options).to have_css 'option', count: 1
       end
     end
 
@@ -121,7 +140,8 @@ RSpec.describe RequestsHelper do
                                       is_default_pickup: false,
                                       name: 'Archive of Recorded Sound',
                                       ineligible_patron_groups: [],
-                                      pickup_location: true)
+                                      pickup_location: true,
+                                      patron_ineligible_for_pickup?: false)
         )
         allow(request).to receive(:restricted_pickup_service_points).and_return(nil)
       end

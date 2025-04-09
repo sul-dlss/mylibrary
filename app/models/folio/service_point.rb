@@ -5,7 +5,7 @@ module Folio
     attr_reader :id, :code, :name, :pickup_location, :is_default_pickup, :is_default_for_campus
 
     # rubocop:disable Metrics/ParameterLists
-    def initialize(id:, code:, name:, pickup_location:, is_default_pickup:, is_default_for_campus:)
+    def initialize(id:, code:, name:, pickup_location:, is_default_pickup: false, is_default_for_campus: false)
       @id = id
       @code = code
       @name = name
@@ -17,6 +17,12 @@ module Folio
 
     def ineligible_patron_groups
       Settings.service_points[code]&.cant_pick_up || []
+    end
+
+    def patron_ineligible_for_pickup?(patron = nil)
+      return false unless patron
+
+      ineligible_patron_groups.include?(patron.patron_group_name)
     end
 
     class << self
