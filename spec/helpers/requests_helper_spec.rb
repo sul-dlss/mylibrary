@@ -139,9 +139,9 @@ RSpec.describe RequestsHelper do
                                       is_default_for_campus: nil,
                                       is_default_pickup: false,
                                       name: 'Archive of Recorded Sound',
-                                      ineligible_patron_groups: [],
+                                      unpermitted_pickup_groups: [],
                                       pickup_location: true,
-                                      patron_ineligible_for_pickup?: false)
+                                      patron_unpermitted_for_pickup?: false)
         )
         allow(request).to receive(:restricted_pickup_service_points).and_return(nil)
       end

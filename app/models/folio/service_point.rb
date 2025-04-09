@@ -15,14 +15,14 @@ module Folio
     end
     # rubocop:enable Metrics/ParameterLists
 
-    def ineligible_patron_groups
-      Settings.service_points[code]&.cant_pick_up || []
-    end
-
-    def patron_ineligible_for_pickup?(patron = nil)
+    def patron_unpermitted_for_pickup?(patron = nil)
       return false unless patron
 
-      ineligible_patron_groups.include?(patron.patron_group_name)
+      unpermitted_pickup_groups.include?(patron.patron_group_name)
+    end
+
+    def unpermitted_pickup_groups
+      Settings.service_points[code]&.unpermitted_pickup_groups || []
     end
 
     class << self

@@ -40,8 +40,8 @@ cybersource:
 
 service_points:
   LANE-DESK:
-    cant_pick_up: [bus-guest, law-alumni, law-guest, sul-contractprograms, sul-guest, sul-purchased, sul-short-term]
+    unpermitted_pickup_groups: [bus-guest, law-alumni, law-guest, sul-contractprograms, sul-guest, sul-purchased, sul-short-term]
   BUS-IDESK:
-    cant_pick_up: [lane-guest, law-alumni, law-guest, sul-guest, sul-purchased, sul-contractprograms, sul-short-term, visitor]
+    unpermitted_pickup_groups: [lane-guest, law-alumni, law-guest, sul-guest, sul-purchased, sul-contractprograms, sul-short-term, visitor]
   LAW:
-    cant_pick_up: [lane-guest, bus-guest, sul-guest, sul-contractprograms, sul-purchased, sul-short-term, visitor]
+    unpermitted_pickup_groups: [lane-guest, bus-guest, sul-guest, sul-contractprograms, sul-purchased, sul-short-term, visitor]
