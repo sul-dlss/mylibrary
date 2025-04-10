@@ -37,3 +37,11 @@ cybersource:
   access_key: 'change_me'
   secret_key: 'change_me'
   profile_id: 'change_me'
+
+service_points:
+  LANE-DESK:
+    unpermitted_pickup_groups: [bus-guest, law-alumni, law-guest, sul-contractprograms, sul-guest, sul-purchased, sul-short-term]
+  BUS-IDESK:
+    unpermitted_pickup_groups: [lane-guest, law-alumni, law-guest, sul-guest, sul-purchased, sul-contractprograms, sul-short-term, visitor]
+  LAW:
+    unpermitted_pickup_groups: [lane-guest, bus-guest, sul-guest, sul-contractprograms, sul-purchased, sul-short-term, visitor]

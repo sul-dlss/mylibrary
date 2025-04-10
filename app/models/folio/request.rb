@@ -72,7 +72,7 @@ module Folio
     end
 
     def item_call_key
-      record.dig('item', 'item', 'effectiveCallNumberComponents', 'callNumber')
+      item&.dig('effectiveCallNumberComponents', 'callNumber')
     end
 
     def service_point_name
@@ -88,7 +88,11 @@ module Folio
     end
 
     def restricted_pickup_service_points
-      record.dig('item', 'item', 'effectiveLocation', 'details', 'pageServicePoints')
+      service_points = item&.dig('effectiveLocation', 'details', 'pageServicePoints') || []
+
+      @restricted_pickup_service_points ||= service_points.map do |service_point|
+        Folio::ServicePoint.from_dynamic(service_point)
+      end
     end
 
     # rubocop:disable Metrics/MethodLength
@@ -118,5 +122,9 @@ module Folio
     end
 
     def manage_request_link; end
+
+    def item
+      record.dig('item', 'item')
+    end
   end
 end
