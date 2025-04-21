@@ -122,9 +122,5 @@ module Folio
     end
 
     def manage_request_link; end
-
-    def item
-      record.dig('item', 'item') || {}
-    end
   end
 end
