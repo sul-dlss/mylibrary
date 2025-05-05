@@ -2,28 +2,28 @@
 
 <dl class="row mb-0">
   <% if patron.patron_type %>
-    <dt class='col-5 col-sm-4 col-md-3 col-lg-2 font-weight-normal'>Patron type:</dt>
+    <dt class='col-5 col-sm-4 col-md-3 col-lg-2 fw-normal'>Patron type:</dt>
     <dd class='col-7 col-sm-8 col-md-9 col-lg-10 patron-type'><%= patron.patron_type %></dd>
   <% end %>
 
-  <dt class="col-5 col-sm-4 col-md-3 col-lg-2 font-weight-normal">Status:</dt>
+  <dt class="col-5 col-sm-4 col-md-3 col-lg-2 fw-normal">Status:</dt>
   <dd class="col-7 col-sm-8 col-md-9 col-lg-10 patron-status"><%= link_to_if patron.barred?, patron.status, contact_path, class: 'navbar-link', 'data-mylibrary-modal' => 'trigger' %></dd>
 
   <% if patron.expired_date %>
-    <dt class="col-5 col-sm-4 col-md-3 col-lg-2 font-weight-normal">Privileges expire:</dt>
+    <dt class="col-5 col-sm-4 col-md-3 col-lg-2 fw-normal">Privileges expire:</dt>
     <dd class="col-7 col-sm-8 col-md-9 col-lg-10 expired-date"><%= l(patron.expired_date, format: :short) %></dd>
   <% end %>
 
   <% if patron.borrow_limit %>
-    <dt class="col-5 col-sm-4 col-md-3 col-lg-2 font-weight-normal">Borrower limit:</dt>
+    <dt class="col-5 col-sm-4 col-md-3 col-lg-2 fw-normal">Borrower limit:</dt>
     <dd class="col-7 col-sm-8 col-md-9 col-lg-10 patron-status"><%= pluralize(patron.borrow_limit, 'checkout') %></dd>
   <% end %>
 
-  <dt class="col-5 col-sm-4 col-md-3 col-lg-2 font-weight-normal">eResource access:</dt>
+  <dt class="col-5 col-sm-4 col-md-3 col-lg-2 fw-normal">eResource access:</dt>
   <dd class="col-7 col-sm-8 col-md-9 col-lg-10 patron-status">In-library only</dd>
 
   <% if patron.email %>
-    <dt class="col-5 col-sm-4 col-md-3 col-lg-2 font-weight-normal">Email:</dt>
+    <dt class="col-5 col-sm-4 col-md-3 col-lg-2 fw-normal">Email:</dt>
     <dd class="col-7 col-sm-8 col-md-9 col-lg-10 email"><%= patron.email %></dd>
   <% end %>
 </dl>
