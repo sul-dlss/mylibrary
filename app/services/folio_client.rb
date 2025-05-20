@@ -70,20 +70,24 @@ class FolioClient
   # Find a Folio::Patron by barcode or university ID, trying barcode first
   # TODO: remove once we're no longer using barcodes for auth
   def find_patron_by_barcode_or_university_id(barcode_or_id, patron_info: true)
-    find_patron_by_barcode(barcode_or_id, patron_info:)
-  rescue ActiveRecord::RecordNotFound
-    find_patron_by_university_id(barcode_or_id, patron_info:)
+    find_patron_by_barcode(barcode_or_id, patron_info:) || find_patron_by_university_id(barcode_or_id, patron_info:)
   end
 
   # Find a Folio::Patron by barcode; fetch full patron info if patron_info is true
   def find_patron_by_barcode(barcode, patron_info: true)
-    user = find_user_by_barcode(barcode)
+    user = find_user_by_barcode(barcode) || find_user_by_legacy_barcode(barcode)
+
+    return unless user
+
     patron_info ? Folio::Patron.find(user['id']) : Folio::Patron.new({ 'user' => user })
   end
 
   # Find a Folio::Patron by university ID; fetch full patron info if patron_info is true
   def find_patron_by_university_id(university_id, patron_info: true)
     user = find_user_by_university_id(university_id)
+
+    return unless user
+
     patron_info ? Folio::Patron.find(user['id']) : Folio::Patron.new({ 'user' => user })
   end
 
