@@ -28,6 +28,10 @@ module Folio
       patron_info['id'] || user_info['id']
     end
 
+    def library_id
+      university_id || barcode
+    end
+
     def barcode
       user_info['barcode']
     end

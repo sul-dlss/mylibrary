@@ -7,7 +7,7 @@ RSpec.describe 'Reset Pin' do
     instance_double(FolioClient, find_patron_by_barcode_or_university_id: patron, ping: true, change_pin: nil)
   end
   let(:patron) do
-    instance_double(Folio::Patron, email: 'jdoe@stanford.edu', display_name: 'J Doe', barcode: '123',
+    instance_double(Folio::Patron, email: 'jdoe@stanford.edu', display_name: 'J Doe', library_id: '123',
                                    pin_reset_token: 'foo')
   end
 

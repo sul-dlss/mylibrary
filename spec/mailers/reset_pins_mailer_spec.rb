@@ -7,7 +7,7 @@ RSpec.describe ResetPinsMailer do
     subject(:mail) { described_class.with(patron:).reset_pin }
 
     let(:patron) do
-      instance_double(Folio::Patron, email: 'jdoe@stanford.edu', display_name: 'J Doe', barcode: '123',
+      instance_double(Folio::Patron, email: 'jdoe@stanford.edu', display_name: 'J Doe', library_id: '123',
                                      pin_reset_token: token)
     end
     let(:token) { 'secret_token' }
