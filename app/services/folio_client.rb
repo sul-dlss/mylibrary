@@ -47,14 +47,14 @@ class FolioClient
 
   # Find the user by barcode and validate their PIN, returning the user
   def login_by_barcode(barcode, pin)
-    user = find_user_by_barcode(barcode) || find_user_by_legacy_barcode(barcode)
+    user = get_user_data_by_barcode(barcode) || get_user_data_by_legacy_barcode(barcode)
 
     user if user && validate_patron_pin(user['id'], pin)
   end
 
   # Find the user by university ID and validate their PIN, returning the user
   def login_by_university_id(university_id, pin)
-    user = find_user_by_university_id(university_id)
+    user = get_user_data_by_university_id(university_id)
     user if validate_patron_pin(user['id'], pin)
   rescue ActiveRecord::RecordNotFound
     nil
@@ -62,7 +62,7 @@ class FolioClient
 
   # Find the user by sunetid and return them; auth handled by Shibboleth
   def login_by_sunetid(sunetid)
-    find_user_by_sunetid(sunetid)
+    get_user_data_by_sunetid(sunetid)
   rescue ActiveRecord::RecordNotFound
     nil
   end
@@ -70,21 +70,9 @@ class FolioClient
   # Find a Folio::Patron by barcode or university ID, trying barcode first
   # TODO: remove once we're no longer using barcodes for auth
   def find_patron_by_barcode_or_university_id(barcode_or_id, patron_info: true)
-    find_patron_by_barcode(barcode_or_id, patron_info:) || find_patron_by_university_id(barcode_or_id, patron_info:)
-  end
-
-  # Find a Folio::Patron by barcode; fetch full patron info if patron_info is true
-  def find_patron_by_barcode(barcode, patron_info: true)
-    user = find_user_by_barcode(barcode) || find_user_by_legacy_barcode(barcode)
-
-    return unless user
-
-    patron_info ? Folio::Patron.find(user['id']) : Folio::Patron.new({ 'user' => user })
-  end
-
-  # Find a Folio::Patron by university ID; fetch full patron info if patron_info is true
-  def find_patron_by_university_id(university_id, patron_info: true)
-    user = find_user_by_university_id(university_id)
+    user = get_user_data_by_barcode(barcode_or_id) ||
+           get_user_data_by_legacy_barcode(barcode_or_id) ||
+           get_user_data_by_university_id(barcode_or_id)
 
     return unless user
 
@@ -245,19 +233,19 @@ class FolioClient
   private
 
   # Find a user by barcode in FOLIO
-  def find_user_by_barcode(barcode)
+  def get_user_data_by_barcode(barcode)
     get_json('/users', params: { query: CqlQuery.new(barcode:).to_query }).dig('users', 0)
   end
 
   # Find a user by legacy barcode in FOLIO
-  def find_user_by_legacy_barcode(barcode)
+  def get_user_data_by_legacy_barcode(barcode)
     get_json('/users', params: { query: CqlQuery.new('customFields.legacybarcode': barcode).to_query }).dig(
       'users', 0
     )
   end
 
   # Find a user by university ID (externalSystemId in FOLIO); raise an error if not found
-  def find_user_by_university_id(university_id)
+  def get_user_data_by_university_id(university_id)
     user = get_json('/users', params: { query: CqlQuery.new(externalSystemId: university_id).to_query }).dig('users', 0)
     raise ActiveRecord::RecordNotFound, "User with externalSystemId '#{university_id}' not found" unless user
 
@@ -265,7 +253,7 @@ class FolioClient
   end
 
   # Find a user by sunetid (username in FOLIO); raise an error if not found
-  def find_user_by_sunetid(sunetid)
+  def get_user_data_by_sunetid(sunetid)
     user = get_json('/users', params: { query: CqlQuery.new(username: sunetid).to_query }).dig('users', 0)
     raise ActiveRecord::RecordNotFound, "User with username '#{sunetid}' not found" unless user
 
