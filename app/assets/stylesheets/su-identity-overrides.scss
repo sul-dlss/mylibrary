@@ -9,6 +9,7 @@
 // These global-footer styles are temporary, until we switch to the component library.
 #global-footer {
   margin-top: -220px;
+  height: 270px;
 }
 
 @media screen and (min-width: 768px) {
@@ -24,3 +25,8 @@
     height: 164px;
   }
 }
+
+#global-footer * {
+  box-sizing: border-box;
+}
+
