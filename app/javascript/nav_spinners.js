@@ -3,7 +3,7 @@ $(document).on('turbo:click', function(event){
   var $target = $(event.target);
 
   if ($target.is('#mainnav .nav-link')) {
-    $target.append('<div class="flex-center nav-spinner"><div class="spinner-border text-primary" role="status"><span class="sr-only">Loading...</span></div></div>');
+    $target.append('<div class="flex-center nav-spinner"><div class="spinner-border text-primary" role="status"><span class="visually-hidden">Loading...</span></div></div>');
   }
 });
 
