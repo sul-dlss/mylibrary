@@ -11,11 +11,12 @@ module Cybersource
     # Set of fields we use to generate the signature and that Cybersource verifies
     REQUEST_SIGNED_FIELDS = %i[access_key profile_id transaction_uuid signed_date_time
                                locale transaction_type reference_number amount currency
-                               unsigned_field_names signed_field_names].freeze
+                               complete_route unsigned_field_names signed_field_names].freeze
 
-    def initialize(user_id:, amount:)
+    def initialize(user_id:, amount:, fine_ids:)
       @user_id = user_id
       @amount = amount
+      @fine_ids = fine_ids
       @signed_fields = REQUEST_SIGNED_FIELDS
       @unsigned_fields = []
       @signed_date_time, @signature = nil
@@ -93,6 +94,23 @@ module Cybersource
     # Identifies us as a "merchant" to Cybersource; one value for SUL as a whole
     def profile_id
       Settings.cybersource.profile_id
+    end
+
+    # Concatenation of truncated FOLIO UUIDs for accounts (fines) being paid.
+    #
+    # We use this field because it's the only long (255-char) field that shows
+    # up in the reporting tool LibSys uses, and we need to support tying
+    # payments back to individual FOLIO accounts, not just the user.
+    #
+    # Since reporting is done on a per-month basis, the assumption is that
+    # using a truncated form of the UUID is OK since collisions are unlikely.
+    #
+    # As designed, this field can store a colon-separated list of airport codes
+    # for a user's flight itinerary, so this is...sort of related?
+    #
+    # See: https://github.com/sul-dlss/mylibrary/issues/1215
+    def complete_route
+      @fine_ids.pluck(0...7).join(':')
     end
 
     def transaction_type

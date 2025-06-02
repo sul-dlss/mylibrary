@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe 'summaries/_summary' do
-  let(:fines) { [instance_double(Folio::Account, owed: 3)] }
+  let(:fines) { [instance_double(Folio::Account, owed: 3, key: '4085f2b-80f4-431d-ac3c-25cc2b62d4f6')] }
   let(:patron) do
     instance_double(Folio::Patron, key: '513a9054-5897-11ee-8c99-0242ac120002', fines:, can_pay_fines?: true,
                                    requests: [], checkouts: [], remaining_checkouts: nil)

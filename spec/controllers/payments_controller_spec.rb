@@ -55,7 +55,8 @@ RSpec.describe PaymentsController do
 
   describe '#create' do
     before do
-      post :create, params: { user_id: '513a9054-5897-11ee-8c99-0242ac120002', amount: '10.00' }
+      post :create,
+           params: { user_id: '513a9054-5897-11ee-8c99-0242ac120002', amount: '10.00', fine_ids: %w[1 2 3] }
     end
 
     it 'renders a form to send to cybersource' do

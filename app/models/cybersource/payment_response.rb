@@ -48,5 +48,11 @@ module Cybersource
     def amount
       @fields['req_amount']
     end
+
+    # FOLIO account UUIDs truncated to 7 chars; see PaymentRequest#complete_route
+    # Currently used only for reporting purposes for LibSys.
+    def fine_id_stubs
+      @fields['req_complete_route'].split(':')
+    end
   end
 end
