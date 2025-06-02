@@ -19,6 +19,10 @@ a[target="_blank"], p a, form a{
   border-bottom: 1px solid $su-digital-blue;
 }
 
+.btn, .btn-link {
+  text-decoration: none;
+}
+
 .btn:not(.btn-link):disabled {
   background-color: $sul-btn-disabled-color;
   color: $white;
@@ -40,6 +44,7 @@ a:focus,
 a:active {
   @include link-styling;
 
+  &.btn-secondary,
   &.btn-link {
     border-bottom: 1px solid transparent;
   }
@@ -94,7 +99,7 @@ thead {
 
 .text-recalled,
 .patron-barred {
-  color: theme-color-level('danger', 6);
+  color: shade-color($danger, 48);
 
   svg {
     fill: $color-recalled;
@@ -103,7 +108,7 @@ thead {
 
 .text-overdue,
 .text-lost {
-  color: theme-color-level('warning', 6);
+  color: shade-color($warning, 48);
 
   svg {
     fill: $color-overdue;
@@ -120,4 +125,15 @@ thead {
 
 [data-sort] {
   cursor: pointer;
+}
+
+// Bootstrap 4 applied `flex: 0 0 33.33333%` to col-md-4. Bootstrap 5 does not.
+// This util class is used to transition the responsive tables from BS4 -> BS5
+// with minimal markup changes.
+.flex-basis-4 {
+  flex-basis: 33%;
+}
+
+label {
+  margin-bottom: 0.5rem;
 }

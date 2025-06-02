@@ -3,7 +3,7 @@
     <div class="d-flex justify-content-between">
       <h1 class="h2">History</h1>
       <div class="dropdown">
-        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="dropdownMenuLink" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           Sort (<span data-sort-label>Date paid</span>)
         </a>
 
@@ -21,7 +21,7 @@
   <% end %>
 
   <% if @payments.any? %>
-    <div class="d-none d-md-flex row font-weight-bold list-header">
+    <div class="d-none d-md-flex row fw-bold list-header">
       <div class="row col-md-12 col-lg-6">
         <div class="col-md-4" data-sort="nice_status">Reason</div>
         <div class="col-md-4" data-sort="fee">Amount</div>

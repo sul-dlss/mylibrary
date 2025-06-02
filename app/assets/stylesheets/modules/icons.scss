@@ -50,7 +50,7 @@
 @each $color, $value in $theme-colors {
   .btn-#{$color} {
     .sul-icons svg {
-      @include stroke-yiq(theme-color($color));
+      @include stroke-yiq($value);
     }
   }
 
@@ -65,7 +65,7 @@
     &:active,
     &.active {
       .sul-icons svg {
-        @include stroke-yiq(theme-color($color));
+        @include stroke-yiq($value);
       }
     }
   }
