@@ -39,8 +39,8 @@ en:
   hello: "Hello world"
   mylibrary:
     university_id:
-      label: 'Library ID'
-      help_text: 'Last 10 digits above the barcode on your library card'
+      label: "Library ID"
+      help_text: Nine digit number below your name on your library card
     renew_item:
       in_progress_html: <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Renewing this item
       success_html: <span class="font-weight-bold">Success!</span> "%{title}" was renewed.
@@ -48,7 +48,7 @@ en:
       deny_access: An unexpected error has occurred
     renew_all_items:
       in_progress_html:
-        one: <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Renewing 1 eligible item 
+        one: <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Renewing 1 eligible item
         other: <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span> Renewing %{count} eligible items
       success_html:
         one: <span class="font-weight-bold">Success!</span> 1 item was renewed.
