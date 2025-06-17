@@ -66,7 +66,7 @@ class PaymentsController < ApplicationController
   end
 
   def create_payment_params
-    params.permit(%I[user_id amount])
+    params.permit([:user_id, :amount, { fine_ids: [] }])
   end
 
   def cybersource_request
