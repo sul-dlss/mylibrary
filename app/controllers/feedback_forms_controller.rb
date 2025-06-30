@@ -15,7 +15,7 @@ class FeedbackFormsController < ApplicationController
   def create
     return unless request.post?
 
-    if validate
+    if valid?
       FeedbackMailer.submit_feedback(params, request.remote_ip).deliver_now
       flash[:success] = t 'mylibrary.feedback_form.success'
     end
@@ -35,7 +35,7 @@ class FeedbackFormsController < ApplicationController
     %r/.*href=.*|.*url=.*|.*https?:\/{2}.*/i
   end
 
-  def validate
+  def valid?
     errors = []
     errors << 'You must pass the reCAPTCHA challenge' if !current_user? && !verify_recaptcha
     errors << 'A message is required' if params[:message].blank?
