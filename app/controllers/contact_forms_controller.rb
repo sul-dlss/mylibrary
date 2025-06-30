@@ -24,7 +24,7 @@ class ContactFormsController < ApplicationController
   def create
     return unless request.post?
 
-    if validate
+    if valid?
       params[:name] = patron.display_name
       params[:email] = patron.email
       ContactMailer.submit_feedback(params, request.remote_ip).deliver_now
@@ -42,7 +42,7 @@ class ContactFormsController < ApplicationController
     %r/.*href=.*|.*url=.*|.*https?:\/{2}.*/i
   end
 
-  def validate
+  def valid?
     errors = []
     errors << 'A message is required' if params[:message].blank?
     if params[:message]&.match(url_regex)
