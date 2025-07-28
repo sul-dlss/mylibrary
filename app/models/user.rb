@@ -3,6 +3,7 @@
 # :nodoc:
 class User
   include ActiveModel::Model
+
   attr_accessor :username, :patron_key, :shibboleth
 
   # FIXME: This is temporary code and can be removed after everyone who has logged into -dev
