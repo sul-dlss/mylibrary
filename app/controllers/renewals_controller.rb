@@ -4,6 +4,7 @@
 class RenewalsController < ApplicationController
   include ActionView::Context
   include ActionView::Helpers::TagHelper
+
   before_action :authenticate_user!
   before_action :authorize_update!, only: :create
   rescue_from CheckoutException, with: :deny_access
