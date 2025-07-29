@@ -11,7 +11,9 @@ module Cybersource
     # Set of fields we use to generate the signature and that Cybersource verifies
     REQUEST_SIGNED_FIELDS = %i[access_key profile_id transaction_uuid signed_date_time
                                locale transaction_type reference_number amount currency
-                               complete_route unsigned_field_names signed_field_names].freeze
+                               merchant_defined_data1 merchant_defined_data2 merchant_defined_data3
+                               merchant_defined_data4 merchant_defined_data5
+                               unsigned_field_names signed_field_names].freeze
 
     def initialize(user_id:, amount:, fine_ids:)
       @user_id = user_id
@@ -97,20 +99,46 @@ module Cybersource
     end
 
     # Concatenation of truncated FOLIO UUIDs for accounts (fines) being paid.
-    #
-    # We use this field because it's the only long (255-char) field that shows
-    # up in the reporting tool LibSys uses, and we need to support tying
-    # payments back to individual FOLIO accounts, not just the user.
+    # These fields can store a colon-separated list of characters.
+    # Each merchant_defined_data field can hold up to 100 characters so
+    # we split them into 5 fields with a maximum of 12 charachers each,
+    # The first 7 uuid characters plus a seperator yields 8 * 12 = 96 characters
+    # per merchant_defined_data field.
+
+    # Even if the number of payments made measn that we will not use all
+    # of the merchant_defined_data fields, we still need to submit them
+    # as empty, otherwise the payment form will not pass validation
+    # (see above REQUEST_SIGNED_FIELDS list)
+
+    # The merchant_defined_data fields show up in the reporting tool
+    # provided by CyberSource, and we need to support tying
+    # payments back to individual FOLIO account entries, not just the user.
     #
     # Since reporting is done on a per-month basis, the assumption is that
     # using a truncated form of the UUID is OK since collisions are unlikely.
     #
-    # As designed, this field can store a colon-separated list of airport codes
-    # for a user's flight itinerary, so this is...sort of related?
+    # Based on an anaysis of payment that have been made so far, it is very unlikely that
+    # there will be more that 60 fee/fine payments madd in a single transaction.
     #
     # See: https://github.com/sul-dlss/mylibrary/issues/1215
-    def complete_route
-      @fine_ids.pluck(0...7).join(':')
+    def merchant_defined_data1
+      @fine_ids[0, 12]&.pluck(0...7)&.join(':')
+    end
+
+    def merchant_defined_data2
+      @fine_ids[12, 12]&.pluck(0...7)&.join(':')
+    end
+
+    def merchant_defined_data3
+      @fine_ids[24, 12]&.pluck(0...7)&.join(':')
+    end
+
+    def merchant_defined_data4
+      @fine_ids[36, 12]&.pluck(0...7)&.join(':')
+    end
+
+    def merchant_defined_data5
+      @fine_ids[48, 12]&.pluck(0...7)&.join(':')
     end
 
     def transaction_type
