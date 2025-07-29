@@ -10,7 +10,7 @@ RSpec.describe Cybersource::PaymentResponse do
       {
         req_amount: '100.00',
         req_reference_number: '0340214b-5492-472d-b634-c5c115639465',
-        req_complete_route: '4085f2b:a4aedae:a27c153:ab6dc99'
+        req_merchant_defined_data1: '4085f2b:a4aedae:a27c153:ab6dc99'
       }
     )
   end
@@ -18,8 +18,8 @@ RSpec.describe Cybersource::PaymentResponse do
   let(:params) do
     ActionController::Parameters.new(req_amount: '100.00',
                                      req_reference_number: '0340214b-5492-472d-b634-c5c115639465',
-                                     req_complete_route: '4085f2b:a4aedae:a27c153:ab6dc99',
-                                     signed_field_names: 'req_amount,req_reference_number,req_complete_route',
+                                     req_merchant_defined_data1: '4085f2b:a4aedae:a27c153:ab6dc99',
+                                     signed_field_names: 'req_amount,req_reference_number,req_merchant_defined_data1',
                                      unsigned_field_names: '',
                                      signature:,
                                      decision:)

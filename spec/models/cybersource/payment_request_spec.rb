@@ -31,6 +31,6 @@ RSpec.describe Cybersource::PaymentRequest do
   end
 
   it 'includes compressed account ids in the complete route' do
-    expect(request_params[:complete_route]).to eq('4085f2b:a4aedae:a27c153:ab6dc99')
+    expect(request_params[:merchant_defined_data1]).to eq('4085f2b:a4aedae:a27c153:ab6dc99')
   end
 end

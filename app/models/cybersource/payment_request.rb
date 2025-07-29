@@ -11,7 +11,7 @@ module Cybersource
     # Set of fields we use to generate the signature and that Cybersource verifies
     REQUEST_SIGNED_FIELDS = %i[access_key profile_id transaction_uuid signed_date_time
                                locale transaction_type reference_number amount currency
-                               complete_route unsigned_field_names signed_field_names].freeze
+                               merchant_defined_data1 unsigned_field_names signed_field_names].freeze
 
     def initialize(user_id:, amount:, fine_ids:)
       @user_id = user_id
@@ -109,7 +109,7 @@ module Cybersource
     # for a user's flight itinerary, so this is...sort of related?
     #
     # See: https://github.com/sul-dlss/mylibrary/issues/1215
-    def complete_route
+    def merchant_defined_data1
       @fine_ids.pluck(0...7).join(':')
     end
 
