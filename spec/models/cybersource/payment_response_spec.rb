@@ -27,10 +27,10 @@ RSpec.describe Cybersource::PaymentResponse do
                                      req_merchant_defined_data3: nil,
                                      req_merchant_defined_data4: nil,
                                      req_merchant_defined_data5: nil,
-                                     signed_field_names: 'req_amount,req_reference_number,'\
-                                      'req_merchant_defined_data1,req_merchant_defined_data2,'\
-                                      'req_merchant_defined_data3,req_merchant_defined_data4,'\
-                                      'req_merchant_defined_data5',
+                                     signed_field_names: 'req_amount,req_reference_number,' \
+                                                         'req_merchant_defined_data1,req_merchant_defined_data2,' \
+                                                         'req_merchant_defined_data3,req_merchant_defined_data4,' \
+                                                         'req_merchant_defined_data5',
                                      unsigned_field_names: '',
                                      signature:,
                                      decision:)
@@ -45,7 +45,8 @@ RSpec.describe Cybersource::PaymentResponse do
   end
 
   it 'parses the fine id stubs' do
-    expect(cybersource_response.fine_id_stubs).to eq(%w[4085f2b a4aedae a27c153 ab6dc99 8369563 ac87e94 541e219 8e86e80])
+    expect(cybersource_response.fine_id_stubs).to eq(%w[4085f2b a4aedae a27c153 ab6dc99 8369563 ac87e94 541e219
+                                                        8e86e80])
   end
 
   it 'validates that the transaction is signed and accepted' do

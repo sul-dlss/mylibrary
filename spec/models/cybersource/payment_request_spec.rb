@@ -40,22 +40,24 @@ RSpec.describe Cybersource::PaymentRequest do
   end
 
   it 'includes compressed account ids in the merchant defined data 1 field' do
-    expect(request_params[:merchant_defined_data1]).to eq('4085f2b:a4aedae:a27c153:ab6dc99:5eff6d1:af1ae4d:7a850f2:651d04f:ede51d9:8795b01:b795029:8b3724d')
+    expect(request_params[:merchant_defined_data1]).to eq('4085f2b:a4aedae:a27c153:ab6dc99:' \
+                                                          '5eff6d1:af1ae4d:7a850f2:651d04f:' \
+                                                          'ede51d9:8795b01:b795029:8b3724d')
   end
-  
+
   it 'includes compressed account ids in the merchant defined data 2 field' do
     expect(request_params[:merchant_defined_data2]).to eq('fb9f358')
   end
-  
+
   it 'includes nothing in the merchant defined data 3 field' do
-    expect(request_params[:merchant_defined_data3]).to be nil
+    expect(request_params[:merchant_defined_data3]).to be_nil
   end
-  
+
   it 'includes nothing in the merchant defined data 4 field' do
-    expect(request_params[:merchant_defined_data4]).to be nil
+    expect(request_params[:merchant_defined_data4]).to be_nil
   end
-  
+
   it 'includes nothing in the merchant defined data 5 field' do
-    expect(request_params[:merchant_defined_data5]).to be nil
+    expect(request_params[:merchant_defined_data5]).to be_nil
   end
 end
