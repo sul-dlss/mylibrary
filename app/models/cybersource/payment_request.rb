@@ -98,17 +98,20 @@ module Cybersource
       Settings.cybersource.profile_id
     end
 
-    # Concatenation of truncated FOLIO UUIDs for accounts (fines) being paid.
+    # Each of the "merchant defined data" fields holds a concatenation of
+    # truncated FOLIO UUIDs for accounts (fines) being paid.
     #
-    # We use this field because it's the only long (255-char) field that shows
+    # We use these fields because they are some of the only fields that show
     # up in the reporting tool LibSys uses, and we need to support tying
-    # payments back to individual FOLIO accounts, not just the user.
+    # payments back to individual FOLIO accounts (fines), not just the user.
     #
     # Since reporting is done on a per-month basis, the assumption is that
-    # using a truncated form of the UUID is OK since collisions are unlikely.
+    # using a truncated form of the UUID is OK since ID collisions are unlikely
+    # within the same month.
     #
-    # As designed, this field can store a colon-separated list of airport codes
-    # for a user's flight itinerary, so this is...sort of related?
+    # Each of the fields stores up to 12 truncated UUIDs joined with a colon.
+    # The first 12 UUIDs go in the first field, the next 12 in the second,
+    # and so on.
     #
     # See: https://github.com/sul-dlss/mylibrary/issues/1215
     def merchant_defined_data1
