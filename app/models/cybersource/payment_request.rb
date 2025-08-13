@@ -11,7 +11,9 @@ module Cybersource
     # Set of fields we use to generate the signature and that Cybersource verifies
     REQUEST_SIGNED_FIELDS = %i[access_key profile_id transaction_uuid signed_date_time
                                locale transaction_type reference_number amount currency
-                               complete_route unsigned_field_names signed_field_names].freeze
+                               merchant_defined_data1 merchant_defined_data2 merchant_defined_data3
+                               merchant_defined_data4 merchant_defined_data5
+                               unsigned_field_names signed_field_names].freeze
 
     def initialize(user_id:, amount:, fine_ids:)
       @user_id = user_id
@@ -96,21 +98,40 @@ module Cybersource
       Settings.cybersource.profile_id
     end
 
-    # Concatenation of truncated FOLIO UUIDs for accounts (fines) being paid.
+    # Each of the "merchant defined data" fields holds a concatenation of
+    # truncated FOLIO UUIDs for accounts (fines) being paid.
     #
-    # We use this field because it's the only long (255-char) field that shows
+    # We use these fields because they are some of the only fields that show
     # up in the reporting tool LibSys uses, and we need to support tying
-    # payments back to individual FOLIO accounts, not just the user.
+    # payments back to individual FOLIO accounts (fines), not just the user.
     #
     # Since reporting is done on a per-month basis, the assumption is that
-    # using a truncated form of the UUID is OK since collisions are unlikely.
+    # using a truncated form of the UUID is OK since ID collisions are unlikely
+    # within the same month.
     #
-    # As designed, this field can store a colon-separated list of airport codes
-    # for a user's flight itinerary, so this is...sort of related?
+    # Each of the fields stores up to 12 truncated UUIDs joined with a colon.
+    # The first 12 UUIDs go in the first field, the next 12 in the second,
+    # and so on.
     #
     # See: https://github.com/sul-dlss/mylibrary/issues/1215
-    def complete_route
-      @fine_ids.pluck(0...7).join(':')
+    def merchant_defined_data1
+      @fine_ids[0, 12]&.pluck(0...7)&.join(':')
+    end
+
+    def merchant_defined_data2
+      @fine_ids[12, 12]&.pluck(0...7)&.join(':')
+    end
+
+    def merchant_defined_data3
+      @fine_ids[24, 12]&.pluck(0...7)&.join(':')
+    end
+
+    def merchant_defined_data4
+      @fine_ids[36, 12]&.pluck(0...7)&.join(':')
+    end
+
+    def merchant_defined_data5
+      @fine_ids[48, 12]&.pluck(0...7)&.join(':')
     end
 
     def transaction_type
