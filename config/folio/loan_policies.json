@@ -168,6 +168,57 @@
     "requestManagement": null
   },
   {
+    "id": "3ab49d1c-91a4-43f8-8560-0caf745768d9",
+    "name": "1qtr-7renew-7daygrace",
+    "description": "Loan policy for monos owned by SUL loaned to grad students",
+    "renewable": true,
+    "renewalsPolicy": {
+      "numberAllowed": 7,
+      "alternateFixedDueDateSchedule": null,
+      "period": null,
+      "renewFromId": null,
+      "unlimited": false
+    },
+    "loanable": true,
+    "loansPolicy": {
+      "period": null,
+      "fixedDueDateSchedule": {
+        "schedules": [
+          {
+            "due": "2025-04-01T06:59:59.000+00:00",
+            "from": "2024-11-20T08:00:00.000+00:00",
+            "to": "2025-02-26T07:59:59.000+00:00"
+          },
+          {
+            "due": "2025-06-14T06:59:59.000+00:00",
+            "from": "2025-02-26T08:00:00.000+00:00",
+            "to": "2025-05-14T06:59:59.000+00:00"
+          },
+          {
+            "due": "2025-09-23T06:59:59.000+00:00",
+            "from": "2025-05-14T07:00:00.000+00:00",
+            "to": "2025-08-29T06:59:59.000+00:00"
+          },
+          {
+            "due": "2026-01-06T07:59:59.000+00:00",
+            "from": "2025-08-29T07:00:00.000+00:00",
+            "to": "2025-12-02T07:59:59.000+00:00"
+          },
+          {
+            "due": "2026-03-31T06:59:59.000+00:00",
+            "from": "2025-12-02T08:00:00.000+00:00",
+            "to": "2026-03-03T07:59:59.000+00:00"
+          }
+        ]
+      }
+    },
+    "requestManagement": {
+      "holds": {
+        "renewItemsWithRequest": null
+      }
+    }
+  },
+  {
     "id": "3efe7693-3357-4f9b-999d-a271f86019b0",
     "name": "28day-2renew-7daygrace",
     "description": "Loan policy for Edu, Green, Lane and Law materials",
@@ -344,6 +395,47 @@
     },
     "requestManagement": {
       "holds": null
+    }
+  },
+  {
+    "id": "6f7d77e8-1def-4e17-a160-3c4065ac3ef3",
+    "name": "1yearfixed-4renew-7daygrace",
+    "description": "Loan policy for monographs owned by SUL loaned to faculty.",
+    "renewable": true,
+    "renewalsPolicy": {
+      "numberAllowed": 4,
+      "alternateFixedDueDateSchedule": null,
+      "period": null,
+      "renewFromId": null,
+      "unlimited": false
+    },
+    "loanable": true,
+    "loansPolicy": {
+      "period": null,
+      "fixedDueDateSchedule": {
+        "schedules": [
+          {
+            "due": "2024-07-02T06:59:59.000+00:00",
+            "from": "2023-05-01T07:00:00.000+00:00",
+            "to": "2024-05-06T06:59:59.000+00:00"
+          },
+          {
+            "due": "2025-06-17T06:59:59.000+00:00",
+            "from": "2024-05-06T07:00:00.000+00:00",
+            "to": "2025-04-16T06:59:59.000+00:00"
+          },
+          {
+            "due": "2026-06-18T06:59:59.000+00:00",
+            "from": "2025-04-16T07:00:00.000+00:00",
+            "to": "2026-04-14T06:59:59.000+00:00"
+          }
+        ]
+      }
+    },
+    "requestManagement": {
+      "holds": {
+        "renewItemsWithRequest": null
+      }
     }
   },
   {
@@ -567,7 +659,7 @@
   {
     "id": "885a2bd0-35c7-497f-9dc6-462bebe837a3",
     "name": "1qtr-3renew-7daygrace",
-    "description": "Loan policy for monos owned by SUL, GSB and Law loaned to grad students",
+    "description": "Loan policy for monos owned by SUL loaned to post docs; and GSB and Law loaned to grad students",
     "renewable": true,
     "renewalsPolicy": {
       "numberAllowed": 3,
@@ -734,7 +826,7 @@
   {
     "id": "ad47ac4d-8305-4039-8ac4-93a69a789074",
     "name": "1yearfixed-2renew-7daygrace",
-    "description": "Loan policy for monographs owned by SUL, GSB and Law loaned to faculty.",
+    "description": "Loan policy for monographs owned by SUL loaned to staff, and GSB and Law loaned to faculty and staff.",
     "renewable": true,
     "renewalsPolicy": {
       "numberAllowed": 2,
