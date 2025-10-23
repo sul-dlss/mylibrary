@@ -42,8 +42,6 @@ module Folio
         all.find { |item| item.id == id }
       end
 
-      private
-
       def from_dynamic(json)
         new(id: json.fetch('id'),
             code: json.fetch('code'),
