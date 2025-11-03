@@ -118,17 +118,17 @@
   integrity sha512-tQd/1efJuzPC6rCFwEvLtci/xNFcTZknmXs98FYDfGE4wP9ClFV98nyKrzJKVPMhdDnjzLhdUyMX4PsQAPjwIw==
 
 "@hotwired/turbo-rails@^8.0.4":
-  version "8.0.18"
-  resolved "https://registry.yarnpkg.com/@hotwired/turbo-rails/-/turbo-rails-8.0.18.tgz#021d9556eec5bf6648b607531f4c0ec960706d84"
-  integrity sha512-iRxd922VSTVH0NzlLDx9T9S8Ep0NPnrLCKva31WIMLNApJgUZKa/a90EFiBa2G6Do+x4xuKZk53dlweiwTyXkQ==
+  version "8.0.20"
+  resolved "https://registry.yarnpkg.com/@hotwired/turbo-rails/-/turbo-rails-8.0.20.tgz#a6f6f78591e9868ca1e5e67f4c7d453dbd49a475"
+  integrity sha512-4aYkYF9XMKL7ZZPfgElq15+60osZOwMwhztE4myKQYEzCPvaPUxwZH301tOrBNtWUwOD+TNOm1Hrpeaq22RX9A==
   dependencies:
-    "@hotwired/turbo" "^8.0.18"
+    "@hotwired/turbo" "^8.0.20"
     "@rails/actioncable" ">=7.0"
 
-"@hotwired/turbo@^8.0.18":
-  version "8.0.18"
-  resolved "https://registry.yarnpkg.com/@hotwired/turbo/-/turbo-8.0.18.tgz#10ae3de450b955862f89e30c50d96d676813744e"
-  integrity sha512-dG0N7khQsP8sujclodQE3DYkI4Lq7uKA04fhT0DCC/DwMgn4T4WM3aji6EC6+iCfABQeJncY0SraXqVeOq0vvQ==
+"@hotwired/turbo@^8.0.20":
+  version "8.0.20"
+  resolved "https://registry.yarnpkg.com/@hotwired/turbo/-/turbo-8.0.20.tgz#068ede648c4db09fed4cf0ac0266788056673f2f"
+  integrity sha512-IilkH/+h92BRLeY/rMMR3MUh1gshIfdra/qZzp/Bl5FmiALD/6sQZK/ecxSbumeyOYiWr/JRI+Au1YQmkJGnoA==
 
 "@parcel/watcher-android-arm64@2.5.1":
   version "2.5.1"
@@ -220,9 +220,9 @@
     "@parcel/watcher-win32-x64" "2.5.1"
 
 "@rails/actioncable@>=7.0":
-  version "8.1.0"
-  resolved "https://registry.yarnpkg.com/@rails/actioncable/-/actioncable-8.1.0.tgz#cd884d50a34af9a8c9149ec4e256fbb99a67b37f"
-  integrity sha512-9WSbN548dplVkfCFJFi/CKrJ+P4runAHZLlpXFn0xL+Y6tFJvo3zp92fr4ON9WOhNt8inetu8NJG1xDDAJ8N8g==
+  version "8.1.100"
+  resolved "https://registry.yarnpkg.com/@rails/actioncable/-/actioncable-8.1.100.tgz#b1f85f3482425fb91e5eba1deb55152ee0bb2f85"
+  integrity sha512-j4vJQqz51CDVYv2UafKRu4jiZi5/gTnm7NkyL+VMIgEw3s8jtVtmzu9uItUaZccUg9NJ6o05yVyBAHxNfTuCRA==
 
 bootstrap@^4.6.2:
   version "4.6.2"
@@ -347,9 +347,9 @@ readdirp@^4.0.1:
   integrity sha512-GDhwkLfywWL2s6vEjyhri+eXmfH6j1L7JE27WhqLeYzoh/A3DBaYGEj2H/HFZCn/kMfim73FXxEJTw06WtxQwg==
 
 sass@^1.57.1:
-  version "1.93.2"
-  resolved "https://registry.yarnpkg.com/sass/-/sass-1.93.2.tgz#e97d225d60f59a3b3dbb6d2ae3c1b955fd1f2cd1"
-  integrity sha512-t+YPtOQHpGW1QWsh1CHQ5cPIr9lbbGZLZnbihP/D/qZj/yuV68m8qarcV17nvkOX81BCrvzAlq2klCQFZghyTg==
+  version "1.93.3"
+  resolved "https://registry.yarnpkg.com/sass/-/sass-1.93.3.tgz#3ff0aa5879dc910d32eae10c282a2847bd63e758"
+  integrity sha512-elOcIZRTM76dvxNAjqYrucTSI0teAF/L2Lv0s6f6b7FOwcwIuA357bIE871580AjHJuSvLIRUosgV+lIWx6Rgg==
   dependencies:
     chokidar "^4.0.0"
     immutable "^5.0.2"
