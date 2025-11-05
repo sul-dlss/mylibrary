@@ -212,8 +212,11 @@
     "discoveryDisplayName": "Education Library (Cubberley)",
     "id": "bd5fd8d9-72f3-4532-b68c-4db88063d16b",
     "code": "EDUCATION",
-    "pickupLocation": false,
-    "details": null
+    "pickupLocation": true,
+    "details": {
+      "isDefaultForCampus": null,
+      "isDefaultPickup": true
+    }
   },
   {
     "discoveryDisplayName": "Law - Tech Services",
