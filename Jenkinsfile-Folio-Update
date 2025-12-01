@@ -24,7 +24,8 @@ pipeline {
           rvm use 3.4.1@mylibrary --create
           gem install bundler
 
-          bundle install --without "production symphony"
+          bundle config set without 'production symphony'
+          bundle install
 
           # Harvest
           bin/rake folio:update_types_cache || exit 1
