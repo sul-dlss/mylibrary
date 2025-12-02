@@ -558,7 +558,7 @@
   {
     "id": "7f292279-7184-4426-a93f-19a661334621",
     "name": "14day-2renew-3daygrace",
-    "description": "Games - at th emoment for ENG",
+    "description": "Loan policy for board games owned by Edu, Eng, Green.",
     "renewable": true,
     "renewalsPolicy": {
       "numberAllowed": 2,
