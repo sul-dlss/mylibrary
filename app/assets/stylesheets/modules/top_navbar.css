@@ -1,0 +1,70 @@
+#topnav {
+  padding: 2px 0;
+  height: 35px;
+
+  /* move the link padding from the `a` to the `li`
+  so we can show our custom bottom border on hover */
+  .nav-item {
+    padding-bottom: var(--bs-nav-link-padding-y);
+  }
+
+  .nav-link {
+    color: var(--stanford-cardinal);
+    border-bottom: 3px solid transparent;
+    padding-bottom: 0;
+    padding-left: 0;
+    padding-right: 0;
+    margin-left: .5rem;
+    margin-right: .5rem;
+
+
+    &:hover,
+    &:focus,
+    &:active {
+      border-bottom: 3px solid white;
+    }
+  }
+}
+
+/* these rules are pulled from https://github.com/twbs/bootstrap/blob/master/scss/_navbar.scss
+but adapted to always show the uncollapsed version, regardless of breakpoints. */
+.navbar-expand-always {
+  flex-flow: row nowrap;
+  justify-content: flex-start;
+
+ .navbar-nav {
+   flex-direction: row;
+
+   .dropdown-menu {
+     position: absolute;
+   }
+
+   .nav-link {
+     padding-right: var(--bs-navbar-nav-link-padding-x);
+     padding-left: var(--bs-navbar-nav-link-padding-x);
+   }
+ }
+
+ /* For nesting containers, have to redeclare for alignment purposes */
+ > .container,
+ > .container-fluid {
+   flex-wrap: nowrap;
+ }
+
+ .navbar-collapse {
+   display: flex !important;
+
+   /* Changes flex-bases to auto because of an IE10 bug */
+   flex-basis: auto;
+ }
+}
+
+.navbar {
+  max-height: 120px;
+}
+
+@media (min-width: 576px) {
+  #topnav {
+    width: 100%;
+  }
+}

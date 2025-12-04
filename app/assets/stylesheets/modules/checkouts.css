@@ -1,4 +1,4 @@
-@include media-breakpoint-up(lg) {
+@media (min-width: 992px) {
   .renewable-indicator {
     margin-left: -20px;
   }

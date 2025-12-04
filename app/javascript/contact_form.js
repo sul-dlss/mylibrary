@@ -74,7 +74,7 @@ $(document).on('turbo:load', function(){
 
     function renderFlashMessages(response){
       $.each(response, function(i,val){
-        var flashHtml = "<div class='alert alert-" + val[0] + "'><button type='button' class='close' data-dismiss='alert' aria-hidden='true'>&times;</button>" + val[1] + "</div>";
+        var flashHtml = "<div class='alert alert-" + val[0] + "'><button type='button' class='btn-close' data-bs-dismiss='alert' aria-hidden='true'></button><div class='text-body'>" + val[1] + "</div></div>";
 
         // Show the flash message
         $('div.flash_messages').html(flashHtml);
@@ -113,7 +113,7 @@ $(document).on('turbo:load', function(){
           submitListener($el, $form);
 
           //Update href in nav link to '#'
-          $('*[data-target="#' + this.element.id +'"]').attr('href', '#');
+          $('*[data-bs-target="#' + this.element.id +'"]').attr('href', `#${this.element.id}`);
 
           //Updates reporting from fields for current location
           $('span.reporting-from-field').html(location.href);

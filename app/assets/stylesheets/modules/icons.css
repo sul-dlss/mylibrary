@@ -1,0 +1,31 @@
+.sul-icons {
+  display: inline-flex;
+  height: var(--bs-body-font-size);
+  width: var(--bs-body-font-size);
+  align-items: baseline;
+
+  &.lg {
+    height: 1.5rem;
+    width: 1.5rem;
+
+    svg {
+      height: 1.5rem;
+      width: 1.5rem;
+    }
+  }
+
+  svg {
+    height: 1em;
+    position: relative;
+    top: .125rem;
+    width: 1em;
+  }
+}
+
+.btn-icon-prefix {
+  padding-left: 0;
+
+  svg {
+    fill: var(--stanford-digital-blue);
+  }
+}

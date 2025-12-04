@@ -7,12 +7,12 @@
 
   <% count = patron.checkouts.select(&:recalled?).length %>
   <% if count.positive? %>
-    <div class="ml-4"><%= sul_icon :'sharp-error-24px', classes: 'text-recalled' %> <%= count %> recalled</div>
+    <div class="ms-4"><%= sul_icon :'sharp-error-24px', classes: 'text-recalled' %> <%= count %> recalled</div>
   <% end %>
 
   <% count = patron.checkouts.select(&:overdue?).length %>
   <% if count.positive? %>
-    <div class="ml-4"><%= sul_icon :'sharp-warning-24px', classes: 'text-overdue' %> <%= count %> overdue</div>
+    <div class="ms-4"><%= sul_icon :'sharp-warning-24px', classes: 'text-overdue' %> <%= count %> overdue</div>
   <% end %>
 </div>
 
@@ -21,7 +21,7 @@
 
   <% count = patron.requests.select(&:ready_for_pickup?).length %>
   <% if count.positive? %>
-    <div class="ml-4">
+    <div class="ms-4">
       <%= sul_icon :'sharp-check_circle-24px', classes: 'text-ready' %> <%= count %> ready for pickup
     </div>
   <% end %>
@@ -40,6 +40,6 @@
 
   <% accruing = patron.checkouts.sum(&:accrued) %>
   <% if accruing.positive? %>
-    <div class="ml-4"><%= sul_icon :'sharp-warning-24px', classes: 'text-overdue' %> <%= number_to_currency(accruing) %> accruing on overdue items</div>
+    <div class="ms-4"><%= sul_icon :'sharp-warning-24px', classes: 'text-overdue' %> <%= number_to_currency(accruing) %> accruing on overdue items</div>
   <% end %>
 </div>
