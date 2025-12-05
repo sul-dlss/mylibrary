@@ -1,14 +1,13 @@
-.global-alert {
-  border: 1px solid $su-digital-red-dark;
+.global-alert, .local-alert {
+  border: 1px solid var(--stanford-digital-red-dark);
   margin-bottom: 10px;
   padding: 5px 10px 5px 10px;
   border-radius: 0.25rem;
-  color: $su-digital-red-dark;
+  color: var(--stanford-digital-red-dark);
   p:last-child { margin-bottom: 0; }
 }
 
 .local-alert {
-  @extend .global-alert;
   width: fit-content;
 }
 

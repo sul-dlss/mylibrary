@@ -1,16 +1,16 @@
 <nav id="topnav" class="navbar navbar-expand-always" role="navigation">
   <div class="container">
-    <a class="mb-0 navbar-brand navbar-logo polychrome"
+    <a class="mb-0 navbar-brand h1 navbar-logo polychrome"
       href="https://library.stanford.edu"
       >Stanford University Libraries
     </a>
 
-    <ul class="navbar-nav ml-auto">
+    <ul class="navbar-nav ms-auto">
       <li class="nav-item">
         <%= link_to "#{current_user.username}: logout", logout_url, class: 'nav-link', data: { turbo: false } if current_user? %>
       </li>
       <li class="nav-item">
-        <%= link_to feedback_path, data: { toggle: 'collapse', target: '#feedback-form' }, class: 'nav-link' do %>
+        <%= link_to feedback_path, data: { turbo: false, bs_toggle: 'collapse', bs_target: '#feedback-form' }, class: 'nav-link' do %>
           Feedback
         <% end %>
       </li>

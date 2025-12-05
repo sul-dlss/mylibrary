@@ -1,13 +1,11 @@
-// scss-lint:disable IdSelector
-
 #mainnav {
-  background-color: $main-nav-bg-color;
+  background-color: var(--main-nav-bg-color);
 
   a:hover,
   a:focus,
   a:active {
-    background-color: rgba($cloud, .3);
-    border-bottom: 1px solid transparent;
+    background-color: rgba(var(--stanford-fog-rgb), .3);
+    border-bottom: 0px solid transparent;
   }
 
   .lg {
@@ -32,14 +30,8 @@
 .nav-link.active {
   .lg {
     svg {
-      fill: $blackish;
-      stroke: $blackish;
+      fill: var(--stanford-black);
+      stroke: var(--stanford-black);
     }
-  }
-}
-
-.proxy-tabs {
-  li {
-    font-size: $h3-font-size;
   }
 }

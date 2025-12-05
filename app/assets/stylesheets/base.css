@@ -1,87 +1,87 @@
-// Override base HTML here
+/* Override base HTML here */
 
 a {
   border-bottom: 1px solid transparent;
   text-decoration: none;
 
   svg {
-    fill: $sul-link-color;
+    fill: var(--stanford-digital-blue);
   }
 
   &.disabled {
-    color: $sul-btn-disabled-color;
+    color: var(--cool-grey);
     cursor: not-allowed;
     text-decoration: none;
   }
 }
 
 a[target="_blank"], p a, form a{
-  border-bottom: 1px solid $su-digital-blue;
+  border-bottom: 1px solid var(--stanford-digital-blue);
 }
 
 .btn:not(.btn-link):disabled {
-  background-color: $sul-btn-disabled-color;
-  color: $white;
+  background-color: var(--cool-grey);
+  color: var(--bs-white);
   cursor: not-allowed;
   text-decoration: none;
 }
 
 .btn-link:disabled {
-  color: $sul-btn-link-disabled-color;
+  color: var(--stanford-black);
   opacity: 1;
 
   svg {
-    fill: $sul-btn-link-disabled-color;
+    fill: var(--stanford-black);
   }
 }
 
 a:hover,
 a:focus,
 a:active {
-  @include link-styling;
+  border-bottom: 1px solid var(--stanford-digital-blue);
+  text-decoration: none;
 
   &.btn-link {
     border-bottom: 1px solid transparent;
   }
 }
 
-
 body {
-  background-color: $sul-bg-color;
-  color: $sul-text-color;
+  background-color: var(--beige-5-percent);
+  color: var(--stanford-black);
   font-family: 'Source Sans Pro', 'Arial Unicode MS', Helvetica, sans-serif;
   font-size: 15px;
 }
 
 h1 {
-  color: $sul-h1-font-color;
+  color: var(--stanford-black);
   font-weight: 300;
   line-height: 1.2em;
   margin-bottom: 30px;
 }
 
 h2 {
-  color: $sul-h2-font-color;
+  color: rgb(var(--stanford-stone-dark-rgb));
   line-height: 1.2em;
 }
 
 h3 {
-  color: $sul-h3-font-color;
+  color: var(--cool-grey);
   line-height: 1.2em;
 }
 
 h4 {
-  color: $sul-h4-font-color;
+  color: var(--cool-grey);
   line-height: 1.2em;
 }
 
 thead {
-  color: $sul-h2-font-color;
+  color: rgb(var(--stanford-stone-dark-rgb));
   font-weight: 700;
 }
 
 .turbo-progress-bar {
-  background: $su-digital-blue-dark;
+  background: var(--stanford-digital-blue-dark);
   display: block;
   height: 3px;
   left: 0;
@@ -97,7 +97,7 @@ thead {
   color: theme-color-level('danger', 6);
 
   svg {
-    fill: $color-recalled;
+    fill: var(--stanford-digital-red);
   }
 }
 
@@ -106,15 +106,15 @@ thead {
   color: theme-color-level('warning', 6);
 
   svg {
-    fill: $color-overdue;
+    fill: var(rgb(--stanford-poppy-rgb));
   }
 }
 
 .text-ready {
-  color: $dark-mint;
+  color: var(--dark-mint);
 
   svg {
-    fill: $color-ready;
+    fill: var(--mint);
   }
 }
 

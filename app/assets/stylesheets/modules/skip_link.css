@@ -1,4 +1,3 @@
-// scss-lint:disable IdSelector, ImportantRule, VendorPrefix
 #skip-link {
   margin-left: 10px;
   padding-top: 4px;
@@ -22,13 +21,13 @@
   }
 
   a:focus {
-    background-color: $sul-skip-to-nav-bg;
+    background-color: var(--bs-white);
     -moz-border-radius: 0 0 6px 6px;
     -webkit-border-radius: 0 0 6px 6px;
     border-radius: 0 0 6px 6px;
-    -moz-box-shadow: 0 0 6px $black;
-    -webkit-box-shadow: 0 0 6px $black;
-    box-shadow: 0 0 6px $black;
+    -moz-box-shadow: 0 0 6px var(--bs-black);
+    -webkit-box-shadow: 0 0 6px var(--bs-black);
+    box-shadow: 0 0 6px var(--bs-black);
     margin: 0;
     padding: 6px 15px;
   }

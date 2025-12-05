@@ -1,18 +1,15 @@
-// scss-lint:disable IdSelector
-
 .bg-cardinal-red {
-  background-color: $cardinal-red;
+  background-color: var(--stanford-cardinal);
 }
 
 #header-navbar {
-  box-shadow: 0 4px 8px -2px $sul-shadow-color;
+  box-shadow: 0 4px 8px -2px var(--shadow-color);
   min-height: 100px;
 
   .navbar-brand {
     background-position: center;
     background-size: contain;
     flex: 0 0 175px;
-    font-size: $h1-font-size;
     height: auto;
 
     &:hover,
@@ -26,8 +23,8 @@
 .topnav-links {
   a {
     border-bottom: 3px solid transparent;
-    color: $white;
-    margin-left: $spacer;
+    color: var(--bs-white);
+    margin-left: var(--bs-spacer);
 
     &:first-child {
       margin-left: 0;
@@ -36,14 +33,15 @@
     &:hover,
     &:focus,
     &:active {
-      border-bottom: 3px solid $white;
+      border-bottom: 3px solid var(--bs-white);
+      text-decoration: none;
     }
   }
 
   .navbar-link {
     svg {
-      fill: $white;
-      stroke: $white;
+      fill: var(--bs-white);
+      stroke: var(--bs-white);
     }
   }
 }

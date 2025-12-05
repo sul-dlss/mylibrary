@@ -1,0 +1,94 @@
+/* Override bootstrap variables here */
+
+/* Headings */
+
+h1,
+.h1,
+h2,
+.h2,
+h3,
+.h3,
+h4,
+.h4 {
+  font-size: var(--sul-header-font-size);
+  font-weight: 400;
+}
+
+h1,
+.h1 {
+  --sul-header-font-size: 2.323em;
+}
+
+h2,
+.h2 {
+  --sul-header-font-size: 1.793em;
+}
+
+h3,
+.h3 {
+  --sul-header-font-size: 1.383em;
+}
+
+h4,
+.h4 {
+  --sul-header-font-size: 1.215em;
+}
+
+
+:root {
+  --bs-link-color: var(--stanford-digital-blue);
+  --bs-secondary-rgb: var(--stanford-fog-rgb);
+  --bs-primary-rgb: var(--stanford-cardinal-rgb);
+  --bs-primary: rgb(var(--bs-primary-rgb));
+  --bs-secondary: rgb(var(--bs-secondary-rgb));
+  --bs-success-rgb: var(--mint-rgb);
+  --beige: #d7d3c9;
+  --bs-success-bg-subtle: rgba(var(--bs-success-rgb), 10%);
+  --bs-success-border-subtle: rgb(var(--bs-success-rgb));
+  --bs-success-text-emphasis: rgb(var(--bs-success-rgb));
+  --bs-input-focus-width: .2rem;
+  --bs-input-focus-border-color: rgba(var(--stanford-digital-blue-dark), .25);
+  --bs-input-focus-box-shadow:  0 0 0 var(--bs-input-focus-width) var(--bs-input-focus-border-color);
+}
+
+/* Everything below should be yanked on refactor */
+
+.btn-primary {
+  --bs-btn-bg: rgb(var(--bs-primary-rgb));
+  --bs-btn-border-color: rgb(var(--bs-primary-rgb));
+  --bs-btn-hover-bg: var(--stanford-cardinal-dark);
+  --bs-btn-hover-border-color: rgb(var(--bs-primary-rgb));
+  --bs-btn-active-bg: rgb(var(--bs-primary-rgb));
+  --bs-btn-active-border-color: rgb(var(--bs-primary-rgb));
+}
+
+.btn-secondary {
+  --bs-btn-bg: rgb(var(--bs-secondary-rgb));
+  --bs-btn-border-color: rgb(var(--bs-secondary-rgb));
+  --bs-btn-hover-bg: rgb(202, 197, 180);
+  --bs-btn-hover-border-color: rgb(202, 197, 180);
+  --bs-btn-active-bg: rgb(var(--bs-secondary-rgb));
+  --bs-btn-active-border-color: rgb(var(--bs-secondary-rgb));
+  --bs-btn-color: var(--stanford-black);
+  --bs-btn-hover-color: var(--stanford-black);
+}
+
+.btn-info {
+  --bs-btn-bg: var(--stanford-digital-blue);
+  --bs-btn-border-color: var(--stanford-digital-blue);
+  --bs-btn-hover-bg: var(--stanford-digital-blue-dark);
+  --bs-btn-hover-border-color: var(--stanford-digital-blue-dark);
+  --bs-btn-active-bg: var(--stanford-digital-blue-dark);
+  --bs-btn-active-border-color: var(--stanford-digital-blue-dark);
+  --bs-btn-color: var(--bs-white);
+  --bs-btn-hover-color: var(--bs-white);
+}
+
+.nav-pills .nav-link {
+  --bs-nav-pills-link-active-bg: var(--beige);
+  --bs-nav-pills-link-active-color: var(--stanford-black);
+  --bs-nav-pills-link-active-border-color: var(--stanford-cardinal) var(--stanford-cardinal) var(--beige-5-percent);
+  --bs-nav-pills-border-color: var(--stanford-cardinal);
+  --bs-nav-pills-link-hover-border-color: rgba(var(--stanford-cardinal-rgb), .25) rgba(var(--stanford-cardinal-rgb), .25) var(--stanford-cardinal);
+
+}

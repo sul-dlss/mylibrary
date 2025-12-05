@@ -1,20 +1,21 @@
 .list-group-item {
   &:hover,
   &.expanded {
-    background-color: $sul-list-group-item-bg;
+    background-color: var(--light-sandstone);
   }
 }
 
 .list-group-item-warning {
+  color: var(--stanford-black);
   &:hover,
   &.expanded {
-    background-color: $sul-list-group-item-warning-bg;
+    background-color: var(--very-pale-orange);
   }
 }
 
 .list-group-item-danger {
   &:hover,
   &.expanded {
-    background-color: $sul-list-group-item-danger-bg;
+    background-color: var(--very-pale-red);
   }
 }
