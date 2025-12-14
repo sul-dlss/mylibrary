@@ -1,5 +1,5 @@
 <nav role="navigation" aria-label="Main navigation" id="mainnav" class="pt-3 pb-3">
-  <ul class="nav nav-pills nav-justified container pr-0">
+  <ul class="nav nav-pills nav-justified container pe-0">
     <li class="nav-item">
       <%= link_to summaries_path(group: params[:group]), class: "nav-link #{active_page_class('summaries')}", aria: {current: controller_name == 'summaries' ? 'page' : false } do %>
         <%= sul_icon :'sharp-person-24px', classes: 'lg' %>

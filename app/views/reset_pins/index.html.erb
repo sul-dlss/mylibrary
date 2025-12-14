@@ -1,6 +1,6 @@
 <h1>Reset/Request PIN</h1>
 <%= form_tag reset_pin_url, method: :post do %>
-  <div class="form-group">
+  <div class="mb-3">
     <%= label_tag :university_id, t('mylibrary.university_id.label') %>
     <%= text_field_tag :university_id, nil, class: 'form-control', 'aria-describedby': 'university-id-help', autofocus: true %>
     <small id="university-id-help" class="form-text text-muted"><%= t('mylibrary.university_id.help_text') %></small>

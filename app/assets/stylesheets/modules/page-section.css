@@ -1,8 +1,8 @@
 .page-section {
-  margin-bottom: $page-section-margin-bottom;
+  margin-bottom: 45px;
 
   h2 {
-    margin-bottom: $spacer;
+    margin-bottom: var(--bs-spacer);
   }
 
   .list-group-item.row {

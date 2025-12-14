@@ -49,7 +49,7 @@ document.addEventListener('turbo:load', function() {
     })
   })
 
-  document.querySelectorAll('[data-target^="#collapseDetails"]').forEach(function(el) {
+  document.querySelectorAll('[data-bs-target^="#collapseDetails"]').forEach(function(el) {
     el.addEventListener('click', function(e) {
       sendAnalyticsEvent({
         category: 'Toggle Details',

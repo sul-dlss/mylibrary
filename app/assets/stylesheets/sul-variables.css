@@ -1,0 +1,13 @@
+:root {
+  --light-sandstone: #f9f6ef;
+  --very-pale-orange: #ffe9c5;
+  --very-pale-red: #ffe5ea;
+  --beige-5-percent: #fbfbf9;
+  --mint: #009b76;
+  --mint-rgb: 0, 155, 118;
+  --dark-mint: #00664e;
+  --cool-grey: #4d4f53;
+  --main-nav-bg-color: var(--light-sandstone);
+  --shadow-color: rgba(0, 0, 0, .2);
+}
+
