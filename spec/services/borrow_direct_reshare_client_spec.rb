@@ -89,7 +89,7 @@ RSpec.describe BorrowDirectReshareClient do
     end
 
     it 'returns a list of requests' do
-      expect(client.requests('12345678')).to eq(['id' => '00000000'])
+      expect(client.requests('12345678')).to eq([{ 'id' => '00000000' }])
     end
   end
 end

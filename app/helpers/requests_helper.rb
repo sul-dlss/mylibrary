@@ -52,14 +52,14 @@ module RequestsHelper
     # Filter out non-pickup locations
     # Map the service points to the [label, value] format for options_for_select
     default_service_points.compact.uniq(&:id).select { |service_point| service_point.pickup_location == true }
-                          .filter_map do |service_point|
-                            if service_point.patron_unpermitted_for_pickup?(patron) &&
-                               # ... but if the service point is already selected, don't take it away
-                               service_point.id != request.service_point_id
-                              next
-                            end
+                                             .filter_map do |service_point|
+                                               if service_point.patron_unpermitted_for_pickup?(patron) &&
+                                                  # ... but if the service point is already selected, don't take it away
+                                                  service_point.id != request.service_point_id
+                                                 next
+                                               end
 
-                            [service_point.name, service_point.id]
-                          end
+                                               [service_point.name, service_point.id]
+                                             end
   end
 end
