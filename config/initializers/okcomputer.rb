@@ -14,7 +14,7 @@ class OkapiCheck < OkComputer::Check
   end
 end
 
-class GraphqlCheck < OkComputer::Check
+class GraphqlCheck < OkComputer::Check # rubocop:disable Style/OneClassPerFile
   def check
     if FolioGraphqlClient.new.ping
       mark_message 'Connected to Folio GraphQL'
@@ -25,7 +25,7 @@ class GraphqlCheck < OkComputer::Check
   end
 end
 
-class BorrowDirectReshareCheck < OkComputer::Check
+class BorrowDirectReshareCheck < OkComputer::Check # rubocop:disable Style/OneClassPerFile
   def check
     if BorrowDirectReshareClient.new.ping
       mark_message 'Connected to BorrowDirect Reshare'
