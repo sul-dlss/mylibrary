@@ -57,9 +57,10 @@ module Folio
     end
 
     def member_list_names
-      @member_list_names ||= member_list.each_with_object({}) do |member, hash|
-        hash[member['proxyUserId']] =
-          "#{member.dig('proxyUser', 'personal', 'firstName')} #{member.dig('proxyUser', 'personal', 'lastName')}"
+      @member_list_names ||= member_list.to_h do |member|
+        [member['proxyUserId'],
+         "#{member.dig('proxyUser', 'personal',
+                       'firstName')} #{member.dig('proxyUser', 'personal', 'lastName')}"]
       end
     end
 
