@@ -98,7 +98,7 @@
     "discoveryDisplayName": "SUL Digitization Services",
     "id": "68002733-5923-46db-acc7-3d18cbf30870",
     "code": "SULDIGITIZATION",
-    "pickupLocation": null,
+    "pickupLocation": false,
     "details": null
   },
   {
@@ -253,7 +253,7 @@
     "discoveryDisplayName": "Music - Tech Services",
     "id": "ee18f485-c78b-479c-b131-da1ffe6ce1b8",
     "code": "MUSICTS",
-    "pickupLocation": null,
+    "pickupLocation": false,
     "details": null
   },
   {
