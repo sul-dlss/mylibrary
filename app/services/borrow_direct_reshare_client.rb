@@ -64,7 +64,7 @@ class BorrowDirectReshareClient
   def session_token
     @session_token ||= begin
       response = request('/authn/login', json: { username: @username, password: @password }, method: :post)
-      check_response(response) ? response['x-okapi-token'] : nil
+      check_response(response) ? (response['x-okapi-token'] || parse_json(response)&.dig('okapiToken')) : nil
     end
   end
 
