@@ -47,6 +47,7 @@ gem 'nokogiri'
 gem 'recaptcha'
 
 gem 'global_alerts'
+gem 'view_component', '~> 4.0'
 
 group :production do
   gem 'newrelic_rpm'

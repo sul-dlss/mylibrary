@@ -71,6 +71,9 @@ RSpec.configure do |config|
   config.include Warden::Test::Helpers
   config.include Warden::Test::ControllerHelpers, type: :controller
 
+  config.include ViewComponent::TestHelpers, type: :component
+  config.include ViewComponent::SystemTestHelpers, type: :component
+
   config.after do
     Warden.test_reset!
   end

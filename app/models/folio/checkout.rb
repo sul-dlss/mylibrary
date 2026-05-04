@@ -114,10 +114,6 @@ module Folio
       SHORT_TERM_LOAN_PERIODS.include?(loan_policy_interval)
     end
 
-    def to_partial_path
-      'checkouts/checkout'
-    end
-
     # rubocop:disable Metrics/MethodLength
     def sort_key(key)
       sort_key = case key

@@ -43,7 +43,7 @@
       </div>
     </div>
     <ul class="list checkouts list-group">
-      <%= render other_checkouts %>
+      <%= render CheckoutComponent.with_collection(other_checkouts, patron: patron) %>
     </ul>
   </div>
 <% else %>
