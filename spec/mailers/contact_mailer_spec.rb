@@ -32,19 +32,19 @@ RSpec.describe ContactMailer do
       end
 
       it 'has the right email' do
-        expect(mail.body).to have_content 'Name: Daenerys Targaryen'
+        expect(mail.body).to have_text 'Name: Daenerys Targaryen'
       end
 
       it 'has the right name' do
-        expect(mail.body).to have_content 'Email: dtarg@westeros.org'
+        expect(mail.body).to have_text 'Email: dtarg@westeros.org'
       end
 
       it 'has the right host' do
-        expect(mail.body).to have_content 'Host: foo.example.com'
+        expect(mail.body).to have_text 'Host: foo.example.com'
       end
 
       it 'has the right IP' do
-        expect(mail.body).to have_content '123.43.54.123'
+        expect(mail.body).to have_text '123.43.54.123'
       end
     end
 
@@ -54,11 +54,11 @@ RSpec.describe ContactMailer do
       let(:mail) { described_class.submit_feedback(params, ip) }
 
       it 'has the right email' do
-        expect(mail.body).to have_content 'Name: User not logged in'
+        expect(mail.body).to have_text 'Name: User not logged in'
       end
 
       it 'has the right name' do
-        expect(mail.body).to have_content 'Email: User not logged in'
+        expect(mail.body).to have_text 'Email: User not logged in'
       end
     end
   end

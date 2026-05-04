@@ -25,7 +25,7 @@ RSpec.describe 'sessions/index' do
     it 'renders a maintenance message' do
       render
 
-      expect(page).to have_content 'Temporarily unavailable'
+      expect(page).to have_text 'Temporarily unavailable'
     end
 
     it 'suppresses the login buttons' do

@@ -25,7 +25,7 @@ RSpec.describe 'Fines Page' do
       visit fines_path
 
       expect(page).to have_css('h2', text: 'Accruing: $25.00')
-      expect(page).to have_content 'Fines are accruing on 1 overdue item'
+      expect(page).to have_text 'Fines are accruing on 1 overdue item'
     end
 
     it 'renders a list item for every fine' do
@@ -67,7 +67,7 @@ RSpec.describe 'Fines Page' do
     it 'does not render table headers' do
       visit fines_path
 
-      expect(page).to have_content('Fines')
+      expect(page).to have_text('Fines')
       expect(page).to have_no_css('.list-header')
     end
   end
