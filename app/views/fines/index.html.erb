@@ -26,7 +26,7 @@
       </div>
     </div>
     <ul class="fines list-group">
-      <%= render @fines %>
+      <%= render FineComponent.with_collection(@fines, patron: patron) %>
     </ul>
   <% end %>
 

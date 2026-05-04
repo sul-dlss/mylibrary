@@ -1,0 +1,11 @@
+class PaymentComponent < ViewComponent::Base
+  attr_reader :payment, :patron
+
+  delegate :sul_icon, :detail_link_to_searchworks, to: :helpers
+
+  def initialize(payment:, patron:)
+    @payment = payment
+    @patron = patron
+    super()
+  end
+end
