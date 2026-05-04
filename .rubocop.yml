@@ -1,4 +1,4 @@
-require:
+plugins:
   - rubocop-capybara
   - rubocop-performance
   - rubocop-rails
@@ -9,7 +9,7 @@ require:
 inherit_from: .rubocop_todo.yml
 
 AllCops:
-  TargetRubyVersion: 3.2
+  TargetRubyVersion: 4.0
   Exclude:
       - bin/*
       - vendor/bundle/**/*
