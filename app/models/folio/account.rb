@@ -90,10 +90,6 @@ module Folio
       record.dig('item', 'barcode')
     end
 
-    def to_partial_path
-      closed? ? 'payments/payment' : 'fines/fine'
-    end
-
     def closed?
       record.dig('status', 'name') == 'Closed'
     end

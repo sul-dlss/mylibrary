@@ -33,7 +33,7 @@
     </div>
 
     <ul class="payments list list-group">
-      <%= render @payments %>
+      <%= render PaymentComponent.with_collection(@payments, patron: patron) %>
     </ul>
   <% end %>
 </div>

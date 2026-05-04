@@ -33,7 +33,7 @@
         <dt class="col-3 offset-1 col-md-2 offset-md-2">Billed:</dt>
         <dd class="col-8"><%= l(fine.bill_date, format: :short) %></dd>
       <% end %>
-      <dt class="col-3 offset-1 col-md-2 offset-md-2"><%= nice_status_fee_label(fine.nice_status) %>:</dt>
+      <dt class="col-3 offset-1 col-md-2 offset-md-2"><%= nice_status_fee_label %>:</dt>
       <dd class="col-8"><%= number_to_currency(fine.fee) %></dd>
       <dt class="col-3 offset-1 col-md-2 offset-md-2">Source:</dt>
       <dd class="col-8"><%= fine.library_name %></dd>
