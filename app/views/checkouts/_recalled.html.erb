@@ -13,7 +13,7 @@
         </div>
       </div>
       <ul class="recalled-checkouts list-group">
-        <%= render recalled %>
+        <%= render CheckoutComponent.with_collection(recalled, patron: patron) %>
       </ul>
     <% end %>
 </div>
