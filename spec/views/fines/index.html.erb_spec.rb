@@ -69,7 +69,6 @@ RSpec.describe 'fines/index' do
       without_partial_double_verification do
         allow(view).to receive_messages(patron_or_group: patron, patron:)
       end
-      allow(fine).to receive(:to_partial_path).and_return('fines/fine')
     end
 
     it 'shows the fined item author' do
@@ -104,7 +103,6 @@ RSpec.describe 'fines/index' do
       without_partial_double_verification do
         allow(view).to receive_messages(patron:, patron_or_group:)
       end
-      allow(fine).to receive(:to_partial_path).and_return('fines/fine')
     end
 
     context 'when one of their proxies incurred a fine' do
