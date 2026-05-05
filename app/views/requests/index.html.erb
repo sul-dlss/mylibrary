@@ -24,7 +24,7 @@
       </div>
     </div>
     <ul class="list ready-requests list-group">
-      <%= render ready %>
+      <%= render RequestComponent.with_collection(ready, patron: patron, group: params[:group]) %>
     </ul>
   </div>
 <% end %>
@@ -61,7 +61,7 @@
       </div>
     </div>
     <ul class="list requested-requests list-group">
-      <%= render requested %>
+      <%= render RequestComponent.with_collection(requested, patron: patron, group: params[:group]) %>
     </ul>
   <% end %>
 </div>

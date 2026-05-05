@@ -2,7 +2,7 @@
 
 require 'rails_helper'
 
-RSpec.describe 'requests/_request' do
+RSpec.describe RequestComponent, type: :component do
   let(:request_attributes) { {} }
   let(:mock_request) do
     instance_double(
@@ -28,13 +28,8 @@ RSpec.describe 'requests/_request' do
 
   let(:patron) { instance_double(Folio::Patron, can_modify_requests?: true, group: group_instance) }
   let(:group_instance) { instance_double(Folio::Group, member_name: 'Piper Proxy') }
-
-  before do
-    without_partial_double_verification do
-      allow(view).to receive_messages(params: { group: true }, patron:) # Set params[:group] to true
-    end
-    render partial: 'requests/request', locals: { request: mock_request, group: true }
-  end
+  let(:component) { described_class.new(request: mock_request, patron:, group: true) }
+  let(:rendered) { Capybara.string(render_inline(component)) }
 
   it 'links to the item in SearchWorks' do
     expect(rendered).to have_link(
@@ -45,7 +40,8 @@ RSpec.describe 'requests/_request' do
 
   context 'when the request was made by a proxy' do
     it 'displays proxy requester name' do
-      expect(rendered).to include('Borrower:', 'Piper Proxy')
+      expect(rendered).to have_text('Borrower:')
+      expect(rendered).to have_text('Piper Proxy')
     end
   end
 end
