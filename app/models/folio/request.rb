@@ -15,10 +15,6 @@ module Folio
       @record = record
     end
 
-    def to_partial_path
-      'requests/request'
-    end
-
     def key
       record['requestId']
     end
