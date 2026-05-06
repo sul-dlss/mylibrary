@@ -3,15 +3,15 @@
 module Folio
   Library = Data.define(:id, :name, :code) do
     def self.all
-      @all ||= Folio::Types.get_type('libraries').map { |json| from_dynamic(json) }
+      Folio::Types.libraries
     end
 
     def self.find_by_code(code)
-      all.find { |item| item.code == code }
+      Folio::Types.libraries.find_by(code: code)
     end
 
     def self.find_by_id(id)
-      all.find { |item| item.id == id }
+      Folio::Types.libraries.find_by(id: id)
     end
 
     def self.from_dynamic(json)

@@ -3,7 +3,7 @@
 module Folio
   class Types
     class << self
-      delegate :loan_policies, :get_type, to: :instance
+      delegate :loan_policies, :get_type, :libraries, :locations, to: :instance
     end
 
     def self.instance
@@ -34,6 +34,18 @@ module Folio
 
       file = cache_dir.join("#{type}.json")
       JSON.parse(file.read) if file.exist?
+    end
+
+    def libraries
+      @libraries ||= TypeStore.new(Folio::Library, get_type('libraries'))
+    end
+
+    def locations
+      @locations ||= TypeStore.new(Folio::Location, get_type('locations'))
+    end
+
+    def service_points
+      @service_points ||= TypeStore.new(Folio::ServicePoint, get_type('service_points'))
     end
 
     private

@@ -4,15 +4,15 @@ module Folio
   Location = Data.define(:id, :library, :library_id, :code, :discovery_display_name,
                          :name, :primary_service_point_id, :details) do
     def self.all
-      @all ||= Folio::Types.get_type('locations').map { |json| from_dynamic(json) }
+      Folio::Types.locations
     end
 
     def self.find_by_code(code)
-      all.find { |item| item.code == code }
+      Folio::Types.locations.find_by(code: code)
     end
 
     def self.find_by_id(id)
-      all.find { |item| item.id == id }
+      Folio::Types.locations.find_by(id: id)
     end
 
     def self.from_dynamic(json)
