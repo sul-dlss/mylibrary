@@ -18,34 +18,6 @@ RSpec.describe Folio::Library do
     }.with_indifferent_access
   end
 
-  # rubocop: disable Rails/RedundantActiveRecordAllMethod
-  describe '.all' do
-    it 'returns an array of libraries' do
-      expect(described_class.all.first).to be_a described_class
-    end
-  end
-  # rubocop: enable Rails/RedundantActiveRecordAllMethod
-
-  describe '.find_by_code' do
-    it 'returns a library' do
-      expect(described_class.find_by_code('GREEN')).to be_a described_class
-    end
-
-    it 'returns nil for an unknown code' do
-      expect(described_class.find_by_code('SOME_CODE')).to be_nil
-    end
-  end
-
-  describe '.find_by_id' do
-    it 'returns a library' do
-      expect(described_class.find_by_id('c1a86906-ced0-46cb-8f5b-8cef542bdd00')).to be_a described_class
-    end
-
-    it 'returns nil for an unknown code' do
-      expect(described_class.find_by_id('123456')).to be_nil
-    end
-  end
-
   describe '.from_dynamic' do
     subject(:green) { described_class.from_dynamic(green_library) }
 

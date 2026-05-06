@@ -102,15 +102,16 @@ RSpec.describe RequestsHelper do
       end
 
       before do
-        allow(Folio::ServicePoint).to receive_messages(
-          find_by_id: instance_double(Folio::ServicePoint,
-                                      code: 'GREEN-LOAN',
-                                      id: 'a5dbb3dc-84f8-4eb3-8bfe-c61f74a9e92d',
-                                      is_default_for_campus: 'SUL',
-                                      is_default_pickup: true,
-                                      name: 'Green Library',
-                                      pickup_location: true)
-        )
+        allow(Folio::Types).to receive_messages(service_points: Folio::TypeStore.new(
+          Folio::ServicePoint, [instance_double(Folio::ServicePoint,
+                                                code: 'GREEN-LOAN',
+                                                id: 'a5dbb3dc-84f8-4eb3-8bfe-c61f74a9e92d',
+                                                is_default_for_campus: 'SUL',
+                                                is_default_pickup: true,
+                                                name: 'Green Library',
+                                                patron_unpermitted_for_pickup?: false,
+                                                pickup_location: true)]
+        ))
         allow(request).to receive(:restricted_pickup_service_points).and_return(nil)
       end
 
@@ -132,17 +133,17 @@ RSpec.describe RequestsHelper do
       end
 
       before do
-        allow(Folio::ServicePoint).to receive_messages(
-          find_by_id: instance_double(Folio::ServicePoint,
-                                      code: 'ARS',
-                                      id: 'faa81922-3da8-4086-a7fa-977d7d3e7977',
-                                      is_default_for_campus: nil,
-                                      is_default_pickup: false,
-                                      name: 'Archive of Recorded Sound',
-                                      unpermitted_pickup_groups: [],
-                                      pickup_location: true,
-                                      patron_unpermitted_for_pickup?: false)
-        )
+        allow(Folio::Types).to receive_messages(service_points: Folio::TypeStore.new(
+          Folio::ServicePoint, [instance_double(Folio::ServicePoint,
+                                                code: 'ARS',
+                                                id: 'faa81922-3da8-4086-a7fa-977d7d3e7977',
+                                                is_default_for_campus: nil,
+                                                is_default_pickup: false,
+                                                name: 'Archive of Recorded Sound',
+                                                unpermitted_pickup_groups: [],
+                                                pickup_location: true,
+                                                patron_unpermitted_for_pickup?: false)]
+        ))
         allow(request).to receive(:restricted_pickup_service_points).and_return(nil)
       end
 
@@ -164,15 +165,15 @@ RSpec.describe RequestsHelper do
       end
 
       before do
-        allow(Folio::ServicePoint).to receive_messages(
-          find_by_id: instance_double(Folio::ServicePoint,
-                                      code: 'CLASSICS',
-                                      id: '8bb5d494-263f-42f0-9a9f-70451530d8a3',
-                                      is_default_for_campus: nil,
-                                      is_default_pickup: false,
-                                      name: 'Classics Library',
-                                      pickup_location: false)
-        )
+        allow(Folio::Types).to receive_messages(service_points: Folio::TypeStore.new(
+          Folio::ServicePoint, [instance_double(Folio::ServicePoint,
+                                                code: 'CLASSICS',
+                                                id: '8bb5d494-263f-42f0-9a9f-70451530d8a3',
+                                                is_default_for_campus: nil,
+                                                is_default_pickup: false,
+                                                name: 'Classics Library',
+                                                pickup_location: false)]
+        ))
         allow(request).to receive(:restricted_pickup_service_points).and_return(nil)
       end
 

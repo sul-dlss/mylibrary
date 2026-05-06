@@ -72,7 +72,7 @@ module Folio
     end
 
     def service_point_name
-      Folio::ServicePoint.find_by_id(service_point_id)&.name || service_point_code
+      Folio::Types.service_points.find_by(id: service_point_id)&.name || service_point_code
     end
 
     def service_point_code

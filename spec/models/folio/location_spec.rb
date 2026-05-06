@@ -31,34 +31,6 @@ RSpec.describe Folio::Location do
     }.with_indifferent_access
   end
 
-  # rubocop: disable Rails/RedundantActiveRecordAllMethod
-  describe '.all' do
-    it 'returns an array of locations' do
-      expect(described_class.all.first).to be_a described_class
-    end
-  end
-  # rubocop: enable Rails/RedundantActiveRecordAllMethod
-
-  describe '.find_by_code' do
-    it 'returns a location' do
-      expect(described_class.find_by_code('GRE-STACKS')).to be_a described_class
-    end
-
-    it 'returns nil for an unknown code' do
-      expect(described_class.find_by_code('SOME_CODE')).to be_nil
-    end
-  end
-
-  describe '.find_by_id' do
-    it 'returns a location' do
-      expect(described_class.find_by_id('4573e824-9273-4f13-972f-cff7bf504217')).to be_a described_class
-    end
-
-    it 'returns nil for an unknown code' do
-      expect(described_class.find_by_id('f5c58187-3db6-4bda-b1bf-e5f0717e2149')).to be_nil
-    end
-  end
-
   describe '.from_dynamic' do
     subject(:green) { described_class.from_dynamic(green_reserves) }
 

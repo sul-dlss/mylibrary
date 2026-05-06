@@ -20,9 +20,7 @@ RSpec.describe 'Request Page' do
                                            cancel_request: api_response,
                                            change_pickup_service_point: api_response,
                                            change_pickup_expiration: api_response)
-    allow(Folio::ServicePoint).to receive_messages(
-      all: service_points
-    )
+    allow(Folio::Types).to receive_messages(service_points: Folio::TypeStore.new(Folio::ServicePoint, service_points))
 
     login_as(User.new(username: 'stub_user', patron_key: '513a9054-5897-11ee-8c99-0242ac120002'))
   end

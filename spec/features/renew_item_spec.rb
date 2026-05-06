@@ -30,9 +30,7 @@ RSpec.describe 'Renew item', :js do
     allow(mock_client).to receive_messages(patron_info:,
                                            renew_item_by_id: api_response,
                                            renew_items: bulk_renew_response)
-    allow(Folio::ServicePoint).to receive_messages(
-      all: service_points
-    )
+    allow(Folio::Types).to receive_messages(service_points: Folio::TypeStore.new(Folio::ServicePoint, service_points))
     allow(Folio::LoanPolicy).to receive(:new).and_return(build(:grad_mono_loans,
                                                                due_date: '2021-01-09T07:59:59.000+00:00',
                                                                renewal_count: 0))

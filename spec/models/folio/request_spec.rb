@@ -111,7 +111,7 @@ RSpec.describe Folio::Request do
     end
 
     before do
-      allow(Folio::ServicePoint).to receive_messages(all: service_points)
+      allow(Folio::Types).to receive_messages(service_points: Folio::TypeStore.new(Folio::ServicePoint, service_points))
     end
 
     context 'when the code maps to a service point' do
