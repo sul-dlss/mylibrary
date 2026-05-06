@@ -6,6 +6,9 @@ module Folio
   # The account payment status is the status of the last action
   # https://wiki.folio.org/pages/viewpage.action?pageId=73531762
   class Account
+    # A sufficiently large time used to sort nil values last
+    END_OF_DAYS = 100.years.from_now # rubocop:disable Rails/RelativeDateConstant
+
     attr_reader :record
 
     delegate :library_name,
@@ -112,7 +115,7 @@ module Folio
     # rubocop:enable Metrics/MethodLength
 
     def payment_sort_key
-      return Folio::Request::END_OF_DAYS - payment_date if payment_date
+      return Folio::Account::END_OF_DAYS - payment_date if payment_date
 
       0
     end
