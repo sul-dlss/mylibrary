@@ -198,7 +198,7 @@ RSpec.describe 'Navigation' do
 
     before do
       allow(mock_client).to receive(:patron_info).with('ec52d62d-9f0e-4ea5-856f-a1accb0121d1').and_return(sponsor)
-      allow(Folio::ServicePoint).to receive_messages(all: service_points)
+      allow(Folio::Types).to receive_messages(service_points: Folio::TypeStore.new(Folio::ServicePoint, service_points))
     end
 
     it 'preserves the group parameter across navigation' do

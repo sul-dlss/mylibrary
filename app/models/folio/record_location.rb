@@ -28,11 +28,15 @@ module Folio
     end
 
     def effective_location
-      @effective_location ||= Folio::Location.find_by_code(effective_location_code)
+      return @effective_location if defined?(@effective_location)
+
+      @effective_location = Folio::Types.locations.find_by(code: effective_location_code)
     end
 
     def permanent_location
-      @permanent_location ||= Folio::Location.find_by_code(permanent_location_code)
+      return @permanent_location if defined?(@permanent_location)
+
+      @permanent_location = Folio::Types.locations.find_by(code: permanent_location_code)
     end
 
     private

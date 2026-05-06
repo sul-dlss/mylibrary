@@ -3,22 +3,10 @@
 module Folio
   Location = Data.define(:id, :library, :library_id, :code, :discovery_display_name,
                          :name, :primary_service_point_id, :details) do
-    def self.all
-      Folio::Types.locations
-    end
-
-    def self.find_by_code(code)
-      Folio::Types.locations.find_by(code: code)
-    end
-
-    def self.find_by_id(id)
-      Folio::Types.locations.find_by(id: id)
-    end
-
     def self.from_dynamic(json)
       new(
         id: json.fetch('id'),
-        library: Folio::Library.find_by_id(json['libraryId'] || json.dig('library', 'id')),
+        library: Folio::Types.libraries.find_by(id: json['libraryId'] || json.dig('library', 'id')),
         library_id: json['libraryId'] || json.dig('library', 'id'),
         code: json.fetch('code'),
         discovery_display_name: json['discoveryDisplayName'] || json['name'] || json.fetch('id'),

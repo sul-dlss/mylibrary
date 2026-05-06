@@ -26,20 +26,12 @@ module Folio
     end
 
     class << self
-      def all
-        Folio::Types.service_points
-      end
-
       def default_service_points
-        Folio::Types.service_points.where(is_default_pickup: true)
+        Folio::Types.service_points.where(is_default_pickup: true).to_a
       end
 
       def name_by_code(code)
         Folio::Types.service_points.find_by(code: code)&.name
-      end
-
-      def find_by_id(id)
-        Folio::Types.service_points.find_by(id: id)
       end
 
       def from_dynamic(json)

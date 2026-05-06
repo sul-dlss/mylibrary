@@ -138,7 +138,7 @@ class IlliadRequests
     end
 
     def service_point_name
-      Folio::Library.find_by_code(library_code)&.name
+      Folio::Types.libraries.find_by(code: library_code)&.name
     end
 
     def waitlist_position; end

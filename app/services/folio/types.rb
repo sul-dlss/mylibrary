@@ -3,7 +3,7 @@
 module Folio
   class Types
     class << self
-      delegate :loan_policies, :get_type, :libraries, :locations, to: :instance
+      delegate :loan_policies, :get_type, :libraries, :locations, :service_points, to: :instance
     end
 
     def self.instance
