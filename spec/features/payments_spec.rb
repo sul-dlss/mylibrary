@@ -6,7 +6,7 @@ RSpec.describe 'Payments History' do
   let(:mock_client) { instance_double(FolioClient, ping: true) }
 
   let(:patron_info) do
-    build(:undergraduate_patron).patron_info
+    build(:undergraduate_patron).patron_graphql_response
   end
 
   before do

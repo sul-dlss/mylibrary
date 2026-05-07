@@ -9,7 +9,7 @@ RSpec.describe 'Renew item', :js do
 
   let(:mock_client) { instance_double(FolioClient, ping: true, find_effective_loan_policy: {}) }
   let(:patron_info) do
-    build(:sponsor_patron).patron_info
+    build(:sponsor_patron).patron_graphql_response
   end
 
   let(:service_points) do

@@ -3,27 +3,27 @@
 module Folio
   # Class to model Patron information
   class Patron
-    attr_reader :patron_info
+    attr_reader :patron_graphql_response
 
-    def initialize(patron_info)
-      @patron_info = patron_info
+    def initialize(patron_graphql_response)
+      @patron_graphql_response = patron_graphql_response
     end
 
     # pass a FOLIO user uuid and get back a Patron object
     def self.find(key)
-      patron_info = FolioClient.new.patron_info(key)
-      Honeybadger.notify('No patron info found', context: { key: }) unless patron_info
-      new(patron_info || {})
+      patron_graphql_response = FolioClient.new.patron_info(key)
+      Honeybadger.notify('No patron info found', context: { key: }) unless patron_graphql_response
+      new(patron_graphql_response || {})
     end
 
     def user_info
-      patron_info['user'] || {}
+      patron_graphql_response['user'] || {}
     end
 
     # The patron key can be in one of two places; either on the user data (if it's from the FOLIO API)
     # or at the top level (if it's from the GraphQL API)
     def key
-      patron_info['id'] || user_info['id']
+      patron_graphql_response['id'] || user_info['id']
     end
 
     def library_id
@@ -122,7 +122,7 @@ module Folio
     end
 
     def all_accounts
-      @all_accounts ||= patron_info['accounts'].map { |account| Account.new(account) }
+      @all_accounts ||= patron_graphql_response['accounts'].map { |account| Account.new(account) }
     end
 
     def fines
@@ -142,7 +142,7 @@ module Folio
     end
 
     def group
-      @group ||= Folio::Group.new(patron_info)
+      @group ||= Folio::Group.new(patron_graphql_response)
     end
 
     def group?
@@ -150,7 +150,7 @@ module Folio
     end
 
     def all_checkouts
-      @all_checkouts ||= patron_info['loans']&.map { |checkout| Checkout.new(checkout, patron_type_id) }
+      @all_checkouts ||= patron_graphql_response['loans']&.map { |checkout| Checkout.new(checkout, patron_type_id) }
     end
 
     # Self checkouts
@@ -222,7 +222,7 @@ module Folio
 
     # this is all requests including self and group/proxy
     def folio_requests
-      @patron_info['holds'].map { |request| Request.new(request) }
+      patron_graphql_response['holds'].map { |request| Request.new(request) }
     end
 
     def affiliations

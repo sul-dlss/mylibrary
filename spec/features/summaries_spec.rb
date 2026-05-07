@@ -10,7 +10,7 @@ RSpec.describe 'Summaries Page' do
   let(:mock_client) { instance_double(FolioClient, ping: true, find_effective_loan_policy: {}) }
 
   let(:patron_info) do
-    build(:undergraduate_patron).patron_info
+    build(:undergraduate_patron).patron_graphql_response
   end
 
   let(:sponsor) do
@@ -52,7 +52,7 @@ RSpec.describe 'Summaries Page' do
 
   context 'with overdue items' do
     let(:patron_info) do
-      build(:patron_with_overdue_items).patron_info
+      build(:patron_with_overdue_items).patron_graphql_response
     end
 
     it 'has summary data' do
@@ -62,7 +62,7 @@ RSpec.describe 'Summaries Page' do
 
   context 'with requests ready for pickup' do
     let(:patron_info) do
-      build(:sponsor_patron).patron_info
+      build(:sponsor_patron).patron_graphql_response
     end
 
     it 'has summary data' do
@@ -72,7 +72,7 @@ RSpec.describe 'Summaries Page' do
 
   context 'with recalled items' do
     let(:patron_info) do
-      build(:patron_with_recalls).patron_info
+      build(:patron_with_recalls).patron_graphql_response
     end
 
     it 'has summary data' do
@@ -82,11 +82,11 @@ RSpec.describe 'Summaries Page' do
 
   context 'with a proxy borrower' do
     let(:patron_info) do
-      build(:proxy_patron).patron_info
+      build(:proxy_patron).patron_graphql_response
     end
 
     let(:sponsor) do
-      build(:sponsor_patron).patron_info
+      build(:sponsor_patron).patron_graphql_response
     end
 
     it 'has patron data' do
