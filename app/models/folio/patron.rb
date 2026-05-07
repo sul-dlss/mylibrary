@@ -5,8 +5,6 @@ module Folio
   class Patron
     attr_reader :patron_info
 
-    CHARGE_LIMIT_THRESHOLD = 25_000
-
     def initialize(patron_info)
       @patron_info = patron_info
     end
