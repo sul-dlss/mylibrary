@@ -28,6 +28,8 @@ module Folio
       patron_info['id'] || user_info['id']
     end
 
+    alias id key
+
     def username
       user_info['username']
     end
