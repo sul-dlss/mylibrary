@@ -3,10 +3,6 @@
 module Folio
   # Class to model Research group information
   class Group < Patron
-    def patron_type
-      'Research group'
-    end
-
     def sponsor
       @sponsor ||= if sponsor?
                      Folio::Patron.new(patron_graphql_response)

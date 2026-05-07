@@ -1,17 +1,33 @@
-<h2><%= "#{patron.first_name} #{patron.last_name}" %></h2>
+<h2><%= patron.first_name %> <%= patron.last_name %></h2>
 
 <dl class="row mb-0">
-  <% if patron.patron_type %>
-    <dt class='col-5 col-sm-4 col-md-3 col-lg-2 font-weight-normal'>Patron type:</dt>
-    <dd class='col-7 col-sm-8 col-md-9 col-lg-10 patron-type'><%= patron.patron_type %></dd>
+  <% if patron.fee_borrower? %>
+    <dt class="col-5 col-sm-4 col-md-3 col-lg-2 font-weight-normal">Patron type:</dt>
+    <dd class="col-7 col-sm-8 col-md-9 col-lg-10 patron-type">Fee borrower</dd>
   <% end %>
 
   <dt class="col-5 col-sm-4 col-md-3 col-lg-2 font-weight-normal">Status:</dt>
   <dd class="col-7 col-sm-8 col-md-9 col-lg-10 patron-status"><%= link_to_if patron.barred?, patron.status, contact_path, class: 'navbar-link', 'data-mylibrary-modal' => 'trigger' %></dd>
 
-  <% if patron.expired_date && patron.proxy_borrower? %>
-    <dt class="col-5 col-sm-4 col-md-3 col-lg-2 font-weight-normal">Privileges expire:</dt>
+  <% if patron.expired_date && (patron.proxy_borrower? || patron.fee_borrower? || patron.expired?) %>
+    <dt class="col-5 col-sm-4 col-md-3 col-lg-2 font-weight-normal"><%= patron.expired? ? 'Privileges expired:' : 'Privileges expire:' %></dt>
     <dd class="col-7 col-sm-8 col-md-9 col-lg-10 expired-date"><%= l(patron.expired_date, format: :short) %></dd>
+  <% end %>
+
+  <% if patron.expired? || patron.borrow_limit %>
+    <dt class="col-5 col-sm-4 col-md-3 col-lg-2 font-weight-normal">Borrower limit:</dt>
+    <dd class="col-7 col-sm-8 col-md-9 col-lg-10 patron-status"><%= patron.expired? ? 'No access' : pluralize(patron.borrow_limit, 'checkout') %></dd>
+  <% end %>
+
+  <% if patron.expired? || patron.fee_borrower? %>
+    <dt class="col-5 col-sm-4 col-md-3 col-lg-2 font-weight-normal">eResource access:</dt>
+    <dd class="col-7 col-sm-8 col-md-9 col-lg-10 patron-status">
+      <% if patron.expired? %>
+        No access
+      <% elsif patron.fee_borrower? %>
+        In-library only
+      <% end %>
+    </dd>
   <% end %>
 
   <% if patron.email %>
