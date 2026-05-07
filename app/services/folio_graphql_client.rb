@@ -127,6 +127,7 @@ class FolioGraphqlClient
       query: "query Query($patronId: UUID!) {
         patron(id: $patronId) {
           user {
+            id
             username
             barcode
             active
