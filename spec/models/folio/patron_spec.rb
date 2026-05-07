@@ -51,20 +51,6 @@ RSpec.describe Folio::Patron do
     end
   end
 
-  describe '#patron_type' do
-    it 'returns nil if the patronGroup exists but is not Fee borrower' do
-      expect(sponsor.patron_type).to be_nil
-    end
-
-    it 'returns nil if there is no patronGroup' do
-      expect(groupless_patron.borrow_limit).to be_nil
-    end
-
-    it 'returns Fee borrower if the patronGroup is Fee borrower' do
-      expect(fee_borrower.patron_type).to eq 'Fee borrower'
-    end
-  end
-
   describe '#borrow_limit' do
     it 'returns nil when the patronGroup has no maximum condition' do
       expect(sponsor.borrow_limit).to be_nil

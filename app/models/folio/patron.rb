@@ -99,19 +99,8 @@ module Folio
       Time.zone.parse(user_info['expirationDate']) if user_info['expirationDate']
     end
 
-    def patron_type
-      # FOLIO's patronGroup refers to the patron type, e.g. Undergraduate, Graduate, Faculty, etc.
-      # this type of group is unrelated to our proxy/sponsor "research groups" in the model Folio::Group
-      patron_type = user_info.dig('patronGroup', 'desc')
-
-      return 'Fee borrower' if patron_type&.match?(/Fee borrower/i)
-
-      # suppress the display of any other patron groups
-      nil
-    end
-
     def fee_borrower?
-      patron_type == 'Fee borrower'
+      patron_group_name&.match?(/Fee borrower/i)
     end
 
     def patron_group_name
@@ -184,9 +173,6 @@ module Folio
     end
 
     def to_partial_path
-      return 'patron/expired' if expired?
-      return 'patron/fee_borrower' if fee_borrower?
-
       'patron/patron'
     end
 

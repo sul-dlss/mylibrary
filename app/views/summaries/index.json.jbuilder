@@ -11,7 +11,7 @@ json.data do
     json.status patron.status
     json.expired patron.expired?
     json.email patron.email
-    json.patron_type patron.patron_type
+    json.patron_type patron.fee_borrower? ? 'Fee borrower' : nil
     json.first_name patron.first_name
     json.last_name patron.last_name
     json.display_name patron.display_name
