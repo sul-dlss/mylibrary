@@ -28,6 +28,10 @@ module Folio
       patron_info['id'] || user_info['id']
     end
 
+    def username
+      user_info['username']
+    end
+
     def library_id
       university_id || barcode
     end
@@ -233,9 +237,9 @@ module Folio
 
     # ILLIAD requests are retrieved separately
     def illiad_requests
-      return [] unless user_info['username']
+      return [] unless username
 
-      IlliadRequests.new(user_info['username']).requests
+      IlliadRequests.new(username).requests
     end
 
     # Encryptor/decryptor for the token used in the PIN reset process
