@@ -207,14 +207,6 @@ module Folio
 
     private
 
-    def academic_staff_or_fellow?
-      return false unless profile_key == 'CNAC'
-
-      allowed_affiliations = ['affiliate:fellow', 'staff:academic', 'staff:otherteaching']
-
-      affiliations.intersect?(allowed_affiliations)
-    end
-
     def borrow_direct_requests
       # Proxies can't submit borrow direct requests, so don't check.
       return [] unless Settings.borrow_direct_reshare.enabled && !proxy_borrower?
@@ -225,10 +217,6 @@ module Folio
     # this is all requests including self and group/proxy
     def folio_requests
       @patron_info['holds'].map { |request| Request.new(request) }
-    end
-
-    def affiliations
-      []
     end
 
     # ILLIAD requests are retrieved separately
