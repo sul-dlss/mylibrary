@@ -23,7 +23,7 @@ class ApplicationController < ActionController::Base
     return unless patron
 
     if params[:group]
-      patron.group
+      patron.proxy_group
     else
       patron
     end

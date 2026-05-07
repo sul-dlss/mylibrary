@@ -35,7 +35,7 @@ module Folio
     end
 
     def checkouts
-      sponsor.group_checkouts || []
+      sponsor.proxy_group_checkouts || []
     end
 
     # NOTE: Fines on items borrowed by a proxy/group are associated
@@ -45,14 +45,14 @@ module Folio
     end
 
     def requests
-      sponsor.group_requests
+      sponsor.proxy_group_requests
     end
 
     def member_list
       @member_list ||= if sponsor?
                          user_info['proxiesOf']
                        elsif proxy_borrower?
-                         sponsor.group.member_list
+                         sponsor.proxy_group.member_list
                        end
     end
 

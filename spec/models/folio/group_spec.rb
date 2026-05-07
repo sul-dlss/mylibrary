@@ -6,11 +6,11 @@ RSpec.describe Folio::Group do
   let(:sponsor) do
     build(:sponsor_patron, custom_properties: {})
   end
-  let(:sponsor_group) { sponsor.group }
+  let(:sponsor_group) { sponsor.proxy_group }
   let(:proxy) do
     build(:proxy_patron, custom_properties: {})
   end
-  let(:proxy_group) { proxy.group }
+  let(:proxy_group) { proxy.proxy_group }
 
   context 'when the patron is a Sponsor' do
     describe '#member_list' do
