@@ -16,26 +16,9 @@ RSpec.describe Folio::Patron do
     build(:fee_borrower, custom_properties: {})
   end
 
-  describe '.find' do
-    before do
-      allow(FolioClient).to receive(:new).and_return(folio_client)
-      allow(Honeybadger).to receive(:notify)
-    end
-
-    context 'when response is nil' do
-      let(:folio_client) { instance_double(FolioClient, patron_info: nil) }
-
-      it 'notifies honeybadger' do
-        patron = described_class.find('foo')
-        expect(patron.patron_graphql_response).to be_blank
-        expect(Honeybadger).to have_received(:notify)
-      end
-    end
-  end
-
   describe '#key' do
     context 'with a Patron from the FOLIO APIs' do
-      subject(:patron) { described_class.new({ 'user' => { 'id' => 'xyz' } }) }
+      subject(:patron) { described_class.new(patron_graphql_response: { 'user' => { 'id' => 'xyz' } }) }
 
       it 'returns the user id' do
         expect(patron.key).to eq 'xyz'
@@ -43,7 +26,7 @@ RSpec.describe Folio::Patron do
     end
 
     context 'with a Patron from the Graphql API' do
-      subject(:patron) { described_class.new({ 'id' => 'xyz' }) }
+      subject(:patron) { described_class.new(patron_graphql_response: { 'id' => 'xyz' }) }
 
       it 'returns the user id' do
         expect(patron.key).to eq 'xyz'
@@ -67,7 +50,8 @@ RSpec.describe Folio::Patron do
 
   describe '#can_renew?' do
     subject(:patron) do
-      described_class.new({ 'user' => { 'active' => active?, 'manualBlocks' => manual_blocks, 'blocks' => blocks } })
+      described_class.new(patron_graphql_response: { 'user' => { 'active' => active?, 'manualBlocks' => manual_blocks,
+                                                                 'blocks' => blocks } })
     end
 
     let(:active?) { true }
@@ -99,7 +83,8 @@ RSpec.describe Folio::Patron do
 
   describe '#expired?' do
     subject(:patron) do
-      described_class.new({ 'user' => { 'active' => active?, 'manualBlocks' => [], 'blocks' => [] } })
+      described_class.new(patron_graphql_response: { 'user' => { 'active' => active?, 'manualBlocks' => [],
+                                                                 'blocks' => [] } })
     end
 
     context 'when the patron account is active' do

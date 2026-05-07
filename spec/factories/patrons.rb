@@ -316,7 +316,7 @@ FactoryBot.define do
         'totalHolds' => 2 }.merge(custom_properties)
     end
 
-    initialize_with { new(patron_info) }
+    initialize_with { new(patron_graphql_response: patron_info) }
   end
 
   factory :proxy_patron, class: 'Folio::Patron' do
@@ -459,7 +459,7 @@ FactoryBot.define do
         'totalHolds' => 1 }.merge(custom_properties)
     end
 
-    initialize_with { new(patron_info) }
+    initialize_with { new(patron_graphql_response: patron_info) }
   end
 
   factory :groupless_patron, class: 'Folio::Patron' do
@@ -494,7 +494,7 @@ FactoryBot.define do
         'totalHolds' => 0 }.merge(custom_properties)
     end
 
-    initialize_with { new(patron_info) }
+    initialize_with { new(patron_graphql_response: patron_info) }
   end
 
   factory :fee_borrower, class: 'Folio::Patron' do
@@ -538,7 +538,7 @@ FactoryBot.define do
         'totalHolds' => 0 }.merge(custom_properties)
     end
 
-    initialize_with { new(patron_info) }
+    initialize_with { new(patron_graphql_response: patron_info) }
   end
 
   factory :patron_with_overdue_items, class: 'Folio::Patron' do
@@ -581,7 +581,7 @@ FactoryBot.define do
       }.merge(custom_properties)
     end
 
-    initialize_with { new(patron_info) }
+    initialize_with { new(patron_graphql_response: patron_info) }
   end
 
   factory :patron_with_recalls, class: 'Folio::Patron' do
@@ -623,7 +623,7 @@ FactoryBot.define do
       }.merge(custom_properties)
     end
 
-    initialize_with { new(patron_info) }
+    initialize_with { new(patron_graphql_response: patron_info) }
   end
 
   factory :patron_with_fines, class: 'Folio::Patron' do
@@ -764,7 +764,7 @@ FactoryBot.define do
         'totalHolds' => 1 }.merge(custom_properties)
     end
 
-    initialize_with { new(patron_info) }
+    initialize_with { new(patron_graphql_response: patron_info) }
   end
 
   factory :undergraduate_patron, class: 'Folio::Patron' do
@@ -1131,6 +1131,6 @@ FactoryBot.define do
         'totalHolds' => 3 }.merge(custom_properties)
     end
 
-    initialize_with { new(patron_info) }
+    initialize_with { new(patron_graphql_response: patron_info) }
   end
 end

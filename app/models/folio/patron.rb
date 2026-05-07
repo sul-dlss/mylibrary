@@ -3,27 +3,37 @@
 module Folio
   # Class to model Patron information
   class Patron
-    attr_reader :patron_graphql_response
+    attr_reader :user_info
 
-    def initialize(patron_graphql_response)
+    def initialize(user_info = nil, patron_graphql_response: nil)
+      if user_info.nil? && patron_graphql_response.nil?
+        raise ArgumentError,
+              'Must provide either user_info or patron_graphql_response'
+      end
+
+      @user_info = user_info || patron_graphql_response&.dig('user') || {}
       @patron_graphql_response = patron_graphql_response
+    end
+
+    def patron_graphql_response
+      @patron_graphql_response ||= FolioClient.new.patron_info(user_info['id'])
+    end
+
+    def extended_user_info
+      patron_graphql_response['user']
     end
 
     # pass a FOLIO user uuid and get back a Patron object
     def self.find(key)
       patron_graphql_response = FolioClient.new.patron_info(key)
       Honeybadger.notify('No patron info found', context: { key: }) unless patron_graphql_response
-      new(patron_graphql_response || {})
-    end
-
-    def user_info
-      patron_graphql_response['user'] || {}
+      new(patron_graphql_response: patron_graphql_response)
     end
 
     # The patron key can be in one of two places; either on the user data (if it's from the FOLIO API)
     # or at the top level (if it's from the GraphQL API)
     def key
-      patron_graphql_response['id'] || user_info['id']
+      user_info['id'] || patron_graphql_response['id']
     end
 
     alias id key
@@ -81,11 +91,11 @@ module Folio
     end
 
     def barred?
-      user_info['manualBlocks'].any?
+      extended_user_info['manualBlocks'].any?
     end
 
     def blocked?
-      user_info['blocks'].any?
+      extended_user_info['blocks'].any?
     end
 
     # From https://docs.folio.org/docs/users/: Inactive status indicates that the expiration date
@@ -104,11 +114,11 @@ module Folio
     end
 
     def patron_group_name
-      user_info.dig('patronGroup', 'desc')
+      extended_user_info.dig('patronGroup', 'desc')
     end
 
     def borrow_limit
-      borrow_limit = user_info.dig('patronGroup', 'limits')&.find do |limit|
+      borrow_limit = extended_user_info.dig('patronGroup', 'limits')&.find do |limit|
         limit.dig('condition', 'name') == 'Maximum number of items charged out'
       end
       borrow_limit&.dig('value')
@@ -133,15 +143,15 @@ module Folio
     end
 
     def proxy_borrower?
-      user_info['proxiesFor']&.any?
+      extended_user_info['proxiesFor']&.any?
     end
 
     def sponsor?
-      user_info['proxiesOf']&.any?
+      extended_user_info['proxiesOf']&.any?
     end
 
     def proxy_group
-      @proxy_group ||= Folio::Group.new(patron_graphql_response)
+      @proxy_group ||= Folio::Group.new(patron_graphql_response: patron_graphql_response)
     end
 
     def proxy_group?
@@ -149,7 +159,7 @@ module Folio
     end
 
     def all_checkouts
-      @all_checkouts ||= patron_graphql_response['loans']&.map { |checkout| Checkout.new(checkout, patron_type_id) }
+      @all_checkouts ||= patron_graphql_response['loans']&.map { |checkout| Checkout.new(checkout, patron_group_id) }
     end
 
     # Self checkouts
@@ -229,10 +239,10 @@ module Folio
       end
     end
 
-    def patron_type_id
+    def patron_group_id
       # FOLIO's patronGroup refers to the patron type, e.g. Undergraduate, Graduate, Faculty, etc.
       # this type of group is unrelated to our proxy/sponsor "research groups" in the model Folio::Group
-      user_info['patronGroupId']
+      (user_info['patronGroup'] if user_info['patronGroup'].is_a?(String)) || user_info['patronGroupId']
     end
   end
 end

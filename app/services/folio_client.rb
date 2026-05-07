@@ -76,7 +76,7 @@ class FolioClient
 
     return unless user
 
-    patron_info ? Folio::Patron.find(user['id']) : Folio::Patron.new({ 'user' => user })
+    patron_info ? Folio::Patron.find(user['id']) : Folio::Patron.new(user)
   end
 
   # FOLIO graphql call, compare to #patron_account

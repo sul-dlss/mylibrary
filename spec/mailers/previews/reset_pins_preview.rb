@@ -13,14 +13,14 @@ class ResetPinsPreview < ActionMailer::Preview
 
   # An example patron record for testing PIN reset email appearance
   def preview_patron
-    Folio::Patron.new('id' => '77052ede-7ded-4583-afcb-bc845b7eab80',
-                      'user' => {
-                        'barcode' => '2558563207',
-                        'personal' => {
-                          'firstName' => 'Jane',
-                          'lastName' => 'Doe',
-                          'email' => 'janedoe@stanford.edu'
-                        }
-                      })
+    Folio::Patron.new(patron_graphql_response: { 'id' => '77052ede-7ded-4583-afcb-bc845b7eab80',
+                                                 'user' => {
+                                                   'barcode' => '2558563207',
+                                                   'personal' => {
+                                                     'firstName' => 'Jane',
+                                                     'lastName' => 'Doe',
+                                                     'email' => 'janedoe@stanford.edu'
+                                                   }
+                                                 } })
   end
 end
