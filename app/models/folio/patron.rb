@@ -34,6 +34,26 @@ module Folio
       user_info['username']
     end
 
+    def personal_data
+      user_info['personal'] || {}
+    end
+
+    def first_name
+      personal_data['preferredFirstName'] || personal_data['firstName']
+    end
+
+    def last_name
+      personal_data['lastName']
+    end
+
+    def display_name
+      "#{first_name} #{last_name}"
+    end
+
+    def email
+      personal_data['email']
+    end
+
     def library_id
       university_id || barcode
     end
@@ -81,10 +101,6 @@ module Folio
       Time.zone.parse(user_info['expirationDate']) if user_info['expirationDate']
     end
 
-    def email
-      user_info.dig('personal', 'email')
-    end
-
     def patron_type
       # FOLIO's patronGroup refers to the patron type, e.g. Undergraduate, Graduate, Faculty, etc.
       # this type of group is unrelated to our proxy/sponsor "research groups" in the model Folio::Group
@@ -98,18 +114,6 @@ module Folio
 
     def fee_borrower?
       patron_type == 'Fee borrower'
-    end
-
-    def first_name
-      user_info.dig('personal', 'firstName')
-    end
-
-    def last_name
-      user_info.dig('personal', 'lastName')
-    end
-
-    def display_name
-      "#{first_name} #{last_name}"
     end
 
     def patron_group_name
