@@ -43,12 +43,12 @@ RSpec.describe 'fines/index' do
                     remaining_checkouts: nil,
                     barred?: false,
                     status: 'OK',
-                    group?: false,
+                    proxy_group?: false,
                     sponsor?: false,
                     display_name: 'Shea Sponsor',
                     instance_of?: Folio::Patron)
   end
-  let(:group) do
+  let(:proxy_group) do
     instance_double(Folio::Group,
                     barred?: false,
                     blocked?: false,
@@ -95,11 +95,11 @@ RSpec.describe 'fines/index' do
       assign(:checkouts, checkouts)
       assign(:patron_or_group, patron_or_group)
       # make the patron a group sponsor
-      allow(patron).to receive_messages(sponsor?: true, group:)
+      allow(patron).to receive_messages(sponsor?: true, proxy_group:)
       # allow the is_a? check and return true for Folio::Patron
       allow(patron).to receive(:is_a?).and_return(false)
       allow(patron).to receive(:is_a?).with(Folio::Patron).and_return(true)
-      allow(patron_or_group).to receive_messages(group?: true, proxy_borrower?: false)
+      allow(patron_or_group).to receive_messages(proxy_group?: true, proxy_borrower?: false)
       without_partial_double_verification do
         allow(view).to receive_messages(patron:, patron_or_group:)
       end
@@ -129,7 +129,7 @@ RSpec.describe 'fines/index' do
 
     context 'with a sponsor/self fine' do
       before do
-        allow(group).to receive(:member_name).and_return(nil)
+        allow(proxy_group).to receive(:member_name).and_return(nil)
       end
 
       it 'displays the sponsor borrower name' do

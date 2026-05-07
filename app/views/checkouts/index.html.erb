@@ -2,7 +2,7 @@
 
 <% content_for(:navigation) do %>
   <%= render 'shared/navigation' %>
-  <%= render partial: 'shared/group_tabs', locals: { self_value: patron.checkouts.length, group_value: patron.group.checkouts.length } if patron_or_group.group? %>
+  <%= render partial: 'shared/group_tabs', locals: { self_value: patron.checkouts.length, group_value: patron.proxy_group.checkouts.length } if patron_or_group.proxy_group? %>
 <% end %>
 
 <% if @checkouts.any? %>

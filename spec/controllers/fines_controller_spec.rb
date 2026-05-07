@@ -3,7 +3,7 @@
 require 'rails_helper'
 
 RSpec.describe FinesController do
-  let(:mock_patron) { instance_double(Folio::Patron, group?: false, key: '513a9054-5897-11ee-8c99-0242ac120002') }
+  let(:mock_patron) { instance_double(Folio::Patron, proxy_group?: false, key: '513a9054-5897-11ee-8c99-0242ac120002') }
 
   let(:fines) do
     [
@@ -69,7 +69,7 @@ RSpec.describe FinesController do
     end
 
     before do
-      allow(mock_patron).to receive(:group).and_return(
+      allow(mock_patron).to receive(:proxy_group).and_return(
         instance_double(Folio::Group, fines:, checkouts:)
       )
       warden.set_user(user)

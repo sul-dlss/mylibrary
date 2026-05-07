@@ -13,7 +13,7 @@ RSpec.describe 'summaries/index' do
       status: 'OK',
       borrow_limit: nil,
       proxy_borrower?: false,
-      group?: false,
+      proxy_group?: false,
       barred?: false,
       fee_borrower?: false,
       expired_date: nil,

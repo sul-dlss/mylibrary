@@ -151,12 +151,12 @@ module Folio
       user_info['proxiesOf']&.any?
     end
 
-    def group
-      @group ||= Folio::Group.new(patron_graphql_response)
+    def proxy_group
+      @proxy_group ||= Folio::Group.new(patron_graphql_response)
     end
 
-    def group?
-      group&.member_list&.any?
+    def proxy_group?
+      proxy_group&.member_list&.any?
     end
 
     def all_checkouts
@@ -169,7 +169,7 @@ module Folio
     end
 
     # Checkouts from the proxy group
-    def group_checkouts
+    def proxy_group_checkouts
       all_checkouts.select(&:proxy_checkout?)
     end
 
@@ -179,7 +179,7 @@ module Folio
     end
 
     # Requests from the proxy group
-    def group_requests
+    def proxy_group_requests
       folio_requests.select(&:proxy_request?) if sponsor?
     end
 

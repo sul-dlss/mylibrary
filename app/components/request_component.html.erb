@@ -64,7 +64,7 @@
     <dl class="row mb-0">
       <% if group? %>
         <dt class="col-3 offset-1 col-md-2 offset-md-2">Borrower:</dt>
-        <dd class="col-8"><%= patron.group.member_name(request.patron_key) %></dd>
+        <dd class="col-8"><%= patron.proxy_group.member_name(request.patron_key) %></dd>
       <% end %>
       <% if request.placed_date %>
         <dt class="col-3 offset-1 col-md-2 offset-md-2">Requested:</dt>

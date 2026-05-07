@@ -26,7 +26,7 @@ RSpec.describe RequestComponent, type: :component do
     )
   end
 
-  let(:patron) { instance_double(Folio::Patron, can_modify_requests?: true, group: group_instance) }
+  let(:patron) { instance_double(Folio::Patron, can_modify_requests?: true, proxy_group: group_instance) }
   let(:group_instance) { instance_double(Folio::Group, member_name: 'Piper Proxy') }
   let(:component) { described_class.new(request: mock_request, patron:, group: true) }
   let(:rendered) { Capybara.string(render_inline(component)) }

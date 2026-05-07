@@ -143,7 +143,7 @@ RSpec.describe Folio::Patron do
     end
 
     describe '#group_checkouts' do
-      subject(:group_checkouts) { sponsor.group_checkouts }
+      subject(:group_checkouts) { sponsor.proxy_group_checkouts }
 
       it 'returns checkouts made by the proxies of that sponsor' do
         expect(group_checkouts.first.record.dig('item', 'title')).to eq 'Music, sound, language, theater'
@@ -175,7 +175,7 @@ RSpec.describe Folio::Patron do
     end
 
     describe '#group_checkouts' do
-      subject(:group_checkouts) { proxy.group_checkouts }
+      subject(:group_checkouts) { proxy.proxy_group_checkouts }
 
       it 'returns an empty array for group_checkouts on a proxy' do
         expect(group_checkouts).to eq []
