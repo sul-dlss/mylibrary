@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe 'Request Page' do
   let(:mock_client) { instance_double(FolioClient, ping: true) }
   let(:patron_info) do
-    build(:sponsor_patron).patron_info
+    build(:sponsor_patron).patron_graphql_response
   end
 
   let(:service_points) do

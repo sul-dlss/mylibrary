@@ -14,11 +14,11 @@ RSpec.describe 'Proxy User' do
   end
 
   let(:patron_info) do
-    build(:proxy_patron).patron_info
+    build(:proxy_patron).patron_graphql_response
   end
 
   let(:sponsor) do
-    build(:sponsor_patron).patron_info
+    build(:sponsor_patron).patron_graphql_response
   end
 
   before do

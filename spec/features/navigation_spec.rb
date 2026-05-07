@@ -137,7 +137,7 @@ RSpec.describe 'Navigation' do
 
   context 'with a recall' do
     let(:patron_info) do
-      build(:patron_with_recalls).patron_info
+      build(:patron_with_recalls).patron_graphql_response
     end
 
     it 'shows number of recalled items' do
@@ -149,7 +149,7 @@ RSpec.describe 'Navigation' do
 
   context 'with overdue books' do
     let(:patron_info) do
-      build(:patron_with_overdue_items).patron_info
+      build(:patron_with_overdue_items).patron_graphql_response
     end
 
     it 'shows number of overdue items' do
@@ -161,7 +161,7 @@ RSpec.describe 'Navigation' do
 
   context 'with requests that are ready for pickup' do
     let(:patron_info) do
-      build(:sponsor_patron).patron_info
+      build(:sponsor_patron).patron_graphql_response
     end
 
     it 'shows number of requests ready for pickup' do
@@ -173,7 +173,7 @@ RSpec.describe 'Navigation' do
 
   context 'with fines' do
     let(:patron_info) do
-      build(:patron_with_fines).patron_info
+      build(:patron_with_fines).patron_graphql_response
     end
 
     it 'shows the total fines' do
@@ -189,11 +189,11 @@ RSpec.describe 'Navigation' do
     end
 
     let(:patron_info) do
-      build(:proxy_patron).patron_info
+      build(:proxy_patron).patron_graphql_response
     end
 
     let(:sponsor) do
-      build(:sponsor_patron).patron_info
+      build(:sponsor_patron).patron_graphql_response
     end
 
     before do

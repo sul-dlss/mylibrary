@@ -6,13 +6,13 @@ require 'axe-rspec'
 RSpec.describe 'Accessibility testing', :js do
   let(:mock_client) { instance_double(FolioClient, ping: true, find_effective_loan_policy: {}) }
 
-  let(:fine_loans) { Array.new(15, build(:patron_with_fines).patron_info['loans'].first) }
-  let(:overdue_loans) { Array.new(50, build(:patron_with_overdue_items).patron_info['loans'].first) }
-  let(:undergrad_patron_loans) { Array.new(15, build(:undergraduate_patron).patron_info['loans'].first) }
-  let(:sponsor_patron_loans) { build(:sponsor_patron).patron_info['loans'] }
+  let(:fine_loans) { Array.new(15, build(:patron_with_fines).patron_graphql_response['loans'].first) }
+  let(:overdue_loans) { Array.new(50, build(:patron_with_overdue_items).patron_graphql_response['loans'].first) }
+  let(:undergrad_patron_loans) { Array.new(15, build(:undergraduate_patron).patron_graphql_response['loans'].first) }
+  let(:sponsor_patron_loans) { build(:sponsor_patron).patron_graphql_response['loans'] }
   let(:all_loans) { fine_loans + overdue_loans + undergrad_patron_loans + sponsor_patron_loans }
   let(:patron_info) do
-    build(:sponsor_patron, custom_properties: { 'loans' => all_loans }).patron_info
+    build(:sponsor_patron, custom_properties: { 'loans' => all_loans }).patron_graphql_response
   end
 
   let(:loan_policy) { build(:grad_mono_loans) }

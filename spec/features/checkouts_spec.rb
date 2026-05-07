@@ -10,7 +10,7 @@ RSpec.describe 'Checkout Page' do
   let(:mock_client) { instance_double(FolioClient, ping: true, find_effective_loan_policy: {}) }
 
   let(:patron_info) do
-    build(:sponsor_patron).patron_info
+    build(:sponsor_patron).patron_graphql_response
   end
 
   let(:loan_policy) { build(:grad_mono_loans) }
@@ -41,7 +41,7 @@ RSpec.describe 'Checkout Page' do
 
   context 'when a patron has recalls' do
     let(:patron_info) do
-      build(:patron_with_recalls).patron_info
+      build(:patron_with_recalls).patron_graphql_response
     end
 
     it 'has recall data' do
@@ -74,7 +74,7 @@ RSpec.describe 'Checkout Page' do
 
   context 'when data is hidden behind a toggle' do
     let(:patron_info) do
-      build(:patron_with_overdue_items).patron_info
+      build(:patron_with_overdue_items).patron_graphql_response
     end
 
     it 'shows the renew data when the list item is expanded', :js do

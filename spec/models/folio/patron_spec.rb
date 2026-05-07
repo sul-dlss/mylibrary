@@ -27,7 +27,7 @@ RSpec.describe Folio::Patron do
 
       it 'notifies honeybadger' do
         patron = described_class.find('foo')
-        expect(patron.patron_info).to be_blank
+        expect(patron.patron_graphql_response).to be_blank
         expect(Honeybadger).to have_received(:notify)
       end
     end

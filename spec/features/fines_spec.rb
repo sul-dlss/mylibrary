@@ -5,7 +5,7 @@ require 'rails_helper'
 RSpec.describe 'Fines Page' do
   let(:mock_client) { instance_double(FolioClient, ping: true) }
   let(:patron_info) do
-    build(:patron_with_fines).patron_info
+    build(:patron_with_fines).patron_graphql_response
   end
 
   before do

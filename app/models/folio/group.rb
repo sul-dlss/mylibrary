@@ -9,7 +9,7 @@ module Folio
 
     def sponsor
       @sponsor ||= if sponsor?
-                     Folio::Patron.new(patron_info)
+                     Folio::Patron.new(patron_graphql_response)
                    else
                      # if you are a proxy, make a second call to get the sponsor
                      # for now, we only support one sponsor per proxy
