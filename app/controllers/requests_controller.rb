@@ -3,24 +3,22 @@
 # Controller for user requests/holds/etc
 class RequestsController < ApplicationController
   before_action :authenticate_user!
-  before_action :authorize_update!, except: :index
+
+  before_action :load_requests
+  before_action :load_request, except: :index
+
   rescue_from RequestException, with: :deny_access
 
   # Renders user requests from FOLIO, BorrowDirect, and/or ILLIAD
   #
   # GET /requests
   # GET /requests.json
-  def index
-    @requests = patron_or_group.requests
-                               .sort_by { |request| request.sort_key(:date) }
-  end
+  def index; end
 
   # Renders a form for editing a request/hold
   #
   # GET /requests/:id/edit
   def edit
-    @request = patron_or_group.requests.find { |r| r.key == params['id'] }
-
     respond_to do |format|
       format.html do
         return render layout: false if request.xhr?
@@ -49,7 +47,7 @@ class RequestsController < ApplicationController
   #
   # DELETE /requests/:id
   def destroy
-    @response = ils_client.cancel_request(*cancel_request_params, patron_or_group.key)
+    @response = ils_client.cancel_request(@request.key, patron_or_group.key)
 
     case @response.status
     when 204
@@ -64,13 +62,22 @@ class RequestsController < ApplicationController
 
   private
 
+  def load_requests
+    @requests = patron_or_group.requests.sort_by { |request| request.sort_key(:date) }
+  end
+
+  def load_request
+    @request = @requests.find { |r| r.key == params['id'] }
+    raise RequestException, 'Error' unless @request
+  end
+
   def handle_change_pickup_service_point
-    response_flash_message(response: ils_client.change_pickup_service_point(*change_pickup_service_point_params),
+    response_flash_message(response: ils_client.change_pickup_service_point(@request.key, service_point_param),
                            translation_key: 'change_pickup_service_point')
   end
 
   def handle_change_pickup_expiration
-    response_flash_message(response: ils_client.change_pickup_expiration(*change_pickup_expiration_params),
+    response_flash_message(response: ils_client.change_pickup_expiration(@request.key, pickup_expiration_param),
                            translation_key: 'change_pickup_expiration')
   end
 
@@ -84,22 +91,12 @@ class RequestsController < ApplicationController
     end
   end
 
-  def cancel_request_params
-    params.require(%I[id])
+  def service_point_param
+    params.require(:service_point)
   end
 
-  def change_pickup_service_point_params
-    params.require(%I[id service_point])
-  end
-
-  def change_pickup_expiration_params
-    params.require(%I[id not_needed_after])
-  end
-
-  def authorize_update!
-    return if patron_or_group.requests.any? { |request| request.key == params[:id] }
-
-    raise RequestException, 'Error'
+  def pickup_expiration_param
+    params.require(:not_needed_after)
   end
 
   def deny_access
