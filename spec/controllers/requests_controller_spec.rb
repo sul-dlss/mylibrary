@@ -65,7 +65,7 @@ RSpec.describe RequestsController do
       let(:api_response) { instance_double(Faraday::Response, status: 204) }
 
       let(:requests) do
-        [instance_double(Folio::Request, key: '123')]
+        [instance_double(Folio::Request, key: '123', sort_key: nil)]
       end
 
       let(:mock_client) { instance_double(FolioClient, ping: true) }
@@ -142,7 +142,7 @@ RSpec.describe RequestsController do
       let(:mock_client) { instance_double(FolioClient, cancel_request: api_response, ping: true) }
 
       let(:requests) do
-        [instance_double(Folio::Request, key: '123')]
+        [instance_double(Folio::Request, key: '123', sort_key: nil)]
       end
 
       before do
