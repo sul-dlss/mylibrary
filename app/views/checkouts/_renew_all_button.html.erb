@@ -1,7 +1,7 @@
 <% if patron_or_group.checkouts.any?(&:renewable?) %>
   <% if patron_or_group.can_renew? %>
       <% renewable_count = patron_or_group.checkouts.count(&:renewable?) %>
-      <%= form_tag all_eligible_renewals_path, method: :post do %>
+      <%= form_tag renew_eligible_checkouts_path, method: :post do %>
         <%= hidden_field_tag :group, params[:group] if params[:group] %>
         <%= button_tag class: 'btn btn-info mb-1',
                         data: { turbo_submits_with: t('mylibrary.renew_all_items.in_progress_html', count: renewable_count) },
