@@ -5,13 +5,13 @@ Rails.application.routes.draw do
   root to: 'sessions#index'
 
   resources :summaries
-  resources :checkouts
+  resources :checkouts do
+    post 'renew', on: :member
+    post 'renew_eligible', on: :collection
+  end
   resources :requests
   resources :fines
   resources :payments, only: :index
-  resources :renewals, only: %I[create] do
-    post 'all_eligible', on: :collection
-  end
 
   resource :contact_forms, path: 'contact', only: %I[new create]
   get 'contact' => 'contact_forms#new'
