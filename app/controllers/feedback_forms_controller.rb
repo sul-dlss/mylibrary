@@ -42,11 +42,11 @@ class FeedbackFormsController < ApplicationController
     if params[:email_address].present?
       errors << 'You have filled in a field that makes you appear as a spammer.  Please follow the directions for the individual form fields.'
     end
-    if params[:message]&.match(url_regex)
+    if params[:message].present? && params.expect(:message).match(url_regex)
       errors << 'Your message appears to be spam, and has not been sent. Please try sending your message again without any links in the comments.'
     end
-    if params[:user_agent] =~ url_regex ||
-       params[:viewport] =~ url_regex
+    if (params[:user_agent].present? && params.expect(:user_agent) =~ url_regex) ||
+       (params[:viewport].present? && params.expect(:viewport) =~ url_regex)
       errors << 'Your message appears to be spam, and has not been sent.'
     end
     flash[:danger] = errors.join('<br/>') unless errors.empty?

@@ -45,7 +45,7 @@ class ContactFormsController < ApplicationController
   def valid?
     errors = []
     errors << 'A message is required' if params[:message].blank?
-    if params[:message]&.match(url_regex)
+    if params[:message].present? && params.expect(:message).match(url_regex)
       errors << 'Your message appears to be spam, and has not been sent. ' \
                 'Please try sending your message again without any links in the comments.'
     end
