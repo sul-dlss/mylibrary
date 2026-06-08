@@ -57,7 +57,7 @@ RSpec.describe ResetPinsController do
 
       it 'changes the pin and sets flash messages' do
         post :change, params: { token: 'abc', pin: '123' }
-        expect(flash[:success]).to match(/Success!/)
+        expect(flash[:success]).to include('Success!')
       end
 
       it 'changes the pin and redirects to login' do
@@ -73,7 +73,7 @@ RSpec.describe ResetPinsController do
 
       it 'does not change the pin and sets flash messages' do
         post :change, params: { token: 'abc', pin: '123' }
-        expect(flash[:error]).to match(/Sorry!/)
+        expect(flash[:error]).to include('Sorry!')
       end
 
       it 'does not change the pin and redirects to reset_pin' do
