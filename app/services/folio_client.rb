@@ -13,7 +13,7 @@ class FolioClient
 
   delegate :loan_policies, :service_points, to: :folio_graphql_client
 
-  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable-next Metrics/MethodLength
   def initialize(url: Settings.folio.okapi_url, username: nil, password: nil, tenant: 'sul')
     uri = URI.parse(url)
 
@@ -32,7 +32,6 @@ class FolioClient
 
     @tenant = tenant
   end
-  # rubocop:enable Metrics/MethodLength
 
   # Overridden so that we don't display password
   def inspect
@@ -196,7 +195,7 @@ class FolioClient
 
   # Mark all of a user's fines (accounts) as having been paid
   # The payment will show as being made from the 'Online' service point
-  # rubocop:disable Metrics/MethodLength
+  # rubocop:disable-next Metrics/MethodLength
   def pay_fines(user_id:, amount:)
     patron = Folio::Patron.find(user_id)
     payload = {
@@ -212,7 +211,6 @@ class FolioClient
     response = post('/accounts-bulk/pay', json: payload)
     check_response(response, title: 'Pay fines', context: payload)
   end
-  # rubocop:enable Metrics/MethodLength
 
   def find_effective_loan_policy(item_type_id:, loan_type_id:, patron_type_id:, location_id:)
     get_json('/circulation/rules/loan-policy',

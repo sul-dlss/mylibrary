@@ -49,7 +49,7 @@ RSpec.describe Folio::Checkout do
 
   it_behaves_like 'folio_record', ['3684a786-6671-4268-8ed0-9db82ebca60b']
 
-  # rubocop:disable RSpec/MultipleExpectations
+  # rubocop:disable-next RSpec/MultipleExpectations
   it 'responds to delegated methods' do
     expect(checkout).to respond_to(:library_name)
     expect(checkout).to respond_to(:library_code)
@@ -57,7 +57,6 @@ RSpec.describe Folio::Checkout do
     expect(checkout).to respond_to(:effective_location)
     expect(checkout).to respond_to(:permanent_location)
   end
-  # rubocop:enable RSpec/MultipleExpectations
 
   it 'has a key' do
     expect(checkout.key).to eq '6f951192-b633-40a0-8112-73a191b55a8a'

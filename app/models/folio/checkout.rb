@@ -58,7 +58,7 @@ module Folio
       record.dig('item', 'item', 'status', 'name') == 'Claimed returned'
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity,Metrics/MethodLength
+    # rubocop:disable-next Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity,Metrics/MethodLength
     def non_renewable_reason
       return 'Item is assumed lost; you must pay the fee or return the item.' if lost?
       return 'No. Another user is waiting for this item.' if recalled? || renewal_blocked_by_hold?
@@ -76,7 +76,6 @@ module Folio
 
       'Too soon to renew.' if too_soon_to_renew?
     end
-    # rubocop:enable Metrics/CyclomaticComplexity,Metrics/PerceivedComplexity,Metrics/MethodLength
 
     def item_category_non_renewable?
       !loan_policy.renewable?

@@ -57,7 +57,7 @@ class IlliadRequests
       @illiad_result['TransactionNumber'].to_s
     end
 
-    # rubocop:disable Metrics/MethodLength
+    # rubocop:disable-next Metrics/MethodLength
     def sort_key(key)
       sort_key = case key
                  when :library
@@ -73,7 +73,6 @@ class IlliadRequests
                  end
       sort_key.join('---')
     end
-    # rubocop:enable Metrics/MethodLength
 
     def date_sort_key
       (expiration_date || Folio::Request::END_OF_DAYS).strftime('%FT%T')

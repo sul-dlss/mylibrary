@@ -23,7 +23,7 @@ class CheckoutComponent < ViewComponent::Base
     distance_of_time_in_words(Time.zone.now, checkout.due_date) if checkout.due_date
   end
 
-  # rubocop:disable Metrics/MethodLength, Metrics/AbcSize
+  # rubocop:disable-next Metrics/MethodLength, Metrics/AbcSize
   def render_checkout_status
     if checkout.recalled?
       checkout_status_html(css_class: 'text-recalled',
@@ -46,7 +46,6 @@ class CheckoutComponent < ViewComponent::Base
       tag.span 'OK', class: 'd-none d-md-block'
     end
   end
-  # rubocop:enable Metrics/MethodLength, Metrics/AbcSize
 
   private
 

@@ -10,14 +10,13 @@ module Folio
       @item = item
     end
 
-    # rubocop:disable Metrics/CyclomaticComplexity
+    # rubocop:disable-next Metrics/CyclomaticComplexity
     def library_name
       return effective_location&.discovery_display_name if from_ill?
       return effective_location&.library&.name if treat_temporary_location_as_permanent_location?
 
       permanent_location&.library&.name
     end
-    # rubocop:enable Metrics/CyclomaticComplexity
 
     def library_code
       permanent_location&.library&.code

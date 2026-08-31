@@ -97,7 +97,7 @@ module Folio
       record.dig('status', 'name') == 'Closed'
     end
 
-    # rubocop:disable Metrics/MethodLength
+    # rubocop:disable-next Metrics/MethodLength
     def sort_key(key)
       sort_key = case key
                  when :payment_date
@@ -112,7 +112,6 @@ module Folio
 
       sort_key.join('---')
     end
-    # rubocop:enable Metrics/MethodLength
 
     def payment_sort_key
       return Folio::Account::END_OF_DAYS - payment_date if payment_date
