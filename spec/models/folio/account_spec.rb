@@ -51,7 +51,7 @@ RSpec.describe Folio::Account do
         'holdingsRecord' => { 'callNumber' => 'MD 7520' } } }
   end
 
-  # rubocop:disable RSpec/MultipleExpectations
+  # rubocop:disable-next RSpec/MultipleExpectations
   it 'responds to delegated methods' do
     expect(account).to respond_to(:library_name)
     expect(account).to respond_to(:library_code)
@@ -59,7 +59,6 @@ RSpec.describe Folio::Account do
     expect(account).to respond_to(:effective_location)
     expect(account).to respond_to(:permanent_location)
   end
-  # rubocop:enable RSpec/MultipleExpectations
 
   describe '#key' do
     subject(:key) { account.key }

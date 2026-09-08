@@ -53,7 +53,7 @@ RSpec.describe Folio::Request do
 
   it_behaves_like 'folio_record'
 
-  # rubocop:disable RSpec/MultipleExpectations
+  # rubocop:disable-next RSpec/MultipleExpectations
   it 'responds to delegated methods' do
     expect(request).to respond_to(:library_name)
     expect(request).to respond_to(:library_code)
@@ -61,7 +61,6 @@ RSpec.describe Folio::Request do
     expect(request).to respond_to(:effective_location)
     expect(request).to respond_to(:permanent_location)
   end
-  # rubocop:enable RSpec/MultipleExpectations
 
   describe '#key' do
     subject(:key) { request.key }

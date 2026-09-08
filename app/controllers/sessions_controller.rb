@@ -66,8 +66,7 @@ class SessionsController < ApplicationController
   def set_home_page_flash_message
     return unless Settings.home_page_flash_message_html
 
-    # rubocop:disable Rails/OutputSafety
+    # rubocop:disable-next Rails/OutputSafety
     flash[:success] = Settings.home_page_flash_message_html.html_safe
-    # rubocop:enable Rails/OutputSafety
   end
 end

@@ -4,7 +4,7 @@ module Folio
   class ServicePoint
     attr_reader :id, :code, :name, :pickup_location, :is_default_pickup, :is_default_for_campus
 
-    # rubocop:disable Metrics/ParameterLists
+    # rubocop:disable-next Metrics/ParameterLists
     def initialize(id:, code:, name:, pickup_location:, is_default_pickup: false, is_default_for_campus: false)
       @id = id
       @code = code
@@ -13,7 +13,6 @@ module Folio
       @is_default_pickup = is_default_pickup
       @is_default_for_campus = is_default_for_campus
     end
-    # rubocop:enable Metrics/ParameterLists
 
     def patron_unpermitted_for_pickup?(patron = nil)
       return false unless patron
