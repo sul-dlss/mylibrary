@@ -101,3 +101,5 @@ gem 'cssbundling-rails', '~> 1.1'
 gem 'jsbundling-rails', '~> 1.3'
 gem 'propshaft'
 gem 'turbo-rails', '~> 2.0'
+
+gem 'json', '~> 2.0' # Pinned until Rails 8.1.4 is released https://github.com/rails/rails/issues/58685
