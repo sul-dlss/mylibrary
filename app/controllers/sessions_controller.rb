@@ -4,13 +4,16 @@
 class SessionsController < ApplicationController
   before_action :set_home_page_flash_message, only: :index
 
+  before_action only: :index do
+    redirect_to 'https://requests.stanford.edu', allow_other_host: true if Settings.redirect_to_requests
+  end
+
   # Render the application home page with various login options
   #
   # GET /
   def index
     @ils_ok = ils_client.ping
 
-    redirect_to 'https://requests.stanford.edu', allow_other_host: true
     redirect_to summaries_url if current_user?
   end
 
