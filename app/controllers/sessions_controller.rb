@@ -10,6 +10,7 @@ class SessionsController < ApplicationController
   def index
     @ils_ok = ils_client.ping
 
+    redirect_to 'https://requests.stanford.edu', allow_other_host: true
     redirect_to summaries_url if current_user?
   end
 
